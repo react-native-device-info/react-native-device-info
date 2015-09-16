@@ -1,11 +1,11 @@
 {
   "name": "react-native-device-info",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Get device information using react-native",
   "main": "deviceinfo.ios.js",
   "repository": {
-  "type": "git",
-    "url": "git@github.com:rebeccahughes/react-native-device-info.git"
+    "type": "git",
+    "url": "https://github.com/rebeccahughes/react-native-device-info"
   },
   "keywords": [
     "react-component",
@@ -18,5 +18,8 @@
   "license": "MIT",
   "dependencies": {
     "eventemitter3": "^1.1.0"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.5"
   }
 }
