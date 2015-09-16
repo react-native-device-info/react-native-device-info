@@ -2,13 +2,15 @@
 
 Device Information for react-native
 
-## Usage
+## Installation
 
 First you need to install react-native-device-info:
 
 ```javascript
 npm install react-native-device-info --save
 ```
+
+### Installation (iOS)
 
 In XCode, in the project navigator, right click Libraries ➜ Add Files to [your project's name] Go to node_modules ➜ react-native-device-info and add the .xcodeproj file
 
@@ -17,6 +19,61 @@ In XCode, in the project navigator, select your project. Add the lib*.a from the
 Run your project (Cmd+R)
 
 (Thanks to @brysgo for writing the instructions)
+
+### Installation (Android)
+
+* In `android/setting.gradle`
+
+```gradle
+...
+include ':RNDeviceInfo', ':app'
+project(':RNDeviceInfo').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
+```
+
+* In `android/app/build.gradle`
+
+```gradle
+...
+dependencies {
+    ...
+    compile project(':RNDeviceInfo')
+}
+```
+
+* register module (in MainActivity.java)
+
+```java
+import com.learnium.RNDeviceInfo.*;  // <--- import
+
+public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
+  ......
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mReactRootView = new ReactRootView(this);
+
+    mReactInstanceManager = ReactInstanceManager.builder()
+      .setApplication(getApplication())
+      .setBundleAssetName("index.android.bundle")
+      .setJSMainModuleName("index.android")
+      .addPackage(new MainReactPackage())
+      .addPackage(new RNDeviceInfo())              // <------ add here
+      .setUseDeveloperSupport(BuildConfig.DEBUG)
+      .setInitialLifecycleState(LifecycleState.RESUMED)
+      .build();
+
+    mReactRootView.startReactApplication(mReactInstanceManager, "ExampleRN", null);
+
+    setContentView(mReactRootView);
+  }
+
+  ......
+
+}
+```
+
+(Thanks to @chirag04 for writing the instructions)
 
 ## Example
 
