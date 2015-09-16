@@ -9,13 +9,13 @@ module.exports = {
     return RNDeviceInfo.deviceId;
   },
   getManufacturer: function () {
-    return "Apple";
+    return RNDeviceInfo.systemManufacturer;
   },
   getModel: function () {
     return RNDeviceInfo.model;
   },
   getSystemName: function () {
-    return RNDeviceInfo.systemName;
+    return "Android";
   },
   getSystemVersion: function () {
     return RNDeviceInfo.systemVersion;
