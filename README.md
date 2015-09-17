@@ -90,4 +90,12 @@ console.log("Device Name", DeviceInfo.getSystemName());  // e.g. iPhone OS
 
 console.log("Device Version", DeviceInfo.getSystemVersion());  // e.g. 9.0
 
+console.log("Bundle Id", DeviceInfo.getBundleId());  // e.g. com.learnium.mobile
+
+console.log("Build Number", DeviceInfo.getBuildNumber());  // e.g. 89
+
+console.log("App Version", DeviceInfo.getVersion());  // e.g. 1.1.0
+
+console.log("App Version (Readable)", DeviceInfo.getReadableVersion());  // e.g. 1.1.0.89
+
 ```
