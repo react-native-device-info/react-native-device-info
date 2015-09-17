@@ -1,8 +1,8 @@
 {
   "name": "react-native-device-info",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Get device information using react-native",
-  "main": "deviceinfo.ios.js",
+  "main": "deviceinfo.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/rebeccahughes/react-native-device-info"

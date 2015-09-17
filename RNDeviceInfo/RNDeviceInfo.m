@@ -14,7 +14,7 @@
 
 @implementation RNDeviceInfo
 {
-    
+
 }
 
 RCT_EXPORT_MODULE()
@@ -27,15 +27,19 @@ RCT_EXPORT_MODULE()
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
-    
+
     NSUUID *identifierForVendor = [currentDevice identifierForVendor];
     NSString *deviceId = [identifierForVendor UUIDString];
-    
+
     return @{
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
              @"model": currentDevice.model,
              @"deviceId": deviceId,
+             @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
+             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+             @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+             @"systemManufacturer": @"Apple",
              };
 }
 

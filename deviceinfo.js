@@ -15,9 +15,21 @@ module.exports = {
     return RNDeviceInfo.model;
   },
   getSystemName: function () {
-    return "Android";
+    return RNDeviceInfo.systemName;
   },
   getSystemVersion: function () {
     return RNDeviceInfo.systemVersion;
+  },
+  getBundleId: function() {
+    return RNDeviceInfo.bundleId;
+  },
+  getBuildNumber: function() {
+    return RNDeviceInfo.buildNumber;
+  },
+  getVersion: function() {
+    return RNDeviceInfo.appVersion;
+  },
+  getReadableVersion: function() {
+    return RNDeviceInfo.appVersion + "." + RNDeviceInfo.buildNumber;
   }
 };
