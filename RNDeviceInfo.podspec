@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/rebeccahughes/react-native-device-info", :head }
+  s.source       = { :git => "https://github.com/rebeccahughes/react-native-device-info" }
 
   s.source_files  = "RNDeviceInfo/*.{h,m}"
 
