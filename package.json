@@ -13,7 +13,8 @@
     "ios",
     "android",
     "device",
-    "events"
+    "events",
+    "cocoapod"
   ],
   "author": "Rebecca Hughes <rebecca@learnium.net> (https://github.com/rebeccahughes)",
   "license": "MIT",
