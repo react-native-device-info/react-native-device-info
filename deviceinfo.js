@@ -6,6 +6,9 @@ var { RNDeviceInfo } = require('react-native').NativeModules;
 
 module.exports = {
   getUniqueID: function () {
+    return RNDeviceInfo.uniqueId;
+  },
+  getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
   getManufacturer: function () {

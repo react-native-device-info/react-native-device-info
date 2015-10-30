@@ -75,6 +75,13 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 (Thanks to @chirag04 for writing the instructions)
 
+## Release Notes
+
+0.5.0 adds a new parameter; Device Id. On iOS this is the hardware string for the current device (e.g.
+"iPhone7,2"). On Android we use the BOARD field which is the name of the underlying board, e.g. "goldfish".
+The way that the module gets the device model on iOS has also changed to be based on the Device Id; now
+instead of getting a generic product family e.g. "iPhone", it will return the specific model e.g. "iPhone 6".
+
 ## Example
 
 ```js
@@ -84,7 +91,9 @@ console.log("Device Unique ID", DeviceInfo.getUniqueID());  // e.g. FCDBD8EF-62F
 
 console.log("Device Manufacturer", DeviceInfo.getManufacturer());  // e.g. Apple
 
-console.log("Device Model", DeviceInfo.getModel());  // e.g. iPhone
+console.log("Device Model", DeviceInfo.getModel());  // e.g. iPhone 6
+
+console.log("Device ID", DeviceInfo.getDeviceId());  // e.g. iPhone7,2 / or the board on Android e.g. goldfish
 
 console.log("Device Name", DeviceInfo.getSystemName());  // e.g. iPhone OS
 
