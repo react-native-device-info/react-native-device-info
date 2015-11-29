@@ -34,5 +34,8 @@ module.exports = {
   },
   getReadableVersion: function() {
     return RNDeviceInfo.appVersion + "." + RNDeviceInfo.buildNumber;
+  },
+  getDeviceName: function() {
+    return RNDeviceInfo.deviceName;
   }
 };
