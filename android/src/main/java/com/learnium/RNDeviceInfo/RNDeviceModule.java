@@ -8,7 +8,8 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.Callback;
-
+import android.telephony.TelephonyManager;
+import android.content.Context;
 import android.os.Build;
 import android.provider.Settings.Secure;
 import android.content.pm.PackageManager;
@@ -37,6 +38,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
+    TelephonyManager telephonyManager = (TelephonyManager)this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
 
     constants.put("appVersion", "not available");
     constants.put("buildNumber", 0);
@@ -50,6 +52,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     constants.put("systemName", "Android");
+    constants.put("imei", telephonyManager.getDeviceId());
     constants.put("systemVersion", Build.VERSION.RELEASE);
     constants.put("model", Build.MODEL);
     constants.put("deviceId", Build.BOARD);

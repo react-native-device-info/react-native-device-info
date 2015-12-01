@@ -3,10 +3,15 @@
  */
 
 var { RNDeviceInfo } = require('react-native').NativeModules;
+var React = require('react-native');
+var {Platform} = React;
 
 module.exports = {
   getUniqueID: function () {
     return RNDeviceInfo.uniqueId;
+  },
+  getImei: function (){
+     return (Platform.OS === 'android') ? RNDeviceInfo.imei : '';
   },
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
@@ -36,3 +41,4 @@ module.exports = {
     return RNDeviceInfo.appVersion + "." + RNDeviceInfo.buildNumber;
   }
 };
+
