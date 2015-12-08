@@ -75,6 +75,13 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 (Thanks to @chirag04 for writing the instructions)
 
+* If you want to get the device name in Android add this to your AndroidManifest.xml
+
+```xml
+...
+<uses-permission android:name="android.permission.BLUETOOTH"/>
+```
+
 ## Release Notes
 
 0.5.0 adds a new parameter; Device Id. On iOS this is the hardware string for the current device (e.g.
@@ -106,5 +113,7 @@ console.log("Build Number", DeviceInfo.getBuildNumber());  // e.g. 89
 console.log("App Version", DeviceInfo.getVersion());  // e.g. 1.1.0
 
 console.log("App Version (Readable)", DeviceInfo.getReadableVersion());  // e.g. 1.1.0.89
+
+console.log("Device Name", DeviceInfo.getDeviceName());  // e.g. Becca's iPhone 6
 
 ```
