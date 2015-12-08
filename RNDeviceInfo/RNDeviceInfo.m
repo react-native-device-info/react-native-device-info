@@ -132,6 +132,7 @@ RCT_EXPORT_MODULE()
              @"systemVersion": currentDevice.systemVersion,
              @"model": self.deviceName,
              @"deviceId": self.deviceId,
+             @"deviceName": currentDevice.name,
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
