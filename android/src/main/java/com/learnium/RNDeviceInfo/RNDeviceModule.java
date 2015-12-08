@@ -13,6 +13,7 @@ import android.os.Build;
 import android.provider.Settings.Secure;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageInfo;
+import android.bluetooth.BluetoothAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,9 +49,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
-    
+
     String deviceName = "Unknown";
-  
+
     try {
       BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
       deviceName = myDevice.getName();
