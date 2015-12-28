@@ -37,5 +37,8 @@ module.exports = {
   },
   getDeviceName: function() {
     return RNDeviceInfo.deviceName;
+  },
+  getDeviceLocale: function() {
+    return RNDeviceInfo.deviceLocale;
   }
 };

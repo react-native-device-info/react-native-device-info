@@ -120,6 +120,12 @@ RCT_EXPORT_MODULE()
     return deviceName;
 }
 
+- (NSString*) deviceLocale
+{
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    return language;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -133,6 +139,7 @@ RCT_EXPORT_MODULE()
              @"model": self.deviceName,
              @"deviceId": self.deviceId,
              @"deviceName": currentDevice.name,
+             @"deviceLocale": self.deviceLocale,
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
