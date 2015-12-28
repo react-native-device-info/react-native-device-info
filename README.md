@@ -116,4 +116,6 @@ console.log("App Version (Readable)", DeviceInfo.getReadableVersion());  // e.g.
 
 console.log("Device Name", DeviceInfo.getDeviceName());  // e.g. Becca's iPhone 6
 
+console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
+
 ```
