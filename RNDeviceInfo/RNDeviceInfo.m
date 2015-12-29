@@ -120,6 +120,12 @@ RCT_EXPORT_MODULE()
     return deviceName;
 }
 
+- (NSString*) userAgent
+{
+	UIWebView *webView = [[UIWebView alloc] initiWithFrame:CGRectZero];
+	return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -138,6 +144,7 @@ RCT_EXPORT_MODULE()
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
              @"systemManufacturer": @"Apple",
+             @"userAgent": self.userAgent,
              };
 }
 
