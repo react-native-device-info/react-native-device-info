@@ -122,8 +122,8 @@ RCT_EXPORT_MODULE()
 
 - (NSString*) userAgent
 {
-	UIWebView *webView = [[UIWebView alloc] initiWithFrame:CGRectZero];
-	return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
 }
 
 - (NSDictionary *)constantsToExport
