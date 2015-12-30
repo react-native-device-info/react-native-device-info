@@ -38,6 +38,9 @@ module.exports = {
   getDeviceName: function() {
     return RNDeviceInfo.deviceName;
   },
+  getUserAgent: function() {
+    return RNDeviceInfo.userAgent;
+  },
   getDeviceLocale: function() {
     return RNDeviceInfo.deviceLocale;
   }
