@@ -40,5 +40,8 @@ module.exports = {
   },
   getUserAgent: function() {
     return RNDeviceInfo.userAgent;
+  },
+  getDeviceLocale: function() {
+    return RNDeviceInfo.deviceLocale;
   }
 };

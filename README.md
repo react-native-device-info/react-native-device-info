@@ -118,4 +118,6 @@ console.log("Device Name", DeviceInfo.getDeviceName());  // e.g. Becca's iPhone 
 
 console.log("User Agent", DeviceInfo.getUserAgent()); // e.g. Dalvik/2.1.0 (Linux; U; Android 5.1; Google Nexus 4 - 5.1.0 - API 22 - 768x1280 Build/LMY47D)
 
+console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
+
 ```

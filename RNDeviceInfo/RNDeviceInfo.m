@@ -116,7 +116,7 @@ RCT_EXPORT_MODULE()
             deviceName = @"iPhone";
         }
     }
-    
+
     return deviceName;
 }
 
@@ -124,6 +124,12 @@ RCT_EXPORT_MODULE()
 {
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+}
+
+- (NSString*) deviceLocale
+{
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    return language;
 }
 
 - (NSDictionary *)constantsToExport
@@ -139,6 +145,7 @@ RCT_EXPORT_MODULE()
              @"model": self.deviceName,
              @"deviceId": self.deviceId,
              @"deviceName": currentDevice.name,
+             @"deviceLocale": self.deviceLocale,
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
