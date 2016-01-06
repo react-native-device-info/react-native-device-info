@@ -1,22 +1,19 @@
 package com.learnium.RNDeviceInfo;
 
-import javax.annotation.Nullable;
+import android.bluetooth.BluetoothAdapter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.provider.Settings.Secure;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.Callback;
-
-import android.os.Build;
-import android.provider.Settings.Secure;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageInfo;
-import android.bluetooth.BluetoothAdapter;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class RNDeviceModule extends ReactContextBaseJavaModule {
 
@@ -30,6 +27,21 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @Override
   public String getName() {
     return "RNDeviceInfo";
+  }
+
+  private String getCurrentLanguage() {
+      Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          return current.toLanguageTag();
+      } else {
+          StringBuilder builder = new StringBuilder();
+          builder.append(current.getLanguage());
+          if (current.getCountry() != null) {
+              builder.append("-");
+              builder.append(current.getCountry());
+          }
+          return builder.toString();
+      }
   }
 
   @Override
@@ -64,7 +76,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("systemVersion", Build.VERSION.RELEASE);
     constants.put("model", Build.MODEL);
     constants.put("deviceId", Build.BOARD);
-    constants.put("deviceLocale", this.reactContext.getResources().getConfiguration().locale.toString());
+    constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
