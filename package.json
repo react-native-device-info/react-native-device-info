@@ -17,11 +17,5 @@
     "cocoapod"
   ],
   "author": "Rebecca Hughes <rebecca@learnium.net> (https://github.com/rebeccahughes)",
-  "license": "MIT",
-  "dependencies": {
-    "eventemitter3": "^1.1.0"
-  },
-  "peerDependencies": {
-    "react-native": ">=0.5"
-  }
+  "license": "MIT"
 }
