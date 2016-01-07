@@ -84,6 +84,8 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 ## Release Notes
 
+0.8.0 tweaks how device locale works on Android. If it's available it will use the toLanguageTag that is more inline with iOS. (See #14)
+0.7.0 adds two new parameters, Device Locale and User Agent.
 0.5.0 adds a new parameter; Device Id. On iOS this is the hardware string for the current device (e.g.
 "iPhone7,2"). On Android we use the BOARD field which is the name of the underlying board, e.g. "goldfish".
 The way that the module gets the device model on iOS has also changed to be based on the Device Id; now
