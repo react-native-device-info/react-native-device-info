@@ -100,7 +100,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 (Thanks to @chirag04 for writing the instructions)
 
-* If you want to get the device name in Android add this to your AndroidManifest.xml
+* If you want to get the device name in Android add this to your AndroidManifest.xml (optional)
 
 ```xml
 ...
