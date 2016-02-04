@@ -51,7 +51,7 @@ import com.learnium.RNDeviceInfo.*;  // <--- import
 
 public class MainActivity extends ReactActivity {
   ......
-  
+
   /**
    * A list of packages used by the app. If the app uses additional views
    * or modules besides the default ones, add more packages here.
@@ -109,6 +109,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 ## Release Notes
 
+ * 0.8.2 change deployment target to iOS 8
  * 0.8.1 removes unnecessary peerDependencies
  * 0.8.0 tweaks how device locale works on Android. If it's available it will use the toLanguageTag that is more inline with iOS. (See #14)
  * 0.7.0 adds two new parameters, Device Locale and User Agent.
