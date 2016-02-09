@@ -121,6 +121,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 ```js
 var DeviceInfo = require('react-native-device-info');
 
+// note this is IDFV on iOS so it will change if all apps from the current apps vendor have been previously uninstalled
 console.log("Device Unique ID", DeviceInfo.getUniqueID());  // e.g. FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9
 
 console.log("Device Manufacturer", DeviceInfo.getManufacturer());  // e.g. Apple
