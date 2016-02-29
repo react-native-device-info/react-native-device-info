@@ -109,6 +109,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 ## Release Notes
 
+ * 0.8.4 don't use destructuring
  * 0.8.3 removes the default bluetooth permission
  * 0.8.2 change deployment target to iOS 8
  * 0.8.1 removes unnecessary peerDependencies
