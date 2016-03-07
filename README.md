@@ -40,7 +40,7 @@ Run `react-native link react-native-device-info` in your project root.
 On React Native 0.18+:
 
 ```java
-import com.learnium.RNDeviceInfo.*;  // <--- import
+import com.learnium.RNDeviceInfo.RNDeviceInfo;  // <--- import
 
 public class MainActivity extends ReactActivity {
   ......
