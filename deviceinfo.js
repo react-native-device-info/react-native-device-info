@@ -43,5 +43,8 @@ module.exports = {
   },
   getDeviceLocale: function() {
     return RNDeviceInfo.deviceLocale;
-  }
+  },
+  getDeviceCountry: function() {
+    return RNDeviceInfo.deviceCountry;
+  },
 };
