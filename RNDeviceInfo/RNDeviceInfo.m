@@ -27,9 +27,9 @@ RCT_EXPORT_MODULE()
 - (NSString*) deviceId
 {
     struct utsname systemInfo;
-    
+
     uname(&systemInfo);
-    
+
     return [NSString stringWithCString:systemInfo.machine
                                     encoding:NSUTF8StringEncoding];
 }
@@ -37,9 +37,9 @@ RCT_EXPORT_MODULE()
 - (NSString*) deviceName
 {
     static NSDictionary* deviceNamesByCode = nil;
-    
+
     if (!deviceNamesByCode) {
-        
+
         deviceNamesByCode = @{@"i386"      :@"Simulator",
                               @"x86_64"    :@"Simulator",
                               @"iPod1,1"   :@"iPod Touch",      // (Original)
@@ -100,12 +100,12 @@ RCT_EXPORT_MODULE()
                               @"AppleTV5,3":@"Apple TV",        // Apple TV (4th Generation)
                               };
     }
-    
+
     NSString* deviceName = [deviceNamesByCode objectForKey:self.deviceId];
-    
+
     if (!deviceName) {
         // Not found on database. At least guess main device type from string contents:
-        
+
         if ([self.deviceId rangeOfString:@"iPod"].location != NSNotFound) {
             deviceName = @"iPod Touch";
         }
@@ -132,6 +132,12 @@ RCT_EXPORT_MODULE()
     return language;
 }
 
+- (NSString*) deviceCountry
+{
+  NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+  return country;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -146,6 +152,7 @@ RCT_EXPORT_MODULE()
              @"deviceId": self.deviceId,
              @"deviceName": currentDevice.name,
              @"deviceLocale": self.deviceLocale,
+             @"deviceCountry": self.deviceCountry,
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
@@ -156,4 +163,3 @@ RCT_EXPORT_MODULE()
 }
 
 @end
-
