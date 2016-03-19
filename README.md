@@ -20,7 +20,7 @@ In XCode, in the project navigator:
 - Go to node_modules/react-native-device-info
 - Add the .xcodeproj file
 
-In XCode, in the project navigator, select your project. 
+In XCode, in the project navigator, select your project.
 - Add the libRNDeviceInfo.a from the deviceinfo project to your project's Build Phases ➜ Link Binary With Libraries
 - Click .xcodeproj file you added before in the project navigator and go the Build Settings tab. Make sure 'All' is toggled on (instead of 'Basic').
 - Look for Header Search Paths and make sure it contains both $(SRCROOT)/../react-native/React and $(SRCROOT)/../../React - mark both as recursive. (Should be OK by default.)
@@ -69,6 +69,7 @@ public class MainActivity extends ReactActivity {
 
 ## Release Notes
 
+ * 0.9.0 adds support for device country and changes the iOS device name to match Apple branding
  * 0.8.4 don't use destructuring
  * 0.8.3 removes the default bluetooth permission
  * 0.8.2 change deployment target to iOS 8
@@ -109,4 +110,5 @@ console.log("User Agent", DeviceInfo.getUserAgent()); // e.g. Dalvik/2.1.0 (Linu
 
 console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
 
+console.log("Device Country", DeviceInfo.getDeviceCountry()); // e.g US
 ```
