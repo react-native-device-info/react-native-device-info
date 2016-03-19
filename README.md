@@ -14,9 +14,16 @@ npm install react-native-device-info --save
 
 ### Installation (iOS)
 
-In XCode, in the project navigator, right click Libraries ➜ Add Files to [your project's name] Go to node_modules ➜ react-native-device-info and add the .xcodeproj file
+In XCode, in the project navigator:
+- Right click Libraries
+- Add Files to [your project's name]
+- Go to node_modules/react-native-device-info
+- Add the .xcodeproj file
 
-In XCode, in the project navigator, select your project. Add the lib*.a from the deviceinfo project to your project's Build Phases ➜ Link Binary With Libraries Click .xcodeproj file you added before in the project navigator and go the Build Settings tab. Make sure 'All' is toggled on (instead of 'Basic'). Look for Header Search Paths and make sure it contains both $(SRCROOT)/../react-native/React and $(SRCROOT)/../../React - mark both as recursive.
+In XCode, in the project navigator, select your project. 
+- Add the libRNDeviceInfo.a from the deviceinfo project to your project's Build Phases ➜ Link Binary With Libraries
+- Click .xcodeproj file you added before in the project navigator and go the Build Settings tab. Make sure 'All' is toggled on (instead of 'Basic').
+- Look for Header Search Paths and make sure it contains both $(SRCROOT)/../react-native/React and $(SRCROOT)/../../React - mark both as recursive. (Should be OK by default.)
 
 Run your project (Cmd+R)
 
@@ -24,30 +31,16 @@ Run your project (Cmd+R)
 
 ### Installation (Android)
 
-* In `android/setting.gradle`
+* Add Gradle configuration changes
 
-```gradle
-...
-include ':RNDeviceInfo', ':app'
-project(':RNDeviceInfo').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
-```
-
-* In `android/app/build.gradle`
-
-```gradle
-...
-dependencies {
-    ...
-    compile project(':RNDeviceInfo')
-}
-```
+Run `react-native link react-native-device-info` in your project root.
 
 * register module (in MainActivity.java)
 
-On newer versions of React Native (0.18+):
+On React Native 0.18+:
 
 ```java
-import com.learnium.RNDeviceInfo.*;  // <--- import
+import com.learnium.RNDeviceInfo.RNDeviceInfo;  // <--- import
 
 public class MainActivity extends ReactActivity {
   ......
@@ -62,39 +55,6 @@ public class MainActivity extends ReactActivity {
         new RNDeviceInfo(), // <------ add here
         new MainReactPackage());
     }
-}
-```
-
-On older versions of React Native:
-
-```java
-import com.learnium.RNDeviceInfo.*;  // <--- import
-
-public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
-  ......
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    mReactRootView = new ReactRootView(this);
-
-    mReactInstanceManager = ReactInstanceManager.builder()
-      .setApplication(getApplication())
-      .setBundleAssetName("index.android.bundle")
-      .setJSMainModuleName("index.android")
-      .addPackage(new MainReactPackage())
-      .addPackage(new RNDeviceInfo())              // <------ add here
-      .setUseDeveloperSupport(BuildConfig.DEBUG)
-      .setInitialLifecycleState(LifecycleState.RESUMED)
-      .build();
-
-    mReactRootView.startReactApplication(mReactInstanceManager, "ExampleRN", null);
-
-    setContentView(mReactRootView);
-  }
-
-  ......
-
 }
 ```
 
