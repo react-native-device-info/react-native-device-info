@@ -79,6 +79,7 @@ RCT_EXPORT_MODULE()
                               @"iPhone7,2" :@"iPhone 6",        //
                               @"iPhone8,1" :@"iPhone 6s",       //
                               @"iPhone8,2" :@"iPhone 6s Plus",  //
+                              @"iPhone8,4" :@"iPhone SE",       //
                               @"iPad4,1"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Cellular
                               @"iPad4,3"   :@"iPad Air",        // 5th Generation iPad (iPad Air)
@@ -92,8 +93,10 @@ RCT_EXPORT_MODULE()
                               @"iPad5,2"   :@"iPad Mini 4",     // (4th Generation iPad Mini)
                               @"iPad5,3"   :@"iPad Air 2",      // 6th Generation iPad (iPad Air 2)
                               @"iPad5,4"   :@"iPad Air 2",      // 6th Generation iPad (iPad Air 2)
-                              @"iPad6,7"   :@"iPad Pro",        // iPad Pro
-                              @"iPad6,8"   :@"iPad Pro",        // iPad Pro
+                              @"iPad6,3"   :@"iPad Pro 9.7-inch",// iPad Pro 9.7-inch
+                              @"iPad6,4"   :@"iPad Pro 9.7-inch",// iPad Pro 9.7-inch
+                              @"iPad6,7"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
+                              @"iPad6,8"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
