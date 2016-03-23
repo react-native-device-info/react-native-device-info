@@ -69,6 +69,7 @@ public class MainActivity extends ReactActivity {
 
 ## Release Notes
 
+ * 0.9.1 adds support for the iPhone SE and new iPad Pro
  * 0.9.0 adds support for device country and changes the iOS device name to match Apple branding
  * 0.8.4 don't use destructuring
  * 0.8.3 removes the default bluetooth permission
