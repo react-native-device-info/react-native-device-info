@@ -14,6 +14,15 @@ npm install react-native-device-info --save
 
 ### Installation (iOS)
 
+#### Installing via Cocoa Pods
+Add the following line to your build targets in your `Podfile`
+
+`pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'`
+
+Then run `pod install`
+
+#### Installing manually
+
 In XCode, in the project navigator:
 - Right click Libraries
 - Add Files to [your project's name]
