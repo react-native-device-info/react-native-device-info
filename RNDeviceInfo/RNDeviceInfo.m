@@ -160,6 +160,7 @@ RCT_EXPORT_MODULE()
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+             @"buildVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleBuildVersion"],
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
              };
