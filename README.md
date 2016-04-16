@@ -82,7 +82,6 @@ public class MainActivity extends ReactActivity {
 
 ## Release Notes
 
- * 0.9.2 add iOS build version
  * 0.9.1 adds support for the iPhone SE and new iPad Pro
  * 0.9.0 adds support for device country and changes the iOS device name to match Apple branding
  * 0.8.4 don't use destructuring
@@ -114,8 +113,6 @@ console.log("Device Version", DeviceInfo.getSystemVersion());  // e.g. 9.0
 console.log("Bundle Id", DeviceInfo.getBundleId());  // e.g. com.learnium.mobile
 
 console.log("Build Number", DeviceInfo.getBuildNumber());  // e.g. 89
-
-console.log("Build Version", DeviceInfo.getBuildVersion());  // (iOS only) full build info, e.g. v0.5.9-51-g71ec8a0+
 
 console.log("App Version", DeviceInfo.getVersion());  // e.g. 1.1.0
 
