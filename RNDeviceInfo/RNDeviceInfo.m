@@ -141,6 +141,12 @@ RCT_EXPORT_MODULE()
   return country;
 }
 
+- (NSString*) deviceTimezone
+{
+  NSTimeZone *timezone = [NSTimeZone systemTimeZone];
+  return timezone.name;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -162,6 +168,7 @@ RCT_EXPORT_MODULE()
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
+             @"deviceTimezone": self.deviceTimezone,
              };
 }
 

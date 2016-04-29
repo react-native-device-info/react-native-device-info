@@ -47,4 +47,7 @@ module.exports = {
   getDeviceCountry: function() {
     return RNDeviceInfo.deviceCountry;
   },
+  getDeviceTimezone: function() {
+    return RNDeviceInfo.deviceTimezone;
+  },
 };
