@@ -125,4 +125,6 @@ console.log("User Agent", DeviceInfo.getUserAgent()); // e.g. Dalvik/2.1.0 (Linu
 console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
 
 console.log("Device Country", DeviceInfo.getDeviceCountry()); // e.g US
+
+console.log("Device Timezone", DeviceInfo.getDevicetimezone()); // e.g America/Mexico_City
 ```
