@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
+import android.os.StatFs;
 import android.provider.Settings.Secure;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -49,6 +51,31 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return current.getCountry();
   }
 
+  /**
+   * @return Number of Mega bytes available on External storage
+   */
+  public static long getAvailableExternalMemorySize(){
+      final long SIZE_KB = 1024L;
+      final long SIZE_MB = SIZE_KB * SIZE_KB;
+      long availableSpaceExternal = -1L;
+      StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+      availableSpaceExternal = (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+      return availableSpaceExternal/SIZE_MB;
+  }
+
+   /**
+   * @return Number of Mega bytes available on Internal storage
+   */
+   public static long getAvailableInternalMemorySize() {
+          final long SIZE_KB = 1024L;
+          final long SIZE_MB = SIZE_KB * SIZE_KB;
+          long availableSpaceInternal = -1L;
+
+          StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
+          availableSpaceInternal = (long) stat.getAvailableBlocks() * (long) stat.getBlockSize();
+          return availableSpaceInternal/SIZE_MB;
+   }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -88,6 +115,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     constants.put("userAgent", System.getProperty("http.agent"));
+    constants.put("freeExternalSpace", this.getAvailableExternalMemorySize());
+    constants.put("freeInternalSpace", this.getAvailableInternalMemorySize());
     return constants;
   }
 }
