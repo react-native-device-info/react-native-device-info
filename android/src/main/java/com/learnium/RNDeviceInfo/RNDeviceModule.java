@@ -78,6 +78,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     constants.put("instanceId", InstanceID.getInstance(this.reactContext.getContentResolver()).getId());
+    System.out.println("instance id:" + InstanceID.getInstance(this.reactContext.getContentResolver()).getId());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
