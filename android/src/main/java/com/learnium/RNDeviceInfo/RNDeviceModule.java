@@ -80,7 +80,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
-    System.out.println("instance id:" + InstanceID.getInstance(this.reactContext).getId());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
@@ -89,8 +88,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("deviceCountry", this.getCurrentCountry());
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
-    System.out.println("content resolver:" + this.reactContext.getContentResolver());
-    System.out.println("android id:" + Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     constants.put("userAgent", System.getProperty("http.agent"));
