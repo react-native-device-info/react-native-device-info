@@ -10,7 +10,7 @@ module.exports = {
   },
   getInstanceID: function() {
     return RNDeviceInfo.instanceId;
-  }
+  },
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
