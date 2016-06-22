@@ -1,0 +1,1 @@
+C:\Veikkaus5\node_modules\react-native-device-info\windows\DeviceInfo\obj\Debug\DeviceInfo.csprojResolveAssemblyReference.cache
