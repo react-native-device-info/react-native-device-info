@@ -157,9 +157,9 @@ RCT_EXPORT_MODULE()
              @"deviceLocale": self.deviceLocale,
              @"deviceCountry": self.deviceCountry,
              @"uniqueId": uniqueId,
-             @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
-             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
-             @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+             @"bundleId": [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
+             @"appVersion": [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],
+             @"buildNumber": [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
              };
