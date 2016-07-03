@@ -7,6 +7,7 @@
 //
 
 #import "RNDeviceInfo.h"
+#import "DeviceUID.h"
 
 @interface RNDeviceInfo()
 
@@ -146,7 +147,7 @@ RCT_EXPORT_MODULE()
     UIDevice *currentDevice = [UIDevice currentDevice];
 
     NSUUID *identifierForVendor = [currentDevice identifierForVendor];
-    NSString *uniqueId = [identifierForVendor UUIDString];
+    NSString *uniqueId = [DeviceUID uid];
 
     return @{
              @"systemName": currentDevice.systemName,
