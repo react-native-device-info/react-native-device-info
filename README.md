@@ -4,6 +4,14 @@
 
 Device Information for react-native
 
+## Installation via [`rnpm`](https://github.com/rnpm/rnpm)
+
+```shell
+rnpm install react-native-device-info
+```
+
+`rnpm` will install (--save) this module then linking for react-native, so you don't have to link for each platforms maually as the following.
+
 ## Installation
 
 First you need to install react-native-device-info:
