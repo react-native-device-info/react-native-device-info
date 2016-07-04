@@ -1,7 +1,3 @@
-## MAINTAINERS WANTED!
-
-Unfortunately, I don't have the time to continue maintaining this module. If you would like to take over, please open an issue or get in touch with me (@rebeccahughes).
-
 ## react-native-device-info
 
 [![npm version](https://badge.fury.io/js/react-native-device-info@2x.png)](http://badge.fury.io/js/react-native-device-info)
