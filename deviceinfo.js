@@ -8,6 +8,9 @@ module.exports = {
   getUniqueID: function () {
     return RNDeviceInfo.uniqueId;
   },
+  getInstanceID: function() {
+    return RNDeviceInfo.instanceId;
+  },
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
