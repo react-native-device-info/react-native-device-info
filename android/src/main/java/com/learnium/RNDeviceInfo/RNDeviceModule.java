@@ -74,7 +74,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     try {
       BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
-      deviceName = myDevice.getName();
+      if(myDevice!=null){
+          deviceName = myDevice.getName();
+      }
     } catch(Exception e) {
       e.printStackTrace();
     }
