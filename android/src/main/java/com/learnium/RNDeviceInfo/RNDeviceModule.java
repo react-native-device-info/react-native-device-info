@@ -26,6 +26,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     this.reactContext = reactContext;
   }
 
+  public boolean canOverrideExistingModule() {
+    return true;
+  }
+
   @Override
   public String getName() {
     return "RNDeviceInfo";
