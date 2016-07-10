@@ -10,7 +10,7 @@ Device Information for react-native
 rnpm install react-native-device-info
 ```
 
-`rnpm` will install (--save) this module then linking for react-native, so you don't have to link for each platforms maually as the following.
+`rnpm` will install (--save) this module then linking for react-native, so you don't have to link for each platforms manually as the following.
 
 ## Installation
 
