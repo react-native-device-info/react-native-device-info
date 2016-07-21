@@ -52,9 +52,34 @@ Run your project (Cmd+R)
 
 Run `react-native link react-native-device-info` in your project root.
 
-* register module (in MainActivity.java)
+* register module
 
-On React Native 0.18+:
+On React Native 0.29+:
+
+in MainApplication.java:
+
+```java
+import com.learnium.RNDeviceInfo.RNDeviceInfo;  // <--- import
+
+public class MainApplication extends Application implements ReactApplication {
+  ......
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new RNDeviceInfo(), // <---- add here
+          new MainReactPackage()
+      );
+    }
+  
+  ......
+}
+```
+
+
+On React Native 0.18-0.28:
+
+in MainActivity.java:
 
 ```java
 import com.learnium.RNDeviceInfo.RNDeviceInfo;  // <--- import
