@@ -45,7 +45,6 @@
 - (NSString *)uid {
     if (!_uid) _uid = [[self class] valueForKeychainKey:_uidKey service:_uidKey];
     if (!_uid) _uid = [[self class] valueForUserDefaultsKey:_uidKey];
-    if (!_uid) _uid = [[self class] appleIFA];
     if (!_uid) _uid = [[self class] appleIFV];
     if (!_uid) _uid = [[self class] randomUUID];
     [self save];
@@ -118,19 +117,6 @@
 }
 
 #pragma mark - UID Generation methods
-
-+ (NSString *)appleIFA {
-    NSString *ifa = nil;
-    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (ASIdentifierManagerClass) { // a dynamic way of checking if AdSupport.framework is available
-        SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
-        id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
-        SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
-        NSUUID *advertisingIdentifier = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
-        ifa = [advertisingIdentifier UUIDString];
-    }
-    return ifa;
-}
 
 + (NSString *)appleIFV {
     if(NSClassFromString(@"UIDevice") && [UIDevice instancesRespondToSelector:@selector(identifierForVendor)]) {
