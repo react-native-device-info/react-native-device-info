@@ -135,9 +135,9 @@ console.log("Device Model", DeviceInfo.getModel());  // e.g. iPhone 6
 
 console.log("Device ID", DeviceInfo.getDeviceId());  // e.g. iPhone7,2 / or the board on Android e.g. goldfish
 
-console.log("Device Name", DeviceInfo.getSystemName());  // e.g. iPhone OS
+console.log("System Name", DeviceInfo.getSystemName());  // e.g. iPhone OS
 
-console.log("Device Version", DeviceInfo.getSystemVersion());  // e.g. 9.0
+console.log("System Version", DeviceInfo.getSystemVersion());  // e.g. 9.0
 
 console.log("Bundle Id", DeviceInfo.getBundleId());  // e.g. com.learnium.mobile
 
