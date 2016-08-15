@@ -142,7 +142,7 @@ RCT_EXPORT_MODULE()
   return country;
 }
 
-- (NSString*) timezone
+- (NSString*) timeZone
 {
   NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
   return currentTimeZone.name;
@@ -169,7 +169,7 @@ RCT_EXPORT_MODULE()
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
-             @"timezone": self.timezone,
+             @"timeZone": self.timeZone,
              };
 }
 
