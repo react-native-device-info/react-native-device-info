@@ -71,7 +71,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage()
       );
     }
-  
+
   ......
 }
 ```
@@ -154,6 +154,8 @@ console.log("User Agent", DeviceInfo.getUserAgent()); // e.g. Dalvik/2.1.0 (Linu
 console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
 
 console.log("Device Country", DeviceInfo.getDeviceCountry()); // e.g US
+
+console.log("Time Zone", DeviceInfo.getTimeZone()); // e.g America/New_York
 
 console.log("App Instance ID", DeviceInfo.getInstanceID()); // ANDROID ONLY - see https://developers.google.com/instance-id/
 ```
