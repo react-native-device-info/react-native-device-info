@@ -20,6 +20,9 @@ module.exports = {
   getModel: function () {
     return RNDeviceInfo.model;
   },
+  getBrand: function () {
+    return RNDeviceInfo.brand;
+  },
   getSystemName: function () {
     return RNDeviceInfo.systemName;
   },

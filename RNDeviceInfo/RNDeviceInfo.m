@@ -159,6 +159,7 @@ RCT_EXPORT_MODULE()
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
              @"model": self.deviceName,
+             @"brand": @"Apple",
              @"deviceId": self.deviceId,
              @"deviceName": currentDevice.name,
              @"deviceLocale": self.deviceLocale,
