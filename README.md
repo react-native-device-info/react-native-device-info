@@ -135,11 +135,11 @@ console.log("Device Model", DeviceInfo.getModel());  // e.g. iPhone 6
 
 console.log("Device ID", DeviceInfo.getDeviceId());  // e.g. iPhone7,2 / or the board on Android e.g. goldfish
 
-console.log("Device Name", DeviceInfo.getSystemName());  // e.g. iPhone OS
+console.log("System Name", DeviceInfo.getSystemName());  // e.g. iPhone OS
 
-console.log("Device Version", DeviceInfo.getSystemVersion());  // e.g. 9.0
+console.log("System Version", DeviceInfo.getSystemVersion());  // e.g. 9.0
 
-console.log("Bundle Id", DeviceInfo.getBundleId());  // e.g. com.learnium.mobile
+console.log("Bundle ID", DeviceInfo.getBundleId());  // e.g. com.learnium.mobile
 
 console.log("Build Number", DeviceInfo.getBuildNumber());  // e.g. 89
 
@@ -154,6 +154,8 @@ console.log("User Agent", DeviceInfo.getUserAgent()); // e.g. Dalvik/2.1.0 (Linu
 console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
 
 console.log("Device Country", DeviceInfo.getDeviceCountry()); // e.g US
+
+console.log("Timezone", DeviceInfo.getTimezone()); // e.g America/Mexico_City
 
 console.log("App Instance ID", DeviceInfo.getInstanceID()); // ANDROID ONLY - see https://developers.google.com/instance-id/
 ```
