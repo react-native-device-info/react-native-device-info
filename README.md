@@ -131,6 +131,8 @@ console.log("Device Unique ID", DeviceInfo.getUniqueID());  // e.g. FCDBD8EF-62F
 
 console.log("Device Manufacturer", DeviceInfo.getManufacturer());  // e.g. Apple
 
+console.log("Device Brand", DeviceInfo.getBrand());  // e.g. Apple / htc / Xiaomi
+
 console.log("Device Model", DeviceInfo.getModel());  // e.g. iPhone 6
 
 console.log("Device ID", DeviceInfo.getDeviceId());  // e.g. iPhone7,2 / or the board on Android e.g. goldfish
