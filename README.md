@@ -48,11 +48,23 @@ Run your project (Cmd+R)
 
 ### Installation (Android)
 
-* Add Gradle configuration changes
+* In `android/setting.gradle`
 
-Run `react-native link react-native-device-info` in your project root.
+```gradle
+...
+include ':RNDeviceInfo', ':app'
+project(':RNDeviceInfo').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
+```
 
-* register module
+* In `android/app/build.gradle`
+
+```gradle
+...
+dependencies {
+    ...
+    compile project(':RNDeviceInfo')
+}
+```
 
 On React Native 0.29+:
 
