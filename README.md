@@ -148,5 +148,7 @@ console.log("Device Locale", DeviceInfo.getDeviceLocale()); // e.g en-US
 
 console.log("Device Country", DeviceInfo.getDeviceCountry()); // e.g US
 
+console.log("Timezone", DeviceInfo.getTimezone()); // e.g America/Mexico_City
+
 console.log("App Instance ID", DeviceInfo.getInstanceID()); // ANDROID ONLY - see https://developers.google.com/instance-id/
 ```
