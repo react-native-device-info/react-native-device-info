@@ -11,6 +11,9 @@ module.exports = {
   getInstanceID: function() {
     return RNDeviceInfo.instanceId;
   },
+  getIsTablet: function () {
+    return RNDeviceInfo.isTablet;
+  },
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
@@ -52,8 +55,5 @@ module.exports = {
   },
   getDeviceCountry: function() {
     return RNDeviceInfo.deviceCountry;
-  },
-  getTimezone: function() {
-    return RNDeviceInfo.timezone;
   },
 };
