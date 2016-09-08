@@ -56,4 +56,7 @@ module.exports = {
   getTimezone: function() {
     return RNDeviceInfo.timezone;
   },
+  isEmulator: function() {
+    return RNDeviceInfo.isEmulator;
+  },
 };

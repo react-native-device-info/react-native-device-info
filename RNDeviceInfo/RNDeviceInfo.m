@@ -148,6 +148,11 @@ RCT_EXPORT_MODULE()
   return currentTimeZone.name;
 }
 
+- (bool) isEmulator
+{
+  return self.deviceName == @"Simulator";
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -171,6 +176,7 @@ RCT_EXPORT_MODULE()
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
              @"timezone": self.timezone,
+             @"isEmulator": @(self.isEmulator),
              };
 }
 
