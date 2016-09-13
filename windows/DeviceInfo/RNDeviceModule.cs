@@ -2,7 +2,11 @@ using ReactNative.Bridge;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net.Http;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using WinRTXamlToolkit.Controls;
 
 namespace ReactNative.Modules.RNDeviceInfo
 {
@@ -42,6 +46,7 @@ namespace ReactNative.Modules.RNDeviceInfo
                 {
                     constants["appVersion"] = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
                     constants["buildNumber"] = version.Build.ToString();
+                    constants["buildVersion"] = version.Build.ToString();
                 } catch {
                 }
 
@@ -49,8 +54,7 @@ namespace ReactNative.Modules.RNDeviceInfo
                 String manufacturer = "Uknown";
                 String device_id = "Unknown";
                 String model = "Unknown";
-                String firmware_version = "Unknown";
-
+                String osVersion = "Unknown";
                 CultureInfo culture = CultureInfo.CurrentCulture;
 
                 try {
@@ -58,14 +62,20 @@ namespace ReactNative.Modules.RNDeviceInfo
                     deviceName = deviceInfo.FriendlyName;
                     manufacturer = deviceInfo.SystemManufacturer;
                     device_id = deviceInfo.Id.ToString();
-                    firmware_version = deviceInfo.SystemFirmwareVersion.ToString();
                     model = deviceInfo.SystemProductName;
+
+                    string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+                    ulong version2 = ulong.Parse(deviceFamilyVersion);
+                    ulong major = (version2 & 0xFFFF000000000000L) >> 48;
+                    ulong minor = (version2 & 0x0000FFFF00000000L) >> 32;
+                    osVersion = $"{major}.{minor}";
+
                 } catch {
                 }
 
                 constants["deviceName"] = deviceName;
                 constants["systemName"] = "UWP";
-                constants["systemVersion"] = firmware_version;
+                constants["systemVersion"] = osVersion;
                 constants["model"] = model;
                 constants["deviceId"] = model;
                 constants["deviceLocale"] = culture.Name;
