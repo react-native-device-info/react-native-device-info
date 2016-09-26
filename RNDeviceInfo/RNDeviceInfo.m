@@ -150,7 +150,7 @@ RCT_EXPORT_MODULE()
 
 - (bool) isEmulator
 {
-  return self.deviceName == @"Simulator";
+  return [self.deviceName isEqual: @"Simulator"];
 }
 
 - (NSDictionary *)constantsToExport
