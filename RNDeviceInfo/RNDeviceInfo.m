@@ -157,7 +157,6 @@ RCT_EXPORT_MODULE()
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
 
-    NSUUID *identifierForVendor = [currentDevice identifierForVendor];
     NSString *uniqueId = [DeviceUID uid];
 
     return @{
