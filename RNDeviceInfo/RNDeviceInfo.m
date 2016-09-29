@@ -81,6 +81,10 @@ RCT_EXPORT_MODULE()
                               @"iPhone8,1" :@"iPhone 6s",       //
                               @"iPhone8,2" :@"iPhone 6s Plus",  //
                               @"iPhone8,4" :@"iPhone SE",       //
+                              @"iPhone9,1" :@"iPhone 7",        // (model A1660 | CDMA)
+                              @"iPhone9,3" :@"iPhone 7",        // (model A1778 | Global)
+                              @"iPhone9,2" :@"iPhone 7 Plus",   // (model A1661 | CDMA)
+                              @"iPhone9,4" :@"iPhone 7 Plus",   // (model A1784 | Global)
                               @"iPad4,1"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Cellular
                               @"iPad4,3"   :@"iPad Air",        // 5th Generation iPad (iPad Air)
