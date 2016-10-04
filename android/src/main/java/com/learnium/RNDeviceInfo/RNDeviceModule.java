@@ -3,6 +3,7 @@ package com.learnium.RNDeviceInfo;
 import android.bluetooth.BluetoothAdapter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
 
@@ -52,6 +53,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return current.getCountry();
   }
 
+  private boolean getIsTablet() {
+    int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+
+    return (layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE);
+  }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -81,6 +88,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
+    constants.put("isTablet",this.getIsTablet());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);

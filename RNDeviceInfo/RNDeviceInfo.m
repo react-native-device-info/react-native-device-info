@@ -25,6 +25,11 @@ RCT_EXPORT_MODULE()
     return dispatch_get_main_queue();
 }
 
+- (BOOL) isTablet
+{
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+}
+
 - (NSString*) deviceId
 {
     struct utsname systemInfo;
@@ -163,6 +168,7 @@ RCT_EXPORT_MODULE()
              @"systemVersion": currentDevice.systemVersion,
              @"model": self.deviceName,
              @"brand": @"Apple",
+             @"isTablet": @(self.isTablet),
              @"deviceId": self.deviceId,
              @"deviceName": currentDevice.name,
              @"deviceLocale": self.deviceLocale,
