@@ -52,6 +52,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return current.getCountry();
   }
 
+  private Boolean isEmulator() {
+    return Build.FINGERPRINT.startsWith("generic")
+      || Build.FINGERPRINT.startsWith("unknown")
+      || Build.MODEL.contains("google_sdk")
+      || Build.MODEL.contains("Emulator")
+      || Build.MODEL.contains("Android SDK built for x86")
+      || Build.MANUFACTURER.contains("Genymotion")
+      || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+      || "google_sdk".equals(Build.PRODUCT);
+  }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -94,6 +105,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("bundleId", packageName);
     constants.put("userAgent", System.getProperty("http.agent"));
     constants.put("timezone", TimeZone.getDefault().getID());
+    constants.put("isEmulator", this.isEmulator());
     return constants;
   }
 }

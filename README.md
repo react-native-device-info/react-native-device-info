@@ -170,4 +170,8 @@ console.log("Device Country", DeviceInfo.getDeviceCountry()); // e.g US
 console.log("Timezone", DeviceInfo.getTimezone()); // e.g America/Mexico_City
 
 console.log("App Instance ID", DeviceInfo.getInstanceID()); // ANDROID ONLY - see https://developers.google.com/instance-id/
+
+console.log("App is running in emulator", DeviceInfo.isEmulator()); // if app is running in emulator return true
 ```
+
+
