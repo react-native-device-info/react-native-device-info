@@ -118,6 +118,29 @@ include ':app'
 
 (Thanks to @chirag04 for writing the instructions)
 
+### Windows
+- Open the solution in Visual Studio for your Windows apps
+- right click your in the Explorer and click Add > Existing Project...
+- Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
+- this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
+- check the `RNDeviceInfo` you just added and press ok
+- open up `MainPage.cs` for your app and edit the file like so:
+
+```diff
++ using RNDeviceInfo;
+......
+            get
+            {
+                return new List<IReactPackage>
+                {
+                    new MainReactPackage(),
++                   new RNDeviceInfoPackage(),
+                };
+            }
+```
+
+(Thanks to @josephan for writing the instructions)
+
 ## Device Name
 
 If you want to get the device name in Android add this to your `AndroidManifest.xml` (optional):
