@@ -1,5 +1,9 @@
 ## Release Notes
 
+### 0.9.7
+
+Several bugfixes and detecting if device is a tablet
+
 ### 0.9.3 
 
 adds support for Brand information e.g. apple, htc, etc
