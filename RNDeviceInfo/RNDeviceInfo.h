@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
 
-#import "RCTBridgeModule.h"
+#import <React/RCTBridgeModule.h>
 
 @interface RNDeviceInfo : NSObject <RCTBridgeModule>
 
