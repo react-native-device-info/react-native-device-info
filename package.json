@@ -12,6 +12,7 @@
     "react-native",
     "ios",
     "android",
+    "windows",
     "device",
     "events",
     "cocoapod"
