@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PCLStorage</name>
+    </assembly>
+    <members>
+        <member name="T:PCLStorage.Exceptions.FileNotFoundException">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.FileNotFoundException.#ctor(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.FileNotFoundException.#ctor(System.String,System.Exception)">
+            <exclude/>
+        </member>
+        <member name="T:PCLStorage.Exceptions.DirectoryNotFoundException">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.DirectoryNotFoundException.#ctor(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.DirectoryNotFoundException.#ctor(System.String,System.Exception)">
+            <exclude/>
+        </member>
+        <member name="T:PCLStorage.FileSystem">
+            <summary>
+            Provides access to an implementation of <see cref="T:PCLStorage.IFileSystem"/> for the current platform
+            </summary>
+        </member>
+        <member name="P:PCLStorage.FileSystem.Current">
+            <summary>
+            The implementation of <see cref="T:PCLStorage.IFileSystem"/> for the current platform
+            </summary>
+        </member>
+        <member name="T:PCLStorage.PortablePath">
+            <summary>
+            Provides portable versions of APIs such as Path.Combine
+            </summary>
+        </member>
+        <member name="M:PCLStorage.PortablePath.Combine(System.String[])">
+            <summary>
+            Combines multiple strings into a path
+            </summary>
+            <param name="paths">Path elements to combine</param>
+            <returns>A combined path</returns>
+        </member>
+        <member name="P:PCLStorage.PortablePath.DirectorySeparatorChar">
+            <summary>
+            The character used to separate elements in a file system path
+            </summary>
+        </member>
+    </members>
+</doc>

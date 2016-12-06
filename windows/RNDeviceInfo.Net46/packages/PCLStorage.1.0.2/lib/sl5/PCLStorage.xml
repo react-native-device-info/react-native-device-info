@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PCLStorage</name>
+    </assembly>
+    <members>
+        <member name="T:PCLStorage.AwaitExtensions">
+            <summary>
+            Extensions for use internally by PCLStorage for awaiting.
+            </summary>
+        </member>
+        <member name="M:PCLStorage.AwaitExtensions.SwitchOffMainThreadAsync(System.Threading.CancellationToken)">
+            <summary>
+            Causes the caller who awaits this method to
+            switch off the Main thread. It has no effect if
+            the caller is already off the main thread.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An awaitable that does the thread switching magic.</returns>
+        </member>
+        <member name="T:PCLStorage.Exceptions.FileNotFoundException">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.FileNotFoundException.#ctor(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.FileNotFoundException.#ctor(System.String,System.Exception)">
+            <exclude/>
+        </member>
+        <member name="T:PCLStorage.Exceptions.DirectoryNotFoundException">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.DirectoryNotFoundException.#ctor(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.DirectoryNotFoundException.#ctor(System.String,System.Exception)">
+            <exclude/>
+        </member>
+        <member name="T:PCLStorage.FileSystem">
+            <summary>
+            Provides access to an implementation of <see cref="T:PCLStorage.IFileSystem"/> for the current platform
+            </summary>
+        </member>
+        <member name="P:PCLStorage.FileSystem.Current">
+            <summary>
+            The implementation of <see cref="T:PCLStorage.IFileSystem"/> for the current platform
+            </summary>
+        </member>
+        <member name="T:PCLStorage.PortablePath">
+            <summary>
+            Provides portable versions of APIs such as Path.Combine
+            </summary>
+        </member>
+        <member name="M:PCLStorage.PortablePath.Combine(System.String[])">
+            <summary>
+            Combines multiple strings into a path
+            </summary>
+            <param name="paths">Path elements to combine</param>
+            <returns>A combined path</returns>
+        </member>
+        <member name="P:PCLStorage.PortablePath.DirectorySeparatorChar">
+            <summary>
+            The character used to separate elements in a file system path
+            </summary>
+        </member>
+        <member name="T:PCLStorage.Requires">
+            <summary>
+            Common runtime checks that throw ArgumentExceptions upon failure.
+            </summary>
+        </member>
+        <member name="M:PCLStorage.Requires.NotNull``1(``0,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <returns>The value of the parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c></exception>
+        </member>
+        <member name="M:PCLStorage.Requires.NotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null or empty.
+            </summary>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="value"/> is <c>null</c> or empty.</exception>
+        </member>
+        <member name="M:PCLStorage.Requires.Format(System.String,System.Object[])">
+            <summary>
+            Helper method that formats string arguments.
+            </summary>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="T:PCLStorage.IsoStoreFile">
+            <summary>
+            Represents a file in the <see cref="T:PCLStorage.IsoStoreFileSystem"/>
+            </summary>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFile.#ctor(System.IO.IsolatedStorage.IsolatedStorageFile,System.String)">
+            <summary>
+            Creates a new <see cref="T:PCLStorage.IsoStoreFile"/> based on the path to it within an <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/>
+            </summary>
+            <param name="root">An <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/></param>
+            <param name="path">The path in the <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/> to create an <see cref="T:PCLStorage.IsoStoreFile"/> for</param>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFile.#ctor(System.String,PCLStorage.IsoStoreFolder)">
+            <summary>
+            Creates a new <see cref="T:PCLStorage.IsoStoreFile"/> from a file name and parent folder
+            </summary>
+            <param name="name">The file name</param>
+            <param name="parentFolder">The parent folder</param>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFile.OpenAsync(PCLStorage.FileAccess,System.Threading.CancellationToken)">
+            <summary>
+            Opens the file
+            </summary>
+            <param name="fileAccess">Specifies whether the file should be opened in read-only or read/write mode</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A <see cref="T:System.IO.Stream"/> which can be used to read from or write to the file</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFile.DeleteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the file
+            </summary>
+            <returns>A task which will complete after the file is deleted.</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFile.RenameAsync(System.String,PCLStorage.NameCollisionOption,System.Threading.CancellationToken)">
+            <summary>
+            Renames a file without changing its location.
+            </summary>
+            <param name="newName">The new leaf name of the file.</param>
+            <param name="collisionOption">How to deal with collisions with existing files.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A task which will complete after the file is renamed.
+            </returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFile.MoveAsync(System.String,PCLStorage.NameCollisionOption,System.Threading.CancellationToken)">
+            <summary>
+            Moves a file.
+            </summary>
+            <param name="newPath">The new full path of the file.</param>
+            <param name="collisionOption">How to deal with collisions with existing files.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A task which will complete after the file is moved.
+            </returns>
+        </member>
+        <member name="P:PCLStorage.IsoStoreFile.Name">
+            <summary>
+            The name of the file
+            </summary>
+        </member>
+        <member name="P:PCLStorage.IsoStoreFile.Path">
+            <summary>
+            The "full path" of the file, which should uniquely identify it within a given <see cref="T:PCLStorage.IFileSystem"/>
+            </summary>
+        </member>
+        <member name="T:PCLStorage.IsoStoreFileSystem">
+            <summary>
+            Implementation of <see cref="T:PCLStorage.IFileSystem"/> over Isolated Storage APIs
+            </summary>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFileSystem.GetFileFromPathAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a file, given its path.  Returns null if the file does not exist.
+            </summary>
+            <param name="path">The path to a file, as returned from the <see cref="P:PCLStorage.IFile.Path"/> property.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A file for the given path, or null if it does not exist.</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFileSystem.GetFolderFromPathAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a folder, given its path.  Returns null if the folder does not exist.
+            </summary>
+            <param name="path">The path to a folder, as returned from the <see cref="P:PCLStorage.IFolder.Path"/> property.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A folder for the specified path, or null if it does not exist.</returns>
+        </member>
+        <member name="P:PCLStorage.IsoStoreFileSystem.LocalStorage">
+            <summary>
+            A folder representing storage which is local to the current device
+            </summary>
+        </member>
+        <member name="P:PCLStorage.IsoStoreFileSystem.RoamingStorage">
+            <summary>
+            Returns null, as roaming storage isn't supported by the Isolated Storage APIs
+            </summary>
+        </member>
+        <member name="T:PCLStorage.IsoStoreFolder">
+            <summary>
+            Represents a folder in the <see cref="T:PCLStorage.IsoStoreFileSystem"/>
+            </summary>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.#ctor(System.IO.IsolatedStorage.IsolatedStorageFile)">
+            <summary>
+            Creates a new <see cref="T:PCLStorage.IsoStoreFolder"/> corresponding to the specified <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/>
+            </summary>
+            <param name="root">An <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/> to create an <see cref="T:PCLStorage.IsoStoreFolder"/> for</param>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.#ctor(System.IO.IsolatedStorage.IsolatedStorageFile,System.String)">
+            <summary>
+            Creates a new <see cref="T:PCLStorage.IsoStoreFolder"/> corresponding to the specified path in an <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/>
+            </summary>
+            <param name="root">An <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/></param>
+            <param name="path">The path in the <see cref="T:System.IO.IsolatedStorage.IsolatedStorageFile"/> to create an <see cref="T:PCLStorage.IsoStoreFolder"/> for</param>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.#ctor(System.String,PCLStorage.IsoStoreFolder)">
+            <summary>
+            Creates a new <see cref="T:PCLStorage.IsoStoreFolder"/> corresponding to a subfolder of another <see cref="T:PCLStorage.IsoStoreFolder"/>
+            </summary>
+            <param name="name">The name of the folder</param>
+            <param name="parent">The parent folder</param>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.CreateFileAsync(System.String,PCLStorage.CreationCollisionOption,System.Threading.CancellationToken)">
+            <summary>
+            Creates a file in this folder
+            </summary>
+            <param name="desiredName">The name of the file to create</param>
+            <param name="option">Specifies how to behave if the specified file already exists</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The newly created file</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.GetFileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a file in this folder
+            </summary>
+            <param name="name">The name of the file to get</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The requested file, or null if it does not exist</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.GetFilesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of the files in this folder
+            </summary>
+            <returns>A list of the files in the folder</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.CreateFolderAsync(System.String,PCLStorage.CreationCollisionOption,System.Threading.CancellationToken)">
+            <summary>
+            Creates a subfolder in this folder
+            </summary>
+            <param name="desiredName">The name of the folder to create</param>
+            <param name="option">Specifies how to behave if the specified folder already exists</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The newly created folder</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.GetFolderAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a subfolder in this folder
+            </summary>
+            <param name="name">The name of the folder to get</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The requested folder, or null if it does not exist</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.GetFoldersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets a list of subfolders in this folder
+            </summary>
+            <returns>A list of subfolders in the folder</returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.CheckExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Checks whether a folder or file exists at the given location.
+            </summary>
+            <param name="name">The name of the file or folder to check for.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A task whose result is the result of the existence check.
+            </returns>
+        </member>
+        <member name="M:PCLStorage.IsoStoreFolder.DeleteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes this folder and all of its contents
+            </summary>
+            <returns>A task which will complete after the folder is deleted</returns>
+        </member>
+        <member name="P:PCLStorage.IsoStoreFolder.Name">
+            <summary>
+            The name of the folder
+            </summary>
+        </member>
+        <member name="P:PCLStorage.IsoStoreFolder.Path">
+            <summary>
+            The "full path" of the folder, which should uniquely identify it within a given <see cref="T:PCLStorage.IFileSystem"/>
+            </summary>
+        </member>
+    </members>
+</doc>
