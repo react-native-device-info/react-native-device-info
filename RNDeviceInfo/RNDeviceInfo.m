@@ -111,6 +111,13 @@ RCT_EXPORT_MODULE()
 
     NSString* deviceName = [deviceNamesByCode objectForKey:self.deviceId];
 
+    if ([deviceName isEqual: @"Simulator"]) {
+      // prefer device name
+      if ([[[NSProcessInfo processInfo] environment] objectForKey:@"SIMULATOR_MODEL_IDENTIFIER"]) {
+        deviceName = [deviceNamesByCode objectForKey:[[[NSProcessInfo processInfo] environment] objectForKey:@"SIMULATOR_MODEL_IDENTIFIER"]];
+      }
+    }
+
     if (!deviceName) {
         // Not found on database. At least guess main device type from string contents:
 
@@ -154,7 +161,16 @@ RCT_EXPORT_MODULE()
 
 - (bool) isEmulator
 {
-  return [self.deviceName isEqual: @"Simulator"];
+  static NSDictionary* deviceNamesByCode = nil;
+
+  if (!deviceNamesByCode) {
+      deviceNamesByCode = @{@"i386"      :@"Simulator",
+                            @"x86_64"    :@"Simulator"
+                          };
+  }
+
+  NSString* deviceName = [deviceNamesByCode objectForKey:self.deviceId];
+  return [deviceName isEqual: @"Simulator"];
 }
 
 - (bool) isTablet
