@@ -14,6 +14,9 @@ module.exports = {
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
+  getDeviceIDFA: function () {
+    return RNDeviceInfo.deviceIDFA;
+  },
   getManufacturer: function () {
     return RNDeviceInfo.systemManufacturer;
   },
@@ -61,5 +64,14 @@ module.exports = {
   },
   isTablet: function() {
     return RNDeviceInfo.isTablet;
+  },
+  getMobileService: function() {
+    return RNDeviceInfo.mobileService;
+  },
+  getCurrentBatteryPercent: function() {
+    return RNDeviceInfo.currentBatteryPercent;
+  },
+  getCurrentNetworkType: function() {
+    return RNDeviceInfo.currentNetworkType;
   },
 };

@@ -35,6 +35,16 @@ RCT_EXPORT_MODULE()
                                     encoding:NSUTF8StringEncoding];
 }
 
+/*! Return the Device IDFA
+ */
+- (NSString *)deviceIDFA{
+    NSString *adid = @"";
+    if(NSClassFromString(@"ASIdentifierManager") && [ASIdentifierManager instancesRespondToSelector:@selector(advertisingIdentifier)] && [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+        adid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    }
+    return adid;
+}
+
 - (NSString*) deviceName
 {
     static NSDictionary* deviceNamesByCode = nil;
@@ -176,6 +186,7 @@ RCT_EXPORT_MODULE()
              @"deviceId": self.deviceId,
              @"deviceName": currentDevice.name,
              @"deviceLocale": self.deviceLocale,
+             @"deviceIDFA": self.deviceIDFA,
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
@@ -186,6 +197,9 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"mobileService": [StatusBarInfo mobileService],
+             @"currentBatteryPercent": [StatusBarInfo currentBatteryPercent],
+             @"currentNetworkType": [StatusBarInfo currentNetworkType],
              };
 }
 

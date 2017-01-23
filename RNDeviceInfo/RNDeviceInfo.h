@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
+#import <AdSupport/AdSupport.h>
+#import "StatusBarInfo.h"
 
 #import <React/RCTBridgeModule.h>
 
