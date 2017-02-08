@@ -11,6 +11,15 @@ module.exports = {
   getInstanceID: function() {
     return RNDeviceInfo.instanceId;
   },
+  getSerialNumber: function () {
+    return RNDeviceInfo.serialNumber;
+  },
+  getIPAddress: function () {
+    return RNDeviceInfo.getIpAddress();
+  },
+  getMACAddress: function () {
+    return RNDeviceInfo.getMacAddress();
+  },
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
@@ -74,5 +83,7 @@ module.exports = {
   getLastUpdateTime: function () {
     return RNDeviceInfo.lastUpdateTime;
   },
-  getPhoneNumber: _ => RNDeviceInfo.phoneNumber
+  getPhoneNumber: function () {
+    return RNDeviceInfo.phoneNumber;
+  }
 };

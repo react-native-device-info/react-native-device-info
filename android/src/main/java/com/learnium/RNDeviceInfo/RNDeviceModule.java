@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -18,6 +21,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -30,9 +34,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   ReactApplicationContext reactContext;
 
+  WifiInfo wifiInfo;
+
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
+
     this.reactContext = reactContext;
+
+
+    WifiManager manager = (WifiManager) reactContext.getSystemService(Context.WIFI_SERVICE);
+    this.wifiInfo = manager.getConnectionInfo();
   }
 
   @Override
@@ -82,6 +93,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     callback.invoke(keyguardManager.isKeyguardSecure());
   }
 
+  @ReactMethod
+  public void getIpAddress(Promise p) {
+    String ipAddress = Formatter.formatIpAddress(wifiInfo.getIpAddress());
+    p.resolve(ipAddress);
+  }
+
+  @ReactMethod
+  public void getMacAddress(Promise p) {
+    String macAddress = wifiInfo.getMacAddress();
+    p.resolve(macAddress);
+  }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -115,6 +138,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
+    constants.put("serialNumber", Build.SERIAL);
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
