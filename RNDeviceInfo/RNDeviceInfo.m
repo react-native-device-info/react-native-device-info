@@ -163,7 +163,7 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
-- (bool) isSecurityEnabled
+- (bool) isPinOrFingerprintSet
 {
   LAContext *context = [[LAContext alloc] init];
   return ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]);
@@ -193,7 +193,7 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
-             @"isSecurityEnabled": @(self.isSecurityEnabled),
+             @"isPinOrFingerprintSet": @(self.isPinOrFingerprintSet),
              };
 }
 

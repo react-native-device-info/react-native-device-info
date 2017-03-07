@@ -71,7 +71,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
-  private Boolean isSecurityEnabled() {
+  private Boolean isPinOrFingerprintSet() {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
     return keyguardManager.isKeyguardSecure();
   }
@@ -120,7 +120,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
-    constants.put("isSecurityEnabled", this.isSecurityEnabled());
+    constants.put("isPinOrFingerprintSet", this.isPinOrFingerprintSet());
     return constants;
   }
 }
