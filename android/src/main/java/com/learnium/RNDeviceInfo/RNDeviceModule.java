@@ -1,6 +1,8 @@
 package com.learnium.RNDeviceInfo;
 
+import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;

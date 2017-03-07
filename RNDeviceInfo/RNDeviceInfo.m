@@ -8,6 +8,7 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface RNDeviceInfo()
 
