@@ -199,6 +199,5 @@ console.log("App is running in emulator", DeviceInfo.isEmulator()); // if app is
 
 console.log("App is running on a tablet", DeviceInfo.isTablet()); // if app is running on a tablet return true
 
-console.log("PIN or fingerprint configured on device", DeviceInfo.isPinOrFingerprintSet()); // if PIN or fingerprint is configured.  
-// For iOS 8.0 and below, this will only return true if Touch ID is enabled
+console.log("PIN or fingerprint configured on device", DeviceInfo.isPinOrFingerprintSet()); // if PIN or fingerprint is configured.  Only supported in Android and iOS 9.0 and above
 ```
