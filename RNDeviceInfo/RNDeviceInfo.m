@@ -179,7 +179,7 @@ RCT_EXPORT_MODULE()
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
-             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
