@@ -163,6 +163,8 @@ var DeviceInfo = require('react-native-device-info');
 console.log("Device Unique ID", DeviceInfo.getUniqueID());  // e.g. FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9
 // * note this is IDFV on iOS so it will change if all apps from the current apps vendor have been previously uninstalled
 
+console.log("Device IDFA", DeviceInfo.getDeviceIDFA());  // e.g. 355594BC-6435-4137-A910-6CD455C8D0A4
+
 console.log("Device Manufacturer", DeviceInfo.getManufacturer());  // e.g. Apple
 
 console.log("Device Brand", DeviceInfo.getBrand());  // e.g. Apple / htc / Xiaomi
@@ -198,4 +200,11 @@ console.log("App Instance ID", DeviceInfo.getInstanceID()); // ANDROID ONLY - se
 console.log("App is running in emulator", DeviceInfo.isEmulator()); // if app is running in emulator return true
 
 console.log("App is running on a tablet", DeviceInfo.isTablet()); // if app is running on a tablet return true
+
+console.log("Mobile service name", DeviceInfo.getMobileService()); // e.g. 中国电信
+
+console.log("Current remaining battery percent", DeviceInfo.getCurrentBatteryPercent()); // e.g. 99%
+
+console.log("Current network type", DeviceInfo.getCurrentNetworkType()); // e.g. 5
+// * note 0 - 无网络; 1 - 2G; 2 - 3G; 3 - 4G; 5 - WIFI
 ```

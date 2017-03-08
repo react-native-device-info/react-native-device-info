@@ -10,6 +10,7 @@
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
 		DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
 		DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */; };
+		F37489261E35EE9D00D98802 /* StatusBarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F37489251E35EE9D00D98802 /* StatusBarInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNDeviceInfo.h; sourceTree = "<group>"; };
 		DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNDeviceInfo.m; sourceTree = "<group>"; };
+		F37489241E35EE9D00D98802 /* StatusBarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusBarInfo.h; sourceTree = "<group>"; };
+		F37489251E35EE9D00D98802 /* StatusBarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusBarInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				76E65CA31D4CA143009B7AF1 /* DeviceUID.m */,
 				DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */,
 				DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */,
+				F37489241E35EE9D00D98802 /* StatusBarInfo.h */,
+				F37489251E35EE9D00D98802 /* StatusBarInfo.m */,
 			);
 			path = RNDeviceInfo;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F37489261E35EE9D00D98802 /* StatusBarInfo.m in Sources */,
 				76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */,
 				DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */,
 			);
