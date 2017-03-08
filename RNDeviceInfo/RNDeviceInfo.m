@@ -166,7 +166,14 @@ RCT_EXPORT_MODULE()
 - (bool) isPinOrFingerprintSet
 {
   LAContext *context = [[LAContext alloc] init];
-  return ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]);
+
+  // Fallback to LAPolicyDeviceOwnerAuthenticationWithBiometrics if iOS version <9.0
+  if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9,0,0}]) {
+    return ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+  }
+  else {
+    return ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil]);
+  }
 }
 
 - (NSDictionary *)constantsToExport
