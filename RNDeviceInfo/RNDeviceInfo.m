@@ -8,6 +8,7 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface RNDeviceInfo()
 
@@ -162,6 +163,12 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+- (bool) isPinOrFingerprintSet
+{
+  LAContext *context = [[LAContext alloc] init];
+  return ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -186,6 +193,7 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"isPinOrFingerprintSet": @(self.isPinOrFingerprintSet),
              };
 }
 

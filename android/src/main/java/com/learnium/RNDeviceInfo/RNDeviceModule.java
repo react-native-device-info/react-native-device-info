@@ -1,6 +1,8 @@
 package com.learnium.RNDeviceInfo;
 
+import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -69,6 +71,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
+  private Boolean isPinOrFingerprintSet() {
+    KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
+    return keyguardManager.isKeyguardSecure();
+  }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -115,6 +122,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("isPinOrFingerprintSet", this.isPinOrFingerprintSet());
     return constants;
   }
 }
