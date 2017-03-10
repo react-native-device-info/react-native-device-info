@@ -8,6 +8,7 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface RNDeviceInfo()
 
@@ -179,7 +180,7 @@ RCT_EXPORT_MODULE()
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
-             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
              @"systemManufacturer": @"Apple",
              @"userAgent": self.userAgent,
@@ -187,6 +188,13 @@ RCT_EXPORT_MODULE()
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
              };
+}
+
+RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
+{
+    LAContext *context = [[LAContext alloc] init];
+    BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+    callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
 @end
