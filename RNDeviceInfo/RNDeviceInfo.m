@@ -163,12 +163,6 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
-- (bool) isPinOrFingerprintSet
-{
-  LAContext *context = [[LAContext alloc] init];
-  return ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
-}
-
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -193,8 +187,14 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
-             @"isPinOrFingerprintSet": @(self.isPinOrFingerprintSet),
              };
+}
+
+RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
+{
+    LAContext *context = [[LAContext alloc] init];
+    BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+    callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
 @end
