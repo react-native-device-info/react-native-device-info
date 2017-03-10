@@ -13,6 +13,8 @@ import com.google.android.gms.iid.InstanceID;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.Callback;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -71,9 +73,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
-  private Boolean isPinOrFingerprintSet() {
+  @ReactMethod
+  public void isPinOrFingerprintSet(Callback callback) {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
-    return keyguardManager.isKeyguardSecure();
+    callback.invoke(keyguardManager.isKeyguardSecure());
   }
 
   @Override
@@ -122,7 +125,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
-    constants.put("isPinOrFingerprintSet", this.isPinOrFingerprintSet());
     return constants;
   }
 }

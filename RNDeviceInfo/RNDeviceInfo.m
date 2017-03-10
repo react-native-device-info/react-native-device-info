@@ -193,10 +193,8 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {
     LAContext *context = [[LAContext alloc] init];
-    BOOL b = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    [array addObject:[NSNumber numberWithBool:b]];
-    callback(@[array]);
+    BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+    callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
 @end
