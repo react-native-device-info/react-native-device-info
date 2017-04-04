@@ -182,6 +182,7 @@ var DeviceInfo = require('react-native-device-info');
 | App Instance ID            | `getInstanceID()`                |                                                                                               | ANDROID ONLY - see https://developers.google.com/instance-id/                                                    |
 | App is running in emulator | `isEmulator()`                   | true                                                                                          | if app is running in emulator return true                                                                        |
 | App is running on a tablet | `isTablet()`                     | true                                                                                          | if app is running on a tablet return true                                                                        |
+| App is running in developer mode | `isDeveloperModeEnabled()`                     | true                                                                                          | ANDROID ONLY!! If app is running in developer mode
 | PIN or fingerprint set     | `isPinOrFingerprintSet(callback)`|                                                                                               | Only supported in Android and iOS 9.0 and above
 
 Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.  To use, pass a callback function in your javascript:
