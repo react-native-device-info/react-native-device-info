@@ -65,4 +65,5 @@ module.exports = {
   isPinOrFingerprintSet: function () {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
+  getPhoneNumber: _ => RNDeviceInfo.phoneNumber
 };
