@@ -1,20 +1,27 @@
-export function getUniqueID(): string;
-export function getManufacturer(): string;
-export function getBrand(): string;
-export function getModel(): string;
-export function getDeviceId(): string;
-export function getSystemName(): string;
-export function getSystemVersion(): string;
-export function getBundleId(): string;
-export function getBuildNumber(): number;
-export function getVersion(): string;
-export function getReadableVersion(): string;
-export function getDeviceName(): string;
-export function getUserAgent(): string;
-export function getDeviceLocale(): string;
-export function getDeviceCountry(): string;
-export function getTimezone(): string;
-export function getInstanceID(): string;
-export function isEmulator(): boolean;
-export function isTablet(): boolean;
-export function isPinOrFingerprintSet(cb: (isSet: boolean) => void): void;
+// should be imported this way: 
+// import DeviceInfo from 'react-native-device-info';
+
+declare class DeviceInfo {
+  public static getUniqueID(): string;
+  public static getManufacturer(): string;
+  public static getBrand(): string;
+  public static getModel(): string;
+  public static getDeviceId(): string;
+  public static getSystemName(): string;
+  public static getSystemVersion(): string;
+  public static getBundleId(): string;
+  public static getBuildNumber(): string;
+  public static getVersion(): string;
+  public static getReadableVersion(): string;
+  public static getDeviceName(): string;
+  public static getUserAgent(): string;
+  public static getDeviceLocale(): string;
+  public static getDeviceCountry(): string;
+  public static getTimezone(): string;
+  public static getInstanceID(): string;
+  public static isEmulator(): boolean;
+  public static isTablet(): boolean;
+  public static isPinOrFingerprintSet(cb: (isSet: boolean) => void): void;
+}
+
+export default DeviceInfo;
