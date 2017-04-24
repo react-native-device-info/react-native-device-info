@@ -1,9 +1,9 @@
 {
   "name": "react-native-device-info",
-  "version": "0.9.6",
+  "version": "0.10.2",
   "description": "Get device information using react-native",
   "main": "deviceinfo.js",
-  "types": "deviceinfo.d.ts",
+  "typings": "./deviceinfo.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/rebeccahughes/react-native-device-info"
