@@ -14,12 +14,9 @@ import com.facebook.react.bridge.JavaScriptModule;
 public class RNDeviceInfo implements ReactPackage {
 
   @Override
-  public List<NativeModule> createNativeModules(
-                              ReactApplicationContext reactContext) {
-    List<NativeModule> modules = new ArrayList<>();
-
+  public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+    List<NativeModule> modules = new ArrayList<NativeModule>();
     modules.add(new RNDeviceModule(reactContext));
-
     return modules;
   }
 
@@ -29,9 +26,7 @@ public class RNDeviceInfo implements ReactPackage {
   }
 
   @Override
-  public List<ViewManager> createViewManagers(
-                            ReactApplicationContext reactContext) {
+  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
   	return Collections.emptyList();
   }
-
 }
