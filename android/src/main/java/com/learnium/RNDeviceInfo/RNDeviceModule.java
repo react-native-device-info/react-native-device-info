@@ -9,12 +9,11 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
 
-import com.google.android.gms.iid.InstanceID;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -109,7 +108,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
 
-    constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
+    constants.put("instanceId", FirebaseInstanceId.getInstance().getId());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
