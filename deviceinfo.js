@@ -47,6 +47,9 @@ module.exports = {
   getUserAgent: function() {
     return RNDeviceInfo.userAgent;
   },
+  getWebViewUserAgent: function() {
+    return RNDeviceInfo.webViewUserAgent;
+  },
   getDeviceLocale: function() {
     return RNDeviceInfo.deviceLocale;
   },
