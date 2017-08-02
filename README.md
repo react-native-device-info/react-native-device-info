@@ -10,6 +10,8 @@ Device Information for [React Native](https://github.com/facebook/react-native)
 npm install --save react-native-device-info
 ```
 
+#### RN > 0.47 use 0.11 or higher
+
 ## Automatically link
 
 #### With React Native 0.27+
@@ -165,7 +167,7 @@ var DeviceInfo = require('react-native-device-info');
 | :------------------------- | :------------------------------- | :-------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
 | Device Unique ID           | `getUniqueID()`                  | FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9                                                          | This is IDFV on iOS so it will change if all apps from the current apps vendor have been previously uninstalled. |
 | Device Manufacturer        | `getManufacturer()`              | Apple                                                                                         |                                                                                                                  |
-| Device Brand               | `getBrand()`                     | Apple / htc / Xiaomi                                                                          |                                                                                                                  |           
+| Device Brand               | `getBrand()`                     | Apple / htc / Xiaomi                                                                          |                                                                                                                  |
 | Device Model               | `getModel()`                     | iPhone 6                                                                                      |                                                                                                                  |
 | Device ID                  | `getDeviceId()`                  | iPhone7,2                                                                                     | Or the board on Android e.g. goldfish                                                                            |
 | System Name                | `getSystemName()`                | iPhone OS                                                                                     |                                                                                                                  |
