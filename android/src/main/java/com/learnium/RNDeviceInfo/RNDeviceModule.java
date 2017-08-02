@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
+import android.provider.Settings.Global;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -73,6 +74,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
+  private Boolean isDeveloperModeEnabled() {
+    int isDeveloperModeEnabled = 0;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isDeveloperModeEnabled = Global.getInt(this.reactContext.getContentResolver(), Global.DEVELOPMENT_SETTINGS_ENABLED, 0);
+    } else {
+      isDeveloperModeEnabled = Secure.getInt(this.reactContext.getContentResolver(), Secure.DEVELOPMENT_SETTINGS_ENABLED, 0);
+    }
+
+    return (isDeveloperModeEnabled == 1);
+  }
+
   @ReactMethod
   public void isPinOrFingerprintSet(Callback callback) {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
@@ -125,6 +137,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("isDeveloperModeEnabled", this.isDeveloperModeEnabled());
     return constants;
   }
 }
