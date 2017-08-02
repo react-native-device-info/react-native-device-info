@@ -8,6 +8,9 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
+import android.annotation.TargetApi;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -16,6 +19,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -73,6 +78,25 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
+  private String getWebViewUserAgent(Context context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      return WebSettings.getDefaultUserAgent(context);
+    }
+    else {
+      try {
+        final Class<?> webSettingsClassicClass = Class.forName("android.webkit.WebSettingsClassic");
+        final Constructor<?> constructor = webSettingsClassicClass.getDeclaredConstructor(Context.class, Class.forName("android.webkit.WebViewClassic"));
+        constructor.setAccessible(true);
+        final Method method = webSettingsClassicClass.getMethod("getUserAgentString");
+        return (String) method.invoke(constructor.newInstance(context, null));
+      }
+      catch (final Exception e) {
+        return new WebView(context).getSettings()
+        .getUserAgentString();
+      }
+    }
+  }
+
   @ReactMethod
   public void isPinOrFingerprintSet(Callback callback) {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
@@ -109,6 +133,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
 
+    Context context = (Context) this.reactContext;
+
     constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
@@ -122,9 +148,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     constants.put("userAgent", System.getProperty("http.agent"));
+    constants.put("webViewUserAgent", this.getWebViewUserAgent(context));
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+
     return constants;
   }
 }

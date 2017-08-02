@@ -1,4 +1,4 @@
-// should be imported this way: 
+// should be imported this way:
 // import DeviceInfo from 'react-native-device-info';
 
 declare class DeviceInfo {
@@ -15,6 +15,7 @@ declare class DeviceInfo {
   public static getReadableVersion(): string;
   public static getDeviceName(): string;
   public static getUserAgent(): string;
+  public static getWebViewUserAgent(): string;
   public static getDeviceLocale(): string;
   public static getDeviceCountry(): string;
   public static getTimezone(): string;
