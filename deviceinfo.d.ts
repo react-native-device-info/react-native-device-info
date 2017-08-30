@@ -10,6 +10,7 @@ declare class DeviceInfo {
   public static getSystemName(): string;
   public static getSystemVersion(): string;
   public static getBundleId(): string;
+  public static getApplicationName(): string;
   public static getBuildNumber(): string;
   public static getVersion(): string;
   public static getReadableVersion(): string;

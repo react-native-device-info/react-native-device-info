@@ -184,7 +184,8 @@ var DeviceInfo = require('react-native-device-info');
 | App Instance ID            | `getInstanceID()`                  |                                                                                               | ANDROID ONLY - see https://developers.google.com/instance-id/                                                    |
 | App is running in emulator | `isEmulator()`                     | true                                                                                          | if app is running in emulator return true                                                                        |
 | App is running on a tablet | `isTablet()`                       | true                                                                                          | if app is running on a tablet return true                                                                        |
-| PIN or fingerprint set     | `isPinOrFingerprintSet()(callback)`|                                                                                               | Only supported in Android and iOS 9.0 and above
+| PIN or fingerprint set     | `isPinOrFingerprintSet()(callback)`|                                                                                               | Only supported in Android and iOS 9.0 and above                                                                  |
+| App Name                   | `getApplicationName()`             | Learnium Mobile                                                                               |                                                                                                                  |
 
 Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.  To use, pass a callback function to the returned bridge function in your javascript:
 

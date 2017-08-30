@@ -4,6 +4,7 @@ import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -85,15 +86,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
-
+    String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
+    
     constants.put("appVersion", "not available");
+    constants.put("appName", "not available");
     constants.put("buildVersion", "not available");
     constants.put("buildNumber", 0);
 
     try {
-      PackageInfo info = packageManager.getPackageInfo(packageName, 0);
-      constants.put("appVersion", info.versionName);
-      constants.put("buildNumber", info.versionCode);
+      PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+      ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+      constants.put("appVersion", packageInfo.versionName);
+      constants.put("buildNumber", packageInfo.versionCode);
+      constants.put("appName", packageManager.getApplicationLabel(applicationInfo).toString());
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
