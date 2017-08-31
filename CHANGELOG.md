@@ -1,5 +1,7 @@
 ## Release Notes
 
+### 0.11.1
+add a new parameter, Display Name
 ### 0.9.7
 
 Several bugfixes and detecting if device is a tablet
@@ -43,3 +45,5 @@ adds two new parameters, Device Locale and User Agent.
 ### 0.5.0
 
 adds a new parameter; Device Id. On iOS this is the hardware string for the current device (e.g. "iPhone7,2"). On Android we use the BOARD field which is the name of the underlying board, e.g. "goldfish". The way that the module gets the device model on iOS has also changed to be based on the Device Id; now instead of getting a generic product family e.g. "iPhone", it will return the specific model e.g. "iPhone 6".
+
+

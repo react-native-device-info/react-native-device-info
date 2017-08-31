@@ -172,6 +172,7 @@ var DeviceInfo = require('react-native-device-info');
 | Device ID                  | `getDeviceId()`                    | iPhone7,2                                                                                     | Or the board on Android e.g. goldfish                                                                            |
 | System Name                | `getSystemName()`                  | iPhone OS                                                                                     |                                                                                                                  |
 | System Version             | `getSystemVersion()`               | 9.0                                                                                           |                                                                                                                  |
+| Application Display Name             | `getDisplayName()`               | Your app name                                                                                         |                                                                                                                  |
 | Bundle ID                  | `getBundleId()`                    | com.learnium.mobile                                                                           |                                                                                                                  |
 | Build Number               | `getBuildNumber()`                 | 89                                                                                            |                                                                                                                  |
 | App Version                | `getVersion()`                     | 1.1.0                                                                                         |                                                                                                                  |
@@ -195,3 +196,5 @@ RNDeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   }
 }
 ```
+
+
