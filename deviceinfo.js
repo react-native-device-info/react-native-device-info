@@ -38,6 +38,9 @@ module.exports = {
   getVersion: function() {
     return RNDeviceInfo.appVersion;
   },
+  getDisplayName: function() {
+    return RNDeviceInfo.displayName;
+  },
   getReadableVersion: function() {
     return RNDeviceInfo.appVersion + "." + RNDeviceInfo.buildNumber;
   },

@@ -13,6 +13,7 @@ declare class DeviceInfo {
   public static getBuildNumber(): string;
   public static getVersion(): string;
   public static getReadableVersion(): string;
+  public static getDisplayName():string;
   public static getDeviceName(): string;
   public static getUserAgent(): string;
   public static getDeviceLocale(): string;
