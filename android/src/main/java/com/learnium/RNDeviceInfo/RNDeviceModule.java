@@ -94,6 +94,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       PackageInfo info = packageManager.getPackageInfo(packageName, 0);
       constants.put("appVersion", info.versionName);
       constants.put("buildNumber", info.versionCode);
+      applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+      constants.put("displayName", packageManager.getApplicationLable(applicationInfo));
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
