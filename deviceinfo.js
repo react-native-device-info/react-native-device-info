@@ -5,64 +5,27 @@
 var RNDeviceInfo = require('react-native').NativeModules.RNDeviceInfo;
 
 module.exports = {
-  getUniqueID: function () {
-    return RNDeviceInfo.uniqueId;
-  },
-  getInstanceID: function() {
-    return RNDeviceInfo.instanceId;
-  },
-  getDeviceId: function () {
-    return RNDeviceInfo.deviceId;
-  },
-  getManufacturer: function () {
-    return RNDeviceInfo.systemManufacturer;
-  },
-  getModel: function () {
-    return RNDeviceInfo.model;
-  },
-  getBrand: function () {
-    return RNDeviceInfo.brand;
-  },
-  getSystemName: function () {
-    return RNDeviceInfo.systemName;
-  },
-  getSystemVersion: function () {
-    return RNDeviceInfo.systemVersion;
-  },
-  getBundleId: function() {
-    return RNDeviceInfo.bundleId;
-  },
-  getBuildNumber: function() {
-    return RNDeviceInfo.buildNumber;
-  },
-  getVersion: function() {
-    return RNDeviceInfo.appVersion;
-  },
-  getReadableVersion: function() {
-    return RNDeviceInfo.appVersion + "." + RNDeviceInfo.buildNumber;
-  },
-  getDeviceName: function() {
-    return RNDeviceInfo.deviceName;
-  },
-  getUserAgent: function() {
-    return RNDeviceInfo.userAgent;
-  },
-  getDeviceLocale: function() {
-    return RNDeviceInfo.deviceLocale;
-  },
-  getDeviceCountry: function() {
-    return RNDeviceInfo.deviceCountry;
-  },
-  getTimezone: function() {
-    return RNDeviceInfo.timezone;
-  },
-  isEmulator: function() {
-    return RNDeviceInfo.isEmulator;
-  },
-  isTablet: function() {
-    return RNDeviceInfo.isTablet;
-  },
-  isPinOrFingerprintSet: function () {
-    return RNDeviceInfo.isPinOrFingerprintSet;
-  },
+  getUniqueID: _ => RNDeviceInfo.uniqueId,
+  getInstanceID: _ => RNDeviceInfo.instanceId,
+  getSerialNumber: _ => RNDeviceInfo.serialNumber,
+  getIPAddress: _ => RNDeviceInfo.getIpAddress(),
+  getMACAddress: _ => RNDeviceInfo.getMacAddress(),
+  getDeviceId: _ => RNDeviceInfo.deviceId,
+  getManufacturer: _ => RNDeviceInfo.systemManufacturer,
+  getModel: _ => RNDeviceInfo.model,
+  getBrand: _ => RNDeviceInfo.brand,
+  getSystemName: _ => RNDeviceInfo.systemName,
+  getSystemVersion: _ => RNDeviceInfo.systemVersion,
+  getBundleId: _ => RNDeviceInfo.bundleId,
+  getBuildNumber: _ => RNDeviceInfo.buildNumber,
+  getVersion: _ => RNDeviceInfo.appVersion,
+  getReadableVersion: _ => RNDeviceInfo.appVersion + "." + RNDeviceInfo.buildNumber,
+  getDeviceName: _ => RNDeviceInfo.deviceName,
+  getUserAgent: _ => RNDeviceInfo.userAgent,
+  getDeviceLocale: _ => RNDeviceInfo.deviceLocale,
+  getDeviceCountry: _ => RNDeviceInfo.deviceCountry,
+  getTimezone: _ => RNDeviceInfo.timezone,
+  isEmulator: _ => RNDeviceInfo.isEmulator,
+  isTablet: _ => RNDeviceInfo.isTablet,
+  isPinOrFingerprintSet: _ => RNDeviceInfo.isPinOrFingerprintSet,
 };
