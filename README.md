@@ -4,10 +4,16 @@
 
 Device Information for [React Native](https://github.com/facebook/react-native)
 
-## Install
+## Notes
+
+- This is fork from [rebeccahughes react-native-device-info](https://github.com/rebeccahughes/react-native-device-info)
+- Include [passabilities](https://github.com/zeemyself/react-native-device-info/pull/1) pull request with modified getMac() to work
+
+
+## Install my fork
 
 ```shell
-npm install --save react-native-device-info
+yarn add https://github.com/zeemyself/react-native-device-info
 ```
 
 #### RN > 0.47 use 0.11 or higher
