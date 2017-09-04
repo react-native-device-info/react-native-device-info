@@ -4,10 +4,16 @@
 
 Device Information for [React Native](https://github.com/facebook/react-native)
 
-## Install
+## Notes
+
+- This is fork from [rebeccahughes react-native-device-info](https://github.com/rebeccahughes/react-native-device-info)
+- Include [passabilities](https://github.com/zeemyself/react-native-device-info/pull/1) pull request with modified getMac() to work
+
+
+## Install my fork
 
 ```shell
-npm install --save react-native-device-info
+yarn add https://github.com/zeemyself/react-native-device-info
 ```
 
 #### RN > 0.47 use 0.11 or higher
@@ -187,7 +193,7 @@ var DeviceInfo = require('react-native-device-info');
 | PIN or fingerprint set     | `isPinOrFingerprintSet(callback)`|                                                                                               | Only supported in Android and iOS 9.0 and above
 | Serial Number              | `getSerialNumber()`              |                                                                                               | Only supported in Android
 | IP Address                 | `getIPAddress()`                 |                                                                                               | Only supported in Android
-| MAC Address                | `getMACAddress()`                |                                                                                               | Only supported in Android
+| MAC Address                | `getMac()`                |                                                                                               | Only work with android <= 5.0 else return 02:00:00:00:00:00
 
 Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.  To use, pass a callback function in your javascript:
 

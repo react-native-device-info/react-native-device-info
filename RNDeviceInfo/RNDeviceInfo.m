@@ -187,6 +187,7 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"mac": @"02:00:00:00:00:00",
              };
 }
 

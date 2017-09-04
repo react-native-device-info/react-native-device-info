@@ -10,6 +10,7 @@ module.exports = {
   getSerialNumber: _ => RNDeviceInfo.serialNumber,
   getIPAddress: _ => RNDeviceInfo.getIpAddress(),
   getMACAddress: _ => RNDeviceInfo.getMacAddress(),
+  getMac: _ => RNDeviceInfo.mac,
   getDeviceId: _ => RNDeviceInfo.deviceId,
   getManufacturer: _ => RNDeviceInfo.systemManufacturer,
   getModel: _ => RNDeviceInfo.model,
