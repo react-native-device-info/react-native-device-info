@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
+import android.content.Context;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -53,6 +55,21 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getCurrentCountry() {
+    try {
+      final TelephonyManager tm = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+      final String simCountry = tm.getSimCountryIso();
+      if (simCountry != null && simCountry.length() == 2) { // SIM country code is available
+        return simCountry.toUpperCase(Locale.US);
+      }
+      else if (tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) { // device is not 3G (would be unreliable)
+        String networkCountry = tm.getNetworkCountryIso();
+        if (networkCountry != null && networkCountry.length() == 2) { // network country code is available
+          return networkCountry.toUpperCase(Locale.US);
+        }
+      }
+    }
+    catch (Exception e) { }
+    // fallback    
     Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
     return current.getCountry();
   }
