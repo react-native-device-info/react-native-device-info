@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
+		BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
 		DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
 		DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */; };
 /* End PBXBuildFile section */
@@ -19,6 +20,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */,
 				DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,7 +224,7 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
 					"$(SRCROOT)/../react-native/React/**",
-					"$(SRCROOT)/../../../node_modules/react-native/React/**"
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -240,7 +242,7 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
 					"$(SRCROOT)/../react-native/React/**",
-					"$(SRCROOT)/../../../node_modules/react-native/React/**"
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
