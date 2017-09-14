@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
+import android.webkit.WebSettings;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -121,7 +122,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
-    constants.put("userAgent", System.getProperty("http.agent"));
+    constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
