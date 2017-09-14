@@ -163,6 +163,12 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+- (NSArray*)deviceFonts
+{
+    NSArray *fonts = [UIFont familyNames];
+    return fonts;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -187,6 +193,7 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"deviceFonts":self.deviceFonts,
              };
 }
 
