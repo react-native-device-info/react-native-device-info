@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
+import android.telephony.TelephonyManager;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -84,6 +85,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
+    TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
 
@@ -126,6 +128,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("phoneNumber", telMgr.getLine1Number());
     return constants;
   }
 }
