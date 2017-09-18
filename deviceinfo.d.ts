@@ -21,3 +21,5 @@ export function getInstanceID(): string;
 export function isEmulator(): boolean;
 export function isTablet(): boolean;
 export function isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
+export function getFirstInstallTime(): string;
+export function getLastUpdateTime(): string;
