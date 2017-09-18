@@ -20,8 +20,8 @@ module.exports = {
   getIPAddress: function () {
     return RNDeviceInfo.getIpAddress();
   },
-  getMACAddress: function () {
-    return RNDeviceInfo.getMacAddress()
+  getMac: function () {
+    return RNDeviceInfo.mac;
   },
   getManufacturer: function () {
     return RNDeviceInfo.systemManufacturer;
