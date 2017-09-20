@@ -1,5 +1,6 @@
 package com.learnium.RNDeviceInfo;
 
+import android.Manifest;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -126,11 +127,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
-    constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
+    }
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
-    constants.put("phoneNumber", telMgr.getLine1Number());
+    if (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+      constants.put("phoneNumber", telMgr.getLine1Number());
+    }
     return constants;
   }
 }
