@@ -68,4 +68,11 @@ module.exports = {
   isPinOrFingerprintSet: function () {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
+  getFirstInstallTime: function () {
+    return RNDeviceInfo.firstInstallTime;
+  },
+  getLastUpdateTime: function () {
+    return RNDeviceInfo.lastUpdateTime;
+  },
+  getPhoneNumber: _ => RNDeviceInfo.phoneNumber
 };

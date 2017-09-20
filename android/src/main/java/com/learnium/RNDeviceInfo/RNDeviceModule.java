@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
+import android.webkit.WebSettings;
+import android.telephony.TelephonyManager;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -84,6 +86,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
+    TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
     String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
@@ -95,9 +98,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-      ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
-      constants.put("appVersion", packageInfo.versionName);
-      constants.put("buildNumber", packageInfo.versionCode);
+      PackageInfo info = packageManager.getPackageInfo(packageName, 0);
+      constants.put("appVersion", info.versionName);
+      constants.put("buildNumber", info.versionCode);
+      constants.put("firstInstallTime", info.firstInstallTime);
+      constants.put("lastUpdateTime", info.lastUpdateTime);
       constants.put("appName", packageManager.getApplicationLabel(applicationInfo).toString());
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
@@ -126,10 +131,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
-    constants.put("userAgent", System.getProperty("http.agent"));
+    constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("phoneNumber", telMgr.getLine1Number());
     return constants;
   }
 }

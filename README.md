@@ -143,13 +143,14 @@ include ':app'
 
 (Thanks to @josephan for writing the instructions)
 
-## Device Name
+## Permissions
 
-If you want to get the device name in Android add this to your `AndroidManifest.xml` (optional):
+Add the appropriate, optional permissions to your `AndroidManifest.xml`:
 
 ```xml
 ...
-<uses-permission android:name="android.permission.BLUETOOTH"/>
+<uses-permission android:name="android.permission.BLUETOOTH"/>         <!-- for Device Name -->
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>  <!-- for Phone Number -->
 ```
 
 ## Release Notes
@@ -184,8 +185,12 @@ var DeviceInfo = require('react-native-device-info');
 | App Instance ID            | `getInstanceID()`                  |                                                                                               | ANDROID ONLY - see https://developers.google.com/instance-id/                                                    |
 | App is running in emulator | `isEmulator()`                     | true                                                                                          | if app is running in emulator return true                                                                        |
 | App is running on a tablet | `isTablet()`                       | true                                                                                          | if app is running on a tablet return true                                                                        |
-| PIN or fingerprint set     | `isPinOrFingerprintSet()(callback)`|                                                                                               | Only supported in Android and iOS 9.0 and above                                                                  |
+| PIN or fingerprint set     | `isPinOrFingerprintSet()(callback)`|                                                                                               | Only supported in Android and iOS 9.0 and above
+| Phone Number               | `getPhoneNumber()`                 | "2348675309" or "" or null                                                                    | Only supported in Android
+| First Install Time         | `getFirstInstallTime()`            | 1505607068808                                                                                 | Only supported in Android                                                                                          |
+| Last Install Time          | `getLastUpdateTime()`              | 1505607068808                                                                                 | Only supported in Android                                                                                          |
 | App Name                   | `getApplicationName()`             | Learnium Mobile                                                                               |                                                                                                                  |
+
 
 Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.  To use, pass a callback function to the returned bridge function in your javascript:
 
