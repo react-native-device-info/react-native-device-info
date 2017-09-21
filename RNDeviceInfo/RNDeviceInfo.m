@@ -11,13 +11,15 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 
 @interface RNDeviceInfo()
-
+@property (nonatomic) bool isEmulator;
 @end
 
 @implementation RNDeviceInfo
 {
 
 }
+
+@synthesize isEmulator;
 
 RCT_EXPORT_MODULE()
 
@@ -31,9 +33,18 @@ RCT_EXPORT_MODULE()
     struct utsname systemInfo;
 
     uname(&systemInfo);
-
-    return [NSString stringWithCString:systemInfo.machine
-                                    encoding:NSUTF8StringEncoding];
+    
+    NSString* deviceId = [NSString stringWithCString:systemInfo.machine
+                                            encoding:NSUTF8StringEncoding];
+    
+    if ([deviceId isEqualToString:@"i386"] || [deviceId isEqualToString:@"x86_64"] ) {
+        deviceId = [NSString stringWithFormat:@"%s", getenv("SIMULATOR_MODEL_IDENTIFIER")];
+        self.isEmulator = YES;
+    } else {
+        self.isEmulator = NO;
+    }
+    
+    return deviceId;
 }
 
 - (NSString*) deviceName
@@ -41,10 +52,8 @@ RCT_EXPORT_MODULE()
     static NSDictionary* deviceNamesByCode = nil;
 
     if (!deviceNamesByCode) {
-
-        deviceNamesByCode = @{@"i386"      :@"Simulator",
-                              @"x86_64"    :@"Simulator",
-                              @"iPod1,1"   :@"iPod Touch",      // (Original)
+        
+        deviceNamesByCode = @{@"iPod1,1"   :@"iPod Touch",      // (Original)
                               @"iPod2,1"   :@"iPod Touch",      // (Second Generation)
                               @"iPod3,1"   :@"iPod Touch",      // (Third Generation)
                               @"iPod4,1"   :@"iPod Touch",      // (Fourth Generation)
@@ -86,6 +95,9 @@ RCT_EXPORT_MODULE()
                               @"iPhone9,3" :@"iPhone 7",        // (model A1778 | Global)
                               @"iPhone9,2" :@"iPhone 7 Plus",   // (model A1661 | CDMA)
                               @"iPhone9,4" :@"iPhone 7 Plus",   // (model A1784 | Global)
+                              @"iPhone10,3":@"iPhone X",        //
+                              @"iPhone10,4":@"iPhone 8",        //
+                              @"iPhone10,5":@"iPhone 8 Plus",   //
                               @"iPad4,1"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Cellular
                               @"iPad4,3"   :@"iPad Air",        // 5th Generation iPad (iPad Air)
@@ -151,11 +163,6 @@ RCT_EXPORT_MODULE()
 {
   NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
   return currentTimeZone.name;
-}
-
-- (bool) isEmulator
-{
-  return [self.deviceName isEqual: @"Simulator"];
 }
 
 - (bool) isTablet
