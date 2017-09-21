@@ -155,8 +155,8 @@ RCT_EXPORT_MODULE()
 
 - (NSString*) deviceCountry
 {
-    NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-    return country;
+  NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+  return country;
 }
 
 - (NSString*) timezone
