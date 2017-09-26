@@ -29,6 +29,9 @@ module.exports = {
   getSystemVersion: function () {
     return RNDeviceInfo.systemVersion;
   },
+  getAPILevel: function () {
+    return RNDeviceInfo.apiLevel;
+  },
   getBundleId: function() {
     return RNDeviceInfo.bundleId;
   },

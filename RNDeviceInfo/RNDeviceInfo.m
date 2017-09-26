@@ -187,6 +187,7 @@ RCT_EXPORT_MODULE()
     return @{
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
+             @"apiLevel": @"not available",
              @"model": self.deviceName,
              @"brand": @"Apple",
              @"deviceId": self.deviceId,
