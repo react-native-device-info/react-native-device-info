@@ -144,6 +144,9 @@ RCT_EXPORT_MODULE()
         else if([self.deviceId rangeOfString:@"iPhone"].location != NSNotFound){
             deviceName = @"iPhone";
         }
+        else if([self.deviceId rangeOfString:@"AppleTV"].location != NSNotFound){
+            deviceName = @"Apple TV";
+        }
     }
 
     return deviceName;
@@ -151,8 +154,12 @@ RCT_EXPORT_MODULE()
 
 - (NSString*) userAgent
 {
+#if TARGET_OS_TV
+    return @"not available";
+#else
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+#endif
 }
 
 - (NSString*) deviceLocale
