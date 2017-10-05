@@ -1,5 +1,39 @@
 ## Release Notes
 
+### Upcoming
+
+[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/1aafc6f0b20d7cd6f0939ea5370e9899e4914c93...master)
+
+### 0.11.0
+
+- Add support for RN > 0.47
+- Update typescript definitions
+
+[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/5b869cdd5e16b65cbe4e85a565aa331bd7546b89...1aafc6f0b20d7cd6f0939ea5370e9899e4914c93)
+
+### 0.10.2
+
+- Add typescript definitions
+
+[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/f3967862711892615e7f51d49d0034ee134f3e3d...5b869cdd5e16b65cbe4e85a565aa331bd7546b89)
+
+### 0.10.1
+
+- Add `isPinOrFingerprintSet` method
+- Add support for RN > 0.40
+
+[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/c843144ea872a79f4d53a53b32f72511fbfc8d8b...f3967862711892615e7f51d49d0034ee134f3e3d)
+
+### 0.10.0
+
+- Semver fix
+
+[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/e8bfe5ea8d5f5414f2f97f35a5d02b611cbe39e3...c843144ea872a79f4d53a53b32f72511fbfc8d8b)
+
+### 0.9.8
+
+[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/668996c64e23f477fc8156cdc43a49198b4fdd20...e8bfe5ea8d5f5414f2f97f35a5d02b611cbe39e3)
+
 ### 0.9.7
 
 Several bugfixes and detecting if device is a tablet
