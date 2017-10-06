@@ -13,6 +13,7 @@
 - Add android only `getAPILevel` method (https://github.com/rebeccahughes/react-native-device-info/pull/232)
 - Add Android support for serial number, IP, and MAC address (https://github.com/rebeccahughes/react-native-device-info/pull/150)
 - Add tvOS support (https://github.com/rebeccahughes/react-native-device-info/pull/235)
+- Add flow types
 
 [Diff](https://github.com/rebeccahughes/react-native-device-info/compare/1aafc6f0b20d7cd6f0939ea5370e9899e4914c93...master)
 
