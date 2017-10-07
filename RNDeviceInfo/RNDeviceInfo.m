@@ -15,18 +15,16 @@
 @end
 
 @implementation RNDeviceInfo
-{
-
-}
 
 @synthesize isEmulator;
 
 RCT_EXPORT_MODULE()
-
-- (dispatch_queue_t)methodQueue
+    
++ (BOOL)requiresMainQueueSetup
 {
-    return dispatch_get_main_queue();
+   return YES;
 }
+
 
 - (NSString*) deviceId
 {
