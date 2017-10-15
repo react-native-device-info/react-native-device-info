@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/rebeccahughes/react-native-device-info"
   },
+  "scripts": {
+    "shipit": "np"
+  },
   "keywords": [
     "react-component",
     "react-native",
@@ -19,10 +22,15 @@
     "cocoapod"
   ],
   "author": "Rebecca Hughes <rebecca@learnium.net> (https://github.com/rebeccahughes)",
-  "contributors": [{
-    "name": "Gant Laborde",
-    "email": "gant@infinite.red",
-    "url": "https://github.com/gantman"
-  }],
-  "license": "MIT"
+  "contributors": [
+    {
+      "name": "Gant Laborde",
+      "email": "gant@infinite.red",
+      "url": "https://github.com/gantman"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "np": "^2.16.0"
+  }
 }

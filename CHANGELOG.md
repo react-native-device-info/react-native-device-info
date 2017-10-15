@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### 0.12.0
+
 - Get real WebView UserAgent on Android (https://github.com/rebeccahughes/react-native-device-info/pull/207)
 - Add DeviceUID.h to public headers (https://github.com/rebeccahughes/react-native-device-info/pull/217)
 - Add `getPhoneNumber` (https://github.com/rebeccahughes/react-native-device-info/pull/174)
@@ -52,7 +54,7 @@
 
 Several bugfixes and detecting if device is a tablet
 
-### 0.9.3 
+### 0.9.3
 
 adds support for Brand information e.g. apple, htc, etc
 
