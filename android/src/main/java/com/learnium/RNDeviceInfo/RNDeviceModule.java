@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.annotation.Nullable;
-import android.telephony.TelephonyManager;
 
 public class RNDeviceModule extends ReactContextBaseJavaModule {
 
@@ -112,7 +111,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
-	String IMSI, IMEI, MSISDN;
+	String IMSI, IMEI;
 
     constants.put("appVersion", "not available");
     constants.put("buildVersion", "not available");
@@ -142,14 +141,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 	TelephonyManager telephonyManager = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
     IMEI = telephonyManager.getDeviceId();
     IMSI = telephonyManager.getSubscriberId();
-    MSISDN = telephonyManager.getLine1Number();
 
     constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
     constants.put("serialNumber", Build.SERIAL);
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
-	constants.put("msisdn", MSISDN);
     constants.put("imei", IMEI);
     constants.put("imsi", IMSI);
     constants.put("model", Build.MODEL);

@@ -74,9 +74,6 @@ module.exports = {
   getImsi: function() {
     return RNDeviceInfo.imsi;
   },
-  getMsisdn: function(){
-    return RNDeviceInfo.msisdn;
-  },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;
   },

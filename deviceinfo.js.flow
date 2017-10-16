@@ -17,6 +17,8 @@ declare module.exports: {
   getDeviceLocale: () => string,
   getDeviceCountry: () => string,
   getTimezone: () => string,
+  getImei: () => string,
+  getImsi: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
   isPinOrFingerprintSet: () => (cb: (isPinOrFingerprintSet: boolean) => void) => void,
