@@ -18,8 +18,6 @@
 
 @synthesize isEmulator;
 
-@synthesize isEmulator;
-
 RCT_EXPORT_MODULE()
     
 + (BOOL)requiresMainQueueSetup
