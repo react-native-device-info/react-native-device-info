@@ -26,3 +26,5 @@ export function getLastUpdateTime(): number;
 export function getSerialNumber(): string;
 export function getIPAddress(): Promise<string>;
 export function getMACAddress(): Promise<string>;
+export function getPhoneNumber(): string;
+export function getAPILevel(): number;
