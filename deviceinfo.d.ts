@@ -23,3 +23,6 @@ export function isTablet(): boolean;
 export function isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
 export function getFirstInstallTime(): number;
 export function getLastUpdateTime(): number;
+export function getSerialNumber(): string;
+export function getIPAddress(): Promise<string>;
+export function getMACAddress(): Promise<string>;

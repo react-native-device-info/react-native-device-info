@@ -11,6 +11,15 @@ module.exports = {
   getInstanceID: function() {
     return RNDeviceInfo.instanceId;
   },
+  getSerialNumber: function () {
+    return RNDeviceInfo.serialNumber;
+  },
+  getIPAddress: function () {
+    return RNDeviceInfo.getIpAddress();
+  },
+  getMACAddress: function () {
+    return RNDeviceInfo.getMacAddress();
+  },
   getDeviceId: function () {
     return RNDeviceInfo.deviceId;
   },
@@ -28,6 +37,9 @@ module.exports = {
   },
   getSystemVersion: function () {
     return RNDeviceInfo.systemVersion;
+  },
+  getAPILevel: function () {
+    return RNDeviceInfo.apiLevel;
   },
   getBundleId: function() {
     return RNDeviceInfo.bundleId;
@@ -71,5 +83,7 @@ module.exports = {
   getLastUpdateTime: function () {
     return RNDeviceInfo.lastUpdateTime;
   },
-  getPhoneNumber: _ => RNDeviceInfo.phoneNumber
+  getPhoneNumber: function () {
+    return RNDeviceInfo.phoneNumber;
+  }
 };

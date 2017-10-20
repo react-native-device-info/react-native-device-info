@@ -1,12 +1,15 @@
 {
   "name": "react-native-device-info",
-  "version": "0.11.0",
+  "version": "0.12.1",
   "description": "Get device information using react-native",
   "main": "deviceinfo.js",
   "typings": "./deviceinfo.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/rebeccahughes/react-native-device-info"
+  },
+  "scripts": {
+    "shipit": "np"
   },
   "keywords": [
     "react-component",
@@ -19,10 +22,15 @@
     "cocoapod"
   ],
   "author": "Rebecca Hughes <rebecca@learnium.net> (https://github.com/rebeccahughes)",
-  "contributors": [{
-    "name": "Gant Laborde",
-    "email": "gant@infinite.red",
-    "url": "https://github.com/gantman"
-  }],
-  "license": "MIT"
+  "contributors": [
+    {
+      "name": "Gant Laborde",
+      "email": "gant@infinite.red",
+      "url": "https://github.com/gantman"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "np": "^2.16.0"
+  }
 }

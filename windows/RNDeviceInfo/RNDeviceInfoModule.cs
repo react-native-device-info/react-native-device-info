@@ -99,6 +99,7 @@ namespace RNDeviceInfo
                 constants["deviceName"] = deviceName;
                 constants["systemName"] = "Windows";
                 constants["systemVersion"] = osVersion;
+                constants["apiLevel"] = "not available";
                 constants["model"] = model;
                 constants["brand"] = model;
                 constants["deviceId"] = hardwareVersion;
