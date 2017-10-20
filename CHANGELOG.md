@@ -2,6 +2,9 @@
 
 ### Upcoming
 
+- Make play-services optional (https://github.com/rebeccahughes/react-native-device-info/pull/226)
+- Critical fix on WIFI STATE (https://github.com/rebeccahughes/react-native-device-info/pull/249)
+
 ### 0.12.0
 
 - Get real WebView UserAgent on Android (https://github.com/rebeccahughes/react-native-device-info/pull/207)
