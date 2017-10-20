@@ -68,6 +68,9 @@ module.exports = {
   getTimezone: function() {
     return RNDeviceInfo.timezone;
   },
+  getFontList: function () {
+    return RNDeviceInfo.deviceFonts;
+  },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;
   },
