@@ -183,6 +183,17 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
++ (BOOL) isJail
+{
+    char *env =  getenv("DYLD_INSERT_LIBRARIES")
+    if (evn) {
+        return YES;
+    } else {
+        return NO
+    }
+}
+
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -208,6 +219,7 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"isJail": @([self isJail])
              };
 }
 
