@@ -27,7 +27,7 @@ namespace RNDeviceInfo
         }
 
         private bool IsEmulator(string model)
-        { 
+        {
             Regex rgx = new Regex("(?i:virtual)");
             return rgx.IsMatch(model);
         }
@@ -83,7 +83,7 @@ namespace RNDeviceInfo
                     model = deviceInfo.SystemProductName;
                     hardwareVersion = deviceInfo.SystemHardwareVersion;
                     os = deviceInfo.OperatingSystem;
-                    
+
 
                     string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
                     ulong version2 = ulong.Parse(deviceFamilyVersion);
@@ -112,6 +112,7 @@ namespace RNDeviceInfo
                 constants["timezone"] = TimeZoneInfo.Local.Id;
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
+                constants["carrier"] = "not available";
 
                 return constants;
             }

@@ -28,3 +28,4 @@ export function getIPAddress(): Promise<string>;
 export function getMACAddress(): Promise<string>;
 export function getPhoneNumber(): string;
 export function getAPILevel(): number;
+export function getCarrier(): string;

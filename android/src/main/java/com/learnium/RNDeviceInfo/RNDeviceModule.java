@@ -107,6 +107,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     p.resolve(macAddress);
   }
 
+  @ReactMethod
+  public String getCarrier() {
+    TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+    return telMgr.getNetworkOperatorName();
+  }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -172,6 +178,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         constants.put("phoneNumber", telMgr.getLine1Number());
     }
+    constants.put("carrier", this.getCarrier());
     return constants;
   }
 }
