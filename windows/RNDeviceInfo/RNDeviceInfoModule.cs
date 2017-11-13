@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using WinRTXamlToolkit.Controls;
 
 namespace RNDeviceInfo
 {
