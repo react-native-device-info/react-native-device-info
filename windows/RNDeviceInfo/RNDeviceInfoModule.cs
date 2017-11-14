@@ -37,6 +37,11 @@ namespace RNDeviceInfo
             return !rgx.IsMatch(os);
         }
 
+        private bool is24Hour()
+        {
+            return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
+        }
+
         public override IReadOnlyDictionary<string, object> Constants
         {
 
@@ -111,6 +116,7 @@ namespace RNDeviceInfo
                 constants["timezone"] = TimeZoneInfo.Local.Id;
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
+                constants["is24Hour"] = is24Hour();
 
                 return constants;
             }
