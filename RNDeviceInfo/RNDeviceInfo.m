@@ -183,6 +183,12 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+- (bool) is24Hour
+{
+    NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
+    return ([format rangeOfString:@"a"].location == NSNotFound);
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -208,6 +214,7 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"is24Hour": @(self.is24Hour),
              };
 }
 

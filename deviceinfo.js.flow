@@ -19,6 +19,7 @@ declare module.exports: {
   getTimezone: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
+  is24Hour: () => boolean,
   isPinOrFingerprintSet: () => (cb: (isPinOrFingerprintSet: boolean) => void) => void,
   getAPILevel: () => number,
   getInstanceID: () => string,
