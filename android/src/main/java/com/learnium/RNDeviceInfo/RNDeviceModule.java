@@ -381,6 +381,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("freeDiskStorage", this.getFreeDiskStorage());
     constants.put("installReferrer", this.getInstallReferrer());
 
+    if (reactContext != null &&
+         (reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
+           (Build.VERSION.SDK_INT >= 23 && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
+           (Build.VERSION.SDK_INT >= 26 && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
+      TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+      constants.put("phoneNumber", telMgr.getLine1Number());
+    } else {
+      constants.put("phoneNumber", null);
+    }
+
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());
     ActivityManager actMgr = (ActivityManager) this.reactContext.getSystemService(Context.ACTIVITY_SERVICE);
@@ -393,42 +403,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     } else {
       constants.put("supportedABIs", new String[]{ Build.CPU_ABI });
     }
-    constants.put("phoneNumber", getPhoneNumber());
     return constants;
-  }
-
-  private @Nullable String getPhoneNumber() {
-    int apiLevel = Build.VERSION.SDK_INT;
-    String phoneNumber = null;
-    boolean hasPermission = false;
-
-    try {
-      if (getCurrentActivity() != null) {
-        // ApiLevel <= Lollipop
-        if (apiLevel <= 22) {
-          hasPermission = this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-        }
-        // ApiLevel <= Nougat
-        else if (apiLevel <= 25) {
-          hasPermission = this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
-                  this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED;
-        }
-        // ApiLevel >= Oreo
-        else {
-          hasPermission = this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
-                  this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED ||
-                  this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED;
-        }
-    }
-
-    if (hasPermission) {
-        TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        phoneNumber = telMgr.getLine1Number();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return phoneNumber;
   }
 }
