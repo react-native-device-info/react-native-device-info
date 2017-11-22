@@ -8,7 +8,9 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
+#endif
 
 @interface RNDeviceInfo()
 @property (nonatomic) bool isEmulator;
@@ -220,8 +222,12 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {
+  #if TARGET_OS_TV
+    BOOL isPinOrFingerprintSet = false;
+  #else
     LAContext *context = [[LAContext alloc] init];
     BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+  #endif
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
