@@ -88,5 +88,8 @@ module.exports = {
   },
   getPhoneNumber: function () {
     return RNDeviceInfo.phoneNumber;
+  },
+  getManufacturerSerialNumber: function () {
+    return RNDeviceInfo.manufacturerSerialNumber;
   }
 };

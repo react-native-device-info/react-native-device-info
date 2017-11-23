@@ -93,6 +93,26 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
   }
 
+  private String getSerialNumber(String className){
+    String serial = "unknown";
+    try {
+      Class<?> c = Class.forName("android.os.SystemProperties");
+      Method get = c.getMethod("get", String.class, String.class);
+      serial = (String) get.invoke(c, className, "unknown");
+    } catch (Exception ignored) {}
+    return serial;
+  }
+
+  private String getManufacturerSerialNumber() {
+    String serial = "unknown";
+    try {
+      serial = this.getSerialNumber("ril.serialnumber");
+      if(serial.equal("unknown"))
+        serial = this.getSerialNumber("sys.serialnumber");
+    } catch (Exception ignored) {}
+    return serial;
+  }
+
   @ReactMethod
   public void isPinOrFingerprintSet(Callback callback) {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE); //api 16+
@@ -151,6 +171,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
     }
     constants.put("serialNumber", Build.SERIAL);
+    constants.put("manufacturerSerialNumber", this.getManufacturerSerialNumber());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
