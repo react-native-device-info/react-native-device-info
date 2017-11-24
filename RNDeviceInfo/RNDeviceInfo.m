@@ -8,7 +8,9 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
+#endif
 
 @interface RNDeviceInfo()
 @property (nonatomic) bool isEmulator;
@@ -192,6 +194,12 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+- (bool) is24Hour
+{
+    NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
+    return ([format rangeOfString:@"a"].location == NSNotFound);
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -218,13 +226,18 @@ RCT_EXPORT_MODULE()
              @"timezone": self.timezone,
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"is24Hour": @(self.is24Hour),
              };
 }
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {
+  #if TARGET_OS_TV
+    BOOL isPinOrFingerprintSet = false;
+  #else
     LAContext *context = [[LAContext alloc] init];
     BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+  #endif
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 

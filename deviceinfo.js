@@ -74,7 +74,10 @@ module.exports = {
   isTablet: function() {
     return RNDeviceInfo.isTablet;
   },
-  isPinOrFingerprintSet: function() {
+  is24Hour: function() {
+    return RNDeviceInfo.is24Hour;
+  },
+  isPinOrFingerprintSet: function () {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   getFirstInstallTime: function() {

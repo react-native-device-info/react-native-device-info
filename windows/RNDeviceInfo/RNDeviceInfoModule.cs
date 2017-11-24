@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using WinRTXamlToolkit.Controls;
 
 namespace RNDeviceInfo
 {
@@ -36,6 +35,11 @@ namespace RNDeviceInfo
         {
             Regex rgx = new Regex("(?i:windowsphone)");
             return !rgx.IsMatch(os);
+        }
+
+        private bool is24Hour()
+        {
+            return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
         }
 
         public override IReadOnlyDictionary<string, object> Constants
@@ -113,6 +117,7 @@ namespace RNDeviceInfo
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
                 constants["carrier"] = "not available";
+                constants["is24Hour"] = is24Hour();
 
                 return constants;
             }
