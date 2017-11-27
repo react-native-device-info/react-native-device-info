@@ -29,4 +29,5 @@ declare module.exports: {
   getSerialNumber: () => string,
   getIPAddress: () => Promise<string>,
   getMACAddress: () => Promise<string>,
+  getCarrier: () => string,
 }

@@ -193,8 +193,8 @@ var DeviceInfo = require('react-native-device-info');
 | Serial Number              | `getSerialNumber()`                | `string`                                                                                      | Only supported in Android
 | IP Address                 | `getIPAddress()`                   | `Promise<string>`                                                                             | Only supported in Android
 | MAC Address                | `getMACAddress()`                  | `Promise<string>`                                                                             | Only supported in Android
-| Manufacturer Serial Number | `getManufacturerSerialNumber()`    | `string` e.g. RF3C6000MNA                                                                     | Only supported in Android
-
+| Carrier                    | `getCarrier()`                    | `string` e.g. "SOFTBANK"                                                           |                                                                                                                     | |
+| Manufacturer Serial Number | `getManufacturerSerialNumber()`    | `string` e.g. RF3C6000MNA                                                                     | Only supported in Android                                                                                           |
 Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.  To use, pass a callback function to the returned bridge function in your javascript:
 
 ```js
