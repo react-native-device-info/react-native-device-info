@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
 
-#if __has_include(<React/RCTBridgeModule.h>)
-    #import <React/RCTBridgeModule.h>
+#if __has_include(<React/RCTAssert.h>)
+#import <React/RCTBridgeModule.h>
 #else
-    #import "RCTBridgeModule.h"
+#import "RCTBridgeModule.h"
 #endif
 
 @interface RNDeviceInfo : NSObject <RCTBridgeModule>
