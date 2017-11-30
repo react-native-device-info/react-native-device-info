@@ -89,6 +89,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
+  private Boolean is24Hour() {
+    return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
+  }
+
   @ReactMethod
   public void isPinOrFingerprintSet(Callback callback) {
     KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE); //api 16+
@@ -105,6 +109,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getMacAddress(Promise p) {
     String macAddress = getWifiInfo().getMacAddress();
     p.resolve(macAddress);
+  }
+
+  @ReactMethod
+  public String getCarrier() {
+    TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+    return telMgr.getNetworkOperatorName();
   }
 
   @Override
@@ -160,11 +170,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
+      try {
+        constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
+      } catch (PackageManager.NameNotFoundException e) {
+        constants.put("userAgent", System.getProperty("http.agent"));
+      }
     }
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("is24Hour", this.is24Hour());
     if (getCurrentActivity() != null &&
           (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
             getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED ||
@@ -172,6 +187,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         constants.put("phoneNumber", telMgr.getLine1Number());
     }
+    constants.put("carrier", this.getCarrier());
     return constants;
   }
 }
