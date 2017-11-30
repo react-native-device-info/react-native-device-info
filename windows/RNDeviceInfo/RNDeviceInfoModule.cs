@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using WinRTXamlToolkit.Controls;
 
 namespace RNDeviceInfo
 {
@@ -26,7 +27,7 @@ namespace RNDeviceInfo
         }
 
         private bool IsEmulator(string model)
-        {
+        { 
             Regex rgx = new Regex("(?i:virtual)");
             return rgx.IsMatch(model);
         }
@@ -35,11 +36,6 @@ namespace RNDeviceInfo
         {
             Regex rgx = new Regex("(?i:windowsphone)");
             return !rgx.IsMatch(os);
-        }
-
-        private bool is24Hour()
-        {
-            return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
         }
 
         public override IReadOnlyDictionary<string, object> Constants
@@ -87,7 +83,7 @@ namespace RNDeviceInfo
                     model = deviceInfo.SystemProductName;
                     hardwareVersion = deviceInfo.SystemHardwareVersion;
                     os = deviceInfo.OperatingSystem;
-
+                    
 
                     string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
                     ulong version2 = ulong.Parse(deviceFamilyVersion);
@@ -116,8 +112,6 @@ namespace RNDeviceInfo
                 constants["timezone"] = TimeZoneInfo.Local.Id;
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
-                constants["carrier"] = "not available";
-                constants["is24Hour"] = is24Hour();
 
                 return constants;
             }
