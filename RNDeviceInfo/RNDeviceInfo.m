@@ -22,7 +22,7 @@
 
 @synthesize isEmulator;
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(RNDeviceInfo)
 
 + (BOOL)requiresMainQueueSetup
 {
