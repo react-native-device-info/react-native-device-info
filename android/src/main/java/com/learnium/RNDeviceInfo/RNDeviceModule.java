@@ -1,5 +1,6 @@
 package com.learnium.RNDeviceInfo;
 
+import android.Manifest;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -7,15 +8,19 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.provider.Settings.Secure;
-
-import com.google.android.gms.iid.InstanceID;
+import android.webkit.WebSettings;
+import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -28,14 +33,25 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   ReactApplicationContext reactContext;
 
+  WifiInfo wifiInfo;
+
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
+
     this.reactContext = reactContext;
   }
 
   @Override
   public String getName() {
     return "RNDeviceInfo";
+  }
+
+  private WifiInfo getWifiInfo() {
+    if ( this.wifiInfo == null ) {
+      WifiManager manager = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+      this.wifiInfo = manager.getConnectionInfo();
+    }
+    return this.wifiInfo;
   }
 
   private String getCurrentLanguage() {
@@ -74,10 +90,32 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
+  private Boolean is24Hour() {
+    return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
+  }
+
   @ReactMethod
   public void isPinOrFingerprintSet(Callback callback) {
-    KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getSystemService(Context.KEYGUARD_SERVICE); //api 16+
+    KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE); //api 16+
     callback.invoke(keyguardManager.isKeyguardSecure());
+  }
+
+  @ReactMethod
+  public void getIpAddress(Promise p) {
+    String ipAddress = Formatter.formatIpAddress(getWifiInfo().getIpAddress());
+    p.resolve(ipAddress);
+  }
+
+  @ReactMethod
+  public void getMacAddress(Promise p) {
+    String macAddress = getWifiInfo().getMacAddress();
+    p.resolve(macAddress);
+  }
+
+  @ReactMethod
+  public String getCarrier() {
+    TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+    return telMgr.getNetworkOperatorName();
   }
 
   @Override
@@ -97,6 +135,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       constants.put("buildNumber", info.versionCode);
       ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
       constants.put("displayName", packageManager.getApplicationLabel(applicationInfo));
+      constants.put("firstInstallTime", info.firstInstallTime);
+      constants.put("lastUpdateTime", info.lastUpdateTime);
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
@@ -112,22 +152,45 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
 
-    constants.put("instanceId", InstanceID.getInstance(this.reactContext).getId());
+    try {
+      if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
+        constants.put("instanceId", com.google.android.gms.iid.InstanceID.getInstance(this.reactContext).getId());
+      }
+    } catch (ClassNotFoundException e) {
+      constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
+    }
+    constants.put("serialNumber", Build.SERIAL);
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
     constants.put("model", Build.MODEL);
     constants.put("brand", Build.BRAND);
     constants.put("deviceId", Build.BOARD);
+    constants.put("apiLevel", Build.VERSION.SDK_INT);
     constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("deviceCountry", this.getCurrentCountry());
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
-    constants.put("userAgent", System.getProperty("http.agent"));
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      try {
+        constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
+      } catch (PackageManager.NameNotFoundException e) {
+        constants.put("userAgent", System.getProperty("http.agent"));
+      }
+    }
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("is24Hour", this.is24Hour());
+    if (getCurrentActivity() != null &&
+          (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
+            getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED ||
+            getCurrentActivity().checkCallingOrSelfPermission("android.permission.READ_PHONE_NUMBERS") == PackageManager.PERMISSION_GRANTED)) {
+        TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+        constants.put("phoneNumber", telMgr.getLine1Number());
+    }
+    constants.put("carrier", this.getCarrier());
     return constants;
   }
 }
