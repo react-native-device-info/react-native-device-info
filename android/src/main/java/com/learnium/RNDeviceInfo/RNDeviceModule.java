@@ -21,6 +21,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     String serial = "unknown";
     try {
       serial = this.getSerialNumber("ril.serialnumber");
-      if(serial.equal("unknown"))
+      if(serial.equals("unknown"))
         serial = this.getSerialNumber("sys.serialnumber");
     } catch (Exception ignored) {}
     return serial;
