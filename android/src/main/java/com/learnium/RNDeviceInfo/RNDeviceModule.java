@@ -174,7 +174,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
       String uAgent =  WebSettings.getDefaultUserAgent(this.reactContext);
-      if (!uAgent) {
+      if (uAgent == null) {
         uAgent = System.getProperty("http.agent");
       }
       constants.put("userAgent", uAgent);
