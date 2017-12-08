@@ -173,11 +173,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      try {
-        constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
-      } catch (PackageManager.NameNotFoundException e) {
-        constants.put("userAgent", System.getProperty("http.agent"));
+      String uAgent =  WebSettings.getDefaultUserAgent(this.reactContext);
+      if (!uAgent) {
+        uAgent = System.getProperty("http.agent");
       }
+      constants.put("userAgent", uAgent);
     }
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
