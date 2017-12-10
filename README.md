@@ -182,6 +182,7 @@ var DeviceInfo = require('react-native-device-info');
 | Device Locale              | `getDeviceLocale()`                | `string` e.g. "en-US"                                                                         |                                                                                                                     |
 | Device Country             | `getDeviceCountry()`               | `string` e.g. "US"                                                                            |                                                                                                                     |
 | Timezone                   | `getTimezone()`                    | `string` e.g. "America/Mexico_City"                                                           |                                                                                                                     |
+| Font Scale                 | `getFontScale()`                   | `number` e.g. "1.2"                                                                           |                                                                                                                     |
 | App is running in emulator | `isEmulator()`                     | `boolean` e.g. true                                                                           | if app is running in emulator return true                                                                           |
 | App is running on a tablet | `isTablet()`                       | `boolean` e.g. true                                                                           | if app is running on a tablet return true                                                                           |
 | PIN or fingerprint set     | `isPinOrFingerprintSet()`          | `(callback: (isPinOrFingerprintSet: boolean) => void) => void`                                | Only supported in Android and iOS 9.0 and above                                                                     |
@@ -204,5 +205,15 @@ RNDeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
     ...
   }
+}
+```
+
+Font Scale Details:
+* The font scale is the ratio of the current system font to the "normal" font size, so if normal text is 10pt and the system font is currently 15pt, the font scale would be 1.5
+* This can be used to determine if accessability settings has been changed for the device; you may want to re-layout certain views if the font scale is significantly larger ( > 2.0 )
+* Android by default will reload the app when the configuration changes, so you will be able to fetch the updated font scale. To achieve the same functionality on iOS, add the following to your AppDelegate.m:
+```objective-c
+- (void) dynamicTextSizeDidChange {
+  [self->rootView.bridge reload];
 }
 ```
