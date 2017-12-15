@@ -16,7 +16,9 @@
 @property (nonatomic) bool isEmulator;
 @end
 
+#if !(TARGET_OS_TV)
 @import CoreTelephony;
+#endif
 
 @implementation RNDeviceInfo
 
@@ -156,9 +158,13 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 - (NSString *) carrier
 {
+#if (TARGET_OS_TV)
+    return nil;
+#else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     return carrier.carrierName;
+#endif
 }
 
 - (NSString*) userAgent
