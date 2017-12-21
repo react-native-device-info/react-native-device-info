@@ -220,6 +220,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+             @"displayName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]?:@"",
              @"systemManufacturer": @"Apple",
              @"carrier": self.carrier ?: [NSNull null],
              @"userAgent": self.userAgent,

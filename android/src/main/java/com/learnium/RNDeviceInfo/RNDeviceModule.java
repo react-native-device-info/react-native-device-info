@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -132,6 +133,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       PackageInfo info = packageManager.getPackageInfo(packageName, 0);
       constants.put("appVersion", info.versionName);
       constants.put("buildNumber", info.versionCode);
+      ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+      constants.put("displayName", packageManager.getApplicationLabel(applicationInfo));
       constants.put("firstInstallTime", info.firstInstallTime);
       constants.put("lastUpdateTime", info.lastUpdateTime);
     } catch (PackageManager.NameNotFoundException e) {
@@ -170,11 +173,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      try {
-        constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
-      } catch (PackageManager.NameNotFoundException e) {
-        constants.put("userAgent", System.getProperty("http.agent"));
+      String uAgent =  WebSettings.getDefaultUserAgent(this.reactContext);
+      if (uAgent == null) {
+        uAgent = System.getProperty("http.agent");
       }
+      constants.put("userAgent", uAgent);
     }
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
