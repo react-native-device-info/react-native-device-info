@@ -92,4 +92,10 @@ module.exports = {
   getCarrier: function() {
     return RNDeviceInfo.carrier;
   },
+  getTotalMemory: function() {
+    return RNDeviceInfo.totalMemory;
+  },
+  getMaxMemory: function() {
+    return RNDeviceInfo.maxMemory;
+  },
 };

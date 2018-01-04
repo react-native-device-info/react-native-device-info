@@ -4,6 +4,7 @@
 
 - Make play-services optional (https://github.com/rebeccahughes/react-native-device-info/pull/226)
 - Critical fix on WIFI STATE (https://github.com/rebeccahughes/react-native-device-info/pull/249)
+- Added `getTotalMemory` and `getMaxMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/289)
 
 ### 0.12.0
 

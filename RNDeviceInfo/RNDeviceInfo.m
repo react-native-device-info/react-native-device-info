@@ -200,6 +200,10 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return ([format rangeOfString:@"a"].location == NSNotFound);
 }
 
+- (unsigned long long) totalMemory {
+  return [NSProcessInfo processInfo].physicalMemory;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -227,6 +231,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
+             @"totalMemory": @(self.totalMemory)
              };
 }
 

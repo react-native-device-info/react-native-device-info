@@ -14,6 +14,7 @@ import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+import android.app.ActivityManager;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.lang.Runtime;
 
 import javax.annotation.Nullable;
 
@@ -172,7 +174,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
       try {
         constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
-      } catch (PackageManager.NameNotFoundException e) {
+      } catch (RuntimeException e) {
         constants.put("userAgent", System.getProperty("http.agent"));
       }
     }
@@ -188,6 +190,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         constants.put("phoneNumber", telMgr.getLine1Number());
     }
     constants.put("carrier", this.getCarrier());
+
+    Runtime rt = Runtime.getRuntime();
+    constants.put("maxMemory", rt.maxMemory());
+    ActivityManager actMgr = (ActivityManager) this.reactContext.getSystemService(Context.ACTIVITY_SERVICE);
+    ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+    actMgr.getMemoryInfo(memInfo);
+    constants.put("totalMemory", memInfo.totalMem);
+
     return constants;
   }
 }
