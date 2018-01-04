@@ -30,4 +30,6 @@ declare module.exports: {
   getIPAddress: () => Promise<string>,
   getMACAddress: () => Promise<string>,
   getCarrier: () => string,
+  getTotalMemory: () => number,
+  getMaxMemory: () => number,
 }
