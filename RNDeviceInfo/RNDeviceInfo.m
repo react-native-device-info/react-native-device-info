@@ -11,6 +11,7 @@
 #if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
+#import <mach/mach.h>
 
 @interface RNDeviceInfo()
 @property (nonatomic) bool isEmulator;
@@ -302,6 +303,22 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
   #endif
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
+}
+
+RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(),
+                                   TASK_BASIC_INFO,
+                                   (task_info_t)&info,
+                                   &size);
+    if (kerr != KERN_SUCCESS) {
+      reject(@"fetch_error", @"task_info failed", nil);
+      return;
+    }
+
+    resolve(@((unsigned long)info.resident_size));
 }
 
 @end

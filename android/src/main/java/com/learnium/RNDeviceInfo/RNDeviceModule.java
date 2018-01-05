@@ -195,6 +195,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return null;
   }
 
+  @ReactMethod
+  public void getUsedMemory(Promise p) {
+    Runtime rt = Runtime.getRuntime();
+    long usedMemory = rt.totalMemory() - rt.freeMemory();
+    p.resolve((int)usedMemory);
+  }
+
   @Override
   public @Nullable
   Map<String, Object> getConstants() {

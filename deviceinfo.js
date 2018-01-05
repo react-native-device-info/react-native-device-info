@@ -115,4 +115,7 @@ module.exports = {
   getFreeDiskStorage: function() {
     return RNDeviceInfo.freeDiskStorage;
   },
+  getUsedMemory: function() {
+    return RNDeviceInfo.getUsedMemory();
+  },
 };
