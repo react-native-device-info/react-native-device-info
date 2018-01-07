@@ -194,6 +194,20 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+- (CGFloat) width
+{
+  UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+  UIView *rootView = rootViewController.view;
+  return rootView.frame.size.width;
+}
+
+- (CGFloat) height
+{
+  UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+  UIView *rootView = rootViewController.view;
+  return rootView.frame.size.height;
+}
+
 - (bool) is24Hour
 {
     NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
@@ -231,7 +245,9 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
-             @"totalMemory": @(self.totalMemory)
+             @"totalMemory": @(self.totalMemory),
+             @"width": @(self.width),
+             @"height": @(self.height)
              };
 }
 

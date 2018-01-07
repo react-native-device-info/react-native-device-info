@@ -91,6 +91,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
+  private float width() {
+    Configuration config = getReactApplicationContext().getResources().getConfiguration();
+    return config.screenWidthDp;
+  }
+
+  private float height() {
+    Configuration config = getReactApplicationContext().getResources().getConfiguration();
+    return config.screenHeightDp;
+  }
+
   private Boolean is24Hour() {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
   }
@@ -181,6 +191,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("width", this.width());
+    constants.put("height", this.height());
     constants.put("is24Hour", this.is24Hour());
     if (getCurrentActivity() != null &&
           (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
