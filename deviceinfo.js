@@ -68,6 +68,12 @@ module.exports = {
   getTimezone: function() {
     return RNDeviceInfo.timezone;
   },
+  getImei: function() {
+    return RNDeviceInfo.imei;
+  },
+  getImsi: function() {
+    return RNDeviceInfo.imsi;
+  },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;
   },

@@ -17,6 +17,8 @@ export function getUserAgent(): string;
 export function getDeviceLocale(): string;
 export function getDeviceCountry(): string;
 export function getTimezone(): string;
+export function getImei(): string;
+export function getImsi(): string;
 export function getInstanceID(): string;
 export function isEmulator(): boolean;
 export function isTablet(): boolean;

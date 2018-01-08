@@ -125,6 +125,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
+	String IMSI, IMEI;
 
     constants.put("appVersion", "not available");
     constants.put("buildVersion", "not available");
@@ -150,6 +151,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     } catch(Exception e) {
       e.printStackTrace();
     }
+	
+	TelephonyManager telephonyManager = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+    IMEI = telephonyManager.getDeviceId();
+    IMSI = telephonyManager.getSubscriberId();
 
     try {
       if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
@@ -162,6 +167,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
+    constants.put("imei", IMEI);
+    constants.put("imsi", IMSI);
     constants.put("model", Build.MODEL);
     constants.put("brand", Build.BRAND);
     constants.put("deviceId", Build.BOARD);
