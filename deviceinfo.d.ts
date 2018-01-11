@@ -21,7 +21,15 @@ export function getTimezone(): string;
 export function getInstanceID(): string;
 export function isEmulator(): boolean;
 export function isTablet(): boolean;
+export function is24Hour(): boolean;
 export function isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
 export function getFirstInstallTime(): number;
 export function getLastUpdateTime(): number;
-
+export function getSerialNumber(): string;
+export function getIPAddress(): Promise<string>;
+export function getMACAddress(): Promise<string>;
+export function getPhoneNumber(): string;
+export function getAPILevel(): number;
+export function getCarrier(): string;
+export function getTotalMemory(): number;
+export function getMaxMemory(): number;
