@@ -126,7 +126,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
-    String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
     
     constants.put("appVersion", "not available");
     constants.put("appName", "not available");
@@ -136,11 +135,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
       PackageInfo info = packageManager.getPackageInfo(packageName, 0);
+      String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
       constants.put("appVersion", info.versionName);
       constants.put("buildNumber", info.versionCode);
       constants.put("firstInstallTime", info.firstInstallTime);
       constants.put("lastUpdateTime", info.lastUpdateTime);
-      constants.put("appName", packageManager.getApplicationLabel(applicationInfo).toString());
+      constants.put("appName", applicationName);
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
