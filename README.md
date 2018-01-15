@@ -163,7 +163,6 @@ See [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blo
 var DeviceInfo = require('react-native-device-info');
 // or import DeviceInfo from 'react-native-device-info';
 ```
-
 | Name                       | Method                             | Return                                                                                        | Notes                                                                                                               |
 | :------------------------- | :-------------------------------   | :-------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------    |
 | Device Unique ID           | `getUniqueID()`                    | `string` e.g. "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"                                          | This is IDFV on iOS so it will change if all apps from the current apps vendor have been previously uninstalled.    |
@@ -196,6 +195,7 @@ var DeviceInfo = require('react-native-device-info');
 | Carrier                    | `getCarrier()`                     | `string` e.g. "SOFTBANK"                                                                      |                                                                                                                     |
 | Total Memory               | `getTotalMemory()`                 | `number` e.g. 1995018240                                                                      | Total amount of memory on the device                                                                               |
 | Max Memory                 | `getMaxMemory()`                   | `number` e.g. 268435456                                                                       | ANDROID ONLY - see https://developer.android.com/reference/java/lang/Runtime.html#maxMemory()                       |
+| App Name                   | `getApplicationName()`             | `string` e.g.Learnium Mobile                                                                               |                                                                                                                  |
 
 Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.  To use, pass a callback function to the returned bridge function in your javascript:
 
