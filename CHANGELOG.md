@@ -5,7 +5,9 @@
 - Make play-services optional (https://github.com/rebeccahughes/react-native-device-info/pull/226)
 - Critical fix on WIFI STATE (https://github.com/rebeccahughes/react-native-device-info/pull/249)
 - Added `getTotalMemory` and `getMaxMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/289)
-- Introduced `getApplicationName` to see the name of the app both on ios, android and win (https://github.com/rebeccahughes/react-native-device-info/pull/210)
+- Introduced `getApplicationName` to see the name of the app both on ios, android and win
+  - https://github.com/rebeccahughes/react-native-device-info/pull/210
+  - https://github.com/rebeccahughes/react-native-device-info/pull/295
 
 ### 0.12.0
 
