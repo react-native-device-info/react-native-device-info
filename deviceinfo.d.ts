@@ -33,3 +33,5 @@ export function getAPILevel(): number;
 export function getCarrier(): string;
 export function getTotalMemory(): number;
 export function getMaxMemory(): number;
+export function getTotalDiskCapacity(): number;
+export function getFreeDiskStorage(): number;

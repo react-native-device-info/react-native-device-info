@@ -32,4 +32,6 @@ declare module.exports: {
   getCarrier: () => string,
   getTotalMemory: () => number,
   getMaxMemory: () => number,
+  getTotalDiskCapacity: () => number,
+  getFreeDiskStorage: () => number,
 }
