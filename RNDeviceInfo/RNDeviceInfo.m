@@ -124,8 +124,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPad6,8"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
                               @"iPad7,1"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Wifi
                               @"iPad7,2"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Cellular
-                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 12.5-inch - Wifi
-                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 12.5-inch - Cellular
+                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Wifi
+                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
