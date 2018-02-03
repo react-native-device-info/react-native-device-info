@@ -22,7 +22,7 @@ npm install --save react-native-device-info
 or using yarn:
 
 ```shell
-yarn addreact-native-device-info
+yarn add react-native-device-info
 ```
 
 > ⚠️ If you are on React Native > 0.47, you must use version 0.11.0 of this library or higher
