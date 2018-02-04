@@ -29,7 +29,7 @@
 * Add DeviceUID.h to public headers (https://github.com/rebeccahughes/react-native-device-info/pull/217)
 * Add `getPhoneNumber` (https://github.com/rebeccahughes/react-native-device-info/pull/174)
 * Fix typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/221)
-* Add `getFirstInstallTime` and `getLastInstallTime` (https://github.com/rebeccahughes/react-native-device-info/pull/222)
+* Add `getFirstInstallTime` and `getLastUpdateTime` (https://github.com/rebeccahughes/react-native-device-info/pull/222)
 * Added version check and permission to work with Android API >= 16 (https://github.com/rebeccahughes/react-native-device-info/pull/225)
 * Added device detection even when in an iOS emulator (https://github.com/rebeccahughes/react-native-device-info/pull/224)
 * Add support for new iPhone, iPad, and Apple TV models (https://github.com/rebeccahughes/react-native-device-info/pull/230)
