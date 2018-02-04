@@ -5,11 +5,12 @@
 Device Information for [React Native](https://github.com/facebook/react-native).
 
 ## TOC
-  * [Installation](#installation)
-  * [Linking](#linking)
-  * [Usage](#usage)
-  * [API](#api)
-  * [Release Notes](#release-notes)
+
+* [Installation](#installation)
+* [Linking](#linking)
+* [Usage](#usage)
+* [API](#api)
+* [Release Notes](#release-notes)
 
 ## Installation
 
@@ -51,32 +52,36 @@ Add the following line to your build targets in your `Podfile`
 `pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'`
 
 Then run `pod install`
+
 </details>
 
 <details>
     <summary>iOS (without Cocoa Pods)</summary>
 
 In XCode, in the project navigator:
-- Right click _Libraries_
-- Add Files to _[your project's name]_
-- Go to `node_modules/react-native-device-info`
-- Add the `.xcodeproj` file
+
+* Right click _Libraries_
+* Add Files to _[your project's name]_
+* Go to `node_modules/react-native-device-info`
+* Add the `.xcodeproj` file
 
 In XCode, in the project navigator, select your project.
-- Add the `libRNDeviceInfo.a` from the _deviceinfo_ project to your project's _Build Phases ➜ Link Binary With Libraries_
-- Click `.xcodeproj` file you added before in the project navigator and go the _Build Settings_ tab. Make sure _All_ is toggled on (instead of _Basic_).
-- Look for _Header Search Paths_ and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React`
-- Mark both as recursive (should be OK by default).
+
+* Add the `libRNDeviceInfo.a` from the _deviceinfo_ project to your project's _Build Phases ➜ Link Binary With Libraries_
+* Click `.xcodeproj` file you added before in the project navigator and go the _Build Settings_ tab. Make sure _All_ is toggled on (instead of _Basic_).
+* Look for _Header Search Paths_ and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React`
+* Mark both as recursive (should be OK by default).
 
 Run your project (Cmd+R)
 
 (Thanks to @brysgo for writing the instructions)
+
 </details>
 
 <details>
     <summary>Android</summary>
 
-- in `android/app/build.gradle`:
+* in `android/app/build.gradle`:
 
 ```diff
 dependencies {
@@ -86,7 +91,7 @@ dependencies {
 }
 ```
 
-- in `android/settings.gradle`:
+* in `android/settings.gradle`:
 
 ```diff
 ...
@@ -97,7 +102,7 @@ include ':app'
 
 #### With React Native 0.29+
 
-- in `MainApplication.java`:
+* in `MainApplication.java`:
 
 ```diff
 + import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -119,7 +124,7 @@ include ':app'
 
 #### With older versions of React Native:
 
-- in `MainActivity.java`:
+* in `MainActivity.java`:
 
 ```diff
 + import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -138,17 +143,18 @@ include ':app'
 ```
 
 (Thanks to @chirag04 for writing the instructions)
+
 </details>
 
 <details>
     <summary>Windows</summary>
 
-- Open the solution in Visual Studio for your Windows apps
-- right click your in the Explorer and click Add > Existing Project...
-- Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
-- this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
-- check the `RNDeviceInfo` you just added and press ok
-- open up `MainPage.cs` for your app and edit the file like so:
+* Open the solution in Visual Studio for your Windows apps
+* right click your in the Explorer and click Add > Existing Project...
+* Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
+* this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
+* check the `RNDeviceInfo` you just added and press ok
+* open up `MainPage.cs` for your app and edit the file like so:
 
 ```diff
 + using RNDeviceInfo;
@@ -164,59 +170,61 @@ include ':app'
 ```
 
 (Thanks to @josephan for writing the instructions)
-</details>
 
+</details>
 
 ## Usage
 
 ```js
-var DeviceInfo = require('react-native-device-info');
+var DeviceInfo = require("react-native-device-info");
 // or import DeviceInfo from 'react-native-device-info';
 ```
 
 ## API
 
-| Method                                            | Return Type         | iOS         | Android | Windows | Since  |
-| ------------------------------------------------- | ------------------- | :---------: | :-----: | :-----: | ------ |
-| [getAPILevel()](#getapilevel)                     | `number`            | ❌         | ✅      | ❌      | 0.12.0 |
-| [getApplicationName()](#getapplicationname)       | `string`            | ✅         | ✅      | ✅      | 0.14.0 |
-| [getBrand()](#getbrand)                           | `string`            | ✅         | ✅      | ✅      | 0.9.3  |
-| [getBuildNumber()](#getbuildnumber)               | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getBundleId()](#getbundleid)                     | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getCarrier()](#getcarrier)                       | `string`            | ✅         | ✅      | ❌      | 0.13.0 |
-| [getDeviceCountry()](#getdevicecountry)           | `string`            | ✅         | ✅      | ✅      | 0.9.0  |
-| [getDeviceId()](#getdeviceid)                     | `string`            | ✅         | ✅      | ✅      | 0.5.0  |
-| [getDeviceLocale()](#getdevicelocale)             | `string`            | ✅         | ✅      | ✅      | 0.7.0  |
-| [getDeviceName()](#getdevicename)                 | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            | ❌         | ✅      | ❌      | 0.12.0 |
-| [getIPAddress()](#getipaddress)                   | `Promise<string>`   | ❌         | ✅      | ❌      | 0.12.0 |
-| [getInstanceID()](#getinstanceid)                 | `string`            | ❌         | ✅      | ❌      | ?      |
-| [getLastUpdateTime()](#getlastupdatetime)         | `number`            | ❌         | ✅      | ❌      | 0.12.0 |
-| [getMACAddress()](#getmacaddress)                 | `Promise<string>`   | ❌         | ✅      | ❌      | 0.12.0 |
-| [getManufacturer()](#getmanufacturer)             | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            | ❌         | ✅      | ❌      | 0.14.0 |
-| [getModel()](#getmodel)                           | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getPhoneNumber()](#getphonenumber)               | `string`            | ❌         | ✅      | ❌      | 0.12.0 |
-| [getReadableVersion()](#getreadableversion)       | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getSerialNumber()](#getserialnumber)             | `string`            | ❌         | ✅      | ❌      | 0.12.0 |
-| [getSystemName()](#getsystemname)                 | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getSystemVersion()](#getsystemversion)           | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getTimezone()](#gettimezone)                     | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getTotalMemory()](#gettotalmemory)               | `number`            | ✅         | ✅      | ❌      | 0.14.0 |
-| [getUniqueID()](#getuniqueid)                     | `string`            | ✅         | ✅      | ✅      | ?      |
-| [getUserAgent()](#getuseragent)                   | `string`            | ✅         | ✅      | ❌      | 0.7.0  |
-| [getVersion()](#getversion)                       | `string`            | ✅         | ✅      | ✅      | ?      |
-| [is24Hour()](#is24hour)                           | `boolean`           | ✅         | ✅      | ✅      | 0.13.0 |
-| [isEmulator()](#isemulator)                       | `boolean`           | ✅         | ✅      | ✅      | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` | ✅(iOS 9+) | ✅      | ❌      | 0.10.1 |
-| [isTablet()](#istablet)                           | `boolean`           | ✅         | ✅      | ✅      | ?      |
+| Method                                            | Return Type         |  iOS | Android | Windows | Since  |
+| ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
+| [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
+| [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
+| [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getCarrier()](#getcarrier)                       | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
+| [getDeviceCountry()](#getdevicecountry)           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
+| [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
+| [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
+| [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
+| [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
+| [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getSerialNumber()](#getserialnumber)             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
+| [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
+| [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
+| [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
+| [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
 
 ### getAPILevel()
+
 Gets the API level.
 
 **Examples**
+
 ```js
 const apiLevel = DeviceInfo.getAPILevel();
 
@@ -226,14 +234,17 @@ const apiLevel = DeviceInfo.getAPILevel();
 ```
 
 **Notes**
+
 > See [API Levels](https://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels)
 
 ---
 
 ### getApplicationName()
+
 Gets the application name.
 
 **Examples**
+
 ```js
 const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 ```
@@ -241,9 +252,11 @@ const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 ---
 
 ### getBrand()
+
 Gets the device brand.
 
 **Examples**
+
 ```js
 const brand = DeviceInfo.getBrand();
 
@@ -255,9 +268,11 @@ const brand = DeviceInfo.getBrand();
 ---
 
 ### getBuildNumber()
+
 Gets the application build number.
 
 **Examples**
+
 ```js
 const buildNumber = DeviceInfo.getBuildNumber();
 
@@ -267,14 +282,17 @@ const buildNumber = DeviceInfo.getBuildNumber();
 ```
 
 **Notes**
+
 > There is a type inconsistency: Android return an integer instead of the documented string.
 
 ---
 
 ### getBundleId()
+
 Gets the application bundle identifier.
 
 **Examples**
+
 ```js
 const bundleId = DeviceInfo.getBundleId(); // "com.learnium.mobile"
 ```
@@ -282,9 +300,11 @@ const bundleId = DeviceInfo.getBundleId(); // "com.learnium.mobile"
 ---
 
 ### getCarrier()
+
 Gets the carrier name (network operator).
 
 **Examples**
+
 ```js
 const carrier = DeviceInfo.getCarrier(); // "SOFTBANK"
 ```
@@ -292,9 +312,11 @@ const carrier = DeviceInfo.getCarrier(); // "SOFTBANK"
 ---
 
 ### getDeviceCountry()
+
 Gets the device country based on the locale information.
 
 **Examples**
+
 ```js
 const deviceCountry = DeviceInfo.getDeviceCountry(); // "US"
 ```
@@ -302,9 +324,11 @@ const deviceCountry = DeviceInfo.getDeviceCountry(); // "US"
 ---
 
 ### getDeviceId()
+
 Gets the device ID.
 
 **Examples**
+
 ```js
 const deviceId = DeviceInfo.getDeviceId();
 
@@ -316,9 +340,11 @@ const deviceId = DeviceInfo.getDeviceId();
 ---
 
 ### getDeviceLocale()
+
 Gets the device locale.
 
 **Examples**
+
 ```js
 const deviceLocale = DeviceInfo.getDeviceLocale();
 
@@ -330,9 +356,11 @@ const deviceLocale = DeviceInfo.getDeviceLocale();
 ---
 
 ### getDeviceName()
+
 Gets the device name.
 
 **Examples**
+
 ```js
 const deviceName = DeviceInfo.getDeviceName();
 
@@ -342,14 +370,17 @@ const deviceName = DeviceInfo.getDeviceName();
 ```
 
 **Android Permissions**
+
 * [android.permission.BLUETOOTH](https://developer.android.com/reference/android/Manifest.permission.html#BLUETOOTH)
 
 ---
 
 ### getFirstInstallTime()
+
 Gets the time at which the app was first installed, in milliseconds.
 
 **Examples**
+
 ```js
 const firstInstallTime = DeviceInfo.getFirstInstallTime();
 
@@ -359,24 +390,29 @@ const firstInstallTime = DeviceInfo.getFirstInstallTime();
 ---
 
 ### getIPAddress()
+
 Gets the device current IP address.
 
 **Examples**
+
 ```js
 DeviceInfo.getIPAddress().then(ip => {
   // "92.168.32.44"
-})
+});
 ```
 
 **Android Permissions**
+
 * [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
 
 ---
 
 ### getInstanceID()
+
 Gets the application instance ID.
 
 **Examples**
+
 ```js
 const instanceId = DeviceInfo.getInstanceID();
 
@@ -384,14 +420,17 @@ const instanceId = DeviceInfo.getInstanceID();
 ```
 
 **Notes**
+
 > See https://developers.google.com/instance-id/
 
 ---
 
 ### getLastUpdateTime()
+
 Gets the time at which the app was last updated, in milliseconds.
 
 **Examples**
+
 ```js
 const lastUpdateTime = DeviceInfo.getLastUpdateTime();
 
@@ -401,24 +440,29 @@ const lastUpdateTime = DeviceInfo.getLastUpdateTime();
 ---
 
 ### getMACAddress()
+
 Gets the network adapter MAC address.
 
 **Examples**
+
 ```js
 DeviceInfo.getMACAddress().then(mac => {
   // "E5:12:D8:E5:69:97"
-})
+});
 ```
 
 **Android Permissions**
+
 * [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
 
 ---
 
 ### getManufacturer()
+
 Gets the device manufacturer.
 
 **Examples**
+
 ```js
 const manufacturer = DeviceInfo.getManufacturer();
 
@@ -430,9 +474,11 @@ const manufacturer = DeviceInfo.getManufacturer();
 ---
 
 ### getMaxMemory()
+
 Returns the maximum amount of memory that the JVM will attempt to use, in bytes.
 
 **Examples**
+
 ```js
 const maxMemory = DeviceInfo.getMaxMemory();
 
@@ -444,9 +490,11 @@ const maxMemory = DeviceInfo.getMaxMemory();
 ---
 
 ### getModel()
+
 Gets the device model.
 
 **Examples**
+
 ```js
 const model = DeviceInfo.getModel();
 
@@ -458,9 +506,11 @@ const model = DeviceInfo.getModel();
 ---
 
 ### getPhoneNumber()
+
 Gets the device phone number.
 
 **Examples**
+
 ```js
 const phoneNumber = DeviceInfo.getPhoneNumber();
 
@@ -468,14 +518,17 @@ const phoneNumber = DeviceInfo.getPhoneNumber();
 ```
 
 **Android Permissions**
+
 * [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
 
 ---
 
 ### getReadableVersion()
+
 Gets the application human readable version.
 
 **Examples**
+
 ```js
 const readableVersion = DeviceInfo.getReadableVersion();
 
@@ -487,9 +540,11 @@ const readableVersion = DeviceInfo.getReadableVersion();
 ---
 
 ### getSerialNumber()
+
 Gets the device serial number.
 
 **Examples**
+
 ```js
 const serialNumber = DeviceInfo.getSerialNumber();
 
@@ -501,9 +556,11 @@ const serialNumber = DeviceInfo.getSerialNumber();
 ---
 
 ### getSystemName()
+
 Gets the device OS name.
 
 **Examples**
+
 ```js
 const systemName = DeviceInfo.getSystemName();
 
@@ -515,9 +572,11 @@ const systemName = DeviceInfo.getSystemName();
 ---
 
 ### getSystemVersion()
+
 Gets the device OS version.
 
 **Examples**
+
 ```js
 const systemVersion = DeviceInfo.getSystemVersion();
 
@@ -529,9 +588,11 @@ const systemVersion = DeviceInfo.getSystemVersion();
 ---
 
 ### getTimezone()
+
 Gets the device default timezone.
 
 **Examples**
+
 ```js
 const timezone = DeviceInfo.getTimezone(); // "Africa/Tunis"
 ```
@@ -539,9 +600,11 @@ const timezone = DeviceInfo.getTimezone(); // "Africa/Tunis"
 ---
 
 ### getTotalMemory()
+
 Gets the device total memory, in bytes.
 
 **Examples**
+
 ```js
 const totalMemory = DeviceInfo.getTotalMemory();
 
@@ -553,9 +616,11 @@ const totalMemory = DeviceInfo.getTotalMemory();
 ---
 
 ### getUniqueID()
+
 Gets the device unique ID.
 
 **Examples**
+
 ```js
 const uniqueId = DeviceInfo.getUniqueId();
 
@@ -565,14 +630,17 @@ const uniqueId = DeviceInfo.getUniqueId();
 ```
 
 **Notes**
+
 > This is IDFV on iOS so it will change if all apps from the current apps vendor have been previously uninstalled.
 
 ---
 
 ### getUserAgent()
+
 Gets the device User Agent.
 
 **Examples**
+
 ```js
 const userAgent = DeviceInfo.getUserAgent();
 
@@ -584,9 +652,11 @@ const userAgent = DeviceInfo.getUserAgent();
 ---
 
 ### getVersion()
+
 Gets the application version.
 
 **Examples**
+
 ```js
 const version = DeviceInfo.getVersion();
 
@@ -598,9 +668,11 @@ const version = DeviceInfo.getVersion();
 ---
 
 ### is24Hour()
+
 Tells if the user preference is set to 24-hour format.
 
 **Examples**
+
 ```js
 const is24Hour = DeviceInfo.is24Hour(); // true
 ```
@@ -608,9 +680,11 @@ const is24Hour = DeviceInfo.is24Hour(); // true
 ---
 
 ### isEmulator()
+
 Tells if the application is running in an emulator.
 
 **Examples**
+
 ```js
 const isEmulator = DeviceInfo.isEmulator(); // false
 ```
@@ -618,9 +692,11 @@ const isEmulator = DeviceInfo.isEmulator(); // false
 ---
 
 ### isPinOrFingerprintSet()
+
 Tells if a PIN number or a fingerprint was set for the device.
 
 **Examples**
+
 ```js
 DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
@@ -630,15 +706,18 @@ DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
 ```
 
 **Notes**
-> Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.
 
+> * Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.
+> * iOS: Not supported for iOS < 9
 
 ---
 
 ### isTablet()
+
 Tells if the device is a tablet.
 
 **Examples**
+
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
 ```
