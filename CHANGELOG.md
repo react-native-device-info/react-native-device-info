@@ -9,6 +9,7 @@
 * Added `getTotalMemory` and `getMaxMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/289)
 * Fix iOS undefined native module error (https://github.com/rebeccahughes/react-native-device-info/pull/276)
 * Fix crash on `getUserAgent` when Webview is not installed (https://github.com/rebeccahughes/react-native-device-info/pull/273)
+* Added `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
 
 ### 0.13.0
 

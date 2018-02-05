@@ -228,8 +228,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 - (uint64_t) freeDiskStorage {
     uint64_t freeSpace = 0;
-	NSDictionary *storage = [self getStorageDictionary];
-
+    NSDictionary *storage = [self getStorageDictionary];
+    
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
         freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
@@ -240,7 +240,6 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
-
     NSString *uniqueId = [DeviceUID uid];
 
     return @{
@@ -266,8 +265,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
              @"totalMemory": @(self.totalMemory),
-			 @"totalDiskCapacity": @(self.totalDiskCapacity),
-			 @"freeDiskStorage": @(self.freeDiskStorage),
+             @"totalDiskCapacity": @(self.totalDiskCapacity),
+             @"freeDiskStorage": @(self.freeDiskStorage),
              };
 }
 
