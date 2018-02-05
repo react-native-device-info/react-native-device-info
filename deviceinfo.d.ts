@@ -1,4 +1,4 @@
-// should be imported this way: 
+// should be imported this way:
 // import * as DeviceInfo from 'react-native-device-info';
 
 export function getUniqueID(): string;
@@ -22,7 +22,9 @@ export function getInstanceID(): string;
 export function isEmulator(): boolean;
 export function isTablet(): boolean;
 export function is24Hour(): boolean;
-export function isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
+export function isPinOrFingerprintSet(): (
+  cb: (isPinOrFingerprintSet: boolean) => void
+) => void;
 export function getFirstInstallTime(): number;
 export function getLastUpdateTime(): number;
 export function getSerialNumber(): string;

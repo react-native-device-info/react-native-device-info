@@ -80,7 +80,7 @@ module.exports = {
   is24Hour: function() {
     return RNDeviceInfo.is24Hour;
   },
-  isPinOrFingerprintSet: function () {
+  isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   getFirstInstallTime: function() {
