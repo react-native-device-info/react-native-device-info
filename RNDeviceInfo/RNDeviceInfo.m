@@ -16,7 +16,9 @@
 @property (nonatomic) bool isEmulator;
 @end
 
+#if !(TARGET_OS_TV)
 @import CoreTelephony;
+#endif
 
 @implementation RNDeviceInfo
 
@@ -122,8 +124,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPad6,8"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
                               @"iPad7,1"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Wifi
                               @"iPad7,2"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Cellular
-                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 12.5-inch - Wifi
-                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 12.5-inch - Cellular
+                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Wifi
+                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
@@ -156,9 +158,13 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 - (NSString *) carrier
 {
+#if (TARGET_OS_TV)
+    return nil;
+#else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     return carrier.carrierName;
+#endif
 }
 
 - (NSString*) userAgent
@@ -242,6 +248,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"deviceLocale": self.deviceLocale,
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
+             @"appName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],

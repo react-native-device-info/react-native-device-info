@@ -5,6 +5,7 @@ import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
@@ -129,31 +130,41 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
-
+    
     constants.put("appVersion", "not available");
+    constants.put("appName", "not available");
     constants.put("buildVersion", "not available");
     constants.put("buildNumber", 0);
 
     try {
+      PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
       PackageInfo info = packageManager.getPackageInfo(packageName, 0);
+      String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
       constants.put("appVersion", info.versionName);
       constants.put("buildNumber", info.versionCode);
       constants.put("firstInstallTime", info.firstInstallTime);
       constants.put("lastUpdateTime", info.lastUpdateTime);
+      constants.put("appName", applicationName);
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
 
     String deviceName = "Unknown";
 
-    try {
-      BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
-      if(myDevice!=null){
-        deviceName = myDevice.getName();
+    String permission = "android.permission.BLUETOOTH";
+    int res = this.reactContext.checkCallingOrSelfPermission(permission);
+    if (res == PackageManager.PERMISSION_GRANTED) {
+      try {
+        BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+        if (myDevice != null) {
+          deviceName = myDevice.getName();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    } catch(Exception e) {
-      e.printStackTrace();
     }
+
+
 
     try {
       if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
