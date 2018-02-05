@@ -210,10 +210,36 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return [NSProcessInfo processInfo].physicalMemory;
 }
 
+- (NSDictionary *) getStorageDictionary {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+    return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
+}
+
+- (uint64_t) totalDiskCapacity {
+    uint64_t totalSpace = 0;
+    NSDictionary *storage = [self getStorageDictionary];
+
+    if (storage) {
+        NSNumber *fileSystemSizeInBytes = [storage objectForKey: NSFileSystemSize];
+        totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
+    }
+    return totalSpace;
+}
+
+- (uint64_t) freeDiskStorage {
+    uint64_t freeSpace = 0;
+    NSDictionary *storage = [self getStorageDictionary];
+    
+    if (storage) {
+        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
+        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+    }
+    return freeSpace;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
-
     NSString *uniqueId = [DeviceUID uid];
 
     return @{
@@ -238,7 +264,9 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
-             @"totalMemory": @(self.totalMemory)
+             @"totalMemory": @(self.totalMemory),
+             @"totalDiskCapacity": @(self.totalDiskCapacity),
+             @"freeDiskStorage": @(self.freeDiskStorage),
              };
 }
 
