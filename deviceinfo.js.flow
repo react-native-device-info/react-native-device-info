@@ -22,7 +22,9 @@ declare module.exports: {
   isEmulator: () => boolean,
   isTablet: () => boolean,
   is24Hour: () => boolean,
-  isPinOrFingerprintSet: () => (cb: (isPinOrFingerprintSet: boolean) => void) => void,
+  isPinOrFingerprintSet: () => (
+    cb: (isPinOrFingerprintSet: boolean) => void
+  ) => void,
   getFirstInstallTime: () => number,
   getLastUpdateTime: () => number,
   getSerialNumber: () => string,
@@ -35,4 +37,4 @@ declare module.exports: {
   getMaxMemory: () => number,
   getTotalDiskCapacity: () => number,
   getFreeDiskStorage: () => number,
-}
+};
