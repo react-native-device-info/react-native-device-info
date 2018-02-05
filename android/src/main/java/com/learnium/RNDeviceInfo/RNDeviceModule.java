@@ -11,6 +11,8 @@ import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
+import android.os.Environment;
+import android.os.StatFs;
 import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -120,6 +122,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return telMgr.getNetworkOperatorName();
   }
 
+  @ReactMethod
+  public long getTotalDiskCapacity() {
+    StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+    return root.getBlockCountLong() * root.getBlockSizeLong();
+  }
+
+  @ReactMethod
+  public long getFreeDiskStorage() {
+    StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
+    return external.getAvailableBlocksLong() * external.getBlockSizeLong();
+  }
+
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
@@ -201,6 +215,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         constants.put("phoneNumber", telMgr.getLine1Number());
     }
     constants.put("carrier", this.getCarrier());
+    constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
+    constants.put("freeDiskStorage", this.getFreeDiskStorage());
 
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());
