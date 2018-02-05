@@ -195,7 +195,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getFreeDiskStorage()](#getFreeDiskStorage)       | `number`            |  ✅  |   ✅    |   ❌    | `next` |
+| [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -209,7 +209,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getTotalDiskCapacity()](#getTotalDiskCapacity)   | `number`            |  ✅  |   ✅    |   ❌    | `next` |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)   | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
 | [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
@@ -393,8 +393,7 @@ const firstInstallTime = DeviceInfo.getFirstInstallTime();
 
 ### getFreeDiskStorage()
 
-Gets available storage size, in bytes
-(Android: Returns only available external storage size, not including internal)
+Gets available storage size, in bytes.
 
 **Examples**
 
@@ -404,6 +403,10 @@ const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
 // Android: 17179869184
 // iOS: 17179869184
 ```
+
+**Notes**
+
+> Android: Returns only available external storage size, not including internal.
 
 ---
 
@@ -616,9 +619,10 @@ const timezone = DeviceInfo.getTimezone(); // "Africa/Tunis"
 ```
 
 ---
+
 ### getTotalDiskCapacity()
 
-Gets full disk storage size, in bytes
+Gets full disk storage size, in bytes.
 
 **Examples**
 
