@@ -195,7 +195,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getFreeDiskStorage()](#getFreeDiskStorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
+| [getFreeDiskStorage()](#getFreeDiskStorage)       | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -209,7 +209,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getTotalDiskCapacity()](#getTotalDiskCapacity)   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
+| [getTotalDiskCapacity()](#getTotalDiskCapacity)   | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
 | [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
