@@ -195,6 +195,7 @@ var DeviceInfo = require("react-native-device-info");
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getFreeDiskStorage()](#getFreeDiskStorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -208,6 +209,7 @@ var DeviceInfo = require("react-native-device-info");
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getTotalDiskCapacity()](#getTotalDiskCapacity)   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
 | [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
@@ -385,6 +387,22 @@ Gets the time at which the app was first installed, in milliseconds.
 const firstInstallTime = DeviceInfo.getFirstInstallTime();
 
 // Android: 1517681764528
+```
+
+---
+
+### getFreeDiskStorage()
+
+Gets available storage size, in bytes
+(Android: Returns only available external storage size, not including internal)
+
+**Examples**
+
+```js
+const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
+
+// Android: 17179869184
+// iOS: 17179869184
 ```
 
 ---
@@ -595,6 +613,20 @@ Gets the device default timezone.
 
 ```js
 const timezone = DeviceInfo.getTimezone(); // "Africa/Tunis"
+```
+
+---
+### getTotalDiskCapacity()
+
+Gets full disk storage size, in bytes
+
+**Examples**
+
+```js
+const storageSize = DeviceInfo.getTotalDiskCapacity();
+
+// Android: 17179869184
+// iOS: 17179869184
 ```
 
 ---

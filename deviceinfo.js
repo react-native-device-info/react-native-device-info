@@ -101,4 +101,10 @@ module.exports = {
   getMaxMemory: function() {
     return RNDeviceInfo.maxMemory;
   },
+  getTotalDiskCapacity: function () {
+    return RNDeviceInfo.totalDiskCapacity;
+  },
+  getFreeDiskStorage: function () {
+    return RNDeviceInfo.freeDiskStorage;
+  }
 };
