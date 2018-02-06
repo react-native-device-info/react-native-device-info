@@ -404,16 +404,6 @@ This can be used to determine if accessability settings has been changed for the
 const fontScale = DeviceInfo.getFontScale(); // 1.2
 ```
 
-**Notes**
-
-> Android: The application will automatically reload when this configuration changes, if you **do not** have `fontScale` in your [`android:configChanges`](https://developer.android.com/guide/topics/manifest/activity-element.html#config) attribute of your activity, so you will be able to fetch the updated font scale.
-> iOS: To achieve the same automatic reload functionality, add the following to your AppDelegate.m:
-```objective-c
-- (void) dynamicTextSizeDidChange {
-  [self->rootView.bridge reload];
-}
-```
-
 ---
 
 ### getFreeDiskStorage()
