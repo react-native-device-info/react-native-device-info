@@ -68,11 +68,11 @@ module.exports = {
   getTimezone: function() {
     return RNDeviceInfo.timezone;
   },
-  getInitialWidth: function() {
-    return RNDeviceInfo.width;
-  },
-  getInitialHeight: function() {
-    return RNDeviceInfo.height;
+  getInitialScreenSize: function() {
+    return {
+      width: RNDeviceInfo.width,
+      height: RNDeviceInfo.height
+    };
   },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;
