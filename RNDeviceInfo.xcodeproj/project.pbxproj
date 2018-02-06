@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
+		BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
 		DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
 		DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */; };
+		E72EC1491F7ABC0C0001BC90 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
+		E72EC14A1F7ABC0E0001BC90 /* RNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */; };
+		E72EC14B1F7ABC1A0001BC90 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
+		E72EC14C1F7ABC1D0001BC90 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +24,19 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */,
 				DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E72EC13E1F7ABB5A0001BC90 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				E72EC14B1F7ABC1A0001BC90 /* DeviceUID.h in CopyFiles */,
+				E72EC14C1F7ABC1D0001BC90 /* RNDeviceInfo.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -31,10 +48,18 @@
 		DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNDeviceInfo.h; sourceTree = "<group>"; };
 		DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNDeviceInfo.m; sourceTree = "<group>"; };
+		E72EC1401F7ABB5A0001BC90 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRNDeviceInfo-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DA5891D51BA9A9FC002B4DB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E72EC13D1F7ABB5A0001BC90 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -56,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */,
+				E72EC1401F7ABB5A0001BC90 /* libRNDeviceInfo-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,6 +117,23 @@
 			productReference = DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		E72EC13F1F7ABB5A0001BC90 /* RNDeviceInfo-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E72EC1481F7ABB5A0001BC90 /* Build configuration list for PBXNativeTarget "RNDeviceInfo-tvOS" */;
+			buildPhases = (
+				E72EC13C1F7ABB5A0001BC90 /* Sources */,
+				E72EC13D1F7ABB5A0001BC90 /* Frameworks */,
+				E72EC13E1F7ABB5A0001BC90 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RNDeviceInfo-tvOS";
+			productName = "RNDeviceInfo-tvOS";
+			productReference = E72EC1401F7ABB5A0001BC90 /* libRNDeviceInfo-tvOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -102,6 +145,10 @@
 				TargetAttributes = {
 					DA5891D71BA9A9FC002B4DB2 = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					E72EC13F1F7ABB5A0001BC90 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -118,6 +165,7 @@
 			projectRoot = "";
 			targets = (
 				DA5891D71BA9A9FC002B4DB2 /* RNDeviceInfo */,
+				E72EC13F1F7ABB5A0001BC90 /* RNDeviceInfo-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -129,6 +177,15 @@
 			files = (
 				76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */,
 				DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E72EC13C1F7ABB5A0001BC90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E72EC1491F7ABC0C0001BC90 /* DeviceUID.m in Sources */,
+				E72EC14A1F7ABC0E0001BC90 /* RNDeviceInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +279,7 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
 					"$(SRCROOT)/../react-native/React/**",
-					"$(SRCROOT)/../../../node_modules/react-native/React/**"
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -240,12 +297,66 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
 					"$(SRCROOT)/../react-native/React/**",
-					"$(SRCROOT)/../../../node_modules/react-native/React/**"
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		E72EC1461F7ABB5A0001BC90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		E72EC1471F7ABB5A0001BC90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -266,6 +377,15 @@
 			buildConfigurations = (
 				DA5891E21BA9A9FC002B4DB2 /* Debug */,
 				DA5891E31BA9A9FC002B4DB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E72EC1481F7ABB5A0001BC90 /* Build configuration list for PBXNativeTarget "RNDeviceInfo-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E72EC1461F7ABB5A0001BC90 /* Debug */,
+				E72EC1471F7ABB5A0001BC90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
