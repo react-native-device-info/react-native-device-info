@@ -2,7 +2,7 @@
 Hi there and thank you for reporting a bug! 🐛🐛🐛
 
 If you want to submit a feature request, use this link instead:
-  https://github.com/rebeccahughes/react-native-device-info/issues/new?template=feature-request.md
+  https://github.com/rebeccahughes/react-native-device-info/issues/new?template=FEATURE_REQUEST.md
 -->
 
 ## Summary
