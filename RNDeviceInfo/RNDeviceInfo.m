@@ -200,6 +200,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+// Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
 - (NSNumber*) fontScale
 {
   float fontScale = 1.0;
