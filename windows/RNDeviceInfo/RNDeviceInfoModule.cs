@@ -118,7 +118,6 @@ namespace RNDeviceInfo
                 constants["timezone"] = TimeZoneInfo.Local.Id;
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
-
                 constants["carrier"] = "not available";
                 constants["is24Hour"] = is24Hour();
 
