@@ -3,6 +3,7 @@
 ### Next
 
 * Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
+* Add `isDeveloperModeEnabled` (https://github.com/rebeccahughes/react-native-device-info/pull/316)
 
 ### 0.14.0
 
