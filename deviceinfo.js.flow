@@ -23,7 +23,9 @@ declare module.exports: {
   isTablet: () => boolean,
   getFontScale: () => number,
   is24Hour: () => boolean,
-  isPinOrFingerprintSet: () => (cb: (isPinOrFingerprintSet: boolean) => void) => void,
+  isPinOrFingerprintSet: () => (
+    cb: (isPinOrFingerprintSet: boolean) => void
+  ) => void,
   getFirstInstallTime: () => number,
   getLastUpdateTime: () => number,
   getSerialNumber: () => string,
@@ -34,4 +36,6 @@ declare module.exports: {
   getCarrier: () => string,
   getTotalMemory: () => number,
   getMaxMemory: () => number,
-}
+  getTotalDiskCapacity: () => number,
+  getFreeDiskStorage: () => number,
+};

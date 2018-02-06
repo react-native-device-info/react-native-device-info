@@ -11,6 +11,8 @@ import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
+import android.os.Environment;
+import android.os.StatFs;
 import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -49,7 +51,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private WifiInfo getWifiInfo() {
-    if ( this.wifiInfo == null ) {
+    if (this.wifiInfo == null) {
       WifiManager manager = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
       this.wifiInfo = manager.getConnectionInfo();
     }
@@ -57,18 +59,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getCurrentLanguage() {
-      Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          return current.toLanguageTag();
-      } else {
-          StringBuilder builder = new StringBuilder();
-          builder.append(current.getLanguage());
-          if (current.getCountry() != null) {
-              builder.append("-");
-              builder.append(current.getCountry());
-          }
-          return builder.toString();
+    Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      return current.toLanguageTag();
+    } else {
+      StringBuilder builder = new StringBuilder();
+      builder.append(current.getLanguage());
+      if (current.getCountry() != null) {
+        builder.append("-");
+        builder.append(current.getCountry());
       }
+      return builder.toString();
+    }
   }
 
   private String getCurrentCountry() {
@@ -78,13 +80,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private Boolean isEmulator() {
     return Build.FINGERPRINT.startsWith("generic")
-      || Build.FINGERPRINT.startsWith("unknown")
-      || Build.MODEL.contains("google_sdk")
-      || Build.MODEL.contains("Emulator")
-      || Build.MODEL.contains("Android SDK built for x86")
-      || Build.MANUFACTURER.contains("Genymotion")
-      || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-      || "google_sdk".equals(Build.PRODUCT);
+        || Build.FINGERPRINT.startsWith("unknown")
+        || Build.MODEL.contains("google_sdk")
+        || Build.MODEL.contains("Emulator")
+        || Build.MODEL.contains("Android SDK built for x86")
+        || Build.MANUFACTURER.contains("Genymotion")
+        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+        || "google_sdk".equals(Build.PRODUCT);
   }
 
   private Boolean isTablet() {
@@ -124,13 +126,26 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return telMgr.getNetworkOperatorName();
   }
 
+  @ReactMethod
+  public long getTotalDiskCapacity() {
+    StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+    return root.getBlockCountLong() * root.getBlockSizeLong();
+  }
+
+  @ReactMethod
+  public long getFreeDiskStorage() {
+    StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
+    return external.getAvailableBlocksLong() * external.getBlockSizeLong();
+  }
+
   @Override
-  public @Nullable Map<String, Object> getConstants() {
+  public @Nullable
+  Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
-    
+
     constants.put("appVersion", "not available");
     constants.put("appName", "not available");
     constants.put("buildVersion", "not available");
@@ -163,7 +178,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         e.printStackTrace();
       }
     }
-
 
 
     try {
@@ -199,13 +213,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("fontScale", this.fontScale());
     constants.put("is24Hour", this.is24Hour());
     if (getCurrentActivity() != null &&
-          (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
+        (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
             getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED ||
             getCurrentActivity().checkCallingOrSelfPermission("android.permission.READ_PHONE_NUMBERS") == PackageManager.PERMISSION_GRANTED)) {
-        TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        constants.put("phoneNumber", telMgr.getLine1Number());
+      TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+      constants.put("phoneNumber", telMgr.getLine1Number());
     }
     constants.put("carrier", this.getCarrier());
+    constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
+    constants.put("freeDiskStorage", this.getFreeDiskStorage());
 
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());

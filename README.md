@@ -176,7 +176,7 @@ include ':app'
 ## Usage
 
 ```js
-var DeviceInfo = require("react-native-device-info");
+var DeviceInfo = require('react-native-device-info');
 // or import DeviceInfo from 'react-native-device-info';
 ```
 
@@ -196,6 +196,7 @@ var DeviceInfo = require("react-native-device-info");
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | `next` |
+| [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -209,6 +210,7 @@ var DeviceInfo = require("react-native-device-info");
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)   | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
 | [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
@@ -388,6 +390,16 @@ const firstInstallTime = DeviceInfo.getFirstInstallTime();
 // Android: 1517681764528
 ```
 
+**Notes**
+
+> Android: The application will automatically reload when this configuration changes, if you added `fontScale` in your [`android:configChanges`](https://developer.android.com/guide/topics/manifest/activity-element.html#config) attribute of your activity, so you will be able to fetch the updated font scale.
+> iOS: To achieve the same automatic reload functionality, add the following to your AppDelegate.m:
+```objective-c
+- (void) dynamicTextSizeDidChange {
+  [self->rootView.bridge reload];
+}
+```
+
 ---
 
 ### getFontScale()
@@ -396,21 +408,28 @@ Gets the device font scale.
 The font scale is the ratio of the current system font to the "normal" font size, so if normal text is 10pt and the system font is currently 15pt, the font scale would be 1.5
 This can be used to determine if accessability settings has been changed for the device; you may want to re-layout certain views if the font scale is significantly larger ( > 2.0 )
 
-
 **Examples**
 
 ```js
 const fontScale = DeviceInfo.getFontScale(); // 1.2
 ```
 
+### getFreeDiskStorage()
+
+Gets available storage size, in bytes.
+
+**Examples**
+
+```js
+const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
+
+// Android: 17179869184
+// iOS: 17179869184
+```
+
 **Notes**
 
-> Android by default will reload the app when the configuration changes, so you will be able to fetch the updated font scale. To achieve the same functionality on iOS, add the following to your AppDelegate.m:
-```objective-c
-- (void) dynamicTextSizeDidChange {
-  [self->rootView.bridge reload];
-}
-```
+> Android: Returns only available external storage size, not including internal.
 
 ---
 
@@ -620,6 +639,21 @@ Gets the device default timezone.
 
 ```js
 const timezone = DeviceInfo.getTimezone(); // "Africa/Tunis"
+```
+
+---
+
+### getTotalDiskCapacity()
+
+Gets full disk storage size, in bytes.
+
+**Examples**
+
+```js
+const storageSize = DeviceInfo.getTotalDiskCapacity();
+
+// Android: 17179869184
+// iOS: 17179869184
 ```
 
 ---
