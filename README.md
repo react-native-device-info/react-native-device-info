@@ -658,7 +658,7 @@ Gets the device unique ID.
 **Examples**
 
 ```js
-const uniqueId = DeviceInfo.getUniqueId();
+const uniqueId = DeviceInfo.getUniqueID();
 
 // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
 // Android: "dd96dec43fb81c97"
