@@ -759,6 +759,16 @@ Tells if the device is a tablet.
 const isTablet = DeviceInfo.isTablet(); // true
 ```
 
+### isDeveloperModeEnabled()
+
+Tells if the device is running in developer mode.
+
+**Examples**
+
+```js
+const isDeveloperModeEnabled = DeviceInfo.isDeveloperModeEnabled(); // true
+```
+
 ## Release Notes
 
 See the [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blob/master/CHANGELOG.md).
