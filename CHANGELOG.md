@@ -2,6 +2,7 @@
 
 ### Next
 
+* Add `getFontScale` (https://github.com/rebeccahughes/react-native-device-info/pull/278)
 * Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
 
 ### 0.14.0
