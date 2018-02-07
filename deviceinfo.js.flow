@@ -21,6 +21,7 @@ declare module.exports: {
   getInstanceID: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
+  getFontScale: () => number,
   is24Hour: () => boolean,
   isPinOrFingerprintSet: () => (
     cb: (isPinOrFingerprintSet: boolean) => void

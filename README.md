@@ -195,6 +195,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | `next` |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
@@ -387,6 +388,20 @@ Gets the time at which the app was first installed, in milliseconds.
 const firstInstallTime = DeviceInfo.getFirstInstallTime();
 
 // Android: 1517681764528
+```
+
+---
+
+### getFontScale()
+
+Gets the device font scale.
+The font scale is the ratio of the current system font to the "normal" font size, so if normal text is 10pt and the system font is currently 15pt, the font scale would be 1.5
+This can be used to determine if accessability settings has been changed for the device; you may want to re-layout certain views if the font scale is significantly larger ( > 2.0 )
+
+**Examples**
+
+```js
+const fontScale = DeviceInfo.getFontScale(); // 1.2
 ```
 
 ---
