@@ -1,14 +1,23 @@
 <!--
-  Hola!
+Hi there and thank you for reporting a bug! 🐛🐛🐛
 
-  If you're looking to submit a bug report, please go to this link and access
-  the template there:
-
-  https://github.com/rebeccahughes/react-native-device-info/issues/new?template=BUG_REPORT.md
-
-  If this is a feature request, please fill out this template:
-
-  https://github.com/rebeccahughes/react-native-device-info/issues/new?template=FEATURE_REQUEST.md
-
-  Thanks!
+If you want to submit a feature request, use this link instead:
+  https://github.com/rebeccahughes/react-native-device-info/issues/new?template=feature_request.md
 -->
+
+## Summary
+
+|             |     |
+| ----------- | --- |
+| Version     | ?   |
+| Affected OS | ?   |
+| OS Version  | ?   |
+
+## Current behavior
+
+<!-- Describe the issue you are facing, including any available error
+message, logs, stack trace .. -->
+
+## Expected behavior
+
+<!-- What should have happened instead of this bug -->
