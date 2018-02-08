@@ -1,6 +1,11 @@
 // should be imported this way: 
 // import * as DeviceInfo from 'react-native-device-info';
 
+interface IScreenSize {
+  width: number;
+  height: number;
+}
+
 export function getUniqueID(): string;
 export function getManufacturer(): string;
 export function getBrand(): string;
@@ -20,7 +25,7 @@ export function getTimezone(): string;
 export function getInstanceID(): string;
 export function isEmulator(): boolean;
 export function isTablet(): boolean;
-export function getInitialScreenSize(): object;
+export function getInitialScreenSize(): IScreenSize;
 export function is24Hour(): boolean;
 export function isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
 export function getFirstInstallTime(): number;
