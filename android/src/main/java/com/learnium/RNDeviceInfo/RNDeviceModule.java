@@ -127,15 +127,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public long getTotalDiskCapacity() {
+  public int getTotalDiskCapacity() {
     StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-    return root.getBlockCountLong() * root.getBlockSizeLong();
+    return root.getBlockCount() * root.getBlockSize();
   }
 
   @ReactMethod
-  public long getFreeDiskStorage() {
+  public int getFreeDiskStorage() {
     StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-    return external.getAvailableBlocksLong() * external.getBlockSizeLong();
+    return external.getAvailableBlocks() * external.getBlockSize();
   }
 
   @Override
