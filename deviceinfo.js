@@ -69,10 +69,7 @@ module.exports = {
     return RNDeviceInfo.timezone;
   },
   getInitialScreenSize: function() {
-    return {
-      width: RNDeviceInfo.width,
-      height: RNDeviceInfo.height
-    };
+    return RNDeviceInfo.screenSize;
   },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;

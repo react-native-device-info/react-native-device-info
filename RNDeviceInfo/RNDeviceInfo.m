@@ -194,18 +194,16 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
-- (CGFloat) width
+- (NSDictionary*) screenSize
 {
   UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
   UIView *rootView = rootViewController.view;
-  return rootView.frame.size.width;
-}
-
-- (CGFloat) height
-{
-  UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  UIView *rootView = rootViewController.view;
-  return rootView.frame.size.height;
+  NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:2];
+  CGFloat width = [rootView frame].size.width;
+  CGFloat height = [rootView frame].size.height;
+  [dict setValue:@(width) forKey:@"width"];
+  [dict setValue:@(height) forKey:@"height"];
+  return [dict copy];
 }
 
 - (bool) is24Hour
@@ -246,8 +244,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
              @"totalMemory": @(self.totalMemory),
-             @"width": @(self.width),
-             @"height": @(self.height)
+             @"screenSize": self.screenSize
              };
 }
 

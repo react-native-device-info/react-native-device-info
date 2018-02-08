@@ -21,6 +21,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -91,14 +93,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
-  private float width() {
+  private WritableMap screenSize() {
     Configuration config = getReactApplicationContext().getResources().getConfiguration();
-    return config.screenWidthDp;
-  }
-
-  private float height() {
-    Configuration config = getReactApplicationContext().getResources().getConfiguration();
-    return config.screenHeightDp;
+    WritableMap map = new WritableNativeMap();
+    map.putDouble("width", config.screenWidthDp);
+    map.putDouble("height", config.screenHeightDp);
+    return map;
   }
 
   private Boolean is24Hour() {
@@ -191,8 +191,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
-    constants.put("width", this.width());
-    constants.put("height", this.height());
+    constants.put("screenSize", this.screenSize());
     constants.put("is24Hour", this.is24Hour());
     if (getCurrentActivity() != null &&
           (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
