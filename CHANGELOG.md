@@ -2,6 +2,10 @@
 
 ### Next
 
+### 0.15.1
+
+* Fix Android compatibility for `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/319)
+
 ### 0.15.0
 
 * Add `getFontScale` (https://github.com/rebeccahughes/react-native-device-info/pull/278)
