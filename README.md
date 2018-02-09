@@ -757,15 +757,6 @@ DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
 }
 ```
 
-### getManufacturerSerialNumber()
-
-Returns device manufacturer sercial number. Tested on Samsung devices.
-
-**Examples**
-```js
-const manufacturerSerialNumber = DeviceInfo.getManufacturerSerialNumber(); // "RF3C6000MNA"
-```
-
 **Notes**
 
 > * Since the device setting for PIN/Fingerprint can be modified while the app is still open, this is available via callback instead of as a constant.
@@ -782,6 +773,19 @@ Tells if the device is a tablet.
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
 ```
+
+---
+
+### getManufacturerSerialNumber()
+
+Returns device manufacturer sercial number. Tested on Samsung devices.
+
+**Examples**
+```js
+const manufacturerSerialNumber = DeviceInfo.getManufacturerSerialNumber(); // "RF3C6000MNA"
+```
+
+---
 
 ## Release Notes
 
