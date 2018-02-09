@@ -182,43 +182,44 @@ var DeviceInfo = require('react-native-device-info');
 
 ## API
 
-| Method                                            | Return Type         |  iOS | Android | Windows | Since  |
-| ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
-| [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
-| [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
-| [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getCarrier()](#getcarrier)                       | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
-| [getDeviceCountry()](#getdevicecountry)           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
-| [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
-| [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
-| [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
-| [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getSerialNumber()](#getserialnumber)             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getTotalDiskCapacity()](#gettotaldiskcapacity)   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
-| [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
-| [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
-| [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
-| [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| Method                                                         | Return Type         |  iOS | Android | Windows | Since  |
+| ---------------------------------------------------------------| ------------------- | :--: | :-----: | :-----: | ------ |
+| [getAPILevel()](#getapilevel)                                  | `number`            |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getApplicationName()](#getapplicationname)                    | `string`            |  ✅  |   ✅   |   ✅   | 0.14.0 |
+| [getBrand()](#getbrand)                                        | `string`            |  ✅  |   ✅   |   ✅   | 0.9.3  |
+| [getBuildNumber()](#getbuildnumber)                            | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getBundleId()](#getbundleid)                                  | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getCarrier()](#getcarrier)                                    | `string`            |  ✅  |   ✅   |   ❌   | 0.13.0 |
+| [getDeviceCountry()](#getdevicecountry)                        | `string`            |  ✅  |   ✅   |   ✅   | 0.9.0  |
+| [getDeviceId()](#getdeviceid)                                  | `string`            |  ✅  |   ✅   |   ✅   | 0.5.0  |
+| [getDeviceLocale()](#getdevicelocale)                          | `string`            |  ✅  |   ✅   |   ✅   | 0.7.0  |
+| [getDeviceName()](#getdevicename)                              | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getFirstInstallTime()](#getfirstinstalltime)                  | `number`            |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getFontScale()](#getfontscale)                                | `number`            |  ✅  |   ✅   |   ❌   | 0.15.0 |
+| [getFreeDiskStorage()](#getfreediskstorage)                    | `number`            |  ✅  |   ✅   |   ❌   | 0.15.0 |
+| [getIPAddress()](#getipaddress)                                | `Promise<string>`   |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getInstanceID()](#getinstanceid)                              | `string`            |  ❌  |   ✅   |   ❌   | ?      |
+| [getLastUpdateTime()](#getlastupdatetime)                      | `number`            |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getMACAddress()](#getmacaddress)                              | `Promise<string>`   |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getManufacturer()](#getmanufacturer)                          | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getMaxMemory()](#getmaxmemory)                                | `number`            |  ❌  |   ✅   |   ❌   | 0.14.0 |
+| [getModel()](#getmodel)                                        | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getPhoneNumber()](#getphonenumber)                            | `string`            |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getReadableVersion()](#getreadableversion)                    | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getSerialNumber()](#getserialnumber)                          | `string`            |  ❌  |   ✅   |   ❌   | 0.12.0 |
+| [getSystemName()](#getsystemname)                              | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getSystemVersion()](#getsystemversion)                        | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getTimezone()](#gettimezone)                                  | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)                | `number`            |  ✅  |   ✅   |   ❌   | 0.15.0 |
+| [getTotalMemory()](#gettotalmemory)                            | `number`            |  ✅  |   ✅   |   ❌   | 0.14.0 |
+| [getUniqueID()](#getuniqueid)                                  | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [getUserAgent()](#getuseragent)                                | `string`            |  ✅  |   ✅   |   ❌   | 0.7.0  |
+| [getVersion()](#getversion)                                    | `string`            |  ✅  |   ✅   |   ✅   | ?      |
+| [is24Hour()](#is24hour)                                        | `boolean`           |  ✅  |   ✅   |   ✅   | 0.13.0 |
+| [isEmulator()](#isemulator)                                    | `boolean`           |  ✅  |   ✅   |   ✅   | ?      |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset)              | (callback)`boolean` |  ✅  |   ✅   |   ❌   | 0.10.1 |
+| [isTablet()](#istablet)                                        | `boolean`           |  ✅  |   ✅   |   ✅   | ?      |
+| [getManufacturerSerialNumber()](#getManufacturerSerialNumber)  | `boolean`           |  ❌  |   ✅   |   ❌   | 0.15.2 |
 
 ---
 
