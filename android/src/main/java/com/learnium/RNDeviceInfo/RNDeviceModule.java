@@ -95,7 +95,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getSerialNumber(String className){
-    String serial = "unknown";
+    String serial = null;
     try {
       Class<?> c = Class.forName("android.os.SystemProperties");
       Method get = c.getMethod("get", String.class, String.class);
@@ -105,11 +105,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getManufacturerSerialNumber() {
-    String serial = "unknown";
+    String serial = null;
     try {
       serial = this.getSerialNumber("ril.serialnumber");
-      if(serial.equals("unknown"))
+      if(serial.equals(null)){
         serial = this.getSerialNumber("sys.serialnumber");
+      }
     } catch (Exception ignored) {}
     return serial;
   }
