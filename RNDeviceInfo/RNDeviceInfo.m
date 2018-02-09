@@ -16,13 +16,15 @@
 @property (nonatomic) bool isEmulator;
 @end
 
+#if !(TARGET_OS_TV)
 @import CoreTelephony;
+#endif
 
 @implementation RNDeviceInfo
 
 @synthesize isEmulator;
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(RNDeviceInfo)
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -122,8 +124,8 @@ RCT_EXPORT_MODULE()
                               @"iPad6,8"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
                               @"iPad7,1"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Wifi
                               @"iPad7,2"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Cellular
-                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 12.5-inch - Wifi
-                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 12.5-inch - Cellular
+                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Wifi
+                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
@@ -156,9 +158,13 @@ RCT_EXPORT_MODULE()
 
 - (NSString *) carrier
 {
+#if (TARGET_OS_TV)
+    return nil;
+#else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     return carrier.carrierName;
+#endif
 }
 
 - (NSString*) userAgent
@@ -194,16 +200,68 @@ RCT_EXPORT_MODULE()
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+// Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
+- (NSNumber*) fontScale
+{
+  float fontScale = 1.0;
+  NSString *contentSize = [UIApplication sharedApplication].preferredContentSizeCategory;
+
+  if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryS"]) fontScale = 0.88;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryM"]) fontScale = 0.95;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryL"]) fontScale = 1.0;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryXL"]) fontScale = 1.12;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryXXL"]) fontScale = 1.23;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryXXXL"]) fontScale = 1.35;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityM"]) fontScale = 1.64;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityL"]) fontScale = 1.95;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXL"]) fontScale = 2.35;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXXL"]) fontScale = 2.76;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXXXL"]) fontScale = 3.12;
+
+  return [NSNumber numberWithFloat: fontScale];
+}
+
 - (bool) is24Hour
 {
     NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
     return ([format rangeOfString:@"a"].location == NSNotFound);
 }
 
+- (unsigned long long) totalMemory {
+  return [NSProcessInfo processInfo].physicalMemory;
+}
+
+- (NSDictionary *) getStorageDictionary {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+    return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
+}
+
+- (uint64_t) totalDiskCapacity {
+    uint64_t totalSpace = 0;
+    NSDictionary *storage = [self getStorageDictionary];
+
+    if (storage) {
+        NSNumber *fileSystemSizeInBytes = [storage objectForKey: NSFileSystemSize];
+        totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
+    }
+    return totalSpace;
+}
+
+- (uint64_t) freeDiskStorage {
+    uint64_t freeSpace = 0;
+    NSDictionary *storage = [self getStorageDictionary];
+    
+    if (storage) {
+        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
+        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+    }
+    return freeSpace;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
-
     NSString *uniqueId = [DeviceUID uid];
 
     return @{
@@ -217,6 +275,7 @@ RCT_EXPORT_MODULE()
              @"deviceLocale": self.deviceLocale,
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
+             @"appName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
@@ -227,6 +286,10 @@ RCT_EXPORT_MODULE()
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
+             @"fontScale": self.fontScale,
+             @"totalMemory": @(self.totalMemory),
+             @"totalDiskCapacity": @(self.totalDiskCapacity),
+             @"freeDiskStorage": @(self.freeDiskStorage),
              };
 }
 
