@@ -44,6 +44,9 @@ module.exports = {
   getBundleId: function() {
     return RNDeviceInfo.bundleId;
   },
+  getApplicationName: function() {
+    return RNDeviceInfo.appName;
+  },
   getBuildNumber: function() {
     return RNDeviceInfo.buildNumber;
   },
@@ -71,6 +74,9 @@ module.exports = {
   getInitialScreenSize: function() {
     return RNDeviceInfo.screenSize;
   },
+  getFontScale: function() {
+    return RNDeviceInfo.fontScale;
+  },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;
   },
@@ -80,7 +86,7 @@ module.exports = {
   is24Hour: function() {
     return RNDeviceInfo.is24Hour;
   },
-  isPinOrFingerprintSet: function () {
+  isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   getFirstInstallTime: function() {
@@ -101,4 +107,10 @@ module.exports = {
   getMaxMemory: function() {
     return RNDeviceInfo.maxMemory;
   },
+  getTotalDiskCapacity: function () {
+    return RNDeviceInfo.totalDiskCapacity;
+  },
+  getFreeDiskStorage: function () {
+    return RNDeviceInfo.freeDiskStorage;
+  }
 };
