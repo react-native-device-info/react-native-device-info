@@ -2,7 +2,7 @@
 
 ### Next
 
-* Fix crash on `getFreeDiskStorage` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)
+* Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)
 
 ### 0.15.1
 
