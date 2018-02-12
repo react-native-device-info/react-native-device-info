@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.3.2
+* fix: load module async by default with option to load sync (https://github.com/react-native-community/react-native-device-info/pull/741)
+
 ### 2.3.1
 * fix: add Huawei P30 devices to isNothc list (https://github.com/react-native-community/react-native-device-info/pull/734)
 
