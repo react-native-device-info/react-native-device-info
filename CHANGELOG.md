@@ -2,8 +2,18 @@
 
 ### Next
 
-* Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
 * Add `isDeveloperModeEnabled` (https://github.com/rebeccahughes/react-native-device-info/pull/316)
+
+
+### 0.15.1
+
+* Fix Android compatibility for `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/319)
+
+### 0.15.0
+
+* Add `getFontScale` (https://github.com/rebeccahughes/react-native-device-info/pull/278)
+* Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
+* Fix missing flow definition for `getApplicationName`
 
 ### 0.14.0
 

@@ -106,6 +106,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return (isDeveloperModeEnabled == 1);
   }
 
+  private float fontScale() {
+    return getReactApplicationContext().getResources().getConfiguration().fontScale;
+  }
+
   private Boolean is24Hour() {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
   }
@@ -135,15 +139,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public long getTotalDiskCapacity() {
+  public int getTotalDiskCapacity() {
     StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-    return root.getBlockCountLong() * root.getBlockSizeLong();
+    return root.getBlockCount() * root.getBlockSize();
   }
 
   @ReactMethod
-  public long getFreeDiskStorage() {
+  public int getFreeDiskStorage() {
     StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-    return external.getAvailableBlocksLong() * external.getBlockSizeLong();
+    return external.getAvailableBlocks() * external.getBlockSize();
   }
 
   @Override
@@ -218,6 +222,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
+    constants.put("fontScale", this.fontScale());
     constants.put("is24Hour", this.is24Hour());
     if (getCurrentActivity() != null &&
         (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
