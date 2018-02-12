@@ -2,7 +2,16 @@
  * @providesModule react-native-device-info
  */
 
-var RNDeviceInfo = require('react-native').NativeModules.RNDeviceInfo;
+import { Platform } from 'react-native';
+
+var RNDeviceInfo;
+
+if (Platform.OS === 'web') {
+  RNDeviceInfo = require('./web/RNDeviceInfoWeb');
+}
+else {
+  RNDeviceInfo = require('react-native').NativeModules.RNDeviceInfo;
+}
 
 module.exports = {
   getUniqueID: function() {
