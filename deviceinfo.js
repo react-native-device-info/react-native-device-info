@@ -2,15 +2,12 @@
  * @providesModule react-native-device-info
  */
 
-import { Platform } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
 
-var RNDeviceInfo;
+var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
-if (Platform.OS === 'web') {
+if (!RNDeviceInfo && Platform.OS === 'web') {
   RNDeviceInfo = require('./web/RNDeviceInfoWeb');
-}
-else {
-  RNDeviceInfo = require('react-native').NativeModules.RNDeviceInfo;
 }
 
 module.exports = {
