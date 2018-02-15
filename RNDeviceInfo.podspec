@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RNDeviceInfo"
-  s.version      = "0.15.2"
+  s.version      = "0.15.3"
   s.summary      = "Device Information for react-native"
 
   s.homepage     = "https://github.com/rebeccahughes/react-native-device-info"

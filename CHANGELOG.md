@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.15.3
+
+* Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
+
 ### 0.15.2
 
 * Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)
