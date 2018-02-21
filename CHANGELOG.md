@@ -2,6 +2,8 @@
 
 ### next
 
+* Add Gradle build config that allows a consumer to set Play Services Version from a root-project ext variable.
+
 ### 0.15.3
 
 * Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
