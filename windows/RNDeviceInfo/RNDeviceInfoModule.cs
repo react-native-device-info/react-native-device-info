@@ -100,7 +100,6 @@ namespace RNDeviceInfo
                 {
                 }
                 
-                constants["instanceId"] = "not available";
                 constants["deviceName"] = deviceName;
                 constants["systemName"] = "Windows";
                 constants["systemVersion"] = osVersion;

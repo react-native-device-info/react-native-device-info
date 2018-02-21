@@ -2,6 +2,8 @@
 
 ### next
 
+* Removes `getInstanceID` and Google Play Services dependency (https://github.com/rebeccahughes/react-native-device-info/pull/334)
+
 ### 0.15.3
 
 * Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
