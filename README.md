@@ -81,6 +81,17 @@ Run your project (Cmd+R)
 <details>
     <summary>Android</summary>
 
+* **_optional_** in `android/build.gradle`:
+
+```gradle
+...
+  ext {
+    // dependency versions
+    googlePlayServicesVersion = "<Your Services Version>"
+  }
+...
+```
+
 * in `android/app/build.gradle`:
 
 ```diff
