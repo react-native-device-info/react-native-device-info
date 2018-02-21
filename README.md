@@ -198,7 +198,6 @@ var DeviceInfo = require('react-native-device-info');
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -440,24 +439,6 @@ DeviceInfo.getIPAddress().then(ip => {
 **Android Permissions**
 
 * [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
-
----
-
-### getInstanceID()
-
-Gets the application instance ID.
-
-**Examples**
-
-```js
-const instanceId = DeviceInfo.getInstanceID();
-
-// Android: ?
-```
-
-**Notes**
-
-> See https://developers.google.com/instance-id/
 
 ---
 
