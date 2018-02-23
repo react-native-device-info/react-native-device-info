@@ -2,7 +2,9 @@
 
 ### next
 
-* Add Gradle build config that allows a consumer to set Play Services Version from a root-project ext variable.
+### 0.16.0
+
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project(https://github.com/rebeccahughes/react-native-device-info/pull/333)
 
 ### 0.15.3
 
