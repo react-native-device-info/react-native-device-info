@@ -569,6 +569,10 @@ const phoneNumber = DeviceInfo.getPhoneNumber();
 
 * [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
 
+**Notes**
+
+> This can return `undefined` in certain cases and should not be relied on. [SO entry on the subject](https://stackoverflow.com/questions/2480288/programmatically-obtain-the-phone-number-of-the-android-phone#answer-2480307).
+
 ---
 
 ### getReadableVersion()
