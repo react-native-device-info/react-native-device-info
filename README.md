@@ -433,7 +433,15 @@ const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
 
 **Notes**
 
-> Android: Returns only available external storage size, not including internal.
+> From [developer.android.com](https://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()):
+>
+> Return the primary shared/external storage directory.
+>
+> Note: don't be confused by the word "external" here. This directory can better be thought as
+> media/shared storage. It is a filesystem that can hold a relatively large amount of data and 
+> that is shared across all applications (does not enforce permissions). Traditionally this is
+> an SD card, but it may also be implemented as built-in storage in a device that is distinct 
+> from the protected internal storage and can be mounted as a filesystem on a computer.
 
 ---
 
