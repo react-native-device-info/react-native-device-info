@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.16.1
+
+* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+
 ### 0.16.0
 
 * Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project(https://github.com/rebeccahughes/react-native-device-info/pull/333)
