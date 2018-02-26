@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.17.1
+
+* Fix bad import for web polyfill
+
 ### 0.17.0
 
 * Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
