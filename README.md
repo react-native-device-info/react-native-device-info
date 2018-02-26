@@ -803,7 +803,7 @@ const isTablet = DeviceInfo.isTablet(); // true
 When installing or using `react-native-device-info`, you may encounter the following problems:
 
 <details>
-  <summary>[android] - Unable to merge dex / Multiple dex files</summary>
+  <summary>[android] - Unable to merge dex / Multiple dex files / Problems with `com.google.android.gms`</summary>
 
 `react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
 This can lead to conflicts when building the Android application.
