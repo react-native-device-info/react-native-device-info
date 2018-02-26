@@ -2,6 +2,8 @@
 
 ### next
 
+* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+
 ### 0.17.1
 
 * Fix bad import for web polyfill
