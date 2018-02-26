@@ -707,8 +707,8 @@ const uniqueId = DeviceInfo.getUniqueID();
 
 **Notes**
 
-> iOS: This is `IDFV` so it will change if all apps from the current apps vendor have been previously uninstalled.
-> android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+> * iOS: This is `IDFV` so it will change if all apps from the current apps vendor have been previously uninstalled.
+> * android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
 ---
 
 ### getUserAgent()
