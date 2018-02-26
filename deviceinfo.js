@@ -6,7 +6,7 @@ import { Platform, NativeModules } from 'react-native';
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
 if (!RNDeviceInfo && Platform.OS === 'web') {
-  RNDeviceInfo = require('./web/RNDeviceInfoWeb');
+  RNDeviceInfo = require('./web');
 }
 
 module.exports = {
