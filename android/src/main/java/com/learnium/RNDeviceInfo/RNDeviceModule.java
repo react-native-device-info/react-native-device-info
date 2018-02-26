@@ -18,6 +18,7 @@ import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.app.ActivityManager;
+import android.util.DisplayMetrics;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
