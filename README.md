@@ -12,6 +12,7 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 * [API](#api)
 * [Troubleshooting](#troubleshooting)
 * [Release Notes](#release-notes)
+* [react-native-web](#react-native-web)
 
 ## Installation
 
@@ -433,14 +434,14 @@ const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
 
 **Notes**
 
-> From [developer.android.com](https://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()):
+> From [developer.android.com](<https://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()>):
 >
 > Return the primary shared/external storage directory.
 >
 > Note: don't be confused by the word "external" here. This directory can better be thought as
-> media/shared storage. It is a filesystem that can hold a relatively large amount of data and 
+> media/shared storage. It is a filesystem that can hold a relatively large amount of data and
 > that is shared across all applications (does not enforce permissions). Traditionally this is
-> an SD card, but it may also be implemented as built-in storage in a device that is distinct 
+> an SD card, but it may also be implemented as built-in storage in a device that is distinct
 > from the protected internal storage and can be mounted as a filesystem on a computer.
 
 ---
@@ -804,35 +805,37 @@ When installing or using `react-native-device-info`, you may encounter the follo
 <details>
   <summary>[android] - Unable to merge dex / Multiple dex files</summary>
 
-  `react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
-  This can lead to conflicts when building the Android application.
+`react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
+This can lead to conflicts when building the Android application.
 
-  If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the 
-  `googlePlayServicesVersion` gradle variable in your `build.gradle` file to tell `react-native-device-info` what version
-  it should require.
+If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the
+`googlePlayServicesVersion` gradle variable in your `build.gradle` file to tell `react-native-device-info` what version
+it should require.
 
-  If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, you can simply
-  ignore this dependency in your gradle file:
+If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, you can simply
+ignore this dependency in your gradle file:
 
 ```
  compile(project(':react-native-device-info')) {
     exclude group: 'com.google.android.gms'
 }
 ```
+
 </details>
 
 <details>
   <summary>[ios] - ld: library not found for -lRNDeviceInfo-tvOS</summary>
 
-  Seems to be a bug caused by `react-native link`. You can manually delete `libRNDeviceInfo-tvOS.a` in `Xcode -> [Your iOS build target] -> Build Phrases -> Link Binary with Libraries`.
+Seems to be a bug caused by `react-native link`. You can manually delete `libRNDeviceInfo-tvOS.a` in `Xcode -> [Your iOS build target] -> Build Phrases -> Link Binary with Libraries`.
+
 </details>
 
 <details>
   <summary>[tests] - Cannot run my test suite when using this library</summary>
 
-  `react-native-device-info` contains native code, and needs to be mocked.
+`react-native-device-info` contains native code, and needs to be mocked.
 
-  Here's how to do it with jest for example:
+Here's how to do it with jest for example:
 
 ```
 // in your package.json:
@@ -849,9 +852,15 @@ jest.mock('react-native-device-info', () => {
   };
 });
 ```
-</details>
 
+</details>
 
 ## Release Notes
 
 See the [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blob/master/CHANGELOG.md).
+
+## react-native-web
+
+As a courtesy to developers, this library was made compatible in v0.17.0 with [react-native-web](https://github.com/necolas/react-native-web) by providing an empty polyfill in order to avoid breaking builds.
+
+Only [getUserAgent()](#getuseragent) will return a correct value. All other API methods will return an "empty" value of its documented return type: `0` for numbers, `''` for strings, `false` for booleans.

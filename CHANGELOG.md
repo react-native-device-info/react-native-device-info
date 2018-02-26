@@ -2,13 +2,19 @@
 
 ### next
 
-### 0.16.1
-
 * Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+
+### 0.17.1
+
+* Fix bad import for web polyfill
+
+### 0.17.0
+
+* Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
 
 ### 0.16.0
 
-* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project(https://github.com/rebeccahughes/react-native-device-info/pull/333)
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/rebeccahughes/react-native-device-info/pull/333)
 
 ### 0.15.3
 
