@@ -100,8 +100,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
               || metrics.densityDpi == DisplayMetrics.DENSITY_TV
               || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
         return true;
-      } else {
-        return false;
       }
     }
     return false;
