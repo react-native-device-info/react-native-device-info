@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PCLStorage</name>
+    </assembly>
+    <members>
+        <member name="T:PCLStorage.AwaitExtensions">
+            <summary>
+            Extensions for use internally by PCLStorage for awaiting.
+            </summary>
+        </member>
+        <member name="M:PCLStorage.AwaitExtensions.SwitchOffMainThreadAsync(System.Threading.CancellationToken)">
+            <summary>
+            Causes the caller who awaits this method to
+            switch off the Main thread. It has no effect if
+            the caller is already off the main thread.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An awaitable that does the thread switching magic.</returns>
+        </member>
+        <member name="T:PCLStorage.Exceptions.FileNotFoundException">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.FileNotFoundException.#ctor(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.FileNotFoundException.#ctor(System.String,System.Exception)">
+            <exclude/>
+        </member>
+        <member name="T:PCLStorage.Exceptions.DirectoryNotFoundException">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.DirectoryNotFoundException.#ctor(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:PCLStorage.Exceptions.DirectoryNotFoundException.#ctor(System.String,System.Exception)">
+            <exclude/>
+        </member>
+        <member name="T:PCLStorage.FileSystem">
+            <summary>
+            Provides access to an implementation of <see cref="T:PCLStorage.IFileSystem"/> for the current platform
+            </summary>
+        </member>
+        <member name="P:PCLStorage.FileSystem.Current">
+            <summary>
+            The implementation of <see cref="T:PCLStorage.IFileSystem"/> for the current platform
+            </summary>
+        </member>
+        <member name="T:PCLStorage.PortablePath">
+            <summary>
+            Provides portable versions of APIs such as Path.Combine
+            </summary>
+        </member>
+        <member name="M:PCLStorage.PortablePath.Combine(System.String[])">
+            <summary>
+            Combines multiple strings into a path
+            </summary>
+            <param name="paths">Path elements to combine</param>
+            <returns>A combined path</returns>
+        </member>
+        <member name="P:PCLStorage.PortablePath.DirectorySeparatorChar">
+            <summary>
+            The character used to separate elements in a file system path
+            </summary>
+        </member>
+        <member name="T:PCLStorage.Requires">
+            <summary>
+            Common runtime checks that throw ArgumentExceptions upon failure.
+            </summary>
+        </member>
+        <member name="M:PCLStorage.Requires.NotNull``1(``0,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <returns>The value of the parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c></exception>
+        </member>
+        <member name="M:PCLStorage.Requires.NotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null or empty.
+            </summary>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="value"/> is <c>null</c> or empty.</exception>
+        </member>
+        <member name="M:PCLStorage.Requires.Format(System.String,System.Object[])">
+            <summary>
+            Helper method that formats string arguments.
+            </summary>
+            <returns>The formatted string.</returns>
+        </member>
+    </members>
+</doc>
