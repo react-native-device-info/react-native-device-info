@@ -90,17 +90,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private Boolean isTablet() {
-    boolean layout = (getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    if (layout) {
-      DisplayMetrics metrics = new DisplayMetrics();
-      getCurrentActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-      if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
-              || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
-              || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
-              || metrics.densityDpi == DisplayMetrics.DENSITY_TV
-              || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
-        return true;
-      }
+    int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+    if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+      return false;
+    }
+    DisplayMetrics metrics = new DisplayMetrics();
+    getCurrentActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
+            || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+            || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
+            || metrics.densityDpi == DisplayMetrics.DENSITY_TV
+            || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+      return true;
     }
     return false;
   }
