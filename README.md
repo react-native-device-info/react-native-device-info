@@ -12,6 +12,7 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 * [API](#api)
 * [Troubleshooting](#troubleshooting)
 * [Release Notes](#release-notes)
+* [react-native-web](#react-native-web)
 
 ## Installation
 
@@ -182,15 +183,6 @@ include ':app'
 ```
 
 (Thanks to @josephan for writing the instructions)
-
-</details>
-
-<details>
-    <summary>Web</summary>
-
-As a courtesy to developers, this library was made compatible in v0.17.0 with [react-native-web](https://github.com/necolas/react-native-web) by providing an empty polyfill in order to avoid breaking builds.
-
-Any API method will return an "empty" value of its documented return type: `0` for numbers, `''` for strings, `false` for booleans.
 
 </details>
 
@@ -866,3 +858,9 @@ jest.mock('react-native-device-info', () => {
 ## Release Notes
 
 See the [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blob/master/CHANGELOG.md).
+
+## react-native-web
+
+As a courtesy to developers, this library was made compatible in v0.17.0 with [react-native-web](https://github.com/necolas/react-native-web) by providing an empty polyfill in order to avoid breaking builds.
+
+Only [getUserAgent()](#getuseragent) will return a correct value. All other API methods will return an "empty" value of its documented return type: `0` for numbers, `''` for strings, `false` for booleans.

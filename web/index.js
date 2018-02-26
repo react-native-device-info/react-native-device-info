@@ -20,7 +20,7 @@ module.exports = {
   buildNumber: 0,
   appVersion: 0,
   deviceName: '',
-  userAgent: '',
+  userAgent: window.navigator.userAgent,
   deviceLocale: '',
   deviceCountry: '',
   timezone: '',
