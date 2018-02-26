@@ -2,9 +2,13 @@
 
 ### next
 
+### 0.17.0
+
+* Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
+
 ### 0.16.0
 
-* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project(https://github.com/rebeccahughes/react-native-device-info/pull/333)
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/rebeccahughes/react-native-device-info/pull/333)
 
 ### 0.15.3
 
