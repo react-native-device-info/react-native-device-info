@@ -18,6 +18,7 @@ import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.app.ActivityManager;
+import android.util.DisplayMetrics;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -91,7 +92,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private Boolean isTablet() {
     int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-    return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+    if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+      return false;
+    }
+    DisplayMetrics metrics = new DisplayMetrics();
+    getCurrentActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
+            || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+            || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
+            || metrics.densityDpi == DisplayMetrics.DENSITY_TV
+            || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+      return true;
+    }
+    return false;
   }
 
   private float fontScale() {
