@@ -2,6 +2,9 @@
 
 ### next
 
+### 0.17.2
+
+* Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
 * Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
 
 ### 0.17.1
