@@ -2,6 +2,8 @@
 
 ### next
 
+* Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion`
+
 ### 0.17.2
 
 * Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
