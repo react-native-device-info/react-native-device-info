@@ -1,5 +1,42 @@
 ## Release Notes
 
+### next
+
+### 0.17.2
+
+* Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
+* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+
+### 0.17.1
+
+* Fix bad import for web polyfill
+
+### 0.17.0
+
+* Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
+
+### 0.16.0
+
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/rebeccahughes/react-native-device-info/pull/333)
+
+### 0.15.3
+
+* Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
+
+### 0.15.2
+
+* Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)
+
+### 0.15.1
+
+* Fix Android compatibility for `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/319)
+
+### 0.15.0
+
+* Add `getFontScale` (https://github.com/rebeccahughes/react-native-device-info/pull/278)
+* Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
+* Fix missing flow definition for `getApplicationName`
+
 ### 0.14.0
 
 * Fix tvOS support (https://github.com/rebeccahughes/react-native-device-info/pull/283)
