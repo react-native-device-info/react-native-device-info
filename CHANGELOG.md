@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.17.3
+
+* Fix production build crash on Android introduced in #313
+
 ### 0.17.2
 
 * Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
