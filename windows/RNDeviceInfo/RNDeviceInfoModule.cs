@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.System;
 
 namespace RNDeviceInfo
 {
@@ -120,6 +121,7 @@ namespace RNDeviceInfo
                 constants["isTablet"] = IsTablet(os);
                 constants["carrier"] = "not available";
                 constants["is24Hour"] = is24Hour();
+                constants["maxMemory"] = MemoryManager.AppMemoryUsageLimit;
 
                 return constants;
             }

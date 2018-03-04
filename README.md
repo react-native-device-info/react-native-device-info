@@ -212,7 +212,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
+| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -529,16 +529,12 @@ const manufacturer = DeviceInfo.getManufacturer();
 
 ### getMaxMemory()
 
-Returns the maximum amount of memory that the JVM will attempt to use, in bytes.
+Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 
 **Examples**
 
 ```js
-const maxMemory = DeviceInfo.getMaxMemory();
-
-// iOS: undefined
-// Android: 402653184
-// Windows: ?
+const maxMemory = DeviceInfo.getMaxMemory(); // 402653183
 ```
 
 ---
@@ -679,11 +675,7 @@ Gets the device total memory, in bytes.
 **Examples**
 
 ```js
-const totalMemory = DeviceInfo.getTotalMemory();
-
-// iOS: ?
-// Android: 1995018240
-// Windows: ?
+const totalMemory = DeviceInfo.getTotalMemory(); // 1995018240
 ```
 
 ---
