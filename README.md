@@ -167,19 +167,16 @@ include ':app'
 * Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
 * this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
 * check the `RNDeviceInfo` you just added and press ok
-* open up `MainPage.cs` for your app and edit the file like so:
+* open up `MainReactNativeHost.cs` for your app and edit the file like so:
 
 ```diff
 + using RNDeviceInfo;
 ......
-            get
-            {
-                return new List<IReactPackage>
-                {
-                    new MainReactPackage(),
-+                   new RNDeviceInfoPackage(),
-                };
-            }
+        protected override List<IReactPackage> Packages => new List<IReactPackage>
+        {
+            new MainReactPackage(),
++           new RNDeviceInfoPackage(),
+        };
 ```
 
 (Thanks to @josephan for writing the instructions)
