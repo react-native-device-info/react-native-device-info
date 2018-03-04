@@ -30,6 +30,7 @@ module.exports = {
   is24Hour: false,
   isPinOrFingerprintSet: callback => callback && callback(false),
   firstInstallTime: 0,
+  installReferrer: '',
   lastUpdateTime: 0,
   phoneNumber: '',
   carrier: '',
