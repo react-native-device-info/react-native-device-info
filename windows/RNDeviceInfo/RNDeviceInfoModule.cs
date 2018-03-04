@@ -8,6 +8,7 @@ using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.System;
+using Windows.Security.Credentials.UI;
 
 namespace RNDeviceInfo
 {
@@ -41,6 +42,21 @@ namespace RNDeviceInfo
         private bool is24Hour()
         {
             return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
+        }
+
+        [ReactMethod]
+        public async void isPinOrFingerprintSet(ICallback errorCallback, ICallback actionCallback)
+        {
+            try
+            {
+                var ucvAvailability = await UserConsentVerifier.CheckAvailabilityAsync();
+
+                actionCallback.Invoke(ucvAvailability == UserConsentVerifierAvailability.Available);
+            }
+            catch (Exception ex)
+            {
+                errorCallback.Invoke("Fingerprint authentication availability check failed: " + ex.ToString());
+            }
         }
 
         public override IReadOnlyDictionary<string, object> Constants

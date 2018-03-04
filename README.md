@@ -227,7 +227,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
@@ -763,11 +763,11 @@ Tells if a PIN number or a fingerprint was set for the device.
 **Examples**
 
 ```js
-DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
+DeviceInfo.isPinOrFingerprintSet()(error => {}, isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
-    ...
+    // ...
   }
-}
+});
 ```
 
 **Notes**
