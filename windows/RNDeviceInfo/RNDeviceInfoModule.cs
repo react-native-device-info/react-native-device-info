@@ -122,6 +122,7 @@ namespace RNDeviceInfo
                 constants["carrier"] = "not available";
                 constants["is24Hour"] = is24Hour();
                 constants["maxMemory"] = MemoryManager.AppMemoryUsageLimit;
+                constants["firstInstallTime"] = package.InstalledDate.ToUnixTimeMilliseconds();
 
                 return constants;
             }
