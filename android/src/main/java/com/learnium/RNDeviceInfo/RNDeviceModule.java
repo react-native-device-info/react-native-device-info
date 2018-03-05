@@ -26,11 +26,14 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.lang.Runtime;
+import java.net.NetworkInterface;
 
 import javax.annotation.Nullable;
 
@@ -130,7 +133,38 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getMacAddress(Promise p) {
     String macAddress = getWifiInfo().getMacAddress();
-    p.resolve(macAddress);
+
+    String permission = "android.permission.INTERNET";
+    int res = this.reactContext.checkCallingOrSelfPermission(permission);
+
+    if (res == PackageManager.PERMISSION_GRANTED) {
+      try {
+        List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+        for (NetworkInterface nif : all) {
+          if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+          byte[] macBytes = nif.getHardwareAddress();
+          if (macBytes == null) {
+              macAddress = "";
+          } else {
+
+            StringBuilder res1 = new StringBuilder();
+            for (byte b : macBytes) {
+                res1.append(String.format("%02X:",b));
+            }
+
+            if (res1.length() > 0) {
+                res1.deleteCharAt(res1.length() - 1);
+            }
+
+            macAddress = res1.toString();
+          }
+        }
+      } catch (Exception ex) {
+      }
+    }
+
+    p.resolve(macAddress);    
   }
 
   @ReactMethod
