@@ -248,13 +248,24 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return totalSpace;
 }
 
-- (uint64_t) freeDiskStorage {
-    uint64_t freeSpace = 0;
+- (float) freeDiskStorage {
+    if (@available(iOS 11.0, *)) {
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:NSHomeDirectory()];
+        NSError *error = nil;
+        NSDictionary *results = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
+        if (!results) {
+            NSLog(@"Error retrieving resource keys: %@\n%@", [error localizedDescription], [error userInfo]);
+            return 0;
+        }
+        
+        return ((NSString *)results[NSURLVolumeAvailableCapacityForImportantUsageKey]).floatValue;
+    }
+    // iOS 11 blow
+    float freeSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-    
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
-        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        freeSpace = (float)[freeFileSystemSizeInBytes unsignedLongLongValue];
     }
     return freeSpace;
 }

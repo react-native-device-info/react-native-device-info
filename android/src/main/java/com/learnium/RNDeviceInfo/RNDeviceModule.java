@@ -1,6 +1,7 @@
 package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -8,24 +9,24 @@ import android.content.pm.PackageInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.Settings.Secure;
-import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
-import android.app.ActivityManager;
 import android.util.DisplayMetrics;
+import android.webkit.WebSettings;
 
+import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.Promise;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -92,19 +93,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private Boolean isTablet() {
     int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-    if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-      return false;
-    }
-
-    final DisplayMetrics metrics = getReactApplicationContext().getResources().getDisplayMetrics();
-    if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
-            || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
-            || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
-            || metrics.densityDpi == DisplayMetrics.DENSITY_TV
-            || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
-      return true;
-    }
-    return false;
+    return layout == Configuration.SCREENLAYOUT_SIZE_LARGE || layout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
   }
 
   private float fontScale() {
@@ -113,6 +102,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private Boolean is24Hour() {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
+  }
+
+  private long getCapacity(File file){
+    StatFs statFs = new StatFs(file.getAbsolutePath());
+    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2){
+      return statFs.getBlockCountLong() * statFs.getBlockSizeLong();
+    }
+    return (long)statFs.getBlockCount() * statFs.getBlockSize();
   }
 
   @ReactMethod
@@ -140,10 +137,21 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getTotalDiskCapacity() {
+  public Long getTotalDiskCapacity() {
     try {
-      StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return root.getBlockCount() * root.getBlockSize();
+      long totalSize=0;
+      if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        File[] files = this.reactContext.getExternalFilesDirs(Environment.MEDIA_MOUNTED);
+        for (File file : files) {
+          totalSize += this.getCapacity(file);
+        }
+      }else {
+        totalSize += this.getCapacity(Environment.getExternalStorageDirectory());
+      }
+      totalSize += this.getCapacity(Environment.getDownloadCacheDirectory());
+      totalSize += this.getCapacity(Environment.getRootDirectory());
+      totalSize += this.getCapacity(Environment.getDataDirectory());
+      return totalSize;
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -151,10 +159,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getFreeDiskStorage() {
+  public Long getFreeDiskStorage() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return external.getAvailableBlocks() * external.getBlockSize();
+      if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2){
+        return external.getAvailableBlocksLong() * external.getBlockSizeLong();
+      }
+      return (long)external.getAvailableBlocks() * external.getBlockSize();
     } catch (Exception e) {
       e.printStackTrace();
     }
