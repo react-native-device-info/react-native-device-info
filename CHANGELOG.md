@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.17.4
+
+* Fix `getMACAddress` for Android > 6 (https://github.com/rebeccahughes/react-native-device-info/pull/349)
+
 ### 0.17.3
 
 * Fix production build crash on Android introduced in #313
