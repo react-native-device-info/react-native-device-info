@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.17.4
+
+* Fix `getMACAddress()` for Android > 6
+
 ### 0.17.3
 
 * Fix production build crash on Android introduced in #313
