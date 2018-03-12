@@ -361,7 +361,7 @@ Gets the device locale.
 ```js
 const deviceLocale = DeviceInfo.getDeviceLocale();
 
-// iOS: "en"
+// iOS: "en-US"
 // Android: "en-US"
 // Windows: ?
 ```
