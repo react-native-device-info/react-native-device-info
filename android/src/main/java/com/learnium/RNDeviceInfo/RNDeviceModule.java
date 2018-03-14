@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +15,7 @@ import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.os.BatteryManager;
 import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -193,6 +196,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
     return null;
+  }
+
+  @ReactMethod
+  public void getBatteryLevel(Promise p) {
+    Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+    int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+    float batteryLevel = level / (float) scale;
+    p.resolve(batteryLevel);
   }
 
   @Override

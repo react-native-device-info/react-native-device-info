@@ -196,6 +196,7 @@ var DeviceInfo = require('react-native-device-info');
 | ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
+| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -261,6 +262,24 @@ Gets the application name.
 ```js
 const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 ```
+
+---
+
+### getBatteryLevel()
+
+Gets the battery level of the device (0..1).
+
+**Examples**
+
+```js
+DeviceInfo.getBatteryLevel().then((batteryLevel) => {
+  // 0.75
+});
+```
+
+**Notes**
+
+> Returns -1 on the iOS Simulator
 
 ---
 
