@@ -10,6 +10,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.Devices.Power;
 using Windows.System;
 using Windows.Security.Credentials.UI;
+using Windows.Networking;
+using Windows.Networking.Connectivity;
+using System.Linq;
 
 namespace RNDeviceInfo
 {
@@ -57,6 +60,28 @@ namespace RNDeviceInfo
             catch (Exception ex)
             {
                 actionCallback.Invoke(false);
+            }
+        }
+
+        [ReactMethod]
+        public async void getIpAddress(IPromise promise)
+        {
+            var hostNameType = HostNameType.Ipv4;
+            var icp = NetworkInformation.GetInternetConnectionProfile();
+
+            if (icp?.NetworkAdapter == null)
+            {
+                promise.Reject(new InvalidOperationException("Network adapter not found."));
+            }
+            else
+            {
+                var hostname = NetworkInformation.GetHostNames()
+                    .FirstOrDefault(
+                        hn =>
+                            hn.Type == hostNameType &&
+                            hn.IPInformation?.NetworkAdapter != null &&
+                            hn.IPInformation.NetworkAdapter.NetworkAdapterId == icp.NetworkAdapter.NetworkAdapterId);
+                promise.Resolve(hostname?.CanonicalName);
             }
         }
 
