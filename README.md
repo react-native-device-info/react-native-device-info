@@ -209,6 +209,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -477,6 +478,21 @@ DeviceInfo.getIPAddress().then(ip => {
 **Android Permissions**
 
 * [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
+
+---
+
+### getInstallReferrer
+
+Gets the referrer string upon application installation. 
+
+**Examples**
+
+```js
+const referrer = DeviceInfo.getInstallReferrer();
+
+// If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
+// the result will be "my_install_referrer"
+```
 
 ---
 
