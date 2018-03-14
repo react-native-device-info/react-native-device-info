@@ -196,7 +196,7 @@ var DeviceInfo = require('react-native-device-info');
 | ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
-| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.18.0 |
+| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -205,16 +205,16 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
+| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -229,7 +229,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
@@ -564,16 +564,12 @@ const manufacturer = DeviceInfo.getManufacturer();
 
 ### getMaxMemory()
 
-Returns the maximum amount of memory that the JVM will attempt to use, in bytes.
+Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 
 **Examples**
 
 ```js
-const maxMemory = DeviceInfo.getMaxMemory();
-
-// iOS: undefined
-// Android: 402653184
-// Windows: ?
+const maxMemory = DeviceInfo.getMaxMemory(); // 402653183
 ```
 
 ---
@@ -714,11 +710,7 @@ Gets the device total memory, in bytes.
 **Examples**
 
 ```js
-const totalMemory = DeviceInfo.getTotalMemory();
-
-// iOS: ?
-// Android: 1995018240
-// Windows: ?
+const totalMemory = DeviceInfo.getTotalMemory(); // 1995018240
 ```
 
 ---
@@ -808,9 +800,9 @@ Tells if a PIN number or a fingerprint was set for the device.
 ```js
 DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
-    ...
+    // ...
   }
-}
+});
 ```
 
 **Notes**
