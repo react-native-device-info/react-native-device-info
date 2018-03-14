@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.19.0
+
+* Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344) 
+
 ### 0.18.0
 
 * Add `getBatteryLevel` (https://github.com/rebeccahughes/react-native-device-info/pull/359)
