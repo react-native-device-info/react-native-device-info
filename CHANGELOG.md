@@ -3,6 +3,7 @@
 ### next
 
 * Add `getUsedMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/356)
+* Add `getBatteryLevel` (https://github.com/rebeccahughes/react-native-device-info/pull/359)
 
 ### 0.17.4
 

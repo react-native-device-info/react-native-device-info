@@ -321,4 +321,10 @@ RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     resolve(@((unsigned long)info.resident_size));
 }
 
+RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    float batteryLevel = [UIDevice currentDevice].batteryLevel;
+    resolve(@(batteryLevel));
+}
+
 @end

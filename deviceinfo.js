@@ -118,4 +118,7 @@ module.exports = {
   getUsedMemory: function() {
     return RNDeviceInfo.getUsedMemory();
   },
+  getBatteryLevel: function() {
+    return RNDeviceInfo.getBatteryLevel();
+  },
 };

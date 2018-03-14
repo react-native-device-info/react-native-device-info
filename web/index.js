@@ -38,4 +38,5 @@ module.exports = {
   totalDiskCapacity: 0,
   freeDiskStorage: 0,
   getUsedMemory: () => Promise.resolve(0),
+  getBatteryLevel: () => Promise.resolve(0)
 };
