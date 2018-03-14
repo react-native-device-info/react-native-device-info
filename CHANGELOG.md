@@ -2,6 +2,8 @@
 
 ### next
 
+* Add `getBatteryLevel` (https://github.com/rebeccahughes/react-native-device-info/pull/359)
+
 ### 0.17.4
 
 * Fix `getMACAddress` for Android > 6 (https://github.com/rebeccahughes/react-native-device-info/pull/349)
