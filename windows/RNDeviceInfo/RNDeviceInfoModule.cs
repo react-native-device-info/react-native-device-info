@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.Devices.Power;
 using Windows.System;
 using Windows.Security.Credentials.UI;
 
@@ -56,6 +57,28 @@ namespace RNDeviceInfo
             catch (Exception ex)
             {
                 actionCallback.Invoke(false);
+            }
+        }
+
+        [ReactMethod]
+        public async void getBatteryLevel(IPromise promise)
+        {
+            // Create aggregate battery object
+            var aggBattery = Battery.AggregateBattery;
+
+            // Get report
+            var report = aggBattery.GetReport();
+
+            if ((report.FullChargeCapacityInMilliwattHours == null) ||
+                (report.RemainingCapacityInMilliwattHours == null))
+            {
+                promise.Reject(new InvalidOperationException("Could not fetch battery information."));
+            }
+            else
+            {
+                var max = Convert.ToDouble(report.FullChargeCapacityInMilliwattHours);
+                var value = Convert.ToDouble(report.RemainingCapacityInMilliwattHours);
+                promise.Resolve(value / max);
             }
         }
 
