@@ -45,7 +45,7 @@ namespace RNDeviceInfo
         }
 
         [ReactMethod]
-        public async void isPinOrFingerprintSet(ICallback errorCallback, ICallback actionCallback)
+        public async void isPinOrFingerprintSet(ICallback actionCallback)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace RNDeviceInfo
             }
             catch (Exception ex)
             {
-                errorCallback.Invoke("Fingerprint authentication availability check failed: " + ex.ToString());
+                actionCallback.Invoke(false);
             }
         }
 

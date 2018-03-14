@@ -763,7 +763,7 @@ Tells if a PIN number or a fingerprint was set for the device.
 **Examples**
 
 ```js
-DeviceInfo.isPinOrFingerprintSet()(error => {}, isPinOrFingerprintSet => {
+DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
     // ...
   }
