@@ -2,6 +2,15 @@
 
 ### next
 
+### 0.20.0
+
+* Made the following methods compatible with UWP: (https://github.com/rebeccahughes/react-native-device-info/pull/345)
+  * `getBatteryLevel()`
+  * `getFirstIntallTime()`
+  * `getIPAddress()`
+  * `getMaxMemory()`
+  *  isPinOrFingerprintSet()`
+
 ### 0.19.0
 
 * Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344) 
