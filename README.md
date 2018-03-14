@@ -267,13 +267,13 @@ const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 
 ### getBatteryLevel()
 
-Gets the battery level of the device (0..1).
+Gets the battery level of the device as a float comprised between 0 and 1.
 
 **Examples**
 
 ```js
 DeviceInfo.getBatteryLevel().then((batteryLevel) => {
-  // 0.75
+  // 0.759999
 });
 ```
 
