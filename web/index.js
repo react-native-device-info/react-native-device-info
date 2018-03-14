@@ -30,6 +30,7 @@ module.exports = {
   is24Hour: false,
   isPinOrFingerprintSet: callback => callback && callback(false),
   firstInstallTime: 0,
+  installReferrer: '',
   lastUpdateTime: 0,
   phoneNumber: '',
   carrier: '',
@@ -37,4 +38,5 @@ module.exports = {
   maxMemory: 0,
   totalDiskCapacity: 0,
   freeDiskStorage: 0,
+  getBatteryLevel: () => Promise.resolve(0)
 };

@@ -19,6 +19,7 @@ declare module.exports: {
   getDeviceCountry: () => string,
   getTimezone: () => string,
   getInstanceID: () => string,
+  getInstallReferrer: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
   getFontScale: () => number,
@@ -38,4 +39,5 @@ declare module.exports: {
   getMaxMemory: () => number,
   getTotalDiskCapacity: () => number,
   getFreeDiskStorage: () => number,
+  getBatteryLevel: () => Promise<number>,
 };

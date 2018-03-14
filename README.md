@@ -196,6 +196,7 @@ var DeviceInfo = require('react-native-device-info');
 | ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
+| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -208,6 +209,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -261,6 +263,24 @@ Gets the application name.
 ```js
 const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 ```
+
+---
+
+### getBatteryLevel()
+
+Gets the battery level of the device as a float comprised between 0 and 1.
+
+**Examples**
+
+```js
+DeviceInfo.getBatteryLevel().then((batteryLevel) => {
+  // 0.759999
+});
+```
+
+**Notes**
+
+> Returns -1 on the iOS Simulator
 
 ---
 
@@ -458,6 +478,21 @@ DeviceInfo.getIPAddress().then(ip => {
 **Android Permissions**
 
 * [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
+
+---
+
+### getInstallReferrer
+
+Gets the referrer string upon application installation. 
+
+**Examples**
+
+```js
+const referrer = DeviceInfo.getInstallReferrer();
+
+// If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
+// the result will be "my_install_referrer"
+```
 
 ---
 
