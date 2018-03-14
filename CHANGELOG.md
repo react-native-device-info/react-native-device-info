@@ -9,7 +9,7 @@
   * `getFirstIntallTime()`
   * `getIPAddress()`
   * `getMaxMemory()`
-  *  isPinOrFingerprintSet()`
+  * `isPinOrFingerprintSet()`
 
 ### 0.19.0
 
