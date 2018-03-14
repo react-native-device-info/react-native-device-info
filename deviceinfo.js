@@ -94,6 +94,9 @@ module.exports = {
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
   },
+  getInstallReferrer: function() {
+    return RNDeviceInfo.installReferrer;
+  },
   getLastUpdateTime: function() {
     return RNDeviceInfo.lastUpdateTime;
   },
