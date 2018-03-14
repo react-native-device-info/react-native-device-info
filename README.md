@@ -223,6 +223,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
 | [getUniqueID()](#getuniqueid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getUsedMemory()](#getusedmemory)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.18.0 |
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
@@ -706,6 +707,21 @@ const uniqueId = DeviceInfo.getUniqueID();
 
 > * iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) so it will change if all apps from the current apps vendor have been previously uninstalled.
 > * android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+
+---
+
+### getUsedMemory()
+
+Gets the apps memory usage, in bytes.
+
+**Examples**
+
+```js
+DeviceInfo.getUsedMemory().then((usedMemory) => {
+  // 173555712
+});
+```
+
 ---
 
 ### getUserAgent()
