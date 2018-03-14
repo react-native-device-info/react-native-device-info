@@ -118,4 +118,7 @@ module.exports = {
   getFreeDiskStorage: function() {
     return RNDeviceInfo.freeDiskStorage;
   },
+  getBatteryLevel: function() {
+    return RNDeviceInfo.getBatteryLevel();
+  },
 };

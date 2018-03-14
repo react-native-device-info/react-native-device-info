@@ -304,4 +304,10 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
+RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    float batteryLevel = [UIDevice currentDevice].batteryLevel;
+    resolve(@(batteryLevel));
+}
+
 @end
