@@ -698,14 +698,14 @@ Gets the device unique ID.
 const uniqueId = DeviceInfo.getUniqueID();
 
 // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
-// Android: "dd96dec43fb81c97"
+// Android: "8DCFDA40-704E-4693-82E8-82722F45B6EB"
 // Windows: ?
 ```
 
 **Notes**
 
 > * iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) so it will change if all apps from the current apps vendor have been previously uninstalled.
-> * android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+> * android: This will get a UUID for this installation. If the user removes and installs the app, a new UUID will be returned. We followed the approach recommended by goole [here](https://developer.android.com/training/articles/user-data-ids.html) at `#3`.
 ---
 
 ### getUserAgent()

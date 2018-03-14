@@ -1,46 +1,52 @@
 package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.provider.Settings.Secure;
-import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.text.format.Formatter;
-import android.app.ActivityManager;
 import android.util.DisplayMetrics;
+import android.webkit.WebSettings;
 
+import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.Promise;
 
+import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.lang.Runtime;
-import java.net.NetworkInterface;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 public class RNDeviceModule extends ReactContextBaseJavaModule {
 
+  // Preferences keys to store the UUID.
+  private static final String PREFS_APP_UUID = "PREFS_APP_UUID";
+  private static final String PREFS_NAME = "com.github.rebeccahughes.react-native-device-info.PREFERENCE_FILE_KEY";
+
+  // React application context.
   ReactApplicationContext reactContext;
 
+  // Wifi Info.
   WifiInfo wifiInfo;
 
   public RNDeviceModule(ReactApplicationContext reactContext) {
@@ -164,7 +170,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     }
 
-    p.resolve(macAddress);    
+    p.resolve(macAddress);
   }
 
   @ReactMethod
@@ -254,7 +260,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("apiLevel", Build.VERSION.SDK_INT);
     constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("deviceCountry", this.getCurrentCountry());
-    constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
+    constants.put("uniqueId", getUUID().toUpperCase());
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -288,5 +294,23 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("totalMemory", memInfo.totalMem);
 
     return constants;
+  }
+
+  // Creates and returns an UUID for the installation.
+  private String getUUID() {
+    SharedPreferences preferences = reactContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    String storedUUID = preferences.getString(PREFS_APP_UUID, null);
+
+    // If there is no stored UUID, we need to create a new one and store it. This will generate the new UUID for this installation.
+    if (TextUtils.isEmpty(storedUUID)) {
+      String newUUID = UUID.randomUUID().toString();
+
+      preferences.edit().putString(PREFS_APP_UUID, newUUID).commit();
+
+      return newUUID;
+    }
+
+    // Return the stored UUID.
+    return storedUUID;
   }
 }
