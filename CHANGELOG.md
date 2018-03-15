@@ -4,6 +4,10 @@
 
 * Add `getUsedMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/356)
 
+### 0.21.0
+
+* Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion` (https://github.com/rebeccahughes/react-native-device-info/pull/343)
+
 ### 0.20.0
 
 * Made the following methods compatible with UWP: (https://github.com/rebeccahughes/react-native-device-info/pull/345)
@@ -15,7 +19,7 @@
 
 ### 0.19.0
 
-* Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344) 
+* Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344)
 
 ### 0.18.0
 
