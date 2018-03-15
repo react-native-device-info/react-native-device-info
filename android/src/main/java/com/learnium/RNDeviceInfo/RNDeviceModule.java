@@ -4,6 +4,9 @@ import android.Manifest;
 import android.app.KeyguardManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +16,7 @@ import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.os.BatteryManager;
 import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -26,11 +30,14 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.lang.Runtime;
+import java.net.NetworkInterface;
 
 import javax.annotation.Nullable;
 
@@ -95,8 +102,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
       return false;
     }
-    DisplayMetrics metrics = new DisplayMetrics();
-    getCurrentActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+    final DisplayMetrics metrics = getReactApplicationContext().getResources().getDisplayMetrics();
     if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
             || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
             || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
@@ -130,7 +137,38 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getMacAddress(Promise p) {
     String macAddress = getWifiInfo().getMacAddress();
-    p.resolve(macAddress);
+
+    String permission = "android.permission.INTERNET";
+    int res = this.reactContext.checkCallingOrSelfPermission(permission);
+
+    if (res == PackageManager.PERMISSION_GRANTED) {
+      try {
+        List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+        for (NetworkInterface nif : all) {
+          if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+          byte[] macBytes = nif.getHardwareAddress();
+          if (macBytes == null) {
+              macAddress = "";
+          } else {
+
+            StringBuilder res1 = new StringBuilder();
+            for (byte b : macBytes) {
+                res1.append(String.format("%02X:",b));
+            }
+
+            if (res1.length() > 0) {
+                res1.deleteCharAt(res1.length() - 1);
+            }
+
+            macAddress = res1.toString();
+          }
+        }
+      } catch (Exception ex) {
+      }
+    }
+
+    p.resolve(macAddress);    
   }
 
   @ReactMethod
@@ -159,6 +197,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
     return null;
+  }
+
+  @ReactMethod
+  public void getBatteryLevel(Promise p) {
+    Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+    int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+    float batteryLevel = level / (float) scale;
+    p.resolve(batteryLevel);
+  }
+
+  public String getInstallReferrer() {
+    SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
+    return sharedPref.getString("installReferrer", null);
   }
 
   @Override
@@ -245,6 +297,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
     constants.put("freeDiskStorage", this.getFreeDiskStorage());
+    constants.put("installReferrer", this.getInstallReferrer());
 
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());

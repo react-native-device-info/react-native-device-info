@@ -94,6 +94,9 @@ module.exports = {
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
   },
+  getInstallReferrer: function() {
+    return RNDeviceInfo.installReferrer;
+  },
   getLastUpdateTime: function() {
     return RNDeviceInfo.lastUpdateTime;
   },
@@ -114,5 +117,8 @@ module.exports = {
   },
   getFreeDiskStorage: function() {
     return RNDeviceInfo.freeDiskStorage;
+  },
+  getBatteryLevel: function() {
+    return RNDeviceInfo.getBatteryLevel();
   },
 };

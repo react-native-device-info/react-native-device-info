@@ -167,19 +167,16 @@ include ':app'
 * Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
 * this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
 * check the `RNDeviceInfo` you just added and press ok
-* open up `MainPage.cs` for your app and edit the file like so:
+* open up `MainReactNativeHost.cs` for your app and edit the file like so:
 
 ```diff
 + using RNDeviceInfo;
 ......
-            get
-            {
-                return new List<IReactPackage>
-                {
-                    new MainReactPackage(),
-+                   new RNDeviceInfoPackage(),
-                };
-            }
+        protected override List<IReactPackage> Packages => new List<IReactPackage>
+        {
+            new MainReactPackage(),
++           new RNDeviceInfoPackage(),
+        };
 ```
 
 (Thanks to @josephan for writing the instructions)
@@ -199,6 +196,7 @@ var DeviceInfo = require('react-native-device-info');
 | ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
+| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -207,15 +205,16 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ✅    | 0.12.0 |
+| [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
+| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -230,7 +229,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
@@ -264,6 +263,24 @@ Gets the application name.
 ```js
 const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 ```
+
+---
+
+### getBatteryLevel()
+
+Gets the battery level of the device as a float comprised between 0 and 1.
+
+**Examples**
+
+```js
+DeviceInfo.getBatteryLevel().then((batteryLevel) => {
+  // 0.759999
+});
+```
+
+**Notes**
+
+> Returns -1 on the iOS Simulator
 
 ---
 
@@ -464,6 +481,21 @@ DeviceInfo.getIPAddress().then(ip => {
 
 ---
 
+### getInstallReferrer
+
+Gets the referrer string upon application installation. 
+
+**Examples**
+
+```js
+const referrer = DeviceInfo.getInstallReferrer();
+
+// If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
+// the result will be "my_install_referrer"
+```
+
+---
+
 ### getInstanceID()
 
 Gets the application instance ID.
@@ -532,16 +564,12 @@ const manufacturer = DeviceInfo.getManufacturer();
 
 ### getMaxMemory()
 
-Returns the maximum amount of memory that the JVM will attempt to use, in bytes.
+Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 
 **Examples**
 
 ```js
-const maxMemory = DeviceInfo.getMaxMemory();
-
-// iOS: undefined
-// Android: 402653184
-// Windows: ?
+const maxMemory = DeviceInfo.getMaxMemory(); // 402653183
 ```
 
 ---
@@ -682,11 +710,7 @@ Gets the device total memory, in bytes.
 **Examples**
 
 ```js
-const totalMemory = DeviceInfo.getTotalMemory();
-
-// iOS: ?
-// Android: 1995018240
-// Windows: ?
+const totalMemory = DeviceInfo.getTotalMemory(); // 1995018240
 ```
 
 ---
@@ -776,9 +800,9 @@ Tells if a PIN number or a fingerprint was set for the device.
 ```js
 DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
-    ...
+    // ...
   }
-}
+});
 ```
 
 **Notes**
