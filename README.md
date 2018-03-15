@@ -484,7 +484,7 @@ DeviceInfo.getIPAddress().then(ip => {
 
 ---
 
-### getInstallReferrer
+### getInstallReferrer()
 
 Gets the referrer string upon application installation.
 
