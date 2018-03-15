@@ -1,8 +1,13 @@
 /**
  * @providesModule react-native-device-info
  */
+import { Platform, NativeModules } from 'react-native';
 
-var RNDeviceInfo = require('react-native').NativeModules.RNDeviceInfo;
+var RNDeviceInfo = NativeModules.RNDeviceInfo;
+
+if (!RNDeviceInfo && Platform.OS === 'web') {
+  RNDeviceInfo = require('./web');
+}
 
 module.exports = {
   getUniqueID: function() {
@@ -89,6 +94,9 @@ module.exports = {
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
   },
+  getInstallReferrer: function() {
+    return RNDeviceInfo.installReferrer;
+  },
   getLastUpdateTime: function() {
     return RNDeviceInfo.lastUpdateTime;
   },
@@ -104,13 +112,16 @@ module.exports = {
   getMaxMemory: function() {
     return RNDeviceInfo.maxMemory;
   },
-  getTotalDiskCapacity: function () {
+  getTotalDiskCapacity: function() {
     return RNDeviceInfo.totalDiskCapacity;
   },
-  getFreeDiskStorage: function () {
+  getFreeDiskStorage: function() {
     return RNDeviceInfo.freeDiskStorage;
   },
   getManufacturerSerialNumber: function () {
     return RNDeviceInfo.manufacturerSerialNumber;
+  },
+  getBatteryLevel: function() {
+    return RNDeviceInfo.getBatteryLevel();
   },
 };
