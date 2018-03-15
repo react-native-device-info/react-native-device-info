@@ -10,7 +10,9 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 * [Linking](#linking)
 * [Usage](#usage)
 * [API](#api)
+* [Troubleshooting](#troubleshooting)
 * [Release Notes](#release-notes)
+* [react-native-web](#react-native-web)
 
 ## Installation
 
@@ -80,6 +82,17 @@ Run your project (Cmd+R)
 
 <details>
     <summary>Android</summary>
+
+* **_optional_** in `android/build.gradle`:
+
+```gradle
+...
+  ext {
+    // dependency versions
+    googlePlayServicesVersion = "<Your Services Version>"
+  }
+...
+```
 
 * in `android/app/build.gradle`:
 
@@ -154,19 +167,16 @@ include ':app'
 * Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
 * this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
 * check the `RNDeviceInfo` you just added and press ok
-* open up `MainPage.cs` for your app and edit the file like so:
+* open up `MainReactNativeHost.cs` for your app and edit the file like so:
 
 ```diff
 + using RNDeviceInfo;
 ......
-            get
-            {
-                return new List<IReactPackage>
-                {
-                    new MainReactPackage(),
-+                   new RNDeviceInfoPackage(),
-                };
-            }
+        protected override List<IReactPackage> Packages => new List<IReactPackage>
+        {
+            new MainReactPackage(),
++           new RNDeviceInfoPackage(),
+        };
 ```
 
 (Thanks to @josephan for writing the instructions)
@@ -186,6 +196,7 @@ var DeviceInfo = require('react-native-device-info');
 | ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
+| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -194,15 +205,16 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ✅    | 0.12.0 |
+| [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
+| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -217,7 +229,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isDeveloperModeEnabled()](#isdevelopermode)      | `boolean`           |  ❌  |   ✅    |   ❌    | `next` |
 
@@ -252,6 +264,24 @@ Gets the application name.
 ```js
 const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 ```
+
+---
+
+### getBatteryLevel()
+
+Gets the battery level of the device as a float comprised between 0 and 1.
+
+**Examples**
+
+```js
+DeviceInfo.getBatteryLevel().then((batteryLevel) => {
+  // 0.759999
+});
+```
+
+**Notes**
+
+> Returns -1 on the iOS Simulator
 
 ---
 
@@ -422,7 +452,15 @@ const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
 
 **Notes**
 
-> Android: Returns only available external storage size, not including internal.
+> From [developer.android.com](<https://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()>):
+>
+> Return the primary shared/external storage directory.
+>
+> Note: don't be confused by the word "external" here. This directory can better be thought as
+> media/shared storage. It is a filesystem that can hold a relatively large amount of data and
+> that is shared across all applications (does not enforce permissions). Traditionally this is
+> an SD card, but it may also be implemented as built-in storage in a device that is distinct
+> from the protected internal storage and can be mounted as a filesystem on a computer.
 
 ---
 
@@ -441,6 +479,21 @@ DeviceInfo.getIPAddress().then(ip => {
 **Android Permissions**
 
 * [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
+
+---
+
+### getInstallReferrer
+
+Gets the referrer string upon application installation. 
+
+**Examples**
+
+```js
+const referrer = DeviceInfo.getInstallReferrer();
+
+// If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
+// the result will be "my_install_referrer"
+```
 
 ---
 
@@ -512,16 +565,12 @@ const manufacturer = DeviceInfo.getManufacturer();
 
 ### getMaxMemory()
 
-Returns the maximum amount of memory that the JVM will attempt to use, in bytes.
+Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 
 **Examples**
 
 ```js
-const maxMemory = DeviceInfo.getMaxMemory();
-
-// iOS: undefined
-// Android: 402653184
-// Windows: ?
+const maxMemory = DeviceInfo.getMaxMemory(); // 402653183
 ```
 
 ---
@@ -557,6 +606,10 @@ const phoneNumber = DeviceInfo.getPhoneNumber();
 **Android Permissions**
 
 * [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
+
+**Notes**
+
+> This can return `undefined` in certain cases and should not be relied on. [SO entry on the subject](https://stackoverflow.com/questions/2480288/programmatically-obtain-the-phone-number-of-the-android-phone#answer-2480307).
 
 ---
 
@@ -658,11 +711,7 @@ Gets the device total memory, in bytes.
 **Examples**
 
 ```js
-const totalMemory = DeviceInfo.getTotalMemory();
-
-// iOS: ?
-// Android: 1995018240
-// Windows: ?
+const totalMemory = DeviceInfo.getTotalMemory(); // 1995018240
 ```
 
 ---
@@ -683,8 +732,8 @@ const uniqueId = DeviceInfo.getUniqueID();
 
 **Notes**
 
-> This is IDFV on iOS so it will change if all apps from the current apps vendor have been previously uninstalled.
-
+> * iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) so it will change if all apps from the current apps vendor have been previously uninstalled.
+> * android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
 ---
 
 ### getUserAgent()
@@ -731,6 +780,18 @@ const is24Hour = DeviceInfo.is24Hour(); // true
 
 ---
 
+### isDeveloperModeEnabled()
+
+Tells if the device is running in developer mode.
+
+**Examples**
+
+```js
+const isDeveloperModeEnabled = DeviceInfo.isDeveloperModeEnabled(); // true
+```
+
+---
+
 ### isEmulator()
 
 Tells if the application is running in an emulator.
@@ -752,9 +813,9 @@ Tells if a PIN number or a fingerprint was set for the device.
 ```js
 DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
-    ...
+    // ...
   }
-}
+});
 ```
 
 **Notes**
@@ -774,16 +835,69 @@ Tells if the device is a tablet.
 const isTablet = DeviceInfo.isTablet(); // true
 ```
 
-### isDeveloperModeEnabled()
+## Troubleshooting
 
-Tells if the device is running in developer mode.
+When installing or using `react-native-device-info`, you may encounter the following problems:
 
-**Examples**
+<details>
+  <summary>[android] - Unable to merge dex / Multiple dex files / Problems with `com.google.android.gms`</summary>
 
-```js
-const isDeveloperModeEnabled = DeviceInfo.isDeveloperModeEnabled(); // true
+`react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
+This can lead to conflicts when building the Android application.
+
+If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the
+`googlePlayServicesVersion` gradle variable in your `build.gradle` file to tell `react-native-device-info` what version
+it should require.
+
+If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, you can simply
+ignore this dependency in your gradle file:
+
 ```
+ compile(project(':react-native-device-info')) {
+    exclude group: 'com.google.android.gms'
+}
+```
+
+</details>
+
+<details>
+  <summary>[ios] - ld: library not found for -lRNDeviceInfo-tvOS</summary>
+
+Seems to be a bug caused by `react-native link`. You can manually delete `libRNDeviceInfo-tvOS.a` in `Xcode -> [Your iOS build target] -> Build Phrases -> Link Binary with Libraries`.
+
+</details>
+
+<details>
+  <summary>[tests] - Cannot run my test suite when using this library</summary>
+
+`react-native-device-info` contains native code, and needs to be mocked.
+
+Here's how to do it with jest for example:
+
+```
+// in your package.json:
+"jest": {
+  "setupFiles": [
+    "./testenv.js"
+  ],
+
+
+// testenv.js:
+jest.mock('react-native-device-info', () => {
+  return {
+    getModel: jest.fn(),
+  };
+});
+```
+
+</details>
 
 ## Release Notes
 
 See the [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blob/master/CHANGELOG.md).
+
+## react-native-web
+
+As a courtesy to developers, this library was made compatible in v0.17.0 with [react-native-web](https://github.com/necolas/react-native-web) by providing an empty polyfill in order to avoid breaking builds.
+
+Only [getUserAgent()](#getuseragent) will return a correct value. All other API methods will return an "empty" value of its documented return type: `0` for numbers, `''` for strings, `false` for booleans.

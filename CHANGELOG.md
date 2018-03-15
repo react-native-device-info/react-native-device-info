@@ -1,6 +1,56 @@
 ## Release Notes
 
-### Next
+### next
+
+### 0.20.0
+
+* Made the following methods compatible with UWP: (https://github.com/rebeccahughes/react-native-device-info/pull/345)
+  * `getBatteryLevel()`
+  * `getFirstIntallTime()`
+  * `getIPAddress()`
+  * `getMaxMemory()`
+  * `isPinOrFingerprintSet()`
+
+### 0.19.0
+
+* Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344) 
+
+### 0.18.0
+
+* Add `getBatteryLevel` (https://github.com/rebeccahughes/react-native-device-info/pull/359)
+
+### 0.17.4
+
+* Fix `getMACAddress` for Android > 6 (https://github.com/rebeccahughes/react-native-device-info/pull/349)
+
+### 0.17.3
+
+* Fix production build crash on Android introduced in #313
+
+### 0.17.2
+
+* Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
+* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+
+### 0.17.1
+
+* Fix bad import for web polyfill
+
+### 0.17.0
+
+* Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
+
+### 0.16.0
+
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/rebeccahughes/react-native-device-info/pull/333)
+
+### 0.15.3
+
+* Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
+
+### 0.15.2
+
+* Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)
 
 * Add `isDeveloperModeEnabled` (https://github.com/rebeccahughes/react-native-device-info/pull/316)
 
