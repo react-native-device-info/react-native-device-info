@@ -89,7 +89,10 @@ Run your project (Cmd+R)
 ...
   ext {
     // dependency versions
-    googlePlayServicesVersion = "<Your Services Version>"
+    googlePlayServicesVersion = "<Your play services version>" // default: "+"
+    compileSdkVersion = "<Your compile SDK version>" // default: 23
+    buildToolsVersion = "<Your build tools version>" // default: "25.0.2"
+    targetSdkVersion = "<Your target SDK version>" // default: 22
   }
 ...
 ```
@@ -273,7 +276,7 @@ Gets the battery level of the device as a float comprised between 0 and 1.
 **Examples**
 
 ```js
-DeviceInfo.getBatteryLevel().then((batteryLevel) => {
+DeviceInfo.getBatteryLevel().then(batteryLevel => {
   // 0.759999
 });
 ```
@@ -483,7 +486,7 @@ DeviceInfo.getIPAddress().then(ip => {
 
 ### getInstallReferrer
 
-Gets the referrer string upon application installation. 
+Gets the referrer string upon application installation.
 
 **Examples**
 
@@ -733,6 +736,7 @@ const uniqueId = DeviceInfo.getUniqueID();
 
 > * iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) so it will change if all apps from the current apps vendor have been previously uninstalled.
 > * android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+
 ---
 
 ### getUserAgent()
