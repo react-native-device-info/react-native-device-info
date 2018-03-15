@@ -19,6 +19,7 @@ declare module.exports: {
   getDeviceCountry: () => string,
   getTimezone: () => string,
   getInstanceID: () => string,
+  getInstallReferrer: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
   getFontScale: () => number,

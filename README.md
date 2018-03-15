@@ -89,7 +89,10 @@ Run your project (Cmd+R)
 ...
   ext {
     // dependency versions
-    googlePlayServicesVersion = "<Your Services Version>"
+    googlePlayServicesVersion = "<Your play services version>" // default: "+"
+    compileSdkVersion = "<Your compile SDK version>" // default: 23
+    buildToolsVersion = "<Your build tools version>" // default: "25.0.2"
+    targetSdkVersion = "<Your target SDK version>" // default: 22
   }
 ...
 ```
@@ -196,7 +199,7 @@ var DeviceInfo = require('react-native-device-info');
 | ------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
-| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.18.0 |
+| [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -205,15 +208,16 @@ var DeviceInfo = require('react-native-device-info');
 | [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ❌  |   ✅    |   ✅    | 0.12.0 |
+| [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.14.0 |
+| [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -228,7 +232,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ❌    | 0.10.1 |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
@@ -272,7 +276,7 @@ Gets the battery level of the device as a float comprised between 0 and 1.
 **Examples**
 
 ```js
-DeviceInfo.getBatteryLevel().then((batteryLevel) => {
+DeviceInfo.getBatteryLevel().then(batteryLevel => {
   // 0.759999
 });
 ```
@@ -480,6 +484,21 @@ DeviceInfo.getIPAddress().then(ip => {
 
 ---
 
+### getInstallReferrer
+
+Gets the referrer string upon application installation.
+
+**Examples**
+
+```js
+const referrer = DeviceInfo.getInstallReferrer();
+
+// If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
+// the result will be "my_install_referrer"
+```
+
+---
+
 ### getInstanceID()
 
 Gets the application instance ID.
@@ -548,16 +567,12 @@ const manufacturer = DeviceInfo.getManufacturer();
 
 ### getMaxMemory()
 
-Returns the maximum amount of memory that the JVM will attempt to use, in bytes.
+Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 
 **Examples**
 
 ```js
-const maxMemory = DeviceInfo.getMaxMemory();
-
-// iOS: undefined
-// Android: 402653184
-// Windows: ?
+const maxMemory = DeviceInfo.getMaxMemory(); // 402653183
 ```
 
 ---
@@ -698,11 +713,7 @@ Gets the device total memory, in bytes.
 **Examples**
 
 ```js
-const totalMemory = DeviceInfo.getTotalMemory();
-
-// iOS: ?
-// Android: 1995018240
-// Windows: ?
+const totalMemory = DeviceInfo.getTotalMemory(); // 1995018240
 ```
 
 ---
@@ -725,6 +736,7 @@ const uniqueId = DeviceInfo.getUniqueID();
 
 > * iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) so it will change if all apps from the current apps vendor have been previously uninstalled.
 > * android: This will get a UUID for this installation. If the user removes and installs the app, a new UUID will be returned. We followed the approach recommended by goole [here](https://developer.android.com/training/articles/user-data-ids.html) at `#3`.
+
 ---
 
 ### getUserAgent()
@@ -792,9 +804,9 @@ Tells if a PIN number or a fingerprint was set for the device.
 ```js
 DeviceInfo.isPinOrFingerprintSet()(isPinOrFingerprintSet => {
   if (!isPinOrFingerprintSet) {
-    ...
+    // ...
   }
-}
+});
 ```
 
 **Notes**

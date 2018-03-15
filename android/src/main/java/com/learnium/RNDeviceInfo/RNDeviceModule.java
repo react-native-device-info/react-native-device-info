@@ -215,6 +215,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     p.resolve(batteryLevel);
   }
 
+  public String getInstallReferrer() {
+    SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
+    return sharedPref.getString("installReferrer", null);
+  }
+
   @Override
   public @Nullable
   Map<String, Object> getConstants() {
@@ -299,6 +304,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
     constants.put("freeDiskStorage", this.getFreeDiskStorage());
+    constants.put("installReferrer", this.getInstallReferrer());
 
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());
