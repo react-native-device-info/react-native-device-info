@@ -2,6 +2,8 @@
 
 ### next
 
+* Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion`
+
 ### 0.20.0
 
 * Made the following methods compatible with UWP: (https://github.com/rebeccahughes/react-native-device-info/pull/345)
