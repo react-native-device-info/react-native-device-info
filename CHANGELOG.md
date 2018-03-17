@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.21.1
+
+* Remove deprecated React pod dependency (https://github.com/rebeccahughes/react-native-device-info/pull/361)
+
 ### 0.21.0
 
 * Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion` (https://github.com/rebeccahughes/react-native-device-info/pull/343)
