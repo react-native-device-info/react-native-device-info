@@ -13,6 +13,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/rebeccahughes/react-native-device-info.git" }
 
   s.source_files  = "RNDeviceInfo/*.{h,m}"
-
-  s.dependency 'React'
+  
 end
