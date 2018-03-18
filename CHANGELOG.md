@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.21.2
+
+* Fix getBatteryLevel() for tvOS (always return 1) (https://github.com/rebeccahughes/react-native-device-info/pull/363)
+
 ### 0.21.1
 
 * Remove deprecated React pod dependency (https://github.com/rebeccahughes/react-native-device-info/pull/361)
