@@ -306,7 +306,11 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+  #if TARGET_OS_TV
+    float batteryLevel = 1.0;
+  #else
     float batteryLevel = [UIDevice currentDevice].batteryLevel;
+  #endif
     resolve(@(batteryLevel));
 }
 
