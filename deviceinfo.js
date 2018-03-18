@@ -1,8 +1,9 @@
 /**
  * @providesModule react-native-device-info
  */
-import { Platform, NativeModules } from 'react-native';
-
+import { Platform, NativeModules, Dimensions } from 'react-native';
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
 if (!RNDeviceInfo && Platform.OS === 'web') {
@@ -10,6 +11,9 @@ if (!RNDeviceInfo && Platform.OS === 'web') {
 }
 
 module.exports = {
+  isIphoneX: function() {
+    return Platform.OS === 'ios' && (deviceHeight === 812 || deviceWidth === 812);
+  },
   getUniqueID: function() {
     return RNDeviceInfo.uniqueId;
   },

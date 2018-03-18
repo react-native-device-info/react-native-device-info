@@ -1,7 +1,7 @@
 ## Release Notes
 
 ### next
-
+* add method to check if iphoneX
 ### 0.21.1
 
 * Remove deprecated React pod dependency (https://github.com/rebeccahughes/react-native-device-info/pull/361)
