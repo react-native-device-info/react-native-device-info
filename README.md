@@ -201,6 +201,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getApplicationName()](#getapplicationname)       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
 | [getBatteryLevel()](#getbatterylevel)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
 | [getBrand()](#getbrand)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
+| [isIphoneX()](#isiphonex)                         | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [getBuildNumber()](#getbuildnumber)               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getCarrier()](#getcarrier)                       | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
