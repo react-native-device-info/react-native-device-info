@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.21.4
+
+* Move back the podspec file to the root directory (https://github.com/rebeccahughes/react-native-device-info/pull/376)
+
 ### 0.21.3
 
 * Moved the IOS code to an ios/ directory (https://github.com/rebeccahughes/react-native-device-info/pull/374)
