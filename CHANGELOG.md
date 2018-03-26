@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.21.3
+
+* Moved the IOS code to an ios/ directory (https://github.com/rebeccahughes/react-native-device-info/pull/374)
+
 ### 0.21.2
 
 * Fix getBatteryLevel() for tvOS (always return 1) (https://github.com/rebeccahughes/react-native-device-info/pull/363)
