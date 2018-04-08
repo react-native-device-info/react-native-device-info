@@ -46,3 +46,5 @@ DerivedData
 .idea/vcs.xml
 
 .idea/workspace.xml
+android/gradle
+local.properties
