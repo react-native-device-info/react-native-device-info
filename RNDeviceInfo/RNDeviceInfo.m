@@ -248,28 +248,6 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return totalSpace;
 }
 
-- (float) freeDiskStorage {
-    if (@available(iOS 11.0, *)) {
-        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:NSHomeDirectory()];
-        NSError *error = nil;
-        NSDictionary *results = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
-        if (!results) {
-            NSLog(@"Error retrieving resource keys: %@\n%@", [error localizedDescription], [error userInfo]);
-            return 0;
-        }
-        
-        return ((NSString *)results[NSURLVolumeAvailableCapacityForImportantUsageKey]).floatValue;
-    }
-    // iOS 11 blow
-    float freeSpace = 0;
-    NSDictionary *storage = [self getStorageDictionary];
-    if (storage) {
-        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
-        freeSpace = (float)[freeFileSystemSizeInBytes unsignedLongLongValue];
-    }
-    return freeSpace;
-}
-
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -300,7 +278,6 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"fontScale": self.fontScale,
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),
-             @"freeDiskStorage": @(self.freeDiskStorage),
              };
 }
 
@@ -313,6 +290,32 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
   #endif
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
+}
+
+RCT_REMAP_METHOD(getFreeDiskStorage,
+                 findEventsWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (@available(iOS 11.0, *)) {
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:NSHomeDirectory()];
+        NSError *error = nil;
+        NSDictionary *results = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
+        if (!results) {
+            NSLog(@"Error retrieving resource keys: %@\n%@", [error localizedDescription], [error userInfo]);
+            reject(@"error", @"Storage error", nil);
+        } else {
+            resolve((NSString *)results[NSURLVolumeAvailableCapacityForImportantUsageKey]);
+        }
+    } else {
+        // iOS 11 blow
+        NSDictionary *storage = [self getStorageDictionary];
+        if (storage) {
+            NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
+            resolve(freeFileSystemSizeInBytes.stringValue);
+        } else {
+            reject(@"error", @"Storage error", nil);
+        }
+    }
 }
 
 @end

@@ -112,7 +112,12 @@ module.exports = {
   getTotalDiskCapacity: function() {
     return RNDeviceInfo.totalDiskCapacity;
   },
-  getFreeDiskStorage: function() {
-    return RNDeviceInfo.freeDiskStorage;
+  getFreeDiskStorage: async function() {
+    try {
+      return await RNDeviceInfo.getFreeDiskStorage();
+    } catch (e) {
+      console.log(e);
+    }
+    return 0;
   },
 };

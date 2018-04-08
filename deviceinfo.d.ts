@@ -37,4 +37,4 @@ export function getCarrier(): string;
 export function getTotalMemory(): number;
 export function getMaxMemory(): number;
 export function getTotalDiskCapacity(): number;
-export function getFreeDiskStorage(): number;
+export function getFreeDiskStorage(): Promise<number>;

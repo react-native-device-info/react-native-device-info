@@ -171,17 +171,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Long getFreeDiskStorage() {
+  public void getFreeDiskStorage(Promise promise) {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2){
-        return external.getAvailableBlocksLong() * external.getBlockSizeLong();
+      float freeStorage = 0;
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+         freeStorage = (float)(external.getAvailableBlocksLong() * external.getBlockSizeLong());
+      } else {
+         freeStorage = (float)(external.getAvailableBlocks() * external.getBlockSize());
       }
-      return (long)external.getAvailableBlocks() * external.getBlockSize();
+      promise.resolve(Float.valueOf(freeStorage));
     } catch (Exception e) {
       e.printStackTrace();
+      promise.resolve(Float.valueOf(0));
     }
-    return null;
   }
 
   @Override
@@ -267,7 +270,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
-    constants.put("freeDiskStorage", this.getFreeDiskStorage());
 
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());
