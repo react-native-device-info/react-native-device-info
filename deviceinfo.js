@@ -118,6 +118,9 @@ module.exports = {
   getFreeDiskStorage: function() {
     return RNDeviceInfo.freeDiskStorage;
   },
+  getManufacturerSerialNumber: function () {
+    return RNDeviceInfo.manufacturerSerialNumber;
+  },
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },

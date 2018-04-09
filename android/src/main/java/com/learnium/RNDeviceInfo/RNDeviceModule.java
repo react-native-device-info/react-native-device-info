@@ -30,6 +30,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -120,6 +121,27 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private Boolean is24Hour() {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
+  }
+
+  private String getSerialNumber(String className){
+    String serial = null;
+    try {
+      Class<?> c = Class.forName("android.os.SystemProperties");
+      Method get = c.getMethod("get", String.class, String.class);
+      serial = (String) get.invoke(c, className, "unknown");
+    } catch (Exception ignored) {}
+    return serial;
+  }
+
+  private String getManufacturerSerialNumber() {
+    String serial = null;
+    try {
+      serial = this.getSerialNumber("ril.serialnumber");
+      if(serial.equals(null)){
+        serial = this.getSerialNumber("sys.serialnumber");
+      }
+    } catch (Exception ignored) {}
+    return serial;
   }
 
   @ReactMethod
@@ -263,6 +285,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
     }
     constants.put("serialNumber", Build.SERIAL);
+    constants.put("manufacturerSerialNumber", this.getManufacturerSerialNumber());
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
     constants.put("systemVersion", Build.VERSION.RELEASE);
