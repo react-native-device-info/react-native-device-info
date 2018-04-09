@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.21.5
+
+* Rolled back the Pod change made in 0.21.1
+
 ### 0.21.4
 
 * Move back the podspec file to the root directory (https://github.com/rebeccahughes/react-native-device-info/pull/376)
