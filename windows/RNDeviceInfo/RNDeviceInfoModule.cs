@@ -87,7 +87,9 @@ namespace RNDeviceInfo
 
         [ReactMethod]
         public async void getBatteryLevel(IPromise promise)
-        {
+        {   
+            Dictionary<string, object> batteryStatus = new Dictionary<string, object>();
+            
             // Create aggregate battery object
             var aggBattery = Battery.AggregateBattery;
 
@@ -103,7 +105,11 @@ namespace RNDeviceInfo
             {
                 var max = Convert.ToDouble(report.FullChargeCapacityInMilliwattHours);
                 var value = Convert.ToDouble(report.RemainingCapacityInMilliwattHours);
-                promise.Resolve(value / max);
+                
+                batteryStatus["level"] = value / max;
+                batteryStatus["charging"] = report.Status == "Charging" ? true : false;
+                
+                promise.Resolve(batteryStatus);
             }
         }
 
