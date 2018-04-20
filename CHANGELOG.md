@@ -2,6 +2,8 @@
 
 ### next
 
+* `getBatteryLevel()` returns an object with the current level and charging status of the device
+
 ### 0.21.5
 
 * Rolled back the Pod change made in 0.21.1
