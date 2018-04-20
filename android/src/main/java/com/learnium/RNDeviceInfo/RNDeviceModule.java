@@ -24,11 +24,13 @@ import android.text.format.Formatter;
 import android.app.ActivityManager;
 import android.util.DisplayMetrics;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.WritableMap;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -201,11 +203,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getBatteryLevel(Promise p) {
+    WritableMap batteryInfo = Arguments.createMap();
+
     Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
     int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-    float batteryLevel = level / (float) scale;
-    p.resolve(batteryLevel);
+    int batteryStatus = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    double batteryLevel = level / (float) scale;
+
+    batteryInfo.putDouble("level", batteryLevel);
+    batteryInfo.putBoolean("charging", batteryStatus != 0);
+
+    p.resolve(batteryInfo);
   }
 
   public String getInstallReferrer() {
