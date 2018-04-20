@@ -276,8 +276,8 @@ Gets the battery level of the device as a float comprised between 0 and 1.
 **Examples**
 
 ```js
-DeviceInfo.getBatteryLevel().then(batteryLevel => {
-  // 0.759999
+DeviceInfo.getBatteryLevel().then(battery) => {
+  // {level: 0.759999, charging: false}
 });
 ```
 
