@@ -308,10 +308,16 @@ RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTP
 {
   #if TARGET_OS_TV
     float batteryLevel = 1.0;
+    bool batteryCharging = true;
   #else
     float batteryLevel = [UIDevice currentDevice].batteryLevel;
+    UIDeviceBatteryState deviceBatteryState = [UIDevice currentDevice].batteryState;
+    bool batteryCharing = (deviceBatteryState == UIDeviceBatteryStateCharging || deviceBatteryState == UIDeviceBatteryStateFull);
   #endif
-    resolve(@(batteryLevel));
+    resolve(@{
+      @"level": @(batteryLevel),
+      @"charging": @(batteryCharing)
+    });
 }
 
 @end
