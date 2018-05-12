@@ -15,6 +15,8 @@
 #import "RCTBridgeModule.h"
 #endif
 
+#import <React/RCTBridge.h>
+
 @interface RNDeviceInfo : NSObject <RCTBridgeModule>
 
 @end

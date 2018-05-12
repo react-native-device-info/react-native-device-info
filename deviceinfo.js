@@ -115,6 +115,9 @@ module.exports = {
   getTotalDiskCapacity: function() {
     return RNDeviceInfo.totalDiskCapacity;
   },
+  getBundleHost: function() {
+    return RNDeviceInfo.bundleHost;
+  },
   getFreeDiskStorage: function() {
     return RNDeviceInfo.freeDiskStorage;
   },

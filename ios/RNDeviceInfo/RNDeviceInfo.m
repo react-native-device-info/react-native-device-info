@@ -8,6 +8,8 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTBridge.h>
 #if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
@@ -22,6 +24,7 @@
 
 @implementation RNDeviceInfo
 
+@synthesize bridge = _bridge;
 @synthesize isEmulator;
 
 RCT_EXPORT_MODULE(RNDeviceInfo)
@@ -259,6 +262,10 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return freeSpace;
 }
 
+- (NSString *) bundleHost {
+    return self.bridge.bundleURL.host;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -290,6 +297,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
+             @"bundleHost": self.bundleHost ?: [NSNull null],
              };
 }
 
