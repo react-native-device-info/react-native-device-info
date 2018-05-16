@@ -8,22 +8,29 @@
 
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#if !(TARGET_OS_TV)
+#import <LocalAuthentication/LocalAuthentication.h>
+#endif
 
 @interface RNDeviceInfo()
-
+@property (nonatomic) bool isEmulator;
 @end
 
+#if !(TARGET_OS_TV)
+@import CoreTelephony;
+#endif
+
 @implementation RNDeviceInfo
-{
 
+@synthesize isEmulator;
+
+RCT_EXPORT_MODULE(RNDeviceInfo)
+
++ (BOOL)requiresMainQueueSetup
+{
+   return YES;
 }
 
-RCT_EXPORT_MODULE()
-
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_get_main_queue();
-}
 
 - (NSString*) deviceId
 {
@@ -31,8 +38,17 @@ RCT_EXPORT_MODULE()
 
     uname(&systemInfo);
 
-    return [NSString stringWithCString:systemInfo.machine
-                                    encoding:NSUTF8StringEncoding];
+    NSString* deviceId = [NSString stringWithCString:systemInfo.machine
+                                            encoding:NSUTF8StringEncoding];
+
+    if ([deviceId isEqualToString:@"i386"] || [deviceId isEqualToString:@"x86_64"] ) {
+        deviceId = [NSString stringWithFormat:@"%s", getenv("SIMULATOR_MODEL_IDENTIFIER")];
+        self.isEmulator = YES;
+    } else {
+        self.isEmulator = NO;
+    }
+
+    return deviceId;
 }
 
 - (NSString*) deviceName
@@ -41,9 +57,7 @@ RCT_EXPORT_MODULE()
 
     if (!deviceNamesByCode) {
 
-        deviceNamesByCode = @{@"i386"      :@"Simulator",
-                              @"x86_64"    :@"Simulator",
-                              @"iPod1,1"   :@"iPod Touch",      // (Original)
+        deviceNamesByCode = @{@"iPod1,1"   :@"iPod Touch",      // (Original)
                               @"iPod2,1"   :@"iPod Touch",      // (Second Generation)
                               @"iPod3,1"   :@"iPod Touch",      // (Third Generation)
                               @"iPod4,1"   :@"iPod Touch",      // (Fourth Generation)
@@ -85,6 +99,12 @@ RCT_EXPORT_MODULE()
                               @"iPhone9,3" :@"iPhone 7",        // (model A1778 | Global)
                               @"iPhone9,2" :@"iPhone 7 Plus",   // (model A1661 | CDMA)
                               @"iPhone9,4" :@"iPhone 7 Plus",   // (model A1784 | Global)
+                              @"iPhone10,3":@"iPhone X",        // (model A1865, A1902)
+                              @"iPhone10,6":@"iPhone X",        // (model A1901)
+                              @"iPhone10,1":@"iPhone 8",        // (model A1863, A1906, A1907)
+                              @"iPhone10,4":@"iPhone 8",        // (model A1905)
+                              @"iPhone10,2":@"iPhone 8 Plus",   // (model A1864, A1898, A1899)
+                              @"iPhone10,5":@"iPhone 8 Plus",   // (model A1897)
                               @"iPad4,1"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Cellular
                               @"iPad4,3"   :@"iPad Air",        // 5th Generation iPad (iPad Air)
@@ -102,10 +122,15 @@ RCT_EXPORT_MODULE()
                               @"iPad6,4"   :@"iPad Pro 9.7-inch",// iPad Pro 9.7-inch
                               @"iPad6,7"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
                               @"iPad6,8"   :@"iPad Pro 12.9-inch",// iPad Pro 12.9-inch
+                              @"iPad7,1"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Wifi
+                              @"iPad7,2"   :@"iPad Pro 12.9-inch",// 2nd Generation iPad Pro 12.5-inch - Cellular
+                              @"iPad7,3"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Wifi
+                              @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
                               @"AppleTV5,3":@"Apple TV",        // Apple TV (4th Generation)
+                              @"AppleTV6,2":@"Apple TV 4K",     // Apple TV 4K
                               };
     }
 
@@ -123,15 +148,33 @@ RCT_EXPORT_MODULE()
         else if([self.deviceId rangeOfString:@"iPhone"].location != NSNotFound){
             deviceName = @"iPhone";
         }
+        else if([self.deviceId rangeOfString:@"AppleTV"].location != NSNotFound){
+            deviceName = @"Apple TV";
+        }
     }
 
     return deviceName;
 }
 
+- (NSString *) carrier
+{
+#if (TARGET_OS_TV)
+    return nil;
+#else
+    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+    CTCarrier *carrier = [netinfo subscriberCellularProvider];
+    return carrier.carrierName;
+#endif
+}
+
 - (NSString*) userAgent
 {
+#if TARGET_OS_TV
+    return @"not available";
+#else
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     return [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+#endif
 }
 
 - (NSString*) deviceLocale
@@ -152,41 +195,123 @@ RCT_EXPORT_MODULE()
   return currentTimeZone.name;
 }
 
-- (bool) isEmulator
-{
-  return [self.deviceName isEqual: @"Simulator"];
-}
-
 - (bool) isTablet
 {
   return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 }
 
+// Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
+- (NSNumber*) fontScale
+{
+  float fontScale = 1.0;
+  NSString *contentSize = [UIApplication sharedApplication].preferredContentSizeCategory;
+
+  if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryS"]) fontScale = 0.88;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryM"]) fontScale = 0.95;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryL"]) fontScale = 1.0;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryXL"]) fontScale = 1.12;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryXXL"]) fontScale = 1.23;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryXXXL"]) fontScale = 1.35;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityM"]) fontScale = 1.64;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityL"]) fontScale = 1.95;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXL"]) fontScale = 2.35;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXXL"]) fontScale = 2.76;
+  else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXXXL"]) fontScale = 3.12;
+
+  return [NSNumber numberWithFloat: fontScale];
+}
+
+- (bool) is24Hour
+{
+    NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
+    return ([format rangeOfString:@"a"].location == NSNotFound);
+}
+
+- (unsigned long long) totalMemory {
+  return [NSProcessInfo processInfo].physicalMemory;
+}
+
+- (NSDictionary *) getStorageDictionary {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+    return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
+}
+
+- (uint64_t) totalDiskCapacity {
+    uint64_t totalSpace = 0;
+    NSDictionary *storage = [self getStorageDictionary];
+
+    if (storage) {
+        NSNumber *fileSystemSizeInBytes = [storage objectForKey: NSFileSystemSize];
+        totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
+    }
+    return totalSpace;
+}
+
+- (uint64_t) freeDiskStorage {
+    uint64_t freeSpace = 0;
+    NSDictionary *storage = [self getStorageDictionary];
+    
+    if (storage) {
+        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
+        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+    }
+    return freeSpace;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
-
     NSString *uniqueId = [DeviceUID uid];
 
     return @{
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
-             @"model": self.deviceName,
+             @"apiLevel": @"not available",
+             @"model": self.deviceName ?: [NSNull null],
              @"brand": @"Apple",
-             @"deviceId": self.deviceId,
+             @"deviceId": self.deviceId ?: [NSNull null],
              @"deviceName": currentDevice.name,
-             @"deviceLocale": self.deviceLocale,
+             @"deviceLocale": self.deviceLocale ?: [NSNull null],
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
-             @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"],
-             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
-             @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+             @"appName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: [NSNull null],
+             @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] ?: [NSNull null],
+             @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
+             @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] ?: [NSNull null],
              @"systemManufacturer": @"Apple",
-             @"userAgent": self.userAgent,
-             @"timezone": self.timezone,
+             @"carrier": self.carrier ?: [NSNull null],
+             @"userAgent": self.userAgent ?: [NSNull null],
+             @"timezone": self.timezone ?: [NSNull null],
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
+             @"is24Hour": @(self.is24Hour),
+             @"fontScale": self.fontScale,
+             @"totalMemory": @(self.totalMemory),
+             @"totalDiskCapacity": @(self.totalDiskCapacity),
+             @"freeDiskStorage": @(self.freeDiskStorage),
              };
+}
+
+RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
+{
+  #if TARGET_OS_TV
+    BOOL isPinOrFingerprintSet = false;
+  #else
+    LAContext *context = [[LAContext alloc] init];
+    BOOL isPinOrFingerprintSet = ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil]);
+  #endif
+    callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
+}
+
+RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+  #if TARGET_OS_TV
+    float batteryLevel = 1.0;
+  #else
+    float batteryLevel = [UIDevice currentDevice].batteryLevel;
+  #endif
+    resolve(@(batteryLevel));
 }
 
 @end
