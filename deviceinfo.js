@@ -6,7 +6,7 @@ import { Platform, NativeModules } from 'react-native';
 
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
-if (!RNDeviceInfo && Platform.OS === 'web') {
+if (!RNDeviceInfo && (Platform.OS === 'web' || Platform.OS === 'dom')) {
   RNDeviceInfo = require('./web');
 }
 
