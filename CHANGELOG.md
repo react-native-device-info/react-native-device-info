@@ -2,6 +2,76 @@
 
 ### next
 
+### 0.21.5
+
+* Rolled back the Pod change made in 0.21.1
+
+### 0.21.4
+
+* Move back the podspec file to the root directory (https://github.com/rebeccahughes/react-native-device-info/pull/376)
+
+### 0.21.3
+
+* Moved the IOS code to an ios/ directory (https://github.com/rebeccahughes/react-native-device-info/pull/374)
+
+### 0.21.2
+
+* Fix getBatteryLevel() for tvOS (always return 1) (https://github.com/rebeccahughes/react-native-device-info/pull/363)
+
+### 0.21.1
+
+* Remove deprecated React pod dependency (https://github.com/rebeccahughes/react-native-device-info/pull/361)
+
+### 0.21.0
+
+* Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion` (https://github.com/rebeccahughes/react-native-device-info/pull/343)
+
+### 0.20.0
+
+* Made the following methods compatible with UWP: (https://github.com/rebeccahughes/react-native-device-info/pull/345)
+  * `getBatteryLevel()`
+  * `getFirstIntallTime()`
+  * `getIPAddress()`
+  * `getMaxMemory()`
+  * `isPinOrFingerprintSet()`
+
+### 0.19.0
+
+* Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344)
+
+### 0.18.0
+
+* Add `getBatteryLevel` (https://github.com/rebeccahughes/react-native-device-info/pull/359)
+
+### 0.17.4
+
+* Fix `getMACAddress` for Android > 6 (https://github.com/rebeccahughes/react-native-device-info/pull/349)
+
+### 0.17.3
+
+* Fix production build crash on Android introduced in #313
+
+### 0.17.2
+
+* Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
+* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+
+### 0.17.1
+
+* Fix bad import for web polyfill
+
+### 0.17.0
+
+* Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
+
+### 0.16.0
+
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/rebeccahughes/react-native-device-info/pull/333)
+
+### 0.15.3
+
+* Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
+
 ### 0.15.2
 
 * Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)

@@ -1,14 +1,13 @@
 /**
- * This is essentially a polyfill for browsers which have a limited subset
- * of RNDeviceInfo's native information.
+ * react-native-web empty polyfill.
  */
 
 module.exports = {
   uniqueId: '',
   instanceId: '',
   serialNumber: '',
-  getIpAddress: () => new Promise((resolve, reject) => resolve('0.0.0.0')),
-  getMacAddress: () => new Promise((resolve, reject) => resolve('00:00:00:00')),
+  getIpAddress: () => new Promise((resolve, reject) => resolve('')),
+  getMacAddress: () => new Promise((resolve, reject) => resolve('')),
   deviceId: '',
   systemManufacturer: '',
   model: '',
@@ -24,13 +23,14 @@ module.exports = {
   userAgent: window.navigator.userAgent,
   deviceLocale: '',
   deviceCountry: '',
-  timezone: new Date().getTimezoneOffset(), // unreliable!
-  fontScale: 1,
+  timezone: '',
+  fontScale: 0,
   isEmulator: false,
   isTablet: false,
   is24Hour: false,
   isPinOrFingerprintSet: callback => callback && callback(false),
   firstInstallTime: 0,
+  installReferrer: '',
   lastUpdateTime: 0,
   phoneNumber: '',
   carrier: '',
@@ -38,4 +38,5 @@ module.exports = {
   maxMemory: 0,
   totalDiskCapacity: 0,
   freeDiskStorage: 0,
+  getBatteryLevel: () => Promise.resolve(0)
 };
