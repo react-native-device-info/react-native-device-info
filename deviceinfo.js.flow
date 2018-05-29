@@ -40,4 +40,5 @@ declare module.exports: {
   getTotalDiskCapacity: () => number,
   getFreeDiskStorage: () => number,
   getBatteryLevel: () => Promise<number>,
+  getInstallerPackageName: () => string,
 };

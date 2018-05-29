@@ -121,4 +121,7 @@ module.exports = {
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },
+  getInstallerPackageName: function() {
+    return RNDeviceInfo.installerPackageName;
+  },
 };

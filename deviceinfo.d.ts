@@ -40,3 +40,4 @@ export function getMaxMemory(): number;
 export function getTotalDiskCapacity(): number;
 export function getFreeDiskStorage(): number;
 export function getBatteryLevel(): Promise<number>;
+export function getInstallerPackageName(): string;

@@ -220,6 +220,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     PackageManager packageManager = this.reactContext.getPackageManager();
     String packageName = this.reactContext.getPackageName();
+    String installerPackageName = packageManager.getInstallerPackageName(packageName);
 
     constants.put("appVersion", "not available");
     constants.put("appName", "not available");
@@ -275,6 +276,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
+    constants.put("installerPackageName", installerPackageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
       try {
         constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
