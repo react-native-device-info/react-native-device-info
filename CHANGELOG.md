@@ -1,7 +1,5 @@
 ## Release Notes
 
-### next
-
 ### 0.21.5
 
 * Rolled back the Pod change made in 0.21.1

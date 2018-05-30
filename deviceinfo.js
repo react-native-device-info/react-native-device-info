@@ -101,7 +101,12 @@ module.exports = {
     return RNDeviceInfo.lastUpdateTime;
   },
   getPhoneNumber: function() {
-    return RNDeviceInfo.phoneNumber;
+      if (Platform.OS === 'ios') {
+        return Promise.resolve(null)
+      }
+      else {
+          return RNDeviceInfo.getPhoneNumber();
+      }
   },
   getCarrier: function() {
     return RNDeviceInfo.carrier;
