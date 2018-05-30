@@ -219,7 +219,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getManufacturer()](#getmanufacturer)             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getPhoneNumber()](#getphonenumber)               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSerialNumber()](#getserialnumber)             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -600,9 +600,11 @@ Gets the device phone number.
 **Examples**
 
 ```js
-const phoneNumber = DeviceInfo.getPhoneNumber();
-
-// Android: ?
+DeviceInfo.getPhoneNumber().then(phoneNumber => {
+    // iOS: null
+    // Android: ?
+    // Windows: null
+});
 ```
 
 **Android Permissions**

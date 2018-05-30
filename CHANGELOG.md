@@ -1,5 +1,9 @@
 ## Release Notes
 
+## Next
+
+* `getPhoneNumber` now returns a promise. Fixes https://github.com/rebeccahughes/react-native-device-info/issues/416
+
 ### 0.21.5
 
 * Rolled back the Pod change made in 0.21.1
