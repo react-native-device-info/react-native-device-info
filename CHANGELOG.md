@@ -2,6 +2,12 @@
 
 ### next
 
+### 0.21.6
+
+* Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
+ * getDeviceCountry
+ * getDeviceLocale
+
 ### 0.21.5
 
 * Rolled back the Pod change made in 0.21.1
