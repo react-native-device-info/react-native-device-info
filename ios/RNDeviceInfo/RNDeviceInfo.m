@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 @interface RNDeviceInfo()
 @property (nonatomic) bool isEmulator;
+@property (nonatomic) float lowBatteryThreshold;
 @end
 
 #if !(TARGET_OS_TV)
@@ -36,13 +37,38 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 @synthesize isEmulator;
 
-RCT_EXPORT_MODULE(RNDeviceInfo)
+RCT_EXPORT_MODULE(RNDeviceInfo);
 
 + (BOOL)requiresMainQueueSetup
 {
    return YES;
 }
 
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"batteryLevelDidChange", @"batteryLevelIsLow", @"powerStateDidChange"];
+}
+
+- (id)init
+{
+    if ((self = [super init])) {
+#if !TARGET_OS_TV
+        _lowBatteryThreshold = 20;
+        [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(batteryLevelDidChange:)
+                                                     name:UIDeviceBatteryLevelDidChangeNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(powerStateDidChange:)
+                                                     name:UIDeviceBatteryStateDidChangeNotification
+                                                   object: nil];
+#endif
+    }
+
+    return self;
+}
 
 - (NSString*) deviceId
 {
@@ -376,14 +402,48 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
+- (void)batteryLevelDidChange:(NSNotification *)notification
+{
+    float batteryLevel = [self.powerState[@"batteryLevel"] floatValue];
+    [self sendEventWithName:@"batteryLevelDidChange" body:@(batteryLevel)];
+
+    if (batteryLevel <= _lowBatteryThreshold) {
+        [self sendEventWithName:@"batteryLevelIsLow" body:@(batteryLevel)];
+    }
+}
+
+- (void)powerStateDidChange:(NSNotification *)notification
+{
+    [self sendEventWithName:@"powerStateDidChange" body:self.powerState];
+}
+
+- (NSDictionary *)powerState
+{
+    return @{
+#if TARGET_OS_TV
+             @"batteryLevel": @1,
+             @"batteryState": @"full",
+#else
+             @"batteryLevel": @([UIDevice currentDevice].batteryLevel),
+             @"batteryState": [@[@"unknown", @"unplugged", @"charging", @"full"] objectAtIndex: [UIDevice currentDevice].batteryState],
+             @"lowPowerMode": @([NSProcessInfo processInfo].isLowPowerModeEnabled),
+#endif
+             };
+}
+
 RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  #if TARGET_OS_TV
-    float batteryLevel = 1.0;
-  #else
-    float batteryLevel = [UIDevice currentDevice].batteryLevel;
-  #endif
-    resolve(@(batteryLevel));
+    resolve(@([self.powerState[@"batteryLevel"] floatValue]));
+}
+
+RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    return resolve(self.powerState);
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

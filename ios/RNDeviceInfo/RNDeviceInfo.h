@@ -11,10 +11,12 @@
 
 #if __has_include(<React/RCTAssert.h>)
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #else
 #import "RCTBridgeModule.h"
+#import "RCTEventEmitter.h"
 #endif
 
-@interface RNDeviceInfo : NSObject <RCTBridgeModule>
+@interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule>
 
 @end
