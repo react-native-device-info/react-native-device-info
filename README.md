@@ -829,7 +829,7 @@ const isTablet = DeviceInfo.isTablet(); // true
 
 ### getInstallerPackageName()
 
-Retrieve the package name of the application that installed a package..
+Retrieve the package name of the application that installed a package.
 
 **Examples**
 
