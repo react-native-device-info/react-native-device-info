@@ -234,6 +234,7 @@ var DeviceInfo = require('react-native-device-info');
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [getInstallerPackageName()](#getInstallerPackage) | `boolean`           |  ❌  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -824,6 +825,16 @@ Tells if the device is a tablet.
 
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
+```
+
+### getInstallerPackageName()
+
+Retrieve the package name of the application that installed a package..
+
+**Examples**
+
+```js
+const installerPackageName = DeviceInfo.getInstallerPackageName(); // com.android.vending
 ```
 
 ## Troubleshooting
