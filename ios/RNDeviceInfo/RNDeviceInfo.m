@@ -314,11 +314,17 @@ RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
         }
         [_webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError * error) {
             if (error == nil) {
-                if (result != nil) {
-                    resolve([NSString stringWithFormat:@"%@", result]);
+                NSString * returnedValue = @"";
+                if (result != nil && [result isKindOfClass:[NSString class]]) {
+                    returnedValue = result;
                 }
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    resolve(returnedValue);
+                });
             } else {
-                reject(@"evaluate_js_failed", [NSString stringWithFormat:@"evaluateJavaScript error : %@", error.localizedDescription], error);
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    reject(@"evaluate_js_failed", [NSString stringWithFormat:@"evaluateJavaScript error : %@", error.localizedDescription], error);
+                });
             }
         }];
     });
