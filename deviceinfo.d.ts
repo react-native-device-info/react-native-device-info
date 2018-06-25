@@ -14,7 +14,7 @@ export function getBuildNumber(): string;
 export function getVersion(): string;
 export function getReadableVersion(): string;
 export function getDeviceName(): string;
-export function getUserAgent(): string;
+export function getUserAgent(): Promise<string>;
 export function getDeviceLocale(): string;
 export function getDeviceCountry(): string;
 export function getTimezone(): string;

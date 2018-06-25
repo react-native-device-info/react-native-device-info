@@ -135,6 +135,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getUserAgent(Promise p) {
+    String userAgent = "";
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      try {
+        userAgent = WebSettings.getDefaultUserAgent(this.reactContext);
+      } catch (RuntimeException e) {
+        userAgent = System.getProperty("http.agent");
+      }
+    }
+    p.resolve(userAgent);
+  }
+
+  @ReactMethod
   public void getMacAddress(Promise p) {
     String macAddress = getWifiInfo().getMacAddress();
 
@@ -275,13 +288,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      try {
-        constants.put("userAgent", WebSettings.getDefaultUserAgent(this.reactContext));
-      } catch (RuntimeException e) {
-        constants.put("userAgent", System.getProperty("http.agent"));
-      }
-    }
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
