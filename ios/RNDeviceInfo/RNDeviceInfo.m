@@ -32,7 +32,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 + (BOOL)requiresMainQueueSetup
 {
-   return NO;
+   return YES;
 }
 
 - (NSString*) deviceId
