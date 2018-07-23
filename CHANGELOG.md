@@ -2,6 +2,10 @@
 
 ### next
 
+### 0.22.0
+
+* Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/rebeccahughes/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
+
 ### 0.21.5
 
 * Rolled back the Pod change made in 0.21.1
