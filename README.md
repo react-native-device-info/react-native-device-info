@@ -656,7 +656,7 @@ Gets the device OS name.
 ```js
 const systemName = DeviceInfo.getSystemName();
 
-// iOS: "iOS"
+// iOS: "iOS" on newer iOS devices "iPhone OS" on older devices, including older iPad's.
 // Android: "Android"
 // Windows: ?
 ```
