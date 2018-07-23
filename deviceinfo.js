@@ -10,6 +10,7 @@ if (!RNDeviceInfo && Platform.OS === 'web') {
 }
 
 module.exports = {
+  data: RNDeviceInfo,
   getUniqueID: function() {
     return RNDeviceInfo.uniqueId;
   },
