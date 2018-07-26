@@ -2,6 +2,12 @@
 
 ### next
 
+### 0.22.1
+
+* Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
+ * getDeviceCountry
+ * getDeviceLocale
+ 
 ### 0.22.0
 
 * Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/rebeccahughes/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
