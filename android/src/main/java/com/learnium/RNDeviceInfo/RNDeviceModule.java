@@ -67,10 +67,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getCurrentLanguage() {
-    int sdkVerionAndroidN = 24;
-
     Locale current;
-    if (Build.VERSION.SDK_INT >= sdkVerionAndroidN) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       current = getReactApplicationContext().getResources().getConfiguration().getLocales().get(0);
     } else {
       current = getReactApplicationContext().getResources().getConfiguration().locale;
@@ -90,10 +88,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getCurrentCountry() {
-    int sdkVerionAndroidN = 24;
-
     Locale current;
-    if (Build.VERSION.SDK_INT >= sdkVerionAndroidN) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       current = getReactApplicationContext().getResources().getConfiguration().getLocales().get(0);
     } else {
       current = getReactApplicationContext().getResources().getConfiguration().locale;
