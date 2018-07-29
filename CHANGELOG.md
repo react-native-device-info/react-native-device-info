@@ -2,9 +2,12 @@
 
 ### next
 
+### 0.22.2
+ * Fixed Android build error introduced in 0.22.1 (https://github.com/rebeccahughes/react-native-device-info/pull/460)
+
 ### 0.22.1
 
-* Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
+ * Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
  * getDeviceCountry
  * getDeviceLocale
  
