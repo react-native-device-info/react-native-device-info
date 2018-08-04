@@ -314,4 +314,9 @@ RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTP
     resolve(@(batteryLevel));
 }
 
++ (BOOL)requiresMainQueueSetup
+{
+	return YES;
+}
+
 @end
