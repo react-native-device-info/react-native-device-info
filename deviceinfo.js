@@ -9,7 +9,7 @@ if (!RNDeviceInfo && Platform.OS === 'web') {
   RNDeviceInfo = require('./web');
 }
 
-module.exports = {
+export default {
   getUniqueID: function() {
     return RNDeviceInfo.uniqueId;
   },
