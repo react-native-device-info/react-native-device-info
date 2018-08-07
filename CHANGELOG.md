@@ -2,6 +2,9 @@
 
 ### next
 
+### 0.22.3
+ * Fixed `eslint-plugin-import` error (https://github.com/rebeccahughes/react-native-device-info/pull/466)
+
 ### 0.22.2
  * Fixed Android build error introduced in 0.22.1 (https://github.com/rebeccahughes/react-native-device-info/pull/460)
 
