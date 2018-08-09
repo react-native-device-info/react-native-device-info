@@ -234,6 +234,7 @@ var DeviceInfo = require('react-native-device-info');
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [isCameraPresent()](#iscamerapresent)             | `boolean`           |  ❌  |   ❌    |   ✅    | ?      |
 
 ---
 
@@ -833,6 +834,20 @@ Tells if the device is a tablet.
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
 ```
+
+---
+
+### isCameraPresent()
+
+Tells if the device have any camera.
+
+**Examples**
+
+```js
+const isCameraPresent = DeviceInfo.isCameraPresent(); // true or false
+```
+
+---
 
 ## Troubleshooting
 

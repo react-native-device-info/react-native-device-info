@@ -88,6 +88,9 @@ export default {
   is24Hour: function() {
     return RNDeviceInfo.is24Hour;
   },
+  isCameraPresent: function() {
+    return RNDeviceInfo.isCameraPresent;
+  }
   isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },

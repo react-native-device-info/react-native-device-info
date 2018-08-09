@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,6 +47,12 @@ namespace RNDeviceInfo
         private bool is24Hour()
         {
             return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
+        }
+		
+		private async Task<bool> isCameraPresent()
+        {
+            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
+            return devices.Count > 0 ? true : false;
         }
 
         [ReactMethod]
@@ -129,6 +136,7 @@ namespace RNDeviceInfo
                     constants["appVersion"] = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
                     constants["buildNumber"] = version.Build.ToString();
                     constants["buildVersion"] = version.Build.ToString();
+					constants["isCameraPresent"] = isCameraPresent().Result;
                 }
                 catch
                 {
