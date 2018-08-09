@@ -234,7 +234,7 @@ var DeviceInfo = require('react-native-device-info');
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isCameraPresent()](#iscamerapresent)             | `boolean`           |  ❌  |   ❌    |   ✅    | ?      |
+| [isCameraPresent()](#iscamerapresent)             | `boolean`           |  ❌  |   ✅    |   ✅    | ?      |
 
 ---
 
