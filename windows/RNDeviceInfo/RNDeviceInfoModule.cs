@@ -52,7 +52,7 @@ namespace RNDeviceInfo
 		private async Task<bool> isCameraPresent()
         {
             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
-            return devices.Count > 0 ? true : false;
+            return devices.Count > 0;
         }
 
         [ReactMethod]
