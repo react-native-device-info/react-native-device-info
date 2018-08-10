@@ -24,6 +24,7 @@ import android.text.format.Formatter;
 import android.app.ActivityManager;
 import android.util.DisplayMetrics;
 import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CameraAccessException;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
