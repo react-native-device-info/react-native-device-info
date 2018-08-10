@@ -22,6 +22,7 @@ declare module.exports: {
   getInstallReferrer: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
+  isCameraPresent: () => boolean,
   getFontScale: () => number,
   is24Hour: () => boolean,
   isPinOrFingerprintSet: () => (
