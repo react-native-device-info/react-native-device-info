@@ -847,6 +847,11 @@ Tells if the device have any camera.
 const isCameraPresent = DeviceInfo.isCameraPresent(); // true or false
 ```
 
+**Notes**
+
+> * Hot replace of camera is not supported.
+
+
 ---
 
 ## Troubleshooting
