@@ -1,6 +1,8 @@
 ## Release Notes
 
 ### next
+
+### 0.22.4
  * Shrank the npm package size (https://github.com/rebeccahughes/react-native-device-info/issues/477)
 
 ### 0.22.3
