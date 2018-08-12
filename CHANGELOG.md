@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### next
+ * Shrank the npm package size (https://github.com/rebeccahughes/react-native-device-info/issues/477)
 
 ### 0.22.3
  * Fixed `eslint-plugin-import` error (https://github.com/rebeccahughes/react-native-device-info/pull/466)
