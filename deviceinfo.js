@@ -22,6 +22,9 @@ export default {
   getIPAddress: function() {
     return RNDeviceInfo.getIpAddress();
   },
+  getCameraPresence: function() {
+    return RNDeviceInfo.getCameraPresence();
+  },
   getMACAddress: function() {
     return RNDeviceInfo.getMacAddress();
   },
@@ -87,9 +90,6 @@ export default {
   },
   is24Hour: function() {
     return RNDeviceInfo.is24Hour;
-  },
-  isCameraPresent: function() {
-    return RNDeviceInfo.isCameraPresent;
   }
   isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;

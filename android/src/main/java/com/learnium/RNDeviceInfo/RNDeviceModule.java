@@ -89,18 +89,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
   }
 
-  private Boolean isCameraPresent() {
-    CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      try {
-        return manager.getCameraIdList().length > 0;
-      } catch (CameraAccessException e) {
-        e.printStackTrace();
-      }
-    }
-    return null;
-  }
-  
   private String getCurrentCountry() {
     Locale current;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -158,6 +146,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getIpAddress(Promise p) {
     String ipAddress = Formatter.formatIpAddress(getWifiInfo().getIpAddress());
     p.resolve(ipAddress);
+  }
+ 
+  @ReactMethod
+  public void getCameraPresence(Promise p) {
+    CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      try {
+        p.resolve(manager.getCameraIdList().length > 0);
+      } catch (CameraAccessException e) {
+        p.reject(e);
+      }
+    }
   }
 
   @ReactMethod
@@ -311,7 +311,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
-	constants.put("isCameraPresent", this.isCameraPresent());
     constants.put("fontScale", this.fontScale());
     constants.put("is24Hour", this.is24Hour());
     if (getCurrentActivity() != null &&

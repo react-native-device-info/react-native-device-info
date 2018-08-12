@@ -22,7 +22,6 @@ export function getInstanceID(): string;
 export function getInstallReferrer(): string;
 export function isEmulator(): boolean;
 export function isTablet(): boolean;
-export function isCameraPresent(): boolean;
 export function getFontScale(): number;
 export function is24Hour(): boolean;
 export function isPinOrFingerprintSet(): (
@@ -32,6 +31,7 @@ export function getFirstInstallTime(): number;
 export function getLastUpdateTime(): number;
 export function getSerialNumber(): string;
 export function getIPAddress(): Promise<string>;
+export function getCameraPresence(): Promise<boolean>;
 export function getMACAddress(): Promise<string>;
 export function getPhoneNumber(): string;
 export function getAPILevel(): number;

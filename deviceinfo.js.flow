@@ -22,7 +22,6 @@ declare module.exports: {
   getInstallReferrer: () => string,
   isEmulator: () => boolean,
   isTablet: () => boolean,
-  isCameraPresent: () => boolean,
   getFontScale: () => number,
   is24Hour: () => boolean,
   isPinOrFingerprintSet: () => (
@@ -33,6 +32,7 @@ declare module.exports: {
   getSerialNumber: () => string,
   getAPILevel: () => number,
   getIPAddress: () => Promise<string>,
+  getCameraPresence: () => Promise<boolean>,
   getMACAddress: () => Promise<string>,
   getPhoneNumber: () => ?string,
   getCarrier: () => string,

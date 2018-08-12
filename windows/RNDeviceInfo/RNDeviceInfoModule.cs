@@ -48,12 +48,6 @@ namespace RNDeviceInfo
         {
             return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
         }
-		
-		private async Task<bool> isCameraPresent()
-        {
-            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
-            return devices.Count > 0;
-        }
 
         [ReactMethod]
         public async void isPinOrFingerprintSet(ICallback actionCallback)
@@ -91,7 +85,14 @@ namespace RNDeviceInfo
                 promise.Resolve(hostname?.CanonicalName);
             }
         }
-
+		
+        [ReactMethod]
+        public async void getCameraPresence(IPromise promise)
+        {
+            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
+            promise.Resolve(devices.Count > 0);
+        }
+		
         [ReactMethod]
         public async void getBatteryLevel(IPromise promise)
         {
@@ -136,7 +137,6 @@ namespace RNDeviceInfo
                     constants["appVersion"] = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
                     constants["buildNumber"] = version.Build.ToString();
                     constants["buildVersion"] = version.Build.ToString();
-					constants["isCameraPresent"] = isCameraPresent().Result;
                 }
                 catch
                 {

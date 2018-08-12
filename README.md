@@ -212,6 +212,7 @@ var DeviceInfo = require('react-native-device-info');
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getIPAddress()](#getipaddress)                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
+| [getCameraPresence()](#getcamerapresence)         | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ?      |
 | [getInstallReferrer()](#getinstallreferrer)       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -234,7 +235,6 @@ var DeviceInfo = require('react-native-device-info');
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isCameraPresent()](#iscamerapresent)             | `boolean`           |  ❌  |   ✅    |   ✅    | ?      |
 
 ---
 
@@ -486,6 +486,25 @@ DeviceInfo.getIPAddress().then(ip => {
 **Notes**
 
 > Support for iOS was added in 0.22.0
+
+---
+
+### getCameraPresence()
+
+Tells if the device have any camera now. 
+
+**Examples**
+
+```js
+DeviceInfo.getCameraPresence().then(isCameraPresent => {
+  // true or false
+});
+```
+
+**Notes**
+
+> * Hot add/remove of camera is supported.
+> * Returns the status of the physical presence of the camera. If camera present but your app don't have permissions to use it, getCameraPresence will still return the true
 
 ---
 
@@ -834,23 +853,6 @@ Tells if the device is a tablet.
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
 ```
-
----
-
-### isCameraPresent()
-
-Tells if the device have any camera.
-
-**Examples**
-
-```js
-const isCameraPresent = DeviceInfo.isCameraPresent(); // true or false
-```
-
-**Notes**
-
-> * Hot replace of camera is not supported.
-
 
 ---
 
