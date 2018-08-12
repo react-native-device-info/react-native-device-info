@@ -90,7 +90,7 @@ export default {
   },
   is24Hour: function() {
     return RNDeviceInfo.is24Hour;
-  }
+  },
   isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
