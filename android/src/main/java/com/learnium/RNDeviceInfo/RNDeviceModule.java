@@ -23,6 +23,7 @@ import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.app.ActivityManager;
 import android.util.DisplayMetrics;
+import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CameraAccessException;
 
@@ -150,13 +151,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
  
   @ReactMethod
   public void getCameraPresence(Promise p) {
-    CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
       try {
         p.resolve(manager.getCameraIdList().length > 0);
       } catch (CameraAccessException e) {
         p.reject(e);
       }
+    } else {
+      p.resolve(Camera.getNumberOfCameras()> 0);
     }
   }
 
