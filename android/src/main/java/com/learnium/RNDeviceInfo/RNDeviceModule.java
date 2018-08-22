@@ -160,9 +160,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }else {
         totalSize += this.getCapacity(Environment.getExternalStorageDirectory());
       }
-      totalSize += this.getCapacity(Environment.getDownloadCacheDirectory());
-      totalSize += this.getCapacity(Environment.getRootDirectory());
-      totalSize += this.getCapacity(Environment.getDataDirectory());
+      // totalSize += this.getCapacity(Environment.getDownloadCacheDirectory());
+      // totalSize += this.getCapacity(Environment.getRootDirectory());
+      // totalSize += this.getCapacity(Environment.getDataDirectory());
       return totalSize;
     } catch (Exception e) {
       e.printStackTrace();
