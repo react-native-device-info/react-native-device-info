@@ -2,6 +2,9 @@
 
 ### next
 
+### 0.22.5
+ * Fix typescript declaration export (https://github.com/rebeccahughes/react-native-device-info/pull/478)
+
 ### 0.22.4
  * Shrank the npm package size (https://github.com/rebeccahughes/react-native-device-info/issues/477)
 
