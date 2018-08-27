@@ -54,12 +54,12 @@
 /*! Persist UID to NSUserDefaults and Keychain, if not yet saved
  */
 - (void)save {
-  if (![DeviceUID valueForUserDefaultsKey:_uidKey]) {
-    [DeviceUID setValue:_uid forUserDefaultsKey:_uidKey];
-  }
-  if (![DeviceUID valueForKeychainKey:_uidKey service:_uidKey]) {
-    [DeviceUID setValue:_uid forKeychainKey:_uidKey inService:_uidKey];
-  }
+    if (![DeviceUID valueForUserDefaultsKey:_uidKey]) {
+        [DeviceUID setValue:self.uid forUserDefaultsKey:_uidKey];
+    }
+    if (![DeviceUID valueForKeychainKey:_uidKey service:_uidKey]) {
+        [DeviceUID setValue:self.uid forKeychainKey:_uidKey inService:_uidKey];
+    }
 }
 
 #pragma mark - Keychain methods
@@ -117,6 +117,19 @@
 }
 
 #pragma mark - UID Generation methods
+
++ (NSString *)appleIFA {
+    NSString *ifa = nil;
+    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+    if (ASIdentifierManagerClass) { // a dynamic way of checking if AdSupport.framework is available
+        SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
+        id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
+        SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
+        NSUUID *advertisingIdentifier = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
+        ifa = [advertisingIdentifier UUIDString];
+    }
+    return ifa;
+}
 
 + (NSString *)appleIFV {
     if(NSClassFromString(@"UIDevice") && [UIDevice instancesRespondToSelector:@selector(identifierForVendor)]) {
