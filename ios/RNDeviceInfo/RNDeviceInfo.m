@@ -103,7 +103,6 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPhone9,4" :@"iPhone 7 Plus",   // (model A1784 | Global)
                               @"iPhone10,3":@"iPhone X",        // (model A1865, A1902)
                               @"iPhone10,6":@"iPhone X",        // (model A1901)
-                              @"iPhone11,8":@"iPhone XR",       // (model A1882, A1719)
                               @"iPhone11,2":@"iPhone XS",       //
                               @"iPhone11,4":@"iPhone XS Max",   //
                               @"iPhone10,1":@"iPhone 8",        // (model A1863, A1906, A1907)
@@ -113,7 +112,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPhone11,2":@"iPhone XS",       // (model A2097, A2098)
                               @"iPhone11,4":@"iPhone XS Max",   // (model A1921, A2103)
                               @"iPhone11,6":@"iPhone XS Max",   // (model A2104)
-                              @"iPhone11,8":@"iPhone XR",       // (model A2105)
+                              @"iPhone11,8":@"iPhone XR",       // (model A1882, A1719, A2105)
                               @"iPad4,1"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Wifi
                               @"iPad4,2"   :@"iPad Air",        // 5th Generation iPad (iPad Air) - Cellular
                               @"iPad4,3"   :@"iPad Air",        // 5th Generation iPad (iPad Air)
