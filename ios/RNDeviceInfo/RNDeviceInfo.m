@@ -103,8 +103,6 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPhone9,4" :@"iPhone 7 Plus",   // (model A1784 | Global)
                               @"iPhone10,3":@"iPhone X",        // (model A1865, A1902)
                               @"iPhone10,6":@"iPhone X",        // (model A1901)
-                              @"iPhone11,2":@"iPhone XS",       //
-                              @"iPhone11,4":@"iPhone XS Max",   //
                               @"iPhone10,1":@"iPhone 8",        // (model A1863, A1906, A1907)
                               @"iPhone10,4":@"iPhone 8",        // (model A1905)
                               @"iPhone10,2":@"iPhone 8 Plus",   // (model A1864, A1898, A1899)
