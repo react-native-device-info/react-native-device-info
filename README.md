@@ -233,6 +233,7 @@ import DeviceInfo from 'react-native-device-info';
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
 
@@ -831,6 +832,18 @@ Tells if the device is a tablet.
 
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
+```
+
+---
+
+### hasNotch()
+
+Tells if the device has a notch.
+
+**Examples**
+
+```js
+const hasNotch = DeviceInfo.hasNotch(); // true
 ```
 
 ## Troubleshooting
