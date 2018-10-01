@@ -29,9 +29,9 @@ declare const _default: {
   getFirstInstallTime: () => number;
   getLastUpdateTime: () => number;
   getSerialNumber: () => string;
-  getIPAddress: () => Promise<string>
-  getCameraPresence(): Promise<boolean>
-  getMACAddress: () => Promise<string>
+  getIPAddress: () => Promise<string>;
+  getCameraPresence: () => Promise<boolean>;
+  getMACAddress: () => Promise<string>;
   getPhoneNumber: () => string;
   getAPILevel: () => number;
   getCarrier: () => string;
@@ -39,7 +39,7 @@ declare const _default: {
   getMaxMemory: () => number;
   getTotalDiskCapacity: () => number;
   getFreeDiskStorage: () => number;
-  getBatteryLevel: () => Promise<number>
+  getBatteryLevel: () => Promise<number>;
 };
 
 export default _default;

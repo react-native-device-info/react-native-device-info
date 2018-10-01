@@ -189,8 +189,7 @@ include ':app'
 ## Usage
 
 ```js
-var DeviceInfo = require('react-native-device-info');
-// or import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from 'react-native-device-info';
 ```
 
 ## API
