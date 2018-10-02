@@ -67,7 +67,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getCurrentLanguage() {
-    Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
+    Locale current;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      current = getReactApplicationContext().getResources().getConfiguration().getLocales().get(0);
+    } else {
+      current = getReactApplicationContext().getResources().getConfiguration().locale;
+    }
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       return current.toLanguageTag();
     } else {
@@ -82,7 +88,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private String getCurrentCountry() {
-    Locale current = getReactApplicationContext().getResources().getConfiguration().locale;
+    Locale current;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      current = getReactApplicationContext().getResources().getConfiguration().getLocales().get(0);
+    } else {
+      current = getReactApplicationContext().getResources().getConfiguration().locale;
+    }
+
     return current.getCountry();
   }
 
