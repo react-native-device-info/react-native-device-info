@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### next
+ * Support React Native Windows 0.57
 
 ### 0.22.6
  * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/rebeccahughes/react-native-device-info/pull/499) 
