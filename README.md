@@ -233,6 +233,7 @@ import DeviceInfo from 'react-native-device-info';
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 
 ---
 
@@ -831,6 +832,18 @@ Tells if the device is a tablet.
 
 ```js
 const isTablet = DeviceInfo.isTablet(); // true
+```
+
+---
+
+### isLandscape()
+
+Tells if the device is currently in landscape mode.
+
+**Examples**
+
+```js
+const isLandscape = DeviceInfo.isLandscape(); // true
 ```
 
 ## Troubleshooting
