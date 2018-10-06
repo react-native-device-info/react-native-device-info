@@ -1,7 +1,7 @@
 /**
  * @providesModule react-native-device-info
  */
-import { Platform, NativeModules } from 'react-native';
+import { Platform, NativeModules, Dimensions } from 'react-native';
 
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
@@ -239,4 +239,8 @@ export default {
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },
+  isLandscape: function() {
+    const { height, width } = Dimensions.get('window');
+    return width >= height;
+  }    
 };

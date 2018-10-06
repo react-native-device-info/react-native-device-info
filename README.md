@@ -233,7 +233,8 @@ import DeviceInfo from 'react-native-device-info';
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
+| [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
 
 ---
 
@@ -835,6 +836,16 @@ const isTablet = DeviceInfo.isTablet(); // true
 ```
 
 ---
+
+### isLandscape()
+
+Tells if the device is currently in landscape mode.
+
+**Examples**
+
+```js
+const isLandscape = DeviceInfo.isLandscape(); // true
+```
 
 ### hasNotch()
 

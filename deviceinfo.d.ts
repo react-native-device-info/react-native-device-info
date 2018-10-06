@@ -39,7 +39,8 @@ declare const _default: {
   getMaxMemory: () => number;
   getTotalDiskCapacity: () => number;
   getFreeDiskStorage: () => number;
-  getBatteryLevel: () => Promise<number>
+  getBatteryLevel: () => Promise<number>;
+  isLandscape: () => boolean;    
 };
 
 export default _default;

@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### next
+ * Added isLandscape()
 
 ### 0.23.0
  * Add `hasNotch()` (https://github.com/rebeccahughes/react-native-device-info/pull/500)
