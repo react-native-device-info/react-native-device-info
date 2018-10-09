@@ -1,6 +1,35 @@
 ## Release Notes
 
-### next
+### 0.24.0
+ * Added `isLandscape()` (https://github.com/rebeccahughes/react-native-device-info/pull/504)
+
+### 0.23.0
+ * Add `hasNotch()` (https://github.com/rebeccahughes/react-native-device-info/pull/500)
+
+### 0.22.6
+ * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/rebeccahughes/react-native-device-info/pull/499) 
+
+### 0.22.5
+ * Fix typescript declaration export (https://github.com/rebeccahughes/react-native-device-info/pull/478)
+
+### 0.22.4
+ * Shrank the npm package size (https://github.com/rebeccahughes/react-native-device-info/issues/477)
+
+### 0.22.3
+ * Fixed `eslint-plugin-import` error (https://github.com/rebeccahughes/react-native-device-info/pull/466)
+
+### 0.22.2
+ * Fixed Android build error introduced in 0.22.1 (https://github.com/rebeccahughes/react-native-device-info/pull/460)
+
+### 0.22.1
+
+ * Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
+ * getDeviceCountry
+ * getDeviceLocale
+ 
+### 0.22.0
+
+* Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/rebeccahughes/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
 
 ### 0.21.5
 
