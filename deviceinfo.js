@@ -240,7 +240,7 @@ export default {
     return RNDeviceInfo.getBatteryLevel();
   },
   isBatteryCharging: function() {
-    return RNDeviceInfo.isBatteryCharging;
+    return RNDeviceInfo.isBatteryCharging();
   },
   isLandscape: function() {
     const { height, width } = Dimensions.get('window');
