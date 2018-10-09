@@ -315,6 +315,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
             getCurrentActivity().checkCallingOrSelfPermission("android.permission.READ_PHONE_NUMBERS") == PackageManager.PERMISSION_GRANTED)) {
       TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
       constants.put("phoneNumber", telMgr.getLine1Number());
+      constants.put("imeiNumber",telMgr.getImei());
     }
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
