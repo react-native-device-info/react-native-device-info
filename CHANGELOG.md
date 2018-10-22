@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.24.1
+ * Update build.gradle to remove compile warning (https://github.com/rebeccahughes/react-native-device-info/pull/520)
+
 ### 0.24.0
  * Added `isLandscape()` (https://github.com/rebeccahughes/react-native-device-info/pull/504)
 
