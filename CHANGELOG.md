@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.24.2
+ * Update typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/498)
+
 ### 0.24.1
  * Update build.gradle to remove compile warning (https://github.com/rebeccahughes/react-native-device-info/pull/520)
 
