@@ -20,7 +20,7 @@ declare const _default: {
   getDeviceCountry: () => string;
   getTimezone: () => string;
   getInstanceID: () => string;
-  getInstallReferrer: () => string;
+  getInstallReferrer: () => string | null;
   isEmulator: () => boolean;
   isTablet: () => boolean;
   getFontScale: () => number;
