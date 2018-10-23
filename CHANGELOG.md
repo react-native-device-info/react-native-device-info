@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.24.3
+ * Support React Native Windows 0.57
+
 ### 0.24.2
  * Update typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/498)
 
