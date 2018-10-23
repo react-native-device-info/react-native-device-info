@@ -1,13 +1,128 @@
 /**
  * @providesModule react-native-device-info
  */
-import { Platform, NativeModules } from 'react-native';
+import { Platform, NativeModules, Dimensions } from 'react-native';
 
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
 if (!RNDeviceInfo && Platform.OS === 'web') {
   RNDeviceInfo = require('./web');
 }
+
+const devicesWithNotch = [
+  {
+    brand: 'Apple',
+    model: 'iPhone X',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone XS',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone XS Max',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone XR',
+  },
+  {
+    brand: 'Asus',
+    model: 'ZenFone 5',
+  }, 
+  {
+    brand: 'Asus',
+    model: 'ZenFone 5z',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P20',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P20 Plus',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P20 Lite',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Honor 10',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Nova 3',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Nova 3i',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15 Pro',
+  },
+  {
+    brand: 'Oppo',
+    model: 'F7',
+  },
+  {
+    brand: 'Vivo',
+    model: 'V9',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21 UD',
+  },
+  {
+    brand: 'OnePlus',
+    model: '6',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'A6003',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'OnePlus A6003',
+  },
+  {
+    brand: 'LG',
+    model: 'G7',
+  },
+  {
+    brand: 'LG',
+    model: 'G7 ThinQ',
+  },
+  {
+    brand: 'LG',
+    model: 'G7+ ThinQ',
+  },
+  {
+    brand: 'Leagoo',
+    model: 'S9',
+  },
+  {
+    brand: 'Oukitel',
+    model: 'U18',
+  },
+  {
+    brand: 'Sharp',
+    model: 'Aquos S3',
+  },
+  {
+    brand: 'Nokia',
+    model: '6.1 Plus',
+  },
+];
 
 export default {
   getUniqueID: function() {
@@ -91,6 +206,9 @@ export default {
   isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
+  hasNotch: function() {
+    return devicesWithNotch.findIndex(item => item.brand === RNDeviceInfo.brand && item.model === RNDeviceInfo.model) !== -1;
+  },
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
   },
@@ -121,4 +239,8 @@ export default {
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },
+  isLandscape: function() {
+    const { height, width } = Dimensions.get('window');
+    return width >= height;
+  }    
 };
