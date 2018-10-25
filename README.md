@@ -805,6 +805,10 @@ DeviceInfo.isAirPlaneModeOn().then(airPlaneModeOn => {
 });
 ```
 
+**Notes**
+
+> * This only works if the remote debuger is disabled.
+
 ---
 ### isEmulator()
 
