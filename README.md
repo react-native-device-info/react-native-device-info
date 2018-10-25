@@ -230,6 +230,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
+| [isAirPlaneModeOn()](#isairplanemodeon)           | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
@@ -792,6 +793,19 @@ const is24Hour = DeviceInfo.is24Hour(); // true
 
 ---
 
+### isAirPlaneModeOn()
+
+Tells if the device is in AirPlaneMode.
+
+**Examples**
+
+```js
+DeviceInfo.isAirPlaneModeOn().then(airPlaneModeOn => {
+  // false
+});
+```
+
+---
 ### isEmulator()
 
 Tells if the application is running in an emulator.
