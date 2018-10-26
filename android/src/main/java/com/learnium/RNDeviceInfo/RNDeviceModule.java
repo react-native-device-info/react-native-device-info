@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
@@ -221,14 +222,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void isAirPlaneModeOn(Promise p) {
-    boolean isAirplaneModeOn;
+  public void isAirPlaneMode(Promise p) {
+    boolean isAirPlaneMode;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        isAirplaneModeOn = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+        isAirPlaneMode = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     } else {
-        isAirplaneModeOn = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+        isAirPlaneMode = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
-    p.resolve(isAirplaneModeOn);
+    p.resolve(isAirPlaneMode);
   }
 
   public String getInstallReferrer() {
@@ -295,7 +296,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("apiLevel", Build.VERSION.SDK_INT);
     constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("deviceCountry", this.getCurrentCountry());
-    constants.put("uniqueId", Settings.Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.ANDROID_ID));
+    constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

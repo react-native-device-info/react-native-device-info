@@ -793,21 +793,21 @@ const is24Hour = DeviceInfo.is24Hour(); // true
 
 ---
 
-### isAirPlaneModeOn()
+### isAirPlaneMode()
 
 Tells if the device is in AirPlaneMode.
 
 **Examples**
 
 ```js
-DeviceInfo.isAirPlaneModeOn().then(airPlaneModeOn => {
+DeviceInfo.isAirPlaneMode().then(airPlaneModeOn => {
   // false
 });
 ```
 
 **Notes**
 
-> * This only works if the remote debuger is disabled.
+> * This only works if the remote debugger is disabled.
 
 ---
 ### isEmulator()

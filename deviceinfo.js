@@ -243,7 +243,7 @@ export default {
     const { height, width } = Dimensions.get('window');
     return width >= height;
   },
-  isAirPlaneModeOn: function() {
-    return RNDeviceInfo.isAirPlaneModeOn();
+  isAirPlaneMode: function() {
+    return RNDeviceInfo.isAirPlaneMode();
   }
 };
