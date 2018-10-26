@@ -242,5 +242,8 @@ export default {
   isLandscape: function() {
     const { height, width } = Dimensions.get('window');
     return width >= height;
-  }    
+  },
+  isAirPlaneMode: function() {
+    return RNDeviceInfo.isAirPlaneMode();
+  }
 };

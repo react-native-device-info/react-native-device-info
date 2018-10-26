@@ -42,4 +42,5 @@ declare module.exports: {
   getFreeDiskStorage: () => number,
   getBatteryLevel: () => Promise<number>,
   isLandscape: () => boolean,
+  isAirPlaneMode: () => Promise<boolean>,
 };

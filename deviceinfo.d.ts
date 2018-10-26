@@ -41,6 +41,7 @@ declare const _default: {
   getFreeDiskStorage: () => number;
   getBatteryLevel: () => Promise<number>;
   isLandscape: () => boolean;    
+  isAirPlaneMode: () => Promise<boolean>;
 };
 
 export default _default;
