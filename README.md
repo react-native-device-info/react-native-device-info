@@ -47,7 +47,7 @@ rnpm link react-native-device-info
 ### Manual
 
 <details>
-    <summary>iOS (via Cocoa Pods)</summary>
+    <summary>iOS (via CocoaPods)</summary>
 
 Add the following line to your build targets in your `Podfile`
 
@@ -58,7 +58,7 @@ Then run `pod install`
 </details>
 
 <details>
-    <summary>iOS (without Cocoa Pods)</summary>
+    <summary>iOS (without CocoaPods)</summary>
 
 In XCode, in the project navigator:
 
