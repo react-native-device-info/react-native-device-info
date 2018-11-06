@@ -81,32 +81,28 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private Boolean isEmulator() {
-    return Build.FINGERPRINT.startsWith("generic")
-        || Build.FINGERPRINT.startsWith("unknown")
-        || Build.MODEL.contains("google_sdk")
-        || Build.MODEL.contains("Emulator")
-        || Build.MODEL.contains("Android SDK built for x86")
-        || Build.MANUFACTURER.contains("Genymotion")
+    return Build.FINGERPRINT.startsWith("generic") || Build.FINGERPRINT.startsWith("unknown")
+        || Build.MODEL.contains("google_sdk") || Build.MODEL.contains("Emulator")
+        || Build.MODEL.contains("Android SDK built for x86") || Build.MANUFACTURER.contains("Genymotion")
         || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
         || "google_sdk".equals(Build.PRODUCT);
   }
 
-    private Boolean isTablet() {
-        int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-            return false;
-        }
-        
-        final DisplayMetrics metrics = getReactApplicationContext().getResources().getDisplayMetrics();
-        if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
-            || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
-            || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
-            || metrics.densityDpi == DisplayMetrics.DENSITY_TV
-            || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
-            return true;
-        }
-        return false;
+  private Boolean isTablet() {
+    int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout
+        & Configuration.SCREENLAYOUT_SIZE_MASK;
+    if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+      return false;
     }
+
+    final DisplayMetrics metrics = getReactApplicationContext().getResources().getDisplayMetrics();
+    if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+        || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM || metrics.densityDpi == DisplayMetrics.DENSITY_TV
+        || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+      return true;
+    }
+    return false;
+  }
 
   private float fontScale() {
     return getReactApplicationContext().getResources().getConfiguration().fontScale;
@@ -116,17 +112,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
   }
 
-  private long getCapacity(File file){
+  private long getCapacity(File file) {
     StatFs statFs = new StatFs(file.getAbsolutePath());
-    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
       return statFs.getBlockCountLong() * statFs.getBlockSizeLong();
     }
-    return (long)statFs.getBlockCount() * statFs.getBlockSize();
+    return (long) statFs.getBlockCount() * statFs.getBlockSize();
   }
 
   @ReactMethod
   public void isPinOrFingerprintSet(Callback callback) {
-    KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE); //api 16+
+    KeyguardManager keyguardManager = (KeyguardManager) this.reactContext.getApplicationContext()
+        .getSystemService(Context.KEYGUARD_SERVICE); // api 16+
     callback.invoke(keyguardManager.isKeyguardSecure());
   }
 
@@ -151,19 +148,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public Long getTotalDiskCapacity() {
     try {
-      long totalSize=0;
-      if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-        File[] files = this.reactContext.getExternalFilesDirs(Environment.MEDIA_MOUNTED);
-        for (File file : files) {
-          totalSize += this.getCapacity(file);
-        }
-      }else {
-        totalSize += this.getCapacity(Environment.getExternalStorageDirectory());
-      }
-      // totalSize += this.getCapacity(Environment.getDownloadCacheDirectory());
-      // totalSize += this.getCapacity(Environment.getRootDirectory());
-      // totalSize += this.getCapacity(Environment.getDataDirectory());
-      return totalSize;
+      return this.getCapacity(Environment.getExternalStorageDirectory());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -176,9 +161,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
       float freeStorage = 0;
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-         freeStorage = (float)(external.getAvailableBlocksLong() * external.getBlockSizeLong());
+        freeStorage = (float) (external.getAvailableBlocksLong() * external.getBlockSizeLong());
       } else {
-         freeStorage = (float)(external.getAvailableBlocks() * external.getBlockSize());
+        freeStorage = (float) (external.getAvailableBlocks() * external.getBlockSize());
       }
       promise.resolve(Float.valueOf(freeStorage));
     } catch (Exception e) {
@@ -188,8 +173,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @Override
-  public @Nullable
-  Map<String, Object> getConstants() {
+  public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
     PackageManager packageManager = this.reactContext.getPackageManager();
@@ -203,7 +187,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
       PackageInfo info = packageManager.getPackageInfo(packageName, 0);
-      String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
+      String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager())
+          .toString();
       constants.put("appVersion", info.versionName);
       constants.put("buildNumber", info.versionCode);
       constants.put("firstInstallTime", info.firstInstallTime);
@@ -227,7 +212,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         e.printStackTrace();
       }
     }
-
 
     try {
       if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
@@ -261,11 +245,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("isTablet", this.isTablet());
     constants.put("fontScale", this.fontScale());
     constants.put("is24Hour", this.is24Hour());
-    if (getCurrentActivity() != null &&
-        (getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
-            getCurrentActivity().checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED ||
-            getCurrentActivity().checkCallingOrSelfPermission("android.permission.READ_PHONE_NUMBERS") == PackageManager.PERMISSION_GRANTED)) {
-      TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+    if (getCurrentActivity() != null && (getCurrentActivity()
+        .checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+        || getCurrentActivity()
+            .checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED
+        || getCurrentActivity().checkCallingOrSelfPermission(
+            "android.permission.READ_PHONE_NUMBERS") == PackageManager.PERMISSION_GRANTED)) {
+      TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext()
+          .getSystemService(Context.TELEPHONY_SERVICE);
       constants.put("phoneNumber", telMgr.getLine1Number());
     }
     constants.put("carrier", this.getCarrier());
