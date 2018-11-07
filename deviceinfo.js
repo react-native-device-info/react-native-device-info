@@ -29,7 +29,7 @@ const devicesWithNotch = [
   {
     brand: 'Asus',
     model: 'ZenFone 5',
-  }, 
+  },
   {
     brand: 'Asus',
     model: 'ZenFone 5z',
@@ -121,6 +121,10 @@ const devicesWithNotch = [
   {
     brand: 'Nokia',
     model: '6.1 Plus',
+  },
+  {
+    brand: 'google',
+    model: 'Pixel 3 XL',
   },
 ];
 
