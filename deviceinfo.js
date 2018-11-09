@@ -207,7 +207,7 @@ export default {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   hasNotch: function() {
-    return devicesWithNotch.findIndex(item => item.brand === RNDeviceInfo.brand && item.model === RNDeviceInfo.model) !== -1;
+    return devicesWithNotch.findIndex(item => item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() && item.model.toLowerCase() === RNDeviceInfo.model.toLowerCase()) !== -1;
   },
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
