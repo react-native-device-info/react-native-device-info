@@ -189,7 +189,7 @@ export default {
     return RNDeviceInfo.deviceCountry;
   },
   getTimezone: function() {
-    return RNDeviceInfo.timezone;
+    return RNDeviceInfo.getTimezone();
   },
   getFontScale: function() {
     return RNDeviceInfo.fontScale;
@@ -201,7 +201,7 @@ export default {
     return RNDeviceInfo.isTablet;
   },
   is24Hour: function() {
-    return RNDeviceInfo.is24Hour;
+    return RNDeviceInfo.getIs24Hour();
   },
   isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;

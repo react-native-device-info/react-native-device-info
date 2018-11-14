@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### 0.25
+ * Expose getter methods for timezone and 24Hour time (https://github.com/rebeccahughes/react-native-device-info/pull/539)
  * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
 
 ### 0.24.3
@@ -19,7 +20,7 @@
  * Add `hasNotch()` (https://github.com/rebeccahughes/react-native-device-info/pull/500)
 
 ### 0.22.6
- * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/rebeccahughes/react-native-device-info/pull/499) 
+ * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/rebeccahughes/react-native-device-info/pull/499)
 
 ### 0.22.5
  * Fix typescript declaration export (https://github.com/rebeccahughes/react-native-device-info/pull/478)
@@ -38,7 +39,7 @@
  * Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
  * getDeviceCountry
  * getDeviceLocale
- 
+
 ### 0.22.0
 
 * Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/rebeccahughes/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)

@@ -197,10 +197,14 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return country;
 }
 
-- (NSString*) timezone
+- (NSString*) getTimezone
 {
   NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
   return currentTimeZone.name;
+}
+RCT_REMAP_METHOD(getTimezone, timezoneResolver:(RCTPromiseResolveBlock)resolve timezoneRejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve([self getTimezone]);
 }
 
 - (bool) isTablet
@@ -230,10 +234,14 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return [NSNumber numberWithFloat: fontScale];
 }
 
-- (bool) is24Hour
+- (bool) getIs24Hour
 {
     NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
     return ([format rangeOfString:@"a"].location == NSNotFound);
+}
+RCT_REMAP_METHOD(getIs24Hour, is24HourResolver:(RCTPromiseResolveBlock)resolve is24HourRejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve(@([self getIs24Hour]));
 }
 
 - (unsigned long long) totalMemory {
@@ -290,10 +298,10 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"systemManufacturer": @"Apple",
              @"carrier": self.carrier ?: [NSNull null],
              @"userAgent": self.userAgent ?: [NSNull null],
-             @"timezone": self.timezone ?: [NSNull null],
+             @"timezone": self.getTimezone ?: [NSNull null],
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
-             @"is24Hour": @(self.is24Hour),
+             @"is24Hour": @(self.getIs24Hour),
              @"fontScale": self.fontScale,
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),

@@ -131,6 +131,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return getReactApplicationContext().getResources().getConfiguration().fontScale;
   }
 
+  @ReactMethod
+  public void getTimezone(Promise p) {
+    p.resolve(this.timezone());
+  }
+
+  private String timezone() {
+      return TimeZone.getDefault().getID();
+  }
+
+  @ReactMethod
+  public void getIs24Hour(Promise p) {
+    p.resolve(this.is24Hour());
+  }
+
   private Boolean is24Hour() {
     return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
   }
@@ -306,7 +320,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         constants.put("userAgent", System.getProperty("http.agent"));
       }
     }
-    constants.put("timezone", TimeZone.getDefault().getID());
+    constants.put("timezone", this.timezone());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
     constants.put("fontScale", this.fontScale());
