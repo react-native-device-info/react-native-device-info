@@ -1,5 +1,8 @@
 ## Release Notes
 
+### Unreleased
+ * Support `getUserAgent()` on old androids (API level <= 16)
+
 ### 0.25
  * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
 
