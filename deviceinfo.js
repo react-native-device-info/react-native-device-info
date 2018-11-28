@@ -122,6 +122,10 @@ const devicesWithNotch = [
     brand: 'Nokia',
     model: '6.1 Plus',
   },
+  {
+    brand: 'Xiaomi',
+    model: 'Mi 8',
+  },
 ];
 
 export default {
