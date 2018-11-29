@@ -107,6 +107,12 @@ namespace RNDeviceInfo
             }
         }
 
+        [ReactMethod]
+        public async string getTimezone()
+        {
+            return TimeZoneInfo.Local.Id;
+        }
+
         public override IReadOnlyDictionary<string, object> Constants
         {
 
@@ -180,7 +186,6 @@ namespace RNDeviceInfo
                 constants["bundleId"] = bundleId;
                 constants["appName"] = appName;
                 constants["userAgent"] = "not available";
-                constants["timezone"] = TimeZoneInfo.Local.Id;
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
                 constants["carrier"] = "not available";

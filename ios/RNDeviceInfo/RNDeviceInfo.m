@@ -290,7 +290,6 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"systemManufacturer": @"Apple",
              @"carrier": self.carrier ?: [NSNull null],
              @"userAgent": self.userAgent ?: [NSNull null],
-             @"timezone": self.timezone ?: [NSNull null],
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
              @"is24Hour": @(self.is24Hour),
@@ -299,6 +298,10 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
              };
+}
+
+RCT_EXPORT_METHOD(getTimezone) {
+    return [self timezone];
 }
 
 RCT_EXPORT_METHOD(getMacAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)

@@ -213,6 +213,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public String getTimezone() {
+    return TimeZone.getDefault().getID();
+  }
+
+  @ReactMethod
   public void getBatteryLevel(Promise p) {
     Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
@@ -306,7 +311,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         constants.put("userAgent", System.getProperty("http.agent"));
       }
     }
-    constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
     constants.put("fontScale", this.fontScale());
