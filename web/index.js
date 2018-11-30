@@ -23,7 +23,7 @@ module.exports = {
   userAgent: window.navigator.userAgent,
   deviceLocale: '',
   deviceCountry: '',
-  getTimezone: () => '',
+  getTimezone: () => Promise.resolve(''),
   fontScale: 0,
   isEmulator: false,
   isTablet: false,

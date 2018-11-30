@@ -18,7 +18,7 @@ declare const _default: {
   getUserAgent: () => string;
   getDeviceLocale: () => string;
   getDeviceCountry: () => string;
-  getTimezone: () => string;
+  getTimezone: () => Promise<string>;
   getInstanceID: () => string;
   getInstallReferrer: () => string | null;
   isEmulator: () => boolean;

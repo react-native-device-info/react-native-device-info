@@ -108,9 +108,9 @@ namespace RNDeviceInfo
         }
 
         [ReactMethod]
-        public async string getTimezone()
+        public async void getTimezone(IPromise promise)
         {
-            return TimeZoneInfo.Local.Id;
+            return promise.Resolve(TimeZoneInfo.Local.Id);
         }
 
         public override IReadOnlyDictionary<string, object> Constants

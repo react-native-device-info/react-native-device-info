@@ -17,7 +17,7 @@ declare module.exports: {
   getUserAgent: () => string,
   getDeviceLocale: () => string,
   getDeviceCountry: () => string,
-  getTimezone: () => string,
+  getTimezone: () => Promise<string>,
   getInstanceID: () => string,
   getInstallReferrer: () => string,
   isEmulator: () => boolean,

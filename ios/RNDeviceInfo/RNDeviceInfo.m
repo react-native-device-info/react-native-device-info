@@ -300,8 +300,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              };
 }
 
-RCT_EXPORT_METHOD(getTimezone) {
-    return [self timezone];
+RCT_EXPORT_METHOD(getTimezone:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    return resolve([self timezone]);
 }
 
 RCT_EXPORT_METHOD(getMacAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
