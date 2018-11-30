@@ -219,6 +219,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getDeviceCountry()](#getdevicecountry)           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
 | [getDeviceId()](#getdeviceid)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
 | [getDeviceLocale()](#getdevicelocale)             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
+| [getPreferredLocales()](#getpreferredlocale)      | `Array<string>`     |  ✅  |   ✅    |   ❌    | ?      |
 | [getDeviceName()](#getdevicename)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFontScale()](#getfontscale)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
@@ -415,6 +416,22 @@ const deviceLocale = DeviceInfo.getDeviceLocale();
 
 // iOS: "en"
 // Android: "en-US"
+// Windows: ?
+```
+
+---
+
+### getPreferredLocales()
+
+Gets the preferred locales defined by the user.
+
+**Examples**
+
+```js
+const preferredLocales = DeviceInfo.getPreferredLocales();
+
+// iOS: "[es-ES, en-US]"
+// Android: "[es-ES, en-US]"
 // Windows: ?
 ```
 

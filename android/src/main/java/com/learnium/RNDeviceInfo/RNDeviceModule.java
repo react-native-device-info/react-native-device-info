@@ -34,6 +34,7 @@ import com.facebook.react.bridge.Promise;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -90,6 +91,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
       return builder.toString();
     }
+  }
+
+  private ArrayList<String> getPreferredLocales() {
+    Configuration configuration = getReactApplicationContext().getResources().getConfiguration();
+    ArrayList<String> preferred = new ArrayList<>();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      for (int i = 0; i < configuration.getLocales().size(); i++) {
+        preferred.add(configuration.getLocales().get(i).getLanguage());
+      }
+    } else {
+      preferred.add(configuration.locale.getLanguage());
+    }
+
+    return preferred;
   }
 
   private String getCurrentCountry() {
@@ -360,6 +375,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("deviceId", Build.BOARD);
     constants.put("apiLevel", Build.VERSION.SDK_INT);
     constants.put("deviceLocale", this.getCurrentLanguage());
+    constants.put("preferredLocales", this.getPreferredLocales());
     constants.put("deviceCountry", this.getCurrentCountry());
     constants.put("uniqueId", Settings.Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);

@@ -22,6 +22,7 @@ module.exports = {
   deviceName: '',
   userAgent: '',
   deviceLocale: '',
+  preferredLocales: [],
   deviceCountry: '',
   timezone: '',
   fontScale: 0,
