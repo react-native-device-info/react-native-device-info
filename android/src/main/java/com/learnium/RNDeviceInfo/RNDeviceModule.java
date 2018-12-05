@@ -214,7 +214,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getTimezone(Promise p) {
-    return p.resolve(TimeZone.getDefault().getID());
+    p.resolve(TimeZone.getDefault().getID());
   }
 
   @ReactMethod
