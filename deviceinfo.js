@@ -29,7 +29,7 @@ const devicesWithNotch = [
   {
     brand: 'Asus',
     model: 'ZenFone 5',
-  }, 
+  },
   {
     brand: 'Asus',
     model: 'ZenFone 5z',
@@ -121,6 +121,34 @@ const devicesWithNotch = [
   {
     brand: 'Nokia',
     model: '6.1 Plus',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 SE',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 Explorer Edition',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI8Lite',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'POCO F1',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Redmi 6 Pro',
   },
 ];
 
