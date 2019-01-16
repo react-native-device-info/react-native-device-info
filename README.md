@@ -158,6 +158,19 @@ include ':app'
   }
 ```
 
+NOTE: If you faced with this error: `Could not resolve all files for configuration ':react-native-device-info:debugCompileClasspath'.`, in `build.gradle` put `google()` in the first line (according to https://stackoverflow.com/a/50748249)
+
+* in `android/build.gradle`:
+
+```diff
+allprojects {
+    repositories {
++       google()
+        ...
+    }
+}
+```
+
 (Thanks to @chirag04 for writing the instructions)
 
 </details>
