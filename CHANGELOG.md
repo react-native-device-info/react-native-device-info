@@ -1,7 +1,9 @@
 ## Release Notes
 
-### 0.25
+### 0.25.0
  * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
+ * Compare `hasNotch()` devices with lowercase (https://github.com/rebeccahughes/react-native-device-info/pull/537)
+ * Added several devices to `hasNotch()` (#533, #549, #550)
 
 ### 0.24.3
  * Support React Native Windows 0.57, minimal version is now 10.0.14393 for the target platform
