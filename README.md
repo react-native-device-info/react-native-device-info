@@ -249,6 +249,7 @@ import DeviceInfo from 'react-native-device-info';
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
 | [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
+| [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -887,6 +888,21 @@ Tells if the device has a notch.
 ```js
 const hasNotch = DeviceInfo.hasNotch(); // true
 ```
+
+### getDeviceType()
+
+Returns the device's type as a string, which will be one of:
+* `Handset`
+* `Tablet`
+* `Tv`
+* `Unknown`
+
+**Examples**
+
+```js
+const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
+```
+
 
 ## Troubleshooting
 
