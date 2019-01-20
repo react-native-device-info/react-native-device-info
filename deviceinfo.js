@@ -59,28 +59,24 @@ const devicesWithNotch = [
     model: 'Nova 3i',
   },
   {
-    brand: 'Oppo',
-    model: 'R15',
+    brand: 'Leagoo',
+    model: 'S9',
   },
   {
-    brand: 'Oppo',
-    model: 'R15 Pro',
+    brand: 'LG',
+    model: 'G7',
   },
   {
-    brand: 'Oppo',
-    model: 'F7',
+    brand: 'LG',
+    model: 'G7 ThinQ',
   },
   {
-    brand: 'Vivo',
-    model: 'V9',
+    brand: 'LG',
+    model: 'G7+ ThinQ',
   },
   {
-    brand: 'Vivo',
-    model: 'X21',
-  },
-  {
-    brand: 'Vivo',
-    model: 'X21 UD',
+    brand: 'Nokia',
+    model: '6.1 Plus',
   },
   {
     brand: 'OnePlus',
@@ -103,20 +99,16 @@ const devicesWithNotch = [
     model: 'ONEPLUS A6000',
   },
   {
-    brand: 'LG',
-    model: 'G7',
+    brand: 'Oppo',
+    model: 'R15',
   },
   {
-    brand: 'LG',
-    model: 'G7 ThinQ',
+    brand: 'Oppo',
+    model: 'R15 Pro',
   },
   {
-    brand: 'LG',
-    model: 'G7+ ThinQ',
-  },
-  {
-    brand: 'Leagoo',
-    model: 'S9',
+    brand: 'Oppo',
+    model: 'F7',
   },
   {
     brand: 'Oukitel',
@@ -127,8 +119,16 @@ const devicesWithNotch = [
     model: 'Aquos S3',
   },
   {
-    brand: 'Nokia',
-    model: '6.1 Plus',
+    brand: 'Vivo',
+    model: 'V9',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21 UD',
   },
   {
     brand: 'xiaomi',
@@ -136,11 +136,11 @@ const devicesWithNotch = [
   },
   {
     brand: 'xiaomi',
-    model: 'MI 8 SE',
+    model: 'MI 8 Explorer Edition',
   },
   {
     brand: 'xiaomi',
-    model: 'MI 8 Explorer Edition',
+    model: 'MI 8 SE',
   },
   {
     brand: 'xiaomi',
