@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.25.1
+ * Added Google Pixel 3XL to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/535)
+
 ### 0.25.0
  * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
  * Compare `hasNotch()` devices with lowercase (https://github.com/rebeccahughes/react-native-device-info/pull/537)
