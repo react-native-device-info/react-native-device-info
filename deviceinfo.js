@@ -35,6 +35,10 @@ const devicesWithNotch = [
     model: 'ZenFone 5z',
   },
   {
+    brand: 'google',
+    model: 'Pixel 3 XL',
+  },
+  {
     brand: 'Huawei',
     model: 'P20',
   },
