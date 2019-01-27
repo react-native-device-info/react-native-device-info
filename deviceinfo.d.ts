@@ -33,6 +33,7 @@ declare const _default: {
   getIPAddress: () => Promise<string>
   getMACAddress: () => Promise<string>
   getPhoneNumber: () => string;
+  getIMEINumber: () => string;
   getAPILevel: () => number;
   getCarrier: () => string;
   getTotalMemory: () => number;

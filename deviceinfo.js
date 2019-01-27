@@ -261,6 +261,9 @@ export default {
   getPhoneNumber: function() {
     return RNDeviceInfo.phoneNumber;
   },
+  getIMEINumber: function() {
+    return RNDeviceInfo.imeiNumber
+  },
   getCarrier: function() {
     return RNDeviceInfo.carrier;
   },
