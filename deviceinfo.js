@@ -285,5 +285,8 @@ export default {
   },
   isAirPlaneMode: function() {
     return RNDeviceInfo.isAirPlaneMode();
-  }
+  },
+  getDeviceType: function() {
+    return RNDeviceInfo.deviceType;
+  },
 };
