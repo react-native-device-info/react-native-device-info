@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.26.1
+ * Added OnePlus 6T to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/563)
+
 ### 0.26.0
  * Added `getDeviceType()` and used it in `isTablet()` (https://github.com/rebeccahughes/react-native-device-info/pull/560)
 
