@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.26.0
+ * Added `getDeviceType()` and used it in `isTablet()` (https://github.com/rebeccahughes/react-native-device-info/pull/560)
+
 ### 0.25.1
  * Added Google Pixel 3XL to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/535)
 
