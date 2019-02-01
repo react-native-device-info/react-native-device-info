@@ -789,7 +789,7 @@ Gets the application version.
 const version = DeviceInfo.getVersion();
 
 // iOS: "1.0"
-// Android: "1.0
+// Android: "1.0"
 // Windows: ?
 ```
 
