@@ -47,7 +47,7 @@ rnpm link react-native-device-info
 ### Manual
 
 <details>
-    <summary>iOS (via Cocoa Pods)</summary>
+    <summary>iOS (via CocoaPods)</summary>
 
 Add the following line to your build targets in your `Podfile`
 
@@ -58,7 +58,7 @@ Then run `pod install`
 </details>
 
 <details>
-    <summary>iOS (without Cocoa Pods)</summary>
+    <summary>iOS (without CocoaPods)</summary>
 
 In XCode, in the project navigator:
 
@@ -102,8 +102,8 @@ Run your project (Cmd+R)
 ```diff
 dependencies {
     ...
-    compile "com.facebook.react:react-native:+"  // From node_modules
-+   compile project(':react-native-device-info')
+    implementation "com.facebook.react:react-native:+"  // From node_modules
++   implementation project(':react-native-device-info')
 }
 ```
 
@@ -156,6 +156,19 @@ include ':app'
       );
     }
   }
+```
+
+NOTE: If you faced with this error: `Could not resolve all files for configuration ':react-native-device-info:debugCompileClasspath'.`, in `build.gradle` put `google()` in the first line (according to https://stackoverflow.com/a/50748249)
+
+* in `android/build.gradle`:
+
+```diff
+allprojects {
+    repositories {
++       google()
+        ...
+    }
+}
 ```
 
 (Thanks to @chirag04 for writing the instructions)
@@ -230,11 +243,13 @@ import DeviceInfo from 'react-native-device-info';
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
+| [isAirPlaneMode()](#isairplanemode)               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
 | [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
+| [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -792,6 +807,23 @@ const is24Hour = DeviceInfo.is24Hour(); // true
 
 ---
 
+### isAirPlaneMode()
+
+Tells if the device is in AirPlaneMode.
+
+**Examples**
+
+```js
+DeviceInfo.isAirPlaneMode().then(airPlaneModeOn => {
+  // false
+});
+```
+
+**Notes**
+
+> * This only works if the remote debugger is disabled.
+
+---
 ### isEmulator()
 
 Tells if the application is running in an emulator.
@@ -856,6 +888,21 @@ Tells if the device has a notch.
 ```js
 const hasNotch = DeviceInfo.hasNotch(); // true
 ```
+
+### getDeviceType()
+
+Returns the device's type as a string, which will be one of:
+* `Handset`
+* `Tablet`
+* `Tv`
+* `Unknown`
+
+**Examples**
+
+```js
+const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
+```
+
 
 ## Troubleshooting
 

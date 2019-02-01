@@ -14,6 +14,15 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
 
+typedef NS_ENUM(NSInteger, DeviceType) {
+    DeviceTypeHandset,
+    DeviceTypeTablet,
+    DeviceTypeTv,
+    DeviceTypeUnknown
+};
+
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Unknown", nil]
+
 @interface RNDeviceInfo()
 @property (nonatomic) bool isEmulator;
 @end
@@ -203,9 +212,19 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return currentTimeZone.name;
 }
 
+- (DeviceType) getDeviceType
+{
+    switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
+        case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
+        case UIUserInterfaceIdiomPad: return DeviceTypeTablet;
+        case UIUserInterfaceIdiomTV: return DeviceTypeTv;
+        default: return DeviceTypeUnknown;
+    }
+}
+
 - (bool) isTablet
 {
-  return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+  return [self getDeviceType] == DeviceTypeTablet;
 }
 
 // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
@@ -298,6 +317,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
+             @"deviceType": [DeviceTypeValues objectAtIndex: [self getDeviceType]],
              };
 }
 

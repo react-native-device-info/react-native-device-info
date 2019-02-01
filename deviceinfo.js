@@ -29,10 +29,14 @@ const devicesWithNotch = [
   {
     brand: 'Asus',
     model: 'ZenFone 5',
-  }, 
+  },
   {
     brand: 'Asus',
     model: 'ZenFone 5z',
+  },
+  {
+    brand: 'google',
+    model: 'Pixel 3 XL',
   },
   {
     brand: 'Huawei',
@@ -59,40 +63,8 @@ const devicesWithNotch = [
     model: 'Nova 3i',
   },
   {
-    brand: 'Oppo',
-    model: 'R15',
-  },
-  {
-    brand: 'Oppo',
-    model: 'R15 Pro',
-  },
-  {
-    brand: 'Oppo',
-    model: 'F7',
-  },
-  {
-    brand: 'Vivo',
-    model: 'V9',
-  },
-  {
-    brand: 'Vivo',
-    model: 'X21',
-  },
-  {
-    brand: 'Vivo',
-    model: 'X21 UD',
-  },
-  {
-    brand: 'OnePlus',
-    model: '6',
-  },
-  {
-    brand: 'OnePlus',
-    model: 'A6003',
-  },
-  {
-    brand: 'OnePlus',
-    model: 'OnePlus A6003',
+    brand: 'Leagoo',
+    model: 'S9',
   },
   {
     brand: 'LG',
@@ -107,8 +79,44 @@ const devicesWithNotch = [
     model: 'G7+ ThinQ',
   },
   {
-    brand: 'Leagoo',
-    model: 'S9',
+    brand: 'Nokia',
+    model: '6.1 Plus',
+  },
+  {
+    brand: 'OnePlus',
+    model: '6',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'A6003',
+  },
+  {
+    brand: 'ONEPLUS',
+    model: 'A6000',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'OnePlus A6003',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6013',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6000',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15 Pro',
+  },
+  {
+    brand: 'Oppo',
+    model: 'F7',
   },
   {
     brand: 'Oukitel',
@@ -119,8 +127,44 @@ const devicesWithNotch = [
     model: 'Aquos S3',
   },
   {
-    brand: 'Nokia',
-    model: '6.1 Plus',
+    brand: 'Vivo',
+    model: 'V9',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 Explorer Edition',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 SE',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI8Lite',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'POCO F1',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Redmi 6 Pro',
   },
 ];
 
@@ -207,7 +251,7 @@ export default {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   hasNotch: function() {
-    return devicesWithNotch.findIndex(item => item.brand === RNDeviceInfo.brand && item.model === RNDeviceInfo.model) !== -1;
+    return devicesWithNotch.findIndex(item => item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() && item.model.toLowerCase() === RNDeviceInfo.model.toLowerCase()) !== -1;
   },
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
@@ -245,5 +289,11 @@ export default {
   isLandscape: function() {
     const { height, width } = Dimensions.get('window');
     return width >= height;
-  }    
+  },
+  isAirPlaneMode: function() {
+    return RNDeviceInfo.isAirPlaneMode();
+  },
+  getDeviceType: function() {
+    return RNDeviceInfo.deviceType;
+  },
 };

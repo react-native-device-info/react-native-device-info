@@ -1,5 +1,28 @@
 ## Release Notes
 
+### 0.26.1
+ * Added OnePlus 6T to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/563)
+
+### 0.26.0
+ * Added `getDeviceType()` and used it in `isTablet()` (https://github.com/rebeccahughes/react-native-device-info/pull/560)
+
+### 0.25.1
+ * Added Google Pixel 3XL to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/535)
+
+### 0.25.0
+ * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
+ * Compare `hasNotch()` devices with lowercase (https://github.com/rebeccahughes/react-native-device-info/pull/537)
+ * Added several devices to `hasNotch()` (#533, #549, #550)
+
+### 0.24.3
+ * Support React Native Windows 0.57, minimal version is now 10.0.14393 for the target platform
+
+### 0.24.2
+ * Update typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/498)
+
+### 0.24.1
+ * Update build.gradle to remove compile warning (https://github.com/rebeccahughes/react-native-device-info/pull/520)
+
 ### 0.24.0
  * Added `isLandscape()` (https://github.com/rebeccahughes/react-native-device-info/pull/504)
 

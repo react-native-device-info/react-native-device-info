@@ -1,5 +1,7 @@
 // @flow
 
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Unknown';
+
 declare module.exports: {
   getUniqueID: () => string,
   getManufacturer: () => string,
@@ -43,4 +45,6 @@ declare module.exports: {
   getBatteryLevel: () => Promise<number>,
   isBatteryCharging:() => Promise<boolean>,
   isLandscape: () => boolean,
+  isAirPlaneMode: () => Promise<boolean>,
+  getDeviceType: () => DeviceType,
 };

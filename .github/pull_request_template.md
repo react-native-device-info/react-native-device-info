@@ -27,4 +27,4 @@ Added `yourNewMethodName()` that allows ...
 
 * [ ] I have tested this on a device/simulator for each compatible OS
 * [ ] I added the documentation in `README.md`.
-* [ ] I mentionned this change in `CHANGELOG.md`.
+* [ ] I mentioned this change in `CHANGELOG.md`.
