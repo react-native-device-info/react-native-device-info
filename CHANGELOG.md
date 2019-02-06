@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.26.2
+ * Added Huawei P20 Lite to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/568)
+
 ### 0.26.1
  * Added OnePlus 6T to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/563)
 
