@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.26.3
+ * Fixed getDeviceType method (https://github.com/rebeccahughes/react-native-device-info/pull/571)
+
 ### 0.26.2
  * Added Huawei P20 Lite to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/568)
 
