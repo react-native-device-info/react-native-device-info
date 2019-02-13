@@ -145,7 +145,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     // Calculate physical size.
     double widthInches = metrics.widthPixels / (double) metrics.xdpi;
-    double heightInches = metrics.widthPixels / (double) metrics.xdpi;
+    double heightInches = metrics.heightPixels / (double) metrics.ydpi;
     double diagonalSizeInches = Math.sqrt(Math.pow(widthInches, 2) + Math.pow(heightInches, 2));
 
     if (diagonalSizeInches >= 3.0 && diagonalSizeInches <= 6.9) {
