@@ -70,6 +70,18 @@ const devicesWithNotch = [
     brand: 'Leagoo',
     model: 'S9',
   },
+    {
+    brand: 'LG',
+    model: 'G7',
+  },
+  {
+    brand: 'LG',
+    model: 'G7 ThinQ',
+  },
+  {
+    brand: 'LG',
+    model: 'G7+ ThinQ',
+  },
   {
     brand: 'LG',
     model: 'LM-Q910', //G7 One
