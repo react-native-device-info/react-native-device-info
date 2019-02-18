@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.26.4
+ * Fix hasNotch() support for LG phones (https://github.com/rebeccahughes/react-native-device-info/pull/573)
+
 ### 0.26.3
  * Fixed getDeviceType method (https://github.com/rebeccahughes/react-native-device-info/pull/571)
 
