@@ -266,6 +266,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     }
 
+    constants.put("instanceId", "not available");
     constants.put("serialNumber", Build.SERIAL);
     constants.put("deviceName", deviceName);
     constants.put("systemName", "Android");
