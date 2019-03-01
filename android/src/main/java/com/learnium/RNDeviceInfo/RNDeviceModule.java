@@ -205,7 +205,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public Long getFreeDiskStorage() {
     try {
       File path = Environment.getExternalStorageDirectory();
-      SatFs statFs = new StatFs(path.getPath());
+      SatFs statFs = new StatFs(path.getAbsolutePath());
       long blockSize = statFs.getBlockSizeLong();
       long availableBlocks = statFs.getAvailableBlocksLong();
       return blockSize * availableBlocks;
