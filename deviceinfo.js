@@ -309,4 +309,10 @@ export default {
   getDeviceType: function() {
     return RNDeviceInfo.deviceType;
   },
+  isAutoDateAndTime: function () {
+    return RNDeviceInfo.isAutoDateAndTime();
+  },
+  isAutoTimeZone: function () {
+    return RNDeviceInfo.isAutoTimeZone();
+  }
 };

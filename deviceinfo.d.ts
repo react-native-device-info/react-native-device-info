@@ -45,6 +45,8 @@ declare const _default: {
   isLandscape: () => boolean;
   isAirPlaneMode: () => Promise<boolean>;
   getDeviceType: () => DeviceType;
+  isAutoDateAndTime: () => Promise<boolean>;
+  isAutoTimeZone: () => Promise<boolean>;
 };
 
 export default _default;
