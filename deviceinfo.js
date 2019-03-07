@@ -176,7 +176,7 @@ const devicesWithNotch = [
   },
   {
     brand: 'xiaomi',
-    model: 'POCO F1',
+    model: 'POCOPHONE F1',
   },
   {
     brand: 'xiaomi',
