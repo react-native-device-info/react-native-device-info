@@ -244,6 +244,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isAirPlaneMode()](#isairplanemode)               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
+| [isBatteryCharging()](#isbatterycharging)         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.27.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
@@ -824,6 +825,21 @@ DeviceInfo.isAirPlaneMode().then(airPlaneModeOn => {
 > * This only works if the remote debugger is disabled.
 
 ---
+
+### isBatteryCharging()
+
+Tells if the battery is currently charging.
+
+**Examples**
+
+```js
+DeviceInfo.isBatteryCharging().then(isCharging => {
+  // true or false
+});
+```
+
+---
+
 ### isEmulator()
 
 Tells if the application is running in an emulator.
@@ -892,6 +908,7 @@ const hasNotch = DeviceInfo.hasNotch(); // true
 ### getDeviceType()
 
 Returns the device's type as a string, which will be one of:
+
 * `Handset`
 * `Tablet`
 * `Tv`
@@ -902,7 +919,6 @@ Returns the device's type as a string, which will be one of:
 ```js
 const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
 ```
-
 
 ## Troubleshooting
 
