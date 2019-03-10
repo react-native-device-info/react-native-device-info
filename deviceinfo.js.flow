@@ -43,6 +43,7 @@ declare module.exports: {
   getTotalDiskCapacity: () => number,
   getFreeDiskStorage: () => number,
   getBatteryLevel: () => Promise<number>,
+  isBatteryCharging:() => Promise<boolean>,
   isLandscape: () => boolean,
   isAirPlaneMode: () => Promise<boolean>,
   getDeviceType: () => DeviceType,
