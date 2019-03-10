@@ -300,8 +300,15 @@ DeviceInfo.getBatteryLevel().then(batteryLevel => {
 
 **Notes**
 
-> Returns -1 on the iOS Simulator
+> To be able to get actual battery level enable battery monitoring mode for application.
+> Add this code:
 
+```objective-c
+[UIDevice currentDevice].batteryMonitoringEnabled = true;
+```
+> to AppDelegate.m application:didFinishLaunchingWithOptions:
+>
+> Returns -1 on the iOS Simulator
 ---
 
 ### getBrand()
