@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.26.5
+ * Use BigInteger to avoid overflow in Disk related functions (https://github.com/rebeccahughes/react-native-device-info/pull/587) 
+
 ### 0.26.4
  * Fix hasNotch() support for LG phones (https://github.com/rebeccahughes/react-native-device-info/pull/573)
 
