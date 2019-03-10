@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
+import java.math.BigInteger;
 
 import javax.annotation.Nullable;
 
@@ -224,10 +225,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getTotalDiskCapacity() {
+  public BigInteger getTotalDiskCapacity() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return root.getBlockCount() * root.getBlockSize();
+      return BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize()));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -235,10 +236,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getFreeDiskStorage() {
+  public BigInteger getFreeDiskStorage() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return external.getAvailableBlocks() * external.getBlockSize();
+      return BigInteger.valueOf(external.getAvailableBlocks()).multiply(BigInteger.valueOf(external.getBlockSize()));
     } catch (Exception e) {
       e.printStackTrace();
     }
