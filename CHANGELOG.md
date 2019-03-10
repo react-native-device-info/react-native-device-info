@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.27.1
+ * Enabled battery monitoring mode to get actual battery data (https://github.com/rebeccahughes/react-native-device-info/pull/404)
+
 ### 0.27.0
  * Added `isBatteryCharging()` (https://github.com/rebeccahughes/react-native-device-info/pull/514)
 
