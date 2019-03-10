@@ -27,7 +27,7 @@ declare const _default: {
   isTablet: () => boolean;
   getFontScale: () => number;
   is24Hour: () => boolean;
-  isPinOrFingerprintSet: (cb: (isPinOrFingerprintSet: boolean) => void) => void;
+  isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
   hasNotch: () => boolean;
   getFirstInstallTime: () => number;
   getLastUpdateTime: () => number;
