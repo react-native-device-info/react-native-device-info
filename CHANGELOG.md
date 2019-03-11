@@ -1,5 +1,17 @@
 ## Release Notes
 
+### 0.28.0
+ * Updated Android SDK to version 28 (https://github.com/rebeccahughes/react-native-device-info/pull/548)
+
+### 0.27.1
+ * Enabled battery monitoring mode to get actual battery data (https://github.com/rebeccahughes/react-native-device-info/pull/404)
+
+### 0.27.0
+ * Added `isBatteryCharging()` (https://github.com/rebeccahughes/react-native-device-info/pull/514)
+
+### 0.26.5
+ * Use BigInteger to avoid overflow in Disk related functions (https://github.com/rebeccahughes/react-native-device-info/pull/587) 
+
 ### 0.26.4
  * Fix hasNotch() support for LG phones (https://github.com/rebeccahughes/react-native-device-info/pull/573)
 
