@@ -936,7 +936,9 @@ Tells if the Get Automatic date & time setting is enabled in phone.
 **Examples**
 
 ```js
-const isAutoDateAndTime = DeviceInfo.isAutoDateAndTime(); // true
+DeviceInfo.isAutoDateAndTime().then(isAutoDateAndTime => {
+  // true or false
+});
 ```
 
 ### isAutoTimeZone()
@@ -946,7 +948,9 @@ Tells if the Get Automatic time zone setting is enabled in phone.
 **Examples**
 
 ```js
-const isAutoTimeZone = DeviceInfo.isAutoTimeZone(); // true
+DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
+ // true or false
+});
 ```
 
 
