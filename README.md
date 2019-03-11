@@ -251,6 +251,8 @@ import DeviceInfo from 'react-native-device-info';
 | [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
 | [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
 | [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
+| [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`            |  ❌  |   ✅    |   ❌    | ?      |
+| [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`            |  ❌  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -926,6 +928,31 @@ Returns the device's type as a string, which will be one of:
 ```js
 const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
 ```
+
+### isAutoDateAndTime()
+
+Tells if the Get Automatic date & time setting is enabled in phone.
+
+**Examples**
+
+```js
+DeviceInfo.isAutoDateAndTime().then(isAutoDateAndTime => {
+  // true or false
+});
+```
+
+### isAutoTimeZone()
+
+Tells if the Get Automatic time zone setting is enabled in phone.
+
+**Examples**
+
+```js
+DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
+ // true or false
+});
+```
+
 
 ## Troubleshooting
 

@@ -47,4 +47,6 @@ declare module.exports: {
   isLandscape: () => boolean,
   isAirPlaneMode: () => Promise<boolean>,
   getDeviceType: () => DeviceType,
+  isAutoDateAndTime: () => Promise<boolean>,
+  isAutoTimeZone: () => Promise<boolean>,
 };

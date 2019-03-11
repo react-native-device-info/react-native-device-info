@@ -275,6 +275,28 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     p.resolve(isAirPlaneMode);
   }
 
+  @ReactMethod
+  public void isAutoDateAndTime(Promise p) {
+    boolean isAutoDateAndTime;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isAutoDateAndTime = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME, 0) != 0;
+    } else {
+      isAutoDateAndTime = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME, 0) != 0;
+    }
+    p.resolve(isAutoDateAndTime);
+  }
+
+  @ReactMethod
+  public void isAutoTimeZone(Promise p) {
+    boolean isAutoTimeZone;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isAutoTimeZone = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME_ZONE, 0) != 0;
+    } else {
+      isAutoTimeZone = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME_ZONE, 0) != 0;
+    }
+    p.resolve(isAutoTimeZone);
+  }
+
   public String getInstallReferrer() {
     SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
     return sharedPref.getString("installReferrer", null);
