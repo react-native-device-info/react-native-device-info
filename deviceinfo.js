@@ -180,6 +180,10 @@ const devicesWithNotch = [
   },
   {
     brand: 'xiaomi',
+    model: 'POCOPHONE F1',
+  },
+  {
+    brand: 'xiaomi',
     model: 'Redmi 6 Pro',
   },
 ];
