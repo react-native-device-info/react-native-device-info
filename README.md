@@ -251,8 +251,8 @@ import DeviceInfo from 'react-native-device-info';
 | [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
 | [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
 | [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
-| [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`            |  ❌  |   ✅    |   ❌    | ?      |
-| [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`            |  ❌  |   ✅    |   ❌    | ?      |
+| [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
+| [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
 
 ---
 
@@ -308,9 +308,11 @@ DeviceInfo.getBatteryLevel().then(batteryLevel => {
 ```objective-c
 [UIDevice currentDevice].batteryMonitoringEnabled = true;
 ```
+
 > to AppDelegate.m application:didFinishLaunchingWithOptions:
 >
 > Returns -1 on the iOS Simulator
+
 ---
 
 ### getBrand()
@@ -931,7 +933,7 @@ const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
 
 ### isAutoDateAndTime()
 
-Tells if the Get Automatic date & time setting is enabled in phone.
+Tells if the automatic date & time setting is enabled on the phone.
 
 **Examples**
 
@@ -943,16 +945,15 @@ DeviceInfo.isAutoDateAndTime().then(isAutoDateAndTime => {
 
 ### isAutoTimeZone()
 
-Tells if the Get Automatic time zone setting is enabled in phone.
+Tells if the automatic time zone setting is enabled on the phone.
 
 **Examples**
 
 ```js
 DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
- // true or false
+  // true or false
 });
 ```
-
 
 ## Troubleshooting
 
