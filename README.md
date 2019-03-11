@@ -251,8 +251,8 @@ import DeviceInfo from 'react-native-device-info';
 | [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
 | [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
 | [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
-| [isAutoDateAndTime()](#isAutoDateAndTime)         | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [isAutoTimeZone()](#isAutoTimeZone)               | `string`            |  ❌  |   ✅    |   ❌    | ?      |
+| [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`            |  ❌  |   ✅    |   ❌    | ?      |
+| [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`            |  ❌  |   ✅    |   ❌    | ?      |
 
 ---
 
