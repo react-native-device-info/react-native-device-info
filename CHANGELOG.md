@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 0.28.1
+ * Add 'POCOPHONE F1' to list of notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/584)
+
 ### 0.28.0
  * Updated Android SDK to version 28 (https://github.com/rebeccahughes/react-native-device-info/pull/548)
 
