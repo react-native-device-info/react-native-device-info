@@ -29,7 +29,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  return YES;
+  return YES; [UIDevice currentDevice].batteryMonitoringEnabled = true;
 }
 
 @end
