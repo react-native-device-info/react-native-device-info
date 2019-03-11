@@ -267,24 +267,24 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void isAutoDateAndTime(Promise p) {
-    boolean isAutoDateAndTime;
+    String name;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      isAutoDateAndTime = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME, 0) != 0;
+      name = Settings.System.AUTO_TIME;
     } else {
-      isAutoDateAndTime = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME, 0) != 0;
+      name = Settings.Global.AUTO_TIME;
     }
-    p.resolve(isAutoDateAndTime);
+    p.resolve(Settings.System.getInt(this.reactContext.getContentResolver(), name, 0) != 0);
   }
 
   @ReactMethod
   public void isAutoTimeZone(Promise p) {
-    boolean isAutoTimeZone;
+    String name;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      isAutoTimeZone = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME_ZONE, 0) != 0;
+      name = Settings.System.AUTO_TIME_ZONE;
     } else {
-      isAutoTimeZone = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME_ZONE, 0) != 0;
+      name = Settings.Global.AUTO_TIME_ZONE;
     }
-    p.resolve(isAutoTimeZone);
+    p.resolve(Settings.Global.getInt(this.reactContext.getContentResolver(), name, 0) != 0);
   }
 
   public String getInstallReferrer() {
