@@ -3,6 +3,9 @@
 ### 0.29.1
  * Fix lint errors (library dependences, ignore permissions) (https://github.com/react-native-community/react-native-device-info/pull/590)
 
+> On March 12 2019, this repository was moved from https://github.com/rebeccahughes/react-native-device-info
+> to https://github.com/react-native-community/react-native-device-info
+
 ### 0.29.0
  * Add `isAutoDateAndTime()` and `isAutoTimeZone()` (https://github.com/rebeccahughes/react-native-device-info/pull/583)
 
