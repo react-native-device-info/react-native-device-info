@@ -1,12 +1,16 @@
+require 'json'
+
+package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
+
 Pod::Spec.new do |s|
   s.name         = "RNDeviceInfo"
-  s.version      = "0.21.5"
-  s.summary      = "Device Information for react-native"
+  s.version      = package['version']
+  s.summary      = package['description']
 
-  s.homepage     = "https://github.com/rebeccahughes/react-native-device-info"
+  s.homepage     = package['repository']['url']
 
-  s.license      = "MIT"
-  s.authors      = { "Rebecca Hughes" => "rebecca@learnium.net" }
+  s.license      = package['license']
+  s.authors      = package['author']
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '10.0'
 
