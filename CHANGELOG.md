@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 1.0.0
+ * First major version, features (and bugs) copied from 0.29.1
+
 ### 0.29.1
  * Fix lint errors (library dependences, ignore permissions) (https://github.com/react-native-community/react-native-device-info/pull/590)
 
