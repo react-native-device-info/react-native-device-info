@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '10.0'
 
-  s.source       = { :git => "https://github.com/rebeccahughes/react-native-device-info.git" }
+  s.source       = { :git => "https://github.com/react-native-community/react-native-device-info.git" }
 
   s.source_files  = "ios/RNDeviceInfo/*.{h,m}"
 

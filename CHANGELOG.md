@@ -7,85 +7,85 @@
 > to https://github.com/react-native-community/react-native-device-info
 
 ### 0.29.0
- * Add `isAutoDateAndTime()` and `isAutoTimeZone()` (https://github.com/rebeccahughes/react-native-device-info/pull/583)
+ * Add `isAutoDateAndTime()` and `isAutoTimeZone()` (https://github.com/react-native-community/react-native-device-info/pull/583)
 
 ### 0.28.1
- * Add 'POCOPHONE F1' to list of notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/584)
+ * Add 'POCOPHONE F1' to list of notch devices (https://github.com/react-native-community/react-native-device-info/pull/584)
 
 ### 0.28.0
- * Updated Android SDK to version 28 (https://github.com/rebeccahughes/react-native-device-info/pull/548)
+ * Updated Android SDK to version 28 (https://github.com/react-native-community/react-native-device-info/pull/548)
 
 ### 0.27.1
- * Enabled battery monitoring mode to get actual battery data (https://github.com/rebeccahughes/react-native-device-info/pull/404)
+ * Enabled battery monitoring mode to get actual battery data (https://github.com/react-native-community/react-native-device-info/pull/404)
 
 ### 0.27.0
- * Added `isBatteryCharging()` (https://github.com/rebeccahughes/react-native-device-info/pull/514)
+ * Added `isBatteryCharging()` (https://github.com/react-native-community/react-native-device-info/pull/514)
 
 ### 0.26.5
- * Use BigInteger to avoid overflow in Disk related functions (https://github.com/rebeccahughes/react-native-device-info/pull/587) 
+ * Use BigInteger to avoid overflow in Disk related functions (https://github.com/react-native-community/react-native-device-info/pull/587)
 
 ### 0.26.4
- * Fix hasNotch() support for LG phones (https://github.com/rebeccahughes/react-native-device-info/pull/573)
+ * Fix hasNotch() support for LG phones (https://github.com/react-native-community/react-native-device-info/pull/573)
 
 ### 0.26.3
- * Fixed getDeviceType method (https://github.com/rebeccahughes/react-native-device-info/pull/571)
+ * Fixed getDeviceType method (https://github.com/react-native-community/react-native-device-info/pull/571)
 
 ### 0.26.2
- * Added Huawei P20 Lite to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/568)
+ * Added Huawei P20 Lite to notch devices (https://github.com/react-native-community/react-native-device-info/pull/568)
 
 ### 0.26.1
- * Added OnePlus 6T to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/563)
+ * Added OnePlus 6T to notch devices (https://github.com/react-native-community/react-native-device-info/pull/563)
 
 ### 0.26.0
- * Added `getDeviceType()` and used it in `isTablet()` (https://github.com/rebeccahughes/react-native-device-info/pull/560)
+ * Added `getDeviceType()` and used it in `isTablet()` (https://github.com/react-native-community/react-native-device-info/pull/560)
 
 ### 0.25.1
- * Added Google Pixel 3XL to notch devices (https://github.com/rebeccahughes/react-native-device-info/pull/535)
+ * Added Google Pixel 3XL to notch devices (https://github.com/react-native-community/react-native-device-info/pull/535)
 
 ### 0.25.0
- * Added `isAirPlaneMode()` (https://github.com/rebeccahughes/react-native-device-info/pull/524)
- * Compare `hasNotch()` devices with lowercase (https://github.com/rebeccahughes/react-native-device-info/pull/537)
+ * Added `isAirPlaneMode()` (https://github.com/react-native-community/react-native-device-info/pull/524)
+ * Compare `hasNotch()` devices with lowercase (https://github.com/react-native-community/react-native-device-info/pull/537)
  * Added several devices to `hasNotch()` (#533, #549, #550)
 
 ### 0.24.3
  * Support React Native Windows 0.57, minimal version is now 10.0.14393 for the target platform
 
 ### 0.24.2
- * Update typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/498)
+ * Update typescript definitions (https://github.com/react-native-community/react-native-device-info/pull/498)
 
 ### 0.24.1
- * Update build.gradle to remove compile warning (https://github.com/rebeccahughes/react-native-device-info/pull/520)
+ * Update build.gradle to remove compile warning (https://github.com/react-native-community/react-native-device-info/pull/520)
 
 ### 0.24.0
- * Added `isLandscape()` (https://github.com/rebeccahughes/react-native-device-info/pull/504)
+ * Added `isLandscape()` (https://github.com/react-native-community/react-native-device-info/pull/504)
 
 ### 0.23.0
- * Add `hasNotch()` (https://github.com/rebeccahughes/react-native-device-info/pull/500)
+ * Add `hasNotch()` (https://github.com/react-native-community/react-native-device-info/pull/500)
 
 ### 0.22.6
- * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/rebeccahughes/react-native-device-info/pull/499) 
+ * Support new models (XR, XS, XS Max) and iPad 6th Gen (https://github.com/react-native-community/react-native-device-info/pull/499)
 
 ### 0.22.5
- * Fix typescript declaration export (https://github.com/rebeccahughes/react-native-device-info/pull/478)
+ * Fix typescript declaration export (https://github.com/react-native-community/react-native-device-info/pull/478)
 
 ### 0.22.4
- * Shrank the npm package size (https://github.com/rebeccahughes/react-native-device-info/issues/477)
+ * Shrank the npm package size (https://github.com/react-native-community/react-native-device-info/issues/477)
 
 ### 0.22.3
- * Fixed `eslint-plugin-import` error (https://github.com/rebeccahughes/react-native-device-info/pull/466)
+ * Fixed `eslint-plugin-import` error (https://github.com/react-native-community/react-native-device-info/pull/466)
 
 ### 0.22.2
- * Fixed Android build error introduced in 0.22.1 (https://github.com/rebeccahughes/react-native-device-info/pull/460)
+ * Fixed Android build error introduced in 0.22.1 (https://github.com/react-native-community/react-native-device-info/pull/460)
 
 ### 0.22.1
 
- * Fix deprecated code on Android in the following methods (https://github.com/rebeccahughes/react-native-device-info/pull/426)
+ * Fix deprecated code on Android in the following methods (https://github.com/react-native-community/react-native-device-info/pull/426)
  * getDeviceCountry
  * getDeviceLocale
- 
+
 ### 0.22.0
 
-* Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/rebeccahughes/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
+* Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/react-native-community/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
 
 ### 0.21.5
 
@@ -93,27 +93,27 @@
 
 ### 0.21.4
 
-* Move back the podspec file to the root directory (https://github.com/rebeccahughes/react-native-device-info/pull/376)
+* Move back the podspec file to the root directory (https://github.com/react-native-community/react-native-device-info/pull/376)
 
 ### 0.21.3
 
-* Moved the IOS code to an ios/ directory (https://github.com/rebeccahughes/react-native-device-info/pull/374)
+* Moved the IOS code to an ios/ directory (https://github.com/react-native-community/react-native-device-info/pull/374)
 
 ### 0.21.2
 
-* Fix getBatteryLevel() for tvOS (always return 1) (https://github.com/rebeccahughes/react-native-device-info/pull/363)
+* Fix getBatteryLevel() for tvOS (always return 1) (https://github.com/react-native-community/react-native-device-info/pull/363)
 
 ### 0.21.1
 
-* Remove deprecated React pod dependency (https://github.com/rebeccahughes/react-native-device-info/pull/361)
+* Remove deprecated React pod dependency (https://github.com/react-native-community/react-native-device-info/pull/361)
 
 ### 0.21.0
 
-* Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion` (https://github.com/rebeccahughes/react-native-device-info/pull/343)
+* Add more gradle configuration properties `compileSdkVersion`, `buildToolsVersion`, `targetSdkVersion` (https://github.com/react-native-community/react-native-device-info/pull/343)
 
 ### 0.20.0
 
-* Made the following methods compatible with UWP: (https://github.com/rebeccahughes/react-native-device-info/pull/345)
+* Made the following methods compatible with UWP: (https://github.com/react-native-community/react-native-device-info/pull/345)
   * `getBatteryLevel()`
   * `getFirstIntallTime()`
   * `getIPAddress()`
@@ -122,15 +122,15 @@
 
 ### 0.19.0
 
-* Add `getInstallReferrer` (https://github.com/rebeccahughes/react-native-device-info/pull/344)
+* Add `getInstallReferrer` (https://github.com/react-native-community/react-native-device-info/pull/344)
 
 ### 0.18.0
 
-* Add `getBatteryLevel` (https://github.com/rebeccahughes/react-native-device-info/pull/359)
+* Add `getBatteryLevel` (https://github.com/react-native-community/react-native-device-info/pull/359)
 
 ### 0.17.4
 
-* Fix `getMACAddress` for Android > 6 (https://github.com/rebeccahughes/react-native-device-info/pull/349)
+* Fix `getMACAddress` for Android > 6 (https://github.com/react-native-community/react-native-device-info/pull/349)
 
 ### 0.17.3
 
@@ -138,8 +138,8 @@
 
 ### 0.17.2
 
-* Enhance `isTablet()` for android by checking display density (https://github.com/rebeccahughes/react-native-device-info/pull/313)
-* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/rebeccahughes/react-native-device-info/issues/19)
+* Enhance `isTablet()` for android by checking display density (https://github.com/react-native-community/react-native-device-info/pull/313)
+* Changed iOS target deployment from 9.0 to 8.0 for broader device support (https://github.com/react-native-community/react-native-device-info/issues/19)
 
 ### 0.17.1
 
@@ -147,100 +147,100 @@
 
 ### 0.17.0
 
-* Add an empty polyfill for `react-native-web` users (https://github.com/rebeccahughes/react-native-device-info/pull/339)
+* Add an empty polyfill for `react-native-web` users (https://github.com/react-native-community/react-native-device-info/pull/339)
 
 ### 0.16.0
 
-* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/rebeccahughes/react-native-device-info/pull/333)
+* Add the `googlePlayServicesVersion` Gradle build config that allows you to set the Play Services version from the root-project (https://github.com/react-native-community/react-native-device-info/pull/333)
 
 ### 0.15.3
 
-* Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/rebeccahughes/react-native-device-info/pull/328)
+* Fix crash on iOS: prevent insertion of nil values in the dictionary (https://github.com/react-native-community/react-native-device-info/pull/328)
 
 ### 0.15.2
 
-* Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/rebeccahughes/react-native-device-info/issues/320)
+* Fix crash on `getFreeDiskStorage` and `getTotalDiskCapacity` from invalid filesystem path (https://github.com/react-native-community/react-native-device-info/issues/320)
 
 ### 0.15.1
 
-* Fix Android compatibility for `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/319)
+* Fix Android compatibility for `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/react-native-community/react-native-device-info/pull/319)
 
 ### 0.15.0
 
-* Add `getFontScale` (https://github.com/rebeccahughes/react-native-device-info/pull/278)
-* Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/rebeccahughes/react-native-device-info/pull/302)
+* Add `getFontScale` (https://github.com/react-native-community/react-native-device-info/pull/278)
+* Add `getFreeDiskStorage` and `getTotalDiskCapacity` (https://github.com/react-native-community/react-native-device-info/pull/302)
 * Fix missing flow definition for `getApplicationName`
 
 ### 0.14.0
 
-* Fix tvOS support (https://github.com/rebeccahughes/react-native-device-info/pull/283)
+* Fix tvOS support (https://github.com/react-native-community/react-native-device-info/pull/283)
 * Introduced `getApplicationName` to see the name of the app both on ios, android and win
-  * https://github.com/rebeccahughes/react-native-device-info/pull/210
-  * https://github.com/rebeccahughes/react-native-device-info/pull/295
-* Added `getTotalMemory` and `getMaxMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/289)
-* Fix iOS undefined native module error (https://github.com/rebeccahughes/react-native-device-info/pull/276)
-* Fix crash on `getUserAgent` when Webview is not installed (https://github.com/rebeccahughes/react-native-device-info/pull/273)
+  * https://github.com/react-native-community/react-native-device-info/pull/210
+  * https://github.com/react-native-community/react-native-device-info/pull/295
+* Added `getTotalMemory` and `getMaxMemory` (https://github.com/react-native-community/react-native-device-info/pull/289)
+* Fix iOS undefined native module error (https://github.com/react-native-community/react-native-device-info/pull/276)
+* Fix crash on `getUserAgent` when Webview is not installed (https://github.com/react-native-community/react-native-device-info/pull/273)
 
 ### 0.13.0
 
-* Add `getCarrier` (https://github.com/rebeccahughes/react-native-device-info/pull/261)
-* Disable `isPinOrFingerprintSet` for tvOS (https://github.com/rebeccahughes/react-native-device-info/pull/270)
-* Add `is24Hour` (https://github.com/rebeccahughes/react-native-device-info/pull/265)
-* Remove unused windows dependency (https://github.com/rebeccahughes/react-native-device-info/pull/263)
-* Add missing typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/254)
-* Make play-services optional (https://github.com/rebeccahughes/react-native-device-info/pull/226)
+* Add `getCarrier` (https://github.com/react-native-community/react-native-device-info/pull/261)
+* Disable `isPinOrFingerprintSet` for tvOS (https://github.com/react-native-community/react-native-device-info/pull/270)
+* Add `is24Hour` (https://github.com/react-native-community/react-native-device-info/pull/265)
+* Remove unused windows dependency (https://github.com/react-native-community/react-native-device-info/pull/263)
+* Add missing typescript definitions (https://github.com/react-native-community/react-native-device-info/pull/254)
+* Make play-services optional (https://github.com/react-native-community/react-native-device-info/pull/226)
 
 ### 0.12.1
 
-* Critical fix on WIFI STATE (https://github.com/rebeccahughes/react-native-device-info/pull/249)
+* Critical fix on WIFI STATE (https://github.com/react-native-community/react-native-device-info/pull/249)
 
 ### 0.12.0
 
-* Get real WebView UserAgent on Android (https://github.com/rebeccahughes/react-native-device-info/pull/207)
-* Add DeviceUID.h to public headers (https://github.com/rebeccahughes/react-native-device-info/pull/217)
-* Add `getPhoneNumber` (https://github.com/rebeccahughes/react-native-device-info/pull/174)
-* Fix typescript definitions (https://github.com/rebeccahughes/react-native-device-info/pull/221)
-* Add `getFirstInstallTime` and `getLastUpdateTime` (https://github.com/rebeccahughes/react-native-device-info/pull/222)
-* Added version check and permission to work with Android API >= 16 (https://github.com/rebeccahughes/react-native-device-info/pull/225)
-* Added device detection even when in an iOS emulator (https://github.com/rebeccahughes/react-native-device-info/pull/224)
-* Add support for new iPhone, iPad, and Apple TV models (https://github.com/rebeccahughes/react-native-device-info/pull/230)
-* Add android only `getAPILevel` method (https://github.com/rebeccahughes/react-native-device-info/pull/232)
-* Add Android support for serial number, IP, and MAC address (https://github.com/rebeccahughes/react-native-device-info/pull/150)
-* Add tvOS support (https://github.com/rebeccahughes/react-native-device-info/pull/235)
+* Get real WebView UserAgent on Android (https://github.com/react-native-community/react-native-device-info/pull/207)
+* Add DeviceUID.h to public headers (https://github.com/react-native-community/react-native-device-info/pull/217)
+* Add `getPhoneNumber` (https://github.com/react-native-community/react-native-device-info/pull/174)
+* Fix typescript definitions (https://github.com/react-native-community/react-native-device-info/pull/221)
+* Add `getFirstInstallTime` and `getLastUpdateTime` (https://github.com/react-native-community/react-native-device-info/pull/222)
+* Added version check and permission to work with Android API >= 16 (https://github.com/react-native-community/react-native-device-info/pull/225)
+* Added device detection even when in an iOS emulator (https://github.com/react-native-community/react-native-device-info/pull/224)
+* Add support for new iPhone, iPad, and Apple TV models (https://github.com/react-native-community/react-native-device-info/pull/230)
+* Add android only `getAPILevel` method (https://github.com/react-native-community/react-native-device-info/pull/232)
+* Add Android support for serial number, IP, and MAC address (https://github.com/react-native-community/react-native-device-info/pull/150)
+* Add tvOS support (https://github.com/react-native-community/react-native-device-info/pull/235)
 * Add flow types
-* Fix getCurrentActivity() null crash in Android (https://github.com/rebeccahughes/react-native-device-info/pull/247)
+* Fix getCurrentActivity() null crash in Android (https://github.com/react-native-community/react-native-device-info/pull/247)
 
-[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/1aafc6f0b20d7cd6f0939ea5370e9899e4914c93...master)
+[Diff](https://github.com/react-native-community/react-native-device-info/compare/1aafc6f0b20d7cd6f0939ea5370e9899e4914c93...master)
 
 ### 0.11.0
 
 * Add support for RN > 0.47
 * Update typescript definitions
 
-[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/5b869cdd5e16b65cbe4e85a565aa331bd7546b89...1aafc6f0b20d7cd6f0939ea5370e9899e4914c93)
+[Diff](https://github.com/react-native-community/react-native-device-info/compare/5b869cdd5e16b65cbe4e85a565aa331bd7546b89...1aafc6f0b20d7cd6f0939ea5370e9899e4914c93)
 
 ### 0.10.2
 
 * Add typescript definitions
 
-[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/f3967862711892615e7f51d49d0034ee134f3e3d...5b869cdd5e16b65cbe4e85a565aa331bd7546b89)
+[Diff](https://github.com/react-native-community/react-native-device-info/compare/f3967862711892615e7f51d49d0034ee134f3e3d...5b869cdd5e16b65cbe4e85a565aa331bd7546b89)
 
 ### 0.10.1
 
 * Add `isPinOrFingerprintSet` method
 * Add support for RN > 0.40
 
-[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/c843144ea872a79f4d53a53b32f72511fbfc8d8b...f3967862711892615e7f51d49d0034ee134f3e3d)
+[Diff](https://github.com/react-native-community/react-native-device-info/compare/c843144ea872a79f4d53a53b32f72511fbfc8d8b...f3967862711892615e7f51d49d0034ee134f3e3d)
 
 ### 0.10.0
 
 * Semver fix
 
-[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/e8bfe5ea8d5f5414f2f97f35a5d02b611cbe39e3...c843144ea872a79f4d53a53b32f72511fbfc8d8b)
+[Diff](https://github.com/react-native-community/react-native-device-info/compare/e8bfe5ea8d5f5414f2f97f35a5d02b611cbe39e3...c843144ea872a79f4d53a53b32f72511fbfc8d8b)
 
 ### 0.9.8
 
-[Diff](https://github.com/rebeccahughes/react-native-device-info/compare/668996c64e23f477fc8156cdc43a49198b4fdd20...e8bfe5ea8d5f5414f2f97f35a5d02b611cbe39e3)
+[Diff](https://github.com/react-native-community/react-native-device-info/compare/668996c64e23f477fc8156cdc43a49198b4fdd20...e8bfe5ea8d5f5414f2f97f35a5d02b611cbe39e3)
 
 ### 0.9.7
 
