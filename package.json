@@ -6,7 +6,7 @@
   "typings": "./deviceinfo.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rebeccahughes/react-native-device-info"
+    "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
     "shipit": "np"

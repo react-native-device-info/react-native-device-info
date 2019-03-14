@@ -1014,7 +1014,7 @@ jest.mock('react-native-device-info', () => {
 
 ## Release Notes
 
-See the [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blob/master/CHANGELOG.md).
+See the [CHANGELOG.md](https://github.com/react-native-community/react-native-device-info/blob/master/CHANGELOG.md).
 
 ## react-native-web
 
