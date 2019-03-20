@@ -99,6 +99,10 @@ const devicesWithNotch = [
     model: '6.1 Plus',
   },
   {
+    brand: 'Nokia',
+    model: '7.1',
+  },
+  {
     brand: 'OnePlus',
     model: '6',
   },
