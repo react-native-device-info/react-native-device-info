@@ -253,7 +253,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 | [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
-| [supportedABIs()](#supportedABIs)                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.0.1  |
+| [supportedABIs()](#supportedABIs)                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 
 ---
 
