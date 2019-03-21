@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 1.1.0
+ * Add `supportedABIs()` (https://github.com/react-native-community/react-native-device-info/pull/598)
+
 ### 1.0.0
  * First major version, features (and bugs) copied from 0.29.1
 
