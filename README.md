@@ -961,7 +961,7 @@ DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
 Returns a list of supported processor architecture version
 
 ```js
-DeviceInfo.supportedABIs(); // [ "x86", "arm64-v8a", "armeabi-v7a", "armeabi" ]
+DeviceInfo.supportedABIs(); // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi" ]
 ```
 
 ## Troubleshooting
