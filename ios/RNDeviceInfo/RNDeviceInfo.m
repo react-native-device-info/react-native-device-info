@@ -8,9 +8,7 @@
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
-#include <mach/machine.h>
+#import <mach-o/arch.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #if !(TARGET_OS_TV)
@@ -291,37 +289,9 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 - (NSString *)getCPUType {
     /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
-    NSMutableString *cpu = [[NSMutableString alloc] init];
-    size_t size;
-    cpu_type_t type;
-    cpu_subtype_t subtype;
-    size = sizeof(type);
-    sysctlbyname("hw.cputype", &type, &size, NULL, 0);
-
-    size = sizeof(subtype);
-    sysctlbyname("hw.cpusubtype", &subtype, &size, NULL, 0);
-
-    // values for cputype and cpusubtype defined in mach/machine.h
-    if (type == CPU_TYPE_X86_64) {
-      [cpu appendString:@"x86_64"];
-    } else if (type == CPU_TYPE_X86) {
-      [cpu appendString:@"x86"];
-    } else if (type == CPU_TYPE_ARM) {
-      [cpu appendString:@"ARM"];
-      switch(subtype)
-      {
-        case CPU_SUBTYPE_ARM_V6:
-              [cpu appendString:@"V6"];
-              break;
-        case CPU_SUBTYPE_ARM_V7:
-              [cpu appendString:@"V7"];
-              break;
-        case CPU_SUBTYPE_ARM_V8:
-              [cpu appendString:@"V8"];
-              break;
-      }
-    }
-    return cpu;
+    NXArchInfo *info = NXGetLocalArchInfo();
+    NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
+    return typeOfCpu;
 }
 
 - (NSDictionary *)constantsToExport
