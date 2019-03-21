@@ -8,6 +8,9 @@
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
+#include <mach/machine.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #if !(TARGET_OS_TV)
@@ -260,7 +263,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 }
 
 - (NSDictionary *) getStorageDictionary {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
 }
 
@@ -278,7 +281,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 - (uint64_t) freeDiskStorage {
     uint64_t freeSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-    
+
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
         freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
@@ -286,11 +289,45 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return freeSpace;
 }
 
+- (NSString *)getCPUType {
+    /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
+    NSMutableString *cpu = [[NSMutableString alloc] init];
+    size_t size;
+    cpu_type_t type;
+    cpu_subtype_t subtype;
+    size = sizeof(type);
+    sysctlbyname("hw.cputype", &type, &size, NULL, 0);
+
+    size = sizeof(subtype);
+    sysctlbyname("hw.cpusubtype", &subtype, &size, NULL, 0);
+
+    // values for cputype and cpusubtype defined in mach/machine.h
+    if (type == CPU_TYPE_X86_64) {
+      [cpu appendString:@"x86_64"];
+    } else if (type == CPU_TYPE_X86) {
+      [cpu appendString:@"x86"];
+    } else if (type == CPU_TYPE_ARM) {
+      [cpu appendString:@"ARM"];
+      switch(subtype)
+      {
+        case CPU_SUBTYPE_ARM_V6:
+              [cpu appendString:@"V6"];
+              break;
+        case CPU_SUBTYPE_ARM_V7:
+              [cpu appendString:@"V7"];
+              break;
+        case CPU_SUBTYPE_ARM_V8:
+              [cpu appendString:@"V8"];
+              break;
+      }
+    }
+    return cpu;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
     NSString *uniqueId = [DeviceUID uid];
-
     return @{
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
@@ -318,6 +355,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
              @"deviceType": [DeviceTypeValues objectAtIndex: [self getDeviceType]],
+             @"supportedABIs": @[[self getCPUType]],
              };
 }
 
@@ -325,7 +363,7 @@ RCT_EXPORT_METHOD(getMacAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 {
     NSString *address = @"02:00:00:00:00:00";
     resolve(address);
-} 
+}
 
 RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -355,7 +393,7 @@ RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     // Free memory
     freeifaddrs(interfaces);
     resolve(address);
-} 
+}
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {

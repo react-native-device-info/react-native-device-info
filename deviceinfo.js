@@ -321,5 +321,8 @@ export default {
   },
   isAutoTimeZone: function () {
     return RNDeviceInfo.isAutoTimeZone();
+  },
+  supportedABIs: function() {
+    return RNDeviceInfo.supportedABIs;
   }
 };

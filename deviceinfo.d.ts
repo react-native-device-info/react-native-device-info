@@ -48,6 +48,7 @@ declare const _default: {
   getDeviceType: () => DeviceType;
   isAutoDateAndTime: () => Promise<boolean>;
   isAutoTimeZone: () => Promise<boolean>;
+  supportedABIs: () => string[];
 };
 
 export default _default;

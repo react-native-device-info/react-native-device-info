@@ -49,4 +49,5 @@ declare module.exports: {
   getDeviceType: () => DeviceType,
   isAutoDateAndTime: () => Promise<boolean>,
   isAutoTimeZone: () => Promise<boolean>,
+  supportedABIs: () => string[],
 };
