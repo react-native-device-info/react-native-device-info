@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Platform, ScrollView, StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
 const instructions = Platform.select({
@@ -74,6 +74,7 @@ export default class App extends Component<Props> {
       deviceJSON.isBatteryCharging = ios ? false : await DeviceInfo.isBatteryCharging();
       deviceJSON.deviceType = DeviceInfo.getDeviceType();
       deviceJSON.isPinOrFingerprintSet = 'unknown';
+      deviceJSON.supportedABIs = DeviceInfo.supportedABIs();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }
@@ -96,12 +97,12 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.welcome}>react-native-device-info example - info:</Text>
         <ScrollView>
           <Text style={styles.instructions}>{JSON.stringify(this.state.deviceinfo, null, '\t')}</Text>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

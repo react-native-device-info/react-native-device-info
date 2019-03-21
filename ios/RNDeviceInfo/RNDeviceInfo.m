@@ -8,6 +8,7 @@
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#import <mach-o/arch.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #if !(TARGET_OS_TV)
@@ -260,7 +261,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 }
 
 - (NSDictionary *) getStorageDictionary {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
 }
 
@@ -278,7 +279,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 - (uint64_t) freeDiskStorage {
     uint64_t freeSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-    
+
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
         freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
@@ -286,11 +287,17 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return freeSpace;
 }
 
+- (NSString *)getCPUType {
+    /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
+    NXArchInfo *info = NXGetLocalArchInfo();
+    NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
+    return typeOfCpu;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
     NSString *uniqueId = [DeviceUID uid];
-
     return @{
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
@@ -318,6 +325,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
              @"deviceType": [DeviceTypeValues objectAtIndex: [self getDeviceType]],
+             @"supportedABIs": @[[self getCPUType]],
              };
 }
 
@@ -325,7 +333,7 @@ RCT_EXPORT_METHOD(getMacAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 {
     NSString *address = @"02:00:00:00:00:00";
     resolve(address);
-} 
+}
 
 RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -355,7 +363,7 @@ RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     // Free memory
     freeifaddrs(interfaces);
     resolve(address);
-} 
+}
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {

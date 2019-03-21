@@ -253,6 +253,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 | [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
+| [supportedABIs()](#supportedABIs)                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 
 ---
 
@@ -953,6 +954,14 @@ Tells if the automatic time zone setting is enabled on the phone.
 DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
   // true or false
 });
+```
+
+### supportedABIs()
+
+Returns a list of supported processor architecture version
+
+```js
+DeviceInfo.supportedABIs(); // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi" ]
 ```
 
 ## Troubleshooting

@@ -1,5 +1,9 @@
 ## Release Notes
 
+
+### 1.1.0
+ * Add `supportedABIs()` (https://github.com/react-native-community/react-native-device-info/pull/598)
+
 ### 1.0.1
  * fix: Add Nokia 7.1 to devicesWithNotch list (https://github.com/react-native-community/react-native-device-info/pull/597)
 

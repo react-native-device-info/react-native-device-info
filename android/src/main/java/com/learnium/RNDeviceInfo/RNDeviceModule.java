@@ -395,7 +395,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     actMgr.getMemoryInfo(memInfo);
     constants.put("totalMemory", memInfo.totalMem);
     constants.put("deviceType", deviceType.getValue());
-
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      constants.put("supportedABIs", Build.SUPPORTED_ABIS);
+    } else {
+      constants.put("supportedABIs", new String[]{ Build.CPU_ABI });
+    }
     return constants;
   }
 }
