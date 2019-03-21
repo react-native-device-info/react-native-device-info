@@ -47,7 +47,7 @@ rnpm link react-native-device-info
 ### Manual
 
 <details>
-    <summary>iOS (via Cocoa Pods)</summary>
+    <summary>iOS (via CocoaPods)</summary>
 
 Add the following line to your build targets in your `Podfile`
 
@@ -58,7 +58,7 @@ Then run `pod install`
 </details>
 
 <details>
-    <summary>iOS (without Cocoa Pods)</summary>
+    <summary>iOS (without CocoaPods)</summary>
 
 In XCode, in the project navigator:
 
@@ -102,8 +102,8 @@ Run your project (Cmd+R)
 ```diff
 dependencies {
     ...
-    compile "com.facebook.react:react-native:+"  // From node_modules
-+   compile project(':react-native-device-info')
+    implementation "com.facebook.react:react-native:+"  // From node_modules
++   implementation project(':react-native-device-info')
 }
 ```
 
@@ -156,6 +156,19 @@ include ':app'
       );
     }
   }
+```
+
+NOTE: If you faced with this error: `Could not resolve all files for configuration ':react-native-device-info:debugCompileClasspath'.`, in `build.gradle` put `google()` in the first line (according to https://stackoverflow.com/a/50748249)
+
+* in `android/build.gradle`:
+
+```diff
+allprojects {
+    repositories {
++       google()
+        ...
+    }
+}
 ```
 
 (Thanks to @chirag04 for writing the instructions)
@@ -231,9 +244,17 @@ import DeviceInfo from 'react-native-device-info';
 | [getUserAgent()](#getuseragent)                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
+| [isAirPlaneMode()](#isairplanemode)               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
+| [isBatteryCharging()](#isbatterycharging)         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.27.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [hasNotch()](#hasNotch)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
+| [isLandscape()](#isLandscape)                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
+| [getDeviceType()](#getDeviceType)                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
+| [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
+| [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
+| [supportedABIs()](#supportedABIs)                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 
 ---
 
@@ -283,6 +304,15 @@ DeviceInfo.getBatteryLevel().then(batteryLevel => {
 
 **Notes**
 
+> To be able to get actual battery level enable battery monitoring mode for application.
+> Add this code:
+
+```objective-c
+[UIDevice currentDevice].batteryMonitoringEnabled = true;
+```
+
+> to AppDelegate.m application:didFinishLaunchingWithOptions:
+>
 > Returns -1 on the iOS Simulator
 
 ---
@@ -792,7 +822,7 @@ Gets the application version.
 const version = DeviceInfo.getVersion();
 
 // iOS: "1.0"
-// Android: "1.0
+// Android: "1.0"
 // Windows: ?
 ```
 
@@ -806,6 +836,38 @@ Tells if the user preference is set to 24-hour format.
 
 ```js
 const is24Hour = DeviceInfo.is24Hour(); // true
+```
+
+---
+
+### isAirPlaneMode()
+
+Tells if the device is in AirPlaneMode.
+
+**Examples**
+
+```js
+DeviceInfo.isAirPlaneMode().then(airPlaneModeOn => {
+  // false
+});
+```
+
+**Notes**
+
+> * This only works if the remote debugger is disabled.
+
+---
+
+### isBatteryCharging()
+
+Tells if the battery is currently charging.
+
+**Examples**
+
+```js
+DeviceInfo.isBatteryCharging().then(isCharging => {
+  // true or false
+});
 ```
 
 ---
@@ -854,6 +916,73 @@ const isTablet = DeviceInfo.isTablet(); // true
 ```
 
 ---
+
+### isLandscape()
+
+Tells if the device is currently in landscape mode.
+
+**Examples**
+
+```js
+const isLandscape = DeviceInfo.isLandscape(); // true
+```
+
+### hasNotch()
+
+Tells if the device has a notch.
+
+**Examples**
+
+```js
+const hasNotch = DeviceInfo.hasNotch(); // true
+```
+
+### getDeviceType()
+
+Returns the device's type as a string, which will be one of:
+
+* `Handset`
+* `Tablet`
+* `Tv`
+* `Unknown`
+
+**Examples**
+
+```js
+const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
+```
+
+### isAutoDateAndTime()
+
+Tells if the automatic date & time setting is enabled on the phone.
+
+**Examples**
+
+```js
+DeviceInfo.isAutoDateAndTime().then(isAutoDateAndTime => {
+  // true or false
+});
+```
+
+### isAutoTimeZone()
+
+Tells if the automatic time zone setting is enabled on the phone.
+
+**Examples**
+
+```js
+DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
+  // true or false
+});
+```
+
+### supportedABIs()
+
+Returns a list of supported processor architecture version
+
+```js
+DeviceInfo.supportedABIs(); // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi" ]
+```
 
 ## Troubleshooting
 
@@ -914,7 +1043,7 @@ jest.mock('react-native-device-info', () => {
 
 ## Release Notes
 
-See the [CHANGELOG.md](https://github.com/rebeccahughes/react-native-device-info/blob/master/CHANGELOG.md).
+See the [CHANGELOG.md](https://github.com/react-native-community/react-native-device-info/blob/master/CHANGELOG.md).
 
 ## react-native-web
 

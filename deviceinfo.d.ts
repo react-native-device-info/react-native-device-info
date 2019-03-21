@@ -1,6 +1,8 @@
 // should be imported this way:
 // import DeviceInfo from 'react-native-device-info';
 
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Unknown';
+
 declare const _default: {
   getUniqueID: () => string;
   getManufacturer: () => string;
@@ -20,12 +22,13 @@ declare const _default: {
   getDeviceCountry: () => string;
   getTimezone: () => string;
   getInstanceID: () => string;
-  getInstallReferrer: () => string;
+  getInstallReferrer: () => string | null;
   isEmulator: () => boolean;
   isTablet: () => boolean;
   getFontScale: () => number;
   is24Hour: () => boolean;
-  isPinOrFingerprintSet: (cb: (isPinOrFingerprintSet: boolean) => void) => void;
+  isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
+  hasNotch: () => boolean;
   getFirstInstallTime: () => number;
   getLastUpdateTime: () => number;
   getSerialNumber: () => string;
@@ -40,6 +43,13 @@ declare const _default: {
   getTotalDiskCapacity: () => number;
   getFreeDiskStorage: () => number;
   getBatteryLevel: () => Promise<number>;
+  isBatteryCharging: () => Promise<boolean>;
+  isLandscape: () => boolean;
+  isAirPlaneMode: () => Promise<boolean>;
+  getDeviceType: () => DeviceType;
+  isAutoDateAndTime: () => Promise<boolean>;
+  isAutoTimeZone: () => Promise<boolean>;
+  supportedABIs: () => string[];
 };
 
 export default _default;

@@ -2,13 +2,13 @@ package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
 import android.app.KeyguardManager;
+import android.app.UiModeManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
@@ -17,7 +17,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.BatteryManager;
-import android.provider.Settings.Secure;
+import android.provider.Settings;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
@@ -41,6 +42,7 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
+import java.math.BigInteger;
 
 import javax.annotation.Nullable;
 
@@ -50,10 +52,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   WifiInfo wifiInfo;
 
+  DeviceType deviceType;
+
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
 
     this.reactContext = reactContext;
+    this.deviceType = getDeviceType(reactContext);
   }
 
   @Override
@@ -113,20 +118,50 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private Boolean isTablet() {
-    int layout = getReactApplicationContext().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-    if (layout != Configuration.SCREENLAYOUT_SIZE_LARGE && layout != Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-      return false;
+    return deviceType == DeviceType.TABLET;
+  }
+
+  private static DeviceType getDeviceType(ReactApplicationContext reactContext) {
+    // Detect TVs via ui mode (Android TVs) or system features (Fire TV).
+    if (reactContext.getApplicationContext().getPackageManager().hasSystemFeature("amazon.hardware.fire_tv")) {
+      return DeviceType.TV;
     }
 
-    final DisplayMetrics metrics = getReactApplicationContext().getResources().getDisplayMetrics();
-    if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
-            || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
-            || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
-            || metrics.densityDpi == DisplayMetrics.DENSITY_TV
-            || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
-      return true;
+    UiModeManager uiManager = (UiModeManager) reactContext.getSystemService(Context.UI_MODE_SERVICE);
+    if (uiManager != null && uiManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
+      return DeviceType.TV;
     }
-    return false;
+
+    // Find the current window manager, if none is found we can't measure the device physical size.
+    WindowManager windowManager = (WindowManager) reactContext.getSystemService(Context.WINDOW_SERVICE);
+    if (windowManager == null) {
+      return DeviceType.UNKNOWN;
+    }
+
+    // Get display metrics to see if we can differentiate handsets and tablets.
+    // NOTE: for API level 16 the metrics will exclude window decor.
+    DisplayMetrics metrics = new DisplayMetrics();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      windowManager.getDefaultDisplay().getRealMetrics(metrics);
+    } else {
+      windowManager.getDefaultDisplay().getMetrics(metrics);
+    }
+
+    // Calculate physical size.
+    double widthInches = metrics.widthPixels / (double) metrics.xdpi;
+    double heightInches = metrics.heightPixels / (double) metrics.ydpi;
+    double diagonalSizeInches = Math.sqrt(Math.pow(widthInches, 2) + Math.pow(heightInches, 2));
+
+    if (diagonalSizeInches >= 3.0 && diagonalSizeInches <= 6.9) {
+      // Devices in a sane range for phones are considered to be Handsets.
+      return DeviceType.HANDSET;
+    } else if (diagonalSizeInches > 6.9 && diagonalSizeInches <= 18.0) {
+      // Devices larger than handset and in a sane range for tablets are tablets.
+      return DeviceType.TABLET;
+    } else {
+      // Otherwise, we don't know what device type we're on/
+      return DeviceType.UNKNOWN;
+    }
   }
 
   private float fontScale() {
@@ -197,7 +232,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     }
 
-    p.resolve(macAddress);    
+    p.resolve(macAddress);
   }
 
   @ReactMethod
@@ -207,10 +242,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getTotalDiskCapacity() {
+  public BigInteger getTotalDiskCapacity() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return root.getBlockCount() * root.getBlockSize();
+      return BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize()));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -218,14 +253,23 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public Integer getFreeDiskStorage() {
+  public BigInteger getFreeDiskStorage() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return external.getAvailableBlocks() * external.getBlockSize();
+      return BigInteger.valueOf(external.getAvailableBlocks()).multiply(BigInteger.valueOf(external.getBlockSize()));
     } catch (Exception e) {
       e.printStackTrace();
     }
     return null;
+  }
+
+  @ReactMethod
+  public void isBatteryCharging(Promise p){
+    IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+    Intent batteryStatus = this.reactContext.getApplicationContext().registerReceiver(null, ifilter);
+    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+    boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING;
+    p.resolve(isCharging);
   }
 
   @ReactMethod
@@ -235,6 +279,39 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
     float batteryLevel = level / (float) scale;
     p.resolve(batteryLevel);
+  }
+
+  @ReactMethod
+  public void isAirPlaneMode(Promise p) {
+    boolean isAirPlaneMode;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        isAirPlaneMode = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+    } else {
+        isAirPlaneMode = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+    }
+    p.resolve(isAirPlaneMode);
+  }
+
+  @ReactMethod
+  public void isAutoDateAndTime(Promise p) {
+    boolean isAutoDateAndTime;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isAutoDateAndTime = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME, 0) != 0;
+    } else {
+      isAutoDateAndTime = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME, 0) != 0;
+    }
+    p.resolve(isAutoDateAndTime);
+  }
+
+  @ReactMethod
+  public void isAutoTimeZone(Promise p) {
+    boolean isAutoTimeZone;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isAutoTimeZone = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME_ZONE, 0) != 0;
+    } else {
+      isAutoTimeZone = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME_ZONE, 0) != 0;
+    }
+    p.resolve(isAutoTimeZone);
   }
 
   public String getInstallReferrer() {
@@ -301,7 +378,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("apiLevel", Build.VERSION.SDK_INT);
     constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("deviceCountry", this.getCurrentCountry());
-    constants.put("uniqueId", Secure.getString(this.reactContext.getContentResolver(), Secure.ANDROID_ID));
+    constants.put("uniqueId", Settings.Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -334,7 +411,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
     actMgr.getMemoryInfo(memInfo);
     constants.put("totalMemory", memInfo.totalMem);
-
+    constants.put("deviceType", deviceType.getValue());
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      constants.put("supportedABIs", Build.SUPPORTED_ABIS);
+    } else {
+      constants.put("supportedABIs", new String[]{ Build.CPU_ABI });
+    }
     return constants;
   }
 }

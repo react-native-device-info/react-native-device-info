@@ -1,5 +1,7 @@
 // @flow
 
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Unknown';
+
 declare module.exports: {
   getUniqueID: () => string,
   getManufacturer: () => string,
@@ -27,6 +29,7 @@ declare module.exports: {
   isPinOrFingerprintSet: () => (
     cb: (isPinOrFingerprintSet: boolean) => void
   ) => void,
+  hasNotch: () => boolean,
   getFirstInstallTime: () => number,
   getLastUpdateTime: () => number,
   getSerialNumber: () => string,
@@ -41,4 +44,11 @@ declare module.exports: {
   getTotalDiskCapacity: () => number,
   getFreeDiskStorage: () => number,
   getBatteryLevel: () => Promise<number>,
+  isBatteryCharging:() => Promise<boolean>,
+  isLandscape: () => boolean,
+  isAirPlaneMode: () => Promise<boolean>,
+  getDeviceType: () => DeviceType,
+  isAutoDateAndTime: () => Promise<boolean>,
+  isAutoTimeZone: () => Promise<boolean>,
+  supportedABIs: () => string[],
 };
