@@ -997,6 +997,18 @@ Seems to be a bug caused by `react-native link`. You can manually delete `libRND
 </details>
 
 <details>
+  <summary>[ios] - [NetworkInfo] Descriptors query returned error: Error Domain=NSCocoaErrorDomain Code=4099
+ “The connection to service named com.apple.commcenter.coretelephony.xpc was invalidated.”</summary>
+
+This is a system level log that may be turned off by executing: 
+```xcrun simctl spawn booted log config --mode "level:off"  --subsystem com.apple.CoreTelephony```. 
+To undo the command, you can execute: 
+```xcrun simctl spawn booted log config --mode "level:info"  --subsystem com.apple.CoreTelephony```
+
+</details>
+
+
+<details>
   <summary>[tests] - Cannot run my test suite when using this library</summary>
 
 `react-native-device-info` contains native code, and needs to be mocked.
