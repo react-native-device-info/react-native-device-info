@@ -2,6 +2,10 @@ node_modules
 .vscode
 .DS_Store
 android/build/
+**/.project
+**/.classpath
+**/.gradle
+**/.settings
 
 # Xcode
 #
