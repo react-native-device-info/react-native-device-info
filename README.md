@@ -29,6 +29,7 @@ yarn add react-native-device-info
 ```
 
 > ⚠️ If you are on React Native > 0.47, you must use version 0.11.0 of this library or higher
+> ⚠️ If you want to use `DeviceInfo.getInstanceID` on Android make sure to [include Google play services base in your app](#optional-getinstanceid).
 
 ## Linking
 
@@ -89,7 +90,6 @@ Run your project (Cmd+R)
 ...
   ext {
     // dependency versions
-    googlePlayServicesVersion = "<Your play services version>" // default: "+"
     compileSdkVersion = "<Your compile SDK version>" // default: 23
     buildToolsVersion = "<Your build tools version>" // default: "25.0.2"
     targetSdkVersion = "<Your target SDK version>" // default: 22
@@ -104,6 +104,16 @@ dependencies {
     ...
     implementation "com.facebook.react:react-native:+"  // From node_modules
 +   implementation project(':react-native-device-info')
+}
+```
+
+* <a name="optional-getinstanceid"></a> **_optional_** in `android/app/build.gradle` if you want to use `DeviceInfo.getInstanceID`:
+
+```diff
+dependencies {
+    ...
+    implementation "com.facebook.react:react-native:+"  // From node_modules
++   implementation "com.google.android.gms:play-services-gcm:+"
 }
 ```
 
@@ -546,6 +556,7 @@ const instanceId = DeviceInfo.getInstanceID();
 
 **Notes**
 
+> ⚠️ To use this on Android you must have [Google play services base installed in your app](#optional-getinstanceid)
 > See https://developers.google.com/instance-id/
 
 ---
@@ -972,11 +983,6 @@ When installing or using `react-native-device-info`, you may encounter the follo
   <summary>[android] - Unable to merge dex / Multiple dex files / Problems with `com.google.android.gms`</summary>
 
 `react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
-This can lead to conflicts when building the Android application.
-
-If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the
-`googlePlayServicesVersion` gradle variable in your `build.gradle` file to tell `react-native-device-info` what version
-it should require.
 
 If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, you can simply
 ignore this dependency in your gradle file:
