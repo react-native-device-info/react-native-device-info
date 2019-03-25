@@ -29,7 +29,8 @@ yarn add react-native-device-info
 ```
 
 > ⚠️ If you are on React Native > 0.47, you must use version 0.11.0 of this library or higher
-> ⚠️ If you want to use `DeviceInfo.getInstanceID` on Android make sure to [include Google play services base in your app](#optional-getinstanceid).
+
+> ⚠️ If you want to use `DeviceInfo.getInstanceID` on Android make sure to [include Google play services base in your app](#getinstanceid).
 
 ## Linking
 
@@ -107,7 +108,7 @@ dependencies {
 }
 ```
 
-* <a name="optional-getinstanceid"></a> **_optional_** in `android/app/build.gradle` if you want to use `DeviceInfo.getInstanceID`:
+* **_optional_** in `android/app/build.gradle` if you want to use `DeviceInfo.getInstanceID`:
 
 ```diff
 dependencies {
@@ -556,7 +557,16 @@ const instanceId = DeviceInfo.getInstanceID();
 
 **Notes**
 
-> ⚠️ To use this on Android you must have [Google play services base installed in your app](#optional-getinstanceid)
+To get correct value on android you must add the following in your `android/app/build.gradle`:
+
+```diff
+dependencies {
+    ...
+    implementation "com.facebook.react:react-native:+"  // From node_modules
++   implementation "com.google.android.gms:play-services-gcm:+"
+}
+```
+
 > See https://developers.google.com/instance-id/
 
 ---
