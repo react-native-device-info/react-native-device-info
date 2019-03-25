@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 2.0.0
+
+ * Remove the `googlePlayServicesVersion` Gradle build config and allow users to include their GCM only if they need it
 
 ### 1.1.0
  * Add `supportedABIs()` (https://github.com/react-native-community/react-native-device-info/pull/598)
