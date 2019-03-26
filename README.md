@@ -232,6 +232,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getPowerState()](#getpowerstate)                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |        |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSerialNumber()](#getserialnumber)             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -993,6 +994,9 @@ Fired when the battery level changes; sent no more frequently than once per minu
 **Examples**
 
 ```js
+import { NativeEventEmitter, NativeModules } from 'react-native'
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
 deviceInfoEmitter.addListener('batteryLevelDidChange', level => {
   // 0.759999
 });
@@ -1007,6 +1011,9 @@ Fired when the battery drops below 20%.
 **Examples**
 
 ```js
+import { NativeEventEmitter, NativeModules } from 'react-native'
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
 deviceInfoEmitter.addListener('batteryLevelIsLow', level => {
   // 0.19
 });
@@ -1021,6 +1028,9 @@ Fired when the battery state changes, for example when the device enters chargin
 **Examples**
 
 ```js
+import { NativeEventEmitter, NativeModules } from 'react-native'
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
 deviceInfoEmitter.addListener('powerStateDidChange', { batteryState } => {
   // 'charging'
 });
