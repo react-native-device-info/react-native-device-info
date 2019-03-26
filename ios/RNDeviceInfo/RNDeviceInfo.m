@@ -421,8 +421,8 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {
 #if RCT_DEV && !TARGET_OS_TV && !TARGET_IPHONE_SIMULATOR
     if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
-        RCTLogWarn(@"Battery state is `unknown` which could mean battery monitoring is disabled." +
-                    "You may need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
+        RCTLogWarn(@"Battery state is `unknown` which could mean battery monitoring is disabled. "
+                   "You may need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
     }
 #endif
     return @{
