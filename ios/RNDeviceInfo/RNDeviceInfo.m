@@ -447,6 +447,12 @@ RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     return resolve(self.powerState);
 }
 
+RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL isCharging = [self.powerState[@"batteryState"] isEqualToString: @"charging"];
+    resolve(@(isCharging));
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

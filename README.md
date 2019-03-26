@@ -245,7 +245,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isAirPlaneMode()](#isairplanemode)               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
-| [isBatteryCharging()](#isbatterycharging)         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.27.0 |
+| [isBatteryCharging()](#isbatterycharging)         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 0.27.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
