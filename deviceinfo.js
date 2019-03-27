@@ -120,6 +120,10 @@ const devicesWithNotch = [
   },
   {
     brand: 'OnePlus',
+    model: 'ONEPLUS A6010',
+  },
+  {
+    brand: 'OnePlus',
     model: 'ONEPLUS A6013',
   },
   {
