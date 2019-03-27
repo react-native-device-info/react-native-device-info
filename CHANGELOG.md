@@ -1,5 +1,7 @@
 ## Release Notes
 
+### Next
+ * fix: Add OnePlus A6010 to devicesWithNothc list (https://github.com/react-native-community/react-native-device-info/pull/604)
 
 ### 1.1.0
  * Add `supportedABIs()` (https://github.com/react-native-community/react-native-device-info/pull/598)
