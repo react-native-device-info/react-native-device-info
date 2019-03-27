@@ -14,6 +14,8 @@ else
   echo "Saving files to TEMP while refreshing scaffolding..."
   mkdir -p TEMP/android
   cp example/android/local.properties TEMP/android/ || true
+  mkdir -p TEMP/ios/example
+  cp example/ios/example/AppDelegate.m TEMP/ios/example/ || true
   cp example/App.js TEMP/
 fi
 
