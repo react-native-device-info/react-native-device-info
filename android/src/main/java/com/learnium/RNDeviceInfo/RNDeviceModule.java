@@ -376,17 +376,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("isTablet", this.isTablet());
     constants.put("fontScale", this.fontScale());
     constants.put("is24Hour", this.is24Hour());
-    if (this.reactContext != null &&
-        (this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
-            this.reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED ||
-            this.reactContext.checkCallingOrSelfPermission("android.permission.READ_PHONE_NUMBERS") == PackageManager.PERMISSION_GRANTED)) {
-      TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-      constants.put("phoneNumber", telMgr.getLine1Number());
-    }
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
     constants.put("freeDiskStorage", this.getFreeDiskStorage());
     constants.put("installReferrer", this.getInstallReferrer());
+
+    if (reactContext != null &&
+         (reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
+           (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
+           (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
+      TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+      constants.put("phoneNumber", telMgr.getLine1Number());
+    } else {
+      constants.put("phoneNumber", null);
+    }
 
     Runtime rt = Runtime.getRuntime();
     constants.put("maxMemory", rt.maxMemory());

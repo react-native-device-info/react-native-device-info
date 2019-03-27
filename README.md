@@ -639,7 +639,7 @@ Gets the device phone number.
 ```js
 const phoneNumber = DeviceInfo.getPhoneNumber();
 
-// Android: ?
+// Android: null return: no permission, empty string: unprogrammed or empty SIM1, e.g. "+15555215558": normal return value
 ```
 
 **Android Permissions**
