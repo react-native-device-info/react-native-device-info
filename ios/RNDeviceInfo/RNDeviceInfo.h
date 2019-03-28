@@ -21,4 +21,7 @@
 
 @interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule>
 
+@property (nonatomic) bool isEmulator;
+@property (nonatomic) float lowBatteryThreshold;
+
 @end

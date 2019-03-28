@@ -24,16 +24,14 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 #define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Unknown", nil]
 
-@interface RNDeviceInfo()
-@property (nonatomic) bool isEmulator;
-@property (nonatomic) float lowBatteryThreshold;
-@end
-
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
 #endif
 
 @implementation RNDeviceInfo
+{
+    bool hasListeners;
+}
 
 @synthesize isEmulator;
 
@@ -68,6 +66,14 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
     }
 
     return self;
+}
+
+- (void)startObserving {
+    hasListeners = YES;
+}
+
+- (void)stopObserving {
+    hasListeners = NO;
 }
 
 - (NSString*) deviceId
@@ -404,6 +410,10 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 
 - (void)batteryLevelDidChange:(NSNotification *)notification
 {
+    if (!hasListeners) {
+        return;
+    }
+
     float batteryLevel = [self.powerState[@"batteryLevel"] floatValue];
     [self sendEventWithName:@"batteryLevelDidChange" body:@(batteryLevel)];
 
@@ -414,6 +424,10 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 
 - (void)powerStateDidChange:(NSNotification *)notification
 {
+    if (!hasListeners) {
+        return;
+    }
+
     [self sendEventWithName:@"powerStateDidChange" body:self.powerState];
 }
 
@@ -422,7 +436,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 #if RCT_DEV
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
         RCTLogWarn(@"Battery monitoring is not enabled. "
-                   "You Need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
+                   "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
     }
 #endif
 #if RCT_DEV && (TARGET_OS_TV || TARGET_IPHONE_SIMULATOR)
@@ -455,7 +469,7 @@ RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 
 RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    BOOL isCharging = [self.powerState[@"batteryState"] isEqualToString: @"charging"];
+    BOOL isCharging = [self.powerState[@"batteryState"] isEqualToString:@"charging"];
     resolve(@(isCharging));
 }
 
