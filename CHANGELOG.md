@@ -2,6 +2,7 @@
 
 ### Next
  * feat: Support 'dom' Platform.OS for react-native-dom (https://github.com/react-native-community/react-native-device-info/pull/406)
+ * feat: Add support for jest snapshot testing (https://github.com/react-native-community/react-native-device-info/pull/375)
  * fix: Use API-specific permissions to get phone number (https://github.com/react-native-community/react-native-device-info/pull/269)
  * fix: Add OnePlus A6010 to devicesWithNothc list (https://github.com/react-native-community/react-native-device-info/pull/604)
  * fix: use reactContext vs getApplicationContext() (https://github.com/react-native-community/react-native-device-info/pull/382)
