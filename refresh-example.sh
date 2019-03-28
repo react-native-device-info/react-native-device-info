@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+set -e
 
 echo "You should run this from directory where you have cloned the react-native-device-info repo"
 echo "You should only do this when your git working set is completely clean (e.g., git reset --hard)"
@@ -14,8 +14,6 @@ else
   echo "Saving files to TEMP while refreshing scaffolding..."
   mkdir -p TEMP/android
   cp example/android/local.properties TEMP/android/ || true
-  mkdir -p TEMP/ios/example
-  cp example/ios/example/AppDelegate.m TEMP/ios/example/ || true
   cp example/App.js TEMP/
 fi
 
@@ -37,7 +35,7 @@ sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.p
 rm -f android/app/src/main/AndroidManifest.xml??
 
 # Patch the AppDelegate for iOS battery level
-sed -i -e 's/return YES;/\[UIDevice currentDevice\].batteryMonitoringEnabled = true; return YES;/' ios/example/AppDelegate.m
+sed -i -e $'s/return YES;/\[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n  return YES;/' ios/example/AppDelegate.m
 rm -f ios/example/AppDelegate.m??
 
 # Copy the important files back in
