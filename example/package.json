@@ -4,19 +4,23 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "react": "16.6.3",
-    "react-native": "0.58.6",
-    "react-native-device-info": "^0.28.0"
+    "react": "16.8.3",
+    "react-native": "0.59.2",
+    "react-native-device-info": "github:react-native-community/react-native-device-info"
   },
   "devDependencies": {
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "24.3.1",
-    "jest": "24.3.1",
-    "metro-react-native-babel-preset": "0.53.0",
-    "react-test-renderer": "16.6.3"
+    "@babel/core": "7.4.0",
+    "@babel/runtime": "7.4.2",
+    "@react-native-community/eslint-config": "0.0.3",
+    "babel-jest": "24.5.0",
+    "eslint": "5.15.3",
+    "jest": "24.5.0",
+    "metro-react-native-babel-preset": "0.53.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
