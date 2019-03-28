@@ -1,36 +1,49 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.2'
+    }
+}
+
 apply plugin: 'com.android.library'
 
-def DEFAULT_COMPILE_SDK_VERSION             = 28
-def DEFAULT_BUILD_TOOLS_VERSION             = "28.0.0"
-def DEFAULT_TARGET_SDK_VERSION              = 28
-def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "+"
-def DEFAULT_SUPPORT_LIB_VERSION             = "28.0.0"
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
 
 android {
-    compileSdkVersion project.hasProperty('compileSdkVersion') ? project.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
-    buildToolsVersion project.hasProperty('buildToolsVersion') ? project.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
+    compileSdkVersion safeExtGet('compileSdkVersion', 28)
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? project.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+
         versionCode 2
         versionName "1.1"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
     }
     lintOptions {
        warning 'InvalidPackage', 'MissingPermission'
     }
 }
 
-dependencies {
-    def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion : DEFAULT_GOOGLE_PLAY_SERVICES_VERSION
-    def supportLibVersion = project.hasProperty('supportLibVersion') ? project.supportLibVersion : DEFAULT_SUPPORT_LIB_VERSION
+repositories {
+    google()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$rootDir/../node_modules/react-native/android"
+    }
+    jcenter()
+}
 
-    implementation 'com.facebook.react:react-native:+'
-    implementation "com.google.android.gms:play-services-gcm:$googlePlayServicesVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation "com.android.support:support-media-compat:$supportLibVersion"
+dependencies {
+    implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
+    implementation "com.google.android.gms:play-services-gcm:${safeExtGet('googlePlayServicesVersion', '+')}"
+    //noinspection GradleCompatible
+    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"
+    implementation "com.android.support:support-v4:${safeExtGet('supportLibVersion', '28.0.0')}"
+    implementation "com.android.support:support-media-compat:${safeExtGet('supportLibVersion', '28.0.0')}"
 }
