@@ -1,11 +1,16 @@
 node_modules
 .vscode
 .DS_Store
+
+# IntelliJ / AndroidStudio
 android/build/
 **/.project
 **/.classpath
 **/.gradle
 **/.settings
+**/*.iml
+android/local.properties
+android/.idea
 
 # Xcode
 #
