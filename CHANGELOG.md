@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 1.3.0
+ * feat: Add support for preferred languages function (https://github.com/react-native-community/react-native-device-info/pull/610)
+
 ### 1.2.0
  * feat: Support 'dom' Platform.OS for react-native-dom (https://github.com/react-native-community/react-native-device-info/pull/406)
  * feat: Add support for jest snapshot testing (https://github.com/react-native-community/react-native-device-info/pull/375)

@@ -19,6 +19,7 @@ declare const _default: {
   getDeviceName: () => string;
   getUserAgent: () => string;
   getDeviceLocale: () => string;
+  getPreferredLocales: () => Array<string>;
   getDeviceCountry: () => string;
   getTimezone: () => string;
   getInstanceID: () => string;

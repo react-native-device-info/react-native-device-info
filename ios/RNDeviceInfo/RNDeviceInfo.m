@@ -197,11 +197,16 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 - (NSString*) deviceLocale
 {
-    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *language = [[NSLocale preferredLanguages] firstObject];
     return language;
 }
 
-- (NSString*) deviceCountry
+- (NSString*) preferredLocales
+{
+    return [NSLocale preferredLanguages];
+}
+
+- (NSString*) deviceCountry 
 {
   NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
   return country;
@@ -307,6 +312,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"deviceId": self.deviceId ?: [NSNull null],
              @"deviceName": currentDevice.name,
              @"deviceLocale": self.deviceLocale ?: [NSNull null],
+             @"preferredLocales": self.preferredLocales ?: [NSNull null],
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
              @"appName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: [NSNull null],
