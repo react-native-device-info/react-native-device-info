@@ -656,6 +656,7 @@ const phoneNumber = DeviceInfo.getPhoneNumber();
 ### getPowerState()
 
 Gets the power state of the device including the battery level, whether it is plugged in, and if the system is currently operating in low power mode.
+Displays a warning on iOS if battery monitoring not enabled, or if attempted on an emulator (where montioring is not possible)
 
 **Examples**
 
