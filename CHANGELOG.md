@@ -4,6 +4,7 @@
  * fix: Use API-specific permissions to get phone number (https://github.com/react-native-community/react-native-device-info/pull/269)
  * fix: Add OnePlus A6010 to devicesWithNothc list (https://github.com/react-native-community/react-native-device-info/pull/604)
  * fix: use reactContext vs getApplicationContext() (https://github.com/react-native-community/react-native-device-info/pull/382)
+ * fix: dynamic reference path on windows depending on environment (https://github.com/react-native-community/react-native-device-info/pull/608)
 
 ### 1.1.0
  * Add `supportedABIs()` (https://github.com/react-native-community/react-native-device-info/pull/598)
