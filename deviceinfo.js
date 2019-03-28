@@ -6,7 +6,7 @@ import { Platform, NativeModules, Dimensions } from 'react-native';
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
 if (!RNDeviceInfo) {
-  RNDeviceInfo = Platform.OS === 'web' ? require('./web') : require('./default');
+  RNDeviceInfo = (Platform.OS === 'web' || Platform.OS === 'dom') ? require('./web') : require('./default');
 }
 
 const devicesWithNotch = [
