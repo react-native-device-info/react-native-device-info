@@ -23,7 +23,7 @@ fi
 # Make the new example
 npx react-native init example
 pushd example
-npm install react-native-device-info
+npm install github:react-native-community/react-native-device-info
 npx react-native link react-native-device-info
 
 # Patch the build.gradle directly to slice in our android play version
@@ -35,7 +35,7 @@ sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.p
 rm -f android/app/src/main/AndroidManifest.xml??
 
 # Patch the AppDelegate for iOS battery level
-sed -i -e 's/return YES;/return YES; \[UIDevice currentDevice\].batteryMonitoringEnabled = true;/' ios/example/AppDelegate.m
+sed -i -e 's/return YES;/\[UIDevice currentDevice\].batteryMonitoringEnabled = true; return YES;/' ios/example/AppDelegate.m
 rm -f ios/example/AppDelegate.m??
 
 # Copy the important files back in
