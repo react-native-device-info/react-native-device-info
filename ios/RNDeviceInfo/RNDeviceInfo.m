@@ -433,7 +433,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 
 - (NSDictionary *)powerState
 {
-#if RCT_DEV
+#if RCT_DEV && (!TARGET_IPHONE_SIMULATOR)
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
         RCTLogWarn(@"Battery monitoring is not enabled. "
                    "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
@@ -441,7 +441,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 #endif
 #if RCT_DEV && (TARGET_OS_TV || TARGET_IPHONE_SIMULATOR)
     if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
-        RCTLogWarn(@"Battery state is `unknown` which is normal for simulators and tvOS.");
+        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
     }
 #endif
 
