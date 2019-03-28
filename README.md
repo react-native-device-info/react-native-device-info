@@ -976,12 +976,12 @@ This can lead to conflicts when building the Android application.
 
 If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the
 `googlePlayServicesVersion` gradle variable in your `build.gradle` file to tell `react-native-device-info` what version
-it should require.
+it should require. See the example project included here for a sample.
 
-If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, you can simply
+If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, and you are certain you know what you are doing such that you will avoid version conflicts, you can simply
 ignore this dependency in your gradle file:
 
-```
+```groovy
  compile(project(':react-native-device-info')) {
     exclude group: 'com.google.android.gms'
 }
@@ -1007,11 +1007,50 @@ To undo the command, you can execute:
 
 </details>
 
+<details>
+  <summary>[ios] - Multiple versions of React when using CocoaPods
+  "tries to require 'react-native' but there are several files providing this module"</summary>
+
+#### You may need to adjust your Podfile like this if you use Cocoapods and have undefined symbols or duplicate React definitions
+
+```ruby
+target 'yourTargetName' do
+  # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'CxxBridge', # Include this for RN >= 0.47
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTNetwork',
+    'RCTWebSocket', # Needed for debugging
+    'RCTAnimation', # Needed for FlatList and animations running on native UI thread
+    # Add any other subspecs you want to use in your project
+  ]
+
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
+  # Third party deps podspec link - you may have multiple pods here, just an example
+  pod 'react-native-device-info', path: '../node_modules/react-native-device-info'
+
+end
+
+# if you see errors about React duplicate definitions, this fixes it. The same works for yoga.
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == "React"
+      target.remove_from_project
+    end
+  end
+end
+```
+
+</details>
 
 <details>
   <summary>[tests] - Cannot run my test suite when using this library</summary>
 
-`react-native-device-info` contains native code, and needs to be mocked.
+`react-native-device-info` contains native code, and needs to be mocked. Jest Snapshot support may work though.
 
 Here's how to do it with jest for example:
 
