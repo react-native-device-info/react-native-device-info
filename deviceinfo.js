@@ -257,6 +257,9 @@ export default {
   getDeviceLocale: function() {
     return RNDeviceInfo.deviceLocale;
   },
+  getPreferredLocales: function() {
+    return RNDeviceInfo.preferredLocales;
+  },
   getDeviceCountry: function() {
     return RNDeviceInfo.deviceCountry;
   },

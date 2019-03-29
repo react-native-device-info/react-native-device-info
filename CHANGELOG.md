@@ -2,6 +2,7 @@
 
 ### 1.3.0
  * feat: add battery monitoring and detailed power state getter (https://github.com/react-native-community/react-native-device-info/pull/436)
+ * feat: Add support for preferred languages function (https://github.com/react-native-community/react-native-device-info/pull/610)
 
 ### 1.2.0
  * feat: Support 'dom' Platform.OS for react-native-dom (https://github.com/react-native-community/react-native-device-info/pull/406)
