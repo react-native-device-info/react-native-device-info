@@ -24,25 +24,57 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 #define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Unknown", nil]
 
-@interface RNDeviceInfo()
-@property (nonatomic) bool isEmulator;
-@end
-
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
 #endif
 
 @implementation RNDeviceInfo
+{
+    bool hasListeners;
+}
 
 @synthesize isEmulator;
 
-RCT_EXPORT_MODULE(RNDeviceInfo)
+RCT_EXPORT_MODULE(RNDeviceInfo);
 
 + (BOOL)requiresMainQueueSetup
 {
    return YES;
 }
 
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"batteryLevelDidChange", @"batteryLevelIsLow", @"powerStateDidChange"];
+}
+
+- (id)init
+{
+    if ((self = [super init])) {
+#if !TARGET_OS_TV
+        _lowBatteryThreshold = 20;
+        [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(batteryLevelDidChange:)
+                                                     name:UIDeviceBatteryLevelDidChangeNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(powerStateDidChange:)
+                                                     name:UIDeviceBatteryStateDidChangeNotification
+                                                   object: nil];
+#endif
+    }
+
+    return self;
+}
+
+- (void)startObserving {
+    hasListeners = YES;
+}
+
+- (void)stopObserving {
+    hasListeners = NO;
+}
 
 - (NSString*) deviceId
 {
@@ -382,14 +414,74 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
+- (void)batteryLevelDidChange:(NSNotification *)notification
+{
+    if (!hasListeners) {
+        return;
+    }
+
+    float batteryLevel = [self.powerState[@"batteryLevel"] floatValue];
+    [self sendEventWithName:@"batteryLevelDidChange" body:@(batteryLevel)];
+
+    if (batteryLevel <= _lowBatteryThreshold) {
+        [self sendEventWithName:@"batteryLevelIsLow" body:@(batteryLevel)];
+    }
+}
+
+- (void)powerStateDidChange:(NSNotification *)notification
+{
+    if (!hasListeners) {
+        return;
+    }
+
+    [self sendEventWithName:@"powerStateDidChange" body:self.powerState];
+}
+
+- (NSDictionary *)powerState
+{
+#if RCT_DEV && (!TARGET_IPHONE_SIMULATOR)
+    if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
+        RCTLogWarn(@"Battery monitoring is not enabled. "
+                   "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
+    }
+#endif
+#if RCT_DEV && (TARGET_OS_TV || TARGET_IPHONE_SIMULATOR)
+    if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
+        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
+    }
+#endif
+
+    return @{
+#if TARGET_OS_TV
+             @"batteryLevel": @1,
+             @"batteryState": @"full",
+#else
+             @"batteryLevel": @([UIDevice currentDevice].batteryLevel),
+             @"batteryState": [@[@"unknown", @"unplugged", @"charging", @"full"] objectAtIndex: [UIDevice currentDevice].batteryState],
+             @"lowPowerMode": @([NSProcessInfo processInfo].isLowPowerModeEnabled),
+#endif
+             };
+}
+
 RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  #if TARGET_OS_TV
-    float batteryLevel = 1.0;
-  #else
-    float batteryLevel = [UIDevice currentDevice].batteryLevel;
-  #endif
-    resolve(@(batteryLevel));
+    resolve(@([self.powerState[@"batteryLevel"] floatValue]));
+}
+
+RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    return resolve(self.powerState);
+}
+
+RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL isCharging = [self.powerState[@"batteryState"] isEqualToString:@"charging"];
+    resolve(@(isCharging));
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

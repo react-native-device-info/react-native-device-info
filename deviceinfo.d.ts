@@ -43,6 +43,7 @@ declare const _default: {
   getTotalDiskCapacity: () => number;
   getFreeDiskStorage: () => number;
   getBatteryLevel: () => Promise<number>;
+  getPowerState: () => Promise<object>;
   isBatteryCharging: () => Promise<boolean>;
   isLandscape: () => boolean;
   isAirPlaneMode: () => Promise<boolean>;

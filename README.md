@@ -233,6 +233,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getMaxMemory()](#getmaxmemory)                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
 | [getModel()](#getmodel)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getPowerState()](#getpowerstate)                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |        |
 | [getReadableVersion()](#getreadableversion)       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSerialNumber()](#getserialnumber)             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
@@ -245,7 +246,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getVersion()](#getversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [is24Hour()](#is24hour)                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isAirPlaneMode()](#isairplanemode)               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
-| [isBatteryCharging()](#isbatterycharging)         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.27.0 |
+| [isBatteryCharging()](#isbatterycharging)         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 0.27.0 |
 | [isEmulator()](#isemulator)                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset) | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
 | [isTablet()](#istablet)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
@@ -669,6 +670,25 @@ const phoneNumber = DeviceInfo.getPhoneNumber();
 
 ---
 
+### getPowerState()
+
+Gets the power state of the device including the battery level, whether it is plugged in, and if the system is currently operating in low power mode.
+Displays a warning on iOS if battery monitoring not enabled, or if attempted on an emulator (where monitoring is not possible)
+
+**Examples**
+
+```js
+DeviceInfo.getPowerState().then(state => {
+  // {
+  //   batteryLevel: 0.759999,
+  //   batteryState: 'unplugged',
+  //   lowPowerMode: false,
+  // }
+});
+```
+
+---
+
 ### getReadableVersion()
 
 Gets the application human readable version.
@@ -981,6 +1001,59 @@ Returns a list of supported processor architecture version
 DeviceInfo.supportedABIs(); // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi" ]
 ```
 
+## Events
+
+Currently iOS-only.
+
+### batteryLevelDidChange
+
+Fired when the battery level changes; sent no more frequently than once per minute.
+
+**Examples**
+
+```js
+import { NativeEventEmitter, NativeModules } from 'react-native'
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
+deviceInfoEmitter.addListener('batteryLevelDidChange', level => {
+  // 0.759999
+});
+```
+
+---
+
+### batteryLevelIsLow
+
+Fired when the battery drops below 20%.
+
+**Examples**
+
+```js
+import { NativeEventEmitter, NativeModules } from 'react-native'
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
+deviceInfoEmitter.addListener('batteryLevelIsLow', level => {
+  // 0.19
+});
+```
+
+---
+
+### powerStateDidChange
+
+Fired when the battery state changes, for example when the device enters charging mode or is unplugged.
+
+**Examples**
+
+```js
+import { NativeEventEmitter, NativeModules } from 'react-native'
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+
+deviceInfoEmitter.addListener('powerStateDidChange', { batteryState } => {
+  // 'charging'
+});
+```
+
 ## Troubleshooting
 
 When installing or using `react-native-device-info`, you may encounter the following problems:
@@ -1017,9 +1090,9 @@ Seems to be a bug caused by `react-native link`. You can manually delete `libRND
   <summary>[ios] - [NetworkInfo] Descriptors query returned error: Error Domain=NSCocoaErrorDomain Code=4099
  “The connection to service named com.apple.commcenter.coretelephony.xpc was invalidated.”</summary>
 
-This is a system level log that may be turned off by executing: 
-```xcrun simctl spawn booted log config --mode "level:off"  --subsystem com.apple.CoreTelephony```. 
-To undo the command, you can execute: 
+This is a system level log that may be turned off by executing:
+```xcrun simctl spawn booted log config --mode "level:off"  --subsystem com.apple.CoreTelephony```.
+To undo the command, you can execute:
 ```xcrun simctl spawn booted log config --mode "level:info"  --subsystem com.apple.CoreTelephony```
 
 </details>

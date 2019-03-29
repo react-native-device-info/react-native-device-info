@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 1.4.0
+ * feat: add battery monitoring and detailed power state getter (https://github.com/react-native-community/react-native-device-info/pull/436)
+
 ### 1.3.0
  * feat: Add support for preferred languages function (https://github.com/react-native-community/react-native-device-info/pull/610)
 

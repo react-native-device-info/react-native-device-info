@@ -27,7 +27,8 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [UIDevice currentDevice].batteryMonitoringEnabled = true; return YES;
+  [UIDevice currentDevice].batteryMonitoringEnabled = true;
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

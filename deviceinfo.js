@@ -314,6 +314,9 @@ export default {
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },
+  getPowerState: function() {
+    return RNDeviceInfo.getPowerState();
+  },
   isBatteryCharging: function() {
     return RNDeviceInfo.isBatteryCharging();
   },

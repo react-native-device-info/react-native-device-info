@@ -42,4 +42,5 @@ module.exports = {
   getBatteryLevel: () => Promise.resolve(0),
   isLandscape: false,
   deviceType: 'Unknown',
+  getPowerState: () => Promise.resolve({})
 };

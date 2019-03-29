@@ -76,6 +76,7 @@ export default class App extends Component<Props> {
       deviceJSON.deviceType = DeviceInfo.getDeviceType();
       deviceJSON.isPinOrFingerprintSet = 'unknown';
       deviceJSON.supportedABIs = DeviceInfo.supportedABIs();
+      deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }
