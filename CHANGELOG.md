@@ -1,5 +1,8 @@
 ## Release Notes
 
+### 1.4.1
+ * fix: repair flow types from #436 - 'Object' vs 'object'
+
 ### 1.4.0
  * feat: add battery monitoring and detailed power state getter (https://github.com/react-native-community/react-native-device-info/pull/436)
 
