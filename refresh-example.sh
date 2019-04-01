@@ -13,8 +13,10 @@ if [ -d TEMP ]; then
 else
   echo "Saving files to TEMP while refreshing scaffolding..."
   mkdir -p TEMP/android
+  mkdir -p TEMP/ios
   cp example/android/local.properties TEMP/android/ || true
-  cp example/App.js TEMP/
+  cp example/App.js TEMP/ || true
+  cp example/ios/Podfile TEMP/ios/ || true
 fi
 
 # Purge the old sample
