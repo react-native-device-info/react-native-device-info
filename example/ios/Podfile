@@ -1,0 +1,70 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+
+target 'example' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'CxxBridge', # Include this for RN >= 0.47
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTNetwork',
+    'RCTWebSocket', # Needed for debugging
+    'RCTAnimation', # Needed for FlatList and animations running on native UI thread
+    # Add any other subspecs you want to use in your project
+  ]
+
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
+  # Third party deps podspec link
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  # Pods for exampleApp
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info/RNDeviceInfo.podspec'
+
+  target 'exampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'example-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for example-tvOS
+  
+  target 'example-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+
+# React-Native is not great about React double-including from the Podfile
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == "React"
+      target.remove_from_project
+    end
+
+    # The following is needed to ensure the "archive" step works in XCode.
+    # It removes React & Yoga from the Pods project, as it is already included in the main project.
+    # Without this, you'd see errors when you archive like:
+    # "Multiple commands produce ... libReact.a"
+    # "Multiple commands produce ... libyoga.a"
+    # FIXME real fix is like so: https://stackoverflow.com/a/55328241/9910298 (remove duplicate refs)
+    targets_to_ignore = %w(React yoga)
+    if targets_to_ignore.include? target.name
+      target.remove_from_project
+    end
+  end
+end
