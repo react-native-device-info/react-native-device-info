@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.2",
+    "react-native": "0.59.3",
     "react-native-device-info": "github:react-native-community/react-native-device-info"
   },
   "devDependencies": {
@@ -17,7 +17,7 @@
     "@babel/runtime": "7.4.2",
     "@react-native-community/eslint-config": "0.0.3",
     "babel-jest": "24.5.0",
-    "eslint": "5.15.3",
+    "eslint": "5.16.0",
     "jest": "24.5.0",
     "metro-react-native-babel-preset": "0.53.1",
     "react-test-renderer": "16.8.3"
