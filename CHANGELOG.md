@@ -1,9 +1,11 @@
 ## Release Notes
 
-### Next:
- * Added the 3rd generation iPad pro to the deviceNamesByCode list (https://github.com/react-native-community/react-native-device-info/pull/618)
-	
-**iOS warning:**  The list with device names (returned by `getModel()`) is maintained by the community and could lag new devices. It is recommended to use `getDeviceId()	` since it's more reliable and always up-to-date with new iOS devices. We do accept pull requests that add new iOS devices to the list with device names.
+### 1.4.2:
+ * chore: Add 3rd generation iPad pro to device/model list (https://github.com/react-native-community/react-native-device-info/pull/618)
+ * feat: Support `getUserAgent()` on old androids (API level <= 16) (https://github.com/react-native-community/react-native-device-info/pull/545)
+ * chore: Add Huweai INE-LX1 to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/624)
+ 
+**iOS notice:**  This is existing policy but is worth mentioning: The list with device names (returned by `getModel()`) is maintained by the community and could lag new devices. It is recommended to use `getDeviceId()	` since it's more reliable and always up-to-date with new iOS devices. We do accept pull requests that add new iOS devices to the list with device names.
 
 ### 1.4.1
  * fix: repair flow types from #436 - 'Object' vs 'object'
