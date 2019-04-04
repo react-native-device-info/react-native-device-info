@@ -9,6 +9,7 @@
     "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
+    "flow-check": "npx flow check-contents < deviceinfo.js.flow",
     "shipit": "np"
   },
   "keywords": [
@@ -41,6 +42,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "flow-bin": "^0.96.0",
     "np": "^2.16.0",
     "prettier": "^1.10.2"
   }
