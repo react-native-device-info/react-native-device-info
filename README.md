@@ -478,6 +478,8 @@ Gets the device font scale.
 The font scale is the ratio of the current system font to the "normal" font size, so if normal text is 10pt and the system font is currently 15pt, the font scale would be 1.5
 This can be used to determine if accessability settings has been changed for the device; you may want to re-layout certain views if the font scale is significantly larger ( > 2.0 )
 
+In iOS App Extensions this call always returns 1.0, see #625.
+
 **Examples**
 
 ```js
