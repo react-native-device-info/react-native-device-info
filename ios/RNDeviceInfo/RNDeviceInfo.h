@@ -8,16 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
-
-#if __has_include(<React/RCTAssert.h>)
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 #import <React/RCTLog.h>
-#else
-#import "RCTBridgeModule.h"
-#import "RCTEventEmitter.h"
-#import "RCTLog.h"
-#endif
 
 @interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule>
 

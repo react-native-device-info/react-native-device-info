@@ -9,14 +9,9 @@
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #import <mach-o/arch.h>
+#import <React/RCTUtils.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
-
-#if __has_include(<React/RCTAssert.h>)
-#import <React/RCTUtils.h>
-#else
-#import "RCTUtils.h"
-#endif
 
 #if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
