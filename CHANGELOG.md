@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### 1.4.2:
+ * fix: Use `RCTSharedApplication` so compile works for ios app extensions (https://github.com/react-native-community/react-native-device-info/pull/408)
  * chore: Add 3rd generation iPad pro to device/model list (https://github.com/react-native-community/react-native-device-info/pull/618)
  * feat: Support `getUserAgent()` on old androids (API level <= 16) (https://github.com/react-native-community/react-native-device-info/pull/545)
  * chore: Add Huweai INE-LX1 to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/624)
@@ -119,10 +120,6 @@
 ### 0.22.0
 
 * Add support for `getIpAddress` and `getMacAddress` on iOS (https://github.com/react-native-community/react-native-device-info/commit/41735bd0b2efe1f626afc066604f27073acb9d4c)
-
-* Use `RCTSharedApplication` which hides [UIApplication sharedApplication] so
-  iOS app extensions can include the library through CocoaPods without
-  compilation errors.
 
 ### 0.21.5
 
