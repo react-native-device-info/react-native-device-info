@@ -11,7 +11,7 @@
   "scripts": {
     "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
     "flow-check": "npx flow check-contents < deviceinfo.js.flow",
-    "shipit": "np"
+    "shipit": "np --no-yarn"
   },
   "keywords": [
     "react-component",
