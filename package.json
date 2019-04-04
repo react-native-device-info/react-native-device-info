@@ -44,7 +44,7 @@
   "license": "MIT",
   "devDependencies": {
     "flow-bin": "^0.96.0",
-    "np": "^2.16.0",
+    "np": "^4.0.2",
     "prettier": "^1.10.2",
     "typescript": "^3.4.1"
   }
