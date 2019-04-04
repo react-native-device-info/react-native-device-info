@@ -5,8 +5,8 @@ import { Platform, NativeModules, Dimensions } from 'react-native';
 
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
-if (!RNDeviceInfo && Platform.OS === 'web') {
-  RNDeviceInfo = require('./web');
+if (!RNDeviceInfo) {
+  RNDeviceInfo = (Platform.OS === 'web' || Platform.OS === 'dom') ? require('./web') : require('./default');
 }
 
 const devicesWithNotch = [
@@ -29,10 +29,14 @@ const devicesWithNotch = [
   {
     brand: 'Asus',
     model: 'ZenFone 5',
-  }, 
+  },
   {
     brand: 'Asus',
     model: 'ZenFone 5z',
+  },
+  {
+    brand: 'google',
+    model: 'Pixel 3 XL',
   },
   {
     brand: 'Huawei',
@@ -48,6 +52,14 @@ const devicesWithNotch = [
   },
   {
     brand: 'Huawei',
+    model: 'ANE-LX1',
+  },
+  {
+    brand: 'Huawei',
+    model: 'INE-LX1',
+  },
+  {
+    brand: 'Huawei',
     model: 'Honor 10',
   },
   {
@@ -59,40 +71,8 @@ const devicesWithNotch = [
     model: 'Nova 3i',
   },
   {
-    brand: 'Oppo',
-    model: 'R15',
-  },
-  {
-    brand: 'Oppo',
-    model: 'R15 Pro',
-  },
-  {
-    brand: 'Oppo',
-    model: 'F7',
-  },
-  {
-    brand: 'Vivo',
-    model: 'V9',
-  },
-  {
-    brand: 'Vivo',
-    model: 'X21',
-  },
-  {
-    brand: 'Vivo',
-    model: 'X21 UD',
-  },
-  {
-    brand: 'OnePlus',
-    model: '6',
-  },
-  {
-    brand: 'OnePlus',
-    model: 'A6003',
-  },
-  {
-    brand: 'OnePlus',
-    model: 'OnePlus A6003',
+    brand: 'Leagoo',
+    model: 'S9',
   },
   {
     brand: 'LG',
@@ -107,8 +87,64 @@ const devicesWithNotch = [
     model: 'G7+ ThinQ',
   },
   {
-    brand: 'Leagoo',
-    model: 'S9',
+    brand: 'LG',
+    model: 'LM-Q910', //G7 One
+  },
+  {
+    brand: 'LG',
+    model: 'LM-G710', //G7 ThinQ
+  },
+  {
+    brand: 'LG',
+    model: 'LM-V405', //V40 ThinQ
+  },
+  {
+    brand: 'Nokia',
+    model: '6.1 Plus',
+  },
+  {
+    brand: 'Nokia',
+    model: '7.1',
+  },
+  {
+    brand: 'OnePlus',
+    model: '6',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'A6003',
+  },
+  {
+    brand: 'ONEPLUS',
+    model: 'A6000',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'OnePlus A6003',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6010',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6013',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6000',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15 Pro',
+  },
+  {
+    brand: 'Oppo',
+    model: 'F7',
   },
   {
     brand: 'Oukitel',
@@ -119,8 +155,48 @@ const devicesWithNotch = [
     model: 'Aquos S3',
   },
   {
-    brand: 'Nokia',
-    model: '6.1 Plus',
+    brand: 'Vivo',
+    model: 'V9',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 Explorer Edition',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 SE',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI8Lite',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'POCO F1',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'POCOPHONE F1',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Redmi 6 Pro',
   },
 ];
 
@@ -185,6 +261,9 @@ export default {
   getDeviceLocale: function() {
     return RNDeviceInfo.deviceLocale;
   },
+  getPreferredLocales: function() {
+    return RNDeviceInfo.preferredLocales;
+  },
   getDeviceCountry: function() {
     return RNDeviceInfo.deviceCountry;
   },
@@ -207,7 +286,7 @@ export default {
     return RNDeviceInfo.isPinOrFingerprintSet;
   },
   hasNotch: function() {
-    return devicesWithNotch.findIndex(item => item.brand === RNDeviceInfo.brand && item.model === RNDeviceInfo.model) !== -1;
+    return devicesWithNotch.findIndex(item => item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() && item.model.toLowerCase() === RNDeviceInfo.model.toLowerCase()) !== -1;
   },
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
@@ -239,11 +318,29 @@ export default {
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },
+  getPowerState: function() {
+    return RNDeviceInfo.getPowerState();
+  },
+  isBatteryCharging: function() {
+    return RNDeviceInfo.isBatteryCharging();
+  },
   isLandscape: function() {
     const { height, width } = Dimensions.get('window');
     return width >= height;
   },
   isAirPlaneMode: function() {
     return RNDeviceInfo.isAirPlaneMode();
+  },
+  getDeviceType: function() {
+    return RNDeviceInfo.deviceType;
+  },
+  isAutoDateAndTime: function () {
+    return RNDeviceInfo.isAutoDateAndTime();
+  },
+  isAutoTimeZone: function () {
+    return RNDeviceInfo.isAutoTimeZone();
+  },
+  supportedABIs: function() {
+    return RNDeviceInfo.supportedABIs;
   }
 };

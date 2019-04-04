@@ -8,31 +8,73 @@
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#import <mach-o/arch.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
 
-@interface RNDeviceInfo()
-@property (nonatomic) bool isEmulator;
-@end
+typedef NS_ENUM(NSInteger, DeviceType) {
+    DeviceTypeHandset,
+    DeviceTypeTablet,
+    DeviceTypeTv,
+    DeviceTypeUnknown
+};
+
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Unknown", nil]
 
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
 #endif
 
 @implementation RNDeviceInfo
+{
+    bool hasListeners;
+}
 
 @synthesize isEmulator;
 
-RCT_EXPORT_MODULE(RNDeviceInfo)
+RCT_EXPORT_MODULE(RNDeviceInfo);
 
 + (BOOL)requiresMainQueueSetup
 {
    return YES;
 }
 
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"batteryLevelDidChange", @"batteryLevelIsLow", @"powerStateDidChange"];
+}
+
+- (id)init
+{
+    if ((self = [super init])) {
+#if !TARGET_OS_TV
+        _lowBatteryThreshold = 20;
+        [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(batteryLevelDidChange:)
+                                                     name:UIDeviceBatteryLevelDidChangeNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(powerStateDidChange:)
+                                                     name:UIDeviceBatteryStateDidChangeNotification
+                                                   object: nil];
+#endif
+    }
+
+    return self;
+}
+
+- (void)startObserving {
+    hasListeners = YES;
+}
+
+- (void)stopObserving {
+    hasListeners = NO;
+}
 
 - (NSString*) deviceId
 {
@@ -134,6 +176,14 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
                               @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
                               @"iPad7,5"   :@"iPad (6th generation)",// iPad (6th generation) - Wifi
                               @"iPad7,6"   :@"iPad (6th generation)",// iPad (6th generation) - Cellular
+                              @"iPad8,1"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - Wifi
+                              @"iPad8,2"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - 1TB - Wifi
+                              @"iPad8,3"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - Wifi + cellular
+                              @"iPad8,4"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - 1TB - Wifi + cellular
+                              @"iPad8,5"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - Wifi
+                              @"iPad8,6"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - 1TB - Wifi
+                              @"iPad8,7"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - Wifi + cellular
+                              @"iPad8,8"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - 1TB - Wifi + cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
@@ -187,11 +237,16 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 
 - (NSString*) deviceLocale
 {
-    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *language = [[NSLocale preferredLanguages] firstObject];
     return language;
 }
 
-- (NSString*) deviceCountry
+- (NSString*) preferredLocales
+{
+    return [NSLocale preferredLanguages];
+}
+
+- (NSString*) deviceCountry 
 {
   NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
   return country;
@@ -203,9 +258,19 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
   return currentTimeZone.name;
 }
 
+- (DeviceType) getDeviceType
+{
+    switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
+        case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
+        case UIUserInterfaceIdiomPad: return DeviceTypeTablet;
+        case UIUserInterfaceIdiomTV: return DeviceTypeTv;
+        default: return DeviceTypeUnknown;
+    }
+}
+
 - (bool) isTablet
 {
-  return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+  return [self getDeviceType] == DeviceTypeTablet;
 }
 
 // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
@@ -241,7 +306,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 }
 
 - (NSDictionary *) getStorageDictionary {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
 }
 
@@ -259,7 +324,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 - (uint64_t) freeDiskStorage {
     uint64_t freeSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-    
+
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
         freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
@@ -267,11 +332,17 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
     return freeSpace;
 }
 
+- (NSString *)getCPUType {
+    /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
+    NXArchInfo *info = NXGetLocalArchInfo();
+    NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
+    return typeOfCpu;
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
     NSString *uniqueId = [DeviceUID uid];
-
     return @{
              @"systemName": currentDevice.systemName,
              @"systemVersion": currentDevice.systemVersion,
@@ -281,6 +352,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"deviceId": self.deviceId ?: [NSNull null],
              @"deviceName": currentDevice.name,
              @"deviceLocale": self.deviceLocale ?: [NSNull null],
+             @"preferredLocales": self.preferredLocales ?: [NSNull null],
              @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
              @"appName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: [NSNull null],
@@ -298,6 +370,8 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),
              @"freeDiskStorage": @(self.freeDiskStorage),
+             @"deviceType": [DeviceTypeValues objectAtIndex: [self getDeviceType]],
+             @"supportedABIs": @[[self getCPUType]],
              };
 }
 
@@ -305,7 +379,7 @@ RCT_EXPORT_METHOD(getMacAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 {
     NSString *address = @"02:00:00:00:00:00";
     resolve(address);
-} 
+}
 
 RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -335,7 +409,7 @@ RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     // Free memory
     freeifaddrs(interfaces);
     resolve(address);
-} 
+}
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
 {
@@ -348,14 +422,74 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     callback(@[[NSNumber numberWithBool:isPinOrFingerprintSet]]);
 }
 
+- (void)batteryLevelDidChange:(NSNotification *)notification
+{
+    if (!hasListeners) {
+        return;
+    }
+
+    float batteryLevel = [self.powerState[@"batteryLevel"] floatValue];
+    [self sendEventWithName:@"batteryLevelDidChange" body:@(batteryLevel)];
+
+    if (batteryLevel <= _lowBatteryThreshold) {
+        [self sendEventWithName:@"batteryLevelIsLow" body:@(batteryLevel)];
+    }
+}
+
+- (void)powerStateDidChange:(NSNotification *)notification
+{
+    if (!hasListeners) {
+        return;
+    }
+
+    [self sendEventWithName:@"powerStateDidChange" body:self.powerState];
+}
+
+- (NSDictionary *)powerState
+{
+#if RCT_DEV && (!TARGET_IPHONE_SIMULATOR)
+    if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
+        RCTLogWarn(@"Battery monitoring is not enabled. "
+                   "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
+    }
+#endif
+#if RCT_DEV && (TARGET_OS_TV || TARGET_IPHONE_SIMULATOR)
+    if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
+        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
+    }
+#endif
+
+    return @{
+#if TARGET_OS_TV
+             @"batteryLevel": @1,
+             @"batteryState": @"full",
+#else
+             @"batteryLevel": @([UIDevice currentDevice].batteryLevel),
+             @"batteryState": [@[@"unknown", @"unplugged", @"charging", @"full"] objectAtIndex: [UIDevice currentDevice].batteryState],
+             @"lowPowerMode": @([NSProcessInfo processInfo].isLowPowerModeEnabled),
+#endif
+             };
+}
+
 RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  #if TARGET_OS_TV
-    float batteryLevel = 1.0;
-  #else
-    float batteryLevel = [UIDevice currentDevice].batteryLevel;
-  #endif
-    resolve(@(batteryLevel));
+    resolve(@([self.powerState[@"batteryLevel"] floatValue]));
+}
+
+RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    return resolve(self.powerState);
+}
+
+RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL isCharging = [self.powerState[@"batteryState"] isEqualToString:@"charging"];
+    resolve(@(isCharging));
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
