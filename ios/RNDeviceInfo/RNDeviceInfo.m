@@ -176,6 +176,14 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
                               @"iPad7,4"   :@"iPad Pro 10.5-inch",// iPad Pro 10.5-inch - Cellular
                               @"iPad7,5"   :@"iPad (6th generation)",// iPad (6th generation) - Wifi
                               @"iPad7,6"   :@"iPad (6th generation)",// iPad (6th generation) - Cellular
+                              @"iPad8,1"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - Wifi
+                              @"iPad8,2"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - 1TB - Wifi
+                              @"iPad8,3"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - Wifi + cellular
+                              @"iPad8,4"   :@"iPad Pro 11-inch (3rd generation)", // iPad Pro 11 inch (3rd generation) - 1TB - Wifi + cellular
+                              @"iPad8,5"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - Wifi
+                              @"iPad8,6"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - 1TB - Wifi
+                              @"iPad8,7"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - Wifi + cellular
+                              @"iPad8,8"   :@"iPad Pro 12.9-inch (3rd generation)", // iPad Pro 12.9 inch (3rd generation) - 1TB - Wifi + cellular
                               @"AppleTV2,1":@"Apple TV",        // Apple TV (2nd Generation)
                               @"AppleTV3,1":@"Apple TV",        // Apple TV (3rd Generation)
                               @"AppleTV3,2":@"Apple TV",        // Apple TV (3rd Generation - Rev A)
