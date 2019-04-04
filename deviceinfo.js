@@ -56,6 +56,10 @@ const devicesWithNotch = [
   },
   {
     brand: 'Huawei',
+    model: 'INE-LX1',
+  },
+  {
+    brand: 'Huawei',
     model: 'Honor 10',
   },
   {
