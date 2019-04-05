@@ -1170,6 +1170,10 @@ jest.mock('react-native-device-info', () => {
 
 See the [CHANGELOG.md](https://github.com/react-native-community/react-native-device-info/blob/master/CHANGELOG.md).
 
+## Contributing
+
+Please see the [`contributing guide`](/CONTRIBUTING.md).
+
 ## react-native-dom
 
 As a courtesy to developers, this library was made compatible in v0.21.6 with [react-native-dom](https://github.com/vincentriemer/react-native-dom) and [react-native-web](https://github.com/necolas/react-native-web) by providing an empty polyfill in order to avoid breaking builds.
