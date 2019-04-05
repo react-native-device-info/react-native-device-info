@@ -1,5 +1,8 @@
 ## Release Notes
 
+### Next
+ * Feat: Throw error if native module is null wwsteps to help fix (https://github.com/react-native-community/react-native-device-info/pull/630)
+
 ### 1.4.2:
  * fix: Use `RCTSharedApplication` so compile works for ios app extensions (https://github.com/react-native-community/react-native-device-info/pull/408)
  * chore: Add 3rd generation iPad pro to device/model list (https://github.com/react-native-community/react-native-device-info/pull/618)
