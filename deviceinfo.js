@@ -215,6 +215,10 @@ const devicesWithNotch = [
     brand: 'xiaomi',
     model: 'Redmi 6 Pro',
   },
+  {
+    brand: 'xiaomi',
+    model: 'Mi A2 Lite',
+  },
 ];
 
 export default {
