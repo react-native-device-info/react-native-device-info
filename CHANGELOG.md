@@ -1,7 +1,8 @@
 ## Release Notes
 
 ### Next
- * Feat: Throw error if native module is null wwsteps to help fix (https://github.com/react-native-community/react-native-device-info/pull/630)
+ * chore: Add Xiaomi Mi A2 Lite to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/634)
+ * feat: Throw error if native module is null w/steps to help fix (https://github.com/react-native-community/react-native-device-info/pull/630)
 
 ### 1.4.2:
  * fix: Use `RCTSharedApplication` so compile works for ios app extensions (https://github.com/react-native-community/react-native-device-info/pull/408)
