@@ -1,6 +1,8 @@
 ## Release Notes
 
 ### Next
+
+### 1.4.3
  * chore: Add Xiaomi Mi A2 Lite to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/634)
  * feat: Throw error if native module is null w/steps to help fix (https://github.com/react-native-community/react-native-device-info/pull/630)
 
