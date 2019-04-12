@@ -184,39 +184,39 @@ const devicesWithNotch = [
     model: 'X21 UD',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'MI 8',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'MI 8 Explorer Edition',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'MI 8 SE',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'MI 8 UD',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'MI8Lite',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'POCO F1',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'POCOPHONE F1',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'Redmi 6 Pro',
   },
   {
-    brand: 'xiaomi',
+    brand: 'Xiaomi',
     model: 'Mi A2 Lite',
   },
 ];
