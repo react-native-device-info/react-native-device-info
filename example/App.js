@@ -41,6 +41,7 @@ export default class App extends Component<Props> {
       deviceJSON.deviceId = DeviceInfo.getDeviceId();
       deviceJSON.systemName = DeviceInfo.getSystemName();
       deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
+      deviceJSON.buildId = DeviceInfo.getBuildId();
       deviceJSON.bundleId = DeviceInfo.getBundleId();
       deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
       deviceJSON.version = DeviceInfo.getVersion();
