@@ -757,6 +757,22 @@ const systemVersion = DeviceInfo.getSystemVersion();
 
 ---
 
+### getBuildId()
+
+Gets build number of the operating system.
+
+**Examples**
+
+```js
+const osBuildId = DeviceInfo.getBuildId();
+
+// iOS: "12A269"
+// Android: "13D15"
+// Windows: not support
+```
+
+---
+
 ### getTimezone()
 
 Gets the device default timezone.
