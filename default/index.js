@@ -14,6 +14,7 @@ module.exports = {
   brand: '',
   systemName: '',
   systemVersion: '',
+  buildId: '',
   apiLevel: 0,
   bundleId: '',
   appName: '',
