@@ -11,6 +11,7 @@ declare const _default: {
   getDeviceId: () => string;
   getSystemName: () => string;
   getSystemVersion: () => string;
+  getBuildId: () => string;
   getBundleId: () => string;
   getApplicationName: () => string;
   getBuildNumber: () => string;
