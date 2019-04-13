@@ -349,13 +349,17 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
 
 
 - (NSString *)getBuildId {
-    size_t bufferSize = 64;
-    NSMutableData *buffer = [[NSMutableData alloc] initWithLength:bufferSize];
-    int status = sysctlbyname("kern.osversion", buffer.mutableBytes, &bufferSize, NULL, 0);
-    if (status != 0) {
-        return nil;
-    }
-    return [[NSString alloc] initWithCString:buffer.mutableBytes encoding:NSUTF8StringEncoding];
+    #if TARGET_OS_TV
+        return @"not available";
+    #else
+        size_t bufferSize = 64;
+        NSMutableData *buffer = [[NSMutableData alloc] initWithLength:bufferSize];
+        int status = sysctlbyname("kern.osversion", buffer.mutableBytes, &bufferSize, NULL, 0);
+        if (status != 0) {
+            return @"not available";
+        }
+        return [[NSString alloc] initWithCString:buffer.mutableBytes encoding:NSUTF8StringEncoding];
+    #endif
 }
 
 - (NSDictionary *)constantsToExport
