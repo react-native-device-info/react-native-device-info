@@ -768,6 +768,7 @@ Gets build number of the operating system.
 const osBuildId = DeviceInfo.getBuildId();
 
 // iOS: "12A269"
+// tvOS: not available
 // Android: "13D15"
 // Windows: not available
 ```
@@ -844,6 +845,7 @@ Gets the device User Agent.
 const userAgent = DeviceInfo.getUserAgent();
 
 // iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143"
+// tvOS: not available
 // Android: ?
 // Windows: ?
 ```
