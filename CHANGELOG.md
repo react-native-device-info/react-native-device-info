@@ -2,7 +2,7 @@
 
 ### Next
 
-### 1.4.4
+### 1.5.0
  * feat: Add `getBuildId` method to gets build number of the operating system. (https://github.com/react-native-community/react-native-device-info/pull/640)
 
 ### 1.4.3
