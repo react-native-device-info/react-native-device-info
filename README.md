@@ -769,7 +769,7 @@ const osBuildId = DeviceInfo.getBuildId();
 
 // iOS: "12A269"
 // Android: "13D15"
-// Windows: not support
+// Windows: not available
 ```
 
 ---
