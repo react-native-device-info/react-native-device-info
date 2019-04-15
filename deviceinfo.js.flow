@@ -10,6 +10,7 @@ declare module.exports: {
   getDeviceId: () => string,
   getSystemName: () => string,
   getSystemVersion: () => string,
+  getBuildId: () => string,
   getBundleId: () => string,
   getApplicationName: () => string,
   getBuildNumber: () => string,

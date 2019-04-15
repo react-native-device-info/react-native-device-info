@@ -238,6 +238,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getSerialNumber()](#getserialnumber)             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getSystemName()](#getsystemname)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSystemVersion()](#getsystemversion)           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getBuildId()](#getbuildid)                       | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 | [getTimezone()](#gettimezone)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getTotalMemory()](#gettotalmemory)               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
@@ -757,6 +758,23 @@ const systemVersion = DeviceInfo.getSystemVersion();
 
 ---
 
+### getBuildId()
+
+Gets build number of the operating system.
+
+**Examples**
+
+```js
+const osBuildId = DeviceInfo.getBuildId();
+
+// iOS: "12A269"
+// tvOS: not available
+// Android: "13D15"
+// Windows: not available
+```
+
+---
+
 ### getTimezone()
 
 Gets the device default timezone.
@@ -827,6 +845,7 @@ Gets the device User Agent.
 const userAgent = DeviceInfo.getUserAgent();
 
 // iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143"
+// tvOS: not available
 // Android: ?
 // Windows: ?
 ```

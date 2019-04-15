@@ -2,6 +2,9 @@
 
 ### Next
 
+### 1.5.0
+ * feat: Add `getBuildId` method to gets build number of the operating system. (https://github.com/react-native-community/react-native-device-info/pull/640)
+
 ### 1.4.3
  * chore: Add Xiaomi Mi A2 Lite to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/634)
  * feat: Throw error if native module is null w/steps to help fix (https://github.com/react-native-community/react-native-device-info/pull/630)

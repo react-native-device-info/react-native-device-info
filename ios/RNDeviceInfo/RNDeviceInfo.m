@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
+@import Darwin.sys.sysctl;
 #endif
 
 @implementation RNDeviceInfo
@@ -346,6 +347,21 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
     return typeOfCpu;
 }
 
+
+- (NSString *)getBuildId {
+    #if TARGET_OS_TV
+        return @"not available";
+    #else
+        size_t bufferSize = 64;
+        NSMutableData *buffer = [[NSMutableData alloc] initWithLength:bufferSize];
+        int status = sysctlbyname("kern.osversion", buffer.mutableBytes, &bufferSize, NULL, 0);
+        if (status != 0) {
+            return @"not available";
+        }
+        return [[NSString alloc] initWithCString:buffer.mutableBytes encoding:NSUTF8StringEncoding];
+    #endif
+}
+
 - (NSDictionary *)constantsToExport
 {
     UIDevice *currentDevice = [UIDevice currentDevice];
@@ -366,6 +382,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] ?: [NSNull null],
              @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
              @"buildNumber": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] ?: [NSNull null],
+             @"buildId": [self getBuildId],
              @"systemManufacturer": @"Apple",
              @"carrier": self.carrier ?: [NSNull null],
              @"userAgent": self.userAgent ?: [NSNull null],

@@ -255,6 +255,9 @@ export default {
   getSystemVersion: function() {
     return RNDeviceInfo.systemVersion;
   },
+  getBuildId: function() {
+    return RNDeviceInfo.buildId;
+  },
   getAPILevel: function() {
     return RNDeviceInfo.apiLevel;
   },
