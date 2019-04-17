@@ -2,6 +2,8 @@
 
 ### Next
 
+ * fix: Update Android permissions for contacts, WiFi status
+
 ### 1.5.0
  * feat: Add `getBuildId` method to gets build number of the operating system. (https://github.com/react-native-community/react-native-device-info/pull/640)
 
