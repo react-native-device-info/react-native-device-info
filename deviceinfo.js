@@ -201,7 +201,7 @@ const devicesWithNotch = [
   },
   {
     brand: 'xiaomi',
-    model: 'MI8Lite',
+    model: 'MI 8 Lite',
   },
   {
     brand: 'xiaomi',
