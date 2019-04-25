@@ -52,6 +52,7 @@ declare const _default: {
   isAutoDateAndTime: () => Promise<boolean>;
   isAutoTimeZone: () => Promise<boolean>;
   supportedABIs: () => string[];
+  hasSystemFeature: (feature: string) => Promise<boolean>;
 };
 
 export default _default;

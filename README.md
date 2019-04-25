@@ -257,6 +257,7 @@ import DeviceInfo from 'react-native-device-info';
 | [isAutoDateAndTime()](#isAutoDateAndTime)         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [isAutoTimeZone()](#isAutoTimeZone)               | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [supportedABIs()](#supportedABIs)                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
+| [hasSystemFeature()](#hassystemfeaturefeature)    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -967,6 +968,8 @@ Tells if the device is currently in landscape mode.
 const isLandscape = DeviceInfo.isLandscape(); // true
 ```
 
+---
+
 ### hasNotch()
 
 Tells if the device has a notch.
@@ -976,6 +979,8 @@ Tells if the device has a notch.
 ```js
 const hasNotch = DeviceInfo.hasNotch(); // true
 ```
+
+---
 
 ### getDeviceType()
 
@@ -992,6 +997,8 @@ Returns the device's type as a string, which will be one of:
 const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
 ```
 
+---
+
 ### isAutoDateAndTime()
 
 Tells if the automatic date & time setting is enabled on the phone.
@@ -1003,6 +1010,8 @@ DeviceInfo.isAutoDateAndTime().then(isAutoDateAndTime => {
   // true or false
 });
 ```
+
+---
 
 ### isAutoTimeZone()
 
@@ -1016,12 +1025,30 @@ DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
 });
 ```
 
+---
+
 ### supportedABIs()
 
 Returns a list of supported processor architecture version
 
+**Examples**
+
 ```js
 DeviceInfo.supportedABIs(); // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi" ]
+```
+
+---
+
+### hasSystemFeature(feature)
+
+Tells if the device has a specific system feature.
+
+**Examples**
+
+```js
+DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv').then(hasFeature => {
+  // true or false
+}); 
 ```
 
 ## Events

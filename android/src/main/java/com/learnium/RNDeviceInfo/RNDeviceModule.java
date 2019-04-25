@@ -312,6 +312,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     p.resolve(isAutoTimeZone);
   }
 
+  @ReactMethod
+  public void hasSystemFeature(String feature, Promise p) {
+
+    if (feature == null || feature == "") {
+      p.resolve(false);
+      return;
+    }
+
+    boolean hasFeature = this.reactContext.getApplicationContext().getPackageManager().hasSystemFeature(feature);
+    p.resolve(hasFeature);
+  }
+
   public String getInstallReferrer() {
     SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
     return sharedPref.getString("installReferrer", null);
