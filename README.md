@@ -477,13 +477,9 @@ Gets the application build number.
 const buildNumber = DeviceInfo.getBuildNumber();
 
 // iOS: "89"
-// Android: 4
+// Android: "4"
 // Windows: ?
 ```
-
-**Notes**
-
-> There is a type inconsistency: Android return an integer instead of the documented string.
 
 ---
 
