@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+ * fix: Android `getBuildNumber` now returns a string (https://github.com/react-native-community/react-native-device-info/pull/648)
 
 ### 1.5.1
  * chore: Update deviceinfo.js entry for xioami mi 8 lite (https://github.com/react-native-community/react-native-device-info/pull/644)
