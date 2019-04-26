@@ -477,14 +477,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("appVersion", "not available");
     constants.put("appName", "not available");
     constants.put("buildVersion", "not available");
-    constants.put("buildNumber", 0);
+    constants.put("buildNumber", "0");
 
     try {
       PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
       PackageInfo info = packageManager.getPackageInfo(packageName, 0);
       String applicationName = this.reactContext.getApplicationInfo().loadLabel(this.reactContext.getPackageManager()).toString();
       constants.put("appVersion", info.versionName);
-      constants.put("buildNumber", info.versionCode);
+      constants.put("buildNumber", Integer.toString(info.versionCode));
       constants.put("firstInstallTime", info.firstInstallTime);
       constants.put("lastUpdateTime", info.lastUpdateTime);
       constants.put("appName", applicationName);
