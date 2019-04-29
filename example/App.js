@@ -78,6 +78,7 @@ export default class App extends Component<Props> {
       deviceJSON.isPinOrFingerprintSet = 'unknown';
       deviceJSON.supportedABIs = DeviceInfo.supportedABIs();
       deviceJSON.hasSystemFeature = ios ? false : await DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv');
+      deviceJSON.getSystemAvailableFeatures = ios ? [] : await DeviceInfo.getSystemAvailableFeatures();
       deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
     } catch (e) {
       console.log('Trouble getting device info ', e);

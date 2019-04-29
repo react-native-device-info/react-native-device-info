@@ -369,5 +369,8 @@ export default {
   },
   hasSystemFeature: function(feature) {
     return RNDeviceInfo.hasSystemFeature(feature);
+  },
+  getSystemAvailableFeatures: function() {
+    return RNDeviceInfo.getSystemAvailableFeatures();
   }
 };

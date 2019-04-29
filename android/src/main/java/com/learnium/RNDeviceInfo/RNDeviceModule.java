@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.FeatureInfo;
 import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
@@ -25,11 +26,13 @@ import android.text.format.Formatter;
 import android.app.ActivityManager;
 import android.util.DisplayMetrics;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.WritableArray;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -322,6 +325,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     boolean hasFeature = this.reactContext.getApplicationContext().getPackageManager().hasSystemFeature(feature);
     p.resolve(hasFeature);
+  }
+
+  @ReactMethod
+  public void getSystemAvailableFeatures(Promise p) {
+    final FeatureInfo[] featureList = this.reactContext.getApplicationContext().getPackageManager().getSystemAvailableFeatures();
+    
+    WritableArray promiseArray = Arguments.createArray();
+    for (FeatureInfo f : featureList) {
+      promiseArray.pushString(f.name);
+    }
+
+    p.resolve(promiseArray);
   }
 
   public String getInstallReferrer() {

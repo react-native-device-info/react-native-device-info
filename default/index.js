@@ -44,5 +44,6 @@ module.exports = {
   isLandscape: false,
   deviceType: 'Unknown',
   getPowerState: () => Promise.resolve({}),
-  hasSystemFeature: () => Promise.resolve(false)
+  hasSystemFeature: () => Promise.resolve(false),
+  getSystemAvailableFeatures: () => Promise.resolve([])
 };
