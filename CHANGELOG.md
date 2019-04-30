@@ -2,6 +2,9 @@
 
 ### Next
 
+### 1.6.0
+ * feat: implement hasSystemFeature() method for Android devices (https://github.com/react-native-community/react-native-device-info/pull/646)
+
 ### 1.5.1
  * chore: Update deviceinfo.js entry for xioami mi 8 lite (https://github.com/react-native-community/react-native-device-info/pull/644)
 
