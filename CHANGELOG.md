@@ -4,6 +4,7 @@
 
 ### 1.6.1
  * fix: fix building issue on tvOS / headers on iOS (https://github.com/react-native-community/react-native-device-info/pull/652)
+ * chore: fix pointer types in iOS build (https://github.com/react-native-community/react-native-device-info/pull/649)
 
 ### 1.6.0
  * feat: implement hasSystemFeature() method for Android devices (https://github.com/react-native-community/react-native-device-info/pull/646)

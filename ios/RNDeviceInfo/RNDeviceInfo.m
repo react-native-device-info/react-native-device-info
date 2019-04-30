@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 @synthesize isEmulator;
 
-RCT_EXPORT_MODULE(RNDeviceInfo);
+RCT_EXPORT_MODULE();
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -244,7 +244,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
     return language;
 }
 
-- (NSString*) preferredLocales
+- (NSArray<NSString *> *) preferredLocales
 {
     return [NSLocale preferredLanguages];
 }
@@ -342,7 +342,7 @@ RCT_EXPORT_MODULE(RNDeviceInfo);
 
 - (NSString *)getCPUType {
     /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
-    NXArchInfo *info = NXGetLocalArchInfo();
+    const NXArchInfo *info = NXGetLocalArchInfo();
     NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
     return typeOfCpu;
 }
