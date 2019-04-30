@@ -366,5 +366,11 @@ export default {
   },
   supportedABIs: function() {
     return RNDeviceInfo.supportedABIs;
+  },
+  hasSystemFeature: function(feature) {
+    return RNDeviceInfo.hasSystemFeature(feature);
+  },
+  getSystemAvailableFeatures: function() {
+    return RNDeviceInfo.getSystemAvailableFeatures();
   }
 };

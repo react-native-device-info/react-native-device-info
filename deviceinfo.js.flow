@@ -53,4 +53,6 @@ declare module.exports: {
   isAutoDateAndTime: () => Promise<boolean>,
   isAutoTimeZone: () => Promise<boolean>,
   supportedABIs: () => string[],
+  hasSystemFeature: (feature: string) => Promise<boolean>,
+  getSystemAvailableFeatures: () => Promise<Array<string>>,
 };
