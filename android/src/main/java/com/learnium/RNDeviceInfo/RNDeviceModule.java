@@ -333,7 +333,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     
     WritableArray promiseArray = Arguments.createArray();
     for (FeatureInfo f : featureList) {
-      promiseArray.pushString(f.name);
+      if (f.name != null) {
+        promiseArray.pushString(f.name);
+      }
     }
 
     p.resolve(promiseArray);
