@@ -29,4 +29,5 @@ Added `yourNewMethodName()` that allows ...
 * [ ] I added the documentation in `README.md`
 * [ ] I mentioned this change in `CHANGELOG.md`
 * [ ] I updated the typings files (`deviceinfo.d.ts`, `deviceinfo.js.flow`)
-* [ ] I updated the web polyfill (`web/index.js`)
+* [ ] I updated the dummy web/test polyfill (`default/index.js`)
+* [ ] I added a sample use of the API (`example/App.js`)
