@@ -343,7 +343,7 @@ export default {
     } else { // Is a number ready to be returned
       return freeDisk;
     }
-  }
+  },
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },
