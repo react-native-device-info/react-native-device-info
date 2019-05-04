@@ -39,7 +39,7 @@ module.exports = {
   totalMemory: 0,
   maxMemory: 0,
   totalDiskCapacity: 0,
-  freeDiskStorage: 0,
+  freeDiskStorage: () => Promise.resolve(0),
   getBatteryLevel: () => Promise.resolve(0),
   isLandscape: false,
   deviceType: 'Unknown',
