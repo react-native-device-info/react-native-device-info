@@ -254,14 +254,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public BigInteger getFreeDiskStorage() {
+  public void getFreeDiskStorage(Promise p) {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return BigInteger.valueOf(external.getAvailableBlocks()).multiply(BigInteger.valueOf(external.getBlockSize()));
+      p.resolve( BigInteger.valueOf(external.getAvailableBlocks()).multiply(BigInteger.valueOf(external.getBlockSize())).toString() );
     } catch (Exception e) {
       e.printStackTrace();
+      p.reject(e);
     }
-    return null;
   }
 
   @ReactMethod
@@ -330,7 +330,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSystemAvailableFeatures(Promise p) {
     final FeatureInfo[] featureList = this.reactContext.getApplicationContext().getPackageManager().getSystemAvailableFeatures();
-    
+
     WritableArray promiseArray = Arguments.createArray();
     for (FeatureInfo f : featureList) {
       if (f.name != null) {
@@ -426,7 +426,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("is24Hour", this.is24Hour());
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
-    constants.put("freeDiskStorage", this.getFreeDiskStorage());
     constants.put("installReferrer", this.getInstallReferrer());
 
     if (reactContext != null &&

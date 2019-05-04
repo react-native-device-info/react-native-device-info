@@ -223,7 +223,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getDeviceName()](#getdevicename)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)               | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFontScale()](#getfontscale)                             | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getFreeDiskStorage()](#getfreediskstorage)                 | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
+| [getFreeDiskStorage()](#getfreediskstorage)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getIPAddress()](#getipaddress)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
 | [getInstallReferrer()](#getinstallreferrer)                 | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                           | `string`            |  ❌  |   ✅    |   ❌    | ?      |
@@ -498,10 +498,10 @@ Gets available storage size, in bytes.
 **Examples**
 
 ```js
-const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
-
-// Android: 17179869184
-// iOS: 17179869184
+DeviceInfo.getFreeDiskStorage().then(nBytes => {
+  // Android: 17179869184
+  // iOS: 17179869184
+});
 ```
 
 **Notes**
@@ -1049,7 +1049,7 @@ Tells if the device has a specific system feature.
 ```js
 DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv').then(hasFeature => {
   // true or false
-}); 
+});
 ```
 
 ---
@@ -1063,7 +1063,7 @@ Returns a list of available system features on Android.
 ```js
 DeviceInfo.getSystemAvailableFeatures().then(features => {
   // ["android.software.backup", "android.hardware.screen.landscape", "android.hardware.wifi", ...]
-}); 
+});
 ```
 
 ## Events
@@ -1228,9 +1228,9 @@ jest.mock('react-native-device-info', () => {
 </details>
 <details>
     <summary>[warnings] - I get too many warnings (battery state, etc)</summary>
-    
+
 Some of the APIs (like getBatteryState) will throw warnings in certain conditions like on tvOS or the iOS emulator. This won't be visible in production but even in development it may be irritating. It is useful to have the warnings because these devices return no state, and that can be surprising, leading to github support issues. The warnings is intended to educate you as a developer. If the warnings are troublesome you may try this in your code to suppress them:
-    
+
 ```javascript
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Battery state']);

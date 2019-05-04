@@ -336,9 +336,14 @@ export default {
   getTotalDiskCapacity: function() {
     return RNDeviceInfo.totalDiskCapacity;
   },
-  getFreeDiskStorage: function() {
-    return RNDeviceInfo.freeDiskStorage;
-  },
+  getFreeDiskStorage: async function() {
+    let freeDisk = RNDeviceInfo.getFreeDiskStorage();
+    if(typeof freeDisk === 'object') { // Is a Promisse from Android module
+      return Number(await freeDisk);
+    } else { // Is a number ready to be returned
+      return freeDisk;
+    }
+  }
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
   },

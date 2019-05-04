@@ -69,7 +69,7 @@ export default class App extends Component<Props> {
       deviceJSON.totalMemory = DeviceInfo.getTotalMemory();
       deviceJSON.maxMemory = ios ? -1 : DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = DeviceInfo.getTotalDiskCapacity(); // FIXME needs a patch for integer overflow on Android
-      deviceJSON.freeDiskStorage = DeviceInfo.getFreeDiskStorage(); // FIXME needs a patch for integer overflow on Android
+      deviceJSON.freeDiskStorage = DeviceInfo.getFreeDiskStorage();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = DeviceInfo.isLandscape();
       deviceJSON.isAirplaneMode = ios ? false : await DeviceInfo.isAirPlaneMode();
