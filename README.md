@@ -1186,7 +1186,7 @@ target 'yourTargetName' do
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
   # Third party deps podspec link - you may have multiple pods here, just an example
-  pod 'react-native-device-info', path: '../node_modules/react-native-device-info'
+  pod 'RNDeviceInfo', path: '../node_modules/react-native-device-info'
 
 end
 
