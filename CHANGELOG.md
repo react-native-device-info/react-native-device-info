@@ -2,6 +2,10 @@
 
 ### Next
 
+### 1.6.2
+ * fix: added v to tag name in podspec (https://github.com/react-native-community/react-native-device-info/pull/660)
+ * docs: Update README.md to have correct Podspec name (https://github.com/react-native-community/react-native-device-info/pull/656)
+
 ### 1.6.1
  * fix: fix building issue on tvOS / headers on iOS (https://github.com/react-native-community/react-native-device-info/pull/652)
  * chore: fix pointer types in iOS build (https://github.com/react-native-community/react-native-device-info/pull/649)
