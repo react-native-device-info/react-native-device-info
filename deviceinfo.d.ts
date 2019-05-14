@@ -1,6 +1,8 @@
 // should be imported this way:
 // import DeviceInfo from 'react-native-device-info';
 
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Unknown';
+
 declare const _default: {
   getUniqueID: () => string;
   getManufacturer: () => string;
@@ -9,6 +11,7 @@ declare const _default: {
   getDeviceId: () => string;
   getSystemName: () => string;
   getSystemVersion: () => string;
+  getBuildId: () => string;
   getBundleId: () => string;
   getApplicationName: () => string;
   getBuildNumber: () => string;
@@ -17,6 +20,7 @@ declare const _default: {
   getDeviceName: () => string;
   getUserAgent: () => string;
   getDeviceLocale: () => string;
+  getPreferredLocales: () => Array<string>;
   getDeviceCountry: () => string;
   getTimezone: () => string;
   getInstanceID: () => string;
@@ -25,13 +29,13 @@ declare const _default: {
   isTablet: () => boolean;
   getFontScale: () => number;
   is24Hour: () => boolean;
-  isPinOrFingerprintSet: (cb: (isPinOrFingerprintSet: boolean) => void) => void;
+  isPinOrFingerprintSet(): (cb: (isPinOrFingerprintSet: boolean) => void) => void;
   hasNotch: () => boolean;
   getFirstInstallTime: () => number;
   getLastUpdateTime: () => number;
   getSerialNumber: () => string;
-  getIPAddress: () => Promise<string>
-  getMACAddress: () => Promise<string>
+  getIPAddress: () => Promise<string>;
+  getMACAddress: () => Promise<string>;
   getPhoneNumber: () => string;
   getIMEINumber: () => string;
   getAPILevel: () => number;
@@ -41,8 +45,16 @@ declare const _default: {
   getTotalDiskCapacity: () => number;
   getFreeDiskStorage: () => number;
   getBatteryLevel: () => Promise<number>;
-  isLandscape: () => boolean;    
+  getPowerState: () => Promise<object>;
+  isBatteryCharging: () => Promise<boolean>;
+  isLandscape: () => boolean;
   isAirPlaneMode: () => Promise<boolean>;
+  getDeviceType: () => DeviceType;
+  isAutoDateAndTime: () => Promise<boolean>;
+  isAutoTimeZone: () => Promise<boolean>;
+  supportedABIs: () => string[];
+  hasSystemFeature: (feature: string) => Promise<boolean>;
+  getSystemAvailableFeatures: () => Promise<string[]>;
 };
 
 export default _default;

@@ -1,15 +1,17 @@
 {
   "name": "react-native-device-info",
-  "version": "0.25.1",
+  "version": "1.6.2",
   "description": "Get device information using react-native",
   "main": "deviceinfo.js",
   "typings": "./deviceinfo.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rebeccahughes/react-native-device-info"
+    "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
-    "shipit": "np"
+    "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
+    "flow-check": "npx flow check-contents < deviceinfo.js.flow",
+    "shipit": "np --no-yarn"
   },
   "keywords": [
     "react-component",
@@ -32,11 +34,18 @@
       "name": "Mehdi Achour",
       "email": "machour@gmail.com",
       "url": "https://github.com/machour"
+    },
+    {
+      "name": "Mike Hardy",
+      "email": "github@mikehardy.net",
+      "url": "https://github.com/mikehardy"
     }
   ],
   "license": "MIT",
   "devDependencies": {
-    "np": "^2.16.0",
-    "prettier": "^1.10.2"
+    "flow-bin": "^0.98.0",
+    "np": "^5.0.1",
+    "prettier": "^1.17.0",
+    "typescript": "^3.4.5"
   }
 }

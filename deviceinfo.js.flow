@@ -1,5 +1,7 @@
 // @flow
 
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Unknown';
+
 declare module.exports: {
   getUniqueID: () => string,
   getManufacturer: () => string,
@@ -8,6 +10,7 @@ declare module.exports: {
   getDeviceId: () => string,
   getSystemName: () => string,
   getSystemVersion: () => string,
+  getBuildId: () => string,
   getBundleId: () => string,
   getApplicationName: () => string,
   getBuildNumber: () => string,
@@ -16,6 +19,7 @@ declare module.exports: {
   getDeviceName: () => string,
   getUserAgent: () => string,
   getDeviceLocale: () => string,
+  getPreferredLocales: () => Array<string>,
   getDeviceCountry: () => string,
   getTimezone: () => string,
   getInstanceID: () => string,
@@ -42,6 +46,14 @@ declare module.exports: {
   getTotalDiskCapacity: () => number,
   getFreeDiskStorage: () => number,
   getBatteryLevel: () => Promise<number>,
+  getPowerState: () => Promise<Object>,
+  isBatteryCharging:() => Promise<boolean>,
   isLandscape: () => boolean,
   isAirPlaneMode: () => Promise<boolean>,
+  getDeviceType: () => DeviceType,
+  isAutoDateAndTime: () => Promise<boolean>,
+  isAutoTimeZone: () => Promise<boolean>,
+  supportedABIs: () => string[],
+  hasSystemFeature: (feature: string) => Promise<boolean>,
+  getSystemAvailableFeatures: () => Promise<Array<string>>,
 };

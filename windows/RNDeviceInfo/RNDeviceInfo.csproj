@@ -16,6 +16,10 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ReactWindowsRoot>..\..\node_modules</ReactWindowsRoot>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' != 'Development'">
+    <ReactWindowsRoot>..\..\..</ReactWindowsRoot>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -117,7 +121,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\react-native-windows\ReactWindows\ReactNative\ReactNative.csproj">
+    <ProjectReference Include="$(ReactWindowsRoot)\react-native-windows\ReactWindows\ReactNative\ReactNative.csproj">
       <Project>{c7673ad5-e3aa-468c-a5fd-fa38154e205c}</Project>
       <Name>ReactNative</Name>
     </ProjectReference>
