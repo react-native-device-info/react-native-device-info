@@ -42,7 +42,7 @@ react-native link react-native-device-info
 ```shell
 rnpm link react-native-device-info
 ```
-*For IOS*
+*For iOS users using Pods*
 You still need to run `pod install` after running the above link command inside your `IOS` folder.
 
 ### Manual
