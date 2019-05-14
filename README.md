@@ -37,12 +37,13 @@ yarn add react-native-device-info
 ```shell
 react-native link react-native-device-info
 ```
-
 (or using [`rnpm`](https://github.com/rnpm/rnpm) for versions of React Native < 0.27)
 
 ```shell
 rnpm link react-native-device-info
 ```
+*For iOS users using Pods*
+You still need to run `pod install` after running the above link command inside your `IOS` folder.
 
 ### Manual
 
