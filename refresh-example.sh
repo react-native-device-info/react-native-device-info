@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+set -e
 
 echo "You should run this from directory where you have cloned the react-native-device-info repo"
 echo "You should only do this when your git working set is completely clean (e.g., git reset --hard)"
@@ -13,8 +13,11 @@ if [ -d TEMP ]; then
 else
   echo "Saving files to TEMP while refreshing scaffolding..."
   mkdir -p TEMP/android
-  cp example/android/local.properties TEMP/android/ || true
+  mkdir -p TEMP/ios
+  cp example/README.md TEMP/
+  cp example/android/local.properties TEMP/android/
   cp example/App.js TEMP/
+  cp example/ios/Podfile TEMP/ios/
 fi
 
 # Purge the old sample
@@ -23,7 +26,7 @@ fi
 # Make the new example
 npx react-native init example
 pushd example
-npm install react-native-device-info
+npm install github:react-native-community/react-native-device-info
 npx react-native link react-native-device-info
 
 # Patch the build.gradle directly to slice in our android play version
@@ -35,7 +38,7 @@ sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.p
 rm -f android/app/src/main/AndroidManifest.xml??
 
 # Patch the AppDelegate for iOS battery level
-sed -i -e 's/return YES;/return YES; \[UIDevice currentDevice\].batteryMonitoringEnabled = true;/' ios/example/AppDelegate.m
+sed -i -e $'s/return YES;/\[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n  return YES;/' ios/example/AppDelegate.m
 rm -f ios/example/AppDelegate.m??
 
 # Copy the important files back in

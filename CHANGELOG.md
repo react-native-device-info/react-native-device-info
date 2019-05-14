@@ -1,5 +1,52 @@
 ## Release Notes
 
+### Next
+
+### 1.6.2
+ * fix: added v to tag name in podspec (https://github.com/react-native-community/react-native-device-info/pull/660)
+ * docs: Update README.md to have correct Podspec name (https://github.com/react-native-community/react-native-device-info/pull/656)
+
+### 1.6.1
+ * fix: fix building issue on tvOS / headers on iOS (https://github.com/react-native-community/react-native-device-info/pull/652)
+ * chore: fix pointer types in iOS build (https://github.com/react-native-community/react-native-device-info/pull/649)
+
+### 1.6.0
+ * feat: implement hasSystemFeature() method for Android devices (https://github.com/react-native-community/react-native-device-info/pull/646)
+
+### 1.5.1
+ * chore: Update deviceinfo.js entry for xioami mi 8 lite (https://github.com/react-native-community/react-native-device-info/pull/644)
+
+### 1.5.0
+ * feat: Add `getBuildId` method to gets build number of the operating system. (https://github.com/react-native-community/react-native-device-info/pull/640)
+
+### 1.4.3
+ * chore: Add Xiaomi Mi A2 Lite to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/634)
+ * feat: Throw error if native module is null w/steps to help fix (https://github.com/react-native-community/react-native-device-info/pull/630)
+
+### 1.4.2:
+ * fix: Use `RCTSharedApplication` so compile works for ios app extensions (https://github.com/react-native-community/react-native-device-info/pull/408)
+ * chore: Add 3rd generation iPad pro to device/model list (https://github.com/react-native-community/react-native-device-info/pull/618)
+ * feat: Support `getUserAgent()` on old androids (API level <= 16) (https://github.com/react-native-community/react-native-device-info/pull/545)
+ * chore: Add Huweai INE-LX1 to devices with notch (https://github.com/react-native-community/react-native-device-info/pull/624)
+ 
+**iOS notice:**  This is existing policy but is worth mentioning: The list with device names (returned by `getModel()`) is maintained by the community and could lag new devices. It is recommended to use `getDeviceId()	` since it's more reliable and always up-to-date with new iOS devices. We do accept pull requests that add new iOS devices to the list with device names.
+
+### 1.4.1
+ * fix: repair flow types from #436 - 'Object' vs 'object'
+
+### 1.4.0
+ * feat: add battery monitoring and detailed power state getter (https://github.com/react-native-community/react-native-device-info/pull/436)
+
+### 1.3.0
+ * feat: Add support for preferred languages function (https://github.com/react-native-community/react-native-device-info/pull/610)
+
+### 1.2.0
+ * feat: Support 'dom' Platform.OS for react-native-dom (https://github.com/react-native-community/react-native-device-info/pull/406)
+ * feat: Add support for jest snapshot testing (https://github.com/react-native-community/react-native-device-info/pull/375)
+ * fix: Use API-specific permissions to get phone number (https://github.com/react-native-community/react-native-device-info/pull/269)
+ * fix: Add OnePlus A6010 to devicesWithNothc list (https://github.com/react-native-community/react-native-device-info/pull/604)
+ * fix: use reactContext vs getApplicationContext() (https://github.com/react-native-community/react-native-device-info/pull/382)
+ * fix: dynamic reference path on windows depending on environment (https://github.com/react-native-community/react-native-device-info/pull/608)
 
 ### 1.1.0
  * Add `supportedABIs()` (https://github.com/react-native-community/react-native-device-info/pull/598)

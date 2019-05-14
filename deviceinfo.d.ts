@@ -11,6 +11,7 @@ declare const _default: {
   getDeviceId: () => string;
   getSystemName: () => string;
   getSystemVersion: () => string;
+  getBuildId: () => string;
   getBundleId: () => string;
   getApplicationName: () => string;
   getBuildNumber: () => string;
@@ -19,6 +20,7 @@ declare const _default: {
   getDeviceName: () => string;
   getUserAgent: () => string;
   getDeviceLocale: () => string;
+  getPreferredLocales: () => Array<string>;
   getDeviceCountry: () => string;
   getTimezone: () => string;
   getInstanceID: () => string;
@@ -43,6 +45,7 @@ declare const _default: {
   getTotalDiskCapacity: () => number;
   getFreeDiskStorage: () => number;
   getBatteryLevel: () => Promise<number>;
+  getPowerState: () => Promise<object>;
   isBatteryCharging: () => Promise<boolean>;
   isLandscape: () => boolean;
   isAirPlaneMode: () => Promise<boolean>;
@@ -50,6 +53,8 @@ declare const _default: {
   isAutoDateAndTime: () => Promise<boolean>;
   isAutoTimeZone: () => Promise<boolean>;
   supportedABIs: () => string[];
+  hasSystemFeature: (feature: string) => Promise<boolean>;
+  getSystemAvailableFeatures: () => Promise<string[]>;
 };
 
 export default _default;

@@ -41,6 +41,7 @@ export default class App extends Component<Props> {
       deviceJSON.deviceId = DeviceInfo.getDeviceId();
       deviceJSON.systemName = DeviceInfo.getSystemName();
       deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
+      deviceJSON.buildId = DeviceInfo.getBuildId();
       deviceJSON.bundleId = DeviceInfo.getBundleId();
       deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
       deviceJSON.version = DeviceInfo.getVersion();
@@ -48,6 +49,7 @@ export default class App extends Component<Props> {
       deviceJSON.deviceName = DeviceInfo.getDeviceName(); // needs android.permission.BLUETOOTH ?
       deviceJSON.userAgent = DeviceInfo.getUserAgent();
       deviceJSON.deviceLocale = DeviceInfo.getDeviceLocale();
+      deviceJSON.preferredLocales = DeviceInfo.getPreferredLocales();
       deviceJSON.deviceCountry = DeviceInfo.getDeviceCountry();
       deviceJSON.timezone = DeviceInfo.getTimezone();
       deviceJSON.instanceID = ios ? '' : DeviceInfo.getInstanceID();
@@ -75,6 +77,9 @@ export default class App extends Component<Props> {
       deviceJSON.deviceType = DeviceInfo.getDeviceType();
       deviceJSON.isPinOrFingerprintSet = 'unknown';
       deviceJSON.supportedABIs = DeviceInfo.supportedABIs();
+      deviceJSON.hasSystemFeature = ios ? false : await DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv');
+      deviceJSON.getSystemAvailableFeatures = ios ? [] : await DeviceInfo.getSystemAvailableFeatures();
+      deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }
