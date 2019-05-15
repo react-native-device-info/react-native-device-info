@@ -378,9 +378,13 @@ Tells if the device have any camera now.
 **Examples**
 
 ```js
-DeviceInfo.getCameraPresence().then(isCameraPresent => {
-  // true or false
-});
+DeviceInfo.getCameraPresence()
+  .then(isCameraPresent => {
+    // true or false
+  })
+  .catch(cameraAccessException => {
+    // is thrown if a camera device could not be queried or opened by the CameraManager on Android
+  });
 ```
 
 **Notes**
