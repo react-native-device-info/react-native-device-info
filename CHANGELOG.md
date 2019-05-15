@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+ * feat: Add `getCameraPresence()` method (https://github.com/react-native-community/react-native-device-info/pull/474)
 
 ### 1.6.2
  * fix: added v to tag name in podspec (https://github.com/react-native-community/react-native-device-info/pull/660)
