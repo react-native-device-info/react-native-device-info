@@ -37,6 +37,7 @@ declare module.exports: {
   getSerialNumber: () => string,
   getAPILevel: () => number,
   getIPAddress: () => Promise<string>,
+  getCameraPresence: () => Promise<boolean>,
   getMACAddress: () => Promise<string>,
   getPhoneNumber: () => ?string,
   getCarrier: () => string,

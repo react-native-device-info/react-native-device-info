@@ -216,6 +216,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getBrand()](#getbrand)                                     | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)                         | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getCameraPresence()](#getcamerapresence)                   | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ?      |
 | [getCarrier()](#getcarrier)                                 | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
 | [getDeviceCountry()](#getdevicecountry)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
 | [getDeviceId()](#getdeviceid)                               | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
@@ -367,6 +368,29 @@ Gets the application bundle identifier.
 ```js
 const bundleId = DeviceInfo.getBundleId(); // "com.learnium.mobile"
 ```
+
+---
+
+### getCameraPresence()
+
+Tells if the device have any camera now. 
+
+**Examples**
+
+```js
+DeviceInfo.getCameraPresence()
+  .then(isCameraPresent => {
+    // true or false
+  })
+  .catch(cameraAccessException => {
+    // is thrown if a camera device could not be queried or opened by the CameraManager on Android
+  });
+```
+
+**Notes**
+
+> * Hot add/remove of camera is supported.
+> * Returns the status of the physical presence of the camera. If camera present but your app don't have permissions to use it, getCameraPresence will still return the true
 
 ---
 

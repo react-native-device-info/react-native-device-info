@@ -43,6 +43,7 @@ export default class App extends Component<Props> {
       deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
       deviceJSON.buildId = DeviceInfo.getBuildId();
       deviceJSON.bundleId = DeviceInfo.getBundleId();
+      deviceJSON.isCameraPresent = ios ? -1 : await DeviceInfo.getCameraPresence();
       deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
       deviceJSON.version = DeviceInfo.getVersion();
       deviceJSON.readableVersion = DeviceInfo.getReadableVersion();

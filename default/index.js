@@ -45,5 +45,6 @@ module.exports = {
   deviceType: 'Unknown',
   getPowerState: () => Promise.resolve({}),
   hasSystemFeature: () => Promise.resolve(false),
-  getSystemAvailableFeatures: () => Promise.resolve([])
+  getSystemAvailableFeatures: () => Promise.resolve([]),
+  getCameraPresence: () => Promise.resolve(false)
 };

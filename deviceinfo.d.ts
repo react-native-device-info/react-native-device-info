@@ -35,6 +35,7 @@ declare const _default: {
   getLastUpdateTime: () => number;
   getSerialNumber: () => string;
   getIPAddress: () => Promise<string>;
+  getCameraPresence: () => Promise<boolean>;
   getMACAddress: () => Promise<string>;
   getPhoneNumber: () => string;
   getAPILevel: () => number;

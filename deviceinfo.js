@@ -234,6 +234,9 @@ export default {
   getIPAddress: function() {
     return RNDeviceInfo.getIpAddress();
   },
+  getCameraPresence: function() {
+    return RNDeviceInfo.getCameraPresence();
+  },
   getMACAddress: function() {
     return RNDeviceInfo.getMacAddress();
   },
