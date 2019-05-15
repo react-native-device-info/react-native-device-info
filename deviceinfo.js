@@ -375,5 +375,8 @@ export default {
   },
   getSystemAvailableFeatures: function() {
     return RNDeviceInfo.getSystemAvailableFeatures();
+  },
+  hasLocationServicesEnabled: function() {
+    return RNDeviceInfo.hasLocationServicesEnabled();
   }
 };

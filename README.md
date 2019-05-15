@@ -266,6 +266,7 @@ import DeviceInfo from 'react-native-device-info';
 | [supportedABIs()](#supportedABIs)                           | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 | [hasSystemFeature()](#hassystemfeaturefeature)              | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures) | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
+| [hasLocationServicesEnabled()](#hasLocationServicesEnabled) | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -1094,6 +1095,18 @@ Returns a list of available system features on Android.
 DeviceInfo.getSystemAvailableFeatures().then(features => {
   // ["android.software.backup", "android.hardware.screen.landscape", "android.hardware.wifi", ...]
 }); 
+```
+
+### hasLocationServicesEnabled()
+
+Tells if the device has location services turned off at the device-level (NOT related to app-specific permissions)
+
+**Examples**
+
+```js
+DeviceInfo.hasLocationServicesEnabled().then(enabled => {
+  // true or false
+});
 ```
 
 ## Events
