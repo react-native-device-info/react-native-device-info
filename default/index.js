@@ -46,5 +46,6 @@ module.exports = {
   getPowerState: () => Promise.resolve({}),
   hasSystemFeature: () => Promise.resolve(false),
   getSystemAvailableFeatures: () => Promise.resolve([]),
-  getCameraPresence: () => Promise.resolve(false)
+  getCameraPresence: () => Promise.resolve(false),
+  hasLocationServicesEnabled: () => Promise.resolve(false)
 };
