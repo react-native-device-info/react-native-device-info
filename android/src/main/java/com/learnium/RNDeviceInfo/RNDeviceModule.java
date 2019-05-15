@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -356,6 +357,28 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     p.resolve(promiseArray);
+  }
+
+  @ReactMethod
+  public void hasLocationServicesEnabled(Promise p) {
+      boolean locationEnabled = false;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+          try {
+              int locationMode = Settings.Secure.getInt(this.reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE);
+              locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+            } catch (SettingNotFoundException e) {
+              e.printStackTrace();
+              locationEnabled = false;
+          }
+
+        } else {
+          String locationProviders = Settings.Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+          locationEnabled = !TextUtils.isEmpty(locationProviders);
+      }
+
+      p.resolve(locationEnabled);
   }
 
   public String getInstallReferrer() {

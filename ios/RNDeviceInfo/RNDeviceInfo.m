@@ -511,6 +511,12 @@ RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RC
     resolve(@(isCharging));
 }
 
+RCT_EXPORT_METHOD(hasLocationServicesEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL locationServicesEnabled = [CLLocationManager locationServicesEnabled];
+    resolve(@[[NSNumber numberWithBool:locationServicesEnabled]]);
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
