@@ -1,6 +1,8 @@
 ## Release Notes
 
 ### Next
+
+### 1.7.0
  * feat: Add `getCameraPresence()` method (https://github.com/react-native-community/react-native-device-info/pull/474)
 
 ### 1.6.2
