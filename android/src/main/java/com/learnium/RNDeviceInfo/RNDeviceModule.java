@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+import android.text.TextUtils;
 import android.app.ActivityManager;
 import android.util.DisplayMetrics;
 import android.hardware.Camera;

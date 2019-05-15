@@ -9,6 +9,7 @@
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #import <mach-o/arch.h>
+#import <CoreLocation/CoreLocation.h>
 #import <React/RCTUtils.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
@@ -514,7 +515,7 @@ RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RC
 RCT_EXPORT_METHOD(hasLocationServicesEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     BOOL locationServicesEnabled = [CLLocationManager locationServicesEnabled];
-    resolve(@[[NSNumber numberWithBool:locationServicesEnabled]]);
+    resolve(@(locationServicesEnabled));
 }
 
 - (void)dealloc
