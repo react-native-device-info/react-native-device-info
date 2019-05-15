@@ -9,6 +9,7 @@
     "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
+    "dev-sync": "cp -r deviceinfo* *podspec default windows web android ios example/node_modules/react-native-device-info/",
     "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
     "flow-check": "npx flow check-contents < deviceinfo.js.flow",
     "shipit": "np --no-yarn"
