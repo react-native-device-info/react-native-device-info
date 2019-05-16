@@ -1,6 +1,8 @@
 ## Release Notes
 
 ### Next
+
+### 1.8.0
 * feat: Add `isLocationEnabled()`, `getAvailableLocationProviders()` methods (https://github.com/react-native-community/react-native-device-info/pull/664)
 
 ### 1.7.0
