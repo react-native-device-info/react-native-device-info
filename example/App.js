@@ -81,7 +81,7 @@ export default class App extends Component<Props> {
       deviceJSON.hasSystemFeature = ios ? false : await DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv');
       deviceJSON.getSystemAvailableFeatures = ios ? [] : await DeviceInfo.getSystemAvailableFeatures();
       deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
-      deviceJSON.hasLocationServicesEnabled = await DeviceInfo.hasLocationServicesEnabled();
+      deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }

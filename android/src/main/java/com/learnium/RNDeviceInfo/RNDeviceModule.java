@@ -20,7 +20,6 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -363,22 +362,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void hasLocationServicesEnabled(Promise p) {
+  public void isLocationEnabled(Promise p) {
       boolean locationEnabled = false;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-          try {
-              int locationMode = Settings.Secure.getInt(this.reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE);
-              locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
-
-            } catch (SettingNotFoundException e) {
-              e.printStackTrace();
-              locationEnabled = false;
-          }
-
-        } else {
-          String locationProviders = Settings.Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-          locationEnabled = !TextUtils.isEmpty(locationProviders);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        locationEnabled = mLocationManager.isLocationEnabled();
+      } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        int locationMode = Settings.Secure.getInt(reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+        locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
+      } else {
+        String locationProviders = Settings.Secure.getString(reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        locationEnabled = !TextUtils.isEmpty(locationProviders);
       }
 
       p.resolve(locationEnabled);
@@ -386,7 +381,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getAvailableLocationServices(Promise p) {
-    LocationManager mLocationManager = (LocationManager) this.reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+    LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
     final List<String> providers = mLocationManager.getProviders(false);
 
     WritableMap providersAvailability = Arguments.createMap();

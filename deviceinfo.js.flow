@@ -56,5 +56,5 @@ declare module.exports: {
   supportedABIs: () => string[],
   hasSystemFeature: (feature: string) => Promise<boolean>,
   getSystemAvailableFeatures: () => Promise<Array<string>>,
-  hasLocationServicesEnabled: () => Promise<boolean>,
+  isLocationEnabled: () => Promise<boolean>,
 };

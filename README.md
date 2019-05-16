@@ -266,7 +266,7 @@ import DeviceInfo from 'react-native-device-info';
 | [supportedABIs()](#supportedABIs)                           | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 | [hasSystemFeature()](#hassystemfeaturefeature)              | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures) | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
-| [hasLocationServicesEnabled()](#hasLocationServicesEnabled) | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ?      |
+| [isLocationEnabled()](#isLocationEnabled)                   | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -1097,14 +1097,14 @@ DeviceInfo.getSystemAvailableFeatures().then(features => {
 }); 
 ```
 
-### hasLocationServicesEnabled()
+### isLocationEnabled()
 
 Tells if the device has location services turned off at the device-level (NOT related to app-specific permissions)
 
 **Examples**
 
 ```js
-DeviceInfo.hasLocationServicesEnabled().then(enabled => {
+DeviceInfo.isLocationEnabled().then(enabled => {
   // true or false
 });
 ```
