@@ -518,6 +518,16 @@ RCT_EXPORT_METHOD(hasLocationServicesEnabled:(RCTPromiseResolveBlock)resolve rej
     resolve(@(locationServicesEnabled));
 }
 
+RCT_EXPORT_METHOD(getAvailableLocationServices:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve(@{
+              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
+              @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
+              @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
+              @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
+              });
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

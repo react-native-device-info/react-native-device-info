@@ -12,6 +12,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
 import android.content.res.Configuration;
+import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
@@ -38,6 +39,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -380,6 +382,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
 
       p.resolve(locationEnabled);
+  }
+
+  @ReactMethod
+  public void getAvailableLocationServices(Promise p) {
+    LocationManager mLocationManager = (LocationManager) this.reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+    final List<String> providers = mLocationManager.getProviders(false);
+
+    WritableMap providersAvailability = Arguments.createMap();
+    for (String provider : providers) {
+      providersAvailability.putBoolean(provider, mLocationManager.isProviderEnabled(provider));
+    }
+
+    p.resolve(providersAvailability);
   }
 
   public String getInstallReferrer() {
