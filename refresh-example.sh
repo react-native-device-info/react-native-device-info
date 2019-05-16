@@ -3,6 +3,7 @@ set -e
 
 echo "You should run this from directory where you have cloned the react-native-device-info repo"
 echo "You should only do this when your git working set is completely clean (e.g., git reset --hard)"
+echo "You must run \`npm install react-native-cli -g\` prior to running this script"
 echo "You must have already run \`npm install\` in the repository so \`npx react-native\` will work"
 echo "This scaffolding refresh has been tested on macOS, if you use it on linux, it might not work"
 
@@ -15,7 +16,7 @@ else
   mkdir -p TEMP/android
   mkdir -p TEMP/ios
   cp example/README.md TEMP/
-  cp example/android/local.properties TEMP/android/
+  cp example/android/local.properties TEMP/android/ || true
   cp example/App.js TEMP/
   cp example/ios/Podfile TEMP/ios/
 fi
