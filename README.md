@@ -213,59 +213,61 @@ import DeviceInfo from 'react-native-device-info';
 
 ## API
 
-| Method                                                      | Return Type         |  iOS | Android | Windows | Since  |
-| ----------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
-| [getAPILevel()](#getapilevel)                               | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getApplicationName()](#getapplicationname)                 | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
-| [getBatteryLevel()](#getbatterylevel)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
-| [getBrand()](#getbrand)                                     | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
-| [getBuildNumber()](#getbuildnumber)                         | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getBundleId()](#getbundleid)                               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getCameraPresence()](#getcamerapresence)                   | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ?      |
-| [getCarrier()](#getcarrier)                                 | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
-| [getDeviceCountry()](#getdevicecountry)                     | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
-| [getDeviceId()](#getdeviceid)                               | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
-| [getDeviceLocale()](#getdevicelocale)                       | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
-| [getPreferredLocales()](#getpreferredlocale)                | `Array<string>`     |  ✅  |   ✅    |   ❌    | ?      |
-| [getDeviceName()](#getdevicename)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)               | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
-| [getFontScale()](#getfontscale)                             | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getFreeDiskStorage()](#getfreediskstorage)                 | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getIPAddress()](#getipaddress)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
-| [getInstallReferrer()](#getinstallreferrer)                 | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
-| [getInstanceID()](#getinstanceid)                           | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getLastUpdateTime()](#getlastupdatetime)                   | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getMACAddress()](#getmacaddress)                           | `Promise<string>`   |  ✅  |   ✅    |   ❌    | 0.12.0 |
-| [getManufacturer()](#getmanufacturer)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                             | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
-| [getModel()](#getmodel)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getPhoneNumber()](#getphonenumber)                         | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getPowerState()](#getpowerstate)                           | `Promise<object>`   |  ✅  |   ❌    |   ❌    |        |
-| [getReadableVersion()](#getreadableversion)                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getSerialNumber()](#getserialnumber)                       | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getSystemName()](#getsystemname)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getSystemVersion()](#getsystemversion)                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getBuildId()](#getbuildid)                                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
-| [getTimezone()](#gettimezone)                               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getTotalDiskCapacity()](#gettotaldiskcapacity)             | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getTotalMemory()](#gettotalmemory)                         | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
-| [getUniqueID()](#getuniqueid)                               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [getUserAgent()](#getuseragent)                             | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
-| [getVersion()](#getversion)                                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [is24Hour()](#is24hour)                                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
-| [isAirPlaneMode()](#isairplanemode)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
-| [isBatteryCharging()](#isbatterycharging)                   | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 0.27.0 |
-| [isEmulator()](#isemulator)                                 | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset)           | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
-| [isTablet()](#istablet)                                     | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
-| [hasNotch()](#hasNotch)                                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
-| [isLandscape()](#isLandscape)                               | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
-| [getDeviceType()](#getDeviceType)                           | `string`            |  ✅  |   ✅    |   ❌    | ?      |
-| [isAutoDateAndTime()](#isAutoDateAndTime)                   | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
-| [isAutoTimeZone()](#isAutoTimeZone)                         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
-| [supportedABIs()](#supportedABIs)                           | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
-| [hasSystemFeature()](#hassystemfeaturefeature)              | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
-| [getSystemAvailableFeatures()](#getSystemAvailableFeatures) | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
+| Method                                                            | Return Type         |  iOS | Android | Windows | Since  |
+| ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
+| [getAPILevel()](#getapilevel)                                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
+| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
+| [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
+| [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getCameraPresence()](#getcamerapresence)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ?      |
+| [getCarrier()](#getcarrier)                                       | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
+| [getDeviceCountry()](#getdevicecountry)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
+| [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
+| [getDeviceLocale()](#getdevicelocale)                             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
+| [getPreferredLocales()](#getpreferredlocale)                      | `Array<string>`     |  ✅  |   ✅    |   ❌    | ?      |
+| [getDeviceName()](#getdevicename)                                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getFirstInstallTime()](#getfirstinstalltime)                     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
+| [getFontScale()](#getfontscale)                                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
+| [getFreeDiskStorage()](#getfreediskstorage)                       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
+| [getIPAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
+| [getInstallReferrer()](#getinstallreferrer)                       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
+| [getInstanceID()](#getinstanceid)                                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
+| [getLastUpdateTime()](#getlastupdatetime)                         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getMACAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    | 0.12.0 |
+| [getManufacturer()](#getmanufacturer)                             | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getMaxMemory()](#getmaxmemory)                                   | `number`            |  ❌  |   ✅    |   ✅    | 0.14.0 |
+| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getPhoneNumber()](#getphonenumber)                               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |        |
+| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getSerialNumber()](#getserialnumber)                             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
+| [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getSystemVersion()](#getsystemversion)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getBuildId()](#getbuildid)                                       | `string`            |  ✅  |   ✅    |   ❌    | ?      |
+| [getTimezone()](#gettimezone)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
+| [getTotalMemory()](#gettotalmemory)                               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
+| [getUniqueID()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [getUserAgent()](#getuseragent)                                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
+| [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
+| [is24Hour()](#is24hour)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
+| [isAirPlaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
+| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 0.27.0 |
+| [isEmulator()](#isemulator)                                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | (callback)`boolean` |  ✅  |   ✅    |   ✅    | 0.10.1 |
+| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
+| [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
+| [isLandscape()](#isLandscape)                                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
+| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
+| [isAutoDateAndTime()](#isAutoDateAndTime)                         | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
+| [isAutoTimeZone()](#isAutoTimeZone)                               | `boolean`           |  ❌  |   ✅    |   ❌    | 0.29.0 |
+| [supportedABIs()](#supportedABIs)                                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
+| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
+| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
+| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ?      |
+| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    | ?      |
 
 ---
 
@@ -1094,6 +1096,49 @@ Returns a list of available system features on Android.
 DeviceInfo.getSystemAvailableFeatures().then(features => {
   // ["android.software.backup", "android.hardware.screen.landscape", "android.hardware.wifi", ...]
 }); 
+```
+
+### isLocationEnabled()
+
+Tells if the device has location services turned off at the device-level (NOT related to app-specific permissions)
+
+**Examples**
+
+```js
+DeviceInfo.isLocationEnabled().then(enabled => {
+  // true or false
+});
+```
+
+### getAvailableLocationProviders()
+
+Returns an object of **platform-specfic** location providers/servcies, with `boolean` value whether or not they are currently available.
+
+> NOTE: This function requires access to the Location permission on Android
+
+#### Android Example
+
+```js
+DeviceInfo.getAvailableLocationProviders().then(providers => {
+  // {
+  //   gps: true
+  //   network: true
+  //   passive: true
+  // }
+});
+```
+
+#### iOS Example
+
+```js
+DeviceInfo.getAvailableLocationProviders().then(providers => {
+  // {
+  //   headingAvailable: false
+  //   isRangingAvailable: false
+  //   locationServicesEnabled: true
+  //   significantLocationChangeMonitoringAvailable: true
+  // }
+});
 ```
 
 ## Events

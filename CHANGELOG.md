@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+* feat: Add `isLocationEnabled()`, `getAvailableLocationProviders()` methods (https://github.com/react-native-community/react-native-device-info/pull/664)
 
 ### 1.7.0
  * feat: Add `getCameraPresence()` method (https://github.com/react-native-community/react-native-device-info/pull/474)

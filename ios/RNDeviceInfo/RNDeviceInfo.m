@@ -9,6 +9,7 @@
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #import <mach-o/arch.h>
+#import <CoreLocation/CoreLocation.h>
 #import <React/RCTUtils.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
@@ -509,6 +510,22 @@ RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RC
 {
     BOOL isCharging = [self.powerState[@"batteryState"] isEqualToString:@"charging"];
     resolve(@(isCharging));
+}
+
+RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    BOOL locationServicesEnabled = [CLLocationManager locationServicesEnabled];
+    resolve(@(locationServicesEnabled));
+}
+
+RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve(@{
+              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
+              @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
+              @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
+              @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
+              });
 }
 
 - (void)dealloc

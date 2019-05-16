@@ -55,6 +55,8 @@ declare const _default: {
   supportedABIs: () => string[];
   hasSystemFeature: (feature: string) => Promise<boolean>;
   getSystemAvailableFeatures: () => Promise<string[]>;
+  isLocationEnabled: () => Promise<boolean>;
+  getAvailableLocationProviders: () => Promise<Object>;
 };
 
 export default _default;
