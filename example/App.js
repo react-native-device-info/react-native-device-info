@@ -82,6 +82,7 @@ export default class App extends Component<Props> {
       deviceJSON.getSystemAvailableFeatures = ios ? [] : await DeviceInfo.getSystemAvailableFeatures();
       deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
+      deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }

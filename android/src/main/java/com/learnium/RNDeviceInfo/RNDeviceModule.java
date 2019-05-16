@@ -380,7 +380,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getAvailableLocationServices(Promise p) {
+  public void getAvailableLocationProviders(Promise p) {
     LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
     final List<String> providers = mLocationManager.getProviders(false);
 

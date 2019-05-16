@@ -378,5 +378,8 @@ export default {
   },
   isLocationEnabled: function() {
     return RNDeviceInfo.isLocationEnabled();
-  }
+  },
+  getAvailableLocationProviders: function() {
+    return RNDeviceInfo.getAvailableLocationProviders();
+  },
 };
