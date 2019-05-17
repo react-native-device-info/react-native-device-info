@@ -2,7 +2,10 @@
 
 ### Next
 
-### 1.8.0
+### 2.0.0
+* breaking: no functional change from 1.8.0, but isLocationEnabled requires minCompileSdk 28
+
+### 1.8.0 (unpublished: unintended breaking change)
 * feat: Add `isLocationEnabled()`, `getAvailableLocationProviders()` methods (https://github.com/react-native-community/react-native-device-info/pull/664)
 
 ### 1.7.0
