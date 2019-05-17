@@ -27,7 +27,7 @@ fi
 # Make the new example
 npx react-native init example
 pushd example
-npm install github:react-native-community/react-native-device-info
+yarn add github:react-native-community/react-native-device-info
 npx react-native link react-native-device-info
 
 # Patch the build.gradle directly to slice in our android play version

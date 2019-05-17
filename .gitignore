@@ -1,16 +1,6 @@
-node_modules
-.vscode
+# OSX
+#
 .DS_Store
-
-# IntelliJ / AndroidStudio
-android/build/
-**/.project
-**/.classpath
-**/.gradle
-**/.settings
-**/*.iml
-android/local.properties
-android/.idea
 
 # Xcode
 #
@@ -30,29 +20,41 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+project.xcworkspace
 
-# CocoaPods
+# Android/IntelliJ
 #
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
+build/
+.idea
+.gradle
+local.properties
+*.iml
+
+# node.js
 #
-#Pods/
+node_modules/
+npm-debug.log
+yarn-error.log
 
-.idea/.name
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
 
-.idea/compiler.xml
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
 
-.idea/copyright/profiles_settings.xml
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
 
-.idea/encodings.xml
+# Bundle artifact
+*.jsbundle
 
-.idea/misc.xml
-
-.idea/modules.xml
-
-.idea/react-native-device-info.iml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
+Pods/
+example.xcworkspace
+.vscode
