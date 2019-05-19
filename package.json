@@ -54,11 +54,11 @@
   "devDependencies": {
     "@react-native-community/eslint-config": "0.0.5",
     "eslint": "^5.16.0",
-    "flow-bin": "^0.98.0",
+    "flow-bin": "^0.98.1",
     "husky": "^2.3.0",
-    "np": "^5.0.1",
     "lint-staged": "^8.1.6",
-    "prettier": "^1.17.0",
+    "np": "^5.0.2",
+    "prettier": "^1.17.1",
     "react": "^16.8.3",
     "typescript": "^3.4.5"
   },
