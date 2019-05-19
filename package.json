@@ -10,9 +10,17 @@
   },
   "scripts": {
     "dev-sync": "cp -r deviceinfo* *podspec default windows web android ios example/node_modules/react-native-device-info/",
-    "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
     "flow-check": "npx flow check-contents < deviceinfo.js.flow",
-    "shipit": "np --no-yarn"
+    "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
+    "shipit": "np --no-yarn",
+    "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
+    "precommit": "lint-staged && npm run ts-check && npm run flow-check"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "keywords": [
     "react-component",
@@ -44,9 +52,18 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@react-native-community/eslint-config": "0.0.5",
+    "eslint": "^5.16.0",
     "flow-bin": "^0.98.0",
+    "husky": "^2.3.0",
     "np": "^5.0.1",
+    "lint-staged": "^8.1.6",
     "prettier": "^1.17.0",
+    "react": "^16.8.3",
     "typescript": "^3.4.5"
-  }
+  },
+  "eslintConfig": {
+    "extends": "@react-native-community"
+  },
+  "dependencies": {}
 }
