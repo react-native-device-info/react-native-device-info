@@ -277,7 +277,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public BigInteger getFreeDiskStorage() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
-      return BigInteger.valueOf(external.getAvailableBlocks()).multiply(BigInteger.valueOf(external.getBlockSize()));
+      long availableBlocks;
+      long blockSize;
+
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        availableBlocks = external.getAvailableBlocks();
+        blockSize = external.getBlockSize();
+      } else {
+        availableBlocks = external.getAvailableBlocksLong();
+        blockSize = external.getBlockSizeLong();
+      }
+
+      return BigInteger.valueOf(availableBlocks).multiply(BigInteger.valueOf(blockSize));
     } catch (Exception e) {
       e.printStackTrace();
     }
