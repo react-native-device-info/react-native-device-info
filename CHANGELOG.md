@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+* fix: `getFreeDiskStorage()` to use `StatFs` methods that return `long` instead of `int` (which are now deprecated)
 
 ### 2.0.0
 * breaking: no functional change from 1.8.0, but isLocationEnabled requires minCompileSdk 28
