@@ -1,15 +1,26 @@
 {
   "name": "react-native-device-info",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Get device information using react-native",
   "main": "deviceinfo.js",
   "typings": "./deviceinfo.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rebeccahughes/react-native-device-info"
+    "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
-    "shipit": "np"
+    "dev-sync": "cp -r deviceinfo* *podspec default windows web android ios example/node_modules/react-native-device-info/",
+    "flow-check": "npx flow check-contents < deviceinfo.js.flow",
+    "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
+    "shipit": "np --no-yarn",
+    "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
+    "precommit": "lint-staged && npm run ts-check && npm run flow-check"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "keywords": [
     "react-component",
@@ -32,11 +43,27 @@
       "name": "Mehdi Achour",
       "email": "machour@gmail.com",
       "url": "https://github.com/machour"
+    },
+    {
+      "name": "Mike Hardy",
+      "email": "github@mikehardy.net",
+      "url": "https://github.com/mikehardy"
     }
   ],
   "license": "MIT",
   "devDependencies": {
-    "np": "^2.16.0",
-    "prettier": "^1.10.2"
-  }
+    "@react-native-community/eslint-config": "0.0.5",
+    "eslint": "^5.16.0",
+    "flow-bin": "^0.98.1",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.6",
+    "np": "^5.0.2",
+    "prettier": "^1.17.1",
+    "react": "^16.8.3",
+    "typescript": "^3.4.5"
+  },
+  "eslintConfig": {
+    "extends": "@react-native-community"
+  },
+  "dependencies": {}
 }

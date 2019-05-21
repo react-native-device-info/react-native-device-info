@@ -1,13 +1,225 @@
 /**
  * @providesModule react-native-device-info
  */
-import { Platform, NativeModules } from 'react-native';
+import { Platform, NativeModules, Dimensions } from 'react-native';
 
 var RNDeviceInfo = NativeModules.RNDeviceInfo;
 
-if (!RNDeviceInfo && Platform.OS === 'web') {
+if (Platform.OS === 'web' || Platform.OS === 'dom') {
   RNDeviceInfo = require('./web');
 }
+if (!RNDeviceInfo) {
+  // Produce an error if we don't have the native module
+  if (
+    Platform.OS === 'android' ||
+    Platform.OS === 'ios' ||
+    Platform.OS === 'web' ||
+    Platform.OS === 'dom'
+  ) {
+    throw new Error(`@react-native-community/react-native-device-info: NativeModule.RNDeviceInfo is null. To fix this issue try these steps:
+  • Run \`react-native link react-native-device-info\` in the project root.
+  • Rebuild and re-run the app.
+  • If you are using CocoaPods on iOS, run \`pod install\` in the \`ios\` directory and then rebuild and re-run the app. You may also need to re-open Xcode to get the new pods.
+  If none of these fix the issue, please open an issue on the Github repository: https://github.com/react-native-community/react-native-device-info`);
+  }
+
+  RNDeviceInfo = require('./default');
+}
+
+const devicesWithNotch = [
+  {
+    brand: 'Apple',
+    model: 'iPhone X',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone XS',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone XS Max',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone XR',
+  },
+  {
+    brand: 'Asus',
+    model: 'ZenFone 5',
+  },
+  {
+    brand: 'Asus',
+    model: 'ZenFone 5z',
+  },
+  {
+    brand: 'google',
+    model: 'Pixel 3 XL',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P20',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P20 Plus',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P20 Lite',
+  },
+  {
+    brand: 'Huawei',
+    model: 'ANE-LX1',
+  },
+  {
+    brand: 'Huawei',
+    model: 'INE-LX1',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Honor 10',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Nova 3',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Nova 3i',
+  },
+  {
+    brand: 'Leagoo',
+    model: 'S9',
+  },
+  {
+    brand: 'LG',
+    model: 'G7',
+  },
+  {
+    brand: 'LG',
+    model: 'G7 ThinQ',
+  },
+  {
+    brand: 'LG',
+    model: 'G7+ ThinQ',
+  },
+  {
+    brand: 'LG',
+    model: 'LM-Q910', //G7 One
+  },
+  {
+    brand: 'LG',
+    model: 'LM-G710', //G7 ThinQ
+  },
+  {
+    brand: 'LG',
+    model: 'LM-V405', //V40 ThinQ
+  },
+  {
+    brand: 'Nokia',
+    model: '6.1 Plus',
+  },
+  {
+    brand: 'Nokia',
+    model: '7.1',
+  },
+  {
+    brand: 'OnePlus',
+    model: '6',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'A6003',
+  },
+  {
+    brand: 'ONEPLUS',
+    model: 'A6000',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'OnePlus A6003',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6010',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6013',
+  },
+  {
+    brand: 'OnePlus',
+    model: 'ONEPLUS A6000',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15',
+  },
+  {
+    brand: 'Oppo',
+    model: 'R15 Pro',
+  },
+  {
+    brand: 'Oppo',
+    model: 'F7',
+  },
+  {
+    brand: 'Oukitel',
+    model: 'U18',
+  },
+  {
+    brand: 'Sharp',
+    model: 'Aquos S3',
+  },
+  {
+    brand: 'Vivo',
+    model: 'V9',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21',
+  },
+  {
+    brand: 'Vivo',
+    model: 'X21 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 Explorer Edition',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 SE',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 UD',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'MI 8 Lite',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'POCO F1',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'POCOPHONE F1',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Redmi 6 Pro',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Mi A2 Lite',
+  },
+];
 
 export default {
   getUniqueID: function() {
@@ -21,6 +233,9 @@ export default {
   },
   getIPAddress: function() {
     return RNDeviceInfo.getIpAddress();
+  },
+  getCameraPresence: function() {
+    return RNDeviceInfo.getCameraPresence();
   },
   getMACAddress: function() {
     return RNDeviceInfo.getMacAddress();
@@ -42,6 +257,9 @@ export default {
   },
   getSystemVersion: function() {
     return RNDeviceInfo.systemVersion;
+  },
+  getBuildId: function() {
+    return RNDeviceInfo.buildId;
   },
   getAPILevel: function() {
     return RNDeviceInfo.apiLevel;
@@ -70,6 +288,9 @@ export default {
   getDeviceLocale: function() {
     return RNDeviceInfo.deviceLocale;
   },
+  getPreferredLocales: function() {
+    return RNDeviceInfo.preferredLocales;
+  },
   getDeviceCountry: function() {
     return RNDeviceInfo.deviceCountry;
   },
@@ -90,6 +311,15 @@ export default {
   },
   isPinOrFingerprintSet: function() {
     return RNDeviceInfo.isPinOrFingerprintSet;
+  },
+  hasNotch: function() {
+    return (
+      devicesWithNotch.findIndex(
+        item =>
+          item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() &&
+          item.model.toLowerCase() === RNDeviceInfo.model.toLowerCase()
+      ) !== -1
+    );
   },
   getFirstInstallTime: function() {
     return RNDeviceInfo.firstInstallTime;
@@ -120,5 +350,42 @@ export default {
   },
   getBatteryLevel: function() {
     return RNDeviceInfo.getBatteryLevel();
+  },
+  getPowerState: function() {
+    return RNDeviceInfo.getPowerState();
+  },
+  isBatteryCharging: function() {
+    return RNDeviceInfo.isBatteryCharging();
+  },
+  isLandscape: function() {
+    const { height, width } = Dimensions.get('window');
+    return width >= height;
+  },
+  isAirPlaneMode: function() {
+    return RNDeviceInfo.isAirPlaneMode();
+  },
+  getDeviceType: function() {
+    return RNDeviceInfo.deviceType;
+  },
+  isAutoDateAndTime: function() {
+    return RNDeviceInfo.isAutoDateAndTime();
+  },
+  isAutoTimeZone: function() {
+    return RNDeviceInfo.isAutoTimeZone();
+  },
+  supportedABIs: function() {
+    return RNDeviceInfo.supportedABIs;
+  },
+  hasSystemFeature: function(feature) {
+    return RNDeviceInfo.hasSystemFeature(feature);
+  },
+  getSystemAvailableFeatures: function() {
+    return RNDeviceInfo.getSystemAvailableFeatures();
+  },
+  isLocationEnabled: function() {
+    return RNDeviceInfo.isLocationEnabled();
+  },
+  getAvailableLocationProviders: function() {
+    return RNDeviceInfo.getAvailableLocationProviders();
   },
 };

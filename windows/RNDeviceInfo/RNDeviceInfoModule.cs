@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -84,7 +85,14 @@ namespace RNDeviceInfo
                 promise.Resolve(hostname?.CanonicalName);
             }
         }
-
+		
+        [ReactMethod]
+        public async void getCameraPresence(IPromise promise)
+        {
+            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
+            promise.Resolve(devices.Count > 0);
+        }
+		
         [ReactMethod]
         public async void getBatteryLevel(IPromise promise)
         {
@@ -172,6 +180,7 @@ namespace RNDeviceInfo
                 constants["apiLevel"] = "not available";
                 constants["model"] = model;
                 constants["brand"] = model;
+                constants["buildId"] = "not available";
                 constants["deviceId"] = hardwareVersion;
                 constants["deviceLocale"] = culture.Name;
                 constants["deviceCountry"] = culture.EnglishName;
