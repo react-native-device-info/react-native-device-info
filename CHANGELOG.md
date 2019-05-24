@@ -4,6 +4,8 @@
 
 ### 2.0.2
 * fix: checking for tvOS before attempting to get `isBatteryMonitoringEnabled` flag as tvOS doesn't support it (https://github.com/react-native-community/react-native-device-info/pull/673)
+* types: make the typescript location / power returns specific (https://github.com/react-native-community/react-native-device-info/pull/669)
+* chore: move ios device model dictionary from native to javascript (https://github.com/react-native-community/react-native-device-info/pull/670)
 
 ### 2.0.1
 * fix: `getFreeDiskStorage()` to use `StatFs` methods that return `long` instead of `int` (which are now deprecated)
