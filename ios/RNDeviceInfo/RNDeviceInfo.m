@@ -407,8 +407,7 @@ RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve 
               @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
               @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
               });
-#endif
-#if TARGET_OS_TV
+#else
     resolve(@{
               @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]]
               });
