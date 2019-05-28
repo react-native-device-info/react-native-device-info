@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+fix: API Chart in README.md shows return type for isAutoDateAndTime and isAutoTimeZone as Promise instead of
 
 ### 2.0.2
 * fix: checking for tvOS before attempting to get `isBatteryMonitoringEnabled` flag as tvOS doesn't support it (https://github.com/react-native-community/react-native-device-info/pull/673)
