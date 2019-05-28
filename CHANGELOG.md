@@ -3,6 +3,9 @@
 ### Next
 fix: API Chart in README.md shows return type for isAutoDateAndTime and isAutoTimeZone as Promise instead of
 
+### 2.0.3
+* fix: adding conditions for tvOS location providers (https://github.com/react-native-community/react-native-device-info/pull/678)
+
 ### 2.0.2
 * fix: checking for tvOS before attempting to get `isBatteryMonitoringEnabled` flag as tvOS doesn't support it (https://github.com/react-native-community/react-native-device-info/pull/673)
 * types: make the typescript location / power returns specific (https://github.com/react-native-community/react-native-device-info/pull/669)
