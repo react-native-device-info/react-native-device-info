@@ -60,7 +60,7 @@
     "np": "^5.0.2",
     "prettier": "^1.17.1",
     "react": "^16.8.3",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.1"
   },
   "eslintConfig": {
     "extends": "@react-native-community"
