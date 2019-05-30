@@ -39,7 +39,7 @@ sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.p
 rm -f android/app/src/main/AndroidManifest.xml??
 
 # Patch the AppDelegate for iOS battery level
-sed -i -e $'s/return YES;/\[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n  return YES;/' ios/example/AppDelegate.m
+sed -i -e $'s/  return YES;/#if !TARGET_OS_TV\\\n  \[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n#endif\\\n  return YES;/' ios/example/AppDelegate.m
 rm -f ios/example/AppDelegate.m??
 
 # Copy the important files back in

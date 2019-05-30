@@ -400,12 +400,18 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
 
 RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
+#if !TARGET_OS_TV
     resolve(@{
               @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
               @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
               @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
               @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
               });
+#else
+    resolve(@{
+              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]]
+              });
+#endif
 }
 
 - (void)dealloc
