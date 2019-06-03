@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+* fix: Add Xiaomi Redmi Note 7 to devicesWithNotch list (https://github.com/react-native-community/react-native-device-info/pull/682)
 
 ### 2.0.3
 * fix: adding conditions for tvOS location providers (https://github.com/react-native-community/react-native-device-info/pull/678)
