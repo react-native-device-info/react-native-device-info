@@ -15,6 +15,7 @@ import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -50,6 +51,7 @@ import java.util.TimeZone;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
 import java.math.BigInteger;
+import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nullable;
 
@@ -61,11 +63,24 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   DeviceType deviceType;
 
-  public RNDeviceModule(ReactApplicationContext reactContext) {
+  Map<String, Object> constants;
+  AsyncTask<Void, Void, Map<String, Object>> futureConstants;
+
+  public RNDeviceModule(ReactApplicationContext reactContext, boolean loadConstantsAsynchronously) {
     super(reactContext);
 
     this.reactContext = reactContext;
     this.deviceType = getDeviceType(reactContext);
+    if (loadConstantsAsynchronously) {
+      this.futureConstants = new AsyncTask<Void, Void, Map<String, Object>>() {
+        @Override
+        protected Map<String, Object> doInBackground(Void... args) {
+          return generateConstants();
+        }
+      }.execute();
+    } else {
+      this.constants = generateConstants();
+    }
   }
 
   @Override
@@ -408,9 +423,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return sharedPref.getString("installReferrer", null);
   }
 
-  @Override
-  public @Nullable
-  Map<String, Object> getConstants() {
+  private Map<String, Object> generateConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
     PackageManager packageManager = this.reactContext.getPackageManager();
@@ -514,5 +527,21 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       constants.put("supportedABIs", new String[]{ Build.CPU_ABI });
     }
     return constants;
+  }
+
+  @Override
+  public @Nullable
+  Map<String, Object> getConstants() {
+    if (this.constants == null && this.futureConstants != null) {
+      try {
+        this.constants = this.futureConstants.get();
+      } catch (InterruptedException e) {
+        return null;
+      } catch (ExecutionException e) {
+        throw new RuntimeException(e.getCause());
+      }
+    }
+
+    return this.constants;
   }
 }

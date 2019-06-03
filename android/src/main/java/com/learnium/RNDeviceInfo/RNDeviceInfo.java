@@ -11,12 +11,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class RNDeviceInfo implements ReactPackage {
+  private boolean mLoadConstantsAsynchronously;
+
+  public RNDeviceInfo() {
+    this(false);
+  }
+
+  public RNDeviceInfo(boolean loadConstantsAsynchronously) {
+    mLoadConstantsAsynchronously = loadConstantsAsynchronously;
+  }
 
   @Override
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new RNDeviceModule(reactContext));
+    modules.add(new RNDeviceModule(reactContext, mLoadConstantsAsynchronously));
 
     return modules;
   }
