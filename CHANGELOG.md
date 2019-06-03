@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.1.0
+* perf(Android): getConstants() optionally loaded in thread, speedup for most, init MainApplication with RNDeviceInfo(true) (https://github.com/react-native-community/react-native-device-info/pull/680)
+
 ### 2.0.4
 * fix: Add Xiaomi Redmi Note 7 to devicesWithNotch list (https://github.com/react-native-community/react-native-device-info/pull/682)
 
