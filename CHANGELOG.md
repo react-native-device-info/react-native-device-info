@@ -1,6 +1,8 @@
 ## Release Notes
 
 ### Next
+
+### 2.0.4
 * fix: Add Xiaomi Redmi Note 7 to devicesWithNotch list (https://github.com/react-native-community/react-native-device-info/pull/682)
 
 ### 2.0.3
