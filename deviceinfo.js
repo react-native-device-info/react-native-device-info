@@ -217,6 +217,10 @@ const devicesWithNotch = [
   },
   {
     brand: 'xiaomi',
+    model: 'Redmi Note 7',
+  },
+  {
+    brand: 'xiaomi',
     model: 'Mi A2 Lite',
   },
 ];
