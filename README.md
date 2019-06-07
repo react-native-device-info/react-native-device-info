@@ -70,8 +70,8 @@ In XCode, in the project navigator:
 
 * Right click _Libraries_
 * Add Files to _[your project's name]_
-* Go to `node_modules/react-native-device-info`
-* Add the `.xcodeproj` file
+* Go to `node_modules/react-native-device-info/ios`
+* Add the file `RNDeviceInfo.xcodeproj`
 
 In XCode, in the project navigator, select your project.
 
