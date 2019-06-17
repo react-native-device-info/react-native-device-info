@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.1.2
+* build(Android): constrain play services dependency to pre-AndroidX 16.1.0 (https://github.com/react-native-community/react-native-device-info/pull/693)
+
 ### 2.1.1
 * fix(Android): Avoid NullpointerException on install referer listener (https://github.com/react-native-community/react-native-device-info/pull/685)
 
