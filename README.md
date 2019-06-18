@@ -65,9 +65,31 @@ You still need to run `pod install` after running the above link command inside 
 <details>
     <summary>iOS (via CocoaPods)</summary>
 
-Add the following line to your build targets in your `Podfile`
+Add the following lines to your build targets in your `Podfile`
 
-`pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'`
+```
+pod 'React', :path => '../node_modules/react-native'
+
+# Explicitly include Yoga if you are using RN >= 0.42.0
+pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+
+pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+  
+# React-Native is not great about React double-including from the Podfile
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == "React"
+      target.remove_from_project
+    end
+
+    # It removes React & Yoga from the Pods project, as it is already included in the main project.
+    targets_to_ignore = %w(React yoga)
+    if targets_to_ignore.include? target.name
+      target.remove_from_project
+    end
+  end
+end
+```
 
 Then run `pod install`
 
