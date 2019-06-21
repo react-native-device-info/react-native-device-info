@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.1.3
+* fix: add missing devices to devices with notch list (https://github.com/react-native-community/react-native-device-info/pull/702)
+
 ### 2.1.2
 * build(Android): constrain play services dependency to pre-AndroidX 16.1.0 (https://github.com/react-native-community/react-native-device-info/pull/693)
 
