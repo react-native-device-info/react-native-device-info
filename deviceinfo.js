@@ -344,6 +344,31 @@ const deviceNamesByCode = {
   'AppleTV6,2': 'Apple TV 4K', // Apple TV 4K
 };
 
+function getModel() {
+  if (Platform.OS === 'ios') {
+    var deviceName;
+    var deviceId = RNDeviceInfo.deviceId;
+    if (deviceId) {
+      deviceName = deviceNamesByCode[deviceId];
+      if (!deviceName) {
+        // Not found on database. At least guess main device type from string contents:
+        if (deviceId.startsWith('iPod')) {
+          deviceName = 'iPod Touch';
+        } else if (deviceId.startsWith('iPad')) {
+          deviceName = 'iPad';
+        } else if (deviceId.startsWith('iPhone')) {
+          deviceName = 'iPhone';
+        } else if (deviceId.startsWith('AppleTV')) {
+          deviceName = 'Apple TV';
+        }
+      }
+    }
+    return deviceName;
+  } else {
+    return RNDeviceInfo.model;
+  }
+}
+
 export default {
   getUniqueID: function() {
     return RNDeviceInfo.uniqueId;
@@ -369,30 +394,7 @@ export default {
   getManufacturer: function() {
     return RNDeviceInfo.systemManufacturer;
   },
-  getModel: function() {
-    if (Platform.OS === 'ios') {
-      var deviceName;
-      var deviceId = RNDeviceInfo.deviceId;
-      if (deviceId) {
-        deviceName = deviceNamesByCode[deviceId];
-        if (!deviceName) {
-          // Not found on database. At least guess main device type from string contents:
-          if (deviceId.startsWith('iPod')) {
-            deviceName = 'iPod Touch';
-          } else if (deviceId.startsWith('iPad')) {
-            deviceName = 'iPad';
-          } else if (deviceId.startsWith('iPhone')) {
-            deviceName = 'iPhone';
-          } else if (deviceId.startsWith('AppleTV')) {
-            deviceName = 'Apple TV';
-          }
-        }
-      }
-      return deviceName;
-    } else {
-      return RNDeviceInfo.model;
-    }
-  },
+  getModel,
   getBrand: function() {
     return RNDeviceInfo.brand;
   },
@@ -461,7 +463,7 @@ export default {
       devicesWithNotch.findIndex(
         item =>
           item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() &&
-          item.model.toLowerCase() === this.getModel().toLowerCase()
+          item.model.toLowerCase() === getModel().toLowerCase()
       ) !== -1
     );
   },
