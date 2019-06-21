@@ -81,6 +81,14 @@ const devicesWithNotch = [
   },
   {
     brand: 'Huawei',
+    model: 'Mate 20 Lite',
+  },
+  {
+    brand: 'Huawei',
+    model: 'Mate 20 Pro',
+  },
+  {
+    brand: 'Huawei',
     model: 'Nova 3',
   },
   {
@@ -116,12 +124,32 @@ const devicesWithNotch = [
     model: 'LM-V405', //V40 ThinQ
   },
   {
+    brand: 'Motorola',
+    model: 'Moto g7 Play',
+  },
+  {
+    brand: 'Motorola',
+    model: 'Moto g7 Power',
+  },
+  {
+    brand: 'Motorola',
+    model: 'One',
+  },
+  {
+    brand: 'Nokia',
+    model: '5.1 Plus',
+  },
+  {
     brand: 'Nokia',
     model: '6.1 Plus',
   },
   {
     brand: 'Nokia',
     model: '7.1',
+  },
+  {
+    brand: 'Nokia',
+    model: '8.1',
   },
   {
     brand: 'OnePlus',
