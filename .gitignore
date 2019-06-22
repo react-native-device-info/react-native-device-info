@@ -29,6 +29,10 @@ build/
 .gradle
 local.properties
 *.iml
+android/gradle/
+android/gradlew
+android/gradlew.bat
+android/gradle.properties
 
 # node.js
 #
