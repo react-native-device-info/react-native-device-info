@@ -83,6 +83,22 @@ export default class App extends Component<Props> {
       deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
       deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
+      deviceJSON.bootloader = ios ? '' : DeviceInfo.getBootloader();
+      deviceJSON.device = ios ? '' : DeviceInfo.getDevice();
+      deviceJSON.display = ios ? '' : DeviceInfo.getDisplay();
+      deviceJSON.fingerprint = ios ? '' : DeviceInfo.getFingerprint();
+      deviceJSON.hardware = ios ? '' : DeviceInfo.getHardware();
+      deviceJSON.host = ios ? '' : DeviceInfo.getHost();
+      deviceJSON.product = ios ? '' : DeviceInfo.getProduct();
+      deviceJSON.tags = ios ? '' : DeviceInfo.getTags();
+      deviceJSON.type = ios ? '' : DeviceInfo.getType();
+      deviceJSON.baseOS = ios ? '' : DeviceInfo.getBaseOS();
+      deviceJSON.previewSdkInt = ios ? -1 : DeviceInfo.getPreviewSdkInt();
+      deviceJSON.securityPatch = ios ? '' : DeviceInfo.getSecurityPatch();
+      deviceJSON.codename = ios ? '' : DeviceInfo.getCodename();
+      deviceJSON.incremental = ios ? '' : DeviceInfo.getIncremental();
+      deviceJSON.supported32BitAbis = ios ? [] : DeviceInfo.supported32BitAbis();
+      deviceJSON.supported64BitAbis = ios ? [] : DeviceInfo.supported64BitAbis();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }
