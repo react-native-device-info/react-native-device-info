@@ -161,7 +161,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         || Build.BOOTLOADER.toLowerCase().contains("nox")
         || Build.HARDWARE.toLowerCase().contains("nox")
         || Build.PRODUCT.toLowerCase().contains("nox")
-        || Build.SERIAL.toLowerCase().contains("nox");
+        || Build.SERIAL.toLowerCase().contains("nox")
         || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
         || "google_sdk".equals(Build.PRODUCT);
   }
