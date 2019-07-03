@@ -143,12 +143,25 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private Boolean isEmulator() {
+
     return Build.FINGERPRINT.startsWith("generic")
         || Build.FINGERPRINT.startsWith("unknown")
         || Build.MODEL.contains("google_sdk")
+        || Build.MODEL.toLowerCase().contains("droid4x")
         || Build.MODEL.contains("Emulator")
         || Build.MODEL.contains("Android SDK built for x86")
         || Build.MANUFACTURER.contains("Genymotion")
+        || Build.HARDWARE.equals("goldfish")
+        || Build.HARDWARE.equals("vbox86")
+        || Build.PRODUCT.equals("sdk")
+        || Build.PRODUCT.equals("google_sdk")
+        || Build.PRODUCT.equals("sdk_x86")
+        || Build.PRODUCT.equals("vbox86p")
+        || Build.BOARD.toLowerCase().contains("nox")
+        || Build.BOOTLOADER.toLowerCase().contains("nox")
+        || Build.HARDWARE.toLowerCase().contains("nox")
+        || Build.PRODUCT.toLowerCase().contains("nox")
+        || Build.SERIAL.toLowerCase().contains("nox");
         || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
         || "google_sdk".equals(Build.PRODUCT);
   }
