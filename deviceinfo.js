@@ -444,6 +444,48 @@ export default {
   getFontScale: function() {
     return RNDeviceInfo.fontScale;
   },
+  getBootloader: function() {
+    return RNDeviceInfo.bootloader;
+  },
+  getDevice: function() {
+    return RNDeviceInfo.device;
+  },
+  getDisplay: function() {
+    return RNDeviceInfo.display;
+  },
+  getFingerprint: function() {
+    return RNDeviceInfo.fingerprint;
+  },
+  getHardware: function() {
+    return RNDeviceInfo.hardware;
+  },
+  getHost: function() {
+    return RNDeviceInfo.host;
+  },
+  getProduct: function() {
+    return RNDeviceInfo.product;
+  },
+  getTags: function() {
+    return RNDeviceInfo.tags;
+  },
+  getType: function() {
+    return RNDeviceInfo.type;
+  },
+  getBaseOS: function() {
+    return RNDeviceInfo.baseOS;
+  },
+  getPreviewSdkInt: function() {
+    return RNDeviceInfo.previewSdkInt;
+  },
+  getSecurityPatch: function() {
+    return RNDeviceInfo.securityPatch;
+  },
+  getCodename: function() {
+    return RNDeviceInfo.codename;
+  },
+  getIncremental: function() {
+    return RNDeviceInfo.incremental;
+  },
   isEmulator: function() {
     return RNDeviceInfo.isEmulator;
   },
@@ -519,6 +561,12 @@ export default {
   },
   supportedABIs: function() {
     return RNDeviceInfo.supportedABIs;
+  },
+  supported32BitAbis: function() {
+    return RNDeviceInfo.supported32BitAbis;
+  },
+  supported64BitAbis: function() {
+    return RNDeviceInfo.supported64BitAbis;
   },
   hasSystemFeature: function(feature) {
     return RNDeviceInfo.hasSystemFeature(feature);
