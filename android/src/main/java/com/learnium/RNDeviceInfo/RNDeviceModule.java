@@ -1,6 +1,7 @@
 package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.UiModeManager;
 import android.bluetooth.BluetoothAdapter;
@@ -161,9 +162,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         || Build.BOOTLOADER.toLowerCase().contains("nox")
         || Build.HARDWARE.toLowerCase().contains("nox")
         || Build.PRODUCT.toLowerCase().contains("nox")
-        || Build.SERIAL.toLowerCase().contains("nox");
-        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-        || "google_sdk".equals(Build.PRODUCT);
+        || Build.SERIAL.toLowerCase().contains("nox")
+        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
   }
 
   private Boolean isTablet() {
@@ -436,6 +436,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return sharedPref.getString("installReferrer", null);
   }
 
+  @SuppressLint({"MissingPermission", "HardwareIds"})
   private Map<String, Object> generateConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
