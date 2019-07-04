@@ -28,7 +28,7 @@ export default class App extends Component<Props> {
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     let deviceJSON = {};
     const ios = Platform.OS === 'ios';
 
