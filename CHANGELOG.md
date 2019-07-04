@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.2.1
+* fix: crash on android api level less than 23 (https://github.com/react-native-community/react-native-device-info/pull/714)
+
 ### 2.2.0
 * feat: sync some methods from flutter (https://github.com/react-native-community/react-native-device-info/pull/711)
 
