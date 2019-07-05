@@ -507,7 +507,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("product", Build.PRODUCT);
     constants.put("tags", Build.TAGS);
     constants.put("type", Build.TYPE);
-    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       constants.put("baseOS", Build.VERSION.BASE_OS);
       constants.put("previewSdkInt", Build.VERSION.PREVIEW_SDK_INT);
       constants.put("securityPatch", Build.VERSION.SECURITY_PATCH);
