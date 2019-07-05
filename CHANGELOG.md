@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.2.2
+* fix: re-fix crash PR #714, API level should be 24 (https://github.com/react-native-community/react-native-device-info/pull/715)
+
 ### 2.2.1
 * fix: crash on android api level less than 23 (https://github.com/react-native-community/react-native-device-info/pull/714)
 
