@@ -415,7 +415,7 @@ Gets the device brand.
 const brand = DeviceInfo.getBrand();
 
 // iOS: "Apple"
-// Android: "Xiaomi"
+// Android: "xiaomi"
 // Windows: ?
 ```
 
