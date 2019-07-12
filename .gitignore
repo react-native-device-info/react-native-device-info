@@ -30,12 +30,16 @@ build/
 local.properties
 *.iml
 
+android/.project
+example/android/.project
+android/.settings/org.eclipse.buildship.core.prefs
+
 # node.js
 #
 node_modules/
 npm-debug.log
 yarn-error.log
-
+android/.settings/org.eclipse.buildship.core.prefs
 # BUCK
 buck-out/
 \.buckd/

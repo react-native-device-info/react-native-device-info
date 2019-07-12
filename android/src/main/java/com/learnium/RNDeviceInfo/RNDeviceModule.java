@@ -1,6 +1,7 @@
 package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.UiModeManager;
 import android.bluetooth.BluetoothAdapter;
@@ -11,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
@@ -21,6 +23,8 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -34,6 +38,7 @@ import android.hardware.camera2.CameraAccessException;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
@@ -41,6 +46,10 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +74,86 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   Map<String, Object> constants;
   AsyncTask<Void, Void, Map<String, Object>> futureConstants;
+
+  private boolean isTelephony = false;
+
+  private boolean isCheckPackage = true;
+
+  private List<String> mListPackageName = new ArrayList<>();
+
+  private static final String IP = "10.0.2.15";
+
+  private static final int MIN_PROPERTIES_THRESHOLD = 0x5;
+
+  private static final String[] DEVICE_IDS = {
+          "000000000000000",
+          "e21833235b6eef10",
+          "012345678912345"
+  };
+
+
+  private static final String[] IMSI_IDS = {
+          "310260000000000"
+  };
+
+  private static final String[] GENY_FILES = {
+          "/dev/socket/genyd",
+          "/dev/socket/baseband_genyd"
+  };
+
+  private static final String[] ANDY_FILES = {
+          "fstab.andy",
+          "ueventd.andy.rc"
+  };
+
+  private static final String[] NOX_FILES = {
+          "fstab.nox",
+          "init.nox.rc",
+          "ueventd.nox.rc"
+  };
+
+  private static final String[] QEMU_DRIVERS = {"goldfish"};
+
+  private static final String[] PIPES = {
+          "/dev/socket/qemud",
+          "/dev/qemu_pipe"
+  };
+
+  private static final String[] PHONE_NUMBERS = {
+          "15555215554", "15555215556", "15555215558", "15555215560", "15555215562", "15555215564",
+          "15555215566", "15555215568", "15555215570", "15555215572", "15555215574", "15555215576",
+          "15555215578", "15555215580", "15555215582", "15555215584"
+  };
+
+  private static final String[] X86_FILES = {
+          "ueventd.android_x86.rc",
+          "x86.prop",
+          "ueventd.ttVM_x86.rc",
+          "init.ttVM_x86.rc",
+          "fstab.ttVM_x86",
+          "fstab.vbox86",
+          "init.vbox86.rc",
+          "ueventd.vbox86.rc"
+  };
+
+  private static final Property[] PROPERTIES = {
+          new Property("init.svc.qemud", null),
+          new Property("init.svc.qemu-props", null),
+          new Property("qemu.hw.mainkeys", null),
+          new Property("qemu.sf.fake_camera", null),
+          new Property("qemu.sf.lcd_density", null),
+          new Property("ro.bootloader", "unknown"),
+          new Property("ro.bootmode", "unknown"),
+          new Property("ro.hardware", "goldfish"),
+          new Property("ro.kernel.android.qemud", null),
+          new Property("ro.kernel.qemu.gles", null),
+          new Property("ro.kernel.qemu", "1"),
+          new Property("ro.product.device", "generic"),
+          new Property("ro.product.model", "sdk"),
+          new Property("ro.product.name", "sdk"),
+          new Property("ro.serialno", null)
+  };
+
 
   public RNDeviceModule(ReactApplicationContext reactContext, boolean loadConstantsAsynchronously) {
     super(reactContext);
@@ -142,28 +231,283 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return current.getCountry();
   }
 
-  private Boolean isEmulator() {
+  public boolean isCheckPackage() {
+    return isCheckPackage;
+  }
 
+  private boolean isSupportTelePhony() {
+    PackageManager packageManager = reactContext.getPackageManager();
+    boolean isSupport = packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
+
+    return isSupport;
+  }
+
+  private boolean checkPhoneNumber() {
+    TelephonyManager telephonyManager =
+            (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+    if (ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+
+      @SuppressLint("HardwareIds") String phoneNumber = telephonyManager.getLine1Number();
+
+      for (String number : PHONE_NUMBERS) {
+        if (number.equalsIgnoreCase(phoneNumber)) {
+
+          return true;
+        }
+
+      }
+    }
+
+    return false;
+  }
+
+  private boolean checkImsi() {
+    TelephonyManager telephonyManager =
+            (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+    if (ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+      @SuppressLint("HardwareIds") String imsi = telephonyManager.getSubscriberId();
+
+      for (String known_imsi : IMSI_IDS) {
+        if (known_imsi.equalsIgnoreCase(imsi)) {
+
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  private boolean checkOperatorNameAndroid() {
+    String operatorName = ((TelephonyManager)
+            reactContext.getSystemService(Context.TELEPHONY_SERVICE)).getNetworkOperatorName();
+    if (operatorName.equalsIgnoreCase("android")) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean checkDeviceId() {
+    TelephonyManager telephonyManager =
+            (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+    if (ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+      @SuppressLint("HardwareIds") String deviceId = telephonyManager.getDeviceId();
+
+      for (String known_deviceId : DEVICE_IDS) {
+        if (known_deviceId.equalsIgnoreCase(deviceId)) {
+          return true;
+        }
+
+      }
+    }
+
+    return false;
+  }
+
+  private boolean checkTelephony() {
+    if (ContextCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE)
+        == PackageManager.PERMISSION_GRANTED && this.isTelephony && isSupportTelePhony()) {
+        return checkPhoneNumber()
+            || checkDeviceId()
+            || checkImsi()
+            || checkOperatorNameAndroid();
+    }
+    return false;
+  }
+
+  private boolean checkQEmuDrivers() {
+    for (File drivers_file : new File[]{new File("/proc/tty/drivers"), new File("/proc/cpuinfo")}) {
+      if (drivers_file.exists() && drivers_file.canRead()) {
+        byte[] data = new byte[1024];
+        try {
+          InputStream is = new FileInputStream(drivers_file);
+          is.read(data);
+          is.close();
+        } catch (Exception exception) {
+          exception.printStackTrace();
+        }
+
+        String driver_data = new String(data);
+        for (String known_qemu_driver : QEMU_DRIVERS) {
+          if (driver_data.contains(known_qemu_driver)) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+
+
+  private boolean checkFiles(String[] targets, String type) {
+    for (String pipe : targets) {
+        File qemu_file = new File(pipe);
+        if (qemu_file.exists()) {
+
+            return true;
+        }
+    }
+    return false;
+  }
+
+  private String getProp(Context context, String property) {
+    try {
+      ClassLoader classLoader = context.getClassLoader();
+      Class<?> systemProperties = classLoader.loadClass("android.os.SystemProperties");
+
+      Method get = systemProperties.getMethod("get", String.class);
+
+      Object[] params = new Object[1];
+      params[0] = property;
+
+      return (String) get.invoke(systemProperties, params);
+    } catch (Exception exception) {
+      // empty catch
+    }
+    return null;
+  }
+
+  private boolean checkQEmuProps() {
+    int found_props = 0;
+
+    for (Property property : PROPERTIES) {
+        String property_value = getProp(reactContext, property.name);
+        if ((property.seek_value == null) && (property_value != null)) {
+            found_props++;
+        }
+        if ((property.seek_value != null)
+            && (property_value.contains(property.seek_value))) {
+            found_props++;
+        }
+
+    }
+
+    if (found_props >= MIN_PROPERTIES_THRESHOLD) {
+        return true;
+    }
+    return false;
+  }
+
+  private boolean checkIp() {
+    boolean ipDetected = false;
+    if (ContextCompat.checkSelfPermission(reactContext, Manifest.permission.INTERNET)
+            == PackageManager.PERMISSION_GRANTED) {
+      String[] args = {"/system/bin/netcfg"};
+      StringBuilder stringBuilder = new StringBuilder();
+      try {
+        ProcessBuilder builder = new ProcessBuilder(args);
+        builder.directory(new File("/system/bin/"));
+        builder.redirectErrorStream(true);
+        Process process = builder.start();
+        InputStream in = process.getInputStream();
+        byte[] re = new byte[1024];
+        while (in.read(re) != -1) {
+          stringBuilder.append(new String(re));
+        }
+        in.close();
+
+      } catch (Exception ex) {
+        // empty catch
+      }
+
+      String netData = stringBuilder.toString();
+
+      if (!TextUtils.isEmpty(netData)) {
+        String[] array = netData.split("\n");
+
+        for (String lan :
+                array) {
+          if ((lan.contains("wlan0") || lan.contains("tunl0") || lan.contains("eth0"))
+                  && lan.contains(IP)) {
+            ipDetected = true;
+            break;
+          }
+        }
+
+      }
+    }
+    return ipDetected;
+  }
+
+
+  private boolean checkAdvanced() {
+    boolean result = checkTelephony()
+        || checkFiles(GENY_FILES,"Geny")
+        || checkFiles(ANDY_FILES,"Andy")
+        || checkFiles(NOX_FILES,"Nox")
+        || checkQEmuDrivers()
+        || checkFiles(PIPES,"Pipes")
+        || checkIp()
+        || (checkQEmuProps() && checkFiles(X86_FILES,"X86"));
+    return result;
+  }
+
+  private boolean CheckBuildInfo(){
     return Build.FINGERPRINT.startsWith("generic")
-        || Build.FINGERPRINT.startsWith("unknown")
-        || Build.MODEL.contains("google_sdk")
-        || Build.MODEL.toLowerCase().contains("droid4x")
-        || Build.MODEL.contains("Emulator")
-        || Build.MODEL.contains("Android SDK built for x86")
-        || Build.MANUFACTURER.contains("Genymotion")
-        || Build.HARDWARE.equals("goldfish")
-        || Build.HARDWARE.equals("vbox86")
-        || Build.PRODUCT.equals("sdk")
-        || Build.PRODUCT.equals("google_sdk")
-        || Build.PRODUCT.equals("sdk_x86")
-        || Build.PRODUCT.equals("vbox86p")
-        || Build.BOARD.toLowerCase().contains("nox")
-        || Build.BOOTLOADER.toLowerCase().contains("nox")
-        || Build.HARDWARE.toLowerCase().contains("nox")
-        || Build.PRODUCT.toLowerCase().contains("nox")
-        || Build.SERIAL.toLowerCase().contains("nox")
-        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-        || "google_sdk".equals(Build.PRODUCT);
+    || Build.FINGERPRINT.startsWith("unknown")
+    || Build.MODEL.contains("google_sdk")
+    || Build.MODEL.toLowerCase().contains("droid4x")
+    || Build.MODEL.contains("Emulator")
+    || Build.MODEL.contains("Android SDK built for x86")
+    || Build.MANUFACTURER.contains("Genymotion")
+    || Build.HARDWARE.equals("goldfish")
+    || Build.HARDWARE.equals("vbox86")
+    || Build.PRODUCT.equals("sdk")
+    || Build.PRODUCT.equals("google_sdk")
+    || Build.PRODUCT.equals("sdk_x86")
+    || Build.PRODUCT.equals("vbox86p")
+    || Build.BOARD.toLowerCase().contains("nox")
+    || Build.BOOTLOADER.toLowerCase().contains("nox")
+    || Build.HARDWARE.toLowerCase().contains("nox")
+    || Build.PRODUCT.toLowerCase().contains("nox")
+    || Build.SERIAL.toLowerCase().contains("nox")
+    || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+    || "google_sdk".equals(Build.PRODUCT);
+  }
+
+  private boolean checkPackageName() {
+    mListPackageName.add("com.google.android.launcher.layouts.genymotion");
+    mListPackageName.add("com.bluestacks");
+    mListPackageName.add("com.bignox.app");
+
+    if (!isCheckPackage || mListPackageName.isEmpty()) {
+      return false;
+    }
+    final PackageManager packageManager = reactContext.getPackageManager();
+    for (final String pkgName : mListPackageName) {
+      final Intent tryIntent = packageManager.getLaunchIntentForPackage(pkgName);
+      if (tryIntent != null) {
+        final List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(tryIntent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (!resolveInfos.isEmpty()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private Boolean isEmulator() {
+    boolean result = false;
+
+    if (!result) {
+      result = CheckBuildInfo();
+    }
+
+    if (!result) {
+        result = checkAdvanced();
+    }
+
+    if (!result) {
+        result = checkPackageName();
+    }
+
+    return result;
   }
 
   private Boolean isTablet() {
