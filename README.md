@@ -24,13 +24,15 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 Using npm:
 
 ```shell
-npm install --save react-native-device-info
+npm install --save react-native-device-info@git+https://github.com/wellmonge/react-native-device-info.git
+
 ```
 
 or using yarn:
 
 ```shell
-yarn add react-native-device-info
+yarn add react-native-device-info@git+https://github.com/wellmonge/react-native-device-info.git
+
 ```
 
 > ⚠️ As of version 2.1.1 the package can be loaded async to improve start up time on Android [Refer to this PR for more information](https://github.com/react-native-community/react-native-device-info/pull/680)
