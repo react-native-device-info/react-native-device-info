@@ -411,7 +411,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
       if (Build.VERSION.SDK_INT >= 28) {
         LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        locationEnabled = mLocationManager.isLocationEnabled();
+        // locationEnabled = mLocationManager.isLocationEnabled();
       } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
         int locationMode = Settings.Secure.getInt(reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
         locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
