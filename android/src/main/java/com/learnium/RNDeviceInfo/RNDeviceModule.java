@@ -50,7 +50,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.SocketException;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -306,11 +308,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private boolean checkTelephony() {
     if (ContextCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE)
-        == PackageManager.PERMISSION_GRANTED && this.isTelephony && isSupportTelePhony()) {
-        return checkPhoneNumber()
-            || checkDeviceId()
-            || checkImsi()
-            || checkOperatorNameAndroid();
+            == PackageManager.PERMISSION_GRANTED && this.isTelephony && isSupportTelePhony()) {
+      return checkPhoneNumber()
+              || checkDeviceId()
+              || checkImsi()
+              || checkOperatorNameAndroid();
     }
     return false;
   }
@@ -341,10 +343,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private boolean checkFiles(String[] targets, String type) {
     for (String pipe : targets) {
-        File qemu_file = new File(pipe);
-        if (qemu_file.exists()) {
-          return true;
-        }
+      File qemu_file = new File(pipe);
+      if (qemu_file.exists()) {
+        return true;
+      }
     }
     return false;
   }
@@ -370,14 +372,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     int found_props = 0;
 
     for (Property property : PROPERTIES) {
-        String property_value = getProp(reactContext, property.name);
-        if ((property.seek_value == null) && (property_value != null)) {
-            found_props++;
-        }
-        if ((property.seek_value != null)
-            && (property_value.contains(property.seek_value))) {
-            found_props++;
-        }
+      String property_value = getProp(reactContext, property.name);
+      if ((property.seek_value == null) && (property_value != null)) {
+        found_props++;
+      }
+      if ((property.seek_value != null)
+              && (property_value.contains(property.seek_value))) {
+        found_props++;
+      }
 
     }
 
@@ -427,47 +429,59 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return ipDetected;
   }
 
+  private static boolean checkEth0Interface() {
+    try {
+      for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+        NetworkInterface intf = en.nextElement();
+        if (intf.getName().equals("eth0"))
+          return true;
+      }
+    } catch (SocketException ex) {
+    }
+    return false;
+  }
 
   private boolean checkAdvanced() {
     boolean result = checkTelephony()
-        || checkFiles(GENY_FILES,"Geny")
-        || checkFiles(ANDY_FILES,"Andy")
-        || checkFiles(NOX_FILES,"Nox")
-        || checkQEmuDrivers()
-        || checkFiles(PIPES,"Pipes")
-        || checkIp()
-        || (checkQEmuProps() && checkFiles(X86_FILES,"X86"));
+            || checkFiles(GENY_FILES,"Geny")
+            || checkFiles(ANDY_FILES,"Andy")
+            || checkFiles(NOX_FILES,"Nox")
+            || checkQEmuDrivers()
+            || checkFiles(PIPES,"Pipes")
+            || checkIp()
+            || checkEth0Interface()
+            || (checkQEmuProps() && checkFiles(X86_FILES,"X86"));
     return result;
   }
 
   private boolean CheckBuildInfo(){
     return Build.FINGERPRINT.startsWith("generic")
-    || Build.FINGERPRINT.startsWith("unknown")
-    || Build.MODEL.contains("google_sdk")
-    || Build.MODEL.toLowerCase().contains("droid4x")
-    || Build.MODEL.contains("Emulator")
-    || Build.MODEL.contains("Android SDK built for x86")
-    || Build.MANUFACTURER.contains("Genymotion")
-    || Build.HARDWARE.equals("goldfish")
-    || Build.HARDWARE.equals("vbox86")
-    || Build.PRODUCT.equals("sdk")
-    || Build.PRODUCT.equals("google_sdk")
-    || Build.PRODUCT.equals("sdk_x86")
-    || Build.PRODUCT.equals("vbox86p")
-    || Build.BOARD.toLowerCase().contains("nox")
-    || Build.BOARD.contains("unknown")
-    || Build.BOOTLOADER.toLowerCase().contains("nox")
-    || Build.BOOTLOADER.toLowerCase().contains("unknown")
-    || Build.ID.contains("FRF91")
-    || Build.HARDWARE.contains("ranchu")
-    || Build.HARDWARE.toLowerCase().contains("nox")
-    || Build.PRODUCT.toLowerCase().contains("nox")
-    || Build.SERIAL.toLowerCase().contains("nox")
-    || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-    || Build.USER.contains("android-build")
-    || Build.TAGS.contains("test-keys")
-    || Build.SERIAL == null
-    || "google_sdk".equals(Build.PRODUCT);
+            || Build.FINGERPRINT.startsWith("unknown")
+            || Build.MODEL.contains("google_sdk")
+            || Build.MODEL.toLowerCase().contains("droid4x")
+            || Build.MODEL.contains("Emulator")
+            || Build.MODEL.contains("Android SDK built for x86")
+            || Build.MANUFACTURER.contains("Genymotion")
+            || Build.HARDWARE.equals("goldfish")
+            || Build.HARDWARE.equals("vbox86")
+            || Build.PRODUCT.equals("sdk")
+            || Build.PRODUCT.equals("google_sdk")
+            || Build.PRODUCT.equals("sdk_x86")
+            || Build.PRODUCT.equals("vbox86p")
+            || Build.BOARD.toLowerCase().contains("nox")
+            || Build.BOARD.contains("unknown")
+            || Build.BOOTLOADER.toLowerCase().contains("nox")
+            || Build.BOOTLOADER.toLowerCase().contains("unknown")
+            || Build.ID.contains("FRF91")
+            || Build.HARDWARE.contains("ranchu")
+            || Build.HARDWARE.toLowerCase().contains("nox")
+            || Build.PRODUCT.toLowerCase().contains("nox")
+            || Build.SERIAL.toLowerCase().contains("nox")
+            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+            || Build.USER.contains("android-build")
+            || Build.TAGS.contains("test-keys")
+            || Build.SERIAL == null
+            || "google_sdk".equals(Build.PRODUCT);
   }
 
   private boolean checkPackageName() {
@@ -476,7 +490,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     mListPackageName.add("com.bluestacks.appmart");
     mListPackageName.add("com.bignox.app");
     mListPackageName.add("com.vphone.launcher");
-
 
     if (!isCheckPackage || mListPackageName.isEmpty()) {
       return false;
@@ -609,16 +622,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
           byte[] macBytes = nif.getHardwareAddress();
           if (macBytes == null) {
-              macAddress = "";
+            macAddress = "";
           } else {
 
             StringBuilder res1 = new StringBuilder();
             for (byte b : macBytes) {
-                res1.append(String.format("%02X:",b));
+              res1.append(String.format("%02X:",b));
             }
 
             if (res1.length() > 0) {
-                res1.deleteCharAt(res1.length() - 1);
+              res1.deleteCharAt(res1.length() - 1);
             }
 
             macAddress = res1.toString();
@@ -692,9 +705,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void isAirPlaneMode(Promise p) {
     boolean isAirPlaneMode;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        isAirPlaneMode = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+      isAirPlaneMode = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     } else {
-        isAirPlaneMode = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+      isAirPlaneMode = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
     p.resolve(isAirPlaneMode);
   }
@@ -749,20 +762,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void isLocationEnabled(Promise p) {
-      boolean locationEnabled = false;
+    boolean locationEnabled = false;
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        locationEnabled = mLocationManager.isLocationEnabled();
-      } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-        int locationMode = Settings.Secure.getInt(reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-        locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
-      } else {
-        String locationProviders = Settings.Secure.getString(reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        locationEnabled = !TextUtils.isEmpty(locationProviders);
-      }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      LocationManager mLocationManager = (LocationManager) reactContext.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+      locationEnabled = mLocationManager.isLocationEnabled();
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      int locationMode = Settings.Secure.getInt(reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+      locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
+    } else {
+      String locationProviders = Settings.Secure.getString(reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+      locationEnabled = !TextUtils.isEmpty(locationProviders);
+    }
 
-      p.resolve(locationEnabled);
+    p.resolve(locationEnabled);
   }
 
   @ReactMethod
@@ -865,9 +878,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("installReferrer", this.getInstallReferrer());
 
     if (reactContext != null &&
-         (reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
-           (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
-           (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
+            (reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
       TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
       constants.put("phoneNumber", telMgr.getLine1Number());
     } else {
