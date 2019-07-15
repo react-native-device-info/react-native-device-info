@@ -988,6 +988,10 @@ Tells if the application is running in an emulator.
 const isEmulator = DeviceInfo.isEmulator(); // false
 ```
 
+**Android Permissions**
+
+* [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
+
 ---
 
 ### isPinOrFingerprintSet()
