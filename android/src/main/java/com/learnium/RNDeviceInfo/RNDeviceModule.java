@@ -75,7 +75,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   Map<String, Object> constants;
   AsyncTask<Void, Void, Map<String, Object>> futureConstants;
 
-  private boolean isTelephony = false;
+  private boolean isDebug = true;
+
+  private boolean isTelephony = true;
 
   private boolean isCheckPackage = true;
 
@@ -231,14 +233,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return current.getCountry();
   }
 
-  public boolean isCheckPackage() {
-    return isCheckPackage;
-  }
-
   private boolean isSupportTelePhony() {
     PackageManager packageManager = reactContext.getPackageManager();
     boolean isSupport = packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
-
     return isSupport;
   }
 
@@ -254,7 +251,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
       for (String number : PHONE_NUMBERS) {
         if (number.equalsIgnoreCase(phoneNumber)) {
-
           return true;
         }
 
@@ -272,7 +268,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
       for (String known_imsi : IMSI_IDS) {
         if (known_imsi.equalsIgnoreCase(imsi)) {
-
           return true;
         }
       }
@@ -285,6 +280,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     String operatorName = ((TelephonyManager)
             reactContext.getSystemService(Context.TELEPHONY_SERVICE)).getNetworkOperatorName();
     if (operatorName.equalsIgnoreCase("android")) {
+
       return true;
     }
     return false;
@@ -343,14 +339,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return false;
   }
 
-
-
   private boolean checkFiles(String[] targets, String type) {
     for (String pipe : targets) {
         File qemu_file = new File(pipe);
         if (qemu_file.exists()) {
-
-            return true;
+          return true;
         }
     }
     return false;
@@ -389,7 +382,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     if (found_props >= MIN_PROPERTIES_THRESHOLD) {
-        return true;
+      return true;
     }
     return false;
   }
@@ -417,7 +410,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
 
       String netData = stringBuilder.toString();
-
       if (!TextUtils.isEmpty(netData)) {
         String[] array = netData.split("\n");
 
@@ -463,18 +455,28 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     || Build.PRODUCT.equals("sdk_x86")
     || Build.PRODUCT.equals("vbox86p")
     || Build.BOARD.toLowerCase().contains("nox")
+    || Build.BOARD.contains("unknown")
     || Build.BOOTLOADER.toLowerCase().contains("nox")
+    || Build.BOOTLOADER.toLowerCase().contains("unknown")
+    || Build.ID.contains("FRF91")
+    || Build.HARDWARE.contains("ranchu")
     || Build.HARDWARE.toLowerCase().contains("nox")
     || Build.PRODUCT.toLowerCase().contains("nox")
     || Build.SERIAL.toLowerCase().contains("nox")
     || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+    || Build.USER.contains("android-build")
+    || Build.TAGS.contains("test-keys")
+    || Build.SERIAL == null
     || "google_sdk".equals(Build.PRODUCT);
   }
 
   private boolean checkPackageName() {
     mListPackageName.add("com.google.android.launcher.layouts.genymotion");
     mListPackageName.add("com.bluestacks");
+    mListPackageName.add("com.bluestacks.appmart");
     mListPackageName.add("com.bignox.app");
+    mListPackageName.add("com.vphone.launcher");
+
 
     if (!isCheckPackage || mListPackageName.isEmpty()) {
       return false;
@@ -496,16 +498,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     boolean result = false;
 
     if (!result) {
+      result = checkAdvanced();
+    }
+
+    if (!result) {
+      result = checkPackageName();
+    }
+
+    if (!result) {
       result = CheckBuildInfo();
     }
 
-    if (!result) {
-        result = checkAdvanced();
-    }
-
-    if (!result) {
-        result = checkPackageName();
-    }
 
     return result;
   }
@@ -576,7 +579,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     String ipAddress = Formatter.formatIpAddress(getWifiInfo().getIpAddress());
     p.resolve(ipAddress);
   }
- 
+
   @ReactMethod
   public void getCameraPresence(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -733,7 +736,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSystemAvailableFeatures(Promise p) {
     final FeatureInfo[] featureList = this.reactContext.getApplicationContext().getPackageManager().getSystemAvailableFeatures();
-    
+
     WritableArray promiseArray = Arguments.createArray();
     for (FeatureInfo f : featureList) {
       if (f.name != null) {
@@ -901,4 +904,5 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     return this.constants;
   }
+
 }
