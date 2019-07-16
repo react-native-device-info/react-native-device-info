@@ -484,7 +484,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     try {
       if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
-        constants.put("instanceId", com.google.android.gms.iid.InstanceID.getInstance(this.reactContext).getId());
+//        constants.put("instanceId", com.google.android.gms.iid.InstanceID.getInstance(this.reactContext).getId());
       }
     } catch (ClassNotFoundException e) {
       constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
@@ -544,7 +544,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
            (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
       TelephonyManager telMgr = (TelephonyManager) this.reactContext.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-      constants.put("phoneNumber", telMgr.getLine1Number());
+//      constants.put("phoneNumber", telMgr.getLine1Number());
     } else {
       constants.put("phoneNumber", null);
     }
