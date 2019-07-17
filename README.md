@@ -251,30 +251,21 @@ import DeviceInfo from 'react-native-device-info';
 | ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
 | [getAPILevel()](#getapilevel)                                     | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    | 0.14.0 |
-| [getBaseOS()](#getbaseOS)                                         | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
-| [getBootloader()](#getbootloader)                                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.3  |
 | [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getCameraPresence()](#getcamerapresence)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ?      |
 | [getCarrier()](#getcarrier)                                       | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
-| [getCodename()](#getcodename)                                     | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getDevice()](#getdevice)                                         | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getDeviceCountry()](#getdevicecountry)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
 | [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
 | [getDeviceLocale()](#getdevicelocale)                             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
-| [getDisplay()](#getdisplay)                                       | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getPreferredLocales()](#getpreferredlocale)                      | `Array<string>`     |  ✅  |   ✅    |   ❌    | ?      |
 | [getDeviceName()](#getdevicename)                                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)                     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
-| [getFingerprint()](#getfingerprint)                               | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getFontScale()](#getfontscale)                                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getHardware()](#gethardware)                                     | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getHost()](#gethost)                                             | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getIPAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
-| [getIncremental()](#getincremental)                               | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getInstallReferrer()](#getinstallreferrer)                       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)                         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
@@ -284,16 +275,11 @@ import DeviceInfo from 'react-native-device-info';
 | [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getPhoneNumber()](#getphonenumber)                               | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |        |
-| [getProduct()](#getproduct)                                       | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `number`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSerialNumber()](#getserialnumber)                             | `string`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getSecurityPatch()](#getsecuritypatch)                           | `string`            |  ❌  |   ✅    |   ❌    | ? |
 | [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getSystemVersion()](#getsystemversion)                           | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getBuildId()](#getbuildid)                                       | `string`            |  ✅  |   ✅    |   ❌    | ?      |
-| [getTags()](#gettags)                                             | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getType()](#gettype)                                             | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getTimezone()](#gettimezone)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getTotalMemory()](#gettotalmemory)                               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
@@ -311,8 +297,6 @@ import DeviceInfo from 'react-native-device-info';
 | [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 | [isAutoDateAndTime()](#isAutoDateAndTime)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [isAutoTimeZone()](#isAutoTimeZone)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.29.0 |
-| [supported32BitAbis()](#supported32BitAbis)                       | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
-| [supported64BitAbis()](#supported64BitAbis                        | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
 | [supportedABIs()](#supportedABIs)                                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
@@ -353,19 +337,6 @@ const appName = DeviceInfo.getApplicationName(); // "Learnium Mobile"
 
 ---
 
-### getBaseOS()
-
-The base OS build the product is based on.
-
-**Examples**
-
-```js
-const baseOS = DeviceInfo.getBaseOS();
-
-```
-
----
-
 ### getBatteryLevel()
 
 Gets the battery level of the device as a float comprised between 0 and 1.
@@ -393,20 +364,6 @@ DeviceInfo.getBatteryLevel().then(batteryLevel => {
 
 ---
 
-### getBootloader()
-
-The system bootloader version number.
-
-**Examples**
-
-```js
-const bootloader = DeviceInfo.getBootloader();
-
-// "mw8998-002.0069.00"
-```
-
----
-
 ### getBrand()
 
 Gets the device brand.
@@ -417,7 +374,7 @@ Gets the device brand.
 const brand = DeviceInfo.getBrand();
 
 // iOS: "Apple"
-// Android: "xiaomi"
+// Android: "Xiaomi"
 // Windows: ?
 ```
 
@@ -490,33 +447,6 @@ const carrier = DeviceInfo.getCarrier(); // "SOFTBANK"
 
 ---
 
-### getCodename()
-
-The current development codename, or the string "REL" if this is a release build.
-
-**Examples**
-
-```js
-const codename = DeviceInfo.getCodename();
-
-// "REL"
-```
-
----
-
-### getDevice()
-
-The name of the industrial design.
-
-**Examples**
-
-```js
-const device = DeviceInfo.getDevice();
-
-// "walleye"
-```
-
----
 ### getDeviceCountry()
 
 Gets the device country based on the locale information.
@@ -557,20 +487,6 @@ const deviceLocale = DeviceInfo.getDeviceLocale();
 // iOS: "en"
 // Android: "en-US"
 // Windows: ?
-```
-
----
-
-### getDisplay()
-
-A build ID string meant for displaying to the user.
-
-**Examples**
-
-```js
-const display = DeviceInfo.getDisplay();
-
-// "OPM2.171026.006.G1"
 ```
 
 ---
@@ -625,20 +541,6 @@ const firstInstallTime = DeviceInfo.getFirstInstallTime();
 
 ---
 
-### getFingerprint()
-
-A string that uniquely identifies this build.
-
-**Examples**
-
-```js
-const fingerprint = DeviceInfo.getFingerprint();
-
-// "google/walleye/walleye:8.1.0/OPM2.171026.006.G1/4820017:user/release-keys"
-```
-
----
-
 ### getFontScale()
 
 Gets the device font scale.
@@ -682,34 +584,6 @@ const freeDiskStorage = DeviceInfo.getFreeDiskStorage();
 
 ---
 
-### getHardware()
-
-The name of the hardware (from the kernel command line or /proc).
-
-**Examples**
-
-```js
-const hardware = DeviceInfo.getHardware();
-
-// "walleye"
-```
-
----
-
-### getHost()
-
-Hostname
-
-**Examples**
-
-```js
-const host = DeviceInfo.getHost();
-
-// "wprd10.hot.corp.google.com"
-```
-
----
-
 ### getIPAddress()
 
 Gets the device current IP address.
@@ -729,20 +603,6 @@ DeviceInfo.getIPAddress().then(ip => {
 **Notes**
 
 > Support for iOS was added in 0.22.0
-
----
-
-### getIncremental()
-
-The internal value used by the underlying source control to represent this build.
-
-**Examples**
-
-```js
-const incremental = DeviceInfo.getIncremental();
-
-// "4820017"
-```
 
 ---
 
@@ -902,34 +762,6 @@ DeviceInfo.getPowerState().then(state => {
 
 ---
 
-### getProduct()
-
-The name of the overall product.
-
-**Examples**
-
-```js
-const product = DeviceInfo.getProduct();
-
-// "walleye"
-```
-
----
-
-### getPreviewSdkInt()
-
-The developer preview revision of a prerelease SDK.
-
-**Examples**
-
-```js
-const previewSdkInt = DeviceInfo.getPreviewSdkInt();
-
-// 0
-```
-
----
-
 ### getReadableVersion()
 
 Gets the application human readable version.
@@ -958,20 +790,6 @@ const serialNumber = DeviceInfo.getSerialNumber();
 // iOS: undefined
 // Android: ?
 // Windows: ?
-```
-
----
-
-### getSecurityPatch()
-
-The user-visible security patch level.
-
-**Examples**
-
-```js
-const securityPatch = DeviceInfo.getSecurityPatch();
-
-// "2018-07-05"
 ```
 
 ---
@@ -1021,34 +839,6 @@ const osBuildId = DeviceInfo.getBuildId();
 // tvOS: not available
 // Android: "13D15"
 // Windows: not available
-```
-
----
-
-### getTags()
-
-Comma-separated tags describing the build.
-
-**Examples**
-
-```js
-const tags = DeviceInfo.getTags();
-
-// "release-keys, unsigned, debug", 
-```
-
----
-
-### getType()
-
-The type of build.
-
-**Examples**
-
-```js
-const type = DeviceInfo.getType();
-
-// "user", "eng"
 ```
 
 ---
@@ -1200,10 +990,6 @@ Tells if the application is running in an emulator.
 const isEmulator = DeviceInfo.isEmulator(); // false
 ```
 
-**Android Permissions**
-
-* [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
-
 ---
 
 ### isPinOrFingerprintSet()
@@ -1304,34 +1090,6 @@ Tells if the automatic time zone setting is enabled on the phone.
 DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
   // true or false
 });
-```
-
----
-
-### supported32BitAbis()
-
-An ordered list of 32 bit ABIs supported by this device.
-
-**Examples**
-
-```js
-const supported32BitAbis = DeviceInfo.supported32BitAbis();
-
-// ["armeabi-v7a", "armeabi"]
-```
-
----
-
-### supported64BitAbis()
-
-An ordered list of 64 bit ABIs supported by this device.
-
-**Examples**
-
-```js
-const supported64BitAbis = DeviceInfo.supported64BitAbis();
-
-// ["arm64-v8a"]
 ```
 
 ---
