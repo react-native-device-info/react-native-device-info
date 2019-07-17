@@ -41,20 +41,6 @@ declare const _default: {
   isEmulator: () => boolean;
   isTablet: () => boolean;
   getFontScale: () => number;
-  getBootloader: () => string;
-  getDevice: () => string;
-  getDisplay: () => string;
-  getFingerprint: () => string;
-  getHardware: () => string;
-  getHost: () => string;
-  getProduct: () => string;
-  getTags: () => string;
-  getType: () => string;
-  getBaseOS: () => string;
-  getPreviewSdkInt: () => number;
-  getSecurityPatch: () => string;
-  getCodename: () => string;
-  getIncremental: () => string;
   is24Hour: () => boolean;
   isPinOrFingerprintSet(): (
     cb: (isPinOrFingerprintSet: boolean) => void
@@ -82,8 +68,6 @@ declare const _default: {
   isAutoDateAndTime: () => Promise<boolean>;
   isAutoTimeZone: () => Promise<boolean>;
   supportedABIs: () => string[];
-  supported32BitAbis: () => string[];
-  supported64BitAbis: () => string[];
   hasSystemFeature: (feature: string) => Promise<boolean>;
   getSystemAvailableFeatures: () => Promise<string[]>;
   isLocationEnabled: () => Promise<boolean>;
