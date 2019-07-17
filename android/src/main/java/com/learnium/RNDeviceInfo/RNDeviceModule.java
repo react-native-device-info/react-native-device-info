@@ -56,6 +56,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -796,6 +797,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return sharedPref.getString("installReferrer", null);
   }
 
+  @SuppressLint({"MissingPermission", "HardwareIds"})
   private Map<String, Object> generateConstants() {
     HashMap<String, Object> constants = new HashMap<String, Object>();
 
@@ -852,6 +854,22 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("buildId", Build.ID);
     constants.put("deviceId", Build.BOARD);
     constants.put("apiLevel", Build.VERSION.SDK_INT);
+    constants.put("bootloader", Build.BOOTLOADER);
+    constants.put("device", Build.DEVICE);
+    constants.put("display", Build.DISPLAY);
+    constants.put("fingerprint", Build.FINGERPRINT);
+    constants.put("hardware", Build.HARDWARE);
+    constants.put("host", Build.HOST);
+    constants.put("product", Build.PRODUCT);
+    constants.put("tags", Build.TAGS);
+    constants.put("type", Build.TYPE);
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      constants.put("baseOS", Build.VERSION.BASE_OS);
+      constants.put("previewSdkInt", Build.VERSION.PREVIEW_SDK_INT);
+      constants.put("securityPatch", Build.VERSION.SECURITY_PATCH);
+    }
+    constants.put("codename", Build.VERSION.CODENAME);
+    constants.put("incremental", Build.VERSION.INCREMENTAL);
     constants.put("deviceLocale", this.getCurrentLanguage());
     constants.put("preferredLocales", this.getPreferredLocales());
     constants.put("deviceCountry", this.getCurrentCountry());
@@ -896,8 +914,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("deviceType", deviceType.getValue());
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       constants.put("supportedABIs", Build.SUPPORTED_ABIS);
+      constants.put("supported32BitAbis", Arrays.asList(Build.SUPPORTED_32_BIT_ABIS));
+      constants.put("supported64BitAbis", Arrays.asList(Build.SUPPORTED_64_BIT_ABIS));
     } else {
       constants.put("supportedABIs", new String[]{ Build.CPU_ABI });
+      constants.put("supported32BitAbis", Arrays.asList(new String[] {}));
+      constants.put("supported64BitAbis", Arrays.asList(new String[] {}));
     }
     return constants;
   }

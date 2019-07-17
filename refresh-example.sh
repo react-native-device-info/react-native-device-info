@@ -28,10 +28,16 @@ fi
 npx react-native init example
 pushd example
 yarn add github:react-native-community/react-native-device-info
-npx react-native link react-native-device-info
+
+# react-native 0.60 does auto-linking! comment out manual link
+#npx react-native link react-native-device-info
+
+# react-native 0.60 is cocoapods mainly now, so run pod install after installing react-native-device-info
+cd ios && pod install && cd ..
 
 # Patch the build.gradle directly to slice in our android play version
-sed -i -e 's/ext {$/ext {        googlePlayServicesVersion = "16.1.0"/' android/build.gradle
+# react-native 0.60 is AndroidX! Bump Play Services to AndroidX / current version
+sed -i -e 's/ext {$/ext {        googlePlayServicesVersion = "17.0.0"/' android/build.gradle
 rm -f android/build.gradle??
 
 # Patch the AndroidManifest directly to add our permissions
