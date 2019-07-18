@@ -472,7 +472,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
             || Build.BOARD.toLowerCase().contains("nox")
             || Build.BOARD.contains("unknown")
             || Build.BOOTLOADER.toLowerCase().contains("nox")
-            || Build.BOOTLOADER.toLowerCase().contains("unknown")
             || Build.ID.contains("FRF91")
             || Build.HARDWARE.contains("ranchu")
             || Build.HARDWARE.toLowerCase().contains("nox")
