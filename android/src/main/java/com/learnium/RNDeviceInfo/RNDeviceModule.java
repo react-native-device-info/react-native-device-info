@@ -186,7 +186,25 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       return DeviceType.TV;
     }
 
+    DeviceType deviceTypeFromConfig = getDeviceTypeFromResourceConfiguration(reactContext);
+
+    if (deviceTypeFromConfig != null && deviceTypeFromConfig != DeviceType.UNKNOWN) {
+      return deviceTypeFromConfig;
+    }
+
     return  getDeviceTypeFromPhysicalSize(reactContext);
+  }
+
+  // Use `smallestScreenWidthDp` to determine the screen size
+  // https://android-developers.googleblog.com/2011/07/new-tools-for-managing-screen-sizes.html
+  private  static  DeviceType getDeviceTypeFromResourceConfiguration(ReactApplicationContext reactContext) {
+    int smallestScreenWidthDp = reactContext.getResources().getConfiguration().smallestScreenWidthDp;
+
+    if (smallestScreenWidthDp == Configuration.SMALLEST_SCREEN_WIDTH_DP_UNDEFINED) {
+      return  DeviceType.UNKNOWN;
+    }
+
+    return  smallestScreenWidthDp >= 600 ? DeviceType.TABLET : DeviceType.HANDSET;
   }
 
   private static DeviceType getDeviceTypeFromPhysicalSize(ReactApplicationContext reactContext) {
