@@ -10,6 +10,7 @@
 import React, {Component} from 'react';
 import {Platform, ScrollView, StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import {getUniqueID, getManufacturer, getBrand, getModel, getDeviceId} from 'react-native-device-info';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -34,11 +35,11 @@ export default class App extends Component<Props> {
 
     try {
 
-      deviceJSON.uniqueID = DeviceInfo.getUniqueID();
-      deviceJSON.manufacturer = DeviceInfo.getManufacturer();
-      deviceJSON.brand = DeviceInfo.getBrand();
-      deviceJSON.model = DeviceInfo.getModel();
-      deviceJSON.deviceId = DeviceInfo.getDeviceId();
+      deviceJSON.uniqueID = getUniqueID();
+      deviceJSON.manufacturer = getManufacturer();
+      deviceJSON.brand = getBrand();
+      deviceJSON.model = getModel();
+      deviceJSON.deviceId = getDeviceId();
       deviceJSON.systemName = DeviceInfo.getSystemName();
       deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
       deviceJSON.buildId = DeviceInfo.getBuildId();
