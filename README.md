@@ -283,6 +283,10 @@ allprojects {
 
 ```js
 import DeviceInfo from 'react-native-device-info';
+
+// or
+
+import { getUniqueID, getManufacturer } from 'react-native-device-info';
 ```
 
 ## API
