@@ -186,8 +186,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       return DeviceType.TV;
     }
 
+    return  getDeviceTypeFromPhysicalSize(reactContext);
+  }
+
+  private static DeviceType getDeviceTypeFromPhysicalSize(ReactApplicationContext reactContext) {
     // Find the current window manager, if none is found we can't measure the device physical size.
     WindowManager windowManager = (WindowManager) reactContext.getSystemService(Context.WINDOW_SERVICE);
+
     if (windowManager == null) {
       return DeviceType.UNKNOWN;
     }
