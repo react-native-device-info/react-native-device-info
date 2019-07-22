@@ -352,6 +352,309 @@ const deviceNamesByCode = {
   'AppleTV6,2': 'Apple TV 4K', // Apple TV 4K
 };
 
+export function getUniqueID() {
+  return RNDeviceInfo.uniqueId;
+}
+
+export function getInstanceID() {
+  return RNDeviceInfo.instanceId;
+}
+
+export function getSerialNumber() {
+  return RNDeviceInfo.serialNumber;
+}
+
+export function getIPAddress() {
+  return RNDeviceInfo.getIpAddress();
+}
+
+export function getCameraPresence() {
+  return RNDeviceInfo.getCameraPresence();
+}
+
+export function getMACAddress() {
+  return RNDeviceInfo.getMacAddress();
+}
+
+export function getDeviceId() {
+  return RNDeviceInfo.deviceId;
+}
+
+export function getManufacturer() {
+  return RNDeviceInfo.systemManufacturer;
+}
+
+export function getModel() {
+  if (Platform.OS === 'ios') {
+    var deviceName;
+    var deviceId = RNDeviceInfo.deviceId;
+    if (deviceId) {
+      deviceName = deviceNamesByCode[deviceId];
+      if (!deviceName) {
+        // Not found on database. At least guess main device type from string contents:
+        if (deviceId.startsWith('iPod')) {
+          deviceName = 'iPod Touch';
+        } else if (deviceId.startsWith('iPad')) {
+          deviceName = 'iPad';
+        } else if (deviceId.startsWith('iPhone')) {
+          deviceName = 'iPhone';
+        } else if (deviceId.startsWith('AppleTV')) {
+          deviceName = 'Apple TV';
+        }
+      }
+    }
+    return deviceName;
+  } else {
+    return RNDeviceInfo.model;
+  }
+}
+
+export function getBrand() {
+  return RNDeviceInfo.brand;
+}
+
+export function getSystemName() {
+  return RNDeviceInfo.systemName;
+}
+
+export function getSystemVersion() {
+  return RNDeviceInfo.systemVersion;
+}
+
+export function getBuildId() {
+  return RNDeviceInfo.buildId;
+}
+
+export function getAPILevel() {
+  return RNDeviceInfo.apiLevel;
+}
+
+export function getBundleId() {
+  return RNDeviceInfo.bundleId;
+}
+
+export function getApplicationName() {
+  return RNDeviceInfo.appName;
+}
+
+export function getBuildNumber() {
+  return RNDeviceInfo.buildNumber;
+}
+
+export function getVersion() {
+  return RNDeviceInfo.appVersion;
+}
+
+export function getReadableVersion() {
+  return RNDeviceInfo.appVersion + '.' + RNDeviceInfo.buildNumber;
+}
+
+export function getDeviceName() {
+  return RNDeviceInfo.deviceName;
+}
+
+export function getUserAgent() {
+  return RNDeviceInfo.userAgent;
+}
+
+export function getDeviceLocale() {
+  return RNDeviceInfo.deviceLocale;
+}
+
+export function getPreferredLocales() {
+  return RNDeviceInfo.preferredLocales;
+}
+
+export function getDeviceCountry() {
+  return RNDeviceInfo.deviceCountry;
+}
+
+export function getTimezone() {
+  return RNDeviceInfo.timezone;
+}
+
+export function getFontScale() {
+  return RNDeviceInfo.fontScale;
+}
+
+export function getBootloader() {
+  return RNDeviceInfo.bootloader;
+}
+
+export function getDevice() {
+  return RNDeviceInfo.device;
+}
+
+export function getDisplay() {
+  return RNDeviceInfo.display;
+}
+
+export function getFingerprint() {
+  return RNDeviceInfo.fingerprint;
+}
+
+export function getHardware() {
+  return RNDeviceInfo.hardware;
+}
+
+export function getHost() {
+  return RNDeviceInfo.host;
+}
+
+export function getProduct() {
+  return RNDeviceInfo.product;
+}
+
+export function getTags() {
+  return RNDeviceInfo.tags;
+}
+
+export function getType() {
+  return RNDeviceInfo.type;
+}
+
+export function getBaseOS() {
+  return RNDeviceInfo.baseOS;
+}
+
+export function getPreviewSdkInt() {
+  return RNDeviceInfo.previewSdkInt;
+}
+
+export function getSecurityPatch() {
+  return RNDeviceInfo.securityPatch;
+}
+
+export function getCodename() {
+  return RNDeviceInfo.codename;
+}
+
+export function getIncremental() {
+  return RNDeviceInfo.incremental;
+}
+
+export function isEmulator() {
+  return RNDeviceInfo.isEmulator;
+}
+
+export function isTablet() {
+  return RNDeviceInfo.isTablet;
+}
+
+export function is24Hour() {
+  return RNDeviceInfo.is24Hour;
+}
+
+export function isPinOrFingerprintSet() {
+  return RNDeviceInfo.isPinOrFingerprintSet;
+}
+
+export function hasNotch() {
+  return (
+    devicesWithNotch.findIndex(
+      item =>
+        item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() &&
+        item.model.toLowerCase() === this.getModel().toLowerCase()
+    ) !== -1
+  );
+}
+
+export function getFirstInstallTime() {
+  return RNDeviceInfo.firstInstallTime;
+}
+
+export function getInstallReferrer() {
+  return RNDeviceInfo.installReferrer;
+}
+
+export function getLastUpdateTime() {
+  return RNDeviceInfo.lastUpdateTime;
+}
+
+export function getPhoneNumber() {
+  return RNDeviceInfo.phoneNumber;
+}
+
+export function getCarrier() {
+  return RNDeviceInfo.carrier;
+}
+
+export function getTotalMemory() {
+  return RNDeviceInfo.totalMemory;
+}
+
+export function getMaxMemory() {
+  return RNDeviceInfo.maxMemory;
+}
+
+export function getTotalDiskCapacity() {
+  return RNDeviceInfo.totalDiskCapacity;
+}
+
+export function getFreeDiskStorage() {
+  return RNDeviceInfo.freeDiskStorage;
+}
+
+export function getBatteryLevel() {
+  return RNDeviceInfo.getBatteryLevel();
+}
+
+export function getPowerState() {
+  return RNDeviceInfo.getPowerState();
+}
+export function isBatteryCharging() {
+  return RNDeviceInfo.isBatteryCharging();
+}
+
+export function isLandscape() {
+  const { height, width } = Dimensions.get('window');
+  return width >= height;
+}
+
+export function isAirPlaneMode() {
+  return RNDeviceInfo.isAirPlaneMode();
+}
+
+export function getDeviceType() {
+  return RNDeviceInfo.deviceType;
+}
+
+export function isAutoDateAndTime() {
+  return RNDeviceInfo.isAutoDateAndTime();
+}
+
+export function isAutoTimeZone() {
+  return RNDeviceInfo.isAutoTimeZone();
+}
+
+export function supportedABIs() {
+  return RNDeviceInfo.supportedABIs;
+}
+
+export function supported32BitAbis() {
+  return RNDeviceInfo.supported32BitAbis;
+}
+
+export function supported64BitAbis() {
+  return RNDeviceInfo.supported64BitAbis;
+}
+
+export function hasSystemFeature(feature) {
+  return RNDeviceInfo.hasSystemFeature(feature);
+}
+
+export function getSystemAvailableFeatures() {
+  return RNDeviceInfo.getSystemAvailableFeatures();
+}
+
+export function isLocationEnabled() {
+  return RNDeviceInfo.isLocationEnabled();
+}
+
+export function getAvailableLocationProviders() {
+  return RNDeviceInfo.getAvailableLocationProviders();
+}
+
 export default {
   getUniqueID: function() {
     return RNDeviceInfo.uniqueId;
