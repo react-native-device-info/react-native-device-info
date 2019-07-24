@@ -2,6 +2,10 @@
 
 ### Next
 
+### 2.3.0
+* feat: AndroidX support (backwards/forwards compatible) (https://github.com/react-native-community/react-native-device-info/pull/733)
+* fix: isTablet() Android using Google-recommended / robust style (https://github.com/react-native-community/react-native-device-info/pull/730)
+
 ### 2.2.2
 * fix: re-fix crash PR #714, API level should be 24 (https://github.com/react-native-community/react-native-device-info/pull/715)
 
