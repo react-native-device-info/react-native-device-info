@@ -47,7 +47,7 @@ yarn add react-native-device-info
 
 ## AndroidX Support
 
-AndroidX is supported in a non-breaking / backwards-compatible why by using overrides in your `android/build.gradle` file's "ext" block
+AndroidX is supported in a non-breaking / backwards-compatible way by using overrides in your `android/build.gradle` file's "ext" block
 
 <details>
     <summary>Android</summary>
