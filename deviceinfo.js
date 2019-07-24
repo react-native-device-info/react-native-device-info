@@ -89,6 +89,14 @@ const devicesWithNotch = [
   },
   {
     brand: 'Huawei',
+    model: 'P30 Lite',
+  },
+  {
+    brand: 'Huawei',
+    model: 'P30 Pro',
+  },
+  {
+    brand: 'Huawei',
     model: 'Nova 3',
   },
   {
