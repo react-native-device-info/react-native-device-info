@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+* docs(README): fix typo "why" -> "way" (https://github.com/react-native-community/react-native-device-info/pull/736)
 
 ### 2.3.0
 * feat: AndroidX support (backwards/forwards compatible) (https://github.com/react-native-community/react-native-device-info/pull/733)
