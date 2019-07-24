@@ -45,7 +45,29 @@ yarn add react-native-device-info
 
 > ⚠️ If you are on React Native > 0.47, you must use version 0.11.0 of this library or higher
 
-## Linking
+## AndroidX Support
+
+AndroidX is supported in a non-breaking / backwards-compatible why by using overrides in your `android/build.gradle` file's "ext" block
+
+<details>
+    <summary>Android</summary>
+
+```gradle
+...
+  ext {
+    // dependency versions
+    googlePlayServicesVersion = "17.0.0" // default: "16.1.0" - pre-AndroidX, override for AndroidX
+    compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
+    targetSdkVersion = "28" // default: 28 (28 is required for AndroidX)
+    supportLibVersion = '1.0.2' // Use '28.0.0' or don't specify for old libraries, '1.0.2' or similar for AndroidX
+    mediaCompatVersion = '1.0.1' // Do not specify if using old libraries, specify '1.0.1' or similar for androidx.media:media dependency
+    supportV4LibVersion = '1.0.0' // Do not specify if using old libraries, specify '1.0.0' or similar for androidx.legacy:legacy-support-v4 dependency
+  }
+...
+```
+</details>
+
+## Linking (for React Native <= 0.59 only, React Native >= 0.60 skip this as auto-linking should work)
 
 ### Automatic
 
@@ -127,10 +149,9 @@ Run your project (Cmd+R)
 ...
   ext {
     // dependency versions
-    googlePlayServicesVersion = "<Your play services version>" // default: "+"
-    compileSdkVersion = "<Your compile SDK version>" // default: 23
-    buildToolsVersion = "<Your build tools version>" // default: "25.0.2"
-    targetSdkVersion = "<Your target SDK version>" // default: 22
+    googlePlayServicesVersion = "<Your play services version>" // default: "16.1.0" - pre-AndroidX, override for AndroidX
+    compileSdkVersion = "<Your compile SDK version>" // default: 28
+    targetSdkVersion = "<Your target SDK version>" // default: 28
   }
 ...
 ```
