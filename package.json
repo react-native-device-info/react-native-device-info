@@ -54,14 +54,14 @@
   "license": "MIT",
   "devDependencies": {
     "@react-native-community/eslint-config": "0.0.5",
-    "eslint": "^6.0.1",
+    "eslint": "^6.1.0",
     "flow-bin": "^0.102.0",
-    "husky": "^3.0.0",
-    "lint-staged": "^9.0.2",
+    "husky": "^3.0.1",
+    "lint-staged": "^9.2.0",
     "np": "^5.0.3",
     "prettier": "^1.18.2",
     "react": "^16.8.3",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "eslintConfig": {
     "extends": "@react-native-community"
