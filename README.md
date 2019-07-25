@@ -61,7 +61,7 @@ AndroidX is supported in a non-breaking / backwards-compatible why by using over
     targetSdkVersion = "28" // default: 28 (28 is required for AndroidX)
     supportLibVersion = '1.0.2' // Use '28.0.0' or don't specify for old libraries, '1.0.2' or similar for AndroidX
     mediaCompatVersion = '1.0.1' // Do not specify if using old libraries, specify '1.0.1' or similar for androidx.media:media dependency
-    supportV4LibVersion = '1.0.0' // Do not specify if using old libraries, specify '1.0.0' or similar for androidx.legacy:legacy-support-v4 dependency
+    supportV4Version = '1.0.0' // Do not specify if using old libraries, specify '1.0.0' or similar for androidx.legacy:legacy-support-v4 dependency
   }
 ...
 ```
