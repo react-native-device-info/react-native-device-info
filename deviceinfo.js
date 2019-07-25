@@ -656,239 +656,73 @@ export function getAvailableLocationProviders() {
 }
 
 export default {
-  getUniqueID: function() {
-    return RNDeviceInfo.uniqueId;
-  },
-  getInstanceID: function() {
-    return RNDeviceInfo.instanceId;
-  },
-  getSerialNumber: function() {
-    return RNDeviceInfo.serialNumber;
-  },
-  getIPAddress: function() {
-    return RNDeviceInfo.getIpAddress();
-  },
-  getCameraPresence: function() {
-    return RNDeviceInfo.getCameraPresence();
-  },
-  getMACAddress: function() {
-    return RNDeviceInfo.getMacAddress();
-  },
-  getDeviceId: function() {
-    return RNDeviceInfo.deviceId;
-  },
-  getManufacturer: function() {
-    return RNDeviceInfo.systemManufacturer;
-  },
-  getModel: function() {
-    if (Platform.OS === 'ios') {
-      var deviceName;
-      var deviceId = RNDeviceInfo.deviceId;
-      if (deviceId) {
-        deviceName = deviceNamesByCode[deviceId];
-        if (!deviceName) {
-          // Not found on database. At least guess main device type from string contents:
-          if (deviceId.startsWith('iPod')) {
-            deviceName = 'iPod Touch';
-          } else if (deviceId.startsWith('iPad')) {
-            deviceName = 'iPad';
-          } else if (deviceId.startsWith('iPhone')) {
-            deviceName = 'iPhone';
-          } else if (deviceId.startsWith('AppleTV')) {
-            deviceName = 'Apple TV';
-          }
-        }
-      }
-      return deviceName;
-    } else {
-      return RNDeviceInfo.model;
-    }
-  },
-  getBrand: function() {
-    return RNDeviceInfo.brand;
-  },
-  getSystemName: function() {
-    return RNDeviceInfo.systemName;
-  },
-  getSystemVersion: function() {
-    return RNDeviceInfo.systemVersion;
-  },
-  getBuildId: function() {
-    return RNDeviceInfo.buildId;
-  },
-  getAPILevel: function() {
-    return RNDeviceInfo.apiLevel;
-  },
-  getBundleId: function() {
-    return RNDeviceInfo.bundleId;
-  },
-  getApplicationName: function() {
-    return RNDeviceInfo.appName;
-  },
-  getBuildNumber: function() {
-    return RNDeviceInfo.buildNumber;
-  },
-  getVersion: function() {
-    return RNDeviceInfo.appVersion;
-  },
-  getReadableVersion: function() {
-    return RNDeviceInfo.appVersion + '.' + RNDeviceInfo.buildNumber;
-  },
-  getDeviceName: function() {
-    return RNDeviceInfo.deviceName;
-  },
-  getUserAgent: function() {
-    return RNDeviceInfo.userAgent;
-  },
-  getDeviceLocale: function() {
-    return RNDeviceInfo.deviceLocale;
-  },
-  getPreferredLocales: function() {
-    return RNDeviceInfo.preferredLocales;
-  },
-  getDeviceCountry: function() {
-    return RNDeviceInfo.deviceCountry;
-  },
-  getTimezone: function() {
-    return RNDeviceInfo.timezone;
-  },
-  getFontScale: function() {
-    return RNDeviceInfo.fontScale;
-  },
-  getBootloader: function() {
-    return RNDeviceInfo.bootloader;
-  },
-  getDevice: function() {
-    return RNDeviceInfo.device;
-  },
-  getDisplay: function() {
-    return RNDeviceInfo.display;
-  },
-  getFingerprint: function() {
-    return RNDeviceInfo.fingerprint;
-  },
-  getHardware: function() {
-    return RNDeviceInfo.hardware;
-  },
-  getHost: function() {
-    return RNDeviceInfo.host;
-  },
-  getProduct: function() {
-    return RNDeviceInfo.product;
-  },
-  getTags: function() {
-    return RNDeviceInfo.tags;
-  },
-  getType: function() {
-    return RNDeviceInfo.type;
-  },
-  getBaseOS: function() {
-    return RNDeviceInfo.baseOS;
-  },
-  getPreviewSdkInt: function() {
-    return RNDeviceInfo.previewSdkInt;
-  },
-  getSecurityPatch: function() {
-    return RNDeviceInfo.securityPatch;
-  },
-  getCodename: function() {
-    return RNDeviceInfo.codename;
-  },
-  getIncremental: function() {
-    return RNDeviceInfo.incremental;
-  },
-  isEmulator: function() {
-    return RNDeviceInfo.isEmulator;
-  },
-  isTablet: function() {
-    return RNDeviceInfo.isTablet;
-  },
-  is24Hour: function() {
-    return RNDeviceInfo.is24Hour;
-  },
-  isPinOrFingerprintSet: function() {
-    return RNDeviceInfo.isPinOrFingerprintSet;
-  },
-  hasNotch: function() {
-    return (
-      devicesWithNotch.findIndex(
-        item =>
-          item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() &&
-          item.model.toLowerCase() === this.getModel().toLowerCase()
-      ) !== -1
-    );
-  },
-  getFirstInstallTime: function() {
-    return RNDeviceInfo.firstInstallTime;
-  },
-  getInstallReferrer: function() {
-    return RNDeviceInfo.installReferrer;
-  },
-  getLastUpdateTime: function() {
-    return RNDeviceInfo.lastUpdateTime;
-  },
-  getPhoneNumber: function() {
-    return RNDeviceInfo.phoneNumber;
-  },
-  getCarrier: function() {
-    return RNDeviceInfo.carrier;
-  },
-  getTotalMemory: function() {
-    return RNDeviceInfo.totalMemory;
-  },
-  getMaxMemory: function() {
-    return RNDeviceInfo.maxMemory;
-  },
-  getTotalDiskCapacity: function() {
-    return RNDeviceInfo.totalDiskCapacity;
-  },
-  getFreeDiskStorage: function() {
-    return RNDeviceInfo.freeDiskStorage;
-  },
-  getBatteryLevel: function() {
-    return RNDeviceInfo.getBatteryLevel();
-  },
-  getPowerState: function() {
-    return RNDeviceInfo.getPowerState();
-  },
-  isBatteryCharging: function() {
-    return RNDeviceInfo.isBatteryCharging();
-  },
-  isLandscape: function() {
-    const { height, width } = Dimensions.get('window');
-    return width >= height;
-  },
-  isAirPlaneMode: function() {
-    return RNDeviceInfo.isAirPlaneMode();
-  },
-  getDeviceType: function() {
-    return RNDeviceInfo.deviceType;
-  },
-  isAutoDateAndTime: function() {
-    return RNDeviceInfo.isAutoDateAndTime();
-  },
-  isAutoTimeZone: function() {
-    return RNDeviceInfo.isAutoTimeZone();
-  },
-  supportedABIs: function() {
-    return RNDeviceInfo.supportedABIs;
-  },
-  supported32BitAbis: function() {
-    return RNDeviceInfo.supported32BitAbis;
-  },
-  supported64BitAbis: function() {
-    return RNDeviceInfo.supported64BitAbis;
-  },
-  hasSystemFeature: function(feature) {
-    return RNDeviceInfo.hasSystemFeature(feature);
-  },
-  getSystemAvailableFeatures: function() {
-    return RNDeviceInfo.getSystemAvailableFeatures();
-  },
-  isLocationEnabled: function() {
-    return RNDeviceInfo.isLocationEnabled();
-  },
-  getAvailableLocationProviders: function() {
-    return RNDeviceInfo.getAvailableLocationProviders();
-  },
+  getUniqueID,
+  getInstanceID,
+  getSerialNumber,
+  getIPAddress,
+  getCameraPresence,
+  getMACAddress,
+  getDeviceId,
+  getManufacturer,
+  getModel,
+  getBrand,
+  getSystemName,
+  getSystemVersion,
+  getBuildId,
+  getAPILevel,
+  getBundleId,
+  getApplicationName,
+  getBuildNumber,
+  getVersion,
+  getReadableVersion,
+  getDeviceName,
+  getUserAgent,
+  getDeviceLocale,
+  getPreferredLocales,
+  getDeviceCountry,
+  getTimezone,
+  getFontScale,
+  getBootloader,
+  getDevice,
+  getDisplay,
+  getFingerprint,
+  getHardware,
+  getHost,
+  getProduct,
+  getTags,
+  getType,
+  getBaseOS,
+  getPreviewSdkInt,
+  getSecurityPatch,
+  getCodename,
+  getIncremental,
+  isEmulator,
+  isTablet,
+  is24Hour,
+  isPinOrFingerprintSet,
+  hasNotch,
+  getFirstInstallTime,
+  getInstallReferrer,
+  getLastUpdateTime,
+  getPhoneNumber,
+  getCarrier,
+  getTotalMemory,
+  getMaxMemory,
+  getTotalDiskCapacity,
+  getFreeDiskStorage,
+  getBatteryLevel,
+  getPowerState,
+  isBatteryCharging,
+  isLandscape,
+  isAirPlaneMode,
+  getDeviceType,
+  isAutoDateAndTime,
+  isAutoTimeZone,
+  supportedABIs,
+  supported32BitAbis,
+  supported64BitAbis,
+  hasSystemFeature,
+  getSystemAvailableFeatures,
+  isLocationEnabled,
+  getAvailableLocationProviders,
 };
