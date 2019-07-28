@@ -2,6 +2,9 @@
 
 ### Next
 
+### 2.3.1
+* fix: add Huawei P30 devices to isNothc list (https://github.com/react-native-community/react-native-device-info/pull/734)
+
 ### 2.3.0
 * feat: AndroidX support (backwards/forwards compatible) (https://github.com/react-native-community/react-native-device-info/pull/733)
 * fix: isTablet() Android using Google-recommended / robust style (https://github.com/react-native-community/react-native-device-info/pull/730)
