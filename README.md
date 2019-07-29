@@ -33,16 +33,6 @@ or using yarn:
 yarn add react-native-device-info
 ```
 
-> ⚠️ As of version 2.1.1 the package can be loaded async to improve start up time on Android [Refer to this PR for more information](https://github.com/react-native-community/react-native-device-info/pull/680)
-```java
-    @Override
-    public List<ReactPackage> createAdditionalReactPackages() {
-        return Arrays.<ReactPackage>asList(
-            new RNDeviceInfo(true), // Pass true to load the constants asynchronously on start up, default is false
-        );
-    }
-```
-
 > ⚠️ If you are on React Native > 0.47, you must use version 0.11.0 of this library or higher
 
 ## AndroidX Support
@@ -68,6 +58,24 @@ AndroidX is supported in a non-breaking / backwards-compatible way by using over
 </details>
 
 ## Linking (for React Native <= 0.59 only, React Native >= 0.60 skip this as auto-linking should work)
+
+> ⚠️ This package is loaded async by default to improve start up time on Android
+
+To disable async loading with autolinking, edit react-native.config.js:
+
+```js
+module.exports = {
+  dependencies: {
+    'react-native-device-info': {
+      platforms: {
+        android: {
+          packageInstance: 'new RNDeviceInfo(false)',
+        },
+      },
+    },
+  },
+};
+```
 
 ### Automatic
 
@@ -188,7 +196,7 @@ include ':app'
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-+         new RNDeviceInfo(),
++         new RNDeviceInfo(), //pass false in constructor to load module synchronously
           new MainReactPackage()
       );
     }

@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RNDeviceInfo implements ReactPackage {
-  private boolean mLoadConstantsAsynchronously;
+  private boolean mLoadConstantsAsynchronously = true;
 
   public RNDeviceInfo() {
     this(false);
