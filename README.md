@@ -331,7 +331,7 @@ import DeviceInfo from 'react-native-device-info';
 | [isAutoDateAndTime()](#isAutoDateAndTime)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [isAutoTimeZone()](#isAutoTimeZone)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [supported32BitAbis()](#supported32BitAbis)                       | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
-| [supported64BitAbis()](#supported64BitAbis                        | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
+| [supported64BitAbis()](#supported64BitAbis)                       | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
 | [supportedABIs()](#supportedABIs)                                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
