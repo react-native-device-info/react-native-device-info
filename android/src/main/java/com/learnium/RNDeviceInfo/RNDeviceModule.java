@@ -50,6 +50,8 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
 import java.math.BigInteger;
@@ -506,11 +508,23 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
 
     try {
-      if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
-        constants.put("instanceId", com.google.android.gms.iid.InstanceID.getInstance(this.reactContext).getId());
-      }
-    } catch (ClassNotFoundException e) {
-      constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
+        if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
+            Class cls = Class.forName("com.google.android.gms.iid.InstanceID");
+
+            Class[] paramString = new Class[1];
+            paramString[0] = Context.class;
+            Method getInstanceMethod = cls.getDeclaredMethod("getInstance", paramString);
+            Object appInstance = getInstanceMethod.invoke(null, this.reactContext);
+
+            Method getIdMethod = cls.getDeclaredMethod("getId");
+            String instanceId = (String) getIdMethod.invoke(appInstance);
+
+            constants.put("instanceId", instanceId);
+        } else {
+            constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
+        }
+    } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        constants.put("instanceId", "N/A: Add com.google.android.gms:play-services-gcm to your project.");
     }
     constants.put("serialNumber", Build.SERIAL);
     constants.put("deviceName", deviceName);
