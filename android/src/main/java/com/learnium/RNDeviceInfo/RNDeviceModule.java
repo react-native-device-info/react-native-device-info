@@ -41,6 +41,7 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.module.annotations.ReactModule;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,7 +58,9 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nullable;
 
+@ReactModule(name = RNDeviceModule.NAME)
 public class RNDeviceModule extends ReactContextBaseJavaModule {
+  public static final String NAME = "RNDeviceInfo";
 
   ReactApplicationContext reactContext;
 
@@ -87,7 +90,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "RNDeviceInfo";
+    return NAME;
   }
 
   private WifiInfo getWifiInfo() {
