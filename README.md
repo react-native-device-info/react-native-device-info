@@ -47,11 +47,6 @@ AndroidX is supported in a non-breaking / backwards-compatible way by using over
   ext {
     // dependency versions
     googlePlayServicesVersion = "17.0.0" // default: "16.1.0" - pre-AndroidX, override for AndroidX
-    compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
-    targetSdkVersion = "28" // default: 28 (28 is required for AndroidX)
-    supportLibVersion = '1.0.2' // Use '28.0.0' or don't specify for old libraries, '1.0.2' or similar for AndroidX
-    mediaCompatVersion = '1.0.1' // Do not specify if using old libraries, specify '1.0.1' or similar for androidx.media:media dependency
-    supportV4Version = '1.0.0' // Do not specify if using old libraries, specify '1.0.0' or similar for androidx.legacy:legacy-support-v4 dependency
   }
 ...
 ```
@@ -1500,14 +1495,14 @@ When installing or using `react-native-device-info`, you may encounter the follo
 <details>
   <summary>[android] - Unable to merge dex / Multiple dex files / Problems with `com.google.android.gms`</summary>
 
-`react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
+`react-native-device-info` uses `com.google.android.gms:play-services-iid` to provide [getInstance()][#getinstance].
 This can lead to conflicts when building the Android application.
 
-If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the
+If you're using a different version of `com.google.android.gms:play-services-iid` in your app, which may be a subdependency of another google-play-services library, you can define the
 `googlePlayServicesVersion` gradle variable in your `build.gradle` file to tell `react-native-device-info` what version
 it should require. See the example project included here for a sample.
 
-If you're using a different library that conflicts with `com.google.android.gms:play-services-gcm`, and you are certain you know what you are doing such that you will avoid version conflicts, you can simply
+If you're using a different library that conflicts with `com.google.android.gms:play-services-iid`, and you are certain you know what you are doing such that you will avoid version conflicts, you can simply
 ignore this dependency in your gradle file:
 
 ```groovy
