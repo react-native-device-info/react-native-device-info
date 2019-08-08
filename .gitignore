@@ -58,3 +58,6 @@ buck-out/
 Pods/
 example.xcworkspace
 .vscode
+
+# Our RN59 example
+examplern59
