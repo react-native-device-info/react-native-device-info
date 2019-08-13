@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+* breaking(Android): removing RNDeviceReceiver by default. (https://github.com/react-native-community/react-native-device-info/pull/750)
 
 ### 2.3.2
 * fix: load module async by default with option to load sync (https://github.com/react-native-community/react-native-device-info/pull/741)

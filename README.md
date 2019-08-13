@@ -302,7 +302,7 @@ import DeviceInfo from 'react-native-device-info';
 | [getHost()](#gethost)                                             | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getIPAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
 | [getIncremental()](#getincremental)                               | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getInstallReferrer()](#getinstallreferrer)                       | `string`            |  ❌  |   ✅    |   ❌    | 0.19.0 |
+| [getInstallReferrer()](#getinstallreferrer)                       | `string`            |  ❌  |   ✅⚠️    |   ❌    | 0.19.0 |
 | [getInstanceID()](#getinstanceid)                                 | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getLastUpdateTime()](#getlastupdatetime)                         | `number`            |  ❌  |   ✅    |   ❌    | 0.12.0 |
 | [getMACAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    | 0.12.0 |
@@ -784,6 +784,23 @@ const referrer = DeviceInfo.getInstallReferrer();
 
 // If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
 // the result will be "my_install_referrer"
+```
+
+**Notes**
+> ⚠️ **ANDROID** - *Need to add receiver in AndroidManifest.xml*
+```xml
+<application>
+    ...
+    ...
+    <receiver
+        android:name="com.learnium.RNDeviceInfo.RNDeviceReceiver"
+        android:enabled="true"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="com.android.vending.INSTALL_REFERRER" />
+        </intent-filter>
+    </receiver>
+</application>
 ```
 
 ---
