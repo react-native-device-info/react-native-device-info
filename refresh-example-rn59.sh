@@ -36,7 +36,7 @@ sed -i -e 's/ext {$/ext {        minSdkVersion = 16/' android/build.gradle
 rm -f android/build.gradle??
 
 # Patch the AndroidManifest directly to add our permissions
-sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" \/><uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/><uses-permission android:name="android.permission.BLUETOOTH" \/><uses-permission android:name="android.permission.READ_PHONE_STATE" \/>/' android/app/src/main/AndroidManifest.xml
+sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" \/><uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/><uses-permission android:name="android.permission.READ_PHONE_STATE" \/>/' android/app/src/main/AndroidManifest.xml
 rm -f android/app/src/main/AndroidManifest.xml??
 
 # Patch the AppDelegate for iOS battery level

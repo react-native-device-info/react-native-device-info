@@ -44,11 +44,6 @@ namespace RNDeviceInfo
             return !rgx.IsMatch(os);
         }
 
-        private bool is24Hour()
-        {
-            return DateTimeFormatInfo.CurrentInfo.ShortTimePattern.Contains("H");
-        }
-
         [ReactMethod]
         public async void isPinOrFingerprintSet(ICallback actionCallback)
         {
@@ -182,18 +177,14 @@ namespace RNDeviceInfo
                 constants["brand"] = model;
                 constants["buildId"] = "not available";
                 constants["deviceId"] = hardwareVersion;
-                constants["deviceLocale"] = culture.Name;
-                constants["deviceCountry"] = culture.EnglishName;
                 constants["uniqueId"] = device_id;
                 constants["systemManufacturer"] = manufacturer;
                 constants["bundleId"] = bundleId;
                 constants["appName"] = appName;
                 constants["userAgent"] = "not available";
-                constants["timezone"] = TimeZoneInfo.Local.Id;
                 constants["isEmulator"] = IsEmulator(model);
                 constants["isTablet"] = IsTablet(os);
                 constants["carrier"] = "not available";
-                constants["is24Hour"] = is24Hour();
                 constants["maxMemory"] = MemoryManager.AppMemoryUsageLimit;
                 constants["firstInstallTime"] = package.InstalledDate.ToUnixTimeMilliseconds();
 

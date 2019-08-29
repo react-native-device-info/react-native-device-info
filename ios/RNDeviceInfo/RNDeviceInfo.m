@@ -50,7 +50,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"batteryLevelDidChange", @"batteryLevelIsLow", @"powerStateDidChange"];
+    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange"];
 }
 
 - (id)init
@@ -122,29 +122,6 @@ RCT_EXPORT_MODULE();
 #endif
 }
 
-- (NSString*) deviceLocale
-{
-    NSString *language = [[NSLocale preferredLanguages] firstObject];
-    return language;
-}
-
-- (NSArray<NSString *> *) preferredLocales
-{
-    return [NSLocale preferredLanguages];
-}
-
-- (NSString*) deviceCountry
-{
-  NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-  return country;
-}
-
-- (NSString*) timezone
-{
-  NSTimeZone *currentTimeZone = [NSTimeZone localTimeZone];
-  return currentTimeZone.name;
-}
-
 - (DeviceType) getDeviceType
 {
     switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
@@ -185,12 +162,6 @@ RCT_EXPORT_MODULE();
   }
 
   return [NSNumber numberWithFloat: fontScale];
-}
-
-- (bool) is24Hour
-{
-    NSString *format = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
-    return ([format rangeOfString:@"a"].location == NSNotFound);
 }
 
 - (unsigned long long) totalMemory {
@@ -257,9 +228,6 @@ RCT_EXPORT_MODULE();
              @"brand": @"Apple",
              @"deviceId": self.deviceId ?: [NSNull null],
              @"deviceName": currentDevice.name,
-             @"deviceLocale": self.deviceLocale ?: [NSNull null],
-             @"preferredLocales": self.preferredLocales ?: [NSNull null],
-             @"deviceCountry": self.deviceCountry ?: [NSNull null],
              @"uniqueId": uniqueId,
              @"appName": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] ?: [NSNull null],
              @"bundleId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] ?: [NSNull null],
@@ -269,10 +237,8 @@ RCT_EXPORT_MODULE();
              @"systemManufacturer": @"Apple",
              @"carrier": self.carrier ?: [NSNull null],
              @"userAgent": self.userAgent ?: [NSNull null],
-             @"timezone": self.timezone ?: [NSNull null],
              @"isEmulator": @(self.isEmulator),
              @"isTablet": @(self.isTablet),
-             @"is24Hour": @(self.is24Hour),
              @"fontScale": self.fontScale,
              @"totalMemory": @(self.totalMemory),
              @"totalDiskCapacity": @(self.totalDiskCapacity),
@@ -336,10 +302,10 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
     }
 
     float batteryLevel = [self.powerState[@"batteryLevel"] floatValue];
-    [self sendEventWithName:@"batteryLevelDidChange" body:@(batteryLevel)];
+    [self sendEventWithName:@"RNDeviceInfo_batteryLevelDidChange" body:@(batteryLevel)];
 
     if (batteryLevel <= _lowBatteryThreshold) {
-        [self sendEventWithName:@"batteryLevelIsLow" body:@(batteryLevel)];
+        [self sendEventWithName:@"RNDeviceInfo_batteryLevelIsLow" body:@(batteryLevel)];
     }
 }
 
@@ -349,7 +315,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTResponseSenderBlock)callback)
         return;
     }
 
-    [self sendEventWithName:@"powerStateDidChange" body:self.powerState];
+    [self sendEventWithName:@"RNDeviceInfo_powerStateDidChange" body:self.powerState];
 }
 
 - (NSDictionary *)powerState

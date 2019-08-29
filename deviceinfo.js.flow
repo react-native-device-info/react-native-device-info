@@ -18,10 +18,6 @@ declare module.exports: {
   getReadableVersion: () => string,
   getDeviceName: () => string,
   getUserAgent: () => string,
-  getDeviceLocale: () => string,
-  getPreferredLocales: () => Array<string>,
-  getDeviceCountry: () => string,
-  getTimezone: () => string,
   getInstanceID: () => string,
   getInstallReferrer: () => string,
   isEmulator: () => boolean,
@@ -41,7 +37,6 @@ declare module.exports: {
   getSecurityPatch: () => string,
   getCodename: () => string,
   getIncremental: () => string,
-  is24Hour: () => boolean,
   isPinOrFingerprintSet: () => (
     cb: (isPinOrFingerprintSet: boolean) => void
   ) => void,
@@ -65,8 +60,6 @@ declare module.exports: {
   isLandscape: () => boolean,
   isAirPlaneMode: () => Promise<boolean>,
   getDeviceType: () => DeviceType,
-  isAutoDateAndTime: () => Promise<boolean>,
-  isAutoTimeZone: () => Promise<boolean>,
   supportedABIs: () => string[],
   supported32BitAbis: () => string[],
   supported64BitAbis: () => string[],

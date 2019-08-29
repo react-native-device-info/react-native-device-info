@@ -32,10 +32,6 @@ declare const _default: {
   getReadableVersion: () => string;
   getDeviceName: () => string;
   getUserAgent: () => string;
-  getDeviceLocale: () => string;
-  getPreferredLocales: () => Array<string>;
-  getDeviceCountry: () => string;
-  getTimezone: () => string;
   getInstanceID: () => string;
   getInstallReferrer: () => string | null;
   isEmulator: () => boolean;
@@ -55,7 +51,6 @@ declare const _default: {
   getSecurityPatch: () => string;
   getCodename: () => string;
   getIncremental: () => string;
-  is24Hour: () => boolean;
   isPinOrFingerprintSet(): (
     cb: (isPinOrFingerprintSet: boolean) => void
   ) => void;
@@ -79,8 +74,6 @@ declare const _default: {
   isLandscape: () => boolean;
   isAirPlaneMode: () => Promise<boolean>;
   getDeviceType: () => DeviceType;
-  isAutoDateAndTime: () => Promise<boolean>;
-  isAutoTimeZone: () => Promise<boolean>;
   supportedABIs: () => string[];
   supported32BitAbis: () => string[];
   supported64BitAbis: () => string[];
