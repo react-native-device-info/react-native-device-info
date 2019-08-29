@@ -1,7 +1,15 @@
 ## Release Notes
 
 ### Next
- * fix: Android `getBuildNumber` now returns a string (https://github.com/react-native-community/react-native-device-info/pull/648)
+* BREAKING CHANGE: all events prefixed with 'RNDeviceInfo_' to future-proof against collisions (https://github.com/react-native-community/react-native-device-info/issues/620)
+ * feat: getDeviceName() without Bluetooth permission on Android (https://github.com/react-native-community/react-native-device-info/issues/735)
+ * BREAKING CHANGE: Android `getBuildNumber` now returns a string (https://github.com/react-native-community/react-native-device-info/pull/648)
+* deprecated: IP-address-related methods deprecated - use @react-native-community/netinfo or react-native-network-info or react-native-carrier-info
+* feat: TurboModule support (https://github.com/react-native-community/react-native-device-info/pull/745)
+* BREAKING CHANGE: remove is24Hour, getTimezone, isAutoTimeZone and isAutoDateAndTime, getDeviceLocale, getDeviceCountry, getPreferredLocales. react-native-localize is superior for these purposes (https://github.com/react-native-community/react-native-localize/pull/65)
+* feat: allow for destructured ES6 imports (https://github.com/react-native-community/react-native-device-info/pull/727)
+* BREAKING CHANGE: remove deprecated iOS WebView / promises (https://github.com/react-native-community/react-native-device-info/pull/757)
+* fix: remove unnecessary gradle depencies (https://github.com/react-native-community/react-native-device-info/pull/746)
 
 ### 2.3.2
 * fix: load module async by default with option to load sync (https://github.com/react-native-community/react-native-device-info/pull/741)

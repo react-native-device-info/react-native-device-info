@@ -305,11 +305,8 @@ import { getUniqueID, getManufacturer } from 'react-native-device-info';
 | [getCarrier()](#getcarrier)                                       | `string`            |  ✅  |   ✅    |   ❌    | 0.13.0 |
 | [getCodename()](#getcodename)                                     | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getDevice()](#getdevice)                                         | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getDeviceCountry()](#getdevicecountry)                           | `string`            |  ✅  |   ✅    |   ✅    | 0.9.0  |
 | [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    | 0.5.0  |
-| [getDeviceLocale()](#getdevicelocale)                             | `string`            |  ✅  |   ✅    |   ✅    | 0.7.0  |
 | [getDisplay()](#getdisplay)                                       | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getPreferredLocales()](#getpreferredlocale)                      | `Array<string>`     |  ✅  |   ✅    |   ❌    | ?      |
 | [getDeviceName()](#getdevicename)                                 | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getFirstInstallTime()](#getfirstinstalltime)                     | `number`            |  ❌  |   ✅    |   ✅    | 0.12.0 |
 | [getFingerprint()](#getfingerprint)                               | `string`            |  ❌  |   ✅    |   ❌    | ?      |
@@ -338,13 +335,11 @@ import { getUniqueID, getManufacturer } from 'react-native-device-info';
 | [getBuildId()](#getbuildid)                                       | `string`            |  ✅  |   ✅    |   ❌    | ?      |
 | [getTags()](#gettags)                                             | `string`            |  ❌  |   ✅    |   ❌    | ?      |
 | [getType()](#gettype)                                             | `string`            |  ❌  |   ✅    |   ❌    | ?      |
-| [getTimezone()](#gettimezone)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `number`            |  ✅  |   ✅    |   ❌    | 0.15.0 |
 | [getTotalMemory()](#gettotalmemory)                               | `number`            |  ✅  |   ✅    |   ❌    | 0.14.0 |
 | [getUniqueID()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ?      |
 | [getUserAgent()](#getuseragent)                                   | `string`            |  ✅  |   ✅    |   ❌    | 0.7.0  |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ?      |
-| [is24Hour()](#is24hour)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.13.0 |
 | [isAirPlaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
 | [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 0.27.0 |
 | [isEmulator()](#isemulator)                                       | `boolean`           |  ✅  |   ✅    |   ✅    | ?      |
@@ -353,8 +348,6 @@ import { getUniqueID, getManufacturer } from 'react-native-device-info';
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | 0.23.0 |
 | [isLandscape()](#isLandscape)                                     | `boolean`           |  ✅  |   ✅    |   ✅    | 0.24.0 |
 | [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ?      |
-| [isAutoDateAndTime()](#isAutoDateAndTime)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.29.0 |
-| [isAutoTimeZone()](#isAutoTimeZone)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.29.0 |
 | [supported32BitAbis()](#supported32BitAbis)                       | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
 | [supported64BitAbis()](#supported64BitAbis)                       | `string[]`          |  ❌  |   ✅    |   ❌    | ?      |
 | [supportedABIs()](#supportedABIs)                                 | `string[]`          |  ✅  |   ✅    |   ❌    | 1.1.0  |
@@ -557,17 +550,6 @@ const device = DeviceInfo.getDevice();
 ```
 
 ---
-### getDeviceCountry()
-
-Gets the device country based on the locale information.
-
-**Examples**
-
-```js
-const deviceCountry = DeviceInfo.getDeviceCountry(); // "US"
-```
-
----
 
 ### getDeviceId()
 
@@ -580,22 +562,6 @@ const deviceId = DeviceInfo.getDeviceId();
 
 // iOS: "iPhone7,2"
 // Android: "goldfish"
-// Windows: ?
-```
-
----
-
-### getDeviceLocale()
-
-Gets the device locale.
-
-**Examples**
-
-```js
-const deviceLocale = DeviceInfo.getDeviceLocale();
-
-// iOS: "en"
-// Android: "en-US"
 // Windows: ?
 ```
 
@@ -615,22 +581,6 @@ const display = DeviceInfo.getDisplay();
 
 ---
 
-### getPreferredLocales()
-
-Gets the preferred locales defined by the user.
-
-**Examples**
-
-```js
-const preferredLocales = DeviceInfo.getPreferredLocales();
-
-// iOS: "[es-ES, en-US]"
-// Android: "[es-ES, en-US]"
-// Windows: ?
-```
-
----
-
 ### getDeviceName()
 
 Gets the device name.
@@ -645,9 +595,7 @@ const deviceName = DeviceInfo.getDeviceName();
 // Windows: ?
 ```
 
-**Android Permissions**
-
-* [android.permission.BLUETOOTH](https://developer.android.com/reference/android/Manifest.permission.html#BLUETOOTH)
+This used to require the android.permission.BLUETOOTH but the new implementation in v3 does not need it. You may remove that from your AndroidManifest.xml if you had it for this API.
 
 ---
 
@@ -752,7 +700,8 @@ const host = DeviceInfo.getHost();
 
 ### getIPAddress()
 
-Gets the device current IP address.
+**Deprecated** Gets the device current IP address.
+Switch to @react-native-community/netinfo or react-native-network-info
 
 **Examples**
 
@@ -1093,18 +1042,6 @@ const type = DeviceInfo.getType();
 
 ---
 
-### getTimezone()
-
-Gets the device default timezone.
-
-**Examples**
-
-```js
-const timezone = DeviceInfo.getTimezone(); // "Africa/Tunis"
-```
-
----
-
 ### getTotalDiskCapacity()
 
 Gets full disk storage size, in bytes.
@@ -1183,18 +1120,6 @@ const version = DeviceInfo.getVersion();
 // iOS: "1.0"
 // Android: "1.0"
 // Windows: ?
-```
-
----
-
-### is24Hour()
-
-Tells if the user preference is set to 24-hour format.
-
-**Examples**
-
-```js
-const is24Hour = DeviceInfo.is24Hour(); // true
 ```
 
 ---
@@ -1313,34 +1238,6 @@ Returns the device's type as a string, which will be one of:
 
 ```js
 const deviceType = DeviceInfo.getDeviceType(); // 'Handset'
-```
-
----
-
-### isAutoDateAndTime()
-
-Tells if the automatic date & time setting is enabled on the phone.
-
-**Examples**
-
-```js
-DeviceInfo.isAutoDateAndTime().then(isAutoDateAndTime => {
-  // true or false
-});
-```
-
----
-
-### isAutoTimeZone()
-
-Tells if the automatic time zone setting is enabled on the phone.
-
-**Examples**
-
-```js
-DeviceInfo.isAutoTimeZone().then(isAutoTimeZone => {
-  // true or false
-});
 ```
 
 ---
@@ -1468,7 +1365,7 @@ Fired when the battery level changes; sent no more frequently than once per minu
 import { NativeEventEmitter, NativeModules } from 'react-native'
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
 
-deviceInfoEmitter.addListener('batteryLevelDidChange', level => {
+deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', level => {
   // 0.759999
 });
 ```
@@ -1485,7 +1382,7 @@ Fired when the battery drops below 20%.
 import { NativeEventEmitter, NativeModules } from 'react-native'
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
 
-deviceInfoEmitter.addListener('batteryLevelIsLow', level => {
+deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', level => {
   // 0.19
 });
 ```
@@ -1502,7 +1399,7 @@ Fired when the battery state changes, for example when the device enters chargin
 import { NativeEventEmitter, NativeModules } from 'react-native'
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
 
-deviceInfoEmitter.addListener('powerStateDidChange', { batteryState } => {
+deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState } => {
   // 'charging'
 });
 ```

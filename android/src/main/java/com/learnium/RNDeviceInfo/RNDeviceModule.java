@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.UiModeManager;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.Intent;
@@ -46,11 +45,8 @@ import com.facebook.react.module.annotations.ReactModule;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
 import java.math.BigInteger;
@@ -58,18 +54,20 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nullable;
 
+import static android.provider.Settings.Secure.getString;
+
 @ReactModule(name = RNDeviceModule.NAME)
 public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
 
-  ReactApplicationContext reactContext;
+  private ReactApplicationContext reactContext;
 
-  WifiInfo wifiInfo;
+  private WifiInfo wifiInfo;
 
-  DeviceType deviceType;
+  private DeviceType deviceType;
 
-  Map<String, Object> constants;
-  AsyncTask<Void, Void, Map<String, Object>> futureConstants;
+  private Map<String, Object> constants;
+  private AsyncTask<Void, Void, Map<String, Object>> futureConstants;
 
   public RNDeviceModule(ReactApplicationContext reactContext, boolean loadConstantsAsynchronously) {
     super(reactContext);
@@ -99,52 +97,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       this.wifiInfo = manager.getConnectionInfo();
     }
     return this.wifiInfo;
-  }
-
-  private String getCurrentLanguage() {
-    Locale current;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      current = getReactApplicationContext().getResources().getConfiguration().getLocales().get(0);
-    } else {
-      current = getReactApplicationContext().getResources().getConfiguration().locale;
-    }
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      return current.toLanguageTag();
-    } else {
-      StringBuilder builder = new StringBuilder();
-      builder.append(current.getLanguage());
-      if (current.getCountry() != null) {
-        builder.append("-");
-        builder.append(current.getCountry());
-      }
-      return builder.toString();
-    }
-  }
-
-  private ArrayList<String> getPreferredLocales() {
-    Configuration configuration = getReactApplicationContext().getResources().getConfiguration();
-    ArrayList<String> preferred = new ArrayList<>();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      for (int i = 0; i < configuration.getLocales().size(); i++) {
-        preferred.add(configuration.getLocales().get(i).getLanguage());
-      }
-    } else {
-      preferred.add(configuration.locale.getLanguage());
-    }
-
-    return preferred;
-  }
-
-  private String getCurrentCountry() {
-    Locale current;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      current = getReactApplicationContext().getResources().getConfiguration().getLocales().get(0);
-    } else {
-      current = getReactApplicationContext().getResources().getConfiguration().locale;
-    }
-
-    return current.getCountry();
   }
 
   private Boolean isEmulator() {
@@ -246,10 +198,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private float fontScale() {
     return getReactApplicationContext().getResources().getConfiguration().fontScale;
-  }
-
-  private Boolean is24Hour() {
-    return android.text.format.DateFormat.is24HourFormat(this.reactContext.getApplicationContext());
   }
 
   @ReactMethod
@@ -384,31 +332,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void isAutoDateAndTime(Promise p) {
-    boolean isAutoDateAndTime;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      isAutoDateAndTime = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME, 0) != 0;
-    } else {
-      isAutoDateAndTime = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME, 0) != 0;
-    }
-    p.resolve(isAutoDateAndTime);
-  }
-
-  @ReactMethod
-  public void isAutoTimeZone(Promise p) {
-    boolean isAutoTimeZone;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      isAutoTimeZone = Settings.System.getInt(this.reactContext.getContentResolver(),Settings.System.AUTO_TIME_ZONE, 0) != 0;
-    } else {
-      isAutoTimeZone = Settings.Global.getInt(this.reactContext.getContentResolver(),Settings.Global.AUTO_TIME_ZONE, 0) != 0;
-    }
-    p.resolve(isAutoTimeZone);
-  }
-
-  @ReactMethod
   public void hasSystemFeature(String feature, Promise p) {
 
-    if (feature == null || feature == "") {
+    if (feature == null || feature.equals("")) {
       p.resolve(false);
       return;
     }
@@ -442,7 +368,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         int locationMode = Settings.Secure.getInt(reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
         locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
       } else {
-        String locationProviders = Settings.Secure.getString(reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        String locationProviders = getString(reactContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
         locationEnabled = !TextUtils.isEmpty(locationProviders);
       }
 
@@ -492,21 +418,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       e.printStackTrace();
     }
 
-    String deviceName = "Unknown";
-
-    String permission = "android.permission.BLUETOOTH";
-    int res = this.reactContext.checkCallingOrSelfPermission(permission);
-    if (res == PackageManager.PERMISSION_GRANTED) {
-      try {
-        BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
-        if (myDevice != null) {
-          deviceName = myDevice.getName();
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+    String deviceName;
+    if (Build.VERSION.SDK_INT >= 25) {
+      deviceName = Settings.Global.getString(this.reactContext.getContentResolver(), Settings.Global.DEVICE_NAME);
+    } else {
+      deviceName = Settings.Secure.getString(this.reactContext.getContentResolver(), "bluetooth_name");
     }
-
 
     try {
       if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
@@ -540,10 +457,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
     constants.put("codename", Build.VERSION.CODENAME);
     constants.put("incremental", Build.VERSION.INCREMENTAL);
-    constants.put("deviceLocale", this.getCurrentLanguage());
-    constants.put("preferredLocales", this.getPreferredLocales());
-    constants.put("deviceCountry", this.getCurrentCountry());
-    constants.put("uniqueId", Settings.Secure.getString(this.reactContext.getContentResolver(), Settings.Secure.ANDROID_ID));
+    constants.put("uniqueId", getString(this.reactContext.getContentResolver(), Settings.Secure.ANDROID_ID));
     constants.put("systemManufacturer", Build.MANUFACTURER);
     constants.put("bundleId", packageName);
     try {
@@ -555,11 +469,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     } catch (RuntimeException e) {
       constants.put("userAgent", System.getProperty("http.agent"));
     }
-    constants.put("timezone", TimeZone.getDefault().getID());
     constants.put("isEmulator", this.isEmulator());
     constants.put("isTablet", this.isTablet());
     constants.put("fontScale", this.fontScale());
-    constants.put("is24Hour", this.is24Hour());
     constants.put("carrier", this.getCarrier());
     constants.put("totalDiskCapacity", this.getTotalDiskCapacity());
     constants.put("freeDiskStorage", this.getFreeDiskStorage());
