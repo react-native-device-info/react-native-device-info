@@ -9,17 +9,17 @@
     "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
-    "analyze": "npm run ts-check && npm run flow-check",
+    "analyze": "yarn ts-check && yarn flow-check",
     "dev-sync": "cp -r deviceinfo* *podspec default windows web android ios example/node_modules/react-native-device-info/",
     "flow-check": "npx flow check-contents < deviceinfo.js.flow",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
     "shipit": "np --no-yarn",
     "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
-    "precommit": "lint-staged && npm run analyze"
+    "precommit": "lint-staged && yarn analyze"
   },
   "lint-staged": {
     "*.js": [
-      "npm run lint",
+      "yarn lint",
       "git add"
     ]
   },
@@ -55,6 +55,7 @@
   "devDependencies": {
     "@react-native-community/eslint-config": "0.0.5",
     "eslint": "^6.2.2",
+    "eslint-plugin-prettier": "^3.1.0",
     "flow-bin": "^0.104.0",
     "husky": "^3.0.2",
     "lint-staged": "^9.2.1",
@@ -65,6 +66,5 @@
   },
   "eslintConfig": {
     "extends": "@react-native-community"
-  },
-  "dependencies": {}
+  }
 }

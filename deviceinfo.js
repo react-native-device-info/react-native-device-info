@@ -457,22 +457,6 @@ export function getUserAgent() {
   return RNDeviceInfo.userAgent;
 }
 
-export function getDeviceLocale() {
-  return RNDeviceInfo.deviceLocale;
-}
-
-export function getPreferredLocales() {
-  return RNDeviceInfo.preferredLocales;
-}
-
-export function getDeviceCountry() {
-  return RNDeviceInfo.deviceCountry;
-}
-
-export function getTimezone() {
-  return RNDeviceInfo.timezone;
-}
-
 export function getFontScale() {
   return RNDeviceInfo.fontScale;
 }
@@ -539,10 +523,6 @@ export function isEmulator() {
 
 export function isTablet() {
   return RNDeviceInfo.isTablet;
-}
-
-export function is24Hour() {
-  return RNDeviceInfo.is24Hour;
 }
 
 export function isPinOrFingerprintSet() {
@@ -619,14 +599,6 @@ export function getDeviceType() {
   return RNDeviceInfo.deviceType;
 }
 
-export function isAutoDateAndTime() {
-  return RNDeviceInfo.isAutoDateAndTime();
-}
-
-export function isAutoTimeZone() {
-  return RNDeviceInfo.isAutoTimeZone();
-}
-
 export function supportedABIs() {
   return RNDeviceInfo.supportedABIs;
 }
@@ -677,10 +649,6 @@ export default {
   getReadableVersion,
   getDeviceName,
   getUserAgent,
-  getDeviceLocale,
-  getPreferredLocales,
-  getDeviceCountry,
-  getTimezone,
   getFontScale,
   getBootloader,
   getDevice,
@@ -698,7 +666,6 @@ export default {
   getIncremental,
   isEmulator,
   isTablet,
-  is24Hour,
   isPinOrFingerprintSet,
   hasNotch,
   getFirstInstallTime,
@@ -716,8 +683,6 @@ export default {
   isLandscape,
   isAirPlaneMode,
   getDeviceType,
-  isAutoDateAndTime,
-  isAutoTimeZone,
   supportedABIs,
   supported32BitAbis,
   supported64BitAbis,
