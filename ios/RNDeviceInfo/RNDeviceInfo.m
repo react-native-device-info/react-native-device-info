@@ -13,6 +13,7 @@
 #import <React/RCTUtils.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#import <WebKit/WebKit.h>
 
 #if !(TARGET_OS_TV)
 #import <LocalAuthentication/LocalAuthentication.h>
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 @implementation RNDeviceInfo
 {
+    WKWebView *webView;
     bool hasListeners;
 }
 
@@ -131,7 +133,7 @@ RCT_EXPORT_MODULE();
     return [NSLocale preferredLanguages];
 }
 
-- (NSString*) deviceCountry 
+- (NSString*) deviceCountry
 {
   NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
   return country;
@@ -396,6 +398,32 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
 {
     BOOL locationServicesEnabled = [CLLocationManager locationServicesEnabled];
     resolve(@(locationServicesEnabled));
+}
+
+RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+#if TARGET_OS_TV
+    reject(@"not available");
+#else
+    __weak RNDeviceInfo *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong RNDeviceInfo *strongSelf = weakSelf;
+        if (strongSelf) {
+                // Save WKWebView (it might deallocate before we ask for user Agent)
+                strongSelf->webView = [[WKWebView alloc] init];
+
+                [strongSelf->webView evaluateJavaScript:@"window.navigator.userAgent;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                    if (error) {
+                        reject(@"getUserAgentError", error.localizedDescription, error);
+                        return;
+                    }
+                    resolve([NSString stringWithFormat:@"%@", result]);
+                    // Destroy the WKWebView after task is complete
+                    strongSelf->webView = nil;
+                }];
+            }
+    });
+  #endif
 }
 
 RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
