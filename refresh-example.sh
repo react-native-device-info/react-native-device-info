@@ -18,7 +18,6 @@ else
   cp example/README.md TEMP/
   cp example/android/local.properties TEMP/android/ || true
   cp example/App.js TEMP/
-  cp example/ios/Podfile TEMP/ios/
 fi
 
 # Purge the old sample
