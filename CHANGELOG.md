@@ -1,6 +1,7 @@
 ## Release Notes
 
 ### Next
+* feat: `getUsedMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/356)
 * BREAKING CHANGE: all events prefixed with 'RNDeviceInfo_' to future-proof against collisions (https://github.com/react-native-community/react-native-device-info/issues/620)
  * feat: getDeviceName() without Bluetooth permission on Android (https://github.com/react-native-community/react-native-device-info/issues/735)
  * BREAKING CHANGE: Android `getBuildNumber` now returns a string (https://github.com/react-native-community/react-native-device-info/pull/648)
