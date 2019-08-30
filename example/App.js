@@ -8,13 +8,24 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, ScrollView, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {getUniqueID, getManufacturer, getBrand, getModel, getDeviceId} from 'react-native-device-info';
+import {
+  getUniqueID,
+  getManufacturer,
+  getBrand,
+  getModel,
+  getDeviceId,
+} from 'react-native-device-info';
 
 type Props = {};
 export default class App extends Component<Props> {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +38,6 @@ export default class App extends Component<Props> {
     const ios = Platform.OS === 'ios';
 
     try {
-
       deviceJSON.uniqueID = getUniqueID();
       deviceJSON.manufacturer = getManufacturer();
       deviceJSON.brand = getBrand();
@@ -97,25 +107,29 @@ export default class App extends Component<Props> {
     DeviceInfo.isPinOrFingerprintSet()(this.keyguardCallback);
 
     console.log('loaded info');
-    this.setState({ deviceinfo: deviceJSON });
+    this.setState({deviceinfo: deviceJSON});
     this.forceUpdate();
     console.log(this.state.deviceinfo);
   }
 
-  keyguardCallback = (pinSet) => {
+  keyguardCallback = pinSet => {
     console.log('callback called with value: ' + pinSet);
     let deviceJSON = this.state.deviceinfo;
     deviceJSON.isPinOrFingerprintSet = pinSet;
-    this.setState({ deviceinfo: deviceJSON });
+    this.setState({deviceinfo: deviceJSON});
     this.forceUpdate();
   };
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.welcome}>react-native-device-info example - info:</Text>
+        <Text style={styles.welcome}>
+          react-native-device-info example - info:
+        </Text>
         <ScrollView>
-          <Text style={styles.instructions}>{JSON.stringify(this.state.deviceinfo, null, '\t')}</Text>
+          <Text style={styles.instructions}>
+            {JSON.stringify(this.state.deviceinfo, null, '\t')}
+          </Text>
         </ScrollView>
       </SafeAreaView>
     );
