@@ -312,6 +312,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getUsedMemory(Promise p) {
+    Runtime rt = Runtime.getRuntime();
+    long usedMemory = rt.totalMemory() - rt.freeMemory();
+    p.resolve((int)usedMemory);
+  }
+
+  @ReactMethod
   public void getBatteryLevel(Promise p) {
     Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
