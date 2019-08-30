@@ -41,8 +41,9 @@ export default class App extends Component<Props> {
       deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
       deviceJSON.version = DeviceInfo.getVersion();
       deviceJSON.readableVersion = DeviceInfo.getReadableVersion();
-      deviceJSON.deviceName = DeviceInfo.getDeviceName(); // needs android.permission.BLUETOOTH ?
-      deviceJSON.userAgent = DeviceInfo.getUserAgent();
+      deviceJSON.deviceName = DeviceInfo.getDeviceName();
+      deviceJSON.usedMemory = await DeviceInfo.getUsedMemory();
+      deviceJSON.userAgent = await DeviceInfo.getUserAgent();
       deviceJSON.instanceID = ios ? '' : DeviceInfo.getInstanceID();
       deviceJSON.installReferrer = ios ? '' : DeviceInfo.getInstallReferrer();
       deviceJSON.isEmulator = DeviceInfo.isEmulator();

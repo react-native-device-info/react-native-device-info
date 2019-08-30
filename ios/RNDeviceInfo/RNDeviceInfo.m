@@ -8,6 +8,7 @@
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#import <mach/mach.h>
 #import <mach-o/arch.h>
 #import <CoreLocation/CoreLocation.h>
 #import <React/RCTUtils.h>
@@ -364,6 +365,22 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
 {
     BOOL locationServicesEnabled = [CLLocationManager locationServicesEnabled];
     resolve(@(locationServicesEnabled));
+}
+
+RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(),
+                                   TASK_BASIC_INFO,
+                                   (task_info_t)&info,
+                                   &size);
+    if (kerr != KERN_SUCCESS) {
+      reject(@"fetch_error", @"task_info failed", nil);
+      return;
+    }
+
+    resolve(@((unsigned long)info.resident_size));
 }
 
 RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)

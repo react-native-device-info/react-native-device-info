@@ -453,6 +453,10 @@ export function getDeviceName() {
   return RNDeviceInfo.deviceName;
 }
 
+export function getUsedMemory() {
+  return RNDeviceInfo.getUsedMemory();
+}
+
 export function getUserAgent() {
   return RNDeviceInfo.userAgent;
 }
@@ -648,6 +652,7 @@ export default {
   getVersion,
   getReadableVersion,
   getDeviceName,
+  getUsedMemory,
   getUserAgent,
   getFontScale,
   getBootloader,

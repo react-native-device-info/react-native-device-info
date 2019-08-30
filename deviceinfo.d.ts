@@ -31,6 +31,7 @@ declare const _default: {
   getVersion: () => string;
   getReadableVersion: () => string;
   getDeviceName: () => string;
+  getUsedMemory: () => Promise<number>;
   getUserAgent: () => string;
   getInstanceID: () => string;
   getInstallReferrer: () => string | null;

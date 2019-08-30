@@ -21,6 +21,7 @@ module.exports = {
   buildNumber: 0,
   appVersion: 0,
   deviceName: '',
+  getUsedMemory: () => Promise.resolve(0),
   userAgent: '',
   fontScale: 0,
   isEmulator: false,
