@@ -515,7 +515,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getBuildId(Promise p) { p.resolve(Build.ID); }
 
   @ReactMethod
-  public void getDeviceId(Promise p) { getBrand(p); }
+  public void getDeviceId(Promise p) { p.resolve(Build.BOARD); }
 
   @ReactMethod
   public void getApiLevel(Promise p) { p.resolve(Build.VERSION.SDK_INT); }
