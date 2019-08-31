@@ -1,10 +1,16 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 # Release Notes
 
+## 3.0.0-rc.2
+
+* fix all emulator/simulator v2->v3 discrepancies
+
 ## 3.0.0-rc.1
 
-* BREAKING CHANGE: Everything returns a Promise now. No more constants (no more explicit async Android constructor)
-* BREAKING CHANGE: Renamed getSupportedABIs to getSupportedAbis for consistency with other getXxxAbis methods
+Each BREAKING CHANGE contains the required information to migrate. The example App.js shows sample usage.
+
+* BREAKING CHANGE: Every API call returns a Promise now (and thus no more Android constructor with async boolean argument)
+* BREAKING CHANGE: Renamed getSupportedABIs to getSupportedAbis (note lower case!) for consistency with other getXxxAbis methods
 * BREAKING CHANGE: all events prefixed with 'RNDeviceInfo_' to future-proof against collisions (https://github.com/react-native-community/react-native-device-info/issues/620)
 * BREAKING CHANGE: Android `getBuildNumber` returns string like iOS (https://github.com/react-native-community/react-native-device-info/pull/648)
 * BREAKING CHANGE: remove is24Hour, getTimezone, isAutoTimeZone and isAutoDateAndTime, getDeviceLocale, getDeviceCountry, getPreferredLocales. react-native-localize is superior
