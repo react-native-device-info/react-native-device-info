@@ -45,17 +45,16 @@ namespace RNDeviceInfo
         }
 
         [ReactMethod]
-        public async void isPinOrFingerprintSet(ICallback actionCallback)
+        public async void isPinOrFingerprintSet(IPromise promise)
         {
             try
             {
                 var ucvAvailability = await UserConsentVerifier.CheckAvailabilityAsync();
-
-                actionCallback.Invoke(ucvAvailability == UserConsentVerifierAvailability.Available);
+                promise.Resolve(ucvAvailability == UserConsentVerifierAvailability.Available);
             }
             catch (Exception ex)
             {
-                actionCallback.Invoke(false);
+                promise.Reject(ex);
             }
         }
 
@@ -110,85 +109,206 @@ namespace RNDeviceInfo
             }
         }
 
-        public override IReadOnlyDictionary<string, object> Constants
+        [ReactMethod]
+        public async void getCameraPresence(IPromise promise)
         {
+            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
+            promise.Resolve(devices.Count > 0);
+        }
+		
+        [ReactMethod]
+        public async void getAppVersion(IPromise promise) { promise.Resolve("not available"); }
 
-            get
+        [ReactMethod]
+        public async void getBuildVersion(IPromise promise) { promise.Resolve("not available"); }
+		
+        [ReactMethod]
+        public async void getBuildNumber(IPromise promise) { promise.Resolve(0); }
+		
+        [ReactMethod]
+        public async void getAppVersion(IPromise promise)
+        {
+            try
             {
-                Dictionary<string, object> constants = new Dictionary<string, object>();
-
-                constants["appVersion"] = "not available";
-                constants["buildVersion"] = "not available";
-                constants["buildNumber"] = 0;
-
-                Package package = Package.Current;
-                PackageId packageId = package.Id;
-                PackageVersion version = packageId.Version;
-                String bundleId = packageId.Name;
-                String appName = package.DisplayName;
-
-                try
-                {
-                    constants["appVersion"] = string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
-                    constants["buildNumber"] = version.Build.ToString();
-                    constants["buildVersion"] = version.Build.ToString();
-                }
-                catch
-                {
-                }
-
-                String deviceName = "not available";
-                String manufacturer = "not available";
-                String device_id = "not available";
-                String model = "not available";
-                String hardwareVersion = "not available";
-                String osVersion = "not available";
-                String os = "not available";
-
-                CultureInfo culture = CultureInfo.CurrentCulture;
-
-                try
-                {
-                    var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
-                    deviceName = deviceInfo.FriendlyName;
-                    manufacturer = deviceInfo.SystemManufacturer;
-                    device_id = deviceInfo.Id.ToString();
-                    model = deviceInfo.SystemProductName;
-                    hardwareVersion = deviceInfo.SystemHardwareVersion;
-                    os = deviceInfo.OperatingSystem;
-
-
-                    string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
-                    ulong version2 = ulong.Parse(deviceFamilyVersion);
-                    ulong major = (version2 & 0xFFFF000000000000L) >> 48;
-                    ulong minor = (version2 & 0x0000FFFF00000000L) >> 32;
-                    osVersion = $"{major}.{minor}";
-                }
-                catch
-                {
-                }
-                
-                constants["instanceId"] = "not available";
-                constants["deviceName"] = deviceName;
-                constants["systemName"] = "Windows";
-                constants["systemVersion"] = osVersion;
-                constants["apiLevel"] = "not available";
-                constants["model"] = model;
-                constants["brand"] = model;
-                constants["buildId"] = "not available";
-                constants["deviceId"] = hardwareVersion;
-                constants["uniqueId"] = device_id;
-                constants["systemManufacturer"] = manufacturer;
-                constants["bundleId"] = bundleId;
-                constants["appName"] = appName;
-                constants["userAgent"] = "not available";
-                constants["isEmulator"] = IsEmulator(model);
-                constants["isTablet"] = IsTablet(os);
-                constants["carrier"] = "not available";
-                constants["maxMemory"] = MemoryManager.AppMemoryUsageLimit;
-                constants["firstInstallTime"] = package.InstalledDate.ToUnixTimeMilliseconds();
-
-                return constants;
+                PackageVersion version = Package.Current.Id.Version; 
+                promise.Resolve(string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision));
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getBuildNumber(IPromise promise)
+        {
+            try
+            {
+                PackageVersion version = Package.Current.Id.Version; 
+                promise.Resolve(version.Build.ToString());
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getBuildVersion(IPromise promise)
+        {
+            getBuildNumber(promise);
+        }
+		
+        [ReactMethod]
+        public async void getInstanceId(IPromise promise) { promise.Resolve("not available"); }
+		
+        [ReactMethod]
+        public async void getSystemName(IPromise promise) { promise.Resolve("Windows"); }
+		
+        [ReactMethod]
+        public async void getApiLevel(IPromise promise) { promise.Resolve("not available"); }
+		
+        [ReactMethod]
+        public async void getBuildId(IPromise promise) { promise.Resolve("not available"); }
+		
+        [ReactMethod]
+        public async void getUserAgent(IPromise promise) { promise.Resolve("not available"); }
+		
+        [ReactMethod]
+        public async void getCarrier(IPromise promise) { promise.Resolve("not available"); }
+		
+        [ReactMethod]
+        public async void getMaxMemory(IPromise promise) { promise.Resolve(MemoryManager.AppMemoryUsageLimit); }
+		
+        [ReactMethod]
+        public async void getFirstInstallTime(IPromise promise) { promise.Resolve(Package.Current.InstalledDate.ToUnixTimeMilliseconds()); }
+		
+        [ReactMethod]
+        public async void getAppName(IPromise promise) { promise.Resolve(Package.Current.DisplayName); }
+		
+        [ReactMethod]
+        public async void getBundleId(IPromise promise) { promise.Resolve(Package.Current.Id.Name); }
+		
+        [ReactMethod]
+        public async void getDeviceName(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(deviceInfo.FriendlyName);
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getSystemVersion(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                string deviceFamilyVersion = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+                ulong version2 = ulong.Parse(deviceFamilyVersion);
+                ulong major = (version2 & 0xFFFF000000000000L) >> 48;
+                ulong minor = (version2 & 0x0000FFFF00000000L) >> 32;
+                osVersion = $"{major}.{minor}";
+                promise.Resolve(osVersion);
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getModel(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(deviceInfo.SystemProductName);
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getBrand(IPromise promise)
+        {
+            getModel(promise);
+        }
+		
+        [ReactMethod]
+        public async void isEmulator(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(isEmulator(deviceInfo.SystemProductName));
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getUniqueId(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(deviceInfo.Id.toString());
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getDeviceId(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(deviceInfo.SystemHardwareVersion);
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void getSystemManufacturer(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(deviceInfo.SystemManufacturer);
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
+            }
+        }
+		
+        [ReactMethod]
+        public async void isTablet(IPromise promise)
+        {
+            try
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                promise.Resolve(isTablet(deviceInfo.OperatingSystem));
+            }
+            catch (Exception ex)
+            {
+                promise.Reject(ex);
             }
         }
     }

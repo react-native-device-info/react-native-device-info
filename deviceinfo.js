@@ -352,42 +352,42 @@ const deviceNamesByCode = {
   'AppleTV6,2': 'Apple TV 4K', // Apple TV 4K
 };
 
-export function getUniqueID() {
-  return RNDeviceInfo.uniqueId;
+export async function getUniqueID() {
+  return RNDeviceInfo.getUniqueId();
 }
 
-export function getInstanceID() {
-  return RNDeviceInfo.instanceId;
+export async function getInstanceID() {
+  return RNDeviceInfo.getInstanceId();
 }
 
-export function getSerialNumber() {
-  return RNDeviceInfo.serialNumber;
+export async function getSerialNumber() {
+  return RNDeviceInfo.getSerialNumber();
 }
 
-export function getIPAddress() {
+export async function getIPAddress() {
   return RNDeviceInfo.getIpAddress();
 }
 
-export function getCameraPresence() {
+export async function getCameraPresence() {
   return RNDeviceInfo.getCameraPresence();
 }
 
-export function getMACAddress() {
+export async function getMACAddress() {
   return RNDeviceInfo.getMacAddress();
 }
 
-export function getDeviceId() {
-  return RNDeviceInfo.deviceId;
+export async function getDeviceId() {
+  return RNDeviceInfo.getDeviceId();
 }
 
-export function getManufacturer() {
-  return RNDeviceInfo.systemManufacturer;
+export async function getManufacturer() {
+  return RNDeviceInfo.getSystemManufacturer();
 }
 
-export function getModel() {
+export async function getModel() {
   if (Platform.OS === 'ios') {
     var deviceName;
-    var deviceId = RNDeviceInfo.deviceId;
+    var deviceId = await RNDeviceInfo.getDeviceId();
     if (deviceId) {
       deviceName = deviceNamesByCode[deviceId];
       if (!deviceName) {
@@ -403,231 +403,233 @@ export function getModel() {
         }
       }
     }
-    return deviceName;
+    return Promise.resolve(deviceName);
   } else {
-    return RNDeviceInfo.model;
+    return RNDeviceInfo.getModel();
   }
 }
 
-export function getBrand() {
-  return RNDeviceInfo.brand;
+export async function getBrand() {
+  return RNDeviceInfo.getBrand();
 }
 
-export function getSystemName() {
-  return RNDeviceInfo.systemName;
+export async function getSystemName() {
+  return RNDeviceInfo.getSystemName();
 }
 
-export function getSystemVersion() {
-  return RNDeviceInfo.systemVersion;
+export async function getSystemVersion() {
+  return RNDeviceInfo.getSystemVersion();
 }
 
-export function getBuildId() {
-  return RNDeviceInfo.buildId;
+export async function getBuildId() {
+  return RNDeviceInfo.getBuildId();
 }
 
-export function getAPILevel() {
-  return RNDeviceInfo.apiLevel;
+export async function getAPILevel() {
+  return RNDeviceInfo.getApiLevel();
 }
 
-export function getBundleId() {
-  return RNDeviceInfo.bundleId;
+export async function getBundleId() {
+  return RNDeviceInfo.getBundleId();
 }
 
-export function getApplicationName() {
-  return RNDeviceInfo.appName;
+export async function getApplicationName() {
+  return RNDeviceInfo.getAppName();
 }
 
-export function getBuildNumber() {
-  return RNDeviceInfo.buildNumber;
+export async function getBuildNumber() {
+  return RNDeviceInfo.getBuildNumber();
 }
 
-export function getVersion() {
-  return RNDeviceInfo.appVersion;
+export async function getVersion() {
+  return RNDeviceInfo.getAppVersion();
 }
 
-export function getReadableVersion() {
-  return RNDeviceInfo.appVersion + '.' + RNDeviceInfo.buildNumber;
+export async function getReadableVersion() {
+  return (await RNDeviceInfo.getAppVersion()) + '.' + (await RNDeviceInfo.getBuildNumber());
 }
 
-export function getDeviceName() {
-  return RNDeviceInfo.deviceName;
+export async function getDeviceName() {
+  return RNDeviceInfo.getDeviceName();
 }
 
-export function getUsedMemory() {
+export async function getUsedMemory() {
   return RNDeviceInfo.getUsedMemory();
 }
 
-export function getUserAgent() {
-  return RNDeviceInfo.userAgent;
+export async function getUserAgent() {
+  return RNDeviceInfo.getUserAgent();
 }
 
-export function getFontScale() {
-  return RNDeviceInfo.fontScale;
+export async function getFontScale() {
+  return RNDeviceInfo.getFontScale();
 }
 
-export function getBootloader() {
-  return RNDeviceInfo.bootloader;
+export async function getBootloader() {
+  return RNDeviceInfo.getBootloader();
 }
 
-export function getDevice() {
-  return RNDeviceInfo.device;
+export async function getDevice() {
+  return RNDeviceInfo.getDevice();
 }
 
-export function getDisplay() {
-  return RNDeviceInfo.display;
+export async function getDisplay() {
+  return RNDeviceInfo.getDisplay();
 }
 
-export function getFingerprint() {
-  return RNDeviceInfo.fingerprint;
+export async function getFingerprint() {
+  return RNDeviceInfo.getFingerprint();
 }
 
-export function getHardware() {
-  return RNDeviceInfo.hardware;
+export async function getHardware() {
+  return RNDeviceInfo.getHardware();
 }
 
-export function getHost() {
-  return RNDeviceInfo.host;
+export async function getHost() {
+  return RNDeviceInfo.getHost();
 }
 
-export function getProduct() {
-  return RNDeviceInfo.product;
+export async function getProduct() {
+  return RNDeviceInfo.getProduct();
 }
 
-export function getTags() {
-  return RNDeviceInfo.tags;
+export async function getTags() {
+  return RNDeviceInfo.getTags();
 }
 
-export function getType() {
-  return RNDeviceInfo.type;
+export async function getType() {
+  return RNDeviceInfo.getType();
 }
 
-export function getBaseOS() {
-  return RNDeviceInfo.baseOS;
+export async function getBaseOS() {
+  return RNDeviceInfo.getBaseOS();
 }
 
-export function getPreviewSdkInt() {
-  return RNDeviceInfo.previewSdkInt;
+export async function getPreviewSdkInt() {
+  return RNDeviceInfo.getPreviewSdkInt();
 }
 
-export function getSecurityPatch() {
-  return RNDeviceInfo.securityPatch;
+export async function getSecurityPatch() {
+  return RNDeviceInfo.getSecurityPatch();
 }
 
-export function getCodename() {
-  return RNDeviceInfo.codename;
+export async function getCodename() {
+  return RNDeviceInfo.getCodename();
 }
 
-export function getIncremental() {
-  return RNDeviceInfo.incremental;
+export async function getIncremental() {
+  return RNDeviceInfo.getIncremental();
 }
 
-export function isEmulator() {
-  return RNDeviceInfo.isEmulator;
+export async function isEmulator() {
+  return RNDeviceInfo.isEmulator();
 }
 
-export function isTablet() {
-  return RNDeviceInfo.isTablet;
+export async function isTablet() {
+  return RNDeviceInfo.isTablet();
 }
 
-export function isPinOrFingerprintSet() {
-  return RNDeviceInfo.isPinOrFingerprintSet;
+export async function isPinOrFingerprintSet() {
+  return RNDeviceInfo.isPinOrFingerprintSet();
 }
 
-export function hasNotch() {
+export async function hasNotch() {
+  let brand = await RNDeviceInfo.getBrand();
+  let model = await getModel();
   return (
     devicesWithNotch.findIndex(
       item =>
-        item.brand.toLowerCase() === RNDeviceInfo.brand.toLowerCase() &&
-        item.model.toLowerCase() === this.getModel().toLowerCase()
+        item.brand.toLowerCase() === brand.toLowerCase() &&
+        item.model.toLowerCase() === model.toLowerCase()
     ) !== -1
   );
 }
 
-export function getFirstInstallTime() {
-  return RNDeviceInfo.firstInstallTime;
+export async function getFirstInstallTime() {
+  return RNDeviceInfo.getFirstInstallTime();
 }
 
-export function getInstallReferrer() {
-  return RNDeviceInfo.installReferrer;
+export async function getInstallReferrer() {
+  return RNDeviceInfo.getInstallReferrer();
 }
 
-export function getLastUpdateTime() {
-  return RNDeviceInfo.lastUpdateTime;
+export async function getLastUpdateTime() {
+  return RNDeviceInfo.getLastUpdateTime();
 }
 
-export function getPhoneNumber() {
-  return RNDeviceInfo.phoneNumber;
+export async function getPhoneNumber() {
+  return RNDeviceInfo.getPhoneNumber();
 }
 
-export function getCarrier() {
-  return RNDeviceInfo.carrier;
+export async function getCarrier() {
+  return RNDeviceInfo.getCarrier();
 }
 
-export function getTotalMemory() {
-  return RNDeviceInfo.totalMemory;
+export async function getTotalMemory() {
+  return RNDeviceInfo.getTotalMemory();
 }
 
-export function getMaxMemory() {
-  return RNDeviceInfo.maxMemory;
+export async function getMaxMemory() {
+  return RNDeviceInfo.getMaxMemory();
 }
 
-export function getTotalDiskCapacity() {
-  return RNDeviceInfo.totalDiskCapacity;
+export async function getTotalDiskCapacity() {
+  return RNDeviceInfo.getTotalDiskCapacity();
 }
 
-export function getFreeDiskStorage() {
-  return RNDeviceInfo.freeDiskStorage;
+export async function getFreeDiskStorage() {
+  return RNDeviceInfo.getFreeDiskStorage();
 }
 
-export function getBatteryLevel() {
+export async function getBatteryLevel() {
   return RNDeviceInfo.getBatteryLevel();
 }
 
-export function getPowerState() {
+export async function getPowerState() {
   return RNDeviceInfo.getPowerState();
 }
-export function isBatteryCharging() {
+export async function isBatteryCharging() {
   return RNDeviceInfo.isBatteryCharging();
 }
 
-export function isLandscape() {
+export async function isLandscape() {
   const { height, width } = Dimensions.get('window');
   return width >= height;
 }
 
-export function isAirPlaneMode() {
+export async function isAirPlaneMode() {
   return RNDeviceInfo.isAirPlaneMode();
 }
 
-export function getDeviceType() {
-  return RNDeviceInfo.deviceType;
+export async function getDeviceType() {
+  return RNDeviceInfo.getDeviceType();
 }
 
-export function supportedABIs() {
-  return RNDeviceInfo.supportedABIs;
+export async function supportedAbis() {
+  return RNDeviceInfo.getSupportedAbis();
 }
 
-export function supported32BitAbis() {
-  return RNDeviceInfo.supported32BitAbis;
+export async function supported32BitAbis() {
+  return RNDeviceInfo.getSupported32BitAbis();
 }
 
-export function supported64BitAbis() {
-  return RNDeviceInfo.supported64BitAbis;
+export async function supported64BitAbis() {
+  return RNDeviceInfo.getSupported64BitAbis();
 }
 
-export function hasSystemFeature(feature) {
+export async function hasSystemFeature(feature) {
   return RNDeviceInfo.hasSystemFeature(feature);
 }
 
-export function getSystemAvailableFeatures() {
+export async function getSystemAvailableFeatures() {
   return RNDeviceInfo.getSystemAvailableFeatures();
 }
 
-export function isLocationEnabled() {
+export async function isLocationEnabled() {
   return RNDeviceInfo.isLocationEnabled();
 }
 
-export function getAvailableLocationProviders() {
+export async function getAvailableLocationProviders() {
   return RNDeviceInfo.getAvailableLocationProviders();
 }
 
@@ -688,7 +690,7 @@ export default {
   isLandscape,
   isAirPlaneMode,
   getDeviceType,
-  supportedABIs,
+  supportedAbis,
   supported32BitAbis,
   supported64BitAbis,
   hasSystemFeature,
