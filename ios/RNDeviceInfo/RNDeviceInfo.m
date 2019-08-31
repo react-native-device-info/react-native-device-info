@@ -214,7 +214,11 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
 
 RCT_EXPORT_METHOD(isTablet:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    resolve(@([self getDeviceType] == DeviceTypeTablet));
+    if ([self getDeviceType] == DeviceTypeTablet) {
+        resolve(@YES);
+    } else {
+        resolve(@NO);
+    }
 }
 
 RCT_EXPORT_METHOD(getFontScale:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
