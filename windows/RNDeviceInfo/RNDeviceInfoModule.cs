@@ -110,22 +110,6 @@ namespace RNDeviceInfo
         }
 
         [ReactMethod]
-        public async void getCameraPresence(IPromise promise)
-        {
-            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
-            promise.Resolve(devices.Count > 0);
-        }
-		
-        [ReactMethod]
-        public async void getAppVersion(IPromise promise) { promise.Resolve("not available"); }
-
-        [ReactMethod]
-        public async void getBuildVersion(IPromise promise) { promise.Resolve("not available"); }
-		
-        [ReactMethod]
-        public async void getBuildNumber(IPromise promise) { promise.Resolve(0); }
-		
-        [ReactMethod]
         public async void getAppVersion(IPromise promise)
         {
             try
@@ -160,22 +144,7 @@ namespace RNDeviceInfo
         }
 		
         [ReactMethod]
-        public async void getInstanceId(IPromise promise) { promise.Resolve("not available"); }
-		
-        [ReactMethod]
         public async void getSystemName(IPromise promise) { promise.Resolve("Windows"); }
-		
-        [ReactMethod]
-        public async void getApiLevel(IPromise promise) { promise.Resolve("not available"); }
-		
-        [ReactMethod]
-        public async void getBuildId(IPromise promise) { promise.Resolve("not available"); }
-		
-        [ReactMethod]
-        public async void getUserAgent(IPromise promise) { promise.Resolve("not available"); }
-		
-        [ReactMethod]
-        public async void getCarrier(IPromise promise) { promise.Resolve("not available"); }
 		
         [ReactMethod]
         public async void getMaxMemory(IPromise promise) { promise.Resolve(MemoryManager.AppMemoryUsageLimit); }

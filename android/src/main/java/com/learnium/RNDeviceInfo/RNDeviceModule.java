@@ -52,7 +52,6 @@ import javax.annotation.Nonnull;
 
 import static android.provider.Settings.Secure.getString;
 
-@SuppressWarnings("WeakerAccess")
 @ReactModule(name = RNDeviceModule.NAME)
 public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
@@ -186,6 +185,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     KeyguardManager keyguardManager = (KeyguardManager) getReactApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
     if (keyguardManager != null) {
       p.resolve(keyguardManager.isKeyguardSecure());
+      return;
     }
     p.reject("EUNSPECIFIED", "Unable to determine keyguard status. KeyguardManager was null");
   }
@@ -208,7 +208,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
  
   @ReactMethod
-  @SuppressWarnings("ConstantConditions")
   public void getCameraPresence(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
@@ -341,14 +340,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void isAirPlaneMode(Promise p) {
-    boolean isAirPlaneMode;
+  public void isAirplaneMode(Promise p) {
+    boolean isAirplaneMode;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        isAirPlaneMode = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+        isAirplaneMode = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     } else {
-        isAirPlaneMode = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+        isAirplaneMode = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
-    p.resolve(isAirPlaneMode);
+    p.resolve(isAirplaneMode);
   }
 
   @ReactMethod
@@ -359,8 +358,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       return;
     }
 
-    boolean hasFeature = getReactApplicationContext().getPackageManager().hasSystemFeature(feature);
-    p.resolve(hasFeature);
+    p.resolve(getReactApplicationContext().getPackageManager().hasSystemFeature(feature));
   }
 
   @ReactMethod
@@ -377,7 +375,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     p.resolve(promiseArray);
   }
 
-  @SuppressWarnings("ConstantConditions")
   @ReactMethod
   public void isLocationEnabled(Promise p) {
       boolean locationEnabled = false;
@@ -388,6 +385,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
           locationEnabled = mLocationManager.isLocationEnabled();
         } catch (Exception e) {
           p.reject("EUNSPECIFIED", "Unable to determine if location enabled. LocationManager was null");
+          return;
         }
       } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
         int locationMode = Settings.Secure.getInt(getReactApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
@@ -401,7 +399,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  @SuppressWarnings("ConstantConditions")
   public void getAvailableLocationProviders(Promise p) {
     LocationManager mLocationManager = (LocationManager) getReactApplicationContext().getSystemService(Context.LOCATION_SERVICE);
     List<String> providers = Collections.emptyList();
@@ -409,6 +406,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       providers = mLocationManager.getProviders(false);
     } catch (Exception e) {
       p.reject("EUNSPECIFIED", "Unable to get location providers. LocationManager was null");
+      return;
     }
 
     WritableMap providersAvailability = Arguments.createMap();
@@ -422,7 +420,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getInstallReferrer(Promise p) {
     SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
-    p.resolve(sharedPref.getString("installReferrer", null));
+    p.resolve(sharedPref.getString("installReferrer", Build.UNKNOWN));
   }
 
   private PackageInfo getPackageInfo() throws Exception {
@@ -449,7 +447,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getBuildVersion(Promise p) {
-    p.resolve("not available");
+    p.resolve(Build.UNKNOWN);
   }
 
   @ReactMethod
@@ -482,19 +480,43 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getDeviceName(Promise p) {
     try {
-      if (Build.VERSION.SDK_INT >= 25) {
-        p.resolve(Settings.Global.getString(getReactApplicationContext().getContentResolver(), Settings.Global.DEVICE_NAME));
-      } else {
-        p.resolve(Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name"));
-      }
+        String bluetoothName = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name");
+        if (bluetoothName != null) {
+          p.resolve(bluetoothName);
+          return;
+        }
+
+        if (Build.VERSION.SDK_INT >= 25) {
+          String deviceName = Settings.Global.getString(getReactApplicationContext().getContentResolver(), Settings.Global.DEVICE_NAME);
+          if (deviceName != null) {
+            p.resolve(deviceName);
+            return;
+          }
+        }
     } catch (Exception e) {
       p.reject(e);
+      return;
     }
+    p.resolve(Build.UNKNOWN);
   }
 
-  @SuppressLint("HardwareIds")
+  @SuppressLint({"HardwareIds", "MissingPermission"})
   @ReactMethod
-  public void getSerialNumber(Promise p) { p.resolve(Build.SERIAL); }
+  public void getSerialNumber(Promise p) {
+    try {
+      if (Build.VERSION.SDK_INT >= 26) {
+        if (getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+          p.resolve(Build.getSerial());
+          return;
+        }
+      }
+    } catch (Exception e) {
+      // This is almost always a PermissionException. We will log it but return unknown
+      System.err.println("getSerialNumber failed, it probably should not be used: " + e.getMessage());
+    }
+
+    p.resolve(Build.UNKNOWN);
+  }
 
   @ReactMethod
   public void getSystemName(Promise p) { p.resolve("Android"); }
@@ -560,6 +582,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getUniqueId(Promise p) { p.resolve(getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)); }
 
+  @SuppressLint("HardwareIds")
+  @ReactMethod
+  public void getAndroidId(Promise p) { p.resolve(getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)); }
+
   @ReactMethod
   public void getMaxMemory(Promise p) { p.resolve((double)Runtime.getRuntime().maxMemory()); }
 
@@ -574,6 +600,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       actMgr.getMemoryInfo(memInfo);
     } else {
       p.reject("EUNSPECIFIED", "Unable to getMemoryInfo. ActivityManager was null");
+      return;
     }
     p.resolve((double)memInfo.totalMem);
   }
@@ -591,30 +618,31 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getBaseOS(Promise p) {
+  public void getBaseOs(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       p.resolve(Build.VERSION.BASE_OS);
-    } else {
-      p.resolve("not available");
+      return;
     }
+    p.resolve(Build.UNKNOWN);
+
   }
 
   @ReactMethod
   public void getPreviewSdkInt(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       p.resolve(Build.VERSION.PREVIEW_SDK_INT);
-    } else {
-      p.resolve("not available");
+      return;
     }
+    p.resolve(Build.UNKNOWN);
   }
 
   @ReactMethod
   public void getSecurityPatch(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       p.resolve(Build.VERSION.SECURITY_PATCH);
-    } else {
-      p.resolve("not available");
+      return;
     }
+    p.resolve(Build.UNKNOWN);
   }
 
   @ReactMethod
@@ -644,7 +672,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         p.reject("EUNSPECIFIED", "Unable to getPhoneNumber. TelephonyManager was null");
       }
     } else {
-      p.resolve(null);
+      p.resolve(Build.UNKNOWN);
     }
   }
 
