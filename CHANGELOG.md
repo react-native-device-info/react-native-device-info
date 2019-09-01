@@ -1,17 +1,22 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 # Release Notes
 
-## 3.0.0-rc.3
+## 3.0.0-rc.1
+
+* fix incorrect use of macos for API selection vs ios in rc.3, rendering ios builds mostly useless
+* verified last of the v2->v3 discrepancies, this is a release candidate now
+
+## 3.0.0-beta.3
 
 * fix some real android device v2->v3 discrepancies
 * BREAKING CHANGE: more capitalization changes for API calls to standardize (see below)
 * BREAKING CHANGE: more return value changes to standardize return values (see below)
 
-## 3.0.0-rc.2
+## 3.0.0-beta.2
 
 * fix all emulator/simulator v2->v3 discrepancies
 
-## 3.0.0-rc.1
+## 3.0.0-beta.1
 
 Each BREAKING CHANGE contains the required information to migrate. The example App.js shows sample usage.
 

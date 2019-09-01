@@ -376,7 +376,7 @@ export async function getAndroidId() {
 }
 
 export async function getIpAddress() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getIpAddress();
   }
   return Promise.resolve('unknown');
@@ -390,21 +390,21 @@ export async function getCameraPresence() {
 }
 
 export async function getMacAddress() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getMacAddress();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getDeviceId() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getDeviceId();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getManufacturer() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getSystemManufacturer();
   }
   return Promise.resolve('unknown');
@@ -438,28 +438,28 @@ export async function getModel() {
 }
 
 export async function getBrand() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getBrand();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getSystemName() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getSystemName();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getSystemVersion() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getSystemVersion();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getBuildId() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getBuildId();
   }
   return Promise.resolve('unknown');
@@ -473,28 +473,28 @@ export async function getApiLevel() {
 }
 
 export async function getBundleId() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getBundleId();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getApplicationName() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getAppName();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getBuildNumber() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getBuildNumber();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getVersion() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getAppVersion();
   }
   return Promise.resolve('unknown');
@@ -505,28 +505,28 @@ export async function getReadableVersion() {
 }
 
 export async function getDeviceName() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getDeviceName();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getUsedMemory() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getUsedMemory();
   }
   return Promise.resolve(-1);
 }
 
 export async function getUserAgent() {
-  if (OS === 'android' || OS === 'macos' || OS === 'web') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getUserAgent();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getFontScale() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getFontScale();
   }
   return Promise.resolve('unknown');
@@ -631,21 +631,21 @@ export async function getIncremental() {
 }
 
 export async function isEmulator() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.isEmulator();
   }
   return Promise.resolve(false);
 }
 
 export async function isTablet() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.isTablet();
   }
   return Promise.resolve(false);
 }
 
 export async function isPinOrFingerprintSet() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.isPinOrFingerprintSet();
   }
   return Promise.resolve(false);
@@ -692,14 +692,14 @@ export async function getPhoneNumber() {
 }
 
 export async function getCarrier() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getCarrier();
   }
   return Promise.resolve('unknown');
 }
 
 export async function getTotalMemory() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getTotalMemory();
   }
   return Promise.resolve(-1);
@@ -713,35 +713,35 @@ export async function getMaxMemory() {
 }
 
 export async function getTotalDiskCapacity() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getTotalDiskCapacity();
   }
   return Promise.resolve(-1);
 }
 
 export async function getFreeDiskStorage() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getFreeDiskStorage();
   }
   return Promise.resolve(-1);
 }
 
 export async function getBatteryLevel() {
-  if (OS === 'android' || OS === 'macos' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.getBatteryLevel();
   }
   return Promise.resolve(-1);
 }
 
 export async function getPowerState() {
-  if (OS === 'macos') {
+  if (OS === 'ios') {
     return RNDeviceInfo.getPowerState();
   }
   return Promise.resolve({});
 }
 
 export async function isBatteryCharging() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.isBatteryCharging();
   }
   return Promise.resolve(false);
@@ -760,14 +760,14 @@ export async function isAirplaneMode() {
 }
 
 export async function getDeviceType() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getDeviceType();
   }
   return Promise.resolve('unknown');
 }
 
 export async function supportedAbis() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getSupportedAbis();
   }
   return Promise.resolve([]);
@@ -802,14 +802,14 @@ export async function getSystemAvailableFeatures() {
 }
 
 export async function isLocationEnabled() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.isLocationEnabled();
   }
   return Promise.resolve(false);
 }
 
 export async function getAvailableLocationProviders() {
-  if (OS === 'android' || OS === 'macos') {
+  if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getAvailableLocationProviders();
   }
   return Promise.resolve({});
