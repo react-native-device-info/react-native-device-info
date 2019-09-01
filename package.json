@@ -13,7 +13,7 @@
     "dev-sync": "cp -r deviceinfo* *podspec windows web android ios example/node_modules/react-native-device-info/",
     "flow-check": "npx flow check-contents < deviceinfo.js.flow",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
-    "shipit": "np --no-yarn",
+    "shipit": "np",
     "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
     "precommit": "lint-staged && yarn analyze"
   },
