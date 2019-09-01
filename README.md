@@ -270,87 +270,90 @@ import DeviceInfo from 'react-native-device-info';
 
 // or ES6+ destructured imports
 
-import { getUniqueID, getManufacturer } from 'react-native-device-info';
+import { getUniqueId, getManufacturer } from 'react-native-device-info';
 ```
 
 ## API
 
-| Method                                                            | Return Type         |  iOS | Android | Windows | Since  |
-| ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | ------ |
-| [getAPILevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getApplicationName()](#getapplicationname)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.14.0 |
-| [getBaseOS()](#getbaseOS)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 0.18.0 |
-| [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getBrand()](#getbrand)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.9.3  |
-| [getBuildNumber()](#getbuildnumber)                               | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getBundleId()](#getbundleid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getCameraPresence()](#getcamerapresence)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ?      |
-| [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    | 0.13.0 |
-| [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getDeviceId()](#getdeviceid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.5.0  |
-| [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    | 0.12.0 |
-| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getIPAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | 0.12.0 |
-| [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.19.0 |
-| [getInstanceID()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getMACAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    | 0.12.0 |
-| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    | 0.14.0 |
-| [getModel()](#getmodel)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |        |
-| [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getReadableVersion()](#getreadableversion)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | 0.12.0 |
-| [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ? |
-| [getSystemName()](#getsystemname)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getSystemVersion()](#getsystemversion)                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ?      |
-| [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ?      |
-| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.15.0 |
-| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 0.14.0 |
-| [getUniqueID()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | 3.0.0  |
-| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | 0.7.0  |
-| [getVersion()](#getversion)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ?      |
-| [isAirPlaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | 0.25.0 |
-| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 0.27.0 |
-| [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ?      |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | 0.10.1 |
-| [isTablet()](#istablet)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ?      |
-| [hasNotch()](#hasNotch)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | 0.23.0 |
-| [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | 0.24.0 |
-| [getDeviceType()](#getDeviceType)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ?      |
-| [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
-| [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
-| [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | 1.1.0  |
-| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ?      |
-| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ?      |
-| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ?      |
-| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    | ?      |
+Note that many APIs are platform-specific. If there is no implementation for a platform, then the "default" return values you will receive are 'unknown' for string, '-1' for number, and 'false' for boolean. Arrays and Objects will be empty ('[]' and '{}' respectively).
+
+| Method                                                            | Return Type         | iOS | Android | Windows |
+| ----------------------------------------------------------------- | ------------------- | :-: | :-----: | :-----: |
+| [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
+| [getApplicationName()](#getapplicationname)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    |
+| [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |
+| [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getBrand()](#getbrand)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getBuildNumber()](#getbuildnumber)                               | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getBundleId()](#getbundleid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getCameraPresence()](#getcamerapresence)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |
+| [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getDeviceId()](#getdeviceid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getDeviceType()](#getDeviceType)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    |
+| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
+| [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
+| [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
+| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    |
+| [getModel()](#getmodel)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |
+| [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
+| [getReadableVersion()](#getreadableversion)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
+| [getSystemName()](#getsystemname)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getSystemVersion()](#getsystemversion)                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
+| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
+| [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
+| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getVersion()](#getversion)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [hasNotch()](#hasNotch)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
+| [isAirPlaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
+| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
+| [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [isTablet()](#istablet)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
+| [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
+| [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    |
 
 ---
 
-### getAPILevel()
+### getApiLevel()
 
 Gets the API level.
 
 #### Examples
 
 ```js
-DeviceInfo.getAPILevel().then(apiLevel => {
+DeviceInfo.getApiLevel().then(apiLevel => {
   // iOS: ?
   // Android: 25
   // Windows: ?
@@ -360,6 +363,20 @@ DeviceInfo.getAPILevel().then(apiLevel => {
 #### Notes
 
 > See [API Levels](https://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels)
+
+---
+
+### getAndroidId()
+
+Gets the ANDROID_ID. See [API documentation](https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID) for appropriate use.
+
+#### Examples
+
+```js
+DeviceInfo.getAndroidId().then(androidId => {
+  // androidId here
+});
+```
 
 ---
 
@@ -377,14 +394,14 @@ DeviceInfo.getApplicationName().then(appName => {
 
 ---
 
-### getBaseOS()
+### getBaseOs()
 
 The base OS build the product is based on.
 
 #### Examples
 
 ```js
-DeviceInfo.getBaseOS().then(baseOS => {
+DeviceInfo.getBaseOs().then(baseOs => {
   // "Windows", "Android" etc
 });
 ```
@@ -692,7 +709,7 @@ DeviceInfo.getHost().then(host => {
 
 ---
 
-### getIPAddress()
+### getIpAddress()
 
 **Deprecated** Gets the device current IP address. (of wifi only)
 Switch to @react-native-community/netinfo or react-native-network-info
@@ -700,7 +717,7 @@ Switch to @react-native-community/netinfo or react-native-network-info
 #### Examples
 
 ```js
-DeviceInfo.getIPAddress().then(ip => {
+DeviceInfo.getIpAddress().then(ip => {
   // "92.168.32.44"
 });
 ```
@@ -744,14 +761,14 @@ DeviceInfo.getInstallReferrer().then(installReferrer => {
 
 ---
 
-### getInstanceID()
+### getInstanceId()
 
 Gets the application instance ID.
 
 #### Examples
 
 ```js
-DeviceInfo.getInstanceID().then(instanceId => {
+DeviceInfo.getInstanceId().then(instanceId => {
   // Android: ?
 });
 ```
@@ -776,14 +793,14 @@ DeviceInfo.getLastUpdateTime().then(lastUpdateTime => {
 
 ---
 
-### getMACAddress()
+### getMacAddress()
 
 Gets the network adapter MAC address.
 
 #### Examples
 
 ```js
-DeviceInfo.getMACAddress().then(mac => {
+DeviceInfo.getMacAddress().then(mac => {
   // "E5:12:D8:E5:69:97"
 });
 ```
@@ -933,15 +950,15 @@ DeviceInfo.getReadableVersion().then(readableVersion => {
 
 ### getSerialNumber()
 
-Gets the device serial number.
+Gets the device serial number. Will be 'unknown' in almost all cases [unless you have a privileged app and you know what you're doing](https://developer.android.com/reference/android/os/Build.html#getSerial()).
 
 #### Examples
 
 ```js
 DeviceInfo.getSerialNumber().then(serialNumber => {
-  // iOS: undefined
-  // Android: ?
-  // Windows: ?
+  // iOS: unknown
+  // Android: ? (maybe a serial number, if your app is privileged)
+  // Windows: unknown
 });
 ```
 
@@ -1067,14 +1084,17 @@ DeviceInfo.getTotalMemory().then(totalMemory => {
 
 ---
 
-### getUniqueID()
+### getUniqueId()
 
-Gets the device unique ID.
+Gets the device unique ID. 
+On Android it is currently identical to getAndroidId() in this module
+On iOS it uses the DeviceUID uid identifier
+On Windows it uses Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.id
 
 #### Examples
 
 ```js
-DeviceInfo.getUniqueID().then(uniqueId => {
+DeviceInfo.getUniqueId().then(uniqueId => {
   // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
   // Android: "dd96dec43fb81c97"
   // Windows: ?
@@ -1136,14 +1156,14 @@ DeviceInfo.getVersion().then(version => {
 
 ---
 
-### isAirPlaneMode()
+### isAirplaneMode()
 
-Tells if the device is in AirPlaneMode.
+Tells if the device is in Airplane Mode.
 
 #### Examples
 
 ```js
-DeviceInfo.isAirPlaneMode().then(airPlaneModeOn => {
+DeviceInfo.isAirplaneMode().then(airplaneModeOn => {
   // false
 });
 ```
@@ -1374,7 +1394,7 @@ DeviceInfo.getAvailableLocationProviders().then(providers => {
 
 Currently iOS-only.
 
-### batteryLevelDidChange
+### RNDeviceInfo_batteryLevelDidChange
 
 Fired when the battery level changes; sent no more frequently than once per minute.
 
@@ -1391,7 +1411,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', level => {
 
 ---
 
-### batteryLevelIsLow
+### RNDeviceInfo_batteryLevelIsLow
 
 Fired when the battery drops below 20%.
 
@@ -1408,7 +1428,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', level => {
 
 ---
 
-### powerStateDidChange
+### RNDeviceInfo_powerStateDidChange
 
 Fired when the battery state changes, for example when the device enters charging mode or is unplugged.
 

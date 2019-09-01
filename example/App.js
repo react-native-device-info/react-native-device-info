@@ -11,7 +11,7 @@ import React, {Component} from 'react';
 import {Platform, ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
-  getUniqueID,
+  getUniqueId,
   getManufacturer,
   getBrand,
   getModel,
@@ -31,7 +31,7 @@ export default class App extends Component {
     const ios = Platform.OS === 'ios';
 
     try {
-      deviceJSON.uniqueID = await getUniqueID();
+      deviceJSON.uniqueId = await getUniqueId();
       deviceJSON.manufacturer = await getManufacturer();
       deviceJSON.brand = await getBrand();
       deviceJSON.model = await getModel();
@@ -40,63 +40,60 @@ export default class App extends Component {
       deviceJSON.systemVersion = await DeviceInfo.getSystemVersion();
       deviceJSON.buildId = await DeviceInfo.getBuildId();
       deviceJSON.bundleId = await DeviceInfo.getBundleId();
-      deviceJSON.isCameraPresent = ios ? -1 : await DeviceInfo.getCameraPresence();
+      deviceJSON.isCameraPresent = await DeviceInfo.getCameraPresence();
       deviceJSON.buildNumber = await DeviceInfo.getBuildNumber();
       deviceJSON.version = await DeviceInfo.getVersion();
       deviceJSON.readableVersion = await DeviceInfo.getReadableVersion();
       deviceJSON.deviceName = await DeviceInfo.getDeviceName();
       deviceJSON.usedMemory = await DeviceInfo.getUsedMemory();
       deviceJSON.userAgent = await DeviceInfo.getUserAgent();
-      deviceJSON.instanceID = ios ? '' : await DeviceInfo.getInstanceID();
-      deviceJSON.installReferrer = ios ? '' : await DeviceInfo.getInstallReferrer();
+      deviceJSON.instanceId = await DeviceInfo.getInstanceId();
+      deviceJSON.installReferrer = await DeviceInfo.getInstallReferrer();
       deviceJSON.isEmulator = await DeviceInfo.isEmulator();
       deviceJSON.isTablet = await DeviceInfo.isTablet();
       deviceJSON.fontScale = await DeviceInfo.getFontScale();
       deviceJSON.hasNotch = await DeviceInfo.hasNotch();
-      deviceJSON.firstInstallTime = ios ? -1 : await DeviceInfo.getFirstInstallTime();
-      deviceJSON.lastUpdateTime = ios ? -1 : await DeviceInfo.getLastUpdateTime();
-      deviceJSON.serialNumber = ios ? -1 : await DeviceInfo.getSerialNumber();
-      deviceJSON.IPAddress = await DeviceInfo.getIPAddress();
-      deviceJSON.MACAddress = await DeviceInfo.getMACAddress(); // needs android.permission.ACCESS_WIFI_STATE ?
-      deviceJSON.phoneNumber = ios ? '' : await DeviceInfo.getPhoneNumber(); // needs android.permission.READ_PHONE_STATE ?
-      deviceJSON.APILevel = ios ? -1 : await DeviceInfo.getAPILevel();
+      deviceJSON.firstInstallTime = await DeviceInfo.getFirstInstallTime();
+      deviceJSON.lastUpdateTime = await DeviceInfo.getLastUpdateTime();
+      deviceJSON.serialNumber = await DeviceInfo.getSerialNumber();
+      deviceJSON.androidId = await DeviceInfo.getAndroidId();
+      deviceJSON.IpAddress = await DeviceInfo.getIpAddress();
+      deviceJSON.MacAddress = await DeviceInfo.getMacAddress(); // needs android.permission.ACCESS_WIFI_STATE
+      deviceJSON.phoneNumber = await DeviceInfo.getPhoneNumber(); // needs android.permission.READ_PHONE_STATE
+      deviceJSON.ApiLevel = await DeviceInfo.getApiLevel();
       deviceJSON.carrier = await DeviceInfo.getCarrier();
       deviceJSON.totalMemory = await DeviceInfo.getTotalMemory();
-      deviceJSON.maxMemory = ios ? -1 : await DeviceInfo.getMaxMemory();
-      deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity(); // FIXME needs a patch for integer overflow on Android
-      deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage(); // FIXME needs a patch for integer overflow on Android
+      deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
+      deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
+      deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
-      deviceJSON.isAirplaneMode = ios ? false : await DeviceInfo.isAirPlaneMode();
-      deviceJSON.isBatteryCharging = ios ? false : await DeviceInfo.isBatteryCharging();
+      deviceJSON.isAirplaneMode = await DeviceInfo.isAirplaneMode();
+      deviceJSON.isBatteryCharging = await DeviceInfo.isBatteryCharging();
       deviceJSON.deviceType = await DeviceInfo.getDeviceType();
       deviceJSON.isPinOrFingerprintSet = await DeviceInfo.isPinOrFingerprintSet();
       deviceJSON.supportedAbis = await DeviceInfo.supportedAbis();
-      deviceJSON.hasSystemFeature = ios
-        ? false
-        : await DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv');
-      deviceJSON.getSystemAvailableFeatures = ios
-        ? []
-        : await DeviceInfo.getSystemAvailableFeatures();
-      deviceJSON.powerState = ios ? await DeviceInfo.getPowerState() : '';
+      deviceJSON.hasSystemFeature = await DeviceInfo.hasSystemFeature('android.software.webview');
+      deviceJSON.getSystemAvailableFeatures = await DeviceInfo.getSystemAvailableFeatures();
+      deviceJSON.powerState = await DeviceInfo.getPowerState();
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
       deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
-      deviceJSON.bootloader = ios ? '' : await DeviceInfo.getBootloader();
-      deviceJSON.device = ios ? '' : await DeviceInfo.getDevice();
-      deviceJSON.display = ios ? '' : await DeviceInfo.getDisplay();
-      deviceJSON.fingerprint = ios ? '' : await DeviceInfo.getFingerprint();
-      deviceJSON.hardware = ios ? '' : await DeviceInfo.getHardware();
-      deviceJSON.host = ios ? '' : await DeviceInfo.getHost();
-      deviceJSON.product = ios ? '' : await DeviceInfo.getProduct();
-      deviceJSON.tags = ios ? '' : await DeviceInfo.getTags();
-      deviceJSON.type = ios ? '' : await DeviceInfo.getType();
-      deviceJSON.baseOS = ios ? '' : await DeviceInfo.getBaseOS();
-      deviceJSON.previewSdkInt = ios ? -1 : await DeviceInfo.getPreviewSdkInt();
-      deviceJSON.securityPatch = ios ? '' : await DeviceInfo.getSecurityPatch();
-      deviceJSON.codename = ios ? '' : await DeviceInfo.getCodename();
-      deviceJSON.incremental = ios ? '' : await DeviceInfo.getIncremental();
-      deviceJSON.supported32BitAbis = ios ? [] : await DeviceInfo.supported32BitAbis();
-      deviceJSON.supported64BitAbis = ios ? [] : await DeviceInfo.supported64BitAbis();
+      deviceJSON.bootloader = await DeviceInfo.getBootloader();
+      deviceJSON.device = await DeviceInfo.getDevice();
+      deviceJSON.display = await DeviceInfo.getDisplay();
+      deviceJSON.fingerprint = await DeviceInfo.getFingerprint();
+      deviceJSON.hardware = await DeviceInfo.getHardware();
+      deviceJSON.host = await DeviceInfo.getHost();
+      deviceJSON.product = await DeviceInfo.getProduct();
+      deviceJSON.tags = await DeviceInfo.getTags();
+      deviceJSON.type = await DeviceInfo.getType();
+      deviceJSON.baseOS = await DeviceInfo.getBaseOs();
+      deviceJSON.previewSdkInt = await DeviceInfo.getPreviewSdkInt();
+      deviceJSON.securityPatch = await DeviceInfo.getSecurityPatch();
+      deviceJSON.codename = await DeviceInfo.getCodename();
+      deviceJSON.incremental = await DeviceInfo.getIncremental();
+      deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
+      deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }

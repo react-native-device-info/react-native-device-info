@@ -17,7 +17,7 @@ export interface LocationProviderInfo {
 }
 
 declare const _default: {
-  getUniqueID: () => Promise<string>;
+  getUniqueId: () => Promise<string>;
   getManufacturer: () => Promise<string>;
   getBrand: () => Promise<string>;
   getModel: () => Promise<string>;
@@ -33,7 +33,7 @@ declare const _default: {
   getDeviceName: () => Promise<string>;
   getUsedMemory: () => Promise<number>;
   getUserAgent: () => Promise<string>;
-  getInstanceID: () => Promise<string>;
+  getInstanceId: () => Promise<string>;
   getInstallReferrer: () => string | null;
   isEmulator: () => Promise<boolean>;
   isTablet: () => Promise<boolean>;
@@ -47,7 +47,7 @@ declare const _default: {
   getProduct: () => Promise<string>;
   getTags: () => Promise<string>;
   getType: () => Promise<string>;
-  getBaseOS: () => Promise<string>;
+  getBaseOs: () => Promise<string>;
   getPreviewSdkInt: () => Promise<number>;
   getSecurityPatch: () => Promise<string>;
   getCodename: () => Promise<string>;
@@ -57,11 +57,12 @@ declare const _default: {
   getFirstInstallTime: () => Promise<number>;
   getLastUpdateTime: () => Promise<number>;
   getSerialNumber: () => Promise<string>;
-  getIPAddress: () => Promise<string>;
+  getAndroidId: () => Promise<string>;
+  getIpAddress: () => Promise<string>;
   getCameraPresence: () => Promise<boolean>;
-  getMACAddress: () => Promise<string>;
+  getMacAddress: () => Promise<string>;
   getPhoneNumber: () => Promise<string>;
-  getAPILevel: () => Promise<number>;
+  getApiLevel: () => Promise<number>;
   getCarrier: () => Promise<string>;
   getTotalMemory: () => Promise<number>;
   getMaxMemory: () => Promise<number>;
@@ -71,7 +72,7 @@ declare const _default: {
   getPowerState: () => Promise<PowerState>;
   isBatteryCharging: () => Promise<boolean>;
   isLandscape: () => Promise<boolean>;
-  isAirPlaneMode: () => Promise<boolean>;
+  isAirplaneMode: () => Promise<boolean>;
   getDeviceType: () => Promise<DeviceType>;
   supportedAbis: () => Promise<string[]>;
   supported32BitAbis: () => Promise<string[]>;
