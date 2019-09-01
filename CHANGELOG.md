@@ -1,6 +1,12 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 # Release Notes
 
+## 3.0.0-rc.3
+
+* fix some real android device v2->v3 discrepancies
+* BREAKING CHANGE: more capitalization changes for API calls to standardize (see below)
+* BREAKING CHANGE: more return value changes to standardize return values (see below)
+
 ## 3.0.0-rc.2
 
 * fix all emulator/simulator v2->v3 discrepancies
@@ -10,14 +16,35 @@
 Each BREAKING CHANGE contains the required information to migrate. The example App.js shows sample usage.
 
 * BREAKING CHANGE: Every API call returns a Promise now (and thus no more Android constructor with async boolean argument)
-* BREAKING CHANGE: Renamed getSupportedABIs to getSupportedAbis (note lower case!) for consistency with other getXxxAbis methods
-* BREAKING CHANGE: all events prefixed with 'RNDeviceInfo_' to future-proof against collisions (https://github.com/react-native-community/react-native-device-info/issues/620)
+  * This was required to improve module load speed, handle dynamic values, and release the main queue for iOS
+* BREAKING CHANGE: Every API call with acronyms ('getIP', 'getABI' etc follows pure camel-case now, e.g. 'getIp', 'getAbi')
+  * This naming style is a consensus standard. Previously APIs here were half one way half the other. Now they are consistent
+  * isAirPlaneMode -> isAirplaneMode
+  * getIPAddress -> getIpAddress
+  * getMACAddress -> getMACAddress
+  * getAPILevel -> GetApiLevel
+  * getBaseOS -> getBaseOs
+  * getInstanceID -> getInstanceId
+  * getUniqueID -> getUniqueId
+  * supportedABIs -> supportedAbis
+* BREAKING CHANGE: all events prefixed with 'RNDeviceInfo_' (https://github.com/react-native-community/react-native-device-info/issues/620)
+  * This is required as event names are a global namespace and collisions are inevitable otherwise
+  * powerStateDidChange -> RNDeviceInfo_powerStateDidChange
+  * batteryLevelDidChange -> RNDeviceInfo_batteryLevelDidChange
+  * batteryLevelIsLow -> RNDeviceInfo_batteryLevelIsLow
 * BREAKING CHANGE: Android `getBuildNumber` returns string like iOS (https://github.com/react-native-community/react-native-device-info/pull/648)
-* BREAKING CHANGE: remove is24Hour, getTimezone, isAutoTimeZone and isAutoDateAndTime, getDeviceLocale, getDeviceCountry, getPreferredLocales. react-native-localize is superior
+* BREAKING CHANGE: remove is24Hour, getTimezone, isAutoTimeZone and isAutoDateAndTime, getDeviceLocale, getDeviceCountry, getPreferredLocales
+  * This was the result of a survey. It removes API duplication in the react-native-community modules
   * Related PR: https://github.com/react-native-community/react-native-localize/pull/65
   * Use `yarn add https://github.com/mikehardy/react-native-localize.git#e062f0d2dc3171dc18fdb7b7139d347ad03933dc` to maintain isAutoTimeZone + isAutoDateAndTime until merged
 * BREAKING CHANGE: iOS switch deprecated WebView for WebKit / getUserAgent returns Promise (https://github.com/react-native-community/react-native-device-info/pull/757)
+  * The change from WebView to WebKit was required as the API is being removed from the iOS platform
+* BREAKING CHANGE: if an API is platform-specific, all non-implementing platforms will return standard values of -1, false, or 'unknown' depending on return type
+  * This was how most APIs behaved before but it was not 100% - some returned null or empty string before
+  * getPhoneNumber sometimes returned null, now it will be 'unknown' if not known
 * deprecated: IP-address-related methods deprecated - use @react-native-community/netinfo or react-native-network-info or react-native-carrier-info
+* feat: all APIs are now restricted in Javascirpt to the platforms they have full implementations on so the web polyfill is up to date
+* feat: 'getAndroidId' on Android returns android.provider.Settings.Secure.ANDROID_ID, read platform docs for usage
 * feat: `getUsedMemory` (https://github.com/rebeccahughes/react-native-device-info/pull/356)
 * feat: getDeviceName() without Bluetooth permission on Android (https://github.com/react-native-community/react-native-device-info/issues/735)
 * feat: TurboModule support (https://github.com/react-native-community/react-native-device-info/pull/745) for these purposes (https://github.com/react-native-community/react-native-localize/pull/65)
