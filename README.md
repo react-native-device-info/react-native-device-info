@@ -93,7 +93,20 @@ You still need to run `pod install` after running the above link command inside 
 ### Manual
 
 <details>
-    <summary>iOS (via CocoaPods)</summary>
+    <summary>iOS (via CocoaPods) RN <= 59 </summary>
+        
+RN <= 59: [`Bug`](https://github.com/react-native-community/react-native-device-info/issues/748)
+
+```
+mv ios/Podfile .
+react-native link react-native-device-info
+mv Podfile ios
+```
+Do _not_ append `pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'` to the Podfile
+</details>
+
+<details>
+    <summary>iOS (via CocoaPods) RN >= 60</summary>
 
 Add the following lines to your build targets in your `Podfile`
 
