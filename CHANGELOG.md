@@ -1,6 +1,13 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 # Release Notes
 
+## 3.0.0-rc.2
+
+* Added a sync version of each API call, in practice it is very difficult to consume async
+  APIs during app bootstrap and device info is frequently fundamental to app startup behavior.
+  This still preserves the change away from paying the entire cost of information retrieval at
+  startup - now you will only pay for exactly what you need.
+
 ## 3.0.0-rc.1
 
 * fix incorrect use of macos for API selection vs ios in rc.3, rendering ios builds mostly useless
@@ -11,6 +18,8 @@
 * fix some real android device v2->v3 discrepancies
 * BREAKING CHANGE: more capitalization changes for API calls to standardize (see below)
 * BREAKING CHANGE: more return value changes to standardize return values (see below)
+* feat: you no longer have to be careful with platform-specific APIs, all APIs will work, just
+        returning standard "unknown" return values (see above breaking change, and example App.js usage)
 
 ## 3.0.0-beta.2
 

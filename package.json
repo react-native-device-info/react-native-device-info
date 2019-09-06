@@ -56,7 +56,7 @@
     "@react-native-community/eslint-config": "0.0.5",
     "eslint": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "flow-bin": "^0.106.3",
+    "flow-bin": "^0.107.0",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.1",
     "np": "^5.0.3",
