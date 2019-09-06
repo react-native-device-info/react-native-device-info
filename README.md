@@ -277,6 +277,8 @@ import { getUniqueId, getManufacturer } from 'react-native-device-info';
 
 Note that many APIs are platform-specific. If there is no implementation for a platform, then the "default" return values you will receive are 'unknown' for string, '-1' for number, and 'false' for boolean. Arrays and Objects will be empty ('[]' and '{}' respectively).
 
+Every API returns a Promise but also has a corresponding API with 'Sync' on the end that operates synchronously. For example, you may prefer to call 'getCameraPresenceSync()' during your app bootstrap to avoid async calls during the first parts of app startup.
+
 | Method                                                            | Return Type         | iOS | Android | Windows |
 | ----------------------------------------------------------------- | ------------------- | :-: | :-----: | :-----: |
 | [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
@@ -1086,7 +1088,7 @@ DeviceInfo.getTotalMemory().then(totalMemory => {
 
 ### getUniqueId()
 
-Gets the device unique ID. 
+Gets the device unique ID.
 On Android it is currently identical to getAndroidId() in this module
 On iOS it uses the DeviceUID uid identifier
 On Windows it uses Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.id

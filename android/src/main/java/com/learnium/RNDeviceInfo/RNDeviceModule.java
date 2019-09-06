@@ -75,11 +75,15 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return null;
   }
 
-  @SuppressLint("HardwareIds")
   @ReactMethod
   public void isEmulator(Promise p) {
+    p.resolve(isEmulatorSync());
+  }
 
-    p.resolve(Build.FINGERPRINT.startsWith("generic")
+  @SuppressLint("HardwareIds")
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isEmulatorSync() {
+    return Build.FINGERPRINT.startsWith("generic")
         || Build.FINGERPRINT.startsWith("unknown")
         || Build.MODEL.contains("google_sdk")
         || Build.MODEL.toLowerCase().contains("droid4x")
@@ -101,13 +105,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         || Build.HARDWARE.toLowerCase().contains("nox")
         || Build.PRODUCT.toLowerCase().contains("nox")
         || Build.SERIAL.toLowerCase().contains("nox")
-        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")));
+        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
   }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isTabletSync() { return getDeviceType() == DeviceType.TABLET; }
   @ReactMethod
-  public void isTablet(Promise p) {
-    p.resolve(getDeviceType() == DeviceType.TABLET);
-  }
+  public void isTablet(Promise p) { p.resolve(isTabletSync()); }
 
   private DeviceType getDeviceType() {
     // Detect TVs via ui mode (Android TVs) or system features (Fire TV).
@@ -175,55 +179,63 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
   }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public float getFontScaleSync() { return getReactApplicationContext().getResources().getConfiguration().fontScale; }
   @ReactMethod
-  public void getFontScale(Promise p) {
-    p.resolve(getReactApplicationContext().getResources().getConfiguration().fontScale);
-  }
+  public void getFontScale(Promise p) { p.resolve(getFontScaleSync()); }
 
-  @ReactMethod
-  public void isPinOrFingerprintSet(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isPinOrFingerprintSetSync() {
     KeyguardManager keyguardManager = (KeyguardManager) getReactApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
     if (keyguardManager != null) {
-      p.resolve(keyguardManager.isKeyguardSecure());
-      return;
+      return keyguardManager.isKeyguardSecure();
     }
-    p.reject("EUNSPECIFIED", "Unable to determine keyguard status. KeyguardManager was null");
+    System.err.println("Unable to determine keyguard status. KeyguardManager was null");
+    return false;
+  }
+  @ReactMethod
+  public void isPinOrFingerprintSet(Promise p) { p.resolve(isPinOrFingerprintSetSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  @SuppressWarnings("ConstantConditions")
+  public String getIpAddressSync() {
+    try {
+      return
+              InetAddress.getByAddress(
+                      ByteBuffer
+                              .allocate(4)
+                              .order(ByteOrder.LITTLE_ENDIAN)
+                              .putInt(getWifiInfo().getIpAddress())
+                              .array())
+                      .getHostAddress();
+    } catch (Exception e) {
+      return "unknown";
+    }
   }
 
   @ReactMethod
-  @SuppressWarnings("ConstantConditions")
-  public void getIpAddress(Promise p) {
-    try {
-      p.resolve(
-              InetAddress.getByAddress(
-                ByteBuffer
-                        .allocate(4)
-                        .order(ByteOrder.LITTLE_ENDIAN)
-                        .putInt(getWifiInfo().getIpAddress())
-                        .array())
-                      .getHostAddress());
-    } catch (Exception e) {
-      p.reject(e);
-    }
-  }
- 
-  @ReactMethod
-  public void getCameraPresence(Promise p) {
+  public void getIpAddress(Promise p) { p.resolve(getIpAddressSync()); }
+
+  @SuppressWarnings("deprecation")
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean getCameraPresenceSync() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
       try {
-        p.resolve(manager.getCameraIdList().length > 0);
+        return manager.getCameraIdList().length > 0;
       } catch (Exception e) {
-        p.reject(e);
+        return false;
       }
     } else {
-      p.resolve(Camera.getNumberOfCameras()> 0);
+      return Camera.getNumberOfCameras()> 0;
     }
   }
+  @ReactMethod
+  public void getCameraPresence(Promise p) { p.resolve(getCameraPresenceSync()); }
 
   @SuppressLint("HardwareIds")
-  @ReactMethod
-  public void getMacAddress(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getMacAddressSync() {
     WifiInfo wifiInfo = getWifiInfo();
     String macAddress = "";
     if (wifiInfo != null) {
@@ -241,16 +253,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
           byte[] macBytes = nif.getHardwareAddress();
           if (macBytes == null) {
-              macAddress = "";
+            macAddress = "";
           } else {
 
             StringBuilder res1 = new StringBuilder();
             for (byte b : macBytes) {
-                res1.append(String.format("%02X:",b));
+              res1.append(String.format("%02X:",b));
             }
 
             if (res1.length() > 0) {
-                res1.deleteCharAt(res1.length() - 1);
+              res1.deleteCharAt(res1.length() - 1);
             }
 
             macAddress = res1.toString();
@@ -261,31 +273,39 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     }
 
-    p.resolve(macAddress);
+    return macAddress;
   }
 
   @ReactMethod
-  public void getCarrier(Promise p) {
+  public void getMacAddress(Promise p) { p.resolve(getMacAddressSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getCarrierSync() {
     TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
     if (telMgr != null) {
-      p.resolve(telMgr.getNetworkOperatorName());
+      return telMgr.getNetworkOperatorName();
     } else {
-      p.reject("EUNSPECIFIED", "Unable to get network operator name. TelephonyManager was null");
+      System.err.println("Unable to get network operator name. TelephonyManager was null");
+      return "unknown";
     }
   }
-
   @ReactMethod
-  public void getTotalDiskCapacity(Promise p) {
+  public void getCarrier(Promise p) { p.resolve(getCarrierSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getTotalDiskCapacitySync() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      p.resolve(BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize())).doubleValue());
+      return BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize())).doubleValue();
     } catch (Exception e) {
-      p.reject(e);
+      return -1;
     }
   }
-
   @ReactMethod
-  public void getFreeDiskStorage(Promise p) {
+  public void getTotalDiskCapacity(Promise p) { p.resolve(getTotalDiskCapacitySync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getFreeDiskStorageSync() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
       long availableBlocks;
@@ -299,33 +319,38 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         blockSize = external.getBlockSizeLong();
       }
 
-      p.resolve(BigInteger.valueOf(availableBlocks).multiply(BigInteger.valueOf(blockSize)).doubleValue());
+      return BigInteger.valueOf(availableBlocks).multiply(BigInteger.valueOf(blockSize)).doubleValue();
     } catch (Exception e) {
-      p.reject(e);
+      return -1;
     }
   }
-
   @ReactMethod
-  public void isBatteryCharging(Promise p){
+  public void getFreeDiskStorage(Promise p) { p.resolve(getFreeDiskStorageSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isBatteryChargingSync(){
     IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     Intent batteryStatus = getReactApplicationContext().registerReceiver(null, ifilter);
     int status = 0;
     if (batteryStatus != null) {
       status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
     }
-    boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING;
-    p.resolve(isCharging);
+    return status == BatteryManager.BATTERY_STATUS_CHARGING;
   }
-
   @ReactMethod
-  public void getUsedMemory(Promise p) {
+  public void isBatteryCharging(Promise p) { p.resolve(isBatteryChargingSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public int getUsedMemorySync() {
     Runtime rt = Runtime.getRuntime();
     long usedMemory = rt.totalMemory() - rt.freeMemory();
-    p.resolve((int)usedMemory);
+    return (int)usedMemory;
   }
-
   @ReactMethod
-  public void getBatteryLevel(Promise p) {
+  public void getUsedMemory(Promise p) { p.resolve(getUsedMemorySync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public float getBatteryLevelSync() {
     Intent batteryIntent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     int level = 0;
     if (batteryIntent != null) {
@@ -335,36 +360,39 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     if (batteryIntent != null) {
       scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
     }
-    float batteryLevel = level / (float) scale;
-    p.resolve(batteryLevel);
+    return level / (float) scale;
   }
-
   @ReactMethod
-  public void isAirplaneMode(Promise p) {
+  public void getBatteryLevel(Promise p) { p.resolve(getBatteryLevelSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isAirplaneModeSync() {
     boolean isAirplaneMode;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        isAirplaneMode = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+      isAirplaneMode = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     } else {
-        isAirplaneMode = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+      isAirplaneMode = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
     }
-    p.resolve(isAirplaneMode);
+    return isAirplaneMode;
   }
-
   @ReactMethod
-  public void hasSystemFeature(String feature, Promise p) {
+  public void isAirplaneMode(Promise p) { p.resolve(isAirplaneModeSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean hasSystemFeatureSync(String feature) {
     if (feature == null || feature.equals("")) {
-      p.resolve(false);
-      return;
+      return false;
     }
 
-    p.resolve(getReactApplicationContext().getPackageManager().hasSystemFeature(feature));
+    return getReactApplicationContext().getPackageManager().hasSystemFeature(feature);
   }
-
   @ReactMethod
-  public void getSystemAvailableFeatures(Promise p) {
+  public void hasSystemFeature(String feature, Promise p) { p.resolve(hasSystemFeatureSync(feature)); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableArray getSystemAvailableFeaturesSync() {
     final FeatureInfo[] featureList = getReactApplicationContext().getPackageManager().getSystemAvailableFeatures();
-    
+
     WritableArray promiseArray = Arguments.createArray();
     for (FeatureInfo f : featureList) {
       if (f.name != null) {
@@ -372,142 +400,150 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     }
 
-    p.resolve(promiseArray);
+    return promiseArray;
   }
-
   @ReactMethod
-  public void isLocationEnabled(Promise p) {
-      boolean locationEnabled = false;
+  public void getSystemAvailableFeatures(Promise p) { p.resolve(getSystemAvailableFeaturesSync()); }
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        LocationManager mLocationManager = (LocationManager) getReactApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        try {
-          locationEnabled = mLocationManager.isLocationEnabled();
-        } catch (Exception e) {
-          p.reject("EUNSPECIFIED", "Unable to determine if location enabled. LocationManager was null");
-          return;
-        }
-      } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-        int locationMode = Settings.Secure.getInt(getReactApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-        locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
-      } else {
-        String locationProviders = getString(getReactApplicationContext().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        locationEnabled = !TextUtils.isEmpty(locationProviders);
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isLocationEnabledSync() {
+    boolean locationEnabled;
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      LocationManager mLocationManager = (LocationManager) getReactApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+      try {
+        locationEnabled = mLocationManager.isLocationEnabled();
+      } catch (Exception e) {
+        System.err.println("Unable to determine if location enabled. LocationManager was null");
+        return false;
       }
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      int locationMode = Settings.Secure.getInt(getReactApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+      locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
+    } else {
+      String locationProviders = getString(getReactApplicationContext().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+      locationEnabled = !TextUtils.isEmpty(locationProviders);
+    }
 
-      p.resolve(locationEnabled);
+    return locationEnabled;
   }
-
   @ReactMethod
-  public void getAvailableLocationProviders(Promise p) {
+  public void isLocationEnabled(Promise p) { p.resolve(isLocationEnabledSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableMap getAvailableLocationProvidersSync() {
     LocationManager mLocationManager = (LocationManager) getReactApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-    List<String> providers = Collections.emptyList();
-    try {
-      providers = mLocationManager.getProviders(false);
-    } catch (Exception e) {
-      p.reject("EUNSPECIFIED", "Unable to get location providers. LocationManager was null");
-      return;
-    }
-
     WritableMap providersAvailability = Arguments.createMap();
-    for (String provider : providers) {
-      providersAvailability.putBoolean(provider, mLocationManager.isProviderEnabled(provider));
+    try {
+      List<String> providers = mLocationManager.getProviders(false);
+      for (String provider : providers) {
+        providersAvailability.putBoolean(provider, mLocationManager.isProviderEnabled(provider));
+      }
+    } catch (Exception e) {
+      System.err.println("Unable to get location providers. LocationManager was null");
     }
 
-    p.resolve(providersAvailability);
+    return providersAvailability;
   }
-
   @ReactMethod
-  public void getInstallReferrer(Promise p) {
+  public void getAvailableLocationProviders(Promise p) { p.resolve(getAvailableLocationProvidersSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getInstallReferrerSync() {
     SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
-    p.resolve(sharedPref.getString("installReferrer", Build.UNKNOWN));
+    return sharedPref.getString("installReferrer", Build.UNKNOWN);
   }
+  @ReactMethod
+  public void getInstallReferrer(Promise p) { p.resolve(getInstallReferrerSync()); }
 
   private PackageInfo getPackageInfo() throws Exception {
     return getReactApplicationContext().getPackageManager().getPackageInfo(getReactApplicationContext().getPackageName(), 0);
   }
 
-  @ReactMethod
-  public void getAppVersion(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getAppVersionSync() {
     try {
-      p.resolve(getPackageInfo().versionName);
+      return getPackageInfo().versionName;
     } catch (Exception e) {
-      p.reject(e);
+      return "unknown";
     }
   }
-
   @ReactMethod
-  public void getBuildNumber(Promise p) {
+  public void getAppVersion(Promise p) { p.resolve(getAppVersionSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getBuildNumberSync() {
     try {
-      p.resolve(Integer.toString(getPackageInfo().versionCode));
+      return Integer.toString(getPackageInfo().versionCode);
     } catch (Exception e) {
-      p.reject(e);
+      return "unknown";
     }
   }
-
   @ReactMethod
-  public void getBuildVersion(Promise p) {
-    p.resolve(Build.UNKNOWN);
-  }
+  public void getBuildNumber(Promise p) { p.resolve(getBuildNumberSync()); }
 
-  @ReactMethod
-  public void getFirstInstallTime(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getFirstInstallTimeSync() {
     try {
-      p.resolve((double)getPackageInfo().firstInstallTime);
+      return (double)getPackageInfo().firstInstallTime;
     } catch (Exception e) {
-      p.reject(e);
+      return -1;
     }
   }
-
   @ReactMethod
-  public void getLastUpdateTime(Promise p) {
+  public void getFirstInstallTime(Promise p) { p.resolve(getFirstInstallTimeSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getLastUpdateTimeSync() {
     try {
-      p.resolve((double)getPackageInfo().lastUpdateTime);
+      return (double)getPackageInfo().lastUpdateTime;
     } catch (Exception e) {
-      p.reject(e);
+      return -1;
     }
   }
-
   @ReactMethod
-  public void getAppName(Promise p) {
+  public void getLastUpdateTime(Promise p) { p.resolve(getLastUpdateTimeSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getAppNameSync() {
     try {
-      p.resolve(getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString());
+      return getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
     } catch (Exception e) {
-      p.reject(e);
+      return "unknown";
     }
   }
-
   @ReactMethod
-  public void getDeviceName(Promise p) {
+  public void getAppName(Promise p) { p.resolve(getAppNameSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getDeviceNameSync() {
     try {
-        String bluetoothName = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name");
-        if (bluetoothName != null) {
-          p.resolve(bluetoothName);
-          return;
+      String bluetoothName = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name");
+      if (bluetoothName != null) {
+        return bluetoothName;
+      }
+
+      if (Build.VERSION.SDK_INT >= 25) {
+        String deviceName = Settings.Global.getString(getReactApplicationContext().getContentResolver(), Settings.Global.DEVICE_NAME);
+        if (deviceName != null) {
+          return deviceName;
         }
-
-        if (Build.VERSION.SDK_INT >= 25) {
-          String deviceName = Settings.Global.getString(getReactApplicationContext().getContentResolver(), Settings.Global.DEVICE_NAME);
-          if (deviceName != null) {
-            p.resolve(deviceName);
-            return;
-          }
-        }
+      }
     } catch (Exception e) {
-      p.reject(e);
-      return;
+      // same as default unknown return
     }
-    p.resolve(Build.UNKNOWN);
+    return "unknown";
   }
+  @ReactMethod
+  public void getDeviceName(Promise p) { p.resolve(getDeviceNameSync()); }
 
   @SuppressLint({"HardwareIds", "MissingPermission"})
-  @ReactMethod
-  public void getSerialNumber(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getSerialNumberSync() {
     try {
       if (Build.VERSION.SDK_INT >= 26) {
         if (getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-          p.resolve(Build.getSerial());
-          return;
+          return Build.getSerial();
         }
       }
     } catch (Exception e) {
@@ -515,135 +551,187 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       System.err.println("getSerialNumber failed, it probably should not be used: " + e.getMessage());
     }
 
-    p.resolve(Build.UNKNOWN);
+    return "unknown";
   }
-
   @ReactMethod
-  public void getSystemName(Promise p) { p.resolve("Android"); }
+  public void getSerialNumber(Promise p) { p.resolve(getSerialNumberSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getSystemVersionSync() { return Build.VERSION.RELEASE; }
   @ReactMethod
-  public void getSystemVersion(Promise p) { p.resolve(Build.VERSION.RELEASE); }
+  public void getSystemVersion(Promise p) { p.resolve(getSystemVersionSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getModelSync() { return Build.MODEL; }
   @ReactMethod
-  public void getModel(Promise p) { p.resolve(Build.MODEL); }
+  public void getModel(Promise p) { p.resolve(getModelSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getBrandSync() { return Build.BRAND; }
   @ReactMethod
-  public void getBrand(Promise p) { p.resolve(Build.BRAND); }
+  public void getBrand(Promise p) { p.resolve(getBrandSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getDeviceSync() {  return Build.DEVICE; }
   @ReactMethod
-  public void getDevice(Promise p) { p.resolve(Build.DEVICE); }
+  public void getDevice(Promise p) { p.resolve(getDeviceSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getBuildIdSync() { return Build.ID; }
   @ReactMethod
-  public void getBuildId(Promise p) { p.resolve(Build.ID); }
+  public void getBuildId(Promise p) { p.resolve(getBuildIdSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getDeviceIdSync() { return Build.BOARD; }
   @ReactMethod
-  public void getDeviceId(Promise p) { p.resolve(Build.BOARD); }
+  public void getDeviceId(Promise p) { p.resolve(getDeviceIdSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public int getApiLevelSync() { return Build.VERSION.SDK_INT; }
   @ReactMethod
-  public void getApiLevel(Promise p) { p.resolve(Build.VERSION.SDK_INT); }
+  public void getApiLevel(Promise p) { p.resolve(getApiLevelSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getBootloaderSync() { return Build.BOOTLOADER; }
   @ReactMethod
-  public void getBootloader(Promise p) { p.resolve(Build.BOOTLOADER); }
+  public void getBootloader(Promise p) { p.resolve(getBootloaderSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getDisplaySync() { return Build.DISPLAY; }
   @ReactMethod
-  public void getDisplay(Promise p) { p.resolve(Build.DISPLAY); }
+  public void getDisplay(Promise p) { p.resolve(getDisplaySync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getFingerprintSync() { return Build.FINGERPRINT; }
   @ReactMethod
-  public void getFingerprint(Promise p) { p.resolve(Build.FINGERPRINT); }
+  public void getFingerprint(Promise p) { p.resolve(getFingerprintSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getHardwareSync() { return Build.HARDWARE; }
   @ReactMethod
-  public void getHardware(Promise p) { p.resolve(Build.HARDWARE); }
+  public void getHardware(Promise p) { p.resolve(getHardwareSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getHostSync() { return Build.HOST; }
   @ReactMethod
-  public void getHost(Promise p) { p.resolve(Build.HOST); }
+  public void getHost(Promise p) { p.resolve(getHostSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getProductSync() { return Build.PRODUCT; }
   @ReactMethod
-  public void getProduct(Promise p) { p.resolve(Build.PRODUCT); }
+  public void getProduct(Promise p) { p.resolve(getProductSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getTagsSync() { return Build.TAGS; }
   @ReactMethod
-  public void getTags(Promise p) { p.resolve(Build.TAGS); }
+  public void getTags(Promise p) { p.resolve(getTagsSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getTypeSync() { return Build.TYPE; }
   @ReactMethod
-  public void getType(Promise p) { p.resolve(Build.TYPE); }
+  public void getType(Promise p) { p.resolve(getTypeSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getSystemManufacturerSync() { return Build.MANUFACTURER; }
   @ReactMethod
-  public void getSystemManufacturer(Promise p) { p.resolve(Build.MANUFACTURER); }
+  public void getSystemManufacturer(Promise p) { p.resolve(getSystemManufacturerSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getBundleIdSync() { return getReactApplicationContext().getPackageName(); }
   @ReactMethod
-  public void getBundleId(Promise p) { p.resolve(getReactApplicationContext().getPackageName()); }
+  public void getBundleId(Promise p) { p.resolve(getBundleIdSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getCodenameSync() { return Build.VERSION.CODENAME; }
   @ReactMethod
-  public void getCodename(Promise p) { p.resolve(Build.VERSION.CODENAME); }
+  public void getCodename(Promise p) { p.resolve(getCodenameSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getIncrementalSync() { return Build.VERSION.INCREMENTAL; }
   @ReactMethod
-  public void getIncremental(Promise p) { p.resolve(Build.VERSION.INCREMENTAL); }
+  public void getIncremental(Promise p) { p.resolve(getIncrementalSync()); }
 
   @SuppressLint("HardwareIds")
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getUniqueIdSync() { return getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID); }
   @ReactMethod
-  public void getUniqueId(Promise p) { p.resolve(getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)); }
+  public void getUniqueId(Promise p) { p.resolve(getUniqueIdSync()); }
 
   @SuppressLint("HardwareIds")
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getAndroidIdSync() { return getUniqueIdSync(); }
   @ReactMethod
-  public void getAndroidId(Promise p) { p.resolve(getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)); }
+  public void getAndroidId(Promise p) { p.resolve(getAndroidIdSync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getMaxMemorySync() { return (double)Runtime.getRuntime().maxMemory(); }
   @ReactMethod
-  public void getMaxMemory(Promise p) { p.resolve((double)Runtime.getRuntime().maxMemory()); }
+  public void getMaxMemory(Promise p) { p.resolve(getMaxMemorySync()); }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getDeviceTypeSync() { return getDeviceType().getValue(); }
   @ReactMethod
-  public void getDeviceType(Promise p) { p.resolve(getDeviceType().getValue()); }
+  public void getDeviceType(Promise p) { p.resolve(getDeviceTypeSync()); }
 
-  @ReactMethod
-  public void getTotalMemory(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getTotalMemorySync() {
     ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
     ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
     if (actMgr != null) {
       actMgr.getMemoryInfo(memInfo);
     } else {
-      p.reject("EUNSPECIFIED", "Unable to getMemoryInfo. ActivityManager was null");
-      return;
+      System.err.println("Unable to getMemoryInfo. ActivityManager was null");
+      return -1;
     }
-    p.resolve((double)memInfo.totalMem);
+    return (double)memInfo.totalMem;
   }
-
   @ReactMethod
+  public void getTotalMemory(Promise p) { p.resolve(getTotalMemorySync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
   @SuppressWarnings({"ConstantConditions", "deprecation"})
-  public void getInstanceId(Promise p) {
+  public String getInstanceIdSync() {
     try {
       if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
-        p.resolve(com.google.android.gms.iid.InstanceID.getInstance(getReactApplicationContext()).getId());
+        return com.google.android.gms.iid.InstanceID.getInstance(getReactApplicationContext()).getId();
       }
     } catch (ClassNotFoundException e) {
-      p.resolve("N/A: Add com.google.android.gms:play-services-gcm to your project.");
+      System.err.println("N/A: Add com.google.android.gms:play-services-gcm to your project.");
     }
+    return "unknown";
   }
-
   @ReactMethod
-  public void getBaseOs(Promise p) {
+  public void getInstanceId(Promise p) { p.resolve(getInstanceIdSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getBaseOsSync() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      p.resolve(Build.VERSION.BASE_OS);
-      return;
+      return Build.VERSION.BASE_OS;
     }
-    p.resolve(Build.UNKNOWN);
-
+    return "unknown";
   }
-
   @ReactMethod
-  public void getPreviewSdkInt(Promise p) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      p.resolve(Build.VERSION.PREVIEW_SDK_INT);
-      return;
-    }
-    p.resolve(Build.UNKNOWN);
-  }
+  public void getBaseOs(Promise p) { p.resolve(getBaseOsSync()); }
 
-  @ReactMethod
-  public void getSecurityPatch(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getPreviewSdkIntSync() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      p.resolve(Build.VERSION.SECURITY_PATCH);
-      return;
+      return Integer.toString(Build.VERSION.PREVIEW_SDK_INT);
     }
-    p.resolve(Build.UNKNOWN);
+    return "unknown";
   }
+  @ReactMethod
+  public void getPreviewSdkInt(Promise p) { p.resolve(getPreviewSdkIntSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getSecurityPatchSync() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      return Build.VERSION.SECURITY_PATCH;
+    }
+    return "unknown";
+  }
+  @ReactMethod
+  public void getSecurityPatch(Promise p) { p.resolve(getSecurityPatchSync()); }
 
   @ReactMethod
   public void getUserAgent(Promise p) {
@@ -659,25 +747,26 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @SuppressLint({"HardwareIds", "MissingPermission"})
-  @ReactMethod
-  public void getPhoneNumber(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getPhoneNumberSync() {
     if (getReactApplicationContext() != null &&
             (getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
                     (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
                     (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
       TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
       if (telMgr != null) {
-        p.resolve(telMgr.getLine1Number());
+        return telMgr.getLine1Number();
       } else {
-        p.reject("EUNSPECIFIED", "Unable to getPhoneNumber. TelephonyManager was null");
+        System.err.println("Unable to getPhoneNumber. TelephonyManager was null");
       }
-    } else {
-      p.resolve(Build.UNKNOWN);
     }
+    return "unknown";
   }
-
   @ReactMethod
-  public void getSupportedAbis(Promise p) {
+  public void getPhoneNumber(Promise p) { p.resolve(getPhoneNumberSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableArray getSupportedAbisSync() {
     WritableArray array = new WritableNativeArray();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       for (String abi : Build.SUPPORTED_ABIS) {
@@ -686,28 +775,34 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     } else {
       array.pushString(Build.CPU_ABI);
     }
-    p.resolve(array);
+    return array;
   }
-
   @ReactMethod
-  public void getSupported32BitAbis(Promise p) {
+  public void getSupportedAbis(Promise p) { p.resolve(getSupportedAbisSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableArray getSupported32BitAbisSync() {
     WritableArray array = new WritableNativeArray();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       for (String abi : Build.SUPPORTED_32_BIT_ABIS) {
         array.pushString(abi);
       }
     }
-    p.resolve(array);
+    return array;
   }
-
   @ReactMethod
-  public void getSupported64BitAbis(Promise p) {
+  public void getSupported32BitAbis(Promise p) { p.resolve(getSupported32BitAbisSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableArray getSupported64BitAbisSync() {
     WritableArray array = new WritableNativeArray();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       for (String abi : Build.SUPPORTED_64_BIT_ABIS) {
         array.pushString(abi);
       }
     }
-    p.resolve(array);
+    return array;
   }
+  @ReactMethod
+  public void getSupported64BitAbis(Promise p) { p.resolve(getSupported64BitAbisSync()); }
 }

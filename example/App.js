@@ -8,14 +8,19 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
+import {ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
   getUniqueId,
+  getUniqueIdSync,
   getManufacturer,
+  getManufacturerSync,
   getBrand,
+  getBrandSync,
   getModel,
+  getModelSync,
   getDeviceId,
+  getDeviceIdSync,
 } from 'react-native-device-info';
 
 export default class App extends Component {
@@ -23,12 +28,82 @@ export default class App extends Component {
     super(props);
     this.state = {
       deviceinfo: {},
+      syncdeviceinfo: this.getSyncDeviceInfo(),
     };
+  }
+
+  getSyncDeviceInfo() {
+    let deviceJSON = {};
+
+    deviceJSON.uniqueId = getUniqueIdSync();
+    deviceJSON.manufacturer = getManufacturerSync();
+    deviceJSON.brand = getBrandSync();
+    deviceJSON.model = getModelSync();
+    deviceJSON.deviceId = getDeviceIdSync();
+    deviceJSON.systemName = DeviceInfo.getSystemNameSync();
+    deviceJSON.systemVersion = DeviceInfo.getSystemVersionSync();
+    deviceJSON.buildId = DeviceInfo.getBuildIdSync();
+    deviceJSON.bundleId = DeviceInfo.getBundleIdSync();
+    deviceJSON.isCameraPresent = DeviceInfo.getCameraPresenceSync();
+    deviceJSON.buildNumber = DeviceInfo.getBuildNumberSync();
+    deviceJSON.version = DeviceInfo.getVersionSync();
+    deviceJSON.readableVersion = DeviceInfo.getReadableVersionSync();
+    deviceJSON.deviceName = DeviceInfo.getDeviceNameSync();
+    deviceJSON.usedMemory = DeviceInfo.getUsedMemorySync();
+    deviceJSON.instanceId = DeviceInfo.getInstanceIdSync();
+    deviceJSON.installReferrer = DeviceInfo.getInstallReferrerSync();
+    deviceJSON.isEmulator = DeviceInfo.isEmulatorSync();
+    deviceJSON.isTablet = DeviceInfo.isTabletSync();
+    deviceJSON.fontScale = DeviceInfo.getFontScaleSync();
+    deviceJSON.hasNotch = DeviceInfo.hasNotchSync();
+    deviceJSON.firstInstallTime = DeviceInfo.getFirstInstallTimeSync();
+    deviceJSON.lastUpdateTime = DeviceInfo.getLastUpdateTimeSync();
+    deviceJSON.serialNumber = DeviceInfo.getSerialNumberSync();
+    deviceJSON.androidId = DeviceInfo.getAndroidIdSync();
+    deviceJSON.IpAddress = DeviceInfo.getIpAddressSync();
+    deviceJSON.MacAddress = DeviceInfo.getMacAddressSync(); // needs android.permission.ACCESS_WIFI_STATE
+    deviceJSON.phoneNumber = DeviceInfo.getPhoneNumberSync(); // needs android.permission.READ_PHONE_STATE
+    deviceJSON.ApiLevel = DeviceInfo.getApiLevelSync();
+    deviceJSON.carrier = DeviceInfo.getCarrierSync();
+    deviceJSON.totalMemory = DeviceInfo.getTotalMemorySync();
+    deviceJSON.maxMemory = DeviceInfo.getMaxMemorySync();
+    deviceJSON.totalDiskCapacity = DeviceInfo.getTotalDiskCapacitySync();
+    deviceJSON.freeDiskStorage = DeviceInfo.getFreeDiskStorageSync();
+    deviceJSON.batteryLevel = DeviceInfo.getBatteryLevelSync();
+    deviceJSON.isLandscape = DeviceInfo.isLandscapeSync();
+    deviceJSON.isAirplaneMode = DeviceInfo.isAirplaneModeSync();
+    deviceJSON.isBatteryCharging = DeviceInfo.isBatteryChargingSync();
+    deviceJSON.deviceType = DeviceInfo.getDeviceTypeSync();
+    deviceJSON.isPinOrFingerprintSet = DeviceInfo.isPinOrFingerprintSetSync();
+    deviceJSON.supportedAbis = DeviceInfo.supportedAbisSync();
+    deviceJSON.hasSystemFeature = DeviceInfo.hasSystemFeatureSync('android.software.webview');
+    deviceJSON.getSystemAvailableFeatures = DeviceInfo.getSystemAvailableFeaturesSync();
+    deviceJSON.powerState = DeviceInfo.getPowerStateSync();
+    deviceJSON.isLocationEnabled = DeviceInfo.isLocationEnabledSync();
+    deviceJSON.getAvailableLocationProviders = DeviceInfo.getAvailableLocationProvidersSync();
+    deviceJSON.bootloader = DeviceInfo.getBootloaderSync();
+    deviceJSON.device = DeviceInfo.getDeviceSync();
+    deviceJSON.display = DeviceInfo.getDisplaySync();
+    deviceJSON.fingerprint = DeviceInfo.getFingerprintSync();
+    deviceJSON.hardware = DeviceInfo.getHardwareSync();
+    deviceJSON.host = DeviceInfo.getHostSync();
+    deviceJSON.product = DeviceInfo.getProductSync();
+    deviceJSON.tags = DeviceInfo.getTagsSync();
+    deviceJSON.type = DeviceInfo.getTypeSync();
+    deviceJSON.baseOS = DeviceInfo.getBaseOsSync();
+    deviceJSON.previewSdkInt = DeviceInfo.getPreviewSdkIntSync();
+    deviceJSON.securityPatch = DeviceInfo.getSecurityPatchSync();
+    deviceJSON.codename = DeviceInfo.getCodenameSync();
+    deviceJSON.incremental = DeviceInfo.getIncrementalSync();
+    deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
+    deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
+
+    console.log('loaded info sync');
+    return deviceJSON;
   }
 
   async componentDidMount() {
     let deviceJSON = {};
-    const ios = Platform.OS === 'ios';
 
     try {
       deviceJSON.uniqueId = await getUniqueId();
@@ -107,7 +182,13 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.welcome}>react-native-device-info example - info:</Text>
+        <Text style={styles.welcome}>react-native-device-info example - sync info:</Text>
+        <ScrollView>
+          <Text style={styles.instructions}>
+            {JSON.stringify(this.state.syncdeviceinfo, null, '\t')}
+          </Text>
+        </ScrollView>
+        <Text style={styles.welcome}>react-native-device-info example - async info:</Text>
         <ScrollView>
           <Text style={styles.instructions}>
             {JSON.stringify(this.state.deviceinfo, null, '\t')}
