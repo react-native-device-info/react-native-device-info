@@ -1,6 +1,11 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 # Release Notes
 
+## 3.0.0-rc.3
+
+* fix: TypeScript getPowerState() return type was Object instaed of PowerState interface
+* fix: TypeScript definition file was missing getPhoneNumberSync()
+
 ## 3.0.0-rc.2
 
 * Added a sync version of each API call, in practice it is very difficult to consume async

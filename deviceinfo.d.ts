@@ -107,6 +107,7 @@ declare const _default: {
   getMacAddress: () => Promise<string>,
   getMacAddressSync: () => string,
   getPhoneNumber: () => Promise<string>;
+  getPhoneNumberSync: () => string;
   getCarrier: () => Promise<string>,
   getCarrierSync: () => string,
   getTotalMemory: () => Promise<number>,
@@ -119,8 +120,8 @@ declare const _default: {
   getFreeDiskStorageSync: () => number,
   getBatteryLevel: () => Promise<number>,
   getBatteryLevelSync: () => number,
-  getPowerState: () => Promise<Object>,
-  getPowerStateSync: () => Object,
+  getPowerState: () => Promise<PowerState>,
+  getPowerStateSync: () => PowerState,
   isBatteryCharging:() => Promise<boolean>,
   isBatteryChargingSync: () => boolean,
   isLandscape: () => Promise<boolean>,
