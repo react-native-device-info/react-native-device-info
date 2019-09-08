@@ -88,9 +88,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private static final String IP = "10.0.2.15";
 
-  private static final int MIN_PROPERTIES_THRESHOLD = 0x5;
+  private static final int MIN_QEMU_PROPERTIES_THRESHOLD = 0x5;
 
-  private static final String[] DEVICE_IDS = {
+  private static final String[] EMU_DEVICE_IDS = {
           "000000000000000",
           "e21833235b6eef10",
           "012345678912345"
@@ -124,7 +124,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
           "/dev/qemu_pipe"
   };
 
-  private static final String[] PHONE_NUMBERS = {
+  //phone number is prefix +1555521 plus emulator suffix 5554, 5556... etc.
+  private static final String[] EMU_PHONE_NUMBERS = {
           "15555215554", "15555215556", "15555215558", "15555215560", "15555215562", "15555215564",
           "15555215566", "15555215568", "15555215570", "15555215572", "15555215574", "15555215576",
           "15555215578", "15555215580", "15555215582", "15555215584"
@@ -141,7 +142,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
           "ueventd.vbox86.rc"
   };
 
-  private static final Property[] PROPERTIES = {
+  private static final Property[] QEMU_PROPERTIES = {
           new Property("init.svc.qemud", null),
           new Property("init.svc.qemu-props", null),
           new Property("qemu.hw.mainkeys", null),
@@ -236,13 +237,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return current.getCountry();
   }
 
-  private boolean isSupportTelePhony() {
+  private boolean hasTelephony() {
     PackageManager packageManager = reactContext.getPackageManager();
     boolean isSupport = packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
     return isSupport;
   }
 
-  private boolean checkPhoneNumber() {
+  /* 
+    Regions of methods to validate if has those properties specific from emulators 
+    Those as Emu, NoxPlayer, Bluestacks, etc.. This checking methods required some 
+    Additional phone permissions as READ_SMS, READ_PHONE_NUMBERS, READ_PHONE_STATE
+    Necessary to effectively check those program that emulates Android OS, to prevent 
+    or blocking then base upon this methods checking
+  */
+  private boolean hasEmuPhoneNumber() {
     TelephonyManager telephonyManager =
             (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -250,10 +258,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
             && ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
-      @SuppressLint("HardwareIds") String phoneNumber = telephonyManager.getLine1Number();
+      @SuppressLint("HardwareIds") String emuPhoneNumber = telephonyManager.getLine1Number();
 
-      for (String number : PHONE_NUMBERS) {
-        if (number.equalsIgnoreCase(phoneNumber)) {
+      for (String number : EMU_PHONE_NUMBERS) {
+        if (number.equalsIgnoreCase(emuPhoneNumber)) {
           return true;
         }
 
@@ -263,13 +271,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return false;
   }
 
-  private boolean checkImsi() {
+  private boolean hasEmuImsi() {
     TelephonyManager telephonyManager =
             (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
     if (ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
       @SuppressLint("HardwareIds") String imsi = telephonyManager.getSubscriberId();
 
-      for (String known_imsi : IMSI_IDS) {
+      for (String known_imsi : EMU_IMSI_IDS) {
         if (known_imsi.equalsIgnoreCase(imsi)) {
           return true;
         }
@@ -279,24 +287,23 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return false;
   }
 
-  private boolean checkOperatorNameAndroid() {
-    String operatorName = ((TelephonyManager)
+  private boolean hasEmuOperatorName() {
+    String emuOperatorName = ((TelephonyManager)
             reactContext.getSystemService(Context.TELEPHONY_SERVICE)).getNetworkOperatorName();
     if (operatorName.equalsIgnoreCase("android")) {
-
       return true;
     }
     return false;
   }
 
-  private boolean checkDeviceId() {
+  private boolean hasEmuDeviceId() {
     TelephonyManager telephonyManager =
             (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
 
     if (ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
       @SuppressLint("HardwareIds") String deviceId = telephonyManager.getDeviceId();
 
-      for (String known_deviceId : DEVICE_IDS) {
+      for (String known_deviceId : EMU_DEVICE_IDS) {
         if (known_deviceId.equalsIgnoreCase(deviceId)) {
           return true;
         }
@@ -309,11 +316,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   private boolean checkTelephony() {
     if (ContextCompat.checkSelfPermission(reactContext, Manifest.permission.READ_PHONE_STATE)
-            == PackageManager.PERMISSION_GRANTED && this.isTelephony && isSupportTelePhony()) {
-      return checkPhoneNumber()
-              || checkDeviceId()
-              || checkImsi()
-              || checkOperatorNameAndroid();
+            == PackageManager.PERMISSION_GRANTED && this.isTelephony && hasTelephony()) {
+      return hasEmuPhoneNumber()
+              || hasEmuDeviceId()
+              || hasEmuImsi()
+              || hasEmuOperatorName();
     }
     return false;
   }
@@ -372,7 +379,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private boolean checkQEmuProps() {
     int found_props = 0;
 
-    for (Property property : PROPERTIES) {
+    for (Property property : QEMU_PROPERTIES) {
       String property_value = getProp(reactContext, property.name);
       if ((property.seek_value == null) && (property_value != null)) {
         found_props++;
@@ -383,11 +390,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
 
     }
-
-    if (found_props >= MIN_PROPERTIES_THRESHOLD) {
-      return true;
-    }
-    return false;
+    
+    return found_props >= MIN_QEMU_PROPERTIES_THRESHOLD;
   }
 
   private boolean checkIp() {
