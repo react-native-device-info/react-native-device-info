@@ -1,6 +1,10 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 # Release Notes
 
+## 3.0.0-rc.4
+
+* feat: memoize static return values for performance
+
 ## 3.0.0-rc.3
 
 * fix: TypeScript getPowerState() return type was Object instaed of PowerState interface
