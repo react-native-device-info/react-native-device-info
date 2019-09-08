@@ -38,7 +38,7 @@ import android.hardware.camera2.CameraAccessException;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
+
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
@@ -78,17 +78,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   Map<String, Object> constants;
   AsyncTask<Void, Void, Map<String, Object>> futureConstants;
 
-  private boolean isDebug = true;
-
   private boolean isTelephony = true;
 
   private boolean isCheckPackage = true;
 
   private List<String> mListPackageName = new ArrayList<>();
-
-  private static final String IP = "10.0.2.15";
-
-  private static final int MIN_QEMU_PROPERTIES_THRESHOLD = 5;
 
   private static final String[] EMU_DEVICE_IDS = {
           "000000000000000",
