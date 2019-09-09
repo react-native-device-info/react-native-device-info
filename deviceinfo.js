@@ -541,9 +541,9 @@ export async function getModel() {
   if (!model) {
     if (OS === 'ios') {
       let deviceName;
-      let device = await RNDeviceInfo.getDeviceId();
+      let deviceId = await RNDeviceInfo.getDeviceId();
       if (deviceId) {
-        deviceName = deviceNamesByCode[device];
+        deviceName = deviceNamesByCode[deviceId];
         if (!deviceName) {
           // Not found on database. At least guess main device type from string contents:
           if (device.startsWith('iPod')) {
