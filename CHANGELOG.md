@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 3.0.0-rc.5
+
+- fix: getModel() not working on iOS [#769](https://github.com/react-native-community/react-native-device-info/pull/769) Thanks @rnnyrk!
+
 ## 3.0.0-rc.4
 
 - feat: memoize static return values for performance

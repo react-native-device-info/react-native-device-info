@@ -572,7 +572,7 @@ export function getModelSync() {
     if (OS === 'ios') {
       var deviceName;
       var device = RNDeviceInfo.getDeviceIdSync();
-      if (deviceId) {
+      if (device) {
         deviceName = deviceNamesByCode[device];
         if (!deviceName) {
           // Not found on database. At least guess main device type from string contents:
