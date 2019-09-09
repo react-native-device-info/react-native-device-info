@@ -469,8 +469,7 @@ export function getCameraPresenceSync() {
 export async function getMacAddress() {
   if (OS === 'android') {
     return RNDeviceInfo.getMacAddress();
-  }
-  if (OS === 'ios') {
+  } else if (OS === 'ios') {
     return '02:00:00:00:00:00';
   }
   return 'unknown';
@@ -479,8 +478,7 @@ export async function getMacAddress() {
 export function getMacAddressSync() {
   if (OS === 'android') {
     return RNDeviceInfo.getMacAddressSync();
-  }
-  if (OS === 'ios') {
+  } else if (OS === 'ios') {
     return '02:00:00:00:00:00';
   }
   return 'unknown';
@@ -541,9 +539,9 @@ export async function getModel() {
   if (!model) {
     if (OS === 'ios') {
       let deviceName;
-      let device = await RNDeviceInfo.getDeviceId();
-      if (deviceId) {
-        deviceName = deviceNamesByCode[device];
+      let _deviceId = await RNDeviceInfo.getDeviceId();
+      if (_deviceId) {
+        deviceName = deviceNamesByCode[_deviceId];
         if (!deviceName) {
           // Not found on database. At least guess main device type from string contents:
           if (device.startsWith('iPod')) {
@@ -571,9 +569,9 @@ export function getModelSync() {
   if (!model) {
     if (OS === 'ios') {
       var deviceName;
-      var device = RNDeviceInfo.getDeviceIdSync();
-      if (device) {
-        deviceName = deviceNamesByCode[device];
+      var _deviceId = RNDeviceInfo.getDeviceIdSync();
+      if (_deviceId) {
+        deviceName = deviceNamesByCode[_deviceId];
         if (!deviceName) {
           // Not found on database. At least guess main device type from string contents:
           if (device.startsWith('iPod')) {
@@ -620,8 +618,8 @@ export function getBrandSync() {
     } else {
       brand = 'unknown';
     }
-    return brand;
   }
+  return brand;
 }
 
 let systemName;
@@ -694,8 +692,9 @@ export function getBuildIdSync() {
   if (!buildId) {
     if (OS === 'android' || OS === 'ios') {
       buildId = RNDeviceInfo.getBuildIdSync();
+    } else {
+      buildId = 'unknown';
     }
-    buildId = 'unknown';
   }
   return buildId;
 }
@@ -913,18 +912,27 @@ export function getBootloaderSync() {
   return bootloader;
 }
 
+let device;
 export async function getDevice() {
-  if (OS === 'android') {
-    return RNDeviceInfo.getDevice();
+  if (!device) {
+    if (OS === 'android') {
+      device = RNDeviceInfo.getDevice();
+    } else {
+      device = 'unknown';
+    }
   }
-  return Promise.resolve('unknown');
+  return device;
 }
 
 export function getDeviceSync() {
-  if (OS === 'android') {
-    return RNDeviceInfo.getDeviceSync();
+  if (!device) {
+    if (OS === 'android') {
+      device = RNDeviceInfo.getDeviceSync();
+    } else {
+      device = 'unknown';
+    }
   }
-  return 'unknown';
+  return device;
 }
 
 let display;

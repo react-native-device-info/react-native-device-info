@@ -4,6 +4,7 @@
 
 ## 3.0.0-rc.5
 
+- fix: various fixes similar to / prompted by #771 / #768 / #769
 - fix: getSystemName() returns value on ios+android [#771](https://github.com/react-native-community/react-native-device-info/issues/771) thanks @cmpayc!
 - fix: getUniqueId() only returned value 1st call [#768](https://github.com/react-native-community/react-native-device-info/issues/768) thanks @tamhv!
 - fix: getModel() not working on iOS [#769](https://github.com/react-native-community/react-native-device-info/pull/769) Thanks @rnnyrk!

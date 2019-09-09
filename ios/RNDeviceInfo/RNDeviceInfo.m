@@ -175,7 +175,10 @@ RCT_EXPORT_METHOD(getBuildNumber:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 #else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    return carrier.carrierName;
+    if (carrier.carrierName != nil) {
+        return carrier.carrierName;
+    }
+    return @"unknown";
 #endif
 }
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCarrierSync) {
