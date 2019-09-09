@@ -354,8 +354,8 @@ export async function getUniqueId() {
     } else {
       uniqueId = 'unknown';
     }
-    return uniqueId;
   }
+  return uniqueId;
 }
 
 export function getUniqueIdSync() {
