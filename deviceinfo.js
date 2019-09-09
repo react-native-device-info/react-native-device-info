@@ -646,8 +646,7 @@ export function getSystemNameSync() {
       systemName = RNDeviceInfo.getSystemNameSync();
     } else if (OS === 'android') {
       systemName = 'Android';
-    }
-    if (OS === 'windows') {
+    } else if (OS === 'windows') {
       systemName = 'Windows';
     } else {
       systemName = 'unknown';
