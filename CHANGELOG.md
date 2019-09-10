@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 3.0.0
+
+- release: promoted release from 3.0.0-rc.5 without change
+
 ## 3.0.0-rc.5
 
 - fix: various fixes similar to / prompted by #771 / #768 / #769
