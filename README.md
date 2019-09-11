@@ -1394,7 +1394,7 @@ DeviceInfo.getAvailableLocationProviders().then(providers => {
 
 ## Events
 
-Currently iOS-only.
+Currently iOS & Android only.
 
 ### RNDeviceInfo_batteryLevelDidChange
 
