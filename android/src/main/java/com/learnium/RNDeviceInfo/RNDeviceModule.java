@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.UiModeManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.provider.Settings;
@@ -29,8 +31,11 @@ import android.util.DisplayMetrics;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
@@ -38,6 +43,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
@@ -55,10 +61,78 @@ import static android.provider.Settings.Secure.getString;
 @ReactModule(name = RNDeviceModule.NAME)
 public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
+  private BroadcastReceiver receiver;
+
+  private float mLastBatteryPercentage = -1;
+  private String sLastBatteryState = "";
 
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
   }
+
+  @Override
+  public void initialize() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+
+    receiver = new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent) {
+        int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int batteryScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        int isPlugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+        float batteryPercentage = batteryLevel / (float)batteryScale;
+
+        String batteryState = "unknown";
+
+        if(isPlugged == 0) {
+          batteryState = "unplugged";
+        } else if(status == 2) {
+          batteryState = "charging";
+        } else if(status == 5) {
+          batteryState = "full";
+        }
+
+        PowerManager powerManager = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
+        boolean powerSaveMode = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+          powerSaveMode = powerManager.isPowerSaveMode();
+        }
+
+        if(!sLastBatteryState.equalsIgnoreCase(batteryState)) {
+          WritableMap params = Arguments.createMap();
+          params.putString("batteryState", batteryState);
+          params.putInt("batteryLevel", batteryLevel);
+          params.putBoolean("lowPowerMode", powerSaveMode);
+
+          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", params);
+          
+          sLastBatteryState = batteryState;
+        }
+
+        if(mLastBatteryPercentage != batteryPercentage) {
+            sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelDidChange", batteryPercentage);
+
+          if(batteryPercentage < .2) {
+            sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelIsLow", batteryPercentage);
+          }
+
+          mLastBatteryPercentage = batteryPercentage;
+        }
+      }
+    };
+
+    getReactApplicationContext().registerReceiver(receiver, filter);
+  }
+
+
+  @Override
+  public void onCatalystInstanceDestroy() {
+    getReactApplicationContext().unregisterReceiver(receiver);
+  }
+
 
   @Override
   @Nonnull
@@ -84,28 +158,28 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean isEmulatorSync() {
     return Build.FINGERPRINT.startsWith("generic")
-        || Build.FINGERPRINT.startsWith("unknown")
-        || Build.MODEL.contains("google_sdk")
-        || Build.MODEL.toLowerCase().contains("droid4x")
-        || Build.MODEL.contains("Emulator")
-        || Build.MODEL.contains("Android SDK built for x86")
-        || Build.MANUFACTURER.contains("Genymotion")
-        || Build.HARDWARE.contains("goldfish")
-        || Build.HARDWARE.contains("ranchu")
-        || Build.HARDWARE.contains("vbox86")
-        || Build.PRODUCT.contains("sdk")
-        || Build.PRODUCT.contains("google_sdk")
-        || Build.PRODUCT.contains("sdk_google")
-        || Build.PRODUCT.contains("sdk_x86")
-        || Build.PRODUCT.contains("vbox86p")
-        || Build.PRODUCT.contains("emulator")
-        || Build.PRODUCT.contains("simulator")
-        || Build.BOARD.toLowerCase().contains("nox")
-        || Build.BOOTLOADER.toLowerCase().contains("nox")
-        || Build.HARDWARE.toLowerCase().contains("nox")
-        || Build.PRODUCT.toLowerCase().contains("nox")
-        || Build.SERIAL.toLowerCase().contains("nox")
-        || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
+            || Build.FINGERPRINT.startsWith("unknown")
+            || Build.MODEL.contains("google_sdk")
+            || Build.MODEL.toLowerCase().contains("droid4x")
+            || Build.MODEL.contains("Emulator")
+            || Build.MODEL.contains("Android SDK built for x86")
+            || Build.MANUFACTURER.contains("Genymotion")
+            || Build.HARDWARE.contains("goldfish")
+            || Build.HARDWARE.contains("ranchu")
+            || Build.HARDWARE.contains("vbox86")
+            || Build.PRODUCT.contains("sdk")
+            || Build.PRODUCT.contains("google_sdk")
+            || Build.PRODUCT.contains("sdk_google")
+            || Build.PRODUCT.contains("sdk_x86")
+            || Build.PRODUCT.contains("vbox86p")
+            || Build.PRODUCT.contains("emulator")
+            || Build.PRODUCT.contains("simulator")
+            || Build.BOARD.toLowerCase().contains("nox")
+            || Build.BOOTLOADER.toLowerCase().contains("nox")
+            || Build.HARDWARE.toLowerCase().contains("nox")
+            || Build.PRODUCT.toLowerCase().contains("nox")
+            || Build.SERIAL.toLowerCase().contains("nox")
+            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
@@ -805,4 +879,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void getSupported64BitAbis(Promise p) { p.resolve(getSupported64BitAbisSync()); }
+
+  private void sendEvent(ReactContext reactContext,
+                         String eventName,
+                         @Nullable Object data) {
+    reactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit(eventName, data);
+  }
 }
