@@ -57,7 +57,7 @@ Each BREAKING CHANGE contains the required information to migrate. The example A
   - isAirPlaneMode -> isAirplaneMode
   - getIPAddress -> getIpAddress
   - getMACAddress -> getMACAddress
-  - getAPILevel -> GetApiLevel
+  - getAPILevel -> getApiLevel
   - getBaseOS -> getBaseOs
   - getInstanceID -> getInstanceId
   - getUniqueID -> getUniqueId
