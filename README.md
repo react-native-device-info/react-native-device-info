@@ -316,7 +316,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    |
 | [getModel()](#getmodel)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
 | [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
-| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ❌    |   ❌    |
+| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ❌    |
 | [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
 | [getReadableVersion()](#getreadableversion)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |

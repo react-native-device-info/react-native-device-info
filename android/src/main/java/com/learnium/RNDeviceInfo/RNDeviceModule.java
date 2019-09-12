@@ -63,8 +63,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
   private BroadcastReceiver receiver;
 
-  private float mLastBatteryPercentage = -1;
+  private double mLastBatteryLevel = -1;
   private String sLastBatteryState = "";
+
+  private static String BATTERY_STATE = "batteryState";
+  private static String BATTERY_LEVEL= "batteryLevel";
+  private static String LOW_POWER_MODE = "lowPowerMode";
 
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -78,48 +82,28 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     receiver = new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
-        int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-        int batteryScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        int isPlugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        WritableMap powerState = getPowerStateFromIntent(intent);
 
-        float batteryPercentage = batteryLevel / (float)batteryScale;
-
-        String batteryState = "unknown";
-
-        if(isPlugged == 0) {
-          batteryState = "unplugged";
-        } else if(status == 2) {
-          batteryState = "charging";
-        } else if(status == 5) {
-          batteryState = "full";
+        if(powerState == null) {
+          return;
         }
 
-        PowerManager powerManager = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
-        boolean powerSaveMode = false;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-          powerSaveMode = powerManager.isPowerSaveMode();
-        }
+        String batteryState = powerState.getString(BATTERY_STATE);
+        Double batteryLevel = powerState.getDouble(BATTERY_LEVEL);
 
         if(!sLastBatteryState.equalsIgnoreCase(batteryState)) {
-          WritableMap params = Arguments.createMap();
-          params.putString("batteryState", batteryState);
-          params.putInt("batteryLevel", batteryLevel);
-          params.putBoolean("lowPowerMode", powerSaveMode);
-
-          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", params);
-          
+          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", powerState);
           sLastBatteryState = batteryState;
         }
 
-        if(mLastBatteryPercentage != batteryPercentage) {
-            sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelDidChange", batteryPercentage);
+        if(mLastBatteryLevel != batteryLevel) {
+            sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelDidChange", batteryLevel);
 
-          if(batteryPercentage < .2) {
-            sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelIsLow", batteryPercentage);
+          if(batteryLevel < .2) {
+            sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelIsLow", batteryLevel);
           }
 
-          mLastBatteryPercentage = batteryPercentage;
+          mLastBatteryLevel = batteryLevel;
         }
       }
     };
@@ -423,19 +407,24 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getUsedMemory(Promise p) { p.resolve(getUsedMemorySync()); }
 
+  @ReactMethod
+  public WritableMap getPowerState() {
+    Intent intent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    return getPowerStateFromIntent(intent);
+  }
+
   @ReactMethod(isBlockingSynchronousMethod = true)
   public float getBatteryLevelSync() {
-    Intent batteryIntent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-    int level = 0;
-    if (batteryIntent != null) {
-      level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+    Intent intent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    WritableMap powerState = getPowerStateFromIntent(intent);
+
+    if(powerState == null) {
+      return 0;
     }
-    int scale = 0;
-    if (batteryIntent != null) {
-      scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-    }
-    return level / (float) scale;
+
+    return powerState.getDouble(BATTERY_LEVEL);
   }
+  
   @ReactMethod
   public void getBatteryLevel(Promise p) { p.resolve(getBatteryLevelSync()); }
 
@@ -879,6 +868,43 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void getSupported64BitAbis(Promise p) { p.resolve(getSupported64BitAbisSync()); }
+
+
+  private WritableMap getPowerStateFromIntent (Intent intent) {
+    if(intent == null) {
+      return null;
+    }
+
+    int batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+    int batteryScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+    int isPlugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+    float batteryPercentage = batteryLevel / (float)batteryScale;
+
+    String batteryState = "unknown";
+
+    if(isPlugged == 0) {
+      batteryState = "unplugged";
+    } else if(status == 2) {
+      batteryState = "charging";
+    } else if(status == 5) {
+      batteryState = "full";
+    }
+
+    PowerManager powerManager = (PowerManager)getReactApplicationContext().getSystemService(Context.POWER_SERVICE);
+    boolean powerSaveMode = false;
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+      powerSaveMode = powerManager.isPowerSaveMode();
+    }
+
+    WritableMap powerState = Arguments.createMap();
+    powerState.putString(BATTERY_STATE, batteryState);
+    powerState.putDouble(BATTERY_LEVEL, batteryPercentage);
+    powerState.putBoolean(LOW_POWER_MODE, powerSaveMode);
+
+    return powerState;
+  }
 
   private void sendEvent(ReactContext reactContext,
                          String eventName,
