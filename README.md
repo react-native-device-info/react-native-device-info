@@ -1274,7 +1274,7 @@ Returns the device's type as a string, which will be one of:
 #### Examples
 
 ```js
-DeviceInfo.getDeviceType(type => {
+DeviceInfo.getDeviceType().then(type => {
   // 'Handset'
 });
 ```
