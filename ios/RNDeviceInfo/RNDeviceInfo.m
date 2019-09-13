@@ -14,9 +14,9 @@
 #import <React/RCTUtils.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
-#import <WebKit/WebKit.h>
 
-#if !(TARGET_OS_TV)
+#if !(TARGET_OS_TV)\
+#import <WebKit/WebKit.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
 
@@ -36,7 +36,9 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 @implementation RNDeviceInfo
 {
+    #if !(TARGET_OS_TV)
     WKWebView *webView;
+    #endif
     bool hasListeners;
 }
 
@@ -526,7 +528,7 @@ RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 
 RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
 #if TARGET_OS_TV
-    reject(@"not available");
+    reject(@"not_available_error", @"not available on tvOS", nil);
 #else
     __weak RNDeviceInfo *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
