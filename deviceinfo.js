@@ -1493,7 +1493,7 @@ export async function getPowerState() {
 }
 
 export function getPowerStateSync() {
-  if (OS === 'ios') {
+  if (OS === 'ios' || OS === 'android') {
     return RNDeviceInfo.getPowerStateSync();
   }
   return {};
