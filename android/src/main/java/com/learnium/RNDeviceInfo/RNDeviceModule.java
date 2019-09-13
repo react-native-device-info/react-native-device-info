@@ -56,6 +56,8 @@ import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
 
+import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
+import static android.os.BatteryManager.BATTERY_STATUS_FULL;
 import static android.provider.Settings.Secure.getString;
 
 @ReactModule(name = RNDeviceModule.NAME)
@@ -99,7 +101,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         if(mLastBatteryLevel != batteryLevel) {
             sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelDidChange", batteryLevel);
 
-          if(batteryLevel < .2) {
+          if(batteryLevel <= .15) {
             sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelIsLow", batteryLevel);
           }
 
@@ -393,7 +395,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     if (batteryStatus != null) {
       status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
     }
-    return status == BatteryManager.BATTERY_STATUS_CHARGING;
+    return status == BATTERY_STATUS_CHARGING;
   }
   @ReactMethod
   public void isBatteryCharging(Promise p) { p.resolve(isBatteryChargingSync()); }
@@ -414,7 +416,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public float getBatteryLevelSync() {
+  public double getBatteryLevelSync() {
     Intent intent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     WritableMap powerState = getPowerStateFromIntent(intent);
 
@@ -886,9 +888,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     if(isPlugged == 0) {
       batteryState = "unplugged";
-    } else if(status == 2) {
+    } else if(status == BATTERY_STATUS_CHARGING) {
       batteryState = "charging";
-    } else if(status == 5) {
+    } else if(status == BATTERY_STATUS_FULL) {
       batteryState = "full";
     }
 

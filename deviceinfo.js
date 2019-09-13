@@ -1486,7 +1486,7 @@ export function getBatteryLevelSync() {
 }
 
 export async function getPowerState() {
-  if (OS === 'ios') {
+  if (OS === 'ios' || OS === 'android') {
     return RNDeviceInfo.getPowerState();
   }
   return Promise.resolve({});

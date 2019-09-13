@@ -1415,7 +1415,12 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', level => {
 
 ### RNDeviceInfo_batteryLevelIsLow
 
-Fired when the battery drops below 20%.
+Fired when the battery drops is considered low
+
+| Platform | Percentage |
+| -------- | ---------- |
+| iOS      | 20         |
+| Android  | 15         |
 
 #### Examples
 
