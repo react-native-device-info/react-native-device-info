@@ -409,11 +409,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getUsedMemory(Promise p) { p.resolve(getUsedMemorySync()); }
 
-  @ReactMethod
-  public WritableMap getPowerState() {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableMap getPowerStateSync() {
     Intent intent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     return getPowerStateFromIntent(intent);
   }
+
+  @ReactMethod
+  public void getPowerState(Promise p) { p.resolve(getPowerStateSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getBatteryLevelSync() {
