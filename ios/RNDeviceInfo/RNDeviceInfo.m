@@ -15,7 +15,7 @@
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 
-#if !(TARGET_OS_TV)\
+#if !(TARGET_OS_TV)
 #import <WebKit/WebKit.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
