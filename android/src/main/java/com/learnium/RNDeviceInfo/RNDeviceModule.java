@@ -55,6 +55,7 @@ import static android.provider.Settings.Secure.getString;
 @ReactModule(name = RNDeviceModule.NAME)
 public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
+  private static DeviceType deviceType;
 
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -114,29 +115,42 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void isTablet(Promise p) { p.resolve(isTabletSync()); }
 
   private DeviceType getDeviceType() {
-    // Detect TVs via ui mode (Android TVs) or system features (Fire TV).
-    if (getReactApplicationContext().getPackageManager().hasSystemFeature("amazon.hardware.fire_tv")) {
-      return DeviceType.TV;
+    return getDeviceType(getReactApplicationContext());
+  }
+
+  public static boolean isTablet(Context context) {
+    return getDeviceType(context) == DeviceType.TABLET;
+  }
+
+  public static DeviceType getDeviceType(Context context) {
+    if (deviceType == null) {
+      // Detect TVs via ui mode (Android TVs) or system features (Fire TV).
+      if (context.getPackageManager().hasSystemFeature("amazon.hardware.fire_tv")) {
+        deviceType = DeviceType.TV;
+      } else {
+        UiModeManager uiManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        if (uiManager != null &&
+                uiManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
+          deviceType = DeviceType.TV;
+        } else {
+          DeviceType deviceTypeFromConfig = getDeviceTypeFromResourceConfiguration(context);
+
+          if (deviceTypeFromConfig != null && deviceTypeFromConfig != DeviceType.UNKNOWN) {
+            deviceType = deviceTypeFromConfig;
+          }
+
+          deviceType = getDeviceTypeFromPhysicalSize(context);
+        }
+      }
     }
 
-    UiModeManager uiManager = (UiModeManager) getReactApplicationContext().getSystemService(Context.UI_MODE_SERVICE);
-    if (uiManager != null && uiManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
-      return DeviceType.TV;
-    }
-
-    DeviceType deviceTypeFromConfig = getDeviceTypeFromResourceConfiguration();
-
-    if (deviceTypeFromConfig != null && deviceTypeFromConfig != DeviceType.UNKNOWN) {
-      return deviceTypeFromConfig;
-    }
-
-    return  getDeviceTypeFromPhysicalSize();
+    return deviceType;
   }
 
   // Use `smallestScreenWidthDp` to determine the screen size
   // https://android-developers.googleblog.com/2011/07/new-tools-for-managing-screen-sizes.html
-  private DeviceType getDeviceTypeFromResourceConfiguration() {
-    int smallestScreenWidthDp = getReactApplicationContext().getResources().getConfiguration().smallestScreenWidthDp;
+  private static DeviceType getDeviceTypeFromResourceConfiguration(Context context) {
+    int smallestScreenWidthDp = context.getResources().getConfiguration().smallestScreenWidthDp;
 
     if (smallestScreenWidthDp == Configuration.SMALLEST_SCREEN_WIDTH_DP_UNDEFINED) {
       return DeviceType.UNKNOWN;
@@ -145,9 +159,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return smallestScreenWidthDp >= 600 ? DeviceType.TABLET : DeviceType.HANDSET;
   }
 
-  private DeviceType getDeviceTypeFromPhysicalSize() {
+  private static DeviceType getDeviceTypeFromPhysicalSize(Context context) {
     // Find the current window manager, if none is found we can't measure the device physical size.
-    WindowManager windowManager = (WindowManager) getReactApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
     if (windowManager == null) {
       return DeviceType.UNKNOWN;
