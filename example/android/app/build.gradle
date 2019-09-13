@@ -76,6 +76,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
+    bundleInDebug: true,
     entryFile: "index.js",
     enableHermes: false,  // clean and rebuild if changing
 ]

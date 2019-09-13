@@ -35,6 +35,12 @@ sed -i -e 's/ext {$/ext {        googlePlayServicesVersion = "16.1.0"/' android/
 sed -i -e 's/ext {$/ext {        minSdkVersion = 16/' android/build.gradle
 rm -f android/build.gradle??
 
+# Patch the app/build.gradle to enable the JS bundle in debug - this is important
+# For testing because iOS9 and Android API<18 can't do port-forwarding so they can't
+# see a local dev bundle server, they have to have the bundle packaged and in the app
+sed -i -e $'s/^project.ext.react = \[/project.ext.react = \[\\\n    bundleInDebug: true,/' android/app/build.gradle
+rm -f android/app/build.gradle??
+
 # Patch the AndroidManifest directly to add our permissions
 sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" \/><uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/><uses-permission android:name="android.permission.READ_PHONE_STATE" \/>/' android/app/src/main/AndroidManifest.xml
 rm -f android/app/src/main/AndroidManifest.xml??
