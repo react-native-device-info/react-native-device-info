@@ -3,7 +3,6 @@ package com.learnium.RNDeviceInfo;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.app.UiModeManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
-import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
@@ -20,12 +18,10 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.provider.Settings;
-import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.app.ActivityManager;
-import android.util.DisplayMetrics;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
@@ -47,24 +43,34 @@ import java.util.List;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
 import java.math.BigInteger;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static android.provider.Settings.Secure.getString;
 
 @ReactModule(name = RNDeviceModule.NAME)
 public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
-  private static DeviceType deviceType;
 
-  public RNDeviceModule(ReactApplicationContext reactContext) {
+  private final RNDeviceConstants constants;
+
+  public RNDeviceModule(ReactApplicationContext reactContext, RNDeviceConstants constants) {
     super(reactContext);
+    this.constants = constants;
   }
 
   @Override
   @Nonnull
   public String getName() {
     return NAME;
+  }
+
+  @Nullable
+  @Override
+  public Map<String, Object> getConstants() {
+    return constants.getConstants();
   }
 
   @SuppressLint("MissingPermission")
@@ -110,88 +116,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public boolean isTabletSync() { return getDeviceType() == DeviceType.TABLET; }
+  public boolean isTabletSync() { return constants.isTablet(); }
   @ReactMethod
   public void isTablet(Promise p) { p.resolve(isTabletSync()); }
-
-  private DeviceType getDeviceType() {
-    return getDeviceType(getReactApplicationContext());
-  }
-
-  public static boolean isTablet(Context context) {
-    return getDeviceType(context) == DeviceType.TABLET;
-  }
-
-  public static DeviceType getDeviceType(Context context) {
-    if (deviceType == null) {
-      // Detect TVs via ui mode (Android TVs) or system features (Fire TV).
-      if (context.getPackageManager().hasSystemFeature("amazon.hardware.fire_tv")) {
-        deviceType = DeviceType.TV;
-      } else {
-        UiModeManager uiManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
-        if (uiManager != null &&
-                uiManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
-          deviceType = DeviceType.TV;
-        } else {
-          DeviceType deviceTypeFromConfig = getDeviceTypeFromResourceConfiguration(context);
-
-          if (deviceTypeFromConfig != null && deviceTypeFromConfig != DeviceType.UNKNOWN) {
-            deviceType = deviceTypeFromConfig;
-          }
-
-          deviceType = getDeviceTypeFromPhysicalSize(context);
-        }
-      }
-    }
-
-    return deviceType;
-  }
-
-  // Use `smallestScreenWidthDp` to determine the screen size
-  // https://android-developers.googleblog.com/2011/07/new-tools-for-managing-screen-sizes.html
-  private static DeviceType getDeviceTypeFromResourceConfiguration(Context context) {
-    int smallestScreenWidthDp = context.getResources().getConfiguration().smallestScreenWidthDp;
-
-    if (smallestScreenWidthDp == Configuration.SMALLEST_SCREEN_WIDTH_DP_UNDEFINED) {
-      return DeviceType.UNKNOWN;
-    }
-
-    return smallestScreenWidthDp >= 600 ? DeviceType.TABLET : DeviceType.HANDSET;
-  }
-
-  private static DeviceType getDeviceTypeFromPhysicalSize(Context context) {
-    // Find the current window manager, if none is found we can't measure the device physical size.
-    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-    if (windowManager == null) {
-      return DeviceType.UNKNOWN;
-    }
-
-    // Get display metrics to see if we can differentiate handsets and tablets.
-    // NOTE: for API level 16 the metrics will exclude window decor.
-    DisplayMetrics metrics = new DisplayMetrics();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      windowManager.getDefaultDisplay().getRealMetrics(metrics);
-    } else {
-      windowManager.getDefaultDisplay().getMetrics(metrics);
-    }
-
-    // Calculate physical size.
-    double widthInches = metrics.widthPixels / (double) metrics.xdpi;
-    double heightInches = metrics.heightPixels / (double) metrics.ydpi;
-    double diagonalSizeInches = Math.sqrt(Math.pow(widthInches, 2) + Math.pow(heightInches, 2));
-
-    if (diagonalSizeInches >= 3.0 && diagonalSizeInches <= 6.9) {
-      // Devices in a sane range for phones are considered to be Handsets.
-      return DeviceType.HANDSET;
-    } else if (diagonalSizeInches > 6.9 && diagonalSizeInches <= 18.0) {
-      // Devices larger than handset and in a sane range for tablets are tablets.
-      return DeviceType.TABLET;
-    } else {
-      // Otherwise, we don't know what device type we're on/
-      return DeviceType.UNKNOWN;
-    }
-  }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public float getFontScaleSync() { return getReactApplicationContext().getResources().getConfiguration().fontScale; }
@@ -683,7 +610,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getMaxMemory(Promise p) { p.resolve(getMaxMemorySync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getDeviceTypeSync() { return getDeviceType().getValue(); }
+  public String getDeviceTypeSync() { return constants.getDeviceType().getValue(); }
   @ReactMethod
   public void getDeviceType(Promise p) { p.resolve(getDeviceTypeSync()); }
 

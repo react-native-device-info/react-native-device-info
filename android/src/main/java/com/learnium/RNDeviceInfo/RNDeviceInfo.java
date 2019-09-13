@@ -15,12 +15,22 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("unused")
 public class RNDeviceInfo implements ReactPackage {
 
+  private RNDeviceConstants constants;
+
+  public RNDeviceInfo(RNDeviceConstants constants) {
+    this.constants = constants;
+  }
+
   @Override
   @Nonnull
   public List<NativeModule> createNativeModules(@Nonnull ReactApplicationContext reactContext) {
     List<NativeModule> modules = new ArrayList<>();
 
-    modules.add(new RNDeviceModule(reactContext));
+    if (constants == null) {
+      constants = new RNDeviceConstants(reactContext);
+    }
+
+    modules.add(new RNDeviceModule(reactContext, constants));
 
     return modules;
   }
@@ -35,5 +45,4 @@ public class RNDeviceInfo implements ReactPackage {
   public List<ViewManager> createViewManagers(@Nonnull ReactApplicationContext reactContext) {
     return Collections.emptyList();
   }
-
 }
