@@ -16,6 +16,7 @@
     "pretty": "prettier --write deviceinfo.js",
     "shipit": "np",
     "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
+    "test": "echo no tests defined",
     "precommit": "lint-staged && yarn analyze"
   },
   "lint-staged": {
