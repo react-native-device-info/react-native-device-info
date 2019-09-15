@@ -2,6 +2,14 @@
 
 # Release Notes
 
+## 3.1.1
+
+- fix: fix react-native-windows v2->v3 migration (https://github.com/react-native-community/react-native-device-info/pull/787) thanks @acoates-ms!
+
+## 3.1.0
+
+- feat: add power functionality in Android to match iOS (https://github.com/react-native-community/react-native-device-info/pull/775) thanks @Johan-dutoit!
+
 ## 3.0.0
 
 - release: promoted release from 3.0.0-rc.5 without change
