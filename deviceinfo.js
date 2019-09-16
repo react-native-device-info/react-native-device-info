@@ -262,6 +262,7 @@ const deviceNamesByCode = {
   'iPod4,1': 'iPod Touch', // (Fourth Generation)
   'iPod5,1': 'iPod Touch', // (Fifth Generation)
   'iPod7,1': 'iPod Touch', // (Sixth Generation)
+  'iPod9,1': 'iPod Touch', // (Seventh Generation)
   'iPhone1,1': 'iPhone', // (Original)
   'iPhone1,2': 'iPhone 3G', // (3G)
   'iPhone2,1': 'iPhone 3GS', // (3GS)
@@ -325,6 +326,8 @@ const deviceNamesByCode = {
   'iPad6,4': 'iPad Pro 9.7-inch', // iPad Pro 9.7-inch
   'iPad6,7': 'iPad Pro 12.9-inch', // iPad Pro 12.9-inch
   'iPad6,8': 'iPad Pro 12.9-inch', // iPad Pro 12.9-inch
+  'iPad6,11': 'iPad (5th generation)', // Apple iPad 9.7 inch (5th generation) - WiFi
+  'iPad6,12': 'iPad (5th generation)', // Apple iPad 9.7 inch (5th generation) - WiFi + cellular
   'iPad7,1': 'iPad Pro 12.9-inch', // 2nd Generation iPad Pro 12.5-inch - Wifi
   'iPad7,2': 'iPad Pro 12.9-inch', // 2nd Generation iPad Pro 12.5-inch - Cellular
   'iPad7,3': 'iPad Pro 10.5-inch', // iPad Pro 10.5-inch - Wifi
@@ -339,6 +342,10 @@ const deviceNamesByCode = {
   'iPad8,6': 'iPad Pro 12.9-inch (3rd generation)', // iPad Pro 12.9 inch (3rd generation) - 1TB - Wifi
   'iPad8,7': 'iPad Pro 12.9-inch (3rd generation)', // iPad Pro 12.9 inch (3rd generation) - Wifi + cellular
   'iPad8,8': 'iPad Pro 12.9-inch (3rd generation)', // iPad Pro 12.9 inch (3rd generation) - 1TB - Wifi + cellular
+  'iPad11,1': 'iPad Mini 5', // (5th Generation iPad Mini)
+  'iPad11,2': 'iPad Mini 5', // (5th Generation iPad Mini)
+  'iPad11,3': 'iPad Air (3rd generation)',
+  'iPad11,4': 'iPad Air (3rd generation)',
   'AppleTV2,1': 'Apple TV', // Apple TV (2nd Generation)
   'AppleTV3,1': 'Apple TV', // Apple TV (3rd Generation)
   'AppleTV3,2': 'Apple TV', // Apple TV (3rd Generation - Rev A)
@@ -544,18 +551,19 @@ export async function getModel() {
         deviceName = deviceNamesByCode[_deviceId];
         if (!deviceName) {
           // Not found on database. At least guess main device type from string contents:
-          if (device.startsWith('iPod')) {
+          if (_deviceId.startsWith('iPod')) {
             deviceName = 'iPod Touch';
-          } else if (device.startsWith('iPad')) {
+          } else if (_deviceId.startsWith('iPad')) {
             deviceName = 'iPad';
-          } else if (device.startsWith('iPhone')) {
+          } else if (_deviceId.startsWith('iPhone')) {
             deviceName = 'iPhone';
-          } else if (device.startsWith('AppleTV')) {
+          } else if (_deviceId.startsWith('AppleTV')) {
             deviceName = 'Apple TV';
           }
         }
       }
-      model = deviceName;
+      // Use unknown, otherwise getModel will never be cached.
+      model = deviceName || 'unknown';
     } else if (OS === 'android' || OS === 'windows') {
       model = await RNDeviceInfo.getModel();
     } else {
@@ -574,18 +582,19 @@ export function getModelSync() {
         deviceName = deviceNamesByCode[_deviceId];
         if (!deviceName) {
           // Not found on database. At least guess main device type from string contents:
-          if (device.startsWith('iPod')) {
+          if (_deviceId.startsWith('iPod')) {
             deviceName = 'iPod Touch';
-          } else if (device.startsWith('iPad')) {
+          } else if (_deviceId.startsWith('iPad')) {
             deviceName = 'iPad';
-          } else if (device.startsWith('iPhone')) {
+          } else if (_deviceId.startsWith('iPhone')) {
             deviceName = 'iPhone';
-          } else if (device.startsWith('AppleTV')) {
+          } else if (_deviceId.startsWith('AppleTV')) {
             deviceName = 'Apple TV';
           }
         }
       }
-      model = deviceName;
+      // Use unknown, otherwise getModel will never be cached.
+      model = deviceName || 'unknown';
     } else if (OS === 'android' || OS === 'windows') {
       model = RNDeviceInfo.getModelSync();
     } else {
