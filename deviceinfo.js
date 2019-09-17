@@ -23,6 +23,18 @@ if (!RNDeviceInfo) {
 const devicesWithNotch = [
   {
     brand: 'Apple',
+    model: 'iPhone 11',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone 11 Pro',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone 11 Pro Max',
+  },
+  {
+    brand: 'Apple',
     model: 'iPhone X',
   },
   {
