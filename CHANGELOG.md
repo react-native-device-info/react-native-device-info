@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## 3.1.2
+
+- fix: fix iOS crash in getModel for unknown modules (https://github.com/react-native-community/react-native-device-info/pull/791) thanks @rbscott!
+
+The above PR also included a refresh/update of the iOS model list and improved getModel caching - a thorough job
+
 ## 3.1.1
 
 - fix: fix react-native-windows v2->v3 migration (https://github.com/react-native-community/react-native-device-info/pull/787) thanks @acoates-ms!
