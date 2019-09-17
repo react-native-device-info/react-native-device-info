@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 3.1.3
+
+- chore: add support for 2019 iPhone models in 'hasNotch' mapping
+
 ## 3.1.2
 
 - fix: fix iOS crash in getModel for unknown modules (https://github.com/react-native-community/react-native-device-info/pull/791) thanks @rbscott!
