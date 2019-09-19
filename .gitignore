@@ -61,3 +61,6 @@ example.xcworkspace
 
 # Our RN59 example
 examplern59
+
+# generated files by bob
+lib/
