@@ -839,11 +839,19 @@ export function getVersionSync() {
 }
 
 export async function getReadableVersion() {
-  return (await RNDeviceInfo.getAppVersion()) + '.' + (await RNDeviceInfo.getBuildNumber());
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+    return (await RNDeviceInfo.getAppVersion()) + '.' + (await RNDeviceInfo.getBuildNumber());
+  } else {
+    return 'unknown';
+  }
 }
 
 export function getReadableVersionSync() {
-  return RNDeviceInfo.getAppVersionSync() + '.' + RNDeviceInfo.getBuildNumberSync();
+  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+    return RNDeviceInfo.getAppVersionSync() + '.' + RNDeviceInfo.getBuildNumberSync();
+  } else {
+    return 'unknown';
+  }    
 }
 
 let deviceName;
