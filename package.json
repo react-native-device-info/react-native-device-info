@@ -2,10 +2,10 @@
   "name": "react-native-device-info",
   "version": "4.0.0",
   "description": "Get device information using react-native",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/src/index.d.ts",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
-  "react-native": "src/index.js",
-  "types": "lib/typescript/src/index.d.ts",
   "files": [
     "/android",
     "!/android/build",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "analyze": "npx tsc --noEmit",
-    "dev-sync": "cp -r deviceinfo* *podspec windows web android ios src example/node_modules/react-native-device-info/",
+    "dev-sync": "yarn build && cp -r *podspec lib windows web android ios src example/node_modules/react-native-device-info/",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
     "shipit": "np",
     "test": "echo no tests defined",

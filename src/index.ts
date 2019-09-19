@@ -1,8 +1,8 @@
 import { Platform, Dimensions } from 'react-native';
 import RNDeviceInfo from './internal/nativeInterface';
 
-import devicesWithNotch from './internal/devicesWithNotch.js';
-import deviceNamesByCode from './internal/deviceNamesByCode.js';
+import devicesWithNotch from './internal/devicesWithNotch';
+import deviceNamesByCode from './internal/deviceNamesByCode';
 import { DeviceType } from './internal/types';
 
 const OS = Platform.OS;
