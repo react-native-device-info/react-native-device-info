@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 3.1.4
+
+- fix: chain getReadableVersion APIs to JS vs native, protects web from native calls (Fixes #796)
+
 ## 3.1.3
 
 - chore: add support for 2019 iPhone models in 'hasNotch' mapping

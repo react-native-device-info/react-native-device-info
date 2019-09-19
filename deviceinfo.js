@@ -839,11 +839,11 @@ export function getVersionSync() {
 }
 
 export async function getReadableVersion() {
-  return (await RNDeviceInfo.getAppVersion()) + '.' + (await RNDeviceInfo.getBuildNumber());
+  return (await getVersion()) + '.' + (await getBuildNumber());
 }
 
 export function getReadableVersionSync() {
-  return RNDeviceInfo.getAppVersionSync() + '.' + RNDeviceInfo.getBuildNumberSync();
+  return getVersionSync() + '.' + getBuildNumberSync();
 }
 
 let deviceName;
