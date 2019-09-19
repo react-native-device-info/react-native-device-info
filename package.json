@@ -2,25 +2,36 @@
   "name": "react-native-device-info",
   "version": "3.1.4",
   "description": "Get device information using react-native",
-  "main": "deviceinfo.js",
-  "typings": "./deviceinfo.d.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "files": [
+    "/android",
+    "!/android/build",
+    "/ios",
+    "/windows",
+    "/web",
+    "src/",
+    "lib/",
+    "/*.podspec"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/react-native-community/react-native-device-info"
   },
   "scripts": {
-    "analyze": "yarn ts-check && yarn flow-check",
-    "dev-sync": "cp -r deviceinfo* *podspec windows web android ios example/node_modules/react-native-device-info/",
-    "flow-check": "npx flow check-contents < deviceinfo.js.flow",
+    "analyze": "npx tsc --noEmit",
+    "dev-sync": "cp -r deviceinfo* *podspec windows web android ios src example/node_modules/react-native-device-info/",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
-    "pretty": "prettier --write deviceinfo.js",
     "shipit": "np",
-    "ts-check": "npx tsc deviceinfo.d.ts --noEmit",
     "test": "echo no tests defined",
-    "precommit": "lint-staged && yarn analyze"
+    "precommit": "lint-staged && yarn analyze",
+    "build": "bob build",
+    "prepare": "yarn build"
   },
   "lint-staged": {
-    "*.js": [
+    "*.ts": [
       "yarn lint",
       "git add"
     ]
@@ -55,10 +66,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@react-native-community/bob": "^0.7.0",
     "@react-native-community/eslint-config": "0.0.5",
+    "@types/react": "^16.9.2",
+    "@types/react-native": "^0.60.14",
     "eslint": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "flow-bin": "^0.107.0",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.1",
     "np": "^5.1.0",
@@ -69,5 +82,14 @@
   },
   "eslintConfig": {
     "extends": "@react-native-community"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }
