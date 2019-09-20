@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeUnknown
 };
 
-#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Unknown", nil]
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"unknown", nil]
 
 #if !(TARGET_OS_TV)
 @import CoreTelephony;

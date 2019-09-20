@@ -4,7 +4,7 @@ public enum DeviceType {
     HANDSET ("Handset"),
     TABLET ("Tablet"),
     TV ("Tv"),
-    UNKNOWN ("Unknown");
+    UNKNOWN ("unknown");
 
     private final String value;
 

@@ -2,6 +2,11 @@
 
 # Release Notes
 
+## 4.0.1
+
+- BREAKING CHANGE: DeviceType: Renamed `Unknown` to `unknown` for consistency across the project
+- JavaScript replaced with TypeScript
+
 ## 3.1.4
 
 - fix: chain getReadableVersion APIs to JS vs native, protects web from native calls (Fixes #796)
