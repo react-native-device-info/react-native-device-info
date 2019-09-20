@@ -5167,7 +5167,7 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
 
 "react-native-device-info@github:react-native-community/react-native-device-info":
   version "4.0.0"
-  resolved "https://codeload.github.com/react-native-community/react-native-device-info/tar.gz/cfb779d60ef14c92f10d48af58584e041c86a068"
+  resolved "https://codeload.github.com/react-native-community/react-native-device-info/tar.gz/f449ae7e395a8071f4da982af2200eb846a01af8"
 
 react-native@0.60.5:
   version "0.60.5"
