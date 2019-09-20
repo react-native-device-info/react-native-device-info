@@ -1089,9 +1089,9 @@ DeviceInfo.getTotalMemory().then(totalMemory => {
 ### getUniqueId()
 
 Gets the device unique ID.
-On Android it is currently identical to getAndroidId() in this module
-On iOS it uses the DeviceUID uid identifier
-On Windows it uses Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.id
+On Android it is currently identical to `getAndroidId()` in this module.
+On iOS it uses the `DeviceUID` uid identifier.
+On Windows it uses `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.id`.
 
 #### Examples
 
