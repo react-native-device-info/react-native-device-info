@@ -335,7 +335,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getVersion()](#getversion)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
 | [hasNotch()](#hasNotch)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
-| [isAirPlaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
+| [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
 | [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
 | [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
 | [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
