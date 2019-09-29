@@ -8,30 +8,22 @@ export type NotchDevice = {
 };
 
 export interface DeviceInfoNativeModule {
-  getUniqueId: () => Promise<string>;
-  getUniqueIdSync: () => string;
+  uniqueId: string
+  deviceId: string
+  systemName: string
+  systemVersion: string
+  bundleId: string
+  appName: string
+  buildNumber: string
+  appVersion: string
+  isTablet: boolean;
   getSystemManufacturer: () => Promise<string>;
   getSystemManufacturerSync: () => string;
   getBrand: () => Promise<string>;
   getBrandSync: () => string;
-  getModel: () => Promise<string>;
-  getModelSync: () => string;
-  getDeviceId: () => Promise<string>;
-  getDeviceIdSync: () => string;
-  getSystemName: () => Promise<string>;
-  getSystemNameSync: () => string;
-  getSystemVersion: () => Promise<string>;
-  getSystemVersionSync: () => string;
+  getModel: () => string;
   getBuildId: () => Promise<string>;
   getBuildIdSync: () => string;
-  getBundleId: () => Promise<string>;
-  getBundleIdSync: () => string;
-  getAppName: () => Promise<string>;
-  getAppNameSync: () => string;
-  getBuildNumber: () => Promise<string>;
-  getBuildNumberSync: () => string;
-  getAppVersion: () => Promise<string>;
-  getAppVersionSync: () => string;
   getReadableVersion: () => Promise<string>;
   getReadableVersionSync: () => string;
   getDeviceName: () => Promise<string>;
@@ -46,8 +38,6 @@ export interface DeviceInfoNativeModule {
   getInstallReferrerSync: () => string;
   isEmulator: () => Promise<boolean>;
   isEmulatorSync: () => boolean;
-  isTablet: () => Promise<boolean>;
-  isTabletSync: () => boolean;
   getFontScale: () => Promise<number>;
   getFontScaleSync: () => number;
   getBootloader: () => Promise<string>;

@@ -54,6 +54,20 @@ RCT_EXPORT_MODULE();
     return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange"];
 }
 
+- (NSDictionary *)constantsToExport {
+    return @{
+         @"uniqueId": [self getUniqueId],
+         @"deviceId": [self getDeviceId],
+         @"bundleId": [self getBuildId],
+         @"systemName": [self getSystemName],
+         @"systemVersion": [self getSystemVersion],
+         @"appVersion": [self getAppVersion],
+         @"buildNumber": [self getBuildNumber],
+         @"isTablet": [self isTablet],
+         @"appName": [self getAppName],
+     };
+}
+
 - (id)init
 {
     if ((self = [super init])) {
@@ -102,22 +116,10 @@ RCT_EXPORT_MODULE();
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.systemName;
 }
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getSystemNameSync) {
-    return self.getSystemName;
-}
-RCT_EXPORT_METHOD(getSystemName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getSystemName);
-}
 
 - (NSString *) getSystemVersion {
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.systemVersion;
-}
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getSystemVersionSync) {
-    return self.getSystemVersion;
-}
-RCT_EXPORT_METHOD(getSystemVersion:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getSystemVersion);
 }
 
 - (NSString *) getDeviceName {
@@ -134,41 +136,17 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 - (NSString *) getAppName {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 }
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getAppNameSync) {
-    return self.getAppName;
-}
-RCT_EXPORT_METHOD(getAppName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getAppName);
-}
 
 - (NSString *) getBundleId {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
-}
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBundleIdSync) {
-    return self.getBundleId;
-}
-RCT_EXPORT_METHOD(getBundleId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getBundleId);
 }
 
 - (NSString *) getAppVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getAppVersionSync) {
-    return self.getAppVersion;
-}
-RCT_EXPORT_METHOD(getAppVersion:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getAppVersion);
-}
 
 - (NSString *) getBuildNumber {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-}
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBuildNumberSync) {
-    return self.getBuildNumber;
-}
-RCT_EXPORT_METHOD(getBuildNumber:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getBuildNumber);
 }
 
 - (NSString *) getCarrier {
@@ -214,12 +192,6 @@ RCT_EXPORT_METHOD(getBuildId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
 - (NSString *) getUniqueId {
     return [DeviceUID uid];
 }
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUniqueIdSync) {
-    return self.getUniqueId;
-}
-RCT_EXPORT_METHOD(getUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getUniqueId);
-}
 
 - (NSString *) getDeviceId {
     struct utsname systemInfo;
@@ -231,12 +203,7 @@ RCT_EXPORT_METHOD(getUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     }
     return deviceId;
 }
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceIdSync) {
-    return self.getDeviceId;
-}
-RCT_EXPORT_METHOD(getDeviceId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getDeviceId);
-}
+
 
 - (BOOL) isEmulator {
     struct utsname systemInfo;
@@ -263,12 +230,6 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     } else {
         return NO;
     }
-}
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isTabletSync) {
-    return @(self.isTablet);
-}
-RCT_EXPORT_METHOD(isTablet:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(@(self.isTablet));
 }
 
 - (float) getFontScale {
