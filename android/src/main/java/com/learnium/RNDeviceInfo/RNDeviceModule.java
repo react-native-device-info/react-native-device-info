@@ -31,8 +31,6 @@ import android.util.DisplayMetrics;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
-import androidx.annotation.Nullable;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -55,6 +53,7 @@ import java.net.NetworkInterface;
 import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
 import static android.os.BatteryManager.BATTERY_STATUS_FULL;
