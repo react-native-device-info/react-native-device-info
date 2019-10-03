@@ -383,18 +383,13 @@ RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCT
         while(temp_addr != NULL) {
             if(temp_addr->ifa_addr->sa_family == AF_INET) {
                 NSString* ifname = [NSString stringWithUTF8String:temp_addr->ifa_name];
-                #if TARGET_OS_TV
                     if(
-                        // Check if interface is en0 which is the ethernet connection on the Apple TV
+                        // Check if interface is en0 which is the wifi connection the iPhone
+                        // and the ethernet connection on the Apple TV
                         [ifname isEqualToString:@"en0"] ||
                         // Check if interface is en1 which is the wifi connection on the Apple TV
                         [ifname isEqualToString:@"en1"]
-                    )
-                #else
-                    // Check if interface is en0 which is the wifi connection on the iPhone
-                    if([ifname isEqualToString:@"en0"])
-                #endif
-                    {
+                    ) {
                         // Get NSString from C String
                         address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
                     }
