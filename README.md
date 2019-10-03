@@ -41,7 +41,7 @@ yarn add react-native-device-info
 
 ## AndroidX Support
 
-AndroidX is supported in a non-breaking / backwards-compatible way by using overrides in your `android/build.gradle` file's "ext" block
+This module defaults to AndroidX you should configure your library versions similar to this in your `android/build.gradle` file's "ext" block
 
 <details>
     <summary>Android</summary>
@@ -61,6 +61,9 @@ AndroidX is supported in a non-breaking / backwards-compatible way by using over
 ```
 
 </details>
+
+If you need non-AndroidX you will need to use the jetifier package in reverse mode, documentation available with that package.
+
 
 ## Linking (for React Native <= 0.59 only, React Native >= 0.60 skip this as auto-linking should work)
 
