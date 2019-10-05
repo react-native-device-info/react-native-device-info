@@ -176,27 +176,8 @@ export function getManufacturerSync() {
 let model: string;
 export function getModel() {
   if (!model) {
-    if (OS === 'ios') {
-      let deviceName;
-      let _deviceId = RNDeviceInfo.deviceId;
-      if (_deviceId) {
-        deviceName = deviceNamesByCode[_deviceId];
-        if (!deviceName) {
-          // Not found on database. At least guess main device type from string contents:
-          if (_deviceId.startsWith('iPod')) {
-            deviceName = 'iPod Touch';
-          } else if (_deviceId.startsWith('iPad')) {
-            deviceName = 'iPad';
-          } else if (_deviceId.startsWith('iPhone')) {
-            deviceName = 'iPhone';
-          } else if (_deviceId.startsWith('AppleTV')) {
-            deviceName = 'Apple TV';
-          }
-        }
-      }
-      model = deviceName || 'unknown';
-    } else if (OS === 'android' || OS === 'windows') {
-      model = RNDeviceInfo.model // <- TODO: Add on android
+    if (OS === 'ios' || OS === 'android' || OS === 'windows') {
+      model = RNDeviceInfo.model;
     } else {
       model = 'unknown';
     }
@@ -207,23 +188,8 @@ export function getModel() {
 let brand: string;
 export function getBrand() {
   if (!brand) {
-    if (OS === 'android' || OS === 'windows') {
-      brand = RNDeviceInfo.brand; // <-- TODO: Add on android
-    } else if (OS === 'ios') {
-      brand = 'Apple';
-    } else {
-      brand = 'unknown';
-    }
-  }
-  return brand;
-}
-
-export function getBrandSync() {
-  if (!brand) {
-    if (OS === 'android' || OS === 'windows') {
-      return RNDeviceInfo.getBrandSync();
-    } else if (OS === 'ios') {
-      return 'Apple';
+    if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+      brand = RNDeviceInfo.brand;
     } else {
       brand = 'unknown';
     }
@@ -802,21 +768,6 @@ export function hasNotch() {
   return notch;
 }
 
-export function hasNotchSync() {
-  if (!notch) {
-    let _brand = getBrandSync();
-    let _model = getModel();
-
-    notch =
-      devicesWithNotch.findIndex(
-        item =>
-          item.brand.toLowerCase() === _brand.toLowerCase() &&
-          item.model.toLowerCase() === _model.toLowerCase()
-      ) !== -1;
-  }
-  return notch;
-}
-
 let firstInstallTime: number;
 export async function getFirstInstallTime() {
   if (!firstInstallTime) {
@@ -1220,7 +1171,6 @@ export default {
   getManufacturerSync,
   getModel,
   getBrand,
-  getBrandSync,
   getSystemName,
   getSystemVersion,
   getBuildId,
@@ -1274,7 +1224,6 @@ export default {
   isPinOrFingerprintSet,
   isPinOrFingerprintSetSync,
   hasNotch,
-  hasNotchSync,
   getFirstInstallTime,
   getFirstInstallTimeSync,
   getInstallReferrer,
