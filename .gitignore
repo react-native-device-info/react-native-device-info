@@ -64,3 +64,7 @@ examplern59
 
 # generated files by bob
 lib/
+
+# Visual Studio build artifacts
+windows/RNDeviceInfo/.vs/*
+windows/RNDeviceInfo/obj/*
