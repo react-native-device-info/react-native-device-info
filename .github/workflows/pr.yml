@@ -1,0 +1,23 @@
+name: PR
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  Windows:
+    name: Windows
+    runs-on: windows-2016
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn build
+
+      - name: Setup MSBuild.exe
+        uses: warrenbuckley/Setup-MSBuild@v1
+
+      - name: Build RNDeviceInfo.sln
+        run: msbuild windows\RNDeviceInfo\RNDeviceInfo.sln /nologo /nr:false /p:PreferredToolArchitecture=x64 /p:platform="x86" /p:configuration="Debug"
