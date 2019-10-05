@@ -17,10 +17,11 @@ export interface DeviceInfoNativeModule {
   buildNumber: string
   appVersion: string
   isTablet: boolean;
+  brand: string
+  model: string
   getSystemManufacturer: () => Promise<string>;
   getSystemManufacturerSync: () => string;
-  getBrand: () => Promise<string>;
-  getBrandSync: () => string;
+  getBrand: () => string;
   getModel: () => string;
   getBuildId: () => Promise<string>;
   getBuildIdSync: () => string;
@@ -70,8 +71,7 @@ export interface DeviceInfoNativeModule {
   getIncrementalSync: () => string;
   isPinOrFingerprintSet: () => Promise<boolean>;
   isPinOrFingerprintSetSync: () => boolean;
-  hasNotch: () => Promise<boolean>;
-  hasNotchSync: () => boolean;
+  hasNotch: () => boolean;
   getFirstInstallTime: () => Promise<number>;
   getFirstInstallTimeSync: () => number;
   getLastUpdateTime: () => Promise<number>;
