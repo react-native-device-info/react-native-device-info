@@ -9,6 +9,7 @@ using Windows.Security.Credentials.UI;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace RNDeviceInfo
 {
@@ -24,6 +25,26 @@ namespace RNDeviceInfo
             get
             {
                 return "RNDeviceInfo";
+            }
+        }
+
+        public override JObject ModuleConstants
+        {
+            get
+            {
+                return new JObject
+                {
+                    { "uniqueId", getUniqueIdSync() },
+                    { "deviceId", getDeviceIdSync() },
+                    { "bundleId", getBundleIdSync() },
+                    { "systemVersion", getSystemVersionSync() },
+                    { "appVersion", getAppVersionSync() },
+                    { "buildNumber", getBuildNumberSync() },
+                    { "isTablet", isTabletSync() },
+                    { "appName", getAppNameSync() },
+                    { "brand", getBrandSync() },
+                    { "model", getModelSync() },
+                };
             }
         }
 
