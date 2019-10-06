@@ -44,7 +44,7 @@ export default class App extends Component {
     deviceJSON.manufacturer = getManufacturerSync();
     deviceJSON.buildId = DeviceInfo.getBuildIdSync();
     deviceJSON.isCameraPresent = DeviceInfo.isCameraPresentSync();
-    deviceJSON.version = DeviceInfo.getVersion();
+    deviceJSON.version = DeviceInfo.getVersionSync();
     deviceJSON.readableVersion = DeviceInfo.getReadableVersionSync();
     deviceJSON.deviceName = DeviceInfo.getDeviceNameSync();
     deviceJSON.usedMemory = DeviceInfo.getUsedMemorySync();
