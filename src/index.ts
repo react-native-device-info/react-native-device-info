@@ -632,6 +632,13 @@ export async function isAirplaneMode() {
   return Promise.resolve(false);
 }
 
+export function isAirplaneModeSync() {
+  if (OS === 'android') {
+    return RNDeviceInfo.isAirplaneModeSync();
+  }
+  return false;
+}
+
 let deviceType: DeviceType;
 export async function getDeviceType() {
   if (!deviceType) {
@@ -766,11 +773,8 @@ export default {
   isBatteryCharging,
   isLandscape,
   isAirplaneMode,
-<<<<<<< HEAD
-=======
   isAirplaneModeSync,
   isTablet,
->>>>>>> Adds isTablet
   getDeviceType,
   supportedAbis,
   supported32BitAbis,
