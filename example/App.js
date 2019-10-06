@@ -44,7 +44,7 @@ export default class App extends Component {
     deviceJSON.systemVersion = DeviceInfo.getSystemVersionSync();
     deviceJSON.buildId = DeviceInfo.getBuildIdSync();
     deviceJSON.bundleId = DeviceInfo.getBundleIdSync();
-    deviceJSON.isCameraPresent = DeviceInfo.getCameraPresenceSync();
+    deviceJSON.isCameraPresent = DeviceInfo.isCameraPresentSync();
     deviceJSON.buildNumber = DeviceInfo.getBuildNumberSync();
     deviceJSON.version = DeviceInfo.getVersionSync();
     deviceJSON.readableVersion = DeviceInfo.getReadableVersionSync();
@@ -76,7 +76,9 @@ export default class App extends Component {
     deviceJSON.deviceType = DeviceInfo.getDeviceTypeSync();
     deviceJSON.isPinOrFingerprintSet = DeviceInfo.isPinOrFingerprintSetSync();
     deviceJSON.supportedAbis = DeviceInfo.supportedAbisSync();
-    deviceJSON.hasSystemFeature = DeviceInfo.hasSystemFeatureSync('android.software.webview');
+    deviceJSON.hasSystemFeature = DeviceInfo.hasSystemFeatureSync(
+      'android.software.webview',
+    );
     deviceJSON.getSystemAvailableFeatures = DeviceInfo.getSystemAvailableFeaturesSync();
     deviceJSON.powerState = DeviceInfo.getPowerStateSync();
     deviceJSON.isLocationEnabled = DeviceInfo.isLocationEnabledSync();
@@ -115,7 +117,7 @@ export default class App extends Component {
       deviceJSON.systemVersion = await DeviceInfo.getSystemVersion();
       deviceJSON.buildId = await DeviceInfo.getBuildId();
       deviceJSON.bundleId = await DeviceInfo.getBundleId();
-      deviceJSON.isCameraPresent = await DeviceInfo.getCameraPresence();
+      deviceJSON.isCameraPresent = await DeviceInfo.isCameraPresent();
       deviceJSON.buildNumber = await DeviceInfo.getBuildNumber();
       deviceJSON.version = await DeviceInfo.getVersion();
       deviceJSON.readableVersion = await DeviceInfo.getReadableVersion();
@@ -148,7 +150,9 @@ export default class App extends Component {
       deviceJSON.deviceType = await DeviceInfo.getDeviceType();
       deviceJSON.isPinOrFingerprintSet = await DeviceInfo.isPinOrFingerprintSet();
       deviceJSON.supportedAbis = await DeviceInfo.supportedAbis();
-      deviceJSON.hasSystemFeature = await DeviceInfo.hasSystemFeature('android.software.webview');
+      deviceJSON.hasSystemFeature = await DeviceInfo.hasSystemFeature(
+        'android.software.webview',
+      );
       deviceJSON.getSystemAvailableFeatures = await DeviceInfo.getSystemAvailableFeatures();
       deviceJSON.powerState = await DeviceInfo.getPowerState();
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
@@ -182,13 +186,17 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.welcome}>react-native-device-info example - sync info:</Text>
+        <Text style={styles.welcome}>
+          react-native-device-info example - sync info:
+        </Text>
         <ScrollView>
           <Text style={styles.instructions}>
             {JSON.stringify(this.state.syncdeviceinfo, null, '\t')}
           </Text>
         </ScrollView>
-        <Text style={styles.welcome}>react-native-device-info example - async info:</Text>
+        <Text style={styles.welcome}>
+          react-native-device-info example - async info:
+        </Text>
         <ScrollView>
           <Text style={styles.instructions}>
             {JSON.stringify(this.state.deviceinfo, null, '\t')}

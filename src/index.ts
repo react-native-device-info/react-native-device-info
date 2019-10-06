@@ -113,16 +113,16 @@ export function getIpAddressSync() {
   return 'unknown';
 }
 
-export async function getCameraPresence() {
+export async function isCameraPresent() {
   if (OS === 'android' || OS === 'windows') {
-    return RNDeviceInfo.getCameraPresence();
+    return RNDeviceInfo.isCameraPresent();
   }
   return false;
 }
 
-export function getCameraPresenceSync() {
+export function isCameraPresentSync() {
   if (OS === 'android' || OS === 'windows') {
-    return RNDeviceInfo.getCameraPresenceSync();
+    return RNDeviceInfo.isCameraPresentSync();
   }
   return false;
 }
@@ -1357,8 +1357,8 @@ export default {
   getAndroidIdSync,
   getIpAddress,
   getIpAddressSync,
-  getCameraPresence,
-  getCameraPresenceSync,
+  isCameraPresent,
+  isCameraPresentSync,
   getMacAddress,
   getMacAddressSync,
   getDeviceId,

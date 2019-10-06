@@ -92,22 +92,22 @@ namespace RNDeviceInfo
             promise.Resolve(getIpAddressSync());
         }
 
-        private async Task<bool> getCameraPresenceTask()
+        private async Task<bool> isCameraPresentTask()
         {
             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
             return devices.Count > 0;
         }
 
         [ReactMethod(IsBlockingSynchronousMethod = true)]
-        public bool getCameraPresenceSync()
+        public bool isCameraPresentSync()
         {
-            return getCameraPresenceTask().Result;
+            return isCameraPresentTask().Result;
         }
 
         [ReactMethod]
-        public async void getCameraPresence(IPromise promise)
+        public async void isCameraPresent(IPromise promise)
         {
-            promise.Resolve(await getCameraPresenceTask());
+            promise.Resolve(await isCameraPresentTask());
         }
 
         [ReactMethod(IsBlockingSynchronousMethod = true)]

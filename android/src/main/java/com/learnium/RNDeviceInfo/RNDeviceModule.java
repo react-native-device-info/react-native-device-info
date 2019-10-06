@@ -278,7 +278,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @SuppressWarnings("deprecation")
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public boolean getCameraPresenceSync() {
+  public boolean isCameraPresentSync() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       CameraManager manager=(CameraManager)getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
       try {
@@ -291,7 +291,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
   }
   @ReactMethod
-  public void getCameraPresence(Promise p) { p.resolve(getCameraPresenceSync()); }
+  public void isCameraPresent(Promise p) { p.resolve(isCameraPresentSync()); }
 
   @SuppressLint("HardwareIds")
   @ReactMethod(isBlockingSynchronousMethod = true)

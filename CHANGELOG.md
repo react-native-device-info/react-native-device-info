@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 4.0.1-beta.4
+
+- BREAKING CHANGE: rename getCameraPresence to isCameraPresent to match other booleans (#810) @mikehardy
+
 ## 4.0.1-beta.3
 
 - fix: support Wifi IP address on Apple TV (https://github.com/react-native-community/react-native-device-info/pull/825) @gcesarmza

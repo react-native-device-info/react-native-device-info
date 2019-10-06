@@ -285,7 +285,7 @@ import { getUniqueId, getManufacturer } from 'react-native-device-info';
 
 Note that many APIs are platform-specific. If there is no implementation for a platform, then the "default" return values you will receive are 'unknown' for string, '-1' for number, and 'false' for boolean. Arrays and Objects will be empty ('[]' and '{}' respectively).
 
-Every API returns a Promise but also has a corresponding API with 'Sync' on the end that operates synchronously. For example, you may prefer to call 'getCameraPresenceSync()' during your app bootstrap to avoid async calls during the first parts of app startup.
+Every API returns a Promise but also has a corresponding API with 'Sync' on the end that operates synchronously. For example, you may prefer to call 'isCameraPresentSync()' during your app bootstrap to avoid async calls during the first parts of app startup.
 
 | Method                                                            | Return Type         | iOS | Android | Windows |
 | ----------------------------------------------------------------- | ------------------- | :-: | :-----: | :-----: |
@@ -300,7 +300,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getBrand()](#getbrand)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
 | [getBuildNumber()](#getbuildnumber)                               | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
 | [getBundleId()](#getbundleid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
-| [getCameraPresence()](#getcamerapresence)                         | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |
+| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |
 | [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
 | [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
@@ -505,14 +505,14 @@ DeviceInfo.getBundleId().then(bundleId => {
 
 ---
 
-### getCameraPresence()
+### isCameraPresent()
 
 Tells if the device have any camera now.
 
 #### Examples
 
 ```js
-DeviceInfo.getCameraPresence()
+DeviceInfo.isCameraPresent()
   .then(isCameraPresent => {
     // true or false
   })
@@ -524,7 +524,7 @@ DeviceInfo.getCameraPresence()
 #### Notes
 
 > * Hot add/remove of camera is supported.
-> * Returns the status of the physical presence of the camera. If camera present but your app don't have permissions to use it, getCameraPresence will still return the true
+> * Returns the status of the physical presence of the camera. If camera present but your app don't have permissions to use it, isCameraPresent will still return the true
 
 ---
 

@@ -94,8 +94,8 @@ export interface DeviceInfoNativeModule {
   getApiLevelSync: () => number;
   getIpAddress: () => Promise<string>;
   getIpAddressSync: () => string;
-  getCameraPresence: () => Promise<boolean>;
-  getCameraPresenceSync: () => boolean;
+  isCameraPresent: () => Promise<boolean>;
+  isCameraPresentSync: () => boolean;
   getMacAddress: () => Promise<string>;
   getMacAddressSync: () => string;
   getPhoneNumber: () => Promise<string>;
