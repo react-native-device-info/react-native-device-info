@@ -50,7 +50,7 @@ This module defaults to AndroidX you should configure your library versions simi
 ...
   ext {
     // dependency versions
-    googlePlayServicesVersion = "17.0.0" // default: "16.1.0" - pre-AndroidX, override for AndroidX
+    googlePlayServicesIidVersion = "17.0.0" // default: "17.0.0" - AndroidX, use "16.0.1" for pre-AndroidX
     compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
     targetSdkVersion = "28" // default: 28 (28 is required for AndroidX)
     supportLibVersion = '1.0.2' // Use '28.0.0' or don't specify for old libraries, '1.0.2' or similar for AndroidX

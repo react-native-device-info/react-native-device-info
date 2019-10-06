@@ -2,10 +2,20 @@
 
 # Release Notes
 
-## 4.0.1
+## 4.0.1-beta.2
 
-- BREAKING CHANGE: DeviceType: Renamed `Unknown` to `unknown` for consistency across the project
-- JavaScript replaced with TypeScript
+- fix: android use googlePlayServicesIidVersion if available (https://github.com/react-native-community/react-native-device-info/pull/804 / Fixes #802) @mikehardy
+
+## 4.0.1-beta.1
+
+- BREAKING CHANGE: DeviceType: Renamed `Unknown` to `unknown` for consistency across the project (@johan-dutoit)
+- fix: typescript conversion mopup (@johan-dutoit)
+
+## 4.0.0 (released / revoked on npm)
+
+This was almost working but had some issues so was revoked on npmjs.com
+
+- Conversion to typescript (https://github.com/react-native-community/react-native-device-info/pull/799) thanks @johan-dutoit!
 
 ## 3.1.4
 

@@ -45,5 +45,6 @@ repositories {
 
 dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    implementation "com.google.android.gms:play-services-iid:${safeExtGet('googlePlayServicesVersion', '17.0.0')}"
+    def iidVersion = safeExtGet('googlePlayServicesIidVersion', safeExtGet('googlePlayServicesVersion', '17.0.0'))
+    implementation "com.google.android.gms:play-services-iid:$iidVersion"
 }
