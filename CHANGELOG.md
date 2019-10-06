@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 4.0.1-beta.3
+
+- fix: support Wifi IP address on Apple TV (https://github.com/react-native-community/react-native-device-info/pull/825) @gcesarmza
+
 ## 4.0.1-beta.2
 
 - fix: android use googlePlayServicesIidVersion if available (https://github.com/react-native-community/react-native-device-info/pull/804 / Fixes #802) @mikehardy
