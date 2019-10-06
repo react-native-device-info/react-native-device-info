@@ -31,7 +31,7 @@ yarn add github:react-native-community/react-native-device-info
 npx react-native link react-native-device-info
 
 # Patch the build.gradle directly to slice in our android play version
-sed -i -e 's/ext {$/ext {        googlePlayServicesVersion = "16.1.0"/' android/build.gradle
+sed -i -e 's/ext {$/ext {        googlePlayServicesIidVersion = "16.0.1"/' android/build.gradle
 sed -i -e 's/ext {$/ext {        minSdkVersion = 16/' android/build.gradle
 rm -f android/build.gradle??
 
