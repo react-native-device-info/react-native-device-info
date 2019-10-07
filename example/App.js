@@ -10,52 +10,49 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {
-  getUniqueId,
-  getUniqueIdSync,
-  getManufacturer,
-  getManufacturerSync,
-  getBrand,
-  getBrandSync,
-  getModel,
-  getModelSync,
-  getDeviceId,
-  getDeviceIdSync,
-} from 'react-native-device-info';
+import {getManufacturer, getManufacturerSync} from 'react-native-device-info';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deviceinfo: {},
+      constantdeviceinfo: this.getConstantDeviceInfo(),
+      asyncdeviceinfo: {},
       syncdeviceinfo: this.getSyncDeviceInfo(),
     };
+  }
+
+  getConstantDeviceInfo() {
+    let deviceJSON = {};
+
+    deviceJSON.uniqueId = DeviceInfo.getUniqueId();
+    deviceJSON.brand = DeviceInfo.getBrand();
+    deviceJSON.model = DeviceInfo.getModel();
+    deviceJSON.deviceId = DeviceInfo.getDeviceId();
+    deviceJSON.systemName = DeviceInfo.getSystemName();
+    deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
+    deviceJSON.bundleId = DeviceInfo.getBundleId();
+    deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
+    // deviceJSON.isTablet = DeviceInfo.isTablet();
+
+    return deviceJSON;
   }
 
   getSyncDeviceInfo() {
     let deviceJSON = {};
 
-    deviceJSON.uniqueId = getUniqueIdSync();
     deviceJSON.manufacturer = getManufacturerSync();
-    deviceJSON.brand = getBrandSync();
-    deviceJSON.model = getModelSync();
-    deviceJSON.deviceId = getDeviceIdSync();
-    deviceJSON.systemName = DeviceInfo.getSystemNameSync();
-    deviceJSON.systemVersion = DeviceInfo.getSystemVersionSync();
     deviceJSON.buildId = DeviceInfo.getBuildIdSync();
-    deviceJSON.bundleId = DeviceInfo.getBundleIdSync();
     deviceJSON.isCameraPresent = DeviceInfo.isCameraPresentSync();
-    deviceJSON.buildNumber = DeviceInfo.getBuildNumberSync();
-    deviceJSON.version = DeviceInfo.getVersionSync();
+    deviceJSON.version = DeviceInfo.getVersion();
     deviceJSON.readableVersion = DeviceInfo.getReadableVersionSync();
     deviceJSON.deviceName = DeviceInfo.getDeviceNameSync();
     deviceJSON.usedMemory = DeviceInfo.getUsedMemorySync();
     deviceJSON.instanceId = DeviceInfo.getInstanceIdSync();
     deviceJSON.installReferrer = DeviceInfo.getInstallReferrerSync();
     deviceJSON.isEmulator = DeviceInfo.isEmulatorSync();
-    deviceJSON.isTablet = DeviceInfo.isTabletSync();
     deviceJSON.fontScale = DeviceInfo.getFontScaleSync();
-    deviceJSON.hasNotch = DeviceInfo.hasNotchSync();
+    deviceJSON.hasNotch = DeviceInfo.hasNotch();
     deviceJSON.firstInstallTime = DeviceInfo.getFirstInstallTimeSync();
     deviceJSON.lastUpdateTime = DeviceInfo.getLastUpdateTimeSync();
     deviceJSON.serialNumber = DeviceInfo.getSerialNumberSync();
@@ -100,7 +97,6 @@ export default class App extends Component {
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
 
-    console.log('loaded info sync');
     return deviceJSON;
   }
 
@@ -108,17 +104,9 @@ export default class App extends Component {
     let deviceJSON = {};
 
     try {
-      deviceJSON.uniqueId = await getUniqueId();
       deviceJSON.manufacturer = await getManufacturer();
-      deviceJSON.brand = await getBrand();
-      deviceJSON.model = await getModel();
-      deviceJSON.deviceId = await getDeviceId();
-      deviceJSON.systemName = await DeviceInfo.getSystemName();
-      deviceJSON.systemVersion = await DeviceInfo.getSystemVersion();
       deviceJSON.buildId = await DeviceInfo.getBuildId();
-      deviceJSON.bundleId = await DeviceInfo.getBundleId();
       deviceJSON.isCameraPresent = await DeviceInfo.isCameraPresent();
-      deviceJSON.buildNumber = await DeviceInfo.getBuildNumber();
       deviceJSON.version = await DeviceInfo.getVersion();
       deviceJSON.readableVersion = await DeviceInfo.getReadableVersion();
       deviceJSON.deviceName = await DeviceInfo.getDeviceName();
@@ -127,7 +115,6 @@ export default class App extends Component {
       deviceJSON.instanceId = await DeviceInfo.getInstanceId();
       deviceJSON.installReferrer = await DeviceInfo.getInstallReferrer();
       deviceJSON.isEmulator = await DeviceInfo.isEmulator();
-      deviceJSON.isTablet = await DeviceInfo.isTablet();
       deviceJSON.fontScale = await DeviceInfo.getFontScale();
       deviceJSON.hasNotch = await DeviceInfo.hasNotch();
       deviceJSON.firstInstallTime = await DeviceInfo.getFirstInstallTime();
@@ -176,19 +163,21 @@ export default class App extends Component {
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }
-    console.log('loaded info');
     // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({deviceinfo: deviceJSON});
+    this.setState({asyncdeviceinfo: deviceJSON});
     this.forceUpdate();
-    console.log(this.state.deviceinfo);
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.welcome}>
-          react-native-device-info example - sync info:
-        </Text>
+        <Text style={styles.welcome}>react-native-device-info example - constant info:</Text>
+        <ScrollView>
+          <Text style={styles.instructions}>
+            {JSON.stringify(this.state.constantdeviceinfo, null, '\t')}
+          </Text>
+        </ScrollView>
+        <Text style={styles.welcome}>react-native-device-info example - sync info:</Text>
         <ScrollView>
           <Text style={styles.instructions}>
             {JSON.stringify(this.state.syncdeviceinfo, null, '\t')}
@@ -199,7 +188,7 @@ export default class App extends Component {
         </Text>
         <ScrollView>
           <Text style={styles.instructions}>
-            {JSON.stringify(this.state.deviceinfo, null, '\t')}
+            {JSON.stringify(this.state.asyncdeviceinfo, null, '\t')}
           </Text>
         </ScrollView>
       </SafeAreaView>
