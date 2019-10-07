@@ -49,10 +49,12 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
 import java.math.BigInteger;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -135,6 +137,37 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return null;
   }
 
+  @Override
+  public Map<String, Object> getConstants() {
+    String appVersion, buildNumber, appName;
+
+    try {
+      appVersion = getPackageInfo().versionName;
+      buildNumber = Integer.toString(getPackageInfo().versionCode);
+      appName = getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
+    } catch (Exception e) {
+      appVersion = "unknown";
+      buildNumber = "unknown";
+      appName = "unknown";
+    }
+
+    final Map<String, Object> constants = new HashMap<>();
+
+    constants.put("uniqueId", getUniqueIdSync());
+    constants.put("deviceId", Build.BOARD);
+    constants.put("bundleId", getReactApplicationContext().getPackageName());
+    constants.put("systemName", "Android");
+    constants.put("systemVersion", Build.VERSION.RELEASE);
+    constants.put("appVersion", appVersion);
+    constants.put("buildNumber", buildNumber);
+    constants.put("isTablet", getDeviceType() == DeviceType.TABLET);
+    constants.put("appName", appName);
+    constants.put("brand", Build.BRAND);
+    constants.put("model", Build.MODEL);
+
+    return constants;
+  }
+
   @ReactMethod
   public void isEmulator(Promise p) {
     p.resolve(isEmulatorSync());
@@ -167,11 +200,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
             || Build.SERIAL.toLowerCase().contains("nox")
             || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
   }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public boolean isTabletSync() { return getDeviceType() == DeviceType.TABLET; }
-  @ReactMethod
-  public void isTablet(Promise p) { p.resolve(isTabletSync()); }
 
   private DeviceType getDeviceType() {
     // Detect TVs via ui mode (Android TVs) or system features (Fire TV).
@@ -429,7 +457,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     return powerState.getDouble(BATTERY_LEVEL);
   }
-  
+
   @ReactMethod
   public void getBatteryLevel(Promise p) { p.resolve(getBatteryLevelSync()); }
 
@@ -529,28 +557,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getAppVersionSync() {
-    try {
-      return getPackageInfo().versionName;
-    } catch (Exception e) {
-      return "unknown";
-    }
-  }
-  @ReactMethod
-  public void getAppVersion(Promise p) { p.resolve(getAppVersionSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getBuildNumberSync() {
-    try {
-      return Integer.toString(getPackageInfo().versionCode);
-    } catch (Exception e) {
-      return "unknown";
-    }
-  }
-  @ReactMethod
-  public void getBuildNumber(Promise p) { p.resolve(getBuildNumberSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
   public double getFirstInstallTimeSync() {
     try {
       return (double)getPackageInfo().firstInstallTime;
@@ -571,17 +577,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void getLastUpdateTime(Promise p) { p.resolve(getLastUpdateTimeSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getAppNameSync() {
-    try {
-      return getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
-    } catch (Exception e) {
-      return "unknown";
-    }
-  }
-  @ReactMethod
-  public void getAppName(Promise p) { p.resolve(getAppNameSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getDeviceNameSync() {
@@ -625,21 +620,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getSerialNumber(Promise p) { p.resolve(getSerialNumberSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getSystemVersionSync() { return Build.VERSION.RELEASE; }
-  @ReactMethod
-  public void getSystemVersion(Promise p) { p.resolve(getSystemVersionSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getModelSync() { return Build.MODEL; }
-  @ReactMethod
-  public void getModel(Promise p) { p.resolve(getModelSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getBrandSync() { return Build.BRAND; }
-  @ReactMethod
-  public void getBrand(Promise p) { p.resolve(getBrandSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
   public String getDeviceSync() {  return Build.DEVICE; }
   @ReactMethod
   public void getDevice(Promise p) { p.resolve(getDeviceSync()); }
@@ -648,11 +628,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public String getBuildIdSync() { return Build.ID; }
   @ReactMethod
   public void getBuildId(Promise p) { p.resolve(getBuildIdSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getDeviceIdSync() { return Build.BOARD; }
-  @ReactMethod
-  public void getDeviceId(Promise p) { p.resolve(getDeviceIdSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public int getApiLevelSync() { return Build.VERSION.SDK_INT; }
@@ -705,11 +680,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getSystemManufacturer(Promise p) { p.resolve(getSystemManufacturerSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getBundleIdSync() { return getReactApplicationContext().getPackageName(); }
-  @ReactMethod
-  public void getBundleId(Promise p) { p.resolve(getBundleIdSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
   public String getCodenameSync() { return Build.VERSION.CODENAME; }
   @ReactMethod
   public void getCodename(Promise p) { p.resolve(getCodenameSync()); }
@@ -722,8 +692,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @SuppressLint("HardwareIds")
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getUniqueIdSync() { return getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID); }
-  @ReactMethod
-  public void getUniqueId(Promise p) { p.resolve(getUniqueIdSync()); }
 
   @SuppressLint("HardwareIds")
   @ReactMethod(isBlockingSynchronousMethod = true)
