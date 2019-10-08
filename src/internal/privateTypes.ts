@@ -8,17 +8,17 @@ export type NotchDevice = {
 };
 
 export interface DeviceInfoNativeModule {
-  uniqueId: string
-  deviceId: string
-  systemName: string
-  systemVersion: string
-  bundleId: string
-  appName: string
-  buildNumber: string
-  appVersion: string
+  uniqueId: string;
+  deviceId: string;
+  systemName: string;
+  systemVersion: string;
+  bundleId: string;
+  appName: string;
+  buildNumber: string;
+  appVersion: string;
   isTablet: boolean;
-  brand: string
-  model: string
+  brand: string;
+  model: string;
   getSystemManufacturer: () => Promise<string>;
   getSystemManufacturerSync: () => string;
   getBrand: () => string;
