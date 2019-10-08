@@ -33,7 +33,7 @@ export default class App extends Component {
     deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
     deviceJSON.bundleId = DeviceInfo.getBundleId();
     deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
-    // deviceJSON.isTablet = DeviceInfo.isTablet();
+    deviceJSON.isTablet = DeviceInfo.isTablet();
 
     return deviceJSON;
   }
