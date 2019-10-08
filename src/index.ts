@@ -9,7 +9,7 @@ let uniqueId: string;
 export function getUniqueId() {
   if (!uniqueId) {
     if (OS === 'android' || OS === 'ios' || OS === 'windows') {
-      uniqueId = RNDeviceInfo.uniqueId
+      uniqueId = RNDeviceInfo.uniqueId;
     } else {
       uniqueId = 'unknown';
     }
@@ -462,6 +462,29 @@ export async function isEmulator() {
   return emulator;
 }
 
+export function isEmulatorSync() {
+  if (!emulator) {
+    if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+      emulator = RNDeviceInfo.isEmulatorSync();
+    } else {
+      emulator = false;
+    }
+  }
+  return emulator;
+}
+
+let tablet: boolean;
+export function isTablet() {
+  if (!tablet) {
+    if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+      tablet = RNDeviceInfo.isTablet;
+    } else {
+      tablet = false;
+    }
+  }
+  return tablet;
+}
+
 export async function isPinOrFingerprintSet() {
   if (OS === 'android' || OS === 'ios' || OS === 'windows') {
     return RNDeviceInfo.isPinOrFingerprintSet();
@@ -743,6 +766,11 @@ export default {
   isBatteryCharging,
   isLandscape,
   isAirplaneMode,
+<<<<<<< HEAD
+=======
+  isAirplaneModeSync,
+  isTablet,
+>>>>>>> Adds isTablet
   getDeviceType,
   supportedAbis,
   supported32BitAbis,
