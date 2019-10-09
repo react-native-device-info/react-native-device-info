@@ -63,7 +63,7 @@ RCT_EXPORT_MODULE();
          @"systemVersion": [self getSystemVersion],
          @"appVersion": [self getAppVersion],
          @"buildNumber": [self getBuildNumber],
-         @"isTablet": [self isTablet],
+         @"isTablet": @NO, //[self isTablet],
          @"appName": [self getAppName],
          @"brand": @"Apple",
          @"model": [self getModel],
@@ -127,6 +127,10 @@ RCT_EXPORT_MODULE();
 - (NSString *) getDeviceName {
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.name;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceNameSync) {
+    return self.getDeviceName;
 }
 
 RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -248,8 +252,8 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"AppleTV3,1": @"Apple TV", // Apple TV (3rd Generation)
         @"AppleTV3,2": @"Apple TV", // Apple TV (3rd Generation - Rev A)
         @"AppleTV5,3": @"Apple TV", // Apple TV (4th Generation)
-        @"AppleTV6,2": @"Apple TV 4K", // Apple TV 4K
-    }
+        @"AppleTV6,2": @"Apple TV 4K" // Apple TV 4K
+    };
 }
 
 - (NSString *) getModel {
@@ -287,6 +291,10 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 #endif
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCarrierSync) {
+    return self.getCarrier;
+}
+
 RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getCarrier);
 }
@@ -308,6 +316,10 @@ RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
 
 RCT_EXPORT_METHOD(getBuildId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getBuildId);
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBuildIdSync) {
+    return self.getBuildId;
 }
 
 - (NSString *) getUniqueId {
@@ -337,6 +349,10 @@ RCT_EXPORT_METHOD(getBuildId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     } else {
         return NO;
     }
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isEmulatorSync) {
+    return @(self.isEmulator);
 }
 
 RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -377,12 +393,20 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     return fontScale;
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFontScaleSync) {
+    return @(self.getFontScale);
+}
+
 RCT_EXPORT_METHOD(getFontScale:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getFontScale));
 }
 
 - (double) getTotalMemory {
     return [NSProcessInfo processInfo].physicalMemory;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTotalMemorySync) {
+    return @(self.getTotalMemory);
 }
 
 RCT_EXPORT_METHOD(getTotalMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -400,6 +424,10 @@ RCT_EXPORT_METHOD(getTotalMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     return (double) totalSpace;
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTotalDiskCapacitySync) {
+    return @(self.getTotalDiskCapacity);
+}
+
 RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getTotalDiskCapacity));
 }
@@ -415,12 +443,20 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     return (double) freeSpace;
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
+    return @(self.getFreeDiskStorage);
+}
+
 RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getFreeDiskStorage));
 }
 
 - (NSString *) getDeviceTypeName {
     return [DeviceTypeValues objectAtIndex: [self getDeviceType]];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceTypeSync) {
+    return self.getDeviceTypeName;
 }
 
 RCT_EXPORT_METHOD(getDeviceType:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -432,6 +468,10 @@ RCT_EXPORT_METHOD(getDeviceType:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     const NXArchInfo *info = NXGetLocalArchInfo();
     NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
     return @[typeOfCpu];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getSupportedAbisSync) {
+    return self.getSupportedAbis;
 }
 
 RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -470,6 +510,10 @@ RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCT
     return address;
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getIpAddressSync) {
+    return self.getIpAddress;
+}
+
 RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getIpAddress);
 }
@@ -481,6 +525,10 @@ RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     LAContext *context = [[LAContext alloc] init];
     return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil];
 #endif
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isPinOrFingerprintSetSync) {
+    return @(self.isPinOrFingerprintSet);
 }
 
 RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -532,6 +580,9 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
              };
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getPowerStateSync) {
+    return self.powerState;
+}
 
 RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.powerState);
@@ -539,6 +590,10 @@ RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 
 - (float) getBatteryLevel {
     return [self.powerState[@"batteryLevel"] floatValue];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBatteryLevelSync) {
+    return @(self.getBatteryLevel);
 }
 
 RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -549,12 +604,20 @@ RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTP
     return [self.powerState[@"batteryState"] isEqualToString:@"charging"];
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isBatteryChargingSync) {
+    return @(self.isBatteryCharging);
+}
+
 RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isBatteryCharging));
 }
 
 - (BOOL) isLocationEnabled {
     return [CLLocationManager locationServicesEnabled];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isLocationEnabledSync) {
+    return @(self.isLocationEnabled);
 }
 
 RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -582,6 +645,10 @@ RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     } else {
         resolve(@(usedMemory));
     }
+}    
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUsedMemorySync) {
+    return @(self.getUsedMemory);
 }
 
 RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
@@ -622,6 +689,10 @@ RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
               @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]]
               };
 #endif
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getAvailableLocationProvidersSync) {
+    return self.getAvailableLocationProviders;
 }
 
 RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {

@@ -26,14 +26,17 @@ export default class App extends Component {
     let deviceJSON = {};
 
     deviceJSON.uniqueId = DeviceInfo.getUniqueId();
-    deviceJSON.brand = DeviceInfo.getBrand();
-    deviceJSON.model = DeviceInfo.getModel();
     deviceJSON.deviceId = DeviceInfo.getDeviceId();
+    deviceJSON.bundleId = DeviceInfo.getBundleId();
     deviceJSON.systemName = DeviceInfo.getSystemName();
     deviceJSON.systemVersion = DeviceInfo.getSystemVersion();
-    deviceJSON.bundleId = DeviceInfo.getBundleId();
+    deviceJSON.version = DeviceInfo.getVersion();
+    deviceJSON.readableVersion = DeviceInfo.getReadableVersion();
     deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
     deviceJSON.isTablet = DeviceInfo.isTablet();
+    deviceJSON.appName = DeviceInfo.getApplicationName();
+    deviceJSON.brand = DeviceInfo.getBrand();
+    deviceJSON.model = DeviceInfo.getModel();
 
     return deviceJSON;
   }
@@ -44,8 +47,6 @@ export default class App extends Component {
     deviceJSON.manufacturer = getManufacturerSync();
     deviceJSON.buildId = DeviceInfo.getBuildIdSync();
     deviceJSON.isCameraPresent = DeviceInfo.isCameraPresentSync();
-    deviceJSON.version = DeviceInfo.getVersionSync();
-    deviceJSON.readableVersion = DeviceInfo.getReadableVersionSync();
     deviceJSON.deviceName = DeviceInfo.getDeviceNameSync();
     deviceJSON.usedMemory = DeviceInfo.getUsedMemorySync();
     deviceJSON.instanceId = DeviceInfo.getInstanceIdSync();
@@ -107,8 +108,6 @@ export default class App extends Component {
       deviceJSON.manufacturer = await getManufacturer();
       deviceJSON.buildId = await DeviceInfo.getBuildId();
       deviceJSON.isCameraPresent = await DeviceInfo.isCameraPresent();
-      deviceJSON.version = await DeviceInfo.getVersion();
-      deviceJSON.readableVersion = await DeviceInfo.getReadableVersion();
       deviceJSON.deviceName = await DeviceInfo.getDeviceName();
       deviceJSON.usedMemory = await DeviceInfo.getUsedMemory();
       deviceJSON.userAgent = await DeviceInfo.getUserAgent();
@@ -171,13 +170,17 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.welcome}>react-native-device-info example - constant info:</Text>
+        <Text style={styles.welcome}>
+          react-native-device-info example - constant info:
+        </Text>
         <ScrollView>
           <Text style={styles.instructions}>
             {JSON.stringify(this.state.constantdeviceinfo, null, '\t')}
           </Text>
         </ScrollView>
-        <Text style={styles.welcome}>react-native-device-info example - sync info:</Text>
+        <Text style={styles.welcome}>
+          react-native-device-info example - sync info:
+        </Text>
         <ScrollView>
           <Text style={styles.instructions}>
             {JSON.stringify(this.state.syncdeviceinfo, null, '\t')}
