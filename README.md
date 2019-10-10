@@ -291,15 +291,15 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | ----------------------------------------------------------------- | ------------------- | :-: | :-----: | :-----: |
 | [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
-| [getApplicationName()](#getapplicationname)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    |
 | [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    |
 | [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
 | [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |
 | [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
-| [getBrand()](#getbrand)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
-| [getBuildNumber()](#getbuildnumber)                               | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
-| [getBundleId()](#getbundleid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    |
+| [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    |
+| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    |
 | [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |
 | [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
 | [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
@@ -322,26 +322,26 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
 | [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
 | [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    |
-| [getModel()](#getmodel)                                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    |
 | [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ❌    |
 | [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
-| [getReadableVersion()](#getreadableversion)                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    |
 | [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
-| [getSystemName()](#getsystemname)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
-| [getSystemVersion()](#getsystemversion)                           | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    |
+| [getSystemVersion()](#getsystemversion)                           | `string`            |  ✅  |   ✅    |   ✅    |
 | [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
 | [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
-| [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
+| [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
-| [getVersion()](#getversion)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
-| [hasNotch()](#hasNotch)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    |
+| [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
 | [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
@@ -349,7 +349,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
 | [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
-| [isTablet()](#istablet)                                           | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
+| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    |
@@ -397,9 +397,8 @@ Gets the application name.
 #### Examples
 
 ```js
-DeviceInfo.getApplicationName().then(appName => {
+let appName = DeviceInfo.getApplicationName();
   // AwesomeApp
-});
 ```
 
 ---
@@ -466,11 +465,10 @@ Gets the device brand.
 #### Examples
 
 ```js
-DeviceInfo.getBrand().then(brand => {
+let brand = DeviceInfo.getBrand();
   // iOS: "Apple"
   // Android: "xiaomi"
   // Windows: ?
-});
 ```
 
 ---
@@ -482,11 +480,10 @@ Gets the application build number.
 #### Examples
 
 ```js
-DeviceInfo.getBuildNumber().then(buildNumber => {
+let buildNumber = DeviceInfo.getBuildNumber();
   // iOS: "89"
   // Android: "4"
   // Windows: ?
-});
 ```
 
 ---
@@ -498,9 +495,8 @@ Gets the application bundle identifier.
 #### Examples
 
 ```js
-DeviceInfo.getBundleId().then(bundleId => {
+let bundleId = DeviceInfo.getBundleId();
   // "com.example.AwesomeApp"
-});
 ```
 
 ---
@@ -577,11 +573,10 @@ Gets the device ID.
 #### Examples
 
 ```js
-DeviceInfo.getDeviceId().then(deviceId => {
+let deviceId = DeviceInfo.getDeviceId();
   // iOS: "iPhone7,2"
   // Android: "goldfish"
   // Windows: ?
-});
 ```
 
 ---
@@ -864,11 +859,10 @@ Gets the device model.
 #### Examples
 
 ```js
-DeviceInfo.getModel().then(model => {
+let model = DeviceInfo.getModel();
   // iOS: ?
   // Android: ?
   // Windows: ?
-});
 ```
 
 ---
@@ -949,11 +943,10 @@ Gets the application human readable version (same as getVersion() + '.' + getBui
 #### Examples
 
 ```js
-DeviceInfo.getReadableVersion().then(readableVersion => {
+let readableVersion = DeviceInfo.getReadableVersion();
   // iOS: 1.0.1.32
   // Android: 1.0.1.234
   // Windows: ?
-});
 ```
 
 ---
@@ -995,11 +988,10 @@ Gets the device OS name.
 #### Examples
 
 ```js
-DeviceInfo.getSystemName().then(systemName => {
+let systemName = DeviceInfo.getSystemName();
   // iOS: "iOS" on newer iOS devices "iPhone OS" on older devices, including older iPad's.
   // Android: "Android"
   // Windows: ?
-});
 ```
 
 ---
@@ -1011,11 +1003,10 @@ Gets the device OS version.
 #### Examples
 
 ```js
-DeviceInfo.getSystemVersion().then(systemVersion => {
+let systemVersion = DeviceInfo.getSystemVersion();
   // iOS: "11.0"
   // Android: "7.1.1"
   // Windows: ?
-});
 ```
 
 ---
@@ -1096,6 +1087,8 @@ DeviceInfo.getTotalMemory().then(totalMemory => {
 
 ### getUniqueId()
 
+This is a constant and may be referenced directly
+
 Gets the device unique ID.
 On Android it is currently identical to `getAndroidId()` in this module.
 On iOS it uses the `DeviceUID` uid identifier.
@@ -1104,11 +1097,10 @@ On Windows it uses `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDev
 #### Examples
 
 ```js
-DeviceInfo.getUniqueId().then(uniqueId => {
-  // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
-  // Android: "dd96dec43fb81c97"
-  // Windows: ?
-});
+let uniqueId = DeviceInfo.getUniqueId();
+// iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
+// Android: "dd96dec43fb81c97"
+// Windows: ?
 ```
 
 #### Notes
@@ -1157,11 +1149,10 @@ Gets the application version.
 #### Examples
 
 ```js
-DeviceInfo.getVersion().then(version => {
+let version = DeviceInfo.getVersion();
   // iOS: "1.0"
   // Android: "1.0"
   // Windows: ?
-});
 ```
 
 ---
@@ -1235,9 +1226,8 @@ Tells if the device is a tablet.
 #### Examples
 
 ```js
-DeviceInfo.isTablet().then(isTablet => {
+let isTablet = DeviceInfo.isTablet();
   // true
-});
 ```
 
 ---
