@@ -135,7 +135,7 @@ const devicesWithNotch: Array<NotchDevice> = [
   },
   {
     brand: 'Nokia',
-    model: '6.1 Plus',
+    model: 'Nokia 6.1 Plus',
   },
   {
     brand: 'Nokia',
