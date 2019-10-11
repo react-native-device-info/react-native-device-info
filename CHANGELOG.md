@@ -2,6 +2,15 @@
 
 # Release Notes
 
+## 4.0.1-beta.6
+
+- fix: hasSystemFeatureSync incorrectly returning a Promise on iOS @mikehardy
+- fix: isTablet on iOS always returning false @mikehardy
+
+## 4.0.1-beta.5
+
+- fix: iOS getModel always returned generics @mikehardy
+
 ## 4.0.1-beta.4
 
 - BREAKING CHANGE: rename getCameraPresence to isCameraPresent to match other booleans (#810) @mikehardy
