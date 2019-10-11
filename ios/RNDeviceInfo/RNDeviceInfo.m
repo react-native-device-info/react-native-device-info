@@ -261,20 +261,23 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     NSDictionary* deviceNamesByCode = [self getDeviceNamesByCode];
     NSString* deviceName =[deviceNamesByCode valueForKey:deviceId];
 
+    // Return the real device name if we have it
     if (deviceName) {
-        if ([deviceName hasPrefix:@"iPod"]) {
-            return @"iPod Touch";
-        } else if ([deviceName hasPrefix:@"iPad"]) {
-            return @"iPad";
-        } else if ([deviceName hasPrefix:@"iPhone"]) {
-            return @"iPhone";
-        } else if ([deviceName hasPrefix:@"AppleTV"]) {
-            return @"Apple TV";
-        }
-        
         return deviceName;
     }
+
+    // If we don't have the real device name, try a generic
+    if ([deviceName hasPrefix:@"iPod"]) {
+        return @"iPod Touch";
+    } else if ([deviceName hasPrefix:@"iPad"]) {
+        return @"iPad";
+    } else if ([deviceName hasPrefix:@"iPhone"]) {
+        return @"iPhone";
+    } else if ([deviceName hasPrefix:@"AppleTV"]) {
+        return @"Apple TV";
+    }
     
+    // If we could not even get a generic, it's unknown
     return @"unknown";
 }
 
