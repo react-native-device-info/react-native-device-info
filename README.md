@@ -11,6 +11,7 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 ## TOC
 
 * [v2 to v3 Upgrade](#v2tov3upgrade)
+* [v3 to v4 Upgrade](#v3tov4upgrade)
 * [Installation](#installation)
 * [Linking](#linking)
 * [Usage](#usage)
@@ -22,6 +23,11 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 ## v2 to v3 upgrade
 
 If you are upgrading from v2 to v3, check the guide out: https://github.com/react-native-community/react-native-device-info/wiki/V2-to-V3-Migration-Guide
+
+
+## v3 to v4 upgrade
+
+For those upgrading to v4, follow the v2 to v3 guide first, then follow this: https://github.com/react-native-community/react-native-device-info/wiki/V3-to-V4-Migration-Guide
 
 ## Installation
 

@@ -2,6 +2,21 @@
 
 # Release Notes
 
+## 4.0.1-rc.1
+
+- docs(README): link to v3->v4 migraiton guide
+- docs(CHANGELOG): entries for rest of 4.0.1-beta series
+
+## 4.0.1-beta.8
+
+- fix: iOS getBundleId incorrectly returning buildId vs bundleId
+- fix: hasNotch correctly matches Nokia 6.1 Plus
+
+## 4.0.1-beta.7
+
+- fix: iOS isTablet was always returning false
+- fix: hasSystemFeatureSync incorrectly returned Promise
+
 ## 4.0.1-beta.6
 
 - fix: hasSystemFeatureSync incorrectly returning a Promise on iOS @mikehardy
