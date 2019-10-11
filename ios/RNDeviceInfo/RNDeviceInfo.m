@@ -58,7 +58,7 @@ RCT_EXPORT_MODULE();
     return @{
          @"uniqueId": [self getUniqueId],
          @"deviceId": [self getDeviceId],
-         @"bundleId": [self getBuildId],
+         @"bundleId": [self getBundleId],
          @"systemName": [self getSystemName],
          @"systemVersion": [self getSystemVersion],
          @"appVersion": [self getAppVersion],

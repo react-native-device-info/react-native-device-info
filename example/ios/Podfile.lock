@@ -217,7 +217,7 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
     - ReactCommon/jscallinvoker (= 0.61.2)
-  - RNDeviceInfo (4.0.1-beta.1):
+  - RNDeviceInfo (4.0.1-beta.6):
     - React
   - Yoga (1.14.0)
 
@@ -336,7 +336,7 @@ SPEC CHECKSUMS:
   React-RCTText: e3ef6191cdb627855ff7fe8fa0c1e14094967fb8
   React-RCTVibration: fb54c732fd20405a76598e431aa2f8c2bf527de9
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
-  RNDeviceInfo: f097ca54f8054eaeb50c69f09656d00ccabcc4dd
+  RNDeviceInfo: 35e5dd96cc2a7acbadb6b3b54c63c168b517300d
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
 PODFILE CHECKSUM: 79310af6b976c356911a8a833e9b99c3399fdda3
