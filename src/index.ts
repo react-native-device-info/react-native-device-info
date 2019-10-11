@@ -1109,7 +1109,7 @@ export function hasSystemFeatureSync(feature: string) {
   if (OS === 'android') {
     return RNDeviceInfo.hasSystemFeatureSync(feature);
   }
-  return Promise.resolve(false);
+  return false;
 }
 
 export async function getSystemAvailableFeatures() {
