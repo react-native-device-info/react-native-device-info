@@ -131,19 +131,19 @@ const devicesWithNotch: Array<NotchDevice> = [
   },
   {
     brand: 'Nokia',
-    model: '5.1 Plus',
+    model: 'Nokia 5.1 Plus',
   },
   {
     brand: 'Nokia',
-    model: '6.1 Plus',
+    model: 'Nokia 6.1 Plus',
   },
   {
     brand: 'Nokia',
-    model: '7.1',
+    model: 'Nokia 7.1',
   },
   {
     brand: 'Nokia',
-    model: '8.1',
+    model: 'Nokia 8.1',
   },
   {
     brand: 'OnePlus',
