@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
+
 # react-native-device-info
 
 [![npm version](https://badge.fury.io/js/react-native-device-info.svg)](http://badge.fury.io/js/react-native-device-info)
@@ -10,20 +11,19 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 
 ## TOC
 
-* [v2 to v3 Upgrade](#v2tov3upgrade)
-* [v3 to v4 Upgrade](#v3tov4upgrade)
-* [Installation](#installation)
-* [Linking](#linking)
-* [Usage](#usage)
-* [API](#api)
-* [Troubleshooting](#troubleshooting)
-* [Release Notes](#release-notes)
-* [react-native-dom / react-native-web](#react-native-dom)
+- [v2 to v3 Upgrade](#v2tov3upgrade)
+- [v3 to v4 Upgrade](#v3tov4upgrade)
+- [Installation](#installation)
+- [Linking](#linking)
+- [Usage](#usage)
+- [API](#api)
+- [Troubleshooting](#troubleshooting)
+- [Release Notes](#release-notes)
+- [react-native-dom / react-native-web](#react-native-dom)
 
 ## v2 to v3 upgrade
 
 If you are upgrading from v2 to v3, check the guide out: https://github.com/react-native-community/react-native-device-info/wiki/V2-to-V3-Migration-Guide
-
 
 ## v3 to v4 upgrade
 
@@ -70,7 +70,6 @@ This module defaults to AndroidX you should configure your library versions simi
 
 If you need non-AndroidX you will need to use the jetifier package in reverse mode, documentation available with that package.
 
-
 ## Linking (for React Native <= 0.59 only, React Native >= 0.60 skip this as auto-linking should work)
 
 ### Automatic
@@ -85,7 +84,7 @@ react-native link react-native-device-info
 rnpm link react-native-device-info
 ```
 
-*For iOS users using Pods*
+_For iOS users using Pods_
 You still need to run `pod install` after running the above link command inside your `IOS` folder.
 
 ### Manual
@@ -100,7 +99,9 @@ mv ios/Podfile .
 react-native link react-native-device-info
 mv Podfile ios
 ```
+
 Do _not_ append `pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'` to the Podfile
+
 </details>
 
 <details>
@@ -115,7 +116,7 @@ pod 'React', :path => '../node_modules/react-native'
 pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
 pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
-  
+
 # React-Native is not great about React double-including from the Podfile
 post_install do |installer|
   installer.pods_project.targets.each do |target|
@@ -141,17 +142,17 @@ Then run `pod install`
 
 In XCode, in the project navigator:
 
-* Right click _Libraries_
-* Add Files to _[your project's name]_
-* Go to `node_modules/react-native-device-info/ios`
-* Add the file `RNDeviceInfo.xcodeproj`
+- Right click _Libraries_
+- Add Files to _[your project's name]_
+- Go to `node_modules/react-native-device-info/ios`
+- Add the file `RNDeviceInfo.xcodeproj`
 
 In XCode, in the project navigator, select your project.
 
-* Add the `libRNDeviceInfo.a` from the _deviceinfo_ project to your project's _Build Phases ➜ Link Binary With Libraries_
-* Click `.xcodeproj` file you added before in the project navigator and go the _Build Settings_ tab. Make sure _All_ is toggled on (instead of _Basic_).
-* Look for _Header Search Paths_ and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React`
-* Mark both as recursive (should be OK by default).
+- Add the `libRNDeviceInfo.a` from the _deviceinfo_ project to your project's _Build Phases ➜ Link Binary With Libraries_
+- Click `.xcodeproj` file you added before in the project navigator and go the _Build Settings_ tab. Make sure _All_ is toggled on (instead of _Basic_).
+- Look for _Header Search Paths_ and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React`
+- Mark both as recursive (should be OK by default).
 
 Run your project (Cmd+R)
 
@@ -162,7 +163,7 @@ Run your project (Cmd+R)
 <details>
     <summary>Android</summary>
 
-* **_optional_** in `android/build.gradle`:
+- **_optional_** in `android/build.gradle`:
 
 ```gradle
 ...
@@ -175,7 +176,7 @@ Run your project (Cmd+R)
 ...
 ```
 
-* in `android/app/build.gradle`:
+- in `android/app/build.gradle`:
 
 ```diff
 dependencies {
@@ -185,7 +186,7 @@ dependencies {
 }
 ```
 
-* in `android/settings.gradle`:
+- in `android/settings.gradle`:
 
 ```diff
 ...
@@ -196,7 +197,7 @@ include ':app'
 
 #### With React Native 0.29+
 
-* in `MainApplication.java`:
+- in `MainApplication.java`:
 
 ```diff
 + import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -218,7 +219,7 @@ include ':app'
 
 #### With older versions of React Native
 
-* in `MainActivity.java`:
+- in `MainActivity.java`:
 
 ```diff
 + import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -238,7 +239,7 @@ include ':app'
 
 NOTE: If you faced with this error: `Could not resolve all files for configuration ':react-native-device-info:debugCompileClasspath'.`, in `build.gradle` put `google()` in the first line (according to https://stackoverflow.com/a/50748249)
 
-* in `android/build.gradle`:
+- in `android/build.gradle`:
 
 ```diff
 allprojects {
@@ -256,12 +257,12 @@ allprojects {
 <details>
     <summary>Windows</summary>
 
-* Open the solution in Visual Studio for your Windows apps
-* right click your in the Explorer and click Add > Existing Project...
-* Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
-* this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
-* check the `RNDeviceInfo` you just added and press ok
-* open up `MainReactNativeHost.cs` for your app and edit the file like so:
+- Open the solution in Visual Studio for your Windows apps
+- right click your in the Explorer and click Add > Existing Project...
+- Navigate to `./<app-name>/node_modules/react-native-device-info/windows/RNDeviceInfo` and add `RNDeviceInfo.csproj`
+- this time right click on your React Native Windows app under your solutions directory and click Add > Reference...
+- check the `RNDeviceInfo` you just added and press ok
+- open up `MainReactNativeHost.cs` for your app and edit the file like so:
 
 ```diff
 + using RNDeviceInfo;
@@ -293,8 +294,8 @@ Note that many APIs are platform-specific. If there is no implementation for a p
 
 Every API returns a Promise but also has a corresponding API with 'Sync' on the end that operates synchronously. For example, you may prefer to call 'isCameraPresentSync()' during your app bootstrap to avoid async calls during the first parts of app startup.
 
-| Method                                                            | Return Type         | iOS | Android | Windows |
-| ----------------------------------------------------------------- | ------------------- | :-: | :-----: | :-----: |
+| Method                                                            | Return Type         |  iOS | Android | Windows |
+| ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: |
 | [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    |
 | [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    |
@@ -311,7 +312,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getDeviceId()](#getdeviceid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
-| [getDeviceType()](#getDeviceType)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    |
 | [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |
 | [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |
 | [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    |
@@ -404,7 +405,7 @@ Gets the application name.
 
 ```js
 let appName = DeviceInfo.getApplicationName();
-  // AwesomeApp
+// AwesomeApp
 ```
 
 ---
@@ -472,9 +473,9 @@ Gets the device brand.
 
 ```js
 let brand = DeviceInfo.getBrand();
-  // iOS: "Apple"
-  // Android: "xiaomi"
-  // Windows: ?
+// iOS: "Apple"
+// Android: "xiaomi"
+// Windows: ?
 ```
 
 ---
@@ -487,9 +488,9 @@ Gets the application build number.
 
 ```js
 let buildNumber = DeviceInfo.getBuildNumber();
-  // iOS: "89"
-  // Android: "4"
-  // Windows: ?
+// iOS: "89"
+// Android: "4"
+// Windows: ?
 ```
 
 ---
@@ -502,7 +503,7 @@ Gets the application bundle identifier.
 
 ```js
 let bundleId = DeviceInfo.getBundleId();
-  // "com.example.AwesomeApp"
+// "com.example.AwesomeApp"
 ```
 
 ---
@@ -525,8 +526,8 @@ DeviceInfo.isCameraPresent()
 
 #### Notes
 
-> * Hot add/remove of camera is supported.
-> * Returns the status of the physical presence of the camera. If camera present but your app don't have permissions to use it, isCameraPresent will still return the true
+> - Hot add/remove of camera is supported.
+> - Returns the status of the physical presence of the camera. If camera present but your app don't have permissions to use it, isCameraPresent will still return the true
 
 ---
 
@@ -580,9 +581,9 @@ Gets the device ID.
 
 ```js
 let deviceId = DeviceInfo.getDeviceId();
-  // iOS: "iPhone7,2"
-  // Android: "goldfish"
-  // Windows: ?
+// iOS: "iPhone7,2"
+// Android: "goldfish"
+// Windows: ?
 ```
 
 ---
@@ -735,7 +736,7 @@ DeviceInfo.getIpAddress().then(ip => {
 
 #### Android Permissions
 
-* [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
+- [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
 
 #### Notes
 
@@ -818,7 +819,7 @@ DeviceInfo.getMacAddress().then(mac => {
 
 #### Android Permissions
 
-* [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
+- [android.permission.ACCESS_WIFI_STATE](https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_WIFI_STATE)
 
 #### Notes
 
@@ -860,15 +861,15 @@ DeviceInfo.getMaxMemory().then(maxMemory => {
 
 Gets the device model.
 
-**iOS warning:**  The list with device names is maintained by the community and could lag new devices. It is recommended to use `getDeviceId()` since it's more reliable and always up-to-date with new iOS devices. We do accept pull requests that add new iOS devices to the list with device names.
+**iOS warning:** The list with device names is maintained by the community and could lag new devices. It is recommended to use `getDeviceId()` since it's more reliable and always up-to-date with new iOS devices. We do accept pull requests that add new iOS devices to the list with device names.
 
 #### Examples
 
 ```js
 let model = DeviceInfo.getModel();
-  // iOS: ?
-  // Android: ?
-  // Windows: ?
+// iOS: ?
+// Android: ?
+// Windows: ?
 ```
 
 ---
@@ -887,7 +888,7 @@ DeviceInfo.getPhoneNumber().then(phoneNumber => {
 
 #### Android Permissions
 
-* [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
+- [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
 
 #### Notes
 
@@ -950,16 +951,16 @@ Gets the application human readable version (same as getVersion() + '.' + getBui
 
 ```js
 let readableVersion = DeviceInfo.getReadableVersion();
-  // iOS: 1.0.1.32
-  // Android: 1.0.1.234
-  // Windows: ?
+// iOS: 1.0.1.32
+// Android: 1.0.1.234
+// Windows: ?
 ```
 
 ---
 
 ### getSerialNumber()
 
-Gets the device serial number. Will be 'unknown' in almost all cases [unless you have a privileged app and you know what you're doing](https://developer.android.com/reference/android/os/Build.html#getSerial()).
+Gets the device serial number. Will be 'unknown' in almost all cases [unless you have a privileged app and you know what you're doing](<https://developer.android.com/reference/android/os/Build.html#getSerial()>).
 
 #### Examples
 
@@ -995,9 +996,9 @@ Gets the device OS name.
 
 ```js
 let systemName = DeviceInfo.getSystemName();
-  // iOS: "iOS" on newer iOS devices "iPhone OS" on older devices, including older iPad's.
-  // Android: "Android"
-  // Windows: ?
+// iOS: "iOS" on newer iOS devices "iPhone OS" on older devices, including older iPad's.
+// Android: "Android"
+// Windows: ?
 ```
 
 ---
@@ -1010,9 +1011,9 @@ Gets the device OS version.
 
 ```js
 let systemVersion = DeviceInfo.getSystemVersion();
-  // iOS: "11.0"
-  // Android: "7.1.1"
-  // Windows: ?
+// iOS: "11.0"
+// Android: "7.1.1"
+// Windows: ?
 ```
 
 ---
@@ -1111,9 +1112,9 @@ let uniqueId = DeviceInfo.getUniqueId();
 
 #### Notes
 
-> * iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can *carefully* consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
-> Beware: The IDFV is calculated using your bundle identifier and thus will be different in app extensions.
-> * android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+> - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
+>   Beware: The IDFV is calculated using your bundle identifier and thus will be different in app extensions.
+> - android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
 
 ---
 
@@ -1125,7 +1126,7 @@ Gets the app memory usage, in bytes.
 
 ```js
 DeviceInfo.getUsedMemory().then(usedMemory => {
-   // 23452345
+  // 23452345
 });
 ```
 
@@ -1156,9 +1157,9 @@ Gets the application version.
 
 ```js
 let version = DeviceInfo.getVersion();
-  // iOS: "1.0"
-  // Android: "1.0"
-  // Windows: ?
+// iOS: "1.0"
+// Android: "1.0"
+// Windows: ?
 ```
 
 ---
@@ -1177,7 +1178,7 @@ DeviceInfo.isAirplaneMode().then(airplaneModeOn => {
 
 #### Notes
 
-> * This only works if the remote debugger is disabled.
+> - This only works if the remote debugger is disabled.
 
 ---
 
@@ -1233,7 +1234,7 @@ Tells if the device is a tablet.
 
 ```js
 let isTablet = DeviceInfo.isTablet();
-  // true
+// true
 ```
 
 ---
@@ -1270,17 +1271,16 @@ DeviceInfo.hasNotch().then(hasNotch => {
 
 Returns the device's type as a string, which will be one of:
 
-* `Handset`
-* `Tablet`
-* `Tv`
-* `unknown`
+- `Handset`
+- `Tablet`
+- `Tv`
+- `unknown`
 
 #### Examples
 
 ```js
-DeviceInfo.getDeviceType().then(type => {
-  // 'Handset'
-});
+let type = DeviceInfo.getDeviceType();
+// 'Handset'
 ```
 
 ---
@@ -1407,8 +1407,8 @@ Fired when the battery level changes; sent no more frequently than once per minu
 #### Examples
 
 ```js
-import { NativeEventEmitter, NativeModules } from 'react-native'
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+import { NativeEventEmitter, NativeModules } from 'react-native';
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 
 deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', level => {
   // 0.759999
@@ -1429,8 +1429,8 @@ Fired when the battery drops is considered low
 #### Examples
 
 ```js
-import { NativeEventEmitter, NativeModules } from 'react-native'
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
+import { NativeEventEmitter, NativeModules } from 'react-native';
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 
 deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', level => {
   // 0.19
@@ -1491,9 +1491,9 @@ Seems to be a bug caused by `react-native link`. You can manually delete `libRND
  “The connection to service named com.apple.commcenter.coretelephony.xpc was invalidated.”</summary>
 
 This is a system level log that may be turned off by executing:
-```xcrun simctl spawn booted log config --mode "level:off"  --subsystem com.apple.CoreTelephony```.
+`xcrun simctl spawn booted log config --mode "level:off" --subsystem com.apple.CoreTelephony`.
 To undo the command, you can execute:
-```xcrun simctl spawn booted log config --mode "level:info"  --subsystem com.apple.CoreTelephony```
+`xcrun simctl spawn booted log config --mode "level:info" --subsystem com.apple.CoreTelephony`
 
 </details>
 

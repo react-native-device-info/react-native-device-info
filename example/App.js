@@ -37,6 +37,7 @@ export default class App extends Component {
     deviceJSON.appName = DeviceInfo.getApplicationName();
     deviceJSON.brand = DeviceInfo.getBrand();
     deviceJSON.model = DeviceInfo.getModel();
+    deviceJSON.deviceType = DeviceInfo.getDeviceType();
 
     return deviceJSON;
   }
@@ -71,7 +72,6 @@ export default class App extends Component {
     deviceJSON.isLandscape = DeviceInfo.isLandscapeSync();
     deviceJSON.isAirplaneMode = DeviceInfo.isAirplaneModeSync();
     deviceJSON.isBatteryCharging = DeviceInfo.isBatteryChargingSync();
-    deviceJSON.deviceType = DeviceInfo.getDeviceTypeSync();
     deviceJSON.isPinOrFingerprintSet = DeviceInfo.isPinOrFingerprintSetSync();
     deviceJSON.supportedAbis = DeviceInfo.supportedAbisSync();
     deviceJSON.hasSystemFeature = DeviceInfo.hasSystemFeatureSync(
@@ -133,7 +133,6 @@ export default class App extends Component {
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
       deviceJSON.isAirplaneMode = await DeviceInfo.isAirplaneMode();
       deviceJSON.isBatteryCharging = await DeviceInfo.isBatteryCharging();
-      deviceJSON.deviceType = await DeviceInfo.getDeviceType();
       deviceJSON.isPinOrFingerprintSet = await DeviceInfo.isPinOrFingerprintSet();
       deviceJSON.supportedAbis = await DeviceInfo.supportedAbis();
       deviceJSON.hasSystemFeature = await DeviceInfo.hasSystemFeature(

@@ -1007,10 +1007,10 @@ export function isAirplaneModeSync() {
 }
 
 let deviceType: DeviceType;
-export async function getDeviceType() {
+export function getDeviceType() {
   if (!deviceType) {
     if (OS === 'android' || OS === 'ios') {
-      deviceType = await RNDeviceInfo.getDeviceType();
+      deviceType = RNDeviceInfo.deviceType;
     } else {
       deviceType = 'unknown';
     }
@@ -1021,7 +1021,7 @@ export async function getDeviceType() {
 export function getDeviceTypeSync() {
   if (!deviceType) {
     if (OS === 'android' || OS === 'ios') {
-      deviceType = RNDeviceInfo.getDeviceTypeSync();
+      deviceType = RNDeviceInfo.deviceType;
     } else {
       deviceType = 'unknown';
     }
@@ -1254,7 +1254,6 @@ export default {
   isAirplaneModeSync,
   isTablet,
   getDeviceType,
-  getDeviceTypeSync,
   supportedAbis,
   supportedAbisSync,
   supported32BitAbis,

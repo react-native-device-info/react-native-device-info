@@ -19,6 +19,7 @@ export interface DeviceInfoNativeModule {
   isTablet: boolean;
   brand: string;
   model: string;
+  deviceType: DeviceType;
   getSystemManufacturer: () => Promise<string>;
   getSystemManufacturerSync: () => string;
   getBrand: () => string;
@@ -110,8 +111,6 @@ export interface DeviceInfoNativeModule {
   isLandscapeSync: () => boolean;
   isAirplaneMode: () => Promise<boolean>;
   isAirplaneModeSync: () => boolean;
-  getDeviceType: () => Promise<DeviceType>;
-  getDeviceTypeSync: () => DeviceType;
   getSupportedAbis: () => Promise<string[]>;
   getSupportedAbisSync: () => string[];
   getSupported32BitAbis: () => Promise<string[]>;

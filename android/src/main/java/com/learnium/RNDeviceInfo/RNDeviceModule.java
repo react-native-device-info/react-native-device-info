@@ -164,6 +164,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("appName", appName);
     constants.put("brand", Build.BRAND);
     constants.put("model", Build.MODEL);
+    constants.put("deviceType", getDeviceType().getValue());
 
     return constants;
   }
@@ -703,11 +704,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public double getMaxMemorySync() { return (double)Runtime.getRuntime().maxMemory(); }
   @ReactMethod
   public void getMaxMemory(Promise p) { p.resolve(getMaxMemorySync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getDeviceTypeSync() { return getDeviceType().getValue(); }
-  @ReactMethod
-  public void getDeviceType(Promise p) { p.resolve(getDeviceTypeSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getTotalMemorySync() {

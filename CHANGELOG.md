@@ -2,6 +2,14 @@
 
 # Release Notes
 
+## 4.0.2
+
+- getDeviceType converted to a constant
+
+## 4.0.1
+
+- released from 4.0.1-rc.1 without change
+
 ## 4.0.1-rc.1
 
 - docs(README): link to v3->v4 migraiton guide

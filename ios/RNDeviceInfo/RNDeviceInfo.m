@@ -67,6 +67,7 @@ RCT_EXPORT_MODULE();
          @"appName": [self getAppName],
          @"brand": @"Apple",
          @"model": [self getModel],
+         @"deviceType": [self getDeviceTypeName],
      };
 }
 
@@ -456,14 +457,6 @@ RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(R
 
 - (NSString *) getDeviceTypeName {
     return [DeviceTypeValues objectAtIndex: [self getDeviceType]];
-}
-
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceTypeSync) {
-    return self.getDeviceTypeName;
-}
-
-RCT_EXPORT_METHOD(getDeviceType:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(self.getDeviceTypeName);
 }
 
 - (NSArray *) getSupportedAbis {
