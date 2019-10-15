@@ -1260,9 +1260,8 @@ Tells if the device has a notch.
 #### Examples
 
 ```js
-DeviceInfo.hasNotch().then(hasNotch => {
+let hasNotch = DeviceInfo.hasNotch();
   // true
-});
 ```
 
 ---
