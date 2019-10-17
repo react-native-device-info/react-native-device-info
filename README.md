@@ -1395,15 +1395,23 @@ DeviceInfo.getAvailableLocationProviders().then(providers => {
 });
 ```
 
-## Events
+## Hooks & Events
 
 Currently iOS & Android only.
 
-### RNDeviceInfo_batteryLevelDidChange
+### useBatteryLevel or RNDeviceInfo_batteryLevelDidChange
 
 Fired when the battery level changes; sent no more frequently than once per minute.
 
 #### Examples
+
+```js
+import { useBatteryLevel } from 'react-native-device-info'
+
+const batteryLevel = useBatteryLevel(); // 0.759999
+
+<Text>{ batteryLevel }</Text>
+```
 
 ```js
 import { NativeEventEmitter, NativeModules } from 'react-native';
@@ -1416,7 +1424,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', level => {
 
 ---
 
-### RNDeviceInfo_batteryLevelIsLow
+### useBatteryLevelIsLow or RNDeviceInfo_batteryLevelIsLow
 
 Fired when the battery drops is considered low
 
@@ -1426,6 +1434,14 @@ Fired when the battery drops is considered low
 | Android  | 15         |
 
 #### Examples
+
+```js
+import { useBatteryLevelIsLow } from 'react-native-device-info'
+
+const batteryLevelIsLow = useBatteryLevelIsLow(); // 0.19
+
+<Text>{ batteryLevelIsLow }</Text>
+```
 
 ```js
 import { NativeEventEmitter, NativeModules } from 'react-native';
@@ -1438,11 +1454,19 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', level => {
 
 ---
 
-### RNDeviceInfo_powerStateDidChange
+### usePowerState or RNDeviceInfo_powerStateDidChange
 
 Fired when the battery state changes, for example when the device enters charging mode or is unplugged.
 
 #### Examples
+
+```js
+import { usePowerState } from 'react-native-device-info'
+
+const powerState = usePowerState(); // 'charging'
+
+<Text>{ powerState }</Text>
+```
 
 ```js
 import { NativeEventEmitter, NativeModules } from 'react-native'

@@ -131,4 +131,7 @@ declare module.exports: {
   isLocationEnabledSync: () => boolean,
   getAvailableLocationProviders: () => Promise<Object>,
   getAvailableLocationProvidersSync: () => Object,
+  useBatteryLevel: () => number,
+  useBatteryLevelIsLow: () => number,
+  usePowerState: () => PowerState | {},
 };
