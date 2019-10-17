@@ -7,10 +7,29 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {getManufacturer, getManufacturerSync} from 'react-native-device-info';
+import {getManufacturer, getManufacturerSync, useBatteryLevel, useBatteryLevelIsLow, usePowerState} from 'react-native-device-info';
+
+const FunctionalComponent = () => {
+  const batteryLevel = useBatteryLevel();
+  const batteryLevelIsLow = useBatteryLevelIsLow();
+  const powerState = usePowerState();
+  let deviceJSON = {};
+
+  deviceJSON.batteryLevel = batteryLevel;
+  deviceJSON.batteryLevelIsLow = batteryLevelIsLow;
+  deviceJSON.powerState = powerState;
+
+  return (
+    <ScrollView>
+      <Text style={styles.instructions}>
+        {JSON.stringify(deviceJSON, null, '\t')}
+      </Text>
+    </ScrollView>
+  );
+};
 
 export default class App extends Component {
   constructor(props) {
@@ -193,6 +212,10 @@ export default class App extends Component {
             {JSON.stringify(this.state.asyncdeviceinfo, null, '\t')}
           </Text>
         </ScrollView>
+        <Text style={styles.welcome}>
+          react-native-device-info example - hooks:
+        </Text>
+        <FunctionalComponent />
       </SafeAreaView>
     );
   }
