@@ -1156,15 +1156,21 @@ export function getAvailableLocationProvidersSync() {
 }
 
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
-export function useBatteryLevel(): number {
-  const initialBatteryLevel: number = getBatteryLevelSync();
-  const [batteryLevel, setBatteryLevel] = useState<number>(initialBatteryLevel);
-
-  const onChange = (level: number) => {
-    setBatteryLevel(level);
-  };
+export function useBatteryLevel(): number | null {
+  const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
 
   useEffect(() => {
+    const setInitialValue = async () => {
+      const initialValue: number = await getBatteryLevel();
+      setBatteryLevel(initialValue);
+    };
+
+    const onChange = (level: number) => {
+      setBatteryLevel(level);
+    };
+
+    setInitialValue();
+
     const subscription = deviceInfoEmitter.addListener(
       'RNDeviceInfo_batteryLevelDidChange',
       onChange
@@ -1176,15 +1182,21 @@ export function useBatteryLevel(): number {
   return batteryLevel;
 }
 
-export function useBatteryLevelIsLow(): number {
-  const initialBatteryLevel: number = getBatteryLevelSync();
-  const [batteryLevelIsLow, setBatteryLevelIsLow] = useState<number>(initialBatteryLevel);
-
-  const onChange = (level: number) => {
-    setBatteryLevelIsLow(level);
-  };
+export function useBatteryLevelIsLow(): number | null {
+  const [batteryLevelIsLow, setBatteryLevelIsLow] = useState<number | null>(null);
 
   useEffect(() => {
+    const setInitialValue = async () => {
+      const initialValue: number = await getBatteryLevel();
+      setBatteryLevelIsLow(initialValue);
+    };
+
+    const onChange = (level: number) => {
+      setBatteryLevelIsLow(level);
+    };
+
+    setInitialValue();
+
     const subscription = deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', onChange);
 
     return () => subscription.remove();
@@ -1194,14 +1206,20 @@ export function useBatteryLevelIsLow(): number {
 }
 
 export function usePowerState(): PowerState | {} {
-  const initialPowerState: PowerState | {} = getPowerStateSync();
-  const [powerState, setPowerState] = useState<PowerState | {}>(initialPowerState);
-
-  const onChange = (state: PowerState) => {
-    setPowerState(state);
-  };
+  const [powerState, setPowerState] = useState<PowerState | {}>({});
 
   useEffect(() => {
+    const setInitialValue = async () => {
+      const initialValue: PowerState | {} = await getPowerState();
+      setPowerState(initialValue);
+    };
+
+    const onChange = (state: PowerState) => {
+      setPowerState(state);
+    };
+
+    setInitialValue();
+
     const subscription = deviceInfoEmitter.addListener(
       'RNDeviceInfo_powerStateDidChange',
       onChange
