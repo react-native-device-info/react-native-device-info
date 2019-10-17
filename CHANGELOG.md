@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 4.0.3-rc.1
+
+- feat: Add `useBatteryLevel()`, `useBatteryLevelIsLow()`, `usePowerState` methods
+
 ## 4.0.2
 
 - getDeviceType converted to a constant
