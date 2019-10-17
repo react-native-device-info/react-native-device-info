@@ -1,7 +1,8 @@
-import { Platform, Dimensions } from 'react-native';
+import { useState, useEffect } from 'react';
+import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-native';
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
-import { DeviceType } from './internal/types';
+import { DeviceType, PowerState } from './internal/types';
 
 const OS = Platform.OS;
 
@@ -1154,6 +1155,64 @@ export function getAvailableLocationProvidersSync() {
   return {};
 }
 
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+export function useBatteryLevel(): number {
+  const initialBatteryLevel: number = getBatteryLevelSync();
+  const [batteryLevel, setBatteryLevel] = useState<number>(initialBatteryLevel);
+
+  const onChange = (level: number) => {
+    setBatteryLevel(level);
+  };
+
+  useEffect(() => {
+    const subscription = deviceInfoEmitter.addListener(
+      'RNDeviceInfo_batteryLevelDidChange',
+      onChange
+    );
+
+    return () => subscription.remove();
+  }, []);
+
+  return batteryLevel;
+}
+
+export function useBatteryLevelIsLow(): number {
+  const initialBatteryLevel: number = getBatteryLevelSync();
+  const [batteryLevelIsLow, setBatteryLevelIsLow] = useState<number>(initialBatteryLevel);
+
+  const onChange = (level: number) => {
+    setBatteryLevelIsLow(level);
+  };
+
+  useEffect(() => {
+    const subscription = deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', onChange);
+
+    return () => subscription.remove();
+  }, []);
+
+  return batteryLevelIsLow;
+}
+
+export function usePowerState(): PowerState | {} {
+  const initialPowerState: PowerState | {} = getPowerStateSync();
+  const [powerState, setPowerState] = useState<PowerState | {}>(initialPowerState);
+
+  const onChange = (state: PowerState) => {
+    setPowerState(state);
+  };
+
+  useEffect(() => {
+    const subscription = deviceInfoEmitter.addListener(
+      'RNDeviceInfo_powerStateDidChange',
+      onChange
+    );
+
+    return () => subscription.remove();
+  }, []);
+
+  return powerState;
+}
+
 export default {
   getUniqueId,
   getInstanceId,
@@ -1268,4 +1327,7 @@ export default {
   isLocationEnabledSync,
   getAvailableLocationProviders,
   getAvailableLocationProvidersSync,
+  useBatteryLevel,
+  useBatteryLevelIsLow,
+  usePowerState,
 };
