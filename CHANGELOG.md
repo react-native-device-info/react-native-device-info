@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 4.0.4
+
+- chore:add support for 2019 iPads models in 'model' mapping
+
 ## 4.0.3-rc.1
 
 - feat: Add `useBatteryLevel()`, `useBatteryLevelIsLow()`, `usePowerState` methods
