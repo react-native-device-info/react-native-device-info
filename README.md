@@ -945,7 +945,7 @@ DeviceInfo.getPreviewSdkInt().then(previewSdkInt => {
 
 ### getReadableVersion()
 
-Gets the application human readable version (same as getVersion() + '.' + getBuildCode())
+Gets the application human readable version (same as getVersion() + '.' + getBuildNumber())
 
 #### Examples
 
