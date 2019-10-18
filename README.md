@@ -346,7 +346,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
 | [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    |
-| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    |
+| [getUserAgent()](#getuseragent)                                   | `string`            |  ✅  |   ✅    |   ❌    |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    |
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |
@@ -1139,12 +1139,11 @@ Gets the device User Agent.
 #### Examples
 
 ```js
-DeviceInfo.getUserAgent().then(userAgent => {
-  // iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143"
-  // tvOS: not available
-  // Android: ?
-  // Windows: ?
-});
+let userAgent = DeviceInfo.getUserAgent();
+// iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143"
+// tvOS: not available
+// Android: ?
+// Windows: ?
 ```
 
 ---
