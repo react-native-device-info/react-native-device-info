@@ -14,7 +14,7 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 - [v2 to v3 Upgrade](#v2tov3upgrade)
 - [v3 to v4 Upgrade](#v3tov4upgrade)
 - [Installation](#installation)
-- [Linking](#linking)
+- [Linking](#linking-for-react-native--059-only-react-native--060-skip-this-as-auto-linking-should-work)
 - [Usage](#usage)
 - [API](#api)
 - [Troubleshooting](#troubleshooting)
