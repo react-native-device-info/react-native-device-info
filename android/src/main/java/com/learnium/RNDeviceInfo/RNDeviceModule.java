@@ -724,11 +724,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @SuppressWarnings({"ConstantConditions", "deprecation"})
   public String getInstanceIdSync() {
     try {
-      if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
-        return com.google.android.gms.iid.InstanceID.getInstance(getReactApplicationContext()).getId();
+      if (Class.forName("com.google.firebase.iid.FirebaseInstanceId") != null) {
+        return com.google.firebase.iid.FirebaseInstanceId.getInstance().getId();
       }
     } catch (ClassNotFoundException e) {
-      System.err.println("N/A: Add com.google.android.gms:play-services-gcm to your project.");
+      System.err.println("N/A: Add com.google.firebase:firebase-iid to your project.");
     }
     return "unknown";
   }

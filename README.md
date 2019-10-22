@@ -56,7 +56,7 @@ This module defaults to AndroidX you should configure your library versions simi
 ...
   ext {
     // dependency versions
-    googlePlayServicesIidVersion = "17.0.0" // default: "17.0.0" - AndroidX, use "16.0.1" for pre-AndroidX
+    iidVersion = "19.0.1" // default: "19.0.1" - AndroidX, use "16.0.1" for pre-AndroidX
     compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
     targetSdkVersion = "28" // default: 28 (28 is required for AndroidX)
     supportLibVersion = '1.0.2' // Use '28.0.0' or don't specify for old libraries, '1.0.2' or similar for AndroidX
@@ -1261,7 +1261,7 @@ Tells if the device has a notch.
 
 ```js
 let hasNotch = DeviceInfo.hasNotch();
-  // true
+// true
 ```
 
 ---
@@ -1406,11 +1406,11 @@ Fired when the battery level changes; sent no more frequently than once per minu
 #### Examples
 
 ```js
-import { useBatteryLevel } from 'react-native-device-info'
+import { useBatteryLevel } from 'react-native-device-info';
 
 const batteryLevel = useBatteryLevel(); // 0.759999
 
-<Text>{ batteryLevel }</Text>
+<Text>{batteryLevel}</Text>;
 ```
 
 ```js
@@ -1436,11 +1436,11 @@ Fired when the battery drops is considered low
 #### Examples
 
 ```js
-import { useBatteryLevelIsLow } from 'react-native-device-info'
+import { useBatteryLevelIsLow } from 'react-native-device-info';
 
 const batteryLevelIsLow = useBatteryLevelIsLow(); // 0.19
 
-<Text>{ batteryLevelIsLow }</Text>
+<Text>{batteryLevelIsLow}</Text>;
 ```
 
 ```js
@@ -1461,11 +1461,11 @@ Fired when the battery state changes, for example when the device enters chargin
 #### Examples
 
 ```js
-import { usePowerState } from 'react-native-device-info'
+import { usePowerState } from 'react-native-device-info';
 
 const powerState = usePowerState(); // 'charging'
 
-<Text>{ powerState }</Text>
+<Text>{powerState}</Text>;
 ```
 
 ```js
