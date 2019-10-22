@@ -36,7 +36,7 @@ cd ios && pod install && cd ..
 
 # Patch the build.gradle directly to slice in our android play version
 # react-native 0.60 is AndroidX! Set up a bunch of AndroidX version
-sed -i -e 's/ext {$/ext {        googlePlayServicesIidVersion = "17.0.0"/' android/build.gradle
+sed -i -e 's/ext {$/ext {        iidVersion = "17.0.0"/' android/build.gradle
 sed -i -e 's/ext {$/ext {        minSdkVersion = 16/' android/build.gradle
 sed -i -e 's/ext {$/ext {        supportLibVersion = "1.0.2"/' android/build.gradle
 sed -i -e 's/ext {$/ext {        mediaCompatVersion = "1.0.1"/' android/build.gradle
