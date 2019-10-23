@@ -2,17 +2,25 @@
 
 # Release Notes
 
-## 4.0.4
+## 5.0.0
 
-- chore:add support for 2019 iPads models in 'model' mapping
+- BREAKING: (from 4.0.2-rc.1) getDeviceType is constant now - no need for getDeviceTypeSync
+  This is a tiny breaking change, easy to adopt:
+  1. getDeviceTypeSync --> getDeviceType
+  1. `getDeviceType.then(type => {});` --> `let type = getDeviceType();`
+- feat: Hooks! Add `useBatteryLevel()`, `useBatteryLevelIsLow()`, `usePowerState` methods (thanks @magrinj!)
+- fix: iOS use CFBundleName if CFBundleDisplayName null (Fixes #846, thanks @rizwankce!)
+- chore: add support for 2019 iPads models in 'model' mapping (thanks Edward Wong!)
+- chore: add support for motorola one vision in hasNotch (thanks @euharrison!)
+- docs(README): Fixed link in TOC (thanks @martinvol!)
+- docs(README): Fixed example code hasNotch() - constant, no Promise (thanks @cereme!)
+- docs(README): Fixed example code getDeviceId() - constant, no Promise (thanks @adambutler!)
+- docs(README): Fixed getReadableVersion() sub-API references (thanks @djorkaeffalexandre!)
+- chore: yarn upgrade --latest to update dependencies (@mikehardy)
 
-## 4.0.3-rc.1
+## 4.0.2-rc.1
 
-- feat: Add `useBatteryLevel()`, `useBatteryLevelIsLow()`, `usePowerState` methods
-
-## 4.0.2
-
-- getDeviceType converted to a constant
+- BREAKING: getDeviceType converted to a constant (minor breaking change, but will release as 5.0.0 just in case)
 
 ## 4.0.1
 
