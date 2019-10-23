@@ -1261,7 +1261,7 @@ Tells if the device has a notch.
 
 ```js
 let hasNotch = DeviceInfo.hasNotch();
-// true
+  // true
 ```
 
 ---
@@ -1406,11 +1406,11 @@ Fired when the battery level changes; sent no more frequently than once per minu
 #### Examples
 
 ```js
-import { useBatteryLevel } from 'react-native-device-info';
+import { useBatteryLevel } from 'react-native-device-info'
 
 const batteryLevel = useBatteryLevel(); // 0.759999
 
-<Text>{batteryLevel}</Text>;
+<Text>{ batteryLevel }</Text>
 ```
 
 ```js
@@ -1436,11 +1436,11 @@ Fired when the battery drops is considered low
 #### Examples
 
 ```js
-import { useBatteryLevelIsLow } from 'react-native-device-info';
+import { useBatteryLevelIsLow } from 'react-native-device-info'
 
 const batteryLevelIsLow = useBatteryLevelIsLow(); // 0.19
 
-<Text>{batteryLevelIsLow}</Text>;
+<Text>{ batteryLevelIsLow }</Text>
 ```
 
 ```js
@@ -1461,11 +1461,11 @@ Fired when the battery state changes, for example when the device enters chargin
 #### Examples
 
 ```js
-import { usePowerState } from 'react-native-device-info';
+import { usePowerState } from 'react-native-device-info'
 
 const powerState = usePowerState(); // 'charging'
 
-<Text>{powerState}</Text>;
+<Text>{ powerState }</Text>
 ```
 
 ```js
