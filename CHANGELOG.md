@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.0.1
+
+- re-package of 5.0.0 without change except delete accidental inclusion of example/android/app/build
+
 ## 5.0.0
 
 - BREAKING: (from 4.0.2-rc.1) getDeviceType is constant now - no need for getDeviceTypeSync
