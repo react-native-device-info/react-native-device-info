@@ -45,6 +45,11 @@ repositories {
 
 dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    def iidVersion = safeExtGet('iidVersion', safeExtGet('iidVersion', '19.0.1'))
-    implementation "com.google.firebase:firebase-iid:$iidVersion"
+    def firebaseIidVersion = safeExtGet('firebaseIidVersion', null))
+    if(firebaseIidVersion){
+        implementation "com.google.firebase:firebase-iid:$firebaseIidVersion"
+    }else{
+        def iidVersion = safeExtGet('googlePlayServicesIidVersion', safeExtGet('googlePlayServicesVersion', '17.0.0'))
+        implementation "com.google.android.gms:play-services-iid:$iidVersion"
+    }
 }

@@ -726,6 +726,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     try {
       if (Class.forName("com.google.firebase.iid.FirebaseInstanceId") != null) {
         return com.google.firebase.iid.FirebaseInstanceId.getInstance().getId();
+      }else if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
+        return com.google.android.gms.iid.InstanceID.getInstance(getReactApplicationContext()).getId();
       }
     } catch (ClassNotFoundException e) {
       System.err.println("N/A: Add com.google.firebase:firebase-iid to your project.");
