@@ -130,6 +130,10 @@ const devicesWithNotch: Array<NotchDevice> = [
     model: 'One',
   },
   {
+    brand: 'Motorola',
+    model: 'Motorola One Vision',
+  },
+  {
     brand: 'Nokia',
     model: '5.1 Plus',
   },
