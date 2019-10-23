@@ -1141,6 +1141,14 @@ export function isLocationEnabledSync() {
   return false;
 }
 
+export function isHeadphonesConnected() {
+  return RNDeviceInfo.isHeadphonesConnected();
+}
+
+export function isHeadphonesConnectedSync() {
+  return RNDeviceInfo.isHeadphonesConnectedSync();
+}
+
 export async function getAvailableLocationProviders() {
   if (OS === 'android' || OS === 'ios') {
     return RNDeviceInfo.getAvailableLocationProviders();
@@ -1343,6 +1351,8 @@ export default {
   getSystemAvailableFeaturesSync,
   isLocationEnabled,
   isLocationEnabledSync,
+  isHeadphonesConnected,
+  isHeadphonesConnectedSync,
   getAvailableLocationProviders,
   getAvailableLocationProvidersSync,
   useBatteryLevel,

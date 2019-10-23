@@ -622,6 +622,24 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
     resolve(@(self.isLocationEnabled));
 }
 
+- (BOOL) isHeadphonesConnected {
+    AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription* desc in [route outputs]) {
+        if ([desc portType] isEqualToString:AVAudioSessionPortHeadphones) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isHeadphonesConnectedSync) {
+    return @(self.isHeadphonesConnected);
+}
+
+RCT_EXPORT_METHOD(isHeadphonesConnected:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.isHeadphonesConnected));
+}
+
 - (unsigned long) getUsedMemory {
     struct task_basic_info info;
     mach_msg_type_number_t size = sizeof(info);

@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
 import android.content.res.Configuration;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
@@ -526,6 +527,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void isLocationEnabled(Promise p) { p.resolve(isLocationEnabledSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isHeadphonesConnectedSync() {
+    AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    return audioManager.isWiredHeadsetOn() || audioManager.isBluetoothA2dpOn();
+  }
+  @ReactMethod
+  public void isHeadphonesConnected(Promise p) {p.resolve(isHeadphonesConnectedSync());}
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public WritableMap getAvailableLocationProvidersSync() {
