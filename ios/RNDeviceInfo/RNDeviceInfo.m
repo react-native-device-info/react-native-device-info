@@ -625,7 +625,10 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
 - (BOOL) isHeadphonesConnected {
     AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];
     for (AVAudioSessionPortDescription* desc in [route outputs]) {
-        if ([desc portType] isEqualToString:AVAudioSessionPortHeadphones) {
+        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones]) {
+            return YES;
+        }
+        if ([[desc portType] isEqualToString:AVAudioSessionPortBluetoothA2DP]) {
             return YES;
         }
     }
