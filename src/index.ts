@@ -1142,11 +1142,17 @@ export function isLocationEnabledSync() {
 }
 
 export function isHeadphonesConnected() {
-  return RNDeviceInfo.isHeadphonesConnected();
+  if (OS === 'android' || OS === 'ios') {
+    return RNDeviceInfo.isHeadphonesConnected();
+  }
+  return false;
 }
 
 export function isHeadphonesConnectedSync() {
-  return RNDeviceInfo.isHeadphonesConnectedSync();
+  if (OS === 'android' || OS === 'ios') {
+    return RNDeviceInfo.isHeadphonesConnectedSync();
+  }
+  return false;
 }
 
 export async function getAvailableLocationProviders() {
