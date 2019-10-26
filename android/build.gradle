@@ -32,6 +32,9 @@ android {
     lintOptions {
        warning 'InvalidPackage', 'MissingPermission'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 repositories {
@@ -52,4 +55,7 @@ dependencies {
         def iidVersion = safeExtGet('googlePlayServicesIidVersion', safeExtGet('googlePlayServicesVersion', '17.0.0'))
         implementation "com.google.android.gms:play-services-iid:$iidVersion"
     }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testImplementation "org.mockito:mockito-core:2.28.2"
 }

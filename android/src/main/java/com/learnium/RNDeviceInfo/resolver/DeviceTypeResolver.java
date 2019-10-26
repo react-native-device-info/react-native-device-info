@@ -1,4 +1,4 @@
-package com.learnium.RNDeviceInfo;
+package com.learnium.RNDeviceInfo.resolver;
 
 import android.app.UiModeManager;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+
+import com.learnium.RNDeviceInfo.DeviceType;
 
 /**
  * Utility class used to get the device type, it's not dependant of React Native, allowing it to
