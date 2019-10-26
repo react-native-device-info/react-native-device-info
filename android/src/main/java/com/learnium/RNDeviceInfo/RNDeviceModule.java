@@ -40,7 +40,11 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.learnium.RNDeviceInfo.resolver.DeviceIdResolver;
+import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -62,6 +66,7 @@ import static android.provider.Settings.Secure.getString;
 public class RNDeviceModule extends ReactContextBaseJavaModule {
   public static final String NAME = "RNDeviceInfo";
   private final DeviceTypeResolver deviceTypeResolver;
+  private final DeviceIdResolver deviceIdResolver;
   private BroadcastReceiver receiver;
 
   private double mLastBatteryLevel = -1;
@@ -74,6 +79,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.deviceTypeResolver = new DeviceTypeResolver(reactContext);
+    this.deviceIdResolver = new DeviceIdResolver(reactContext);
   }
 
   @Override
@@ -655,16 +661,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod(isBlockingSynchronousMethod = true)
   @SuppressWarnings({"ConstantConditions", "deprecation"})
   public String getInstanceIdSync() {
-    try {
-      if (Class.forName("com.google.firebase.iid.FirebaseInstanceId") != null) {
-        return com.google.firebase.iid.FirebaseInstanceId.getInstance().getId();
-      }else if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
-        return com.google.android.gms.iid.InstanceID.getInstance(getReactApplicationContext()).getId();
-      }
-    } catch (ClassNotFoundException e) {
-      System.err.println("N/A: Add com.google.firebase:firebase-iid to your project.");
-    }
-    return "unknown";
+    return deviceIdResolver.getInstanceIdSync();
   }
   @ReactMethod
   public void getInstanceId(Promise p) { p.resolve(getInstanceIdSync()); }

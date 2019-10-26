@@ -1,4 +1,4 @@
-package com.learnium.RNDeviceInfo;
+package com.learnium.RNDeviceInfo.resolver;
 
 import android.app.UiModeManager;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+
+import com.learnium.RNDeviceInfo.DeviceType;
 
 /**
  * Utility class used to get the device type, it's not dependant of React Native, allowing it to
@@ -16,11 +18,11 @@ public class DeviceTypeResolver {
 
   private final Context context;
 
-  public DeviceTypeResolver(Context context){
+  public DeviceTypeResolver(Context context) {
     this.context = context;
   }
 
-  public boolean isTablet(){
+  public boolean isTablet() {
     return getDeviceType() == DeviceType.TABLET;
   }
 
@@ -41,7 +43,7 @@ public class DeviceTypeResolver {
       return deviceTypeFromConfig;
     }
 
-    return  getDeviceTypeFromPhysicalSize();
+    return getDeviceTypeFromPhysicalSize();
   }
 
   // Use `smallestScreenWidthDp` to determine the screen size

@@ -1491,7 +1491,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState
 
 If you need to check for device type from the native side, you can use the following:
 ```java
-import com.learnium.DeviceTypeResolver
+import com.learnium.resolver.DeviceTypeResolver
 
 ...
 deviceTypeResolver = new DeviceTypeResolver(context);
