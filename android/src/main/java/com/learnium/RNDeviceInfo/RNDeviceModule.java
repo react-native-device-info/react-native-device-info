@@ -41,6 +41,8 @@ import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -655,15 +657,34 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod(isBlockingSynchronousMethod = true)
   @SuppressWarnings({"ConstantConditions", "deprecation"})
   public String getInstanceIdSync() {
+     try {
+       Class<?> clazz = Class.forName("com.google.firebase.iid.FirebaseInstanceId")
+       if (clazz != null) {
+         Method method = clazz.getDeclaredMethod("getInstance");
+         Object obj =method.invoke(null);
+         Method method1 = obj.getClass().getMethod("getId");
+         return (String) method1.invoke(obj);
+       }
+     } catch (ClassNotFoundException e) {
+       System.err.println("N/A: Add com.google.firebase:firebase-iid to your project.");
+     } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
+        System.err.println("N/A: Unsupported version of com.google.firebase:firebase-iid in your project.");
+     }
+
     try {
-      if (Class.forName("com.google.firebase.iid.FirebaseInstanceId") != null) {
-        return com.google.firebase.iid.FirebaseInstanceId.getInstance().getId();
-      }else if (Class.forName("com.google.android.gms.iid.InstanceID") != null) {
-        return com.google.android.gms.iid.InstanceID.getInstance(getReactApplicationContext()).getId();
+      Class<?> clazz = Class.forName("com.google.android.gms.iid.InstanceID");
+      if (clazz != null) {
+        Method method = clazz.getDeclaredMethod("getInstance",Context.class);
+        Object obj = method.invoke(null, getReactApplicationContext());
+        Method method1 = obj.getClass().getMethod("getId");
+        return (String) method1.invoke(obj);
       }
     } catch (ClassNotFoundException e) {
-      System.err.println("N/A: Add com.google.firebase:firebase-iid to your project.");
+      System.err.println("N/A: Add com.google.android.gms.iid to your project.");
+    } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
+      System.err.println("N/A: Unsupported version of com.google.android.gms.iid in your project.");
     }
+
     return "unknown";
   }
   @ReactMethod
