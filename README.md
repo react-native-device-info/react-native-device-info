@@ -1487,6 +1487,24 @@ deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState
 });
 ```
 
+## Native interoperatibily
+
+If you need to check for device type from the native side, you can use the following:
+```java
+import com.learnium.DeviceTypeResolver
+
+...
+deviceTypeResolver = new DeviceTypeResolver(context);
+...
+//Check if the device is a Tablet:
+if(deviceTypeResolver.isTablet){
+  ...
+}else{
+  ...
+}
+
+```
+
 ## Troubleshooting
 
 When installing or using `react-native-device-info`, you may encounter the following problems:
