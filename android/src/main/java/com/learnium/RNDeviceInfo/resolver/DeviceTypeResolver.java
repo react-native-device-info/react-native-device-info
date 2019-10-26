@@ -18,11 +18,11 @@ public class DeviceTypeResolver {
 
   private final Context context;
 
-  public DeviceTypeResolver(Context context){
+  public DeviceTypeResolver(Context context) {
     this.context = context;
   }
 
-  public boolean isTablet(){
+  public boolean isTablet() {
     return getDeviceType() == DeviceType.TABLET;
   }
 
@@ -43,7 +43,7 @@ public class DeviceTypeResolver {
       return deviceTypeFromConfig;
     }
 
-    return  getDeviceTypeFromPhysicalSize();
+    return getDeviceTypeFromPhysicalSize();
   }
 
   // Use `smallestScreenWidthDp` to determine the screen size
