@@ -658,7 +658,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @SuppressWarnings({"ConstantConditions", "deprecation"})
   public String getInstanceIdSync() {
      try {
-       Class<?> clazz = Class.forName("com.google.firebase.iid.FirebaseInstanceId")
+       Class<?> clazz = Class.forName("com.google.firebase.iid.FirebaseInstanceId");
        if (clazz != null) {
          Method method = clazz.getDeclaredMethod("getInstance");
          Object obj =method.invoke(null);
