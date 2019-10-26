@@ -4,6 +4,10 @@ import android.content.Context;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * Instance Id resolver's single purpose is to get the device's Instance Id
+ * author: Andres Aguilar
+ */
 public class DeviceIdResolver {
 
     private final Context context;
@@ -27,7 +31,6 @@ public class DeviceIdResolver {
             System.err.println("N/A: Add com.google.android.gms.iid to your project.");
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
             System.err.println("N/A: Unsupported version of com.google.android.gms.iid in your project.");
-            e.printStackTrace();
         }
 
         return "unknown";
