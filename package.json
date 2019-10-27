@@ -22,9 +22,10 @@
   },
   "scripts": {
     "analyze": "npx tsc --noEmit",
+    "clean": "cd example && npx react-native-clean-project --keep-node-modules --remove-iOS-build --remove-iOS-pods --remove-android-build --keep-brew --keep-pods && \\rm -fr ios/Pods",
     "dev-sync": "yarn build && cp -r *podspec lib windows web android ios src example/node_modules/react-native-device-info/",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
-    "shipit": "np",
+    "shipit": "yarn clean && np",
     "test": "echo no tests defined",
     "precommit": "lint-staged && yarn analyze",
     "build": "bob build",
