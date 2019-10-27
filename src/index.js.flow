@@ -129,6 +129,8 @@ declare module.exports: {
   getSystemAvailableFeaturesSync: () => Array<string>,
   isLocationEnabled: () => Promise<boolean>,
   isLocationEnabledSync: () => boolean,
+  isHeadphonesConnected: () => Promise<boolean>,
+  isHeadphonesConnectedSync: () => boolean,
   getAvailableLocationProviders: () => Promise<Object>,
   getAvailableLocationProvidersSync: () => Object,
   useBatteryLevel: () => number | null,

@@ -123,6 +123,8 @@ export interface DeviceInfoNativeModule {
   getSystemAvailableFeaturesSync: () => string[];
   isLocationEnabled: () => Promise<boolean>;
   isLocationEnabledSync: () => boolean;
+  isHeadphonesConnected: () => Promise<boolean>;
+  isHeadphonesConnectedSync: () => boolean;
   getAvailableLocationProviders: () => Promise<LocationProviderInfo>;
   getAvailableLocationProvidersSync: () => LocationProviderInfo;
 }

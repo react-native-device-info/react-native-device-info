@@ -365,6 +365,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
 | [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
 | [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
+| [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |
@@ -1372,6 +1373,18 @@ Tells if the device has location services turned off at the device-level (NOT re
 DeviceInfo.isLocationEnabled().then(enabled => {
   // true or false
 });
+```
+
+### isHeadphonesConnected()
+
+Tells if the device is connected to wired headset or bluetooth headphones
+
+#### Examples
+
+```js
+DeviceInfo.isHeadphonesConnected().then(enabled => {
+  // true or false
+})
 ```
 
 ### getAvailableLocationProviders()
