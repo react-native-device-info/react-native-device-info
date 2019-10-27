@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-native';
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
-import { DeviceType, PowerState } from './internal/types';
+import { DeviceType, PowerState, FirstInstallTime } from './internal/types';
 
 const OS = Platform.OS;
 
@@ -1231,6 +1231,25 @@ export function usePowerState(): PowerState | {} {
   return powerState;
 }
 
+export function useFirstInstallTime(): FirstInstallTime {
+  const [response, setResponse] = useState({
+    loading: true,
+    firstInstallTime: null,
+  } as FirstInstallTime);
+
+  useEffect(() => {
+    // async function cuz react complains if useEffect's effect param is an async function
+    const getAsync = async () => {
+      const firstInstallTime = await getFirstInstallTime();
+      setResponse({ loading: false, firstInstallTime });
+    };
+
+    getAsync();
+  }, []);
+
+  return response;
+}
+
 export default {
   getUniqueId,
   getInstanceId,
@@ -1348,4 +1367,5 @@ export default {
   useBatteryLevel,
   useBatteryLevelIsLow,
   usePowerState,
+  useFirstInstallTime,
 };

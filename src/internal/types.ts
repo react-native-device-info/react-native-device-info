@@ -12,3 +12,8 @@ export interface PowerState {
 export interface LocationProviderInfo {
   [key: string]: boolean;
 }
+
+export interface FirstInstallTime {
+  loading: boolean;
+  firstInstallTime: number | null;
+}

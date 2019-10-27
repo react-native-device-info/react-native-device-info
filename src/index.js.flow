@@ -15,6 +15,11 @@ export type LocationProviderInfo = {
   [key: string]: boolean,
 };
 
+export type FirstInstallTime {
+  loading: boolean;
+  firstInstallTime: number | null;
+}
+
 declare module.exports: {
   getUniqueId: () => string,
   getManufacturer: () => Promise<string>,
@@ -134,4 +139,5 @@ declare module.exports: {
   useBatteryLevel: () => number | null,
   useBatteryLevelIsLow: () => number | null,
   usePowerState: () => PowerState | {},
+  useFirstInstallTime: () => FirstInstallTime
 };
