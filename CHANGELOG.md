@@ -2,6 +2,17 @@
 
 # Release Notes
 
+## 5.2.0
+
+- feat: isHeadphonesConnected() / isHeadphonesConnectedSync() (thanks @chakrihacker!)
+
+## 5.1.0
+
+This release allows you to use the firebase iid library for unique ids - it's the backwards-compatible but future direction of unique ids on Android, you should move to it by using firebaseIidVersion in your android/build.gradle file ext{} block to specify the library version
+
+- feat: android native interoperability - determine isTablet from android native (thanks @andresesfm!)
+- feat: android unique ID forward-ported to firebase, w/great backwards-compatibility (thanks @andresesfm and Andres Aguilar!)
+
 ## 5.0.1
 
 - re-package of 5.0.0 without change except delete accidental inclusion of example/android/app/build
