@@ -10,17 +10,26 @@
 import React, {Component, Fragment} from 'react';
 import {ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {getManufacturer, getManufacturerSync, useBatteryLevel, useBatteryLevelIsLow, usePowerState} from 'react-native-device-info';
+import {
+  getManufacturer,
+  getManufacturerSync,
+  useBatteryLevel,
+  useBatteryLevelIsLow,
+  usePowerState,
+  useFirstInstallTime,
+} from 'react-native-device-info';
 
 const FunctionalComponent = () => {
   const batteryLevel = useBatteryLevel();
   const batteryLevelIsLow = useBatteryLevelIsLow();
   const powerState = usePowerState();
-  let deviceJSON = {};
-
-  deviceJSON.batteryLevel = batteryLevel;
-  deviceJSON.batteryLevelIsLow = batteryLevelIsLow;
-  deviceJSON.powerState = powerState;
+  const firstInstallTime = useFirstInstallTime();
+  const deviceJSON = {
+    batteryLevel,
+    batteryLevelIsLow,
+    powerState,
+    firstInstallTime,
+  };
 
   return (
     <ScrollView>
