@@ -68,9 +68,9 @@
   "devDependencies": {
     "@react-native-community/bob": "^0.7.0",
     "@react-native-community/eslint-config": "0.0.5",
-    "@types/react": "^16.9.9",
+    "@types/react": "^16.9.11",
     "@types/react-native": "^0.60.21",
-    "eslint": "^6.5.1",
+    "eslint": "^6.6.0",
     "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
