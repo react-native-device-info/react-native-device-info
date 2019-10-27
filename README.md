@@ -1487,6 +1487,22 @@ deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState
 });
 ```
 
+---
+
+### useFirstInstallTime
+
+Gets the time at which the app was first installed, in milliseconds.
+
+#### Example
+
+```jsx
+import { usePowerState } from 'react-native-device-info';
+
+const { loading, firstInstallTime } = useFirstInstallTime(); // { loading: true, firstInstallTime: 1517681764528}
+
+<Text>{loading ? 'loading' : firstInstallTime}</Text>;
+```
+
 ## Troubleshooting
 
 When installing or using `react-native-device-info`, you may encounter the following problems:
