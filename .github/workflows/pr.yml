@@ -26,19 +26,24 @@ jobs:
         run: npm install -g react-native-cli
 
       - name: Init new project
-        run: cd ${{ runner.temp }} && react-native init testcli --version 0.59.10
+        run: react-native init testcli --version 0.59.10
+        working-directory: ${{ runner.temp }}
 
       - name: Install rnpm-plugin-windows
-        run: cd ${{ runner.temp }}\testcli && yarn add rnpm-plugin-windows
+        run: yarn add rnpm-plugin-windows
+        working-directory: ${{ runner.temp }}\testcli
 
       - name: Apply windows template
-        run: cd ${{ runner.temp }}\testcli && react-native windows
+        run: react-native windows
+        working-directory: ${{ runner.temp }}\testcli
 
       - name: install react-native-device-info from local repo
-        run: cd ${{ runner.temp }}\testcli && yarn add react-native-device-info@file:${{ runner.workspace }}\react-native-device-info
+        run: yarn add react-native-device-info@file:${{ runner.workspace }}\react-native-device-info
+        working-directory: ${{ runner.temp }}\testcli
 
       - name: react-native link react-native-device-info
-        run: cd ${{ runner.temp }}\testcli && react-native link react-native-device-info
+        run: react-native link react-native-device-info
+        working-directory: ${{ runner.temp }}\testcli
 
       - name: Nuget restore
         run: nuget restore ${{ runner.temp }}\testcli\windows\testcli.sln
