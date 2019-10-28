@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-native';
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
-import { DeviceType, PowerState, FirstInstallTime } from './internal/types';
+import { DeviceType, PowerState, AsyncHookResult } from './internal/types';
 
 const OS = Platform.OS;
 
@@ -1231,17 +1231,17 @@ export function usePowerState(): PowerState | {} {
   return powerState;
 }
 
-export function useFirstInstallTime(): FirstInstallTime {
+export function useFirstInstallTime(): AsyncHookResult<number> {
   const [response, setResponse] = useState({
     loading: true,
-    firstInstallTime: null,
-  } as FirstInstallTime);
+    result: -1,
+  } as AsyncHookResult<number>);
 
   useEffect(() => {
     // async function cuz react complains if useEffect's effect param is an async function
     const getAsync = async () => {
-      const firstInstallTime = await getFirstInstallTime();
-      setResponse({ loading: false, firstInstallTime });
+      const result = await getFirstInstallTime();
+      setResponse({ loading: false, result });
     };
 
     getAsync();

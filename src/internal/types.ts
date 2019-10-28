@@ -13,7 +13,7 @@ export interface LocationProviderInfo {
   [key: string]: boolean;
 }
 
-export interface FirstInstallTime {
+export interface AsyncHookResult<T> {
   loading: boolean;
-  firstInstallTime: number | null;
+  result: T | -1 | false | 'unknown';
 }
