@@ -12,3 +12,8 @@ export interface PowerState {
 export interface LocationProviderInfo {
   [key: string]: boolean;
 }
+
+export interface AsyncHookResult<T> {
+  loading: boolean;
+  result: T | -1 | false | 'unknown';
+}

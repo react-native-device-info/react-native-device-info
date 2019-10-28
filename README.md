@@ -1500,6 +1500,23 @@ deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState
 });
 ```
 
+---
+
+### useFirstInstallTime
+
+Gets the time at which the app was first installed, in milliseconds.
+
+#### Example
+
+```jsx
+import { usePowerState } from 'react-native-device-info';
+
+const { loading, result } = useFirstInstallTime(); // { loading: true, result: 1517681764528}
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
+=======
 ## Native interoperatibily
 
 If you need to check for device type from the native side, you can use the following:
@@ -1515,8 +1532,10 @@ if(deviceTypeResolver.isTablet){
 }else{
   ...
 }
-
 ```
+
+
+
 
 ## Troubleshooting
 

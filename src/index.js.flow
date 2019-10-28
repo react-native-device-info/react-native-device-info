@@ -15,6 +15,11 @@ export type LocationProviderInfo = {
   [key: string]: boolean,
 };
 
+export type AsyncHookResult<T> {
+  loading: boolean,
+  result: T | -1 | false | 'unknown',
+}
+
 declare module.exports: {
   getUniqueId: () => string,
   getManufacturer: () => Promise<string>,
@@ -136,4 +141,5 @@ declare module.exports: {
   useBatteryLevel: () => number | null,
   useBatteryLevelIsLow: () => number | null,
   usePowerState: () => PowerState | {},
+  useFirstInstallTime: () => AsyncHookResult<number>
 };
