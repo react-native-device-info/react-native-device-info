@@ -1250,6 +1250,10 @@ export function useFirstInstallTime(): AsyncHookResult<number> {
   return useOnMount(getFirstInstallTime, -1);
 }
 
+export function useDeviceName(): AsyncHookResult<string> {
+  return useOnMount(getDeviceName, 'unknown');
+}
+
 export default {
   getUniqueId,
   getInstanceId,
@@ -1370,4 +1374,5 @@ export default {
   useBatteryLevelIsLow,
   usePowerState,
   useFirstInstallTime,
+  useDeviceName,
 };
