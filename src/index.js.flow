@@ -141,5 +141,6 @@ declare module.exports: {
   useBatteryLevel: () => number | null,
   useBatteryLevelIsLow: () => number | null,
   usePowerState: () => PowerState | {},
-  useFirstInstallTime: () => AsyncHookResult<number>
+  useFirstInstallTime: () => AsyncHookResult<number>,
+  useDeviceName: () => AsyncHookResult<string>
 };

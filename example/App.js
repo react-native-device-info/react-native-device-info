@@ -17,6 +17,7 @@ import {
   useBatteryLevelIsLow,
   usePowerState,
   useFirstInstallTime,
+  useDeviceName,
 } from 'react-native-device-info';
 
 const FunctionalComponent = () => {
@@ -24,11 +25,13 @@ const FunctionalComponent = () => {
   const batteryLevelIsLow = useBatteryLevelIsLow();
   const powerState = usePowerState();
   const firstInstallTime = useFirstInstallTime();
+  const deviceName = useDeviceName();
   const deviceJSON = {
     batteryLevel,
     batteryLevelIsLow,
     powerState,
     firstInstallTime,
+    deviceName,
   };
 
   return (

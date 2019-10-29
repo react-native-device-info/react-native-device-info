@@ -3,6 +3,7 @@ import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-n
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
 import { DeviceType, PowerState, AsyncHookResult } from './internal/types';
+import { useOnMount } from './internal/async-hook-wrappers';
 
 const OS = Platform.OS;
 
@@ -1246,22 +1247,11 @@ export function usePowerState(): PowerState | {} {
 }
 
 export function useFirstInstallTime(): AsyncHookResult<number> {
-  const [response, setResponse] = useState({
-    loading: true,
-    result: -1,
-  } as AsyncHookResult<number>);
+  return useOnMount(getFirstInstallTime, -1);
+}
 
-  useEffect(() => {
-    // async function cuz react complains if useEffect's effect param is an async function
-    const getAsync = async () => {
-      const result = await getFirstInstallTime();
-      setResponse({ loading: false, result });
-    };
-
-    getAsync();
-  }, []);
-
-  return response;
+export function useDeviceName(): AsyncHookResult<string> {
+  return useOnMount(getDeviceName, 'unknown');
 }
 
 export default {
@@ -1384,4 +1374,5 @@ export default {
   useBatteryLevelIsLow,
   usePowerState,
   useFirstInstallTime,
+  useDeviceName,
 };
