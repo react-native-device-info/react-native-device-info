@@ -1516,6 +1516,22 @@ const { loading, result } = useFirstInstallTime(); // { loading: true, result: 1
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
 
+---
+
+### useDeviceName
+
+Gets the device name.
+
+#### Example
+
+```jsx
+import { useDeviceName } from 'react-native-device-info';
+
+const { loading, result } = useDeviceName(); // { loading: true, result: "Becca's iPhone 6"}
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
 =======
 ## Native interoperatibily
 
