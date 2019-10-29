@@ -3,6 +3,7 @@ import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-n
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
 import { DeviceType, PowerState, AsyncHookResult } from './internal/types';
+import { useOnMount } from './internal/async-hook-wrappers';
 
 const OS = Platform.OS;
 
@@ -1246,22 +1247,7 @@ export function usePowerState(): PowerState | {} {
 }
 
 export function useFirstInstallTime(): AsyncHookResult<number> {
-  const [response, setResponse] = useState({
-    loading: true,
-    result: -1,
-  } as AsyncHookResult<number>);
-
-  useEffect(() => {
-    // async function cuz react complains if useEffect's effect param is an async function
-    const getAsync = async () => {
-      const result = await getFirstInstallTime();
-      setResponse({ loading: false, result });
-    };
-
-    getAsync();
-  }, []);
-
-  return response;
+  return useOnMount(getFirstInstallTime, -1);
 }
 
 export default {
