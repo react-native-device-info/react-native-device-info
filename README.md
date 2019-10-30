@@ -1532,6 +1532,22 @@ const { loading, result } = useDeviceName(); // { loading: true, result: "Becca'
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
 
+---
+
+### useHasSystemFeature
+
+Tells if the device has a specific system feature.
+
+#### Example
+
+```jsx
+import { useHasSystemFeature } from 'react-native-device-info';
+
+const { loading, result } = useHasSystemFeature('amazon.hardware.fire_tv'); // { loading: true, result: false }
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
 =======
 ## Native interoperatibily
 
