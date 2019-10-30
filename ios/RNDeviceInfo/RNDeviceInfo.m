@@ -382,7 +382,10 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     
     // Shared application is unavailable in an app extension.
     if (application) {
-        NSString *contentSize = application.preferredContentSizeCategory;
+        __block NSString *contentSize = nil;
+        RCTUnsafeExecuteOnMainQueueSync(^{
+            contentSize = application.preferredContentSizeCategory;
+        });
         
         if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
         else if ([contentSize isEqual: @"UICTContentSizeCategoryS"]) fontScale = 0.88;
