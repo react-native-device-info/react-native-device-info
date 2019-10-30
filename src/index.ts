@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-native';
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
@@ -1254,6 +1254,11 @@ export function useDeviceName(): AsyncHookResult<string> {
   return useOnMount(getDeviceName, 'unknown');
 }
 
+export function useHasSystemFeature(feature: string): AsyncHookResult<boolean> {
+  const asyncGetter = useCallback(() => hasSystemFeature(feature), [feature]);
+  return useOnMount(asyncGetter, false);
+}
+
 export default {
   getUniqueId,
   getInstanceId,
@@ -1375,4 +1380,5 @@ export default {
   usePowerState,
   useFirstInstallTime,
   useDeviceName,
+  useHasSystemFeature,
 };

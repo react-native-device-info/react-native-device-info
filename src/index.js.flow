@@ -142,5 +142,6 @@ declare module.exports: {
   useBatteryLevelIsLow: () => number | null,
   usePowerState: () => PowerState | {},
   useFirstInstallTime: () => AsyncHookResult<number>,
-  useDeviceName: () => AsyncHookResult<string>
+  useDeviceName: () => AsyncHookResult<string>,
+  useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>
 };
