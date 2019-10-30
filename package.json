@@ -7,14 +7,13 @@
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "files": [
-    "/android",
-    "!/android/build",
-    "/ios",
-    "/windows",
-    "/web",
-    "src/",
+    "android/",
+    "ios/",
     "lib/",
-    "/*.podspec"
+    "src/",
+    "web/",
+    "windows/",
+    "RNDeviceInfo.podspec"
   ],
   "repository": {
     "type": "git",
