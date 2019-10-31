@@ -1502,6 +1502,24 @@ deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState
 
 ---
 
+### useLandscape
+
+Tells if the device is currently in landscape mode.
+
+_This hook listens to dimension change events, determines if the window is in landscape, then updates the result accordingly._
+
+#### Example
+
+```jsx
+import { useLandscape } from 'react-native-device-info';
+
+const isLandscape = useLandscape(); // true or false
+
+<Text>{isLandscape}</Text>;
+```
+
+---
+
 ### useFirstInstallTime
 
 Gets the time at which the app was first installed, in milliseconds.
