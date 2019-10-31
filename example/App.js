@@ -18,6 +18,7 @@ import {
   usePowerState,
   useFirstInstallTime,
   useDeviceName,
+  useHasSystemFeature,
 } from 'react-native-device-info';
 
 const FunctionalComponent = () => {
@@ -26,12 +27,14 @@ const FunctionalComponent = () => {
   const powerState = usePowerState();
   const firstInstallTime = useFirstInstallTime();
   const deviceName = useDeviceName();
+  const hasSystemFeature = useHasSystemFeature('amazon.hardware.fire_tv');
   const deviceJSON = {
     batteryLevel,
     batteryLevelIsLow,
     powerState,
     firstInstallTime,
     deviceName,
+    hasSystemFeature,
   };
 
   return (
