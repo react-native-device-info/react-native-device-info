@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-native';
+import { Platform, Dimensions, NativeEventEmitter, NativeModules, ScaledSize } from 'react-native';
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
 import { DeviceType, PowerState, AsyncHookResult } from './internal/types';
@@ -1246,6 +1246,31 @@ export function usePowerState(): PowerState | {} {
   return powerState;
 }
 
+/**
+ * hook that listens to Dimension change event to determine if window is in landscape after said change
+ */
+export function useLandscape(): boolean {
+  // initial state setup
+  const [result, setResult] = useState<boolean>(isLandscapeSync());
+
+  // eqv to `componentWillMount` when 'deps' param is an empty array
+  useEffect(() => {
+    const type = 'change';
+    const handler = ({ window }: { window: ScaledSize }) => {
+      setResult(window.width >= window.height);
+    };
+
+    Dimensions.addEventListener(type, handler);
+
+    // componentWillUnmount
+    return () => {
+      Dimensions.removeEventListener(type, handler);
+    };
+  }, []);
+
+  return result;
+}
+
 export function useFirstInstallTime(): AsyncHookResult<number> {
   return useOnMount(getFirstInstallTime, -1);
 }
@@ -1373,6 +1398,7 @@ export default {
   useBatteryLevel,
   useBatteryLevelIsLow,
   usePowerState,
+  useLandscape,
   useFirstInstallTime,
   useDeviceName,
 };
