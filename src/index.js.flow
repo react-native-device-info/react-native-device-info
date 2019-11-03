@@ -144,4 +144,5 @@ declare module.exports: {
   useFirstInstallTime: () => AsyncHookResult<number>,
   useDeviceName: () => AsyncHookResult<string>,
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>
+  useIsEmulator: () => AsyncHookResult<boolean>
 };
