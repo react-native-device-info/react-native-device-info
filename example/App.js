@@ -7,7 +7,7 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
@@ -19,6 +19,7 @@ import {
   useFirstInstallTime,
   useDeviceName,
   useHasSystemFeature,
+  useIsEmulator,
 } from 'react-native-device-info';
 
 const FunctionalComponent = () => {
@@ -28,6 +29,7 @@ const FunctionalComponent = () => {
   const firstInstallTime = useFirstInstallTime();
   const deviceName = useDeviceName();
   const hasSystemFeature = useHasSystemFeature('amazon.hardware.fire_tv');
+  const isEmulator = useIsEmulator();
   const deviceJSON = {
     batteryLevel,
     batteryLevelIsLow,
@@ -35,6 +37,7 @@ const FunctionalComponent = () => {
     firstInstallTime,
     deviceName,
     hasSystemFeature,
+    isEmulator,
   };
 
   return (
