@@ -1259,6 +1259,10 @@ export function useHasSystemFeature(feature: string): AsyncHookResult<boolean> {
   return useOnMount(asyncGetter, false);
 }
 
+export function useIsEmulator(): AsyncHookResult<boolean> {
+  return useOnMount(isEmulator, false);
+}
+
 export default {
   getUniqueId,
   getInstanceId,
@@ -1381,4 +1385,5 @@ export default {
   useFirstInstallTime,
   useDeviceName,
   useHasSystemFeature,
+  useIsEmulator,
 };

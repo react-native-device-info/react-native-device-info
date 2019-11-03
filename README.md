@@ -1548,6 +1548,21 @@ const { loading, result } = useHasSystemFeature('amazon.hardware.fire_tv'); // {
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
 
+### useIsEmulator
+
+Get whether the application is running in an emulator.
+
+#### Example
+
+```jsx
+import { useIsEmulator } from 'react-native-device-info';
+
+const { loading, result } = useDeviceName(); // { loading: true, result: false }
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
+---
 =======
 ## Native interoperatibily
 
