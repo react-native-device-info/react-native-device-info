@@ -6,6 +6,43 @@ let isBatteryCharging = false,
   batteryLevel = -1,
   powerState = {};
 
+const getMaxMemorySync = () => {
+  if (window.performance && window.performance.memory) {
+    return window.performance.memory.jsHeapSizeLimit;
+  }
+  return -1;
+};
+
+const getInstallReferrerSync = () => {
+  return document.referrer;
+};
+
+const isAirplaneModeSync = () => {
+  return !!navigator.onLine;
+};
+
+const getUserAgentSync = () => {
+  return window.navigator.userAgent;
+};
+
+const isLocationEnabledSync = () => {
+  return !!navigator.geolocation;
+};
+
+const getTotalMemorySync = () => {
+  if (navigator.deviceMemory) {
+    return navigator.deviceMemory * 1000000000;
+  }
+  return -1;
+};
+
+const getUsedMemorySync = () => {
+  if (window.performance && window.performance.memory) {
+    return window.performance.memory.usedJSHeapSize;
+  }
+  return -1;
+};
+
 const getPowerState = battery => {
   const { level, charging, chargingtime, dischargingtime } = battery;
 
@@ -47,7 +84,7 @@ const init = async () => {
   }
 };
 
-const getBaseOs = () => {
+const getBaseOsSync = () => {
   const userAgent = window.navigator.userAgent,
     platform = window.navigator.platform,
     macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
@@ -77,17 +114,13 @@ init();
  */
 module.exports = {
   getInstallReferrer: async () => {
-    return document.referrer;
+    return getInstallReferrerSync();
   },
-  getInstallReferrerSync: () => {
-    return document.referrer;
-  },
+  getInstallReferrerSync,
   getUserAgent: async () => {
-    return window.navigator.userAgent;
+    return getUserAgentSync();
   },
-  getUserAgentSync: () => {
-    return window.navigator.userAgent;
-  },
+  getUserAgentSync,
   isBatteryCharging: async () => {
     if (navigator.getBattery) {
       const battery = await navigator.getBattery();
@@ -122,23 +155,17 @@ module.exports = {
     return batteryLevel;
   },
   isLocationEnabled: async () => {
-    return !!navigator.geolocation;
+    return isLocationEnabledSync();
   },
-  isLocationEnabledSync: () => {
-    return !!navigator.geolocation;
-  },
+  isLocationEnabledSync,
   isAirplaneMode: async () => {
-    return !!navigator.onLine;
+    return isAirplaneModeSync();
   },
-  isAirplaneModeSync: () => {
-    return !!navigator.onLine;
-  },
+  isAirplaneModeSync,
   getBaseOs: async () => {
-    return getBaseOs();
+    return getBaseOsSync();
   },
-  getBaseOsSync: () => {
-    return getBaseOs();
-  },
+  getBaseOsSync,
   getTotalDiskCapacity: async () => {
     if (navigator.storage && navigator.storage.estimate) {
       const { quota } = await navigator.storage.estimate();
@@ -160,47 +187,23 @@ module.exports = {
     return -1;
   },
   getFreeDiskStorageSync: () => {
-    if (window.performance && window.performance.memory) {
-      return window.performance.memory.usedJSHeapSize;
-    }
+    console.log(
+      '[react-native-device-info] getFreeDiskStorageSync not supported - please use getFreeDiskStorage'
+    );
     return -1;
   },
   getMaxMemory: async () => {
-    if (window.performance && window.performance.memory) {
-      return window.performance.memory.jsHeapSizeLimit;
-    }
-    return -1;
+    return getMaxMemorySync();
   },
-  getMaxMemorySync: () => {
-    if (window.performance && window.performance.memory) {
-      return window.performance.memory.jsHeapSizeLimit;
-    }
-    return -1;
-  },
+  getMaxMemorySync,
   getUsedMemory: async () => {
-    if (window.performance && window.performance.memory) {
-      return window.performance.memory.usedJSHeapSize;
-    }
-    return -1;
+    return getUsedMemorySync();
   },
-  getUsedMemorySync: () => {
-    if (window.performance && window.performance.memory) {
-      return window.performance.memory.usedJSHeapSize;
-    }
-    return -1;
-  },
+  getUsedMemorySync,
   getTotalMemory: async () => {
-    if (navigator.deviceMemory) {
-      return navigator.deviceMemory * 1000000000;
-    }
-    return -1;
+    return getTotalMemorySync();
   },
-  getTotalMemorySync: () => {
-    if (navigator.deviceMemory) {
-      return navigator.deviceMemory * 1000000000;
-    }
-    return -1;
-  },
+  getTotalMemorySync,
   getPowerState: async () => {
     if (navigator.getBattery) {
       const battery = await navigator.getBattery();
