@@ -7,7 +7,7 @@ const OS: PlatformOSType = Platform.OS;
 
 // @ts-ignore
 if (OS === 'web' || OS === 'dom') {
-  RNDeviceInfo = require('../../web');
+  RNDeviceInfo = require('../../../web');
 }
 
 if (!RNDeviceInfo) {
