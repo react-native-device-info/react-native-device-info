@@ -2,6 +2,8 @@
 
 # Release Notes
 
+- Added web support for isCameraPresent, isLocationEnabled, isAirplaneMode and battery/charging-related APIs.
+
 ## 5.2.0
 
 - feat: isHeadphonesConnected() / isHeadphonesConnectedSync() (thanks @chakrihacker!)
