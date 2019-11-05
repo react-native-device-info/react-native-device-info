@@ -347,14 +347,14 @@ export function getDeviceNameSync() {
 }
 
 export async function getUsedMemory() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getUsedMemory();
   }
   return -1;
 }
 
 export function getUsedMemorySync() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getUsedMemorySync();
   }
   return -1;
@@ -596,7 +596,7 @@ export function getTypeSync() {
 let baseOs: string;
 export async function getBaseOs() {
   if (!baseOs) {
-    if (OS === 'android') {
+    if (OS === 'android' || OS === 'web') {
       baseOs = await RNDeviceInfo.getBaseOs();
     } else {
       baseOs = 'unknown';
@@ -607,7 +607,7 @@ export async function getBaseOs() {
 
 export function getBaseOsSync() {
   if (!baseOs) {
-    if (OS === 'android') {
+    if (OS === 'android' || OS === 'web') {
       baseOs = RNDeviceInfo.getBaseOsSync();
     } else {
       baseOs = 'unknown';
@@ -798,7 +798,7 @@ export function getFirstInstallTimeSync() {
 let installReferrer: string;
 export async function getInstallReferrer() {
   if (!installReferrer) {
-    if (OS === 'android') {
+    if (OS === 'android' || OS === 'web') {
       installReferrer = await RNDeviceInfo.getInstallReferrer();
     } else {
       installReferrer = 'unknown';
@@ -809,7 +809,7 @@ export async function getInstallReferrer() {
 
 export function getInstallReferrerSync() {
   if (!installReferrer) {
-    if (OS === 'android') {
+    if (OS === 'android' || OS === 'web') {
       installReferrer = RNDeviceInfo.getInstallReferrerSync();
     } else {
       installReferrer = 'unknown';
@@ -872,7 +872,7 @@ export function getCarrierSync() {
 let totalMemory: number;
 export async function getTotalMemory() {
   if (!totalMemory) {
-    if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+    if (OS === 'android' || OS === 'ios' || OS === 'windows' || OS === 'web') {
       totalMemory = await RNDeviceInfo.getTotalMemory();
     } else {
       totalMemory = -1;
@@ -883,7 +883,7 @@ export async function getTotalMemory() {
 
 export function getTotalMemorySync() {
   if (!totalMemory) {
-    if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+    if (OS === 'android' || OS === 'ios' || OS === 'windows' || OS === 'web') {
       totalMemory = RNDeviceInfo.getTotalMemorySync();
     } else {
       totalMemory = -1;
@@ -895,7 +895,7 @@ export function getTotalMemorySync() {
 let maxMemory: number;
 export async function getMaxMemory() {
   if (!maxMemory) {
-    if (OS === 'android' || OS === 'windows') {
+    if (OS === 'android' || OS === 'windows' || OS === 'web') {
       maxMemory = await RNDeviceInfo.getMaxMemory();
     } else {
       maxMemory = -1;
@@ -906,7 +906,7 @@ export async function getMaxMemory() {
 
 export function getMaxMemorySync() {
   if (!maxMemory) {
-    if (OS === 'android' || OS === 'windows') {
+    if (OS === 'android' || OS === 'windows' || OS === 'web') {
       maxMemory = RNDeviceInfo.getMaxMemorySync();
     } else {
       maxMemory = -1;
@@ -916,28 +916,28 @@ export function getMaxMemorySync() {
 }
 
 export async function getTotalDiskCapacity() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getTotalDiskCapacity();
   }
   return -1;
 }
 
 export function getTotalDiskCapacitySync() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getTotalDiskCapacitySync();
   }
   return -1;
 }
 
 export async function getFreeDiskStorage() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getFreeDiskStorage();
   }
   return -1;
 }
 
 export function getFreeDiskStorageSync() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.getFreeDiskStorageSync();
   }
   return -1;
