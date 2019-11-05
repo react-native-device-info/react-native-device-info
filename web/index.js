@@ -7,10 +7,14 @@ let isBatteryCharging = false,
   powerState = {};
 
 const getPowerState = battery => {
+  const { level, charging, chargingtime, dischargingtime } = battery;
+
   return {
-    batteryLevel: battery.level,
+    batteryLevel: level,
     lowPowerMode: false,
-    batteryState: battery.charging ? 'charging' : 'unplugged',
+    batteryState: level === 1 ? 'full' : charging ? 'charging' : 'unplugged',
+    chargingtime,
+    dischargingtime,
   };
 };
 
