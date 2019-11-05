@@ -103,14 +103,14 @@ export function getIpAddressSync() {
 }
 
 export async function isCameraPresent() {
-  if (OS === 'android' || OS === 'windows') {
+  if (OS === 'android' || OS === 'windows' || OS === 'web') {
     return RNDeviceInfo.isCameraPresent();
   }
   return false;
 }
 
 export function isCameraPresentSync() {
-  if (OS === 'android' || OS === 'windows') {
+  if (OS === 'android' || OS === 'windows' || OS === 'web') {
     return RNDeviceInfo.isCameraPresentSync();
   }
   return false;
@@ -944,42 +944,42 @@ export function getFreeDiskStorageSync() {
 }
 
 export async function getBatteryLevel() {
-  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows' || OS === 'web') {
     return RNDeviceInfo.getBatteryLevel();
   }
   return -1;
 }
 
 export function getBatteryLevelSync() {
-  if (OS === 'android' || OS === 'ios' || OS === 'windows') {
+  if (OS === 'android' || OS === 'ios' || OS === 'windows' || OS === 'web') {
     return RNDeviceInfo.getBatteryLevelSync();
   }
   return -1;
 }
 
 export async function getPowerState() {
-  if (OS === 'ios' || OS === 'android') {
+  if (OS === 'ios' || OS === 'android' || OS === 'web') {
     return RNDeviceInfo.getPowerState();
   }
   return {};
 }
 
 export function getPowerStateSync() {
-  if (OS === 'ios' || OS === 'android') {
+  if (OS === 'ios' || OS === 'android' || OS === 'web') {
     return RNDeviceInfo.getPowerStateSync();
   }
   return {};
 }
 
 export async function isBatteryCharging() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.isBatteryCharging();
   }
   return false;
 }
 
 export function isBatteryChargingSync() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.isBatteryChargingSync();
   }
   return false;
@@ -995,14 +995,14 @@ export function isLandscapeSync() {
 }
 
 export async function isAirplaneMode() {
-  if (OS === 'android') {
+  if (OS === 'android' || OS === 'web') {
     return RNDeviceInfo.isAirplaneMode();
   }
   return Promise.resolve(false);
 }
 
 export function isAirplaneModeSync() {
-  if (OS === 'android') {
+  if (OS === 'android' || OS === 'web') {
     return RNDeviceInfo.isAirplaneModeSync();
   }
   return false;
@@ -1129,14 +1129,14 @@ export function getSystemAvailableFeaturesSync() {
 }
 
 export async function isLocationEnabled() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.isLocationEnabled();
   }
   return false;
 }
 
 export function isLocationEnabledSync() {
-  if (OS === 'android' || OS === 'ios') {
+  if (OS === 'android' || OS === 'ios' || OS === 'web') {
     return RNDeviceInfo.isLocationEnabledSync();
   }
   return false;
