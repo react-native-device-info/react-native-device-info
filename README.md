@@ -1420,7 +1420,7 @@ DeviceInfo.getAvailableLocationProviders().then(providers => {
 
 ## Hooks & Events
 
-Currently iOS & Android only.
+Currently iOS & Android only (web support for battery/charging-related APIs).
 
 ### useBatteryLevel or RNDeviceInfo_batteryLevelDidChange
 
@@ -1455,6 +1455,7 @@ Fired when the battery drops is considered low
 | -------- | ---------- |
 | iOS      | 20         |
 | Android  | 15         |
+| Web      | 20         |
 
 #### Examples
 
