@@ -81,7 +81,7 @@ declare module.exports: {
   getIncrementalSync: () => string,
   isPinOrFingerprintSet: () => Promise<boolean>,
   isPinOrFingerprintSetSync: () => boolean,
-  hasNotch: () => Promise<boolean>,
+  hasNotch: () => boolean,
   hasNotchSync: () => boolean,
   getFirstInstallTime: () => Promise<number>,
   getFirstInstallTimeSync: () => number,
