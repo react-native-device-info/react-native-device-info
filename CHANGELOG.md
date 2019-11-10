@@ -2,7 +2,8 @@
 
 # Release Notes
 
-- Added web support for isCameraPresent, isLocationEnabled, isAirplaneMode, getBaseOs, getFreeDiskStorage, getMaxMemory, getTotalDiskCapacity, getTotalMemory, getUsedMemory and battery/charging-related APIs.
+## 5.3.0
+- feat: Added web support for isCameraPresent, isLocationEnabled, isAirplaneMode, getBaseOs, getFreeDiskStorage, getMaxMemory, getTotalDiskCapacity, getTotalMemory, getUsedMemory and battery/charging-related APIs. (thanks @robertherber!)
 
 ## 5.2.0
 
