@@ -15,7 +15,7 @@ export type LocationProviderInfo = {
   [key: string]: boolean,
 };
 
-export type AsyncHookResult<T> {
+export type AsyncHookResult<T> = {
   loading: boolean,
   result: T | -1 | false | 'unknown',
 }
@@ -143,6 +143,6 @@ declare module.exports: {
   usePowerState: () => PowerState | {},
   useFirstInstallTime: () => AsyncHookResult<number>,
   useDeviceName: () => AsyncHookResult<string>,
-  useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>
+  useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>,
   useIsEmulator: () => AsyncHookResult<boolean>
 };
