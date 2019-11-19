@@ -2,6 +2,9 @@
 
 # Release Notes
 
+## 5.3.1
+- types: fix Flow types (thanks @grit96!)
+
 ## 5.3.0
 - feat: Added web support for isCameraPresent, isLocationEnabled, isAirplaneMode, getBaseOs, getFreeDiskStorage, getMaxMemory, getTotalDiskCapacity, getTotalMemory, getUsedMemory and battery/charging-related APIs. (thanks @robertherber!)
 
