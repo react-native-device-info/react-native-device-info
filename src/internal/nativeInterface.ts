@@ -10,11 +10,11 @@ if (Platform.OS === 'web' || Platform.OS === 'dom') {
 
 if (!RNDeviceInfo) {
   // Produce an error if we don't have the native module
-  // @ts-ignore
   if (
     Platform.OS === 'android' ||
     Platform.OS === 'ios' ||
     Platform.OS === 'web' ||
+    // @ts-ignore
     Platform.OS === 'dom'
   ) {
     throw new Error(`@react-native-community/react-native-device-info: NativeModule.RNDeviceInfo is null. To fix this issue try these steps:
