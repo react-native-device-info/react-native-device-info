@@ -1,19 +1,22 @@
-import { Platform, NativeModules, PlatformOSType } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
 import { DeviceInfoNativeModule } from './privateTypes';
 
 let RNDeviceInfo: DeviceInfoNativeModule | undefined = NativeModules.RNDeviceInfo;
 
-const OS: PlatformOSType = Platform.OS;
-
 // @ts-ignore
-if (OS === 'web' || OS === 'dom') {
+if (Platform.OS === 'web' || Platform.OS === 'dom') {
   RNDeviceInfo = require('../web');
 }
 
 if (!RNDeviceInfo) {
   // Produce an error if we don't have the native module
   // @ts-ignore
-  if (OS === 'android' || OS === 'ios' || OS === 'web' || OS === 'dom') {
+  if (
+    Platform.OS === 'android' ||
+    Platform.OS === 'ios' ||
+    Platform.OS === 'web' ||
+    Platform.OS === 'dom'
+  ) {
     throw new Error(`@react-native-community/react-native-device-info: NativeModule.RNDeviceInfo is null. To fix this issue try these steps:
   • For react-native <= 0.59: Run \`react-native link react-native-device-info\` in the project root.
   • Rebuild and re-run the app.
