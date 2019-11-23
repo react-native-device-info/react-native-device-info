@@ -1049,7 +1049,7 @@ export function getDeviceTypeSync() {
   return deviceType;
 }
 
-let _supportedAbis: Array<string>;
+let _supportedAbis: string[];
 export async function supportedAbis() {
   if (!_supportedAbis) {
     if (Platform.OS === 'android' || Platform.OS === 'ios') {
@@ -1072,7 +1072,7 @@ export function supportedAbisSync() {
   return _supportedAbis;
 }
 
-let _supported32BitAbis: Array<string>;
+let _supported32BitAbis: string[];
 export async function supported32BitAbis() {
   if (!_supported32BitAbis) {
     if (Platform.OS === 'android') {
@@ -1095,7 +1095,7 @@ export function supported32BitAbisSync() {
   return _supported32BitAbis;
 }
 
-let _supported64BitAbis: Array<string>;
+let _supported64BitAbis: string[];
 export async function supported64BitAbis() {
   if (!_supported64BitAbis) {
     if (Platform.OS === 'android') {
