@@ -262,7 +262,11 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             onPress={() => this.setState({activeTab: 'constant'})}>
-            <Text style={[styles.tabText, this.state.activeTab === 'constant']}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'constant' && styles.boldText,
+              ]}>
               Constant
             </Text>
           </TouchableOpacity>
@@ -270,7 +274,11 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             onPress={() => this.setState({activeTab: 'sync'})}>
-            <Text style={[styles.tabText, this.state.activeTab === 'sync']}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'sync' && styles.boldText,
+              ]}>
               Sync
             </Text>
           </TouchableOpacity>
@@ -278,7 +286,11 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             onPress={() => this.setState({activeTab: 'async'})}>
-            <Text style={[styles.tabText, this.state.activeTab === 'async']}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'async' && styles.boldText,
+              ]}>
               Async
             </Text>
           </TouchableOpacity>
@@ -286,7 +298,11 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             onPress={() => this.setState({activeTab: 'hooks'})}>
-            <Text style={[styles.tabText, this.state.activeTab === 'hooks']}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'hooks' && styles.boldText,
+              ]}>
               Hooks
             </Text>
           </TouchableOpacity>
