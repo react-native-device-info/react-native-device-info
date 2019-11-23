@@ -705,18 +705,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSecurityPatch(Promise p) { p.resolve(getSecurityPatchSync()); }
 
-  @ReactMethod
-  public void getUserAgent(Promise p) {
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getUserAgentSync() {
     try {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        p.resolve(WebSettings.getDefaultUserAgent(getReactApplicationContext()));
+        return WebSettings.getDefaultUserAgent(getReactApplicationContext());
       } else {
-        p.resolve(System.getProperty("http.agent"));
+        return System.getProperty("http.agent");
       }
     } catch (RuntimeException e) {
-      p.resolve(System.getProperty("http.agent"));
+      return System.getProperty("http.agent");
     }
   }
+  @ReactMethod
+  public void getUserAgent(Promise p) { p.resolve(getUserAgentSync()); }
 
   @SuppressLint({"HardwareIds", "MissingPermission"})
   @ReactMethod(isBlockingSynchronousMethod = true)

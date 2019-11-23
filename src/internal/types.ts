@@ -15,5 +15,5 @@ export interface LocationProviderInfo {
 
 export interface AsyncHookResult<T> {
   loading: boolean;
-  result: T | -1 | false | 'unknown';
+  result: T;
 }

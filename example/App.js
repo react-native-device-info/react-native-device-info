@@ -8,7 +8,14 @@
  */
 
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, SafeAreaView} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
   getManufacturer,
@@ -43,7 +50,7 @@ const FunctionalComponent = () => {
   return (
     <ScrollView>
       <Text style={styles.instructions}>
-        {JSON.stringify(deviceJSON, null, '\t')}
+        {JSON.stringify(deviceJSON, null, '  ')}
       </Text>
     </ScrollView>
   );
@@ -53,6 +60,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeTab: 'constant',
       constantdeviceinfo: this.getConstantDeviceInfo(),
       asyncdeviceinfo: {},
       syncdeviceinfo: this.getSyncDeviceInfo(),
@@ -208,34 +216,97 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.welcome}>
-          react-native-device-info example - constant info:
-        </Text>
-        <ScrollView>
-          <Text style={styles.instructions}>
-            {JSON.stringify(this.state.constantdeviceinfo, null, '\t')}
-          </Text>
-        </ScrollView>
-        <Text style={styles.welcome}>
-          react-native-device-info example - sync info:
-        </Text>
-        <ScrollView>
-          <Text style={styles.instructions}>
-            {JSON.stringify(this.state.syncdeviceinfo, null, '\t')}
-          </Text>
-        </ScrollView>
-        <Text style={styles.welcome}>
-          react-native-device-info example - async info:
-        </Text>
-        <ScrollView>
-          <Text style={styles.instructions}>
-            {JSON.stringify(this.state.asyncdeviceinfo, null, '\t')}
-          </Text>
-        </ScrollView>
-        <Text style={styles.welcome}>
-          react-native-device-info example - hooks:
-        </Text>
-        <FunctionalComponent />
+        {this.state.activeTab === 'constant' ? (
+          <>
+            <Text style={styles.welcome}>
+              react-native-device-info example - constant info:
+            </Text>
+            <ScrollView>
+              <Text style={styles.instructions}>
+                {JSON.stringify(this.state.constantdeviceinfo, null, '  ')}
+              </Text>
+            </ScrollView>
+          </>
+        ) : this.state.activeTab === 'sync' ? (
+          <>
+            <Text style={styles.welcome}>
+              react-native-device-info example - sync info:
+            </Text>
+            <ScrollView>
+              <Text style={styles.instructions}>
+                {JSON.stringify(this.state.syncdeviceinfo, null, '  ')}
+              </Text>
+            </ScrollView>
+          </>
+        ) : this.state.activeTab === 'async' ? (
+          <>
+            <Text style={styles.welcome}>
+              react-native-device-info example - async info:
+            </Text>
+            <ScrollView>
+              <Text style={styles.instructions}>
+                {JSON.stringify(this.state.asyncdeviceinfo, null, '  ')}
+              </Text>
+            </ScrollView>
+          </>
+        ) : this.state.activeTab === 'hooks' ? (
+          <>
+            <Text style={styles.welcome}>
+              react-native-device-info example - hooks:
+            </Text>
+            <FunctionalComponent />
+          </>
+        ) : null}
+
+        <View style={styles.tabBar}>
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => this.setState({activeTab: 'constant'})}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'constant' && styles.boldText,
+              ]}>
+              Constant
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => this.setState({activeTab: 'sync'})}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'sync' && styles.boldText,
+              ]}>
+              Sync
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => this.setState({activeTab: 'async'})}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'async' && styles.boldText,
+              ]}>
+              Async
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tab}
+            onPress={() => this.setState({activeTab: 'hooks'})}>
+            <Text
+              style={[
+                styles.tabText,
+                this.state.activeTab === 'hooks' && styles.boldText,
+              ]}>
+              Hooks
+            </Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }
@@ -244,8 +315,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -256,6 +325,23 @@ const styles = StyleSheet.create({
   instructions: {
     textAlign: 'left',
     color: '#333333',
-    marginBottom: 5,
+    margin: 5,
+  },
+  tabBar: {
+    flexDirection: 'row',
+    borderTopColor: '#333333',
+    borderTopWidth: 1,
+  },
+  tab: {
+    height: 50,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabText: {
+    color: '#333333',
+  },
+  boldText: {
+    fontWeight: '700',
   },
 });
