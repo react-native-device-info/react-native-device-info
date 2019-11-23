@@ -7,7 +7,7 @@ export type NotchDevice = {
   [key: string]: string;
 };
 
-export interface DeviceInfoNativeModule {
+export interface DeviceInfoNativeConstants {
   uniqueId: string;
   deviceId: string;
   systemName: string;
@@ -20,6 +20,9 @@ export interface DeviceInfoNativeModule {
   brand: string;
   model: string;
   deviceType: DeviceType;
+}
+
+export interface DeviceInfoNativeMethods {
   getSystemManufacturer: () => Promise<string>;
   getSystemManufacturerSync: () => string;
   getBrand: () => string;
@@ -128,3 +131,7 @@ export interface DeviceInfoNativeModule {
   getAvailableLocationProviders: () => Promise<LocationProviderInfo>;
   getAvailableLocationProvidersSync: () => LocationProviderInfo;
 }
+
+export interface DeviceInfoNativeModule
+  extends DeviceInfoNativeConstants,
+    DeviceInfoNativeMethods {}
