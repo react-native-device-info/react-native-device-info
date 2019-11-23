@@ -6,12 +6,17 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "clean-modules": "rm -rf ./node_modules/react-native-device-info/{example,node_modules}",
+    "clean": "rm -rf ./node_modules ./ios/Pods",
+    "postinstall": "npm run clean-modules && npm run pod-install",
+    "pod-install": "cd ./ios && pod install && cd ..",
+    "reinstall": "npm run clean && npm run install"
   },
   "dependencies": {
     "react": "16.8.1",
     "react-native": "0.61.2",
-    "react-native-device-info": "github:react-native-community/react-native-device-info"
+    "react-native-device-info": "../"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
