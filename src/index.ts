@@ -3,7 +3,7 @@ import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-n
 import RNDeviceInfo from './internal/nativeInterface';
 import devicesWithNotch from './internal/devicesWithNotch';
 import { DeviceType, PowerState, AsyncHookResult } from './internal/types';
-import { useOnMount } from './internal/async-hook-wrappers';
+import { useOnMount } from './internal/asyncHookWrappers';
 
 let uniqueId: string;
 export function getUniqueId() {
