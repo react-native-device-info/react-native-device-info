@@ -17,8 +17,8 @@ export type LocationProviderInfo = {
 
 export type AsyncHookResult<T> = {
   loading: boolean,
-  result: T | -1 | false | 'unknown',
-}
+  result: T,
+};
 
 declare module.exports: {
   getUniqueId: () => string,
@@ -144,5 +144,5 @@ declare module.exports: {
   useFirstInstallTime: () => AsyncHookResult<number>,
   useDeviceName: () => AsyncHookResult<string>,
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>,
-  useIsEmulator: () => AsyncHookResult<boolean>
+  useIsEmulator: () => AsyncHookResult<boolean>,
 };
