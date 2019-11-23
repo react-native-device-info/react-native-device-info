@@ -1,4 +1,4 @@
-import { DeviceType, LocationProviderInfo, PowerState } from './types';
+import { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
 
 export type NotchDevice = {
   brand: string;
@@ -7,7 +7,7 @@ export type NotchDevice = {
   [key: string]: string;
 };
 
-export interface DeviceInfoNativeConstants {
+interface NativeConstants {
   appName: string;
   appVersion: string;
   brand: string;
@@ -22,7 +22,18 @@ export interface DeviceInfoNativeConstants {
   uniqueId: string;
 }
 
-export interface DeviceInfoNativeMethods {
+interface HiddenNativeMethods {
+  getSupported32BitAbis: () => Promise<string[]>;
+  getSupported32BitAbisSync: () => string[];
+  getSupported64BitAbis: () => Promise<string[]>;
+  getSupported64BitAbisSync: () => string[];
+  getSupportedAbis: () => Promise<string[]>;
+  getSupportedAbisSync: () => string[];
+  getSystemManufacturer: () => Promise<string>;
+  getSystemManufacturerSync: () => string;
+}
+
+interface ExposedNativeMethods {
   getAndroidId: () => Promise<string>;
   getAndroidIdSync: () => string;
   getApiLevel: () => Promise<number>;
@@ -35,7 +46,6 @@ export interface DeviceInfoNativeMethods {
   getBatteryLevelSync: () => number;
   getBootloader: () => Promise<string>;
   getBootloaderSync: () => string;
-  getBrand: () => string;
   getBuildId: () => Promise<string>;
   getBuildIdSync: () => string;
   getCarrier: () => Promise<string>;
@@ -74,7 +84,6 @@ export interface DeviceInfoNativeMethods {
   getMacAddressSync: () => string;
   getMaxMemory: () => Promise<number>;
   getMaxMemorySync: () => number;
-  getModel: () => string;
   getPhoneNumber: () => Promise<string>;
   getPhoneNumberSync: () => string;
   getPowerState: () => Promise<PowerState>;
@@ -83,22 +92,12 @@ export interface DeviceInfoNativeMethods {
   getPreviewSdkIntSync: () => number;
   getProduct: () => Promise<string>;
   getProductSync: () => string;
-  getReadableVersion: () => Promise<string>;
-  getReadableVersionSync: () => string;
   getSecurityPatch: () => Promise<string>;
   getSecurityPatchSync: () => string;
   getSerialNumber: () => Promise<string>;
   getSerialNumberSync: () => string;
-  getSupported32BitAbis: () => Promise<string[]>;
-  getSupported32BitAbisSync: () => string[];
-  getSupported64BitAbis: () => Promise<string[]>;
-  getSupported64BitAbisSync: () => string[];
-  getSupportedAbis: () => Promise<string[]>;
-  getSupportedAbisSync: () => string[];
   getSystemAvailableFeatures: () => Promise<string[]>;
   getSystemAvailableFeaturesSync: () => string[];
-  getSystemManufacturer: () => Promise<string>;
-  getSystemManufacturerSync: () => string;
   getTags: () => Promise<string>;
   getTagsSync: () => string;
   getTotalDiskCapacity: () => Promise<number>;
@@ -111,7 +110,6 @@ export interface DeviceInfoNativeMethods {
   getUsedMemorySync: () => number;
   getUserAgent: () => Promise<string>;
   getUserAgentSync: () => string;
-  hasNotch: () => boolean;
   hasSystemFeature: (feature: string) => Promise<boolean>;
   hasSystemFeatureSync: (feature: string) => boolean;
   isAirplaneMode: () => Promise<boolean>;
@@ -124,8 +122,6 @@ export interface DeviceInfoNativeMethods {
   isEmulatorSync: () => boolean;
   isHeadphonesConnected: () => Promise<boolean>;
   isHeadphonesConnectedSync: () => boolean;
-  isLandscape: () => Promise<boolean>;
-  isLandscapeSync: () => boolean;
   isLocationEnabled: () => Promise<boolean>;
   isLocationEnabledSync: () => boolean;
   isPinOrFingerprintSet: () => Promise<boolean>;
@@ -133,5 +129,42 @@ export interface DeviceInfoNativeMethods {
 }
 
 export interface DeviceInfoNativeModule
-  extends DeviceInfoNativeConstants,
-    DeviceInfoNativeMethods {}
+  extends NativeConstants,
+    HiddenNativeMethods,
+    ExposedNativeMethods {}
+
+export interface DeviceInfoModule extends ExposedNativeMethods {
+  getApplicationName: () => string;
+  getBrand: () => string;
+  getBuildNumber: () => string;
+  getBundleId: () => string;
+  getDeviceId: () => string;
+  getDeviceType: () => string;
+  getManufacturer: () => Promise<string>;
+  getManufacturerSync: () => string;
+  getModel: () => string;
+  getReadableVersion: () => string;
+  getSystemName: () => string;
+  getSystemVersion: () => string;
+  getUniqueId: () => string;
+  getVersion: () => string;
+  hasNotch: () => boolean;
+  hasSystemFeature: (feature: string) => Promise<boolean>;
+  hasSystemFeatureSync: (feature: string) => boolean;
+  isLandscape: () => Promise<boolean>;
+  isLandscapeSync: () => boolean;
+  isTablet: () => boolean;
+  supported32BitAbis: () => Promise<string[]>;
+  supported32BitAbisSync: () => string[];
+  supported64BitAbis: () => Promise<string[]>;
+  supported64BitAbisSync: () => string[];
+  supportedAbis: () => Promise<string[]>;
+  supportedAbisSync: () => string[];
+  useBatteryLevel: () => number | null;
+  useBatteryLevelIsLow: () => number | null;
+  useDeviceName: () => AsyncHookResult<string>;
+  useFirstInstallTime: () => AsyncHookResult<number>;
+  useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>;
+  useIsEmulator: () => AsyncHookResult<boolean>;
+  usePowerState: () => PowerState | {};
+}
