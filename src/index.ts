@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Platform, Dimensions, NativeEventEmitter, NativeModules } from 'react-native';
-import RNDeviceInfo from './internal/nativeInterface';
-import devicesWithNotch from './internal/devicesWithNotch';
-import { DeviceType, PowerState, AsyncHookResult } from './internal/types';
+import { useCallback, useEffect, useState } from 'react';
+import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnMount } from './internal/asyncHookWrappers';
+import devicesWithNotch from './internal/devicesWithNotch';
+import RNDeviceInfo from './internal/nativeInterface';
+import { DeviceInfoModule } from './internal/privateTypes';
+import { AsyncHookResult, DeviceType, PowerState } from './internal/types';
 
 let uniqueId: string;
 export function getUniqueId() {
@@ -370,18 +371,30 @@ export async function getUserAgent() {
   return userAgent;
 }
 
+export function getUserAgentSync() {
+  if (!userAgent) {
+    // getUserAgentSync is not available on iOS since it rely on an completion operation
+    if (Platform.OS === 'android' || Platform.OS === 'web') {
+      userAgent = RNDeviceInfo.getUserAgentSync();
+    } else {
+      userAgent = 'unknown';
+    }
+  }
+  return userAgent;
+}
+
 export async function getFontScale() {
   if (Platform.OS === 'android' || Platform.OS === 'ios') {
     return RNDeviceInfo.getFontScale();
   }
-  return 'unknown';
+  return -1;
 }
 
 export function getFontScaleSync() {
   if (Platform.OS === 'android' || Platform.OS === 'ios') {
     return RNDeviceInfo.getFontScaleSync();
   }
-  return 'unknown';
+  return -1;
 }
 
 let bootloader: string;
@@ -614,13 +627,13 @@ export function getBaseOsSync() {
   return baseOs;
 }
 
-let previewSdkInt: number | 'unknown';
+let previewSdkInt: number;
 export async function getPreviewSdkInt() {
   if (!previewSdkInt) {
     if (Platform.OS === 'android') {
       previewSdkInt = await RNDeviceInfo.getPreviewSdkInt();
     } else {
-      previewSdkInt = 'unknown';
+      previewSdkInt = -1;
     }
   }
   return previewSdkInt;
@@ -631,7 +644,7 @@ export function getPreviewSdkIntSync() {
     if (Platform.OS === 'android') {
       previewSdkInt = RNDeviceInfo.getPreviewSdkIntSync();
     } else {
-      previewSdkInt = 'unknown';
+      previewSdkInt = -1;
     }
   }
   return previewSdkInt;
@@ -1160,7 +1173,7 @@ export function isLocationEnabledSync() {
   return false;
 }
 
-export function isHeadphonesConnected() {
+export async function isHeadphonesConnected() {
   if (Platform.OS === 'android' || Platform.OS === 'ios') {
     return RNDeviceInfo.isHeadphonesConnected();
   }
@@ -1281,7 +1294,7 @@ export function useIsEmulator(): AsyncHookResult<boolean> {
   return useOnMount(isEmulator, false);
 }
 
-export default {
+const deviceInfoModule: DeviceInfoModule = {
   getAndroidId,
   getAndroidIdSync,
   getApiLevel,
@@ -1370,6 +1383,7 @@ export default {
   getUsedMemory,
   getUsedMemorySync,
   getUserAgent,
+  getUserAgentSync,
   getVersion,
   hasNotch,
   hasSystemFeature,
@@ -1405,3 +1419,5 @@ export default {
   useIsEmulator,
   usePowerState,
 };
+
+export default deviceInfoModule;

@@ -23,6 +23,8 @@ interface NativeConstants {
 }
 
 interface HiddenNativeMethods {
+  getPowerState: () => Promise<PowerState>;
+  getPowerStateSync: () => PowerState;
   getSupported32BitAbis: () => Promise<string[]>;
   getSupported32BitAbisSync: () => string[];
   getSupported64BitAbis: () => Promise<string[]>;
@@ -86,8 +88,6 @@ interface ExposedNativeMethods {
   getMaxMemorySync: () => number;
   getPhoneNumber: () => Promise<string>;
   getPhoneNumberSync: () => string;
-  getPowerState: () => Promise<PowerState>;
-  getPowerStateSync: () => PowerState;
   getPreviewSdkInt: () => Promise<number>;
   getPreviewSdkIntSync: () => number;
   getProduct: () => Promise<string>;
@@ -143,6 +143,8 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   getManufacturer: () => Promise<string>;
   getManufacturerSync: () => string;
   getModel: () => string;
+  getPowerState: () => Promise<PowerState | {}>;
+  getPowerStateSync: () => PowerState | {};
   getReadableVersion: () => string;
   getSystemName: () => string;
   getSystemVersion: () => string;
