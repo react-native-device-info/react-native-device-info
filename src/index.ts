@@ -76,6 +76,14 @@ export async function getAndroidId() {
   return androidId;
 }
 
+export function getAndroidLocatingMethod() {
+  if (Platform.OS === 'android') {
+    return RNDeviceInfo.getAndroidLocatingMethod();
+  } else {
+    return null;
+  }
+}
+
 export function getAndroidIdSync() {
   if (!androidId) {
     if (Platform.OS === 'android') {

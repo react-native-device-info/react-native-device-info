@@ -125,6 +125,7 @@ export default class App extends Component {
     deviceJSON.getSystemAvailableFeatures = DeviceInfo.getSystemAvailableFeaturesSync();
     deviceJSON.powerState = DeviceInfo.getPowerStateSync();
     deviceJSON.isLocationEnabled = DeviceInfo.isLocationEnabledSync();
+    deviceJSON.androidLocatingMethod = DeviceInfo.getAndroidLocatingMethod();
     deviceJSON.headphones = DeviceInfo.isHeadphonesConnectedSync();
     deviceJSON.getAvailableLocationProviders = DeviceInfo.getAvailableLocationProvidersSync();
     deviceJSON.bootloader = DeviceInfo.getBootloaderSync();
@@ -187,6 +188,7 @@ export default class App extends Component {
       deviceJSON.getSystemAvailableFeatures = await DeviceInfo.getSystemAvailableFeatures();
       deviceJSON.powerState = await DeviceInfo.getPowerState();
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
+      deviceJSON.androidLocatingMethod = await DeviceInfo.getAndroidLocatingMethod();
       deviceJSON.headphones = await DeviceInfo.isHeadphonesConnected();
       deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
       deviceJSON.bootloader = await DeviceInfo.getBootloader();

@@ -124,6 +124,7 @@ interface ExposedNativeMethods {
   isHeadphonesConnectedSync: () => boolean;
   isLocationEnabled: () => Promise<boolean>;
   isLocationEnabledSync: () => boolean;
+  getAndroidLocatingMethod: () => Promise<string>;
   isPinOrFingerprintSet: () => Promise<boolean>;
   isPinOrFingerprintSetSync: () => boolean;
 }
