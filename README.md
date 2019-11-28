@@ -1560,7 +1560,7 @@ Get whether the application is running in an emulator.
 ```jsx
 import { useIsEmulator } from 'react-native-device-info';
 
-const { loading, result } = useDeviceName(); // { loading: true, result: false }
+const { loading, result } = useIsEmulator(); // { loading: true, result: false }
 
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
