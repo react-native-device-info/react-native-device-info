@@ -205,6 +205,7 @@ export default class App extends Component {
       deviceJSON.incremental = await DeviceInfo.getIncremental();
       deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
       deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
+      deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }

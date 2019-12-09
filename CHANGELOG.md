@@ -2,6 +2,8 @@
 
 # Release Notes
 
+- feat: Added getDeviceToken() using DeviceCheck API on iOS 11.0+
+
 ## 5.3.1
 - types: fix Flow types (thanks @grit96!)
 

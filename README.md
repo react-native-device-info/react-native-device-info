@@ -325,6 +325,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ❌ |
 | [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
+| [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌ |
 | [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ❌ |
 | [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ❌ |
@@ -628,6 +629,21 @@ DeviceInfo.getDeviceName().then(deviceName => {
 ```
 
 This used to require the android.permission.BLUETOOTH but the new implementation in v3 does not need it. You may remove that from your AndroidManifest.xml if you had it for this API.
+
+---
+
+### getDeviceToken()
+
+Gets the device token (see [DeviceCheck](https://developer.apple.com/documentation/devicecheck)). Only available for iOS 11.0+.
+
+#### Examples
+
+```js
+DeviceInfo.getDeviceToken().then(deviceToken => {
+  // iOS: "a2Jqsd0kanz..."
+});
+```
+
 
 ---
 
