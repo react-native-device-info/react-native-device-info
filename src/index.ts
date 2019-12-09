@@ -1201,6 +1201,13 @@ export function getAvailableLocationProvidersSync() {
   return {};
 }
 
+export async function getDeviceToken() {
+  if (Platform.OS === 'ios') {
+    return RNDeviceInfo.getDeviceToken();
+  }
+  return 'unknown';
+}
+
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -1322,6 +1329,7 @@ const deviceInfoModule: DeviceInfoModule = {
   getDeviceName,
   getDeviceNameSync,
   getDeviceSync,
+  getDeviceToken,
   getDeviceType,
   getDisplay,
   getDisplaySync,

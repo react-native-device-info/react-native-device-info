@@ -14,6 +14,7 @@
 #import <React/RCTUtils.h>
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
+#import <DeviceCheck/DeviceCheck.h>
 
 #if !(TARGET_OS_TV)
 #import <WebKit/WebKit.h>
@@ -372,6 +373,27 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
         return YES;
     } else {
         return NO;
+    }
+}
+
+RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    if (@available(iOS 11.0, *)) {
+        DCDevice *device = DCDevice.currentDevice;
+        if([device isSupported])
+        {
+            [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) {
+                if(error) {
+                    reject(@"ERROR GENERATING TOKEN", error.localizedDescription, error);
+                }
+                resolve([token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed]);
+            }];
+        }
+        else {
+            reject(@"NOT SUPPORTED", @"Device check is not supported by this device", nil);
+        }
+    }
+    else {
+        reject(@"NOT AVAILABLE",  @"Device check is only available for iOS > 11", nil);
     }
 }
 

@@ -58,6 +58,7 @@ interface ExposedNativeMethods {
   getDeviceName: () => Promise<string>;
   getDeviceNameSync: () => string;
   getDeviceSync: () => string;
+  getDeviceToken: () => Promise<string>;
   getDisplay: () => Promise<string>;
   getDisplaySync: () => string;
   getFingerprint: () => Promise<string>;
