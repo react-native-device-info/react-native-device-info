@@ -231,6 +231,10 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'xiaomi',
+    model: 'Mi 9',
+  },
+  {
+    brand: 'xiaomi',
     model: 'POCO F1',
   },
   {
