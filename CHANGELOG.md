@@ -2,13 +2,20 @@
 
 # Release Notes
 
-- fix: hasNotch correctly matches Xiaomi Mi 9
-- feat: Added getDeviceToken() using DeviceCheck API on iOS 11.0+
+## 5.4.0
+
+- feat + fix: tabbed example, improved types, efficient Platform usage (thanks @zoontek!)
+- feat: Added getDeviceToken() using DeviceCheck API on iOS 11.0+ (thanks @AntoineDoubovetzky!)
+- fix: hasNotch correctly matches Xiaomi Mi 9 (thanks @BogdanTaranenko!)
+- docs: fix upgrade links in README TOC (thanks @Simek!)
+- docs: fix type in README useIsEmulator example (thanks @zusinShinpei!)
 
 ## 5.3.1
+
 - types: fix Flow types (thanks @grit96!)
 
 ## 5.3.0
+
 - feat: Added web support for isCameraPresent, isLocationEnabled, isAirplaneMode, getBaseOs, getFreeDiskStorage, getMaxMemory, getTotalDiskCapacity, getTotalMemory, getUsedMemory and battery/charging-related APIs. (thanks @robertherber!)
 
 ## 5.2.0
