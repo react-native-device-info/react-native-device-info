@@ -171,7 +171,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("brand", Build.BRAND);
     constants.put("model", Build.MODEL);
     constants.put("deviceType", deviceTypeResolver.getDeviceType().getValue());
-    constants.put("bottomNavigationHeight", getBottomNavigationHeight());
+    constants.put("bottomNavigationBarHeight", getBottomNavigationBarHeight());
 
     return constants;
   }
@@ -782,7 +782,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSupported64BitAbis(Promise p) { p.resolve(getSupported64BitAbisSync()); }
 
-  private int getBottomNavigationHeight(){
+  private int getBottomNavigationBarHeight(){
     Resources resources = getReactApplicationContext().getResources();
     int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
       if (resourceId > 0) {
@@ -792,7 +792,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
 
-    private WritableMap getPowerStateFromIntent (Intent intent) {
+  private WritableMap getPowerStateFromIntent (Intent intent) {
     if(intent == null) {
       return null;
     }

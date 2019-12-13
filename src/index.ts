@@ -1301,6 +1301,14 @@ export function useIsEmulator(): AsyncHookResult<boolean> {
   return useOnMount(isEmulator, false);
 }
 
+export function getBottomNavigationBarHeight(): number {
+  if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    return RNDeviceInfo.bottomNavigationBarHeight;
+  } else {
+    return -1;
+  }
+}
+
 const deviceInfoModule: DeviceInfoModule = {
   getAndroidId,
   getAndroidIdSync,
@@ -1315,6 +1323,7 @@ const deviceInfoModule: DeviceInfoModule = {
   getBatteryLevelSync,
   getBootloader,
   getBootloaderSync,
+  getBottomNavigationBarHeight,
   getBrand,
   getBuildId,
   getBuildIdSync,

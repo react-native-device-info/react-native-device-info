@@ -20,6 +20,7 @@ interface NativeConstants {
   systemName: string;
   systemVersion: string;
   uniqueId: string;
+  bottomNavigationBarHeight: number;
 }
 
 interface HiddenNativeMethods {
@@ -139,6 +140,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   getBrand: () => string;
   getBuildNumber: () => string;
   getBundleId: () => string;
+  getBottomNavigationBarHeight: () => number;
   getDeviceId: () => string;
   getDeviceType: () => string;
   getManufacturer: () => Promise<string>;
