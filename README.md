@@ -486,7 +486,8 @@ The device's navigation bar height.
 
 ```js
 let navBarHeight = DeviceInfo.getBottomNavigationBarHeight();
-// 10
+// iOS: 10 or 0 (depends on the model)
+// Android: x (depends on the navigation mode. Ex: gesture, 2-button or 3-button)
 ```
 
 ---
