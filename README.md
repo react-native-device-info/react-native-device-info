@@ -314,6 +314,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ❌ |
 | [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
 | [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
+| [getBottomNavigationBarHeight()](#getBottomNavigationBarHeight)   | `number`            |  ✅  |   ✅    |   ❌    | ❌ |
 | [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
@@ -473,6 +474,19 @@ The system bootloader version number.
 DeviceInfo.getBootloader().then(bootloader => {
   // "mw8998-002.0069.00"
 });
+```
+
+---
+
+### getBottomNavigationBarHeight()
+
+The system bootloader version number.
+
+#### Examples
+
+```js
+let navBarHeight = DeviceInfo.getBottomNavigationBarHeight();
+// 10
 ```
 
 ---
