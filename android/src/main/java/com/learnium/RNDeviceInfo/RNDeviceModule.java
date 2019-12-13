@@ -786,7 +786,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     Resources resources = getReactApplicationContext().getResources();
     int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
       if (resourceId > 0) {
-        return resources.getDimensionPixelSize(resourceId);
+        return (int) (resources.getDimension(resourceId) / resources.getDisplayMetrics().density);
       }
     return 0;
   }
