@@ -480,7 +480,7 @@ DeviceInfo.getBootloader().then(bootloader => {
 
 ### getBottomNavigationBarHeight()
 
-The system bootloader version number.
+The device's navigation bar height.
 
 #### Examples
 
