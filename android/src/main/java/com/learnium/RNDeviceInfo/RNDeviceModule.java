@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
+import android.content.res.Resources;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
@@ -170,6 +171,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("brand", Build.BRAND);
     constants.put("model", Build.MODEL);
     constants.put("deviceType", deviceTypeResolver.getDeviceType().getValue());
+    constants.put("bottomNavigationHeight", getBottomNavigationHeight());
 
     return constants;
   }
@@ -780,8 +782,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSupported64BitAbis(Promise p) { p.resolve(getSupported64BitAbisSync()); }
 
+  private int getBottomNavigationHeight(){
+    Resources resources = getReactApplicationContext().getResources();
+    int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+      if (resourceId > 0) {
+        return resources.getDimensionPixelSize(resourceId);
+      }
+    return 0;
+  }
 
-  private WritableMap getPowerStateFromIntent (Intent intent) {
+
+    private WritableMap getPowerStateFromIntent (Intent intent) {
     if(intent == null) {
       return null;
     }
