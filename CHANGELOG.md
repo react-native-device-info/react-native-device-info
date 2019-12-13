@@ -2,6 +2,8 @@
 
 # Release Notes
 
+- fix: used new play install referrer api over soon-to-be-deprecated install_referrer intent
+
 ## 5.4.0
 
 - feat + fix: tabbed example, improved types, efficient Platform usage (thanks @zoontek!)

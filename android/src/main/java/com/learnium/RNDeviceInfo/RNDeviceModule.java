@@ -69,6 +69,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private final DeviceTypeResolver deviceTypeResolver;
   private final DeviceIdResolver deviceIdResolver;
   private BroadcastReceiver receiver;
+  private RNInstallReferrerClient installReferrerClient;
 
   private double mLastBatteryLevel = -1;
   private String sLastBatteryState = "";
@@ -81,6 +82,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     super(reactContext);
     this.deviceTypeResolver = new DeviceTypeResolver(reactContext);
     this.deviceIdResolver = new DeviceIdResolver(reactContext);
+    this.installReferrerClient = new RNInstallReferrerClient(reactContext.getBaseContext());
   }
 
   @Override
