@@ -69,6 +69,7 @@ RCT_EXPORT_MODULE();
          @"brand": @"Apple",
          @"model": [self getModel],
          @"deviceType": [self getDeviceTypeName],
+         @"bottomNavigationBarHeight": [self getBottomNavigationBarHeight],
      };
 }
 
@@ -486,6 +487,15 @@ RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(R
 
 - (NSString *) getDeviceTypeName {
     return [DeviceTypeValues objectAtIndex: [self getDeviceType]];
+}
+
+- (int) getBottomNavigationBarHeight {
+    NSString* name = [self getDeviceName];
+    if ([name containsString:@"iPhone X"] || [name containsString:@"iPhone 1"]) {
+        return 16; // Nav bar
+    } else {
+        return 0; // No nav bar
+    }
 }
 
 - (NSArray *) getSupportedAbis {
