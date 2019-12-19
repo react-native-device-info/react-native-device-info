@@ -16,8 +16,9 @@ public class RNInstallReferrerClient implements InstallReferrerStateListener {
   private InstallReferrerClient referrerClient;
 
   RNInstallReferrerClient(Context context) {
-    referrerClient = InstallReferrerClient.newBuilder(context).build();
     sharedPreferences = context.getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
+    referrerClient = InstallReferrerClient.newBuilder(context).build();
+    referrerClient.startConnection(this);
   }
 
   private String getInstallReferrer() {
