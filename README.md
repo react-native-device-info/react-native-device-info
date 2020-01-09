@@ -634,7 +634,8 @@ This used to require the android.permission.BLUETOOTH but the new implementation
 
 ### getDeviceToken()
 
-Gets the device token (see [DeviceCheck](https://developer.apple.com/documentation/devicecheck)). Only available for iOS 11.0+.
+Gets the device token (see [DeviceCheck](https://developer.apple.com/documentation/devicecheck)). Only available for iOS 11.0+ on real devices.
+This will reject the promise when getDeviceToken is not supported, be careful with exception handling.
 
 #### Examples
 

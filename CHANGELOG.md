@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.4.1
+
+- fix: Fix getDeviceToken crash on IOS simulator (#929) (thanks @Taym95!)
+
 ## 5.4.0
 
 - feat + fix: tabbed example, improved types, efficient Platform usage (thanks @zoontek!)
