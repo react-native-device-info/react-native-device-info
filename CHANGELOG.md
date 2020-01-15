@@ -2,6 +2,11 @@
 
 # Release Notes
 
+## Unreleased
+
+- Added TypeScript definitions to web implementation
+- Added getApplicationName, getBuildNumber, getBundleId, getLastUpdateTime, getReadableVersion, getVersion, isEmulator and isLandscape to web implementation. Using buildtime variables using CRA-compatible environment variables with same names: REACT_APP_VERSION, REACT_APP_BUILD_NUMBER, REACT_APP_BUNDLE_ID, REACT_APP_LAST_UPDATE_TIME.
+
 ## 5.4.1
 
 - fix: Fix getDeviceToken crash on IOS simulator (#929) (thanks @Taym95!)
