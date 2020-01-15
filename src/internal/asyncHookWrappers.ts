@@ -5,16 +5,13 @@ import { AsyncHookResult } from './types';
 /**
  * simple hook wrapper for async functions for 'on-mount / componentDidMount' that only need to fired once
  * @param asyncGetter async function that 'gets' something
- * @param initialResult  -1 | false | 'unknown'
+ * @param initialResult -1 | false | 'unknown'
  */
-export function useOnMount<T>(
-  asyncGetter: () => Promise<T>,
-  initialResult: -1 | false | 'unknown' = 'unknown'
-): AsyncHookResult<T> {
-  const [response, setResponse] = useState({
+export function useOnMount<T>(asyncGetter: () => Promise<T>, initialResult: T): AsyncHookResult<T> {
+  const [response, setResponse] = useState<AsyncHookResult<T>>({
     loading: true,
     result: initialResult,
-  } as AsyncHookResult<T>);
+  });
 
   useEffect(() => {
     // async function cuz react complains if useEffect's effect param is an async function

@@ -1,6 +1,6 @@
 import { NotchDevice } from './privateTypes';
 
-const devicesWithNotch: Array<NotchDevice> = [
+const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'Apple',
     model: 'iPhone 11',
@@ -228,6 +228,10 @@ const devicesWithNotch: Array<NotchDevice> = [
   {
     brand: 'xiaomi',
     model: 'MI 8 Lite',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Mi 9',
   },
   {
     brand: 'xiaomi',

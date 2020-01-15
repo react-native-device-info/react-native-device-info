@@ -11,8 +11,8 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 
 ## TOC
 
-- [v2 to v3 Upgrade](#v2tov3upgrade)
-- [v3 to v4 Upgrade](#v3tov4upgrade)
+- [v2 to v3 Upgrade](#v2-to-v3-upgrade)
+- [v3 to v4 Upgrade](#v3-to-v4-upgrade)
 - [Installation](#installation)
 - [Linking](#linking-for-react-native--059-only-react-native--060-skip-this-as-auto-linking-should-work)
 - [Usage](#usage)
@@ -325,6 +325,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ❌ |
 | [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
+| [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌ |
 | [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ❌ |
 | [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ❌ |
@@ -628,6 +629,22 @@ DeviceInfo.getDeviceName().then(deviceName => {
 ```
 
 This used to require the android.permission.BLUETOOTH but the new implementation in v3 does not need it. You may remove that from your AndroidManifest.xml if you had it for this API.
+
+---
+
+### getDeviceToken()
+
+Gets the device token (see [DeviceCheck](https://developer.apple.com/documentation/devicecheck)). Only available for iOS 11.0+ on real devices.
+This will reject the promise when getDeviceToken is not supported, be careful with exception handling.
+
+#### Examples
+
+```js
+DeviceInfo.getDeviceToken().then(deviceToken => {
+  // iOS: "a2Jqsd0kanz..."
+});
+```
+
 
 ---
 
@@ -1560,7 +1577,7 @@ Get whether the application is running in an emulator.
 ```jsx
 import { useIsEmulator } from 'react-native-device-info';
 
-const { loading, result } = useDeviceName(); // { loading: true, result: false }
+const { loading, result } = useIsEmulator(); // { loading: true, result: false }
 
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
