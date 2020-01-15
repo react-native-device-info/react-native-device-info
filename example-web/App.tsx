@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import {
   getBaseOs,
   getFreeDiskStorage,
@@ -18,7 +19,12 @@ import {
   getApplicationName,
   isLocationEnabled,
 } from 'react-native-device-info';
-import { DataTable } from 'react-native-paper';
+import { DataTable, Surface, Title } from 'react-native-paper';
+
+const styles = StyleSheet.create({
+  surface: { margin: 20, maxWidth: 1000, minWidth: 100, alignSelf: 'center' },
+  title: { padding: 30, textAlign: 'center' },
+});
 
 const useAllSpecs = () => {
   const [freeDisk, setFreeDisk] = useState(null),
@@ -95,60 +101,63 @@ export default function App() {
 
   return (
     <>
-      <DataTable>
-        <DataTable.Header>
-          <DataTable.Title>Metric</DataTable.Title>
-          <DataTable.Title>Value</DataTable.Title>
-        </DataTable.Header>
-        <StringRow description="getApplicationName" value={getApplicationName()} />
-        <StringRow description="getVersion" value={getVersion()} />
-        <StringRow description="getBuildNumber" value={getBuildNumber()} />
-        <BooleanRow description="isCameraPresent" value={cameraPresent} />
-        <BooleanRow description="isLocationEnabled" value={locationEnabled} />
-        <BooleanRow description="isLandscape" value={isLandscapeSync()} />
-        <BooleanRow description="isEmulator" value={isEmulator()} />
+      <Title style={styles.title}>react-native-device-info</Title>
+      <Surface style={styles.surface}>
+        <DataTable>
+          <DataTable.Header>
+            <DataTable.Title>Function</DataTable.Title>
+            <DataTable.Title>Output</DataTable.Title>
+          </DataTable.Header>
+          <StringRow description="getApplicationName" value={getApplicationName()} />
+          <StringRow description="getVersion" value={getVersion()} />
+          <StringRow description="getBuildNumber" value={getBuildNumber()} />
+          <BooleanRow description="isCameraPresent" value={cameraPresent} />
+          <BooleanRow description="isLocationEnabled" value={locationEnabled} />
+          <BooleanRow description="isLandscape" value={isLandscapeSync()} />
+          <BooleanRow description="isEmulator" value={isEmulator()} />
 
-        <BooleanRow description="isAirplaneMode" value={airplaneMode} />
-        <StringRow
-          description="getUsedMemory / getMaxMemory"
-          value={Formatter.format(usedMemory) + ' / ' + Formatter.format(maxMemory)}
-        />
-        <StringRow description="getTotalMemory" value={Formatter.format(totalMemory)} />
-        <StringRow
-          description="getFreeDiskStorage / getTotalDiskCapacity"
-          value={Formatter.format(freeDisk) + ' / ' + Formatter.format(totalDisk)}
-        />
-        <StringRow description="getUserAgent" value={userAgent} />
-        <StringRow description="getBaseOs" value={baseOs} />
-        <StringRow
-          description="getPowerState().batteryLevel || getBatteryLevel"
-          value={
-            powerState && powerState.batteryLevel
-              ? Math.round(1000 * powerState.batteryLevel) / 10 + '%'
-              : ''
-          }
-        />
-        <BooleanRow
-          description="getPowerState().charging || isBatteryCharging"
-          value={isBatteryChargingSync()}
-        />
-        <StringRow
-          description="getPowerState().batteryState"
-          value={powerState && powerState.batteryState}
-        />
-        <BooleanRow
-          description="getPowerState().lowPowerMode"
-          value={powerState && powerState.lowPowerMode}
-        />
-        <StringRow
-          description="getPowerState().chargingTime"
-          value={powerState && powerState.chargingTime}
-        />
-        <StringRow
-          description="getPowerState().dischargingTime"
-          value={powerState && powerState.dischargingTime}
-        />
-      </DataTable>
+          <BooleanRow description="isAirplaneMode" value={airplaneMode} />
+          <StringRow
+            description="getUsedMemory / getMaxMemory"
+            value={Formatter.format(usedMemory) + ' / ' + Formatter.format(maxMemory)}
+          />
+          <StringRow description="getTotalMemory" value={Formatter.format(totalMemory)} />
+          <StringRow
+            description="getFreeDiskStorage / getTotalDiskCapacity"
+            value={Formatter.format(freeDisk) + ' / ' + Formatter.format(totalDisk)}
+          />
+          <StringRow description="getUserAgent" value={userAgent} />
+          <StringRow description="getBaseOs" value={baseOs} />
+          <StringRow
+            description="getPowerState().batteryLevel || getBatteryLevel"
+            value={
+              powerState && powerState.batteryLevel
+                ? Math.round(1000 * powerState.batteryLevel) / 10 + '%'
+                : ''
+            }
+          />
+          <BooleanRow
+            description="getPowerState().charging || isBatteryCharging"
+            value={isBatteryChargingSync()}
+          />
+          <StringRow
+            description="getPowerState().batteryState"
+            value={powerState && powerState.batteryState}
+          />
+          <BooleanRow
+            description="getPowerState().lowPowerMode"
+            value={powerState && powerState.lowPowerMode}
+          />
+          <StringRow
+            description="getPowerState().chargingTime"
+            value={powerState && powerState.chargingTime}
+          />
+          <StringRow
+            description="getPowerState().dischargingTime"
+            value={powerState && powerState.dischargingTime}
+          />
+        </DataTable>
+      </Surface>
     </>
   );
 }
