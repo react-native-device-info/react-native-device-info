@@ -279,12 +279,8 @@ export const getLastUpdateTime = async () => {
   return getLastUpdateTimeSync();
 };
 
-export const isEmulatorSync = () => {
+export const isEmulator = () => {
   return window.location.hostname === 'localhost';
-};
-
-export const isEmulator = async () => {
-  return isEmulatorSync();
 };
 
 init();
@@ -335,7 +331,6 @@ export default {
   isCameraPresent,
   isCameraPresentSync,
   isEmulator,
-  isEmulatorSync,
   isLandscape,
   isLandscapeSync,
   isLocationEnabled,

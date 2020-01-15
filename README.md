@@ -505,6 +505,10 @@ let buildNumber = DeviceInfo.getBuildNumber();
 // Windows: ?
 ```
 
+#### Notes
+
+> - [web] Inject the environment variable REACT_APP_BUILD_NUMBER during your build process. If you're using [Create React App use this guide](https://create-react-app.dev/docs/adding-custom-environment-variables/) or you can also use [babel-plugin-inline-dotenv](https://github.com/brysgo/babel-plugin-inline-dotenv) in your babel.config.js.
+
 ---
 
 ### getBundleId()
@@ -517,6 +521,10 @@ Gets the application bundle identifier.
 let bundleId = DeviceInfo.getBundleId();
 // "com.example.AwesomeApp"
 ```
+
+#### Notes
+
+> - [web] Inject the environment variable REACT_APP_BUNDLE_ID during your build process. If you're using [Create React App use this guide](https://create-react-app.dev/docs/adding-custom-environment-variables/) or you can also use [babel-plugin-inline-dotenv](https://github.com/brysgo/babel-plugin-inline-dotenv) in your babel.config.js.
 
 ---
 
@@ -830,6 +838,10 @@ DeviceInfo.getLastUpdateTime().then(lastUpdateTime => {
   // Android: 1517681764992
 });
 ```
+
+#### Notes
+
+> - [web] Inject the environment variable REACT_APP_LAST_UPDATE_TIME during your build process. If you're using [Create React App use this guide](https://create-react-app.dev/docs/adding-custom-environment-variables/) or you can also use [babel-plugin-inline-dotenv](https://github.com/brysgo/babel-plugin-inline-dotenv) in your babel.config.js.
 
 ---
 
@@ -1189,6 +1201,10 @@ let version = DeviceInfo.getVersion();
 // Android: "1.0"
 // Windows: ?
 ```
+
+#### Notes
+
+> - [web] Inject the environment variable REACT_APP_VERSION during your build process. If you're using [Create React App use this guide](https://create-react-app.dev/docs/adding-custom-environment-variables/) or you can also use [babel-plugin-inline-dotenv](https://github.com/brysgo/babel-plugin-inline-dotenv) in your babel.config.js.
 
 ---
 
