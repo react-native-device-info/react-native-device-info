@@ -1,12 +1,15 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "http://robertherber.github.io/react-native-device-info",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "postinstall": "cd .. && yarn && yarn build"
+    "postinstall": "cd .. && yarn && yarn build",
+    "deploy": "gh-pages -d web-build",
+    "predeploy": "expo build:web"
   },
   "dependencies": {
     "expo": "~36.0.0",
@@ -24,6 +27,7 @@
     "@types/react-native": "~0.60.23",
     "babel-plugin-inline-dotenv": "^1.5.0",
     "babel-preset-expo": "~8.0.0",
+    "gh-pages": "^2.2.0",
     "typescript": "~3.6.3"
   },
   "private": true
