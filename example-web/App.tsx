@@ -11,13 +11,13 @@ import {
   isAirplaneMode,
   isBatteryChargingSync,
   isCameraPresent,
-  isEmulatorSync,
-  appVersion,
+  isEmulator,
+  getVersion,
   isLandscapeSync,
-  buildNumber,
-  appName,
+  getBuildNumber,
+  getApplicationName,
   isLocationEnabled,
-} from 'react-native-device-info/src/web';
+} from 'react-native-device-info';
 import { DataTable } from 'react-native-paper';
 
 const useAllSpecs = () => {
@@ -100,13 +100,13 @@ export default function App() {
           <DataTable.Title>Metric</DataTable.Title>
           <DataTable.Title>Value</DataTable.Title>
         </DataTable.Header>
-        <StringRow description="getApplicationName" value={appName} />
-        <StringRow description="getVersion" value={appVersion} />
-        <StringRow description="getBuildNumber" value={buildNumber} />
+        <StringRow description="getApplicationName" value={getApplicationName()} />
+        <StringRow description="getVersion" value={getVersion()} />
+        <StringRow description="getBuildNumber" value={getBuildNumber()} />
         <BooleanRow description="isCameraPresent" value={cameraPresent} />
         <BooleanRow description="isLocationEnabled" value={locationEnabled} />
         <BooleanRow description="isLandscape" value={isLandscapeSync()} />
-        <BooleanRow description="isEmulator" value={isEmulatorSync()} />
+        <BooleanRow description="isEmulator" value={isEmulator()} />
 
         <BooleanRow description="isAirplaneMode" value={airplaneMode} />
         <StringRow
