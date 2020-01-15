@@ -44,14 +44,14 @@ const getUsedMemorySync = () => {
 };
 
 const getPowerState = battery => {
-  const { level, charging, chargingtime, dischargingtime } = battery;
+  const { level, charging, chargingTime, dischargingTime } = battery;
 
   return {
     batteryLevel: level,
     lowPowerMode: false,
     batteryState: level === 1 ? 'full' : charging ? 'charging' : 'unplugged',
-    chargingtime,
-    dischargingtime,
+    chargingTime,
+    dischargingTime,
   };
 };
 
