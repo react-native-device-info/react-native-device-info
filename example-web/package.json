@@ -7,7 +7,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "postinstall": "cd .. && yarn && yarn build",
+    "preinstall": "cd .. && yarn && yarn build",
     "deploy": "gh-pages -d web-build",
     "predeploy": "expo build:web"
   },
