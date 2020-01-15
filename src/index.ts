@@ -273,7 +273,12 @@ export function getApiLevelSync() {
 let bundleId: string;
 export function getBundleId() {
   if (!bundleId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (
+      Platform.OS === 'android' ||
+      Platform.OS === 'ios' ||
+      Platform.OS === 'windows' ||
+      Platform.OS === 'web'
+    ) {
       bundleId = RNDeviceInfo.bundleId;
     } else {
       bundleId = 'unknown';
@@ -285,7 +290,12 @@ export function getBundleId() {
 let appName: string;
 export function getApplicationName() {
   if (!appName) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (
+      Platform.OS === 'android' ||
+      Platform.OS === 'ios' ||
+      Platform.OS === 'windows' ||
+      Platform.OS === 'web'
+    ) {
       appName = RNDeviceInfo.appName;
     } else {
       appName = 'unknown';
@@ -297,7 +307,12 @@ export function getApplicationName() {
 let buildNumber: string;
 export function getBuildNumber() {
   if (!buildNumber) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (
+      Platform.OS === 'android' ||
+      Platform.OS === 'ios' ||
+      Platform.OS === 'windows' ||
+      Platform.OS === 'web'
+    ) {
       buildNumber = RNDeviceInfo.buildNumber;
     } else {
       buildNumber = 'unknown';
@@ -309,7 +324,12 @@ export function getBuildNumber() {
 let version: string;
 export function getVersion() {
   if (!version) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (
+      Platform.OS === 'android' ||
+      Platform.OS === 'ios' ||
+      Platform.OS === 'windows' ||
+      Platform.OS === 'web'
+    ) {
       version = RNDeviceInfo.appVersion;
     } else {
       version = 'unknown';
@@ -722,7 +742,12 @@ export function getIncrementalSync() {
 let emulator: boolean;
 export async function isEmulator() {
   if (!emulator) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (
+      Platform.OS === 'android' ||
+      Platform.OS === 'ios' ||
+      Platform.OS === 'windows' ||
+      Platform.OS === 'web'
+    ) {
       emulator = await RNDeviceInfo.isEmulator();
     } else {
       emulator = false;

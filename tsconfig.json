@@ -5,7 +5,8 @@
     "module": "commonjs",
     "strict": true,
     "moduleResolution": "node",
-    "lib": ["es2015", "es2016", "esnext"],
+    "skipLibCheck": true,
+    "lib": ["es2015", "es2016", "esnext", "DOM"],
     "jsx": "react-native",
     "resolveJsonModule": true
   },
