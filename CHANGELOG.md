@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## Unreleased
+
+- fix: [web] #901 Typo on chargingTime and dischargingTime
+
 ## 5.4.1
 
 - fix: Fix getDeviceToken crash on IOS simulator (#929) (thanks @Taym95!)
