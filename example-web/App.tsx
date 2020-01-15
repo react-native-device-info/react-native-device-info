@@ -22,7 +22,7 @@ import {
 import { DataTable, Surface, Title } from 'react-native-paper';
 
 const styles = StyleSheet.create({
-  surface: { margin: 20, maxWidth: 1000, minWidth: 100, alignSelf: 'center' },
+  surface: { margin: 20, maxWidth: 800 },
   title: { padding: 30, textAlign: 'center' },
 });
 
