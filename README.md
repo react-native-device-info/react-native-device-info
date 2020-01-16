@@ -312,7 +312,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    | ❌ |
 | [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ✅ |
 | [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ❌ |
-| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
+| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | 🟡 |
 | [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
@@ -342,7 +342,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ✅ |
 | [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ❌    | 🟡 |
 | [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
@@ -362,7 +362,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌ |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌ |
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅ |
-| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅ |
+| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | 🟡 |
 | [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
 | [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
 | [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅ |
@@ -460,6 +460,9 @@ DeviceInfo.getBatteryLevel().then(batteryLevel => {
 > to AppDelegate.m application:didFinishLaunchingWithOptions:
 >
 > Returns -1 on the iOS Simulator
+
+>
+> [Web] Using the [deprecated BatteryManager API](https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager), which is currently supported by Chrome, Opera, Android Webview and Samsung Internet.
 
 ---
 
@@ -941,6 +944,9 @@ DeviceInfo.getPowerState().then(state => {
 });
 ```
 
+>
+> [Web] Using the [deprecated BatteryManager API](https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager), which is currently supported by Chrome, Opera, Android Webview and Samsung Internet.
+
 ---
 
 ### getProduct()
@@ -1221,6 +1227,9 @@ DeviceInfo.isBatteryCharging().then(isCharging => {
   // true or false
 });
 ```
+
+>
+> [Web] Using the [deprecated BatteryManager API](https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager), which is currently supported by Chrome, Opera, Android Webview and Samsung Internet.
 
 ---
 

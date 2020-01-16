@@ -1,0 +1,1 @@
+{"ast":null,"code":"import\"./Asset.fx\";export*from\"./Asset\";","map":{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":"AAAA,mBAEA","sourcesContent":["import './Asset.fx';\n\nexport * from './Asset';\n"],"sourceRoot":""},"metadata":{},"sourceType":"module"}
