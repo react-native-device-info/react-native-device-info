@@ -373,6 +373,12 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌ |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | ❌ |
 
+✅ = Supported
+
+🟡 = Partially supported
+
+❌ = Not supported
+
 ---
 
 ### getApiLevel()
