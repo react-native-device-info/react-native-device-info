@@ -282,7 +282,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     } else if ([deviceName hasPrefix:@"AppleTV"]) {
         return @"Apple TV";
     }
-    
+
     // If we could not even get a generic, it's unknown
     return @"unknown";
 }
@@ -352,7 +352,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBuildIdSync) {
     uname(&systemInfo);
     NSString* deviceId = [NSString stringWithCString:systemInfo.machine
                                             encoding:NSUTF8StringEncoding];
-    
+
     if ([deviceId isEqualToString:@"i386"] || [deviceId isEqualToString:@"x86_64"] ) {
         return YES;
     } else {
@@ -401,14 +401,14 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
     float fontScale = 1.0;
     UIApplication *application = RCTSharedApplication();
-    
+
     // Shared application is unavailable in an app extension.
     if (application) {
         __block NSString *contentSize = nil;
         RCTUnsafeExecuteOnMainQueueSync(^{
             contentSize = application.preferredContentSizeCategory;
         });
-        
+
         if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
         else if ([contentSize isEqual: @"UICTContentSizeCategoryS"]) fontScale = 0.88;
         else if ([contentSize isEqual: @"UICTContentSizeCategoryM"]) fontScale = 0.95;
@@ -422,7 +422,7 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
         else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXXL"]) fontScale = 2.76;
         else if ([contentSize isEqual: @"UICTContentSizeCategoryAccessibilityXXXL"]) fontScale = 3.12;
     }
-    
+
     return fontScale;
 }
 
@@ -449,7 +449,7 @@ RCT_EXPORT_METHOD(getTotalMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 - (double) getTotalDiskCapacity {
     uint64_t totalSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-    
+
     if (storage) {
         NSNumber *fileSystemSizeInBytes = [storage objectForKey: NSFileSystemSize];
         totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
@@ -468,7 +468,7 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
 - (double) getFreeDiskStorage {
     uint64_t freeSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-    
+
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
         freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
@@ -691,7 +691,7 @@ RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     } else {
         resolve(@(usedMemory));
     }
-}    
+}
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUsedMemorySync) {
     return @(self.getUsedMemory);
@@ -707,7 +707,7 @@ RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
         if (strongSelf) {
             // Save WKWebView (it might deallocate before we ask for user Agent)
             strongSelf->webView = [[WKWebView alloc] init];
-            
+
             [strongSelf->webView evaluateJavaScript:@"window.navigator.userAgent;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                 if (error) {
                     reject(@"getUserAgentError", error.localizedDescription, error);
