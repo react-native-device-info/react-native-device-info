@@ -282,6 +282,31 @@ export function getBundleId() {
   return bundleId;
 }
 
+let installerPackageName: string;
+export async function getInstallerPackageName() {
+  if (!installerPackageName) {
+    if (Platform.OS === 'android') {
+      installerPackageName = await RNDeviceInfo.getInstallerPackageName();
+    } else {
+      installerPackageName = 'unknown';
+    }
+  }
+
+  return installerPackageName;
+}
+
+export function getInstallerPackageNameSync() {
+  if (!installerPackageName) {
+    if (Platform.OS === 'android') {
+      installerPackageName = RNDeviceInfo.getInstallerPackageNameSync();
+    } else {
+      installerPackageName = 'unknown';
+    }
+  }
+
+  return installerPackageName;
+}
+
 let appName: string;
 export function getApplicationName() {
   if (!appName) {
@@ -1347,6 +1372,8 @@ const deviceInfoModule: DeviceInfoModule = {
   getHostSync,
   getIncremental,
   getIncrementalSync,
+  getInstallerPackageName,
+  getInstallerPackageNameSync,
   getInstallReferrer,
   getInstallReferrerSync,
   getInstanceId,

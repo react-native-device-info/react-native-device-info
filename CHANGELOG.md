@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.0
+
+feat: add getInstallerPackageName for android (#912) (thanks @codecog!)
+
 ## 5.4.4
 
 - feat: add Huawei P Smart devices to notch list (#945) (thanks @sanborN!)
