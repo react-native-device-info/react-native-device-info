@@ -334,6 +334,7 @@ Every API returns a Promise but also has a corresponding API with 'Sync' on the 
 | [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
 | [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
+| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ✅ |
 | [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌ |
@@ -781,6 +782,23 @@ The internal value used by the underlying source control to represent this build
 ```js
 DeviceInfo.getIncremental().then(incremental => {
   // "4820017"
+});
+```
+
+---
+
+### getInstallerPackageName()
+
+The internal value used by the underlying source control to represent this build.
+
+#### Examples
+
+```js
+DeviceInfo.getInstallerPackageName().then(installerPackageName => {
+  // Play Store: "com.android.vending"
+  // Amazon: "com.amazon.venezia"
+  // Samsung App Store: "com.sec.android.app.samsungapps"
+  // Developer, iOS: "unknown"
 });
 ```
 

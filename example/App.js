@@ -97,6 +97,7 @@ export default class App extends Component {
     deviceJSON.usedMemory = DeviceInfo.getUsedMemorySync();
     deviceJSON.instanceId = DeviceInfo.getInstanceIdSync();
     deviceJSON.installReferrer = DeviceInfo.getInstallReferrerSync();
+    deviceJSON.installerPackageName = DeviceInfo.getInstallerPackageNameSync();
     deviceJSON.isEmulator = DeviceInfo.isEmulatorSync();
     deviceJSON.fontScale = DeviceInfo.getFontScaleSync();
     deviceJSON.hasNotch = DeviceInfo.hasNotch();
@@ -159,6 +160,7 @@ export default class App extends Component {
       deviceJSON.userAgent = await DeviceInfo.getUserAgent();
       deviceJSON.instanceId = await DeviceInfo.getInstanceId();
       deviceJSON.installReferrer = await DeviceInfo.getInstallReferrer();
+      deviceJSON.installerPackageName = await DeviceInfo.getInstallerPackageName();
       deviceJSON.isEmulator = await DeviceInfo.isEmulator();
       deviceJSON.fontScale = await DeviceInfo.getFontScale();
       deviceJSON.hasNotch = await DeviceInfo.hasNotch();

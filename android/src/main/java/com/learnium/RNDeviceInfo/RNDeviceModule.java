@@ -504,6 +504,20 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return getReactApplicationContext().getPackageManager().getPackageInfo(getReactApplicationContext().getPackageName(), 0);
   }
 
+  private String getInstallerPackageNameSync() {
+    String packageName = getReactApplicationContext().getPackageName();
+    String installerPackageName = getReactApplicationContext().getPackageManager().getInstallerPackageName(packageName);
+
+    if (installerPackageName == null) {
+      return "unknown";
+    }
+
+    return installerPackageName;
+  }
+
+  @ReactMethod
+  public void getInstallerPackageName(Promise p) { p.resolve(getInstallerPackageNameSync()); }
+
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getFirstInstallTimeSync() {
     try {
