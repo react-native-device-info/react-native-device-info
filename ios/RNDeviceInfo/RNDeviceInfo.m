@@ -380,6 +380,7 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     if (@available(iOS 11.0, *)) {
         if (TARGET_IPHONE_SIMULATOR) {
             reject(@"NOT AVAILABLE", @"Device check is only available for physical devices", nil);
+            return;
         }
 
         DCDevice *device = DCDevice.currentDevice;
@@ -388,15 +389,18 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
             [DCDevice.currentDevice generateTokenWithCompletionHandler:^(NSData * _Nullable token, NSError * _Nullable error) {
                 if (error) {
                     reject(@"ERROR GENERATING TOKEN", error.localizedDescription, error);
+                    return;
                 }
 
                 resolve([token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed]);
             }];
         } else {
             reject(@"NOT SUPPORTED", @"Device check is not supported by this device", nil);
+            return;
         }
     } else {
         reject(@"NOT AVAILABLE", @"Device check is only available for iOS > 11", nil);
+        return;
     }
 }
 
