@@ -2,6 +2,11 @@
 
 # Release Notes
 
+## 5.4.2
+
+- fix: remove yarn as a requirement (#943) (thanks @gie3d!)
+- chore: update dependencies (@mikehardy)
+
 ## 5.4.1
 
 - fix: Fix getDeviceToken crash on IOS simulator (#929) (thanks @Taym95!)
