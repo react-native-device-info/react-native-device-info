@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.4.3
+
+- fix: only reject once from DeviceCheck APIs (fixes Simulator crash) (@mikehardy)
+
 ## 5.4.2
 
 - fix: remove yarn as a requirement (#943) (thanks @gie3d!)
