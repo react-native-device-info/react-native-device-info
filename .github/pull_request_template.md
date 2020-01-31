@@ -7,7 +7,7 @@ as quick and smooth as possible.
 
 ## Description
 
-Fixed issue #<issue-number>
+Fixes #<issue-number>
 
 <!-- OR, if you're implementing a new feature: -->
 
