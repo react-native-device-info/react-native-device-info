@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.4.4
+
+- feat: add Huawei P Smart devices to notch list (#945) (thanks @sanborN!)
+
 ## 5.4.3
 
 - fix: only reject once from DeviceCheck APIs (fixes Simulator crash) (@mikehardy)
