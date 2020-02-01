@@ -48,6 +48,7 @@ repositories {
 
 dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
+    implementation "com.android.installreferrer:installreferrer:${safeExtGet('installReferrerVersion', '1.1.1')}"
     def firebaseIidVersion = safeExtGet('firebaseIidVersion', null)
     if(firebaseIidVersion){
         implementation "com.google.firebase:firebase-iid:$firebaseIidVersion"
