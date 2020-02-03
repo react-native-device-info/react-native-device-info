@@ -44,8 +44,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.learnium.RNDeviceInfo.resolver.DeviceIdResolver;
 import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -103,7 +101,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         Double batteryLevel = powerState.getDouble(BATTERY_LEVEL);
 
         if(!sLastBatteryState.equalsIgnoreCase(batteryState)) {
-          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", powerState);
+          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", batteryState);
           sLastBatteryState = batteryState;
         }
 

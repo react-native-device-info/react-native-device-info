@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.1
+
+- fix: RNDeviceInfo_powerStateDidChange event argument type error (@mikehardy)
+
 ## 5.5.0
 
 - feat: add getInstallerPackageName for android (#912) (thanks @codecog!)
