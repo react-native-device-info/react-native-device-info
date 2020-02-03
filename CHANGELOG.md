@@ -4,8 +4,8 @@
 
 ## 5.5.0
 
-feat: add getInstallerPackageName for android (#912) (thanks @codecog!)
-fix: switch to InstallReferrer API (#947) (thanks @skantus!)
+- feat: add getInstallerPackageName for android (#912) (thanks @codecog!)
+- fix: switch to InstallReferrer API (#947) (thanks @skantus!)
 
 ## 5.4.4
 
