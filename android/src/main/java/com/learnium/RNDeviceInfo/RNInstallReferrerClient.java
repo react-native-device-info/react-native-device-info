@@ -17,7 +17,12 @@ public class RNInstallReferrerClient {
   RNInstallReferrerClient(Context context) {
     sharedPreferences = context.getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
     mReferrerClient = InstallReferrerClient.newBuilder(context).build();
-    mReferrerClient.startConnection(installReferrerStateListener);
+    try {
+      mReferrerClient.startConnection(installReferrerStateListener);
+    } catch (Exception e) {
+      // This is almost always a PermissionException. Log it and move on
+      System.err.println("InstallReferrer exception. getInstallReferrer will be unavailable: " + e.getMessage());
+    }
   }
 
   private String getInstallReferrer() {
