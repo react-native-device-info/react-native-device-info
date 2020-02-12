@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.2
+
+- fix: avoid crash if missing InstallReferrer permission on Android (#955) (@mikehardy)
+
 ## 5.5.1
 
 - fix: RNDeviceInfo_powerStateDidChange event argument type error (@mikehardy)
