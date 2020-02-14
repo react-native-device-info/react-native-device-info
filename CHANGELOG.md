@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.3
+
+- fix: add Redmi Note 9 to hasNotch list (#959) (thanks @euharrison!)
+
 ## 5.5.2
 
 - fix: avoid crash if missing InstallReferrer permission on Android (#955) (@mikehardy)
