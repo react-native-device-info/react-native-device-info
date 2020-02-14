@@ -255,6 +255,10 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'xiaomi',
+    model: 'Redmi Note 8',
+  },
+  {
+    brand: 'xiaomi',
     model: 'Mi A2 Lite',
   },
 ];
