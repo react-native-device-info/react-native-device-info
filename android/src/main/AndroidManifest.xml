@@ -2,16 +2,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.learnium.RNDeviceInfo">
 
-  <application>
-    <receiver android:name="com.learnium.RNDeviceInfo.RNDeviceReceiver"
-        android:enabled="true"
-        android:exported="true"
-        tools:ignore="ExportedReceiver"
-        android:permission="android.permission.INSTALL_PACKAGES">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER" />
-      </intent-filter>
-    </receiver>
-  </application>
-
 </manifest>
