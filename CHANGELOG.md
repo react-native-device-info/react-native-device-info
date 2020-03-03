@@ -146,6 +146,10 @@ all the help I can get. Cheers!
 - fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
 - fix: add wider exception handling in install referrer (thanks @jmunozDevsu!)
 
+## 5.5.4
+
+- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
+
 ## 5.5.3
 
 - fix: add Redmi Note 9 to hasNotch list (#959) (thanks @euharrison!)
