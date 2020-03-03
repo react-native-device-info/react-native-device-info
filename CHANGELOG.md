@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.4
+
+- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
+
 ## 5.5.3
 
 - fix: add Redmi Note 9 to hasNotch list (#959) (thanks @euharrison!)
