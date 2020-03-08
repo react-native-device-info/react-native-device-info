@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.4
+
+- fix: memoization of static boolean return values (@jmheik)
+
 ## 5.5.3
 
 - fix: add Redmi Note 9 to hasNotch list (#959) (thanks @euharrison!)
