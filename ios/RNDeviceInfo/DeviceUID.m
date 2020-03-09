@@ -8,10 +8,11 @@
 
 @interface DeviceUID ()
 
-@property(nonatomic, strong, readonly) NSString *uidKey;
 @property(nonatomic, strong, readonly) NSString *uid;
 
 @end
+
+NSString * const UIDKey = @"deviceUID";
 
 @implementation DeviceUID
 
@@ -20,15 +21,18 @@
 #pragma mark - Public methods
 
 + (NSString *)uid {
-    return [[[DeviceUID alloc] initWithKey:@"deviceUID"] uid];
+    return [[[DeviceUID alloc] init] uid];
+}
+
++ (NSString *)syncUid {
+    return [[[DeviceUID alloc] init] syncUid];
 }
 
 #pragma mark - Instance methods
 
-- (id)initWithKey:(NSString *)key {
+- (id)init:(NSString *)key {
     self = [super init];
     if (self) {
-        _uidKey = key;
         _uid = nil;
     }
     return self;
@@ -43,22 +47,38 @@
     At last, the UID is persisted if needed to.
  */
 - (NSString *)uid {
-    if (!_uid) _uid = [[self class] valueForKeychainKey:_uidKey service:_uidKey];
-    if (!_uid) _uid = [[self class] valueForUserDefaultsKey:_uidKey];
+    if (!_uid) _uid = [[self class] valueForKeychainKey:UIDKey service:UIDKey];
+    if (!_uid) _uid = [[self class] valueForUserDefaultsKey:UIDKey];
     if (!_uid) _uid = [[self class] appleIFV];
+    if (!_uid) _uid = [[self class] randomUUID];
+    [self saveIfNeed];
+    return _uid;
+}
+
+/*! Persist Apple IFV (Identifier for Vendor) or random UUID as Device UID.
+*/
+- (NSString *)syncUid {
+    _uid = [[self class] appleIFV];
     if (!_uid) _uid = [[self class] randomUUID];
     [self save];
     return _uid;
 }
 
-/*! Persist UID to NSUserDefaults and Keychain, if not yet saved
+/*! Persist UID to NSUserDefaults and Keychain
  */
 - (void)save {
-  if (![DeviceUID valueForUserDefaultsKey:_uidKey]) {
-    [DeviceUID setValue:_uid forUserDefaultsKey:_uidKey];
+  [DeviceUID setValue:_uid forUserDefaultsKey:UIDKey];
+  [DeviceUID updateValue:_uid forKeychainKey:UIDKey inService:UIDKey];
+}
+
+/*! Persist UID to NSUserDefaults and Keychain, if not yet saved
+ */
+- (void)saveIfNeed {
+  if (![DeviceUID valueForUserDefaultsKey:UIDKey]) {
+    [DeviceUID setValue:_uid forUserDefaultsKey:UIDKey];
   }
-  if (![DeviceUID valueForKeychainKey:_uidKey service:_uidKey]) {
-    [DeviceUID setValue:_uid forKeychainKey:_uidKey inService:_uidKey];
+  if (![DeviceUID valueForKeychainKey:UIDKey service:UIDKey]) {
+    [DeviceUID setValue:_uid forKeychainKey:UIDKey inService:UIDKey];
   }
 }
 
@@ -85,6 +105,24 @@
     NSMutableDictionary *keychainItem = [[self class] keychainItemForKey:key service:service];
     keychainItem[(__bridge id)kSecValueData] = [value dataUsingEncoding:NSUTF8StringEncoding];
     return SecItemAdd((__bridge CFDictionaryRef)keychainItem, NULL);
+}
+
+/*! Updates
+ *  param1
+ *  param2
+ */
++ (OSStatus)updateValue:(NSString *)value forKeychainKey:(NSString *)key inService:(NSString *)service {
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassGenericPassword, kSecClass,
+                           key, kSecAttrAccount,
+                           service, kSecAttrService,
+                           nil];
+
+    NSDictionary *attributesToUpdate = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       [value dataUsingEncoding:NSUTF8StringEncoding], kSecValueData,
+                                       nil];
+
+    return SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
 }
 
 + (NSString *)valueForKeychainKey:(NSString *)key service:(NSString *)service {

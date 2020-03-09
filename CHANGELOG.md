@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.5.4
+
+- feat: Added syncUniqueId() for iOS devices (#922) (thanks @Bardiamist!)
+
 ## 5.5.3
 
 - fix: add Redmi Note 9 to hasNotch list (#959) (thanks @euharrison!)

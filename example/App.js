@@ -20,6 +20,7 @@ import DeviceInfo from 'react-native-device-info';
 import {
   getManufacturer,
   getManufacturerSync,
+  syncUniqueId,
   useBatteryLevel,
   useBatteryLevelIsLow,
   usePowerState,
@@ -207,6 +208,7 @@ export default class App extends Component {
       deviceJSON.incremental = await DeviceInfo.getIncremental();
       deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
       deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
+      deviceJSON.synchronizedUniqueId = await DeviceInfo.syncUniqueId();
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
