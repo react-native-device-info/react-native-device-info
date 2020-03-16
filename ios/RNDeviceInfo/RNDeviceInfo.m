@@ -288,7 +288,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 }
 
 - (NSString *) getCarrier {
-#if (TARGET_OS_TV)
+#if (TARGET_OS_TV || TARGET_OS_MACCATALYST)
     return @"unknown";
 #else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
