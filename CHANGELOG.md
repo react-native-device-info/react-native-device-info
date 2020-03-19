@@ -4,6 +4,7 @@
 
 ## 5.5.4
 
+- fix: memoization of static boolean return values (@jmheik)
 - fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
 
 ## 5.5.3
