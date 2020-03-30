@@ -6,6 +6,7 @@
 
 - fix: memoization of static boolean return values (@jmheik)
 - fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
+- fix: add wider exception handling in install referrer (thanks @jmunozDevsu!)
 
 ## 5.5.3
 
