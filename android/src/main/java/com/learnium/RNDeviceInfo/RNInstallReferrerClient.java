@@ -54,7 +54,7 @@ public class RNInstallReferrerClient {
               editor.apply();
 
               mReferrerClient.endConnection();
-            } catch (RemoteException e) {
+            } catch (Exception e) {
               e.printStackTrace();
             }
             break;

@@ -2,9 +2,15 @@
 
 # Release Notes
 
-## 5.5.4
+## 5.5.5
 
 - feat: Added syncUniqueId() for iOS devices (#922) (thanks @Bardiamist!)
+
+## 5.5.4
+
+- fix: memoization of static boolean return values (@jmheik)
+- fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
+- fix: add wider exception handling in install referrer (thanks @jmunozDevsu!)
 
 ## 5.5.3
 
