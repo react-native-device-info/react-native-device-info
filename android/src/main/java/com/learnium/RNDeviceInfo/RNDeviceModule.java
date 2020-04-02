@@ -429,7 +429,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     return powerState.getDouble(BATTERY_LEVEL);
   }
-
+  
   @ReactMethod
   public void getBatteryLevel(Promise p) { p.resolve(getBatteryLevelSync()); }
 
