@@ -19,6 +19,7 @@
     "type": "git",
     "url": "https://github.com/react-native-community/react-native-device-info"
   },
+  "homepage": "https://github.com/react-native-community/react-native-device-info#readme",
   "scripts": {
     "analyze": "npm run ts-check && npm run flow-check",
     "flow-check": "npx flow-bin check-contents < src/index.js.flow",
