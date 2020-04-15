@@ -2,9 +2,11 @@
 
 # Release Notes
 
-## 5.5.5
-
+## 5.5.6
 - feat: Added syncUniqueId() for iOS devices (#922) (thanks @Bardiamist!)
+
+## 5.5.5
+- fix: getModel on iOS now returns generic device type (e.g. "iPhone") if the specific model is unrecognized (@TheAlmightyBob)
 
 ## 5.5.4
 

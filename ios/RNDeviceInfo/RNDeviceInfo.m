@@ -273,13 +273,13 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     }
 
     // If we don't have the real device name, try a generic
-    if ([deviceName hasPrefix:@"iPod"]) {
+    if ([deviceId hasPrefix:@"iPod"]) {
         return @"iPod Touch";
-    } else if ([deviceName hasPrefix:@"iPad"]) {
+    } else if ([deviceId hasPrefix:@"iPad"]) {
         return @"iPad";
-    } else if ([deviceName hasPrefix:@"iPhone"]) {
+    } else if ([deviceId hasPrefix:@"iPhone"]) {
         return @"iPhone";
-    } else if ([deviceName hasPrefix:@"AppleTV"]) {
+    } else if ([deviceId hasPrefix:@"AppleTV"]) {
         return @"Apple TV";
     }
 
