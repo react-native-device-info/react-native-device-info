@@ -2,12 +2,14 @@
 
 # Release Notes
 
+## 5.5.5
+- fix: getModel on iOS now returns generic device type (e.g. "iPhone") if the specific model is unrecognized (@TheAlmightyBob)
+
 ## 5.5.4
 
 - fix: memoization of static boolean return values (@jmheik)
 - fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
 - fix: add wider exception handling in install referrer (thanks @jmunozDevsu!)
-- fix: getModel on iOS now returns generic device type (e.g. "iPhone") if the specific model is unrecognized (@TheAlmightyBob)
 
 ## 5.5.3
 
