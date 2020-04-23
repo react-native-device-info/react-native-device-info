@@ -21,7 +21,8 @@ public class RNInstallReferrerClient {
       mReferrerClient.startConnection(installReferrerStateListener);
     } catch (Exception e) {
       // This is almost always a PermissionException. Log it and move on
-      System.err.println("InstallReferrer exception. getInstallReferrer will be unavailable: " + e.getMessage());
+      System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
+      e.printStackTrace(System.err);
     }
   }
 
@@ -30,8 +31,9 @@ public class RNInstallReferrerClient {
       return mReferrerClient
               .getInstallReferrer()
               .getInstallReferrer();
-    } catch (RemoteException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
+      e.printStackTrace(System.err);
       return null;
     }
   }
@@ -55,7 +57,8 @@ public class RNInstallReferrerClient {
 
               mReferrerClient.endConnection();
             } catch (Exception e) {
-              e.printStackTrace();
+              System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
+              e.printStackTrace(System.err);
             }
             break;
           case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
@@ -70,9 +73,9 @@ public class RNInstallReferrerClient {
       }
 
       @Override public void onInstallReferrerServiceDisconnected() {
-        // Try to restart the connection on the next request to
-        // Google Play by calling the startConnection() method.
-        mReferrerClient.startConnection(installReferrerStateListener);
+        // Documentation indicates the InstallReferrer connection will be maintained
+        // So there is really nothing to do here
+        if (BuildConfig.DEBUG) Log.d("RNInstallReferrerClient", "InstallReferrerService disconnected");
       }
     };
 }

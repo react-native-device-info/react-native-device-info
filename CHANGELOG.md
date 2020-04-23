@@ -2,7 +2,16 @@
 
 # Release Notes
 
+## 5.5.6
+
+- fix: Android - safely handle PackageManager death in InstallReferrerClient (@mikehardy)
+- chore: upgrade gradle + gradle-plugin
+- chore: update all javascript dependencies
+- chore: refresh-example to react-native 0.62.2
+- chore: de-lint
+
 ## 5.5.5
+
 - fix: getModel on iOS now returns generic device type (e.g. "iPhone") if the specific model is unrecognized (@TheAlmightyBob)
 
 ## 5.5.4
