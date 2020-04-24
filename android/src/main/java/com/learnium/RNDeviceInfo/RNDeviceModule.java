@@ -53,6 +53,7 @@ import java.util.List;
 import java.lang.Runtime;
 import java.net.NetworkInterface;
 import java.math.BigInteger;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -185,7 +186,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return Build.FINGERPRINT.startsWith("generic")
             || Build.FINGERPRINT.startsWith("unknown")
             || Build.MODEL.contains("google_sdk")
-            || Build.MODEL.toLowerCase().contains("droid4x")
+            || Build.MODEL.toLowerCase(Locale.ROOT).contains("droid4x")
             || Build.MODEL.contains("Emulator")
             || Build.MODEL.contains("Android SDK built for x86")
             || Build.MANUFACTURER.contains("Genymotion")
@@ -199,11 +200,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
             || Build.PRODUCT.contains("vbox86p")
             || Build.PRODUCT.contains("emulator")
             || Build.PRODUCT.contains("simulator")
-            || Build.BOARD.toLowerCase().contains("nox")
-            || Build.BOOTLOADER.toLowerCase().contains("nox")
-            || Build.HARDWARE.toLowerCase().contains("nox")
-            || Build.PRODUCT.toLowerCase().contains("nox")
-            || Build.SERIAL.toLowerCase().contains("nox")
+            || Build.BOARD.toLowerCase(Locale.ROOT).contains("nox")
+            || Build.BOOTLOADER.toLowerCase(Locale.ROOT).contains("nox")
+            || Build.HARDWARE.toLowerCase(Locale.ROOT).contains("nox")
+            || Build.PRODUCT.toLowerCase(Locale.ROOT).contains("nox")
+            || Build.SERIAL.toLowerCase(Locale.ROOT).contains("nox")
             || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
   }
 
