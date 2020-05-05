@@ -2,6 +2,11 @@
 
 # Release Notes
 
+## 5.5.7
+
+- fix: Android - build issues when building for electron (thanks @rcjmk10!)
+- chore: `yarn upgrade --latest`
+
 ## 5.5.6
 
 - fix: Android - safely handle PackageManager death in InstallReferrerClient (@mikehardy)
