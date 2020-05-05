@@ -45,7 +45,8 @@ public class RNInstallReferrerClient {
           case InstallReferrerClient.InstallReferrerResponse.OK:
             // Connection established
             try {
-              //if (BuildConfig.DEBUG) Log.d("InstallReferrerState", "OK");
+              //if (BuildConfig.DEBUG) 
+              Log.d("InstallReferrerState", "OK");
               ReferrerDetails response = mReferrerClient.getInstallReferrer();
               response.getInstallReferrer();
               response.getReferrerClickTimestampSeconds();
@@ -62,11 +63,13 @@ public class RNInstallReferrerClient {
             }
             break;
           case InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED:
-            //if (BuildConfig.DEBUG) Log.d("InstallReferrerState", "FEATURE_NOT_SUPPORTED");
+            //if (BuildConfig.DEBUG) 
+            Log.d("InstallReferrerState", "FEATURE_NOT_SUPPORTED");
             // API not available on the current Play Store app
             break;
           case InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE:
-            if (BuildConfig.DEBUG) Log.d("InstallReferrerState", "SERVICE_UNAVAILABLE");
+            //if (BuildConfig.DEBUG) 
+            Log.d("InstallReferrerState", "SERVICE_UNAVAILABLE");
             // Connection could not be established
             break;
         }
@@ -75,7 +78,8 @@ public class RNInstallReferrerClient {
       @Override public void onInstallReferrerServiceDisconnected() {
         // Documentation indicates the InstallReferrer connection will be maintained
         // So there is really nothing to do here
-        //if (BuildConfig.DEBUG) Log.d("RNInstallReferrerClient", "InstallReferrerService disconnected");
+        //if (BuildConfig.DEBUG) 
+        Log.d("RNInstallReferrerClient", "InstallReferrerService disconnected");
       }
     };
 }
