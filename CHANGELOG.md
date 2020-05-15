@@ -2,9 +2,35 @@
 
 # Release Notes
 
+## 6.0.0
+
+- BREAKING CHANGE: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
+
+The proper way to do this now is using the install referrer client from #947 the deprecated version
+is no longer functional based on upstream google documentation
+
+## 5.5.7
+
+- fix: Android - build issues when building for electron (thanks @rcjmk10!)
+- chore: `yarn upgrade --latest`
+
+## 5.5.6
+
+- fix: Android - safely handle PackageManager death in InstallReferrerClient (@mikehardy)
+- chore: upgrade gradle + gradle-plugin
+- chore: update all javascript dependencies
+- chore: refresh-example to react-native 0.62.2
+- chore: de-lint
+
+## 5.5.5
+
+- fix: getModel on iOS now returns generic device type (e.g. "iPhone") if the specific model is unrecognized (@TheAlmightyBob)
+
 ## 5.5.4
 
-- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
+- fix: memoization of static boolean return values (@jmheik)
+- fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
+- fix: add wider exception handling in install referrer (thanks @jmunozDevsu!)
 
 ## 5.5.3
 
