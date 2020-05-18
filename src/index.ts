@@ -800,7 +800,7 @@ export function hasNotch() {
     let _model = getModel();
     notch =
       devicesWithNotch.findIndex(
-        item =>
+        (item) =>
           item.brand.toLowerCase() === _brand.toLowerCase() &&
           item.model.toLowerCase() === _model.toLowerCase()
       ) !== -1;
