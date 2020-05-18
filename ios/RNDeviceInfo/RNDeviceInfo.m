@@ -665,6 +665,9 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
         if ([[desc portType] isEqualToString:AVAudioSessionPortBluetoothA2DP]) {
             return YES;
         }
+	if ([[desc portType] isEqualToString:AVAudioSessionPortBluetoothHFP]) {
+            return YES;
+        }
     }
     return NO;
 }
