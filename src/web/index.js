@@ -43,7 +43,7 @@ const getUsedMemorySync = () => {
   return -1;
 };
 
-const getPowerState = battery => {
+const getPowerState = (battery) => {
   const { level, charging, chargingtime, dischargingtime } = battery;
 
   return {
@@ -134,7 +134,7 @@ module.exports = {
   isCameraPresent: async () => {
     if (navigator.getBattery) {
       const devices = await navigator.mediaDevices.enumerateDevices();
-      return !!devices.find(d => d.kind === 'videoinput');
+      return !!devices.find((d) => d.kind === 'videoinput');
     }
     return false;
   },

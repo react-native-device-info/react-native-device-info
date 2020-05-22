@@ -6,6 +6,10 @@
 
 - feat: Added syncUniqueId() for iOS devices (#922) (thanks @Bardiamist!)
 
+## 5.5.8
+
+- fix: iOS check HFP in addition to A2DP in isHeadphonesConnected (thanks @CaptainJeff!)
+
 ## 5.5.7
 
 - fix: Android - build issues when building for electron (thanks @rcjmk10!)

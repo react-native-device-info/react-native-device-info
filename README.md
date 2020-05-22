@@ -300,9 +300,9 @@ import { getUniqueId, getManufacturer } from 'react-native-device-info';
 
 ## API
 
-Note that many APIs are platform-specific. If there is no implementation for a platform, then the "default" return values you will receive are 'unknown' for string, '-1' for number, and 'false' for boolean. Arrays and Objects will be empty ('[]' and '{}' respectively).
+Note that many APIs are platform-specific. If there is no implementation for a platform, then the "default" return values you will receive are `"unknown"` for string, `-1` for number, and `false` for boolean. Arrays and Objects will be empty (`[]` and `{}` respectively).
 
-Every API returns a Promise but also has a corresponding API with 'Sync' on the end that operates synchronously. For example, you may prefer to call 'isCameraPresentSync()' during your app bootstrap to avoid async calls during the first parts of app startup.
+Most APIs return a Promise but also have a corresponding API with `Sync` on the end that operates synchronously. For example, you may prefer to call `isCameraPresentSync()` during your app bootstrap to avoid async calls during the first parts of app startup.
 
 | Method                                                            | Return Type         |  iOS | Android | Windows | Web |
 | ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-: |
