@@ -373,6 +373,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌ |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌ |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | ❌ |
+| [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌ |
 
 ---
 
@@ -1161,6 +1162,31 @@ let uniqueId = DeviceInfo.getUniqueId();
 > - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
 >   Beware: The IDFV is calculated using your bundle identifier and thus will be different in app extensions.
 > - android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+
+---
+
+### syncUniqueId()
+
+This method is intended for iOS.
+
+This synchronizes uniqueId with [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or sets new a random string.
+
+On iOS it uses the `DeviceUID` uid identifier.
+On other platforms it just call `getUniqueId()` in this module.
+
+#### Examples
+
+```js
+DeviceInfo.syncUniqueId().then(uniqueId => {
+  // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
+  // Android: "dd96dec43fb81c97"
+  // Windows: ?
+});
+```
+
+#### Notes
+
+> - If user moved or restored data from one iOS device to second iOS device then he will have two different devices with same `uniqueId` in Keychain/NSUserDefaults. User can call `syncUniqueId()` on new iOS device. That will update his `uniqueId` from [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string.
 
 ---
 

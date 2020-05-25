@@ -129,6 +129,7 @@ interface ExposedNativeMethods {
   isLocationEnabledSync: () => boolean;
   isPinOrFingerprintSet: () => Promise<boolean>;
   isPinOrFingerprintSetSync: () => boolean;
+  syncUniqueId: () => Promise<string>;
 }
 
 export interface DeviceInfoNativeModule
