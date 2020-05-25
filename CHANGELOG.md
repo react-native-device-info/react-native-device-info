@@ -2,7 +2,7 @@
 
 # Release Notes
 
-## 5.5.8
+## 5.6.0
 
 - feat: Added syncUniqueId() for iOS devices (#922) (thanks @Bardiamist!)
 
