@@ -6,6 +6,18 @@ let batteryCharging = false,
   batteryLevel = -1,
   powerState = {};
 
+const _readPowerState = (battery) => {
+  const { level, charging, chargingtime, dischargingtime } = battery;
+
+  return {
+    batteryLevel: level,
+    lowPowerMode: false,
+    batteryState: level === 1 ? 'full' : charging ? 'charging' : 'unplugged',
+    chargingtime,
+    dischargingtime,
+  };
+}
+
 export const getMaxMemorySync = () => {
   if (window.performance && window.performance.memory) {
     return window.performance.memory.jsHeapSizeLimit;
@@ -53,7 +65,7 @@ const init = async () => {
       const { charging } = battery;
 
       batteryCharging = charging;
-      powerState = getPowerStateSync(battery);
+      powerState = _readPowerState(battery);
 
       deviceInfoEmitter.emit('RNDeviceInfo_powerStateDidChange', powerState);
     });
@@ -62,7 +74,7 @@ const init = async () => {
       const { level } = battery;
 
       batteryLevel = level;
-      powerState = getPowerStateSync(battery);
+      powerState = _readPowerState(battery);
 
       deviceInfoEmitter.emit('RNDeviceInfo_batteryLevelDidChange', level);
       if (level < 0.2) {
@@ -205,19 +217,12 @@ export const getTotalMemory = async () => {
 export const getPowerState = async () => {
   if (navigator.getBattery) {
     const battery = await navigator.getBattery();
-    const { level, charging, chargingtime, dischargingtime } = battery;
-
-    return {
-      batteryLevel: level,
-      lowPowerMode: false,
-      batteryState: level === 1 ? 'full' : charging ? 'charging' : 'unplugged',
-      chargingtime,
-      dischargingtime,
-    };
+    
+    return _readPowerState(battery);
   }
   return {};
 }
+
 export const getPowerStateSync = () => {
   return powerState;
 }
-
