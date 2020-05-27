@@ -2,6 +2,15 @@
 
 # Release Notes
 
+## 5.6.1
+
+- fix: react-native-web fix TypeError and battery (#1024) (thanks @jamesst20!)
+
+I want to say I especially appreciate the help on the react-native-web implementation.
+Anyone that wants to help this library work better for react-native-web is more than welcome!
+I (@mikehardy, the currently active maintainer here) do not use react-native-web so I need
+all the help I can get. Cheers!
+
 ## 5.6.0
 
 - feat: Added syncUniqueId() for iOS devices (#922) (thanks @Bardiamist!)
