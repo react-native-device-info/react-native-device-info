@@ -9,44 +9,21 @@ jobs:
     runs-on: windows-2016
     timeout-minutes: 45
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - run: yarn install --frozen-lockfile
-
+      - uses: actions/checkout@v2
+      - uses: warrenbuckley/Setup-MSBuild@v1
+      - uses: warrenbuckley/Setup-Nuget@v1
+      - uses: fbactions/setup-winsdk@v1
+      - run: yarn --frozen-lockfile
       - run: yarn build
-
-      - name: Setup MSBuild.exe
-        uses: warrenbuckley/Setup-MSBuild@v1
-
-      - name: Setup Nuget.exe
-        uses: warrenbuckley/Setup-Nuget@v1
-
-      - name: Install react-native cli
-        run: npm install -g react-native-cli
-
       - name: Init new project
-        run: react-native init testcli --version 0.59.10
-        working-directory: ${{ runner.temp }}
-
+        run: cd ${{ runner.temp }} && npx react-native-cli init testcli --version 0.59.10
       - name: Install rnpm-plugin-windows
-        run: yarn add rnpm-plugin-windows
-        working-directory: ${{ runner.temp }}\testcli
-
-      - name: Apply windows template
-        run: react-native windows
-        working-directory: ${{ runner.temp }}\testcli
-
-      - name: install react-native-device-info from local repo
-        run: yarn add react-native-device-info@file:${{ runner.workspace }}\react-native-device-info
-        working-directory: ${{ runner.temp }}\testcli
-
-      - name: react-native link react-native-device-info
-        run: react-native link react-native-device-info
-        working-directory: ${{ runner.temp }}\testcli
-
+        run: cd ${{ runner.temp }}\testcli && yarn add rnpm-plugin-windows
+      - name: Generate React Native Windows template project
+        run: cd ${{ runner.temp }}\testcli && yarn react-native windows --template legacy
+      - name: Install react-native-device-info from local directory
+        run: cd ${{ runner.temp }}\testcli && yarn add react-native-device-info@file:${{ runner.workspace }}\react-native-device-info
       - name: Nuget restore
-        run: nuget restore ${{ runner.temp }}\testcli\windows\testcli.sln
-
+        run: cd ${{ runner.temp }}\testcli && nuget restore windows\testcli.sln
       - name: Build Windows Solution
-        run: msbuild ${{ runner.temp }}\testcli\windows\testcli.sln /nologo /nr:false /p:PreferredToolArchitecture=x64 /p:platform="x86" /p:configuration="Debug"
+        run: cd ${{ runner.temp }}\testcli && msbuild windows\testcli.sln /nologo /nr:false /p:PreferredToolArchitecture=x64 /p:platform=x86 /p:configuration=Debug
