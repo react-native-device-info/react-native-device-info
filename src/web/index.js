@@ -16,7 +16,7 @@ const _readPowerState = (battery) => {
     chargingtime,
     dischargingtime,
   };
-}
+};
 
 export const getMaxMemorySync = () => {
   if (window.performance && window.performance.memory) {
@@ -115,11 +115,11 @@ init();
 
 export const getInstallReferrer = async () => {
   return getInstallReferrerSync();
-}
+};
 
 export const getUserAgent = async () => {
   return getUserAgentSync();
-}
+};
 
 export const isBatteryCharging = async () => {
   if (navigator.getBattery) {
@@ -127,11 +127,11 @@ export const isBatteryCharging = async () => {
     return battery.level;
   }
   return false;
-}
+};
 
 export const isBatteryChargingSync = () => {
   return batteryCharging;
-}
+};
 
 export const isCameraPresent = async () => {
   if (navigator.getBattery) {
@@ -139,14 +139,14 @@ export const isCameraPresent = async () => {
     return !!devices.find((d) => d.kind === 'videoinput');
   }
   return false;
-}
+};
 
 export const isCameraPresentSync = () => {
   console.log(
     '[react-native-device-info] isCameraPresentSync not supported - please use isCameraPresent'
   );
   return false;
-}
+};
 
 export const getBatteryLevel = async () => {
   if (navigator.getBattery) {
@@ -154,23 +154,23 @@ export const getBatteryLevel = async () => {
     return battery.level;
   }
   return -1;
-}
+};
 
 export const getBatteryLevelSync = () => {
   return batteryLevel;
-}
+};
 
 export const isLocationEnabled = async () => {
   return isLocationEnabledSync();
-}
+};
 
 export const isAirplaneMode = async () => {
   return isAirplaneModeSync();
-}
+};
 
 export const getBaseOs = async () => {
   return getBaseOsSync();
-}
+};
 
 export const getTotalDiskCapacity = async () => {
   if (navigator.storage && navigator.storage.estimate) {
@@ -178,14 +178,14 @@ export const getTotalDiskCapacity = async () => {
     return quota;
   }
   return -1;
-}
+};
 
 export const getTotalDiskCapacitySync = () => {
   console.log(
     '[react-native-device-info] getTotalDiskCapacitySync not supported - please use getTotalDiskCapacity'
   );
   return -1;
-}
+};
 
 export const getFreeDiskStorage = async () => {
   if (navigator.storage && navigator.storage.estimate) {
@@ -193,36 +193,36 @@ export const getFreeDiskStorage = async () => {
     return quota - usage;
   }
   return -1;
-}
+};
 
 export const getFreeDiskStorageSync = () => {
   console.log(
     '[react-native-device-info] getFreeDiskStorageSync not supported - please use getFreeDiskStorage'
   );
   return -1;
-}
+};
 
 export const getMaxMemory = async () => {
   return getMaxMemorySync();
-}
+};
 
 export const getUsedMemory = async () => {
   return getUsedMemorySync();
-}
+};
 
 export const getTotalMemory = async () => {
   return getTotalMemorySync();
-}
+};
 
 export const getPowerState = async () => {
   if (navigator.getBattery) {
     const battery = await navigator.getBattery();
-    
+
     return _readPowerState(battery);
   }
   return {};
-}
+};
 
 export const getPowerStateSync = () => {
   return powerState;
-}
+};
