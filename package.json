@@ -70,7 +70,7 @@
   "license": "MIT",
   "devDependencies": {
     "@react-native-community/bob": "^0.14.2",
-    "@react-native-community/eslint-config": "1.1.0",
+    "@react-native-community/eslint-config": "2.0.0",
     "@types/react": "^16.9.35",
     "@types/react-native": "^0.62.12",
     "eslint": "^7.0.0",
