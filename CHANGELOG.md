@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## 5.6.2
+
+- fix(types): import LocationProviderInfo type, export result types (#1041, thanks @mikehardy)
+- fix: power connection and power save events were not triggering correctly (#1042, thanks @mikehardy)
+- fix(ios): correctly calculate ios low battery threshold (#1039, thanks @mikehardy)
+
 ## 5.6.1
 
 - fix: react-native-web fix TypeError and battery (#1024) (thanks @jamesst20!)
