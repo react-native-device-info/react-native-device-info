@@ -4,7 +4,7 @@ import { useOnMount } from './internal/asyncHookWrappers';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import { DeviceInfoModule } from './internal/privateTypes';
-import { AsyncHookResult, DeviceType, PowerState } from './internal/types';
+import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from './internal/types';
 
 let uniqueId: string;
 export function getUniqueId() {
@@ -1334,6 +1334,8 @@ export function useHasSystemFeature(feature: string): AsyncHookResult<boolean> {
 export function useIsEmulator(): AsyncHookResult<boolean> {
   return useOnMount(isEmulator, false);
 }
+
+export { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
 const deviceInfoModule: DeviceInfoModule = {
   getAndroidId,
