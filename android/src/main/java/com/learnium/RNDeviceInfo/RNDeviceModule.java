@@ -71,7 +71,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private RNInstallReferrerClient installReferrerClient;
 
   private double mLastBatteryLevel = -1;
-  private String sLastBatteryState = "";
+  private String mLastBatteryState = "";
+  private boolean mLastPowerSaveState = false;
 
   private static String BATTERY_STATE = "batteryState";
   private static String BATTERY_LEVEL= "batteryLevel";
@@ -88,6 +89,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void initialize() {
     IntentFilter filter = new IntentFilter();
     filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+    filter.addAction(Intent.ACTION_POWER_CONNECTED);
+    filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+      filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+    }
 
     receiver = new BroadcastReceiver() {
       @Override
@@ -100,10 +106,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
         String batteryState = powerState.getString(BATTERY_STATE);
         Double batteryLevel = powerState.getDouble(BATTERY_LEVEL);
+        Boolean powerSaveState = powerState.getBoolean(LOW_POWER_MODE);
 
-        if(!sLastBatteryState.equalsIgnoreCase(batteryState)) {
+        if(!mLastBatteryState.equalsIgnoreCase(batteryState) || mLastPowerSaveState != powerSaveState) {
           sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", batteryState);
-          sLastBatteryState = batteryState;
+          mLastBatteryState = batteryState;
+          mLastPowerSaveState = powerSaveState;
         }
 
         if(mLastBatteryLevel != batteryLevel) {

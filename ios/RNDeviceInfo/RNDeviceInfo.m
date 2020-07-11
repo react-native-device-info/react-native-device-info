@@ -87,6 +87,10 @@ RCT_EXPORT_MODULE();
                                                  selector:@selector(powerStateDidChange:)
                                                      name:UIDeviceBatteryStateDidChangeNotification
                                                    object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(powerStateDidChange:)
+                                                     name:NSProcessInfoPowerStateDidChangeNotification
+                                                   object: nil];
 #endif
     }
 
@@ -584,7 +588,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
     }
 }
 
-- (void)powerStateDidChange:(NSNotification *)notification {
+- (void) powerStateDidChange:(NSNotification *)notification {
     if (!hasListeners) {
         return;
     }
