@@ -76,7 +76,7 @@ RCT_EXPORT_MODULE();
 {
     if ((self = [super init])) {
 #if !TARGET_OS_TV
-        _lowBatteryThreshold = 20;
+        _lowBatteryThreshold = 0.20;
         [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
