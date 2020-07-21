@@ -37,9 +37,6 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 @implementation RNDeviceInfo
 {
-    #if !(TARGET_OS_TV)
-    WKWebView *webView;
-    #endif
     bool hasListeners;
 }
 
@@ -724,16 +721,16 @@ RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
         __strong RNDeviceInfo *strongSelf = weakSelf;
         if (strongSelf) {
             // Save WKWebView (it might deallocate before we ask for user Agent)
-            strongSelf->webView = [[WKWebView alloc] init];
+            __block WKWebView *webView = [[WKWebView alloc] init];
 
-            [strongSelf->webView evaluateJavaScript:@"window.navigator.userAgent;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            [webView evaluateJavaScript:@"window.navigator.userAgent;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                 if (error) {
                     reject(@"getUserAgentError", error.localizedDescription, error);
-                    return;
+                }else{
+                    resolve([NSString stringWithFormat:@"%@", result]);
                 }
-                resolve([NSString stringWithFormat:@"%@", result]);
                 // Destroy the WKWebView after task is complete
-                strongSelf->webView = nil;
+                webView = nil;
             }];
         }
     });
