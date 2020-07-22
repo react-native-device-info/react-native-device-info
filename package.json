@@ -24,7 +24,7 @@
     "analyze": "npm run ts-check && npm run flow-check",
     "flow-check": "npx flow-bin check-contents < src/index.js.flow",
     "ts-check": "npx tsc --noEmit",
-    "clean": "cd example && npx react-native-clean-project --keep-node-modules --remove-iOS-build --remove-iOS-pods --remove-android-build --keep-brew --keep-pods && \\rm -fr ios/Pods",
+    "clean": "cd example && npx react-native-clean-project --keep-node-modules --remove-iOS-build --remove-iOS-pods --remove-android-build --clean-android-project --keep-brew --keep-pods && \\rm -fr ios/Pods",
     "dev-sync": "npm run build && cp -r *podspec lib windows android ios src example/node_modules/react-native-device-info/",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
     "shipit": "npm run clean && np",
