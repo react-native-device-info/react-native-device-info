@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.6.3
+
+- fix(ios): fix WkWebView crash from parallel getUserAgent calls (#1050, thanks @RojoHub!)
+
 ## 5.6.2
 
 - fix(types): import LocationProviderInfo type, export result types (#1041, thanks @mikehardy)
