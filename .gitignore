@@ -67,6 +67,7 @@ lib/
 
 # Visual Studio build artifacts
 windows/RNDeviceInfo/.vs/*
+windows/RNDeviceInfo/bin/*
 windows/RNDeviceInfo/obj/*
 windows/.vs
 windows/packages

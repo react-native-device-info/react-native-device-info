@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.ReactNative.Managed;
+using Microsoft.ReactNative;
+
 namespace RNDeviceInfo
 {
-    public sealed class RNDeviceInfoModule
+    [ReactModule("RNDeviceInfo")]
+    class RNDeviceInfoModule
     {
     }
 }

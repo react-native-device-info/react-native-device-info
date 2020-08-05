@@ -122,7 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="RNDeviceInfoModule.cs" />
-    <Compile Include="RNDeviceInfoPackage.cs" />
+    <Compile Include="ReactPackageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
