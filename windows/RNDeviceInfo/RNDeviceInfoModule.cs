@@ -21,27 +21,6 @@ namespace RNDeviceInfo
     class RNDeviceInfoModule
     {
 
-        [ReactConstant]
-        public string uniqueId => getUniqueIdSync();
-        [ReactConstant]
-        public string deviceId => getDeviceIdSync();
-        [ReactConstant]
-        public string bundleId => getBundleIdSync();
-        [ReactConstant]
-        public string systemVersion => getSystemVersionSync();
-        [ReactConstant]
-        public string appVersion => getAppVersionSync();
-        [ReactConstant]
-        public string buildNumber => getBuildNumberSync();
-        [ReactConstant]
-        public bool isTablet => isTabletSync();
-        [ReactConstant]
-        public string appName => getAppNameSync();
-        [ReactConstant]
-        public string brand => getBrandSync();
-        [ReactConstant]
-        public string model => getModelSync();
-
         [ReactConstantProvider]
         public void ConstantsViaConstantsProvider(ReactConstantProvider provider)
         {
