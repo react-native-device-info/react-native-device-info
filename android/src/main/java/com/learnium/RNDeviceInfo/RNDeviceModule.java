@@ -346,7 +346,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getTotalDiskCapacity(Promise p) { p.resolve(getTotalDiskCapacitySync()); }
 
-  private BigInteger multiplyBlockCountWithSize(dir) {
+  private BigInteger multiplyBlockCountWithSize(StatFs dir) {
     return BigInteger.valueOf(dir.getBlockCountLong()).multiply(BigInteger.valueOf(dir.getBlockSizeLong()));
   }
 
