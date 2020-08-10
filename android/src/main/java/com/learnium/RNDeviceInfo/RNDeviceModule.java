@@ -335,8 +335,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       StatFs rootDir = new StatFs(Environment.getRootDirectory().getAbsolutePath());
       StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
 
-      BigInteger rootDirCapacity = multiplyBlockCountWithSize(rootDir);
-      BigInteger dataDirCapacity = multiplyBlockCountWithSize(dataDir);
+      BigInteger rootDirCapacity = getDirTotalCapacity(rootDir);
+      BigInteger dataDirCapacity = getDirTotalCapacity(dataDir);
 
       return rootDirCapacity.add(dataDirCapacity);
     } catch (Exception e) {
@@ -346,7 +346,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getTotalDiskCapacity(Promise p) { p.resolve(getTotalDiskCapacitySync()); }
 
-  private BigInteger multiplyBlockCountWithSize(StatFs dir) {
+  private BigInteger getDirTotalCapacity(StatFs dir) {
     return BigInteger.valueOf(dir.getBlockCountLong()).multiply(BigInteger.valueOf(dir.getBlockSizeLong()));
   }
 
