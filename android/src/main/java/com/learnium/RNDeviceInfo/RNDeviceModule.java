@@ -332,14 +332,23 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getTotalDiskCapacitySync() {
     try {
-      StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize())).doubleValue();
+      StatFs rootDir = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+
+      BigInteger rootDirCapacity = multiplyBlockCountWithSize(rootDir);
+      BigInteger dataDirCapacity = multiplyBlockCountWithSize(dataDir);
+
+      return rootDirCapacity.add(dataDirCapacity);
     } catch (Exception e) {
       return -1;
     }
   }
   @ReactMethod
   public void getTotalDiskCapacity(Promise p) { p.resolve(getTotalDiskCapacitySync()); }
+
+  private BigInteger multiplyBlockCountWithSize(dir) {
+    return BigInteger.valueOf(dir.getBlockCountLong()).multiply(BigInteger.valueOf(dir.getBlockSizeLong()));
+  }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getFreeDiskStorageSync() {
