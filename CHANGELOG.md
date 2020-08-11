@@ -2,6 +2,10 @@
 
 # Release Notes
 
+## 5.6.4
+
+- fix(android): fix missing Huawei P30 model name in devicesWithNotch.ts (@tronin)
+
 ## 5.6.3
 
 - fix(ios): fix WkWebView crash from parallel getUserAgent calls (#1050, thanks @RojoHub!)
