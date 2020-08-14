@@ -2,8 +2,15 @@
 
 # Release Notes
 
+
 ## Next
+
 - fix(android): Add `getTotalDiskCapacityNew` and `getFreeDiskStorageNew` - and their sync variants. Calculations now take into account both `Root` and `Data` file systems.
+
+## 5.6.4
+
+- fix(android): fix missing Huawei P30 model name in devicesWithNotch.ts (@tronin)
+
 
 ## 5.6.3
 
