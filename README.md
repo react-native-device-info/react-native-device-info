@@ -356,7 +356,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
-| [getTotalDiskCapacityNew()](#gettotaldiskcapacityNew)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getTotalDiskCapacityNew()](#gettotaldiskcapacitynew)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
