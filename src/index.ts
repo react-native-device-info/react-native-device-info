@@ -978,9 +978,13 @@ export async function getTotalDiskCapacity() {
 }
 
 export async function getTotalDiskCapacityNew() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'android') {
     return RNDeviceInfo.getTotalDiskCapacityNew();
   }
+  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+    return getTotalDiskCapacity();
+  }
+
   return -1;
 }
 
@@ -992,9 +996,13 @@ export function getTotalDiskCapacitySync() {
 }
 
 export function getTotalDiskCapacityNewSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'android') {
     return RNDeviceInfo.getTotalDiskCapacityNewSync();
   }
+  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+    return getTotalDiskCapacitySync();
+  }
+
   return -1;
 }
 
@@ -1006,9 +1014,13 @@ export async function getFreeDiskStorage() {
 }
 
 export async function getFreeDiskStorageNew() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'android') {
     return RNDeviceInfo.getFreeDiskStorageNew();
   }
+  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+    return getFreeDiskStorage();
+  }
+
   return -1;
 }
 
@@ -1020,9 +1032,13 @@ export function getFreeDiskStorageSync() {
 }
 
 export function getFreeDiskStorageNewSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'android') {
     return RNDeviceInfo.getFreeDiskStorageNewSync();
   }
+  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+    return getFreeDiskStorage();
+  }
+
   return -1;
 }
 
