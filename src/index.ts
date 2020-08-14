@@ -977,9 +977,23 @@ export async function getTotalDiskCapacity() {
   return -1;
 }
 
+export async function getTotalDiskCapacityNew() {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+    return RNDeviceInfo.getTotalDiskCapacityNew();
+  }
+  return -1;
+}
+
 export function getTotalDiskCapacitySync() {
   if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
     return RNDeviceInfo.getTotalDiskCapacitySync();
+  }
+  return -1;
+}
+
+export function getTotalDiskCapacityNewSync() {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+    return RNDeviceInfo.getTotalDiskCapacityNewSync();
   }
   return -1;
 }
@@ -991,9 +1005,23 @@ export async function getFreeDiskStorage() {
   return -1;
 }
 
+export async function getFreeDiskStorageNew() {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+    return RNDeviceInfo.getFreeDiskStorageNew();
+  }
+  return -1;
+}
+
 export function getFreeDiskStorageSync() {
   if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
     return RNDeviceInfo.getFreeDiskStorageSync();
+  }
+  return -1;
+}
+
+export function getFreeDiskStorageNewSync() {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+    return RNDeviceInfo.getFreeDiskStorageNewSync();
   }
   return -1;
 }
@@ -1376,7 +1404,9 @@ const deviceInfoModule: DeviceInfoModule = {
   getFontScale,
   getFontScaleSync,
   getFreeDiskStorage,
+  getFreeDiskStorageNew,
   getFreeDiskStorageSync,
+  getFreeDiskStorageNewSync,
   getHardware,
   getHardwareSync,
   getHost,
@@ -1420,7 +1450,9 @@ const deviceInfoModule: DeviceInfoModule = {
   getTags,
   getTagsSync,
   getTotalDiskCapacity,
+  getTotalDiskCapacityNew,
   getTotalDiskCapacitySync,
+  getTotalDiskCapacityNewSync,
   getTotalMemory,
   getTotalMemorySync,
   getType,
