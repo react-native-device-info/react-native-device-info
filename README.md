@@ -330,7 +330,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ❌ |
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
-| [getFreeDiskStoragenNe()](#getfreediskstoragenew)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getFreeDiskStoragenNew()](#getfreediskstoragenew)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
