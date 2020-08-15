@@ -236,7 +236,7 @@ export function getSystemVersion() {
 let buildId: string;
 export async function getBuildId() {
   if (!buildId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'macos') {
       buildId = await RNDeviceInfo.getBuildId();
     } else {
       buildId = 'unknown';
@@ -247,7 +247,7 @@ export async function getBuildId() {
 
 export function getBuildIdSync() {
   if (!buildId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === "macos") {
       buildId = RNDeviceInfo.getBuildIdSync();
     } else {
       buildId = 'unknown';
