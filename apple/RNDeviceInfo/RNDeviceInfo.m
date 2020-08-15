@@ -124,7 +124,6 @@ RCT_EXPORT_MODULE();
 - (NSString *) getSystemName {
 #if TARGET_OS_OSX
     NSProcessInfo *processInfo = [NSProcessInfo processInfo];
-    log
     return processInfo.operatingSystemVersionString;
 #endif
 #if (!TARGET_OS_OSX)
@@ -766,24 +765,16 @@ RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
 }
 
 - (NSDictionary *) getAvailableLocationProviders {
-#if TARGET_OS_OSX
     return @{
-             @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
-             @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
-             @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]]
-             };
-#elif !TARGET_OS_TV
-    return @{
-              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
-              @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
-              @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
-              @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
-              };
-#else
-    return @{
-              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]]
-              };
+        @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
+#if (TARGET_OS_OSX || TARGET_OS_IOS)
+        @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
+        @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
 #endif
+#if (TARGET_OS_IOS)
+        @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
+#endif
+    };
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getAvailableLocationProvidersSync) {

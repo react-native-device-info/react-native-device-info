@@ -1222,14 +1222,14 @@ export function isHeadphonesConnectedSync() {
 }
 
 export async function getAvailableLocationProviders() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'macos') {
     return RNDeviceInfo.getAvailableLocationProviders();
   }
   return {};
 }
 
 export function getAvailableLocationProvidersSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'macos') {
     return RNDeviceInfo.getAvailableLocationProvidersSync();
   }
   return {};
