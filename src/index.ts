@@ -9,7 +9,7 @@ import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from '.
 let uniqueId: string;
 export function getUniqueId() {
   if (!uniqueId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       uniqueId = RNDeviceInfo.uniqueId;
     } else {
       uniqueId = 'unknown';
@@ -145,7 +145,7 @@ export function getMacAddressSync() {
 let deviceId: string;
 export function getDeviceId() {
   if (!deviceId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       deviceId = RNDeviceInfo.deviceId;
     } else {
       deviceId = 'unknown';
@@ -208,7 +208,7 @@ export function getBrand() {
 let systemName: string;
 export function getSystemName() {
   if (!systemName) {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'ios' || Platform.OS === 'macos') {
       systemName = RNDeviceInfo.systemName;
     } else if (Platform.OS === 'android') {
       systemName = 'Android';
@@ -224,7 +224,7 @@ export function getSystemName() {
 let systemVersion: string;
 export function getSystemVersion() {
   if (!systemVersion) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       systemVersion = RNDeviceInfo.systemVersion;
     } else {
       systemVersion = 'unknown';
@@ -282,7 +282,7 @@ export function getApiLevelSync() {
 let bundleId: string;
 export function getBundleId() {
   if (!bundleId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       bundleId = RNDeviceInfo.bundleId;
     } else {
       bundleId = 'unknown';
@@ -319,7 +319,7 @@ export function getInstallerPackageNameSync() {
 let appName: string;
 export function getApplicationName() {
   if (!appName) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       appName = RNDeviceInfo.appName;
     } else {
       appName = 'unknown';
@@ -343,7 +343,7 @@ export function getBuildNumber() {
 let version: string;
 export function getVersion() {
   if (!version) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       version = RNDeviceInfo.appVersion;
     } else {
       version = 'unknown';
@@ -359,7 +359,7 @@ export function getReadableVersion() {
 let deviceName: string;
 export async function getDeviceName() {
   if (!deviceName) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       deviceName = await RNDeviceInfo.getDeviceName();
     } else {
       deviceName = 'unknown';
