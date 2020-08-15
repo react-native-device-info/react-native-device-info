@@ -643,6 +643,8 @@ export async function getBaseOs() {
   if (!baseOs) {
     if (Platform.OS === 'android' || Platform.OS === 'web') {
       baseOs = await RNDeviceInfo.getBaseOs();
+    } else if (Platform.OS === 'macos') {
+      baseOs = 'macOS';
     } else {
       baseOs = 'unknown';
     }
@@ -654,6 +656,8 @@ export function getBaseOsSync() {
   if (!baseOs) {
     if (Platform.OS === 'android' || Platform.OS === 'web') {
       baseOs = RNDeviceInfo.getBaseOsSync();
+    } else if (Platform.OS === 'macos') {
+      baseOs = 'macOS';
     } else {
       baseOs = 'unknown';
     }
