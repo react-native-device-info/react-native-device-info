@@ -25,10 +25,11 @@ typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeHandset,
     DeviceTypeTablet,
     DeviceTypeTv,
+    DeviceTypeMac,
     DeviceTypeUnknown
 };
 
-#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"unknown", nil]
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Mac", @"unknown", nil]
 
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
@@ -119,7 +120,7 @@ RCT_EXPORT_MODULE();
         default: return DeviceTypeUnknown;
     }
 #endif
-    return DeviceTypeUnknown;
+    return DeviceTypeMac;
 
 }
 

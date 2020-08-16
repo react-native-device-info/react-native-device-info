@@ -1080,7 +1080,7 @@ export function isAirplaneModeSync() {
 let deviceType: DeviceType;
 export function getDeviceType() {
   if (!deviceType) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'macos') {
       deviceType = RNDeviceInfo.deviceType;
     } else {
       deviceType = 'unknown';
@@ -1091,7 +1091,7 @@ export function getDeviceType() {
 
 export function getDeviceTypeSync() {
   if (!deviceType) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'macos') {
       deviceType = RNDeviceInfo.deviceType;
     } else {
       deviceType = 'unknown';
