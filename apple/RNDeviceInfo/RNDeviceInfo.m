@@ -382,15 +382,17 @@ RCT_EXPORT_METHOD(syncUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     return deviceId;
 #endif
 #if TARGET_OS_OSX
+    NSString *deviceId = @"unknown";
     size_t len = 0;
     sysctlbyname("hw.model", NULL, &len, NULL, 0);
     if (len) {
         char *model = malloc(len*sizeof(char));
         sysctlbyname("hw.model", model, &len, NULL, 0);
-        return [NSString stringWithUTF8String:model];
+        deviceId = [NSString stringWithUTF8String:model];
+        free(model);
     }
     
-    return @"unknown";
+    return deviceId;
 #endif
 }
 
