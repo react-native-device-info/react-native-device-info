@@ -196,7 +196,7 @@ export function getModel() {
 let brand: string;
 export function getBrand() {
   if (!brand) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       brand = RNDeviceInfo.brand;
     } else {
       brand = 'unknown';
