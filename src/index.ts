@@ -331,7 +331,7 @@ export function getApplicationName() {
 let buildNumber: string;
 export function getBuildNumber() {
   if (!buildNumber) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
       buildNumber = RNDeviceInfo.buildNumber;
     } else {
       buildNumber = 'unknown';
