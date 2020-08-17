@@ -151,10 +151,27 @@ RCT_EXPORT_MODULE();
 #endif
 }
 
+// https://stackoverflow.com/a/25930208/2923929
+#if TARGET_OS_OSX
+- (NSString*) getSystemInfoStringMacOS:(const char*)attributeName {
+    size_t size;
+    sysctlbyname(attributeName, NULL, &size, NULL, 0);
+    char* attributeValue = malloc(size);
+    int err = sysctlbyname(attributeName, attributeValue, &size, NULL, 0);
+    if (err != 0) {
+        free(attributeValue);
+        return nil;
+    }
+    NSString* vs = [NSString stringWithUTF8String:attributeValue];
+    free(attributeValue);
+    return vs;
+}
+#endif
+
 - (NSString *) getDeviceName {
 #if TARGET_OS_OSX
-    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
-    return processInfo.operatingSystemVersionString;
+    NSArray* components = [[self getSystemInfoStringMacOS:"kern.hostname"] componentsSeparatedByString:@"."];
+    return components[0];
 #endif
 #if (!TARGET_OS_OSX)
     UIDevice *currentDevice = [UIDevice currentDevice];
