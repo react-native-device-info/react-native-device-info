@@ -97,14 +97,14 @@ export function getAndroidIdSync() {
 }
 
 export async function getIpAddress() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
     return RNDeviceInfo.getIpAddress();
   }
   return 'unknown';
 }
 
 export function getIpAddressSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'macos') {
     return RNDeviceInfo.getIpAddressSync();
   }
   return 'unknown';
