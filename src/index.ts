@@ -1240,7 +1240,7 @@ export function getAvailableLocationProvidersSync() {
 }
 
 export async function getDeviceToken() {
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === 'ios' || Platform.OS === 'macos') {
     return RNDeviceInfo.getDeviceToken();
   }
   return 'unknown';
