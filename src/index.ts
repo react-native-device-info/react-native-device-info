@@ -989,14 +989,14 @@ export function getTotalDiskCapacitySync() {
 }
 
 export async function getFreeDiskStorage() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web' || Platform.OS === 'macos') {
     return RNDeviceInfo.getFreeDiskStorage();
   }
   return -1;
 }
 
 export function getFreeDiskStorageSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web' || Platform.OS === 'macos') {
     return RNDeviceInfo.getFreeDiskStorageSync();
   }
   return -1;
