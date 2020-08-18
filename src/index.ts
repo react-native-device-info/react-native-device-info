@@ -159,7 +159,7 @@ export async function getManufacturer() {
   if (!manufacturer) {
     if (Platform.OS === 'android' || Platform.OS === 'windows') {
       manufacturer = await RNDeviceInfo.getSystemManufacturer();
-    } else if (Platform.OS === 'ios') {
+    } else if (Platform.OS === 'ios' || Platform.OS === 'macos') {
       manufacturer = 'Apple';
     } else {
       manufacturer = 'unknown';
@@ -172,7 +172,7 @@ export function getManufacturerSync() {
   if (!manufacturer) {
     if (Platform.OS === 'android' || Platform.OS === 'windows') {
       manufacturer = RNDeviceInfo.getSystemManufacturerSync();
-    } else if (Platform.OS === 'ios') {
+    } else if (Platform.OS === 'ios' || Platform.OS === 'macos') {
       manufacturer = 'Apple';
     } else {
       manufacturer = 'unknown';
