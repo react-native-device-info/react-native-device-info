@@ -79,6 +79,10 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'Huawei',
+    model: 'ELE-L29', // P30
+  },
+  {
+    brand: 'Huawei',
     model: 'P30 Lite',
   },
   {
@@ -260,6 +264,10 @@ const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'xiaomi',
     model: 'Mi A2 Lite',
+  },
+  {
+    brand: 'Blackview',
+    model: 'A30',
   },
 ];
 
