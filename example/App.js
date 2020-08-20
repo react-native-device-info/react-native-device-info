@@ -91,6 +91,11 @@ export default class App extends Component {
   getSyncDeviceInfo() {
     let deviceJSON = {};
 
+    // NOTE: If I call synchronous methods i get following error: "Invariant Violation: Calling synchronous methods on native modules is not supported in Chrome."
+    // Read more https://github.com/facebook/react-native/issues/26705
+    // https://github.com/react-native-community/react-native-device-info/issues/776
+
+    /*
     deviceJSON.manufacturer = getManufacturerSync();
     deviceJSON.buildId = DeviceInfo.getBuildIdSync();
     deviceJSON.isCameraPresent = DeviceInfo.isCameraPresentSync();
@@ -145,7 +150,7 @@ export default class App extends Component {
     deviceJSON.incremental = DeviceInfo.getIncrementalSync();
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
-
+      */
     return deviceJSON;
   }
 
@@ -212,7 +217,9 @@ export default class App extends Component {
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
-        console.log('Trouble getting device token, likely a simulator or not iOS11+');
+        console.log(
+          'Trouble getting device token, likely a simulator or not iOS11+',
+        );
       }
     } catch (e) {
       console.log('Trouble getting device info ', e);
