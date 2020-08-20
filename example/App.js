@@ -15,6 +15,7 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
@@ -179,7 +180,10 @@ export default class App extends Component {
       deviceJSON.phoneNumber = await DeviceInfo.getPhoneNumber(); // needs android.permission.READ_PHONE_STATE
       deviceJSON.ApiLevel = await DeviceInfo.getApiLevel();
       deviceJSON.carrier = await DeviceInfo.getCarrier();
-      deviceJSON.totalMemory = await DeviceInfo.getTotalMemory();
+      deviceJSON.totalMemory =
+        Platform.OS !== 'windows'
+          ? await DeviceInfo.getTotalMemory()
+          : 'not supported';
       deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
       deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
