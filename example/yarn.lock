@@ -5443,7 +5443,7 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "5.6.1"
   resolved "https://codeload.github.com/react-native-community/react-native-device-info/tar.gz/bf226fa4d53fd2092da28596d937beec9c705c0a"
 
-react-native-windows@0.62.5:
+react-native-windows@^0.62.5:
   version "0.62.5"
   resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.62.5.tgz#fe91f32d8fdcb5786f628b1a15018e24e005a09f"
   integrity sha512-M0V4BvevqLIStu9FxqX4qs12J7Hx4ZAKgyO8jnXj0kxCycUWhRAHeUvU3oXbpBGvnOJGhT5DLxAmw2nBdLqSww==
@@ -5462,7 +5462,7 @@ react-native-windows@0.62.5:
     uuid "^3.3.2"
     xml-parser "^1.2.1"
 
-react-native@^0.62.0-0:
+react-native@^0.62.2:
   version "0.62.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.62.2.tgz#d831e11a3178705449142df19a70ac2ca16bad10"
   integrity sha512-gADZZ3jcm2WFTjh8CCBCbl5wRSbdxqZGd+8UpNwLQFgrkp/uHorwAhLNqcd4+fHmADgPBltNL0uR1Vhv47zcOw==

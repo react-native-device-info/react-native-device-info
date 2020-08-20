@@ -84,7 +84,7 @@
     "prettier": "^2.0.5",
     "react": "16.13.1",
     "react-native": "^0.62.2",
-    "react-native-windows": "0.62.5",
+    "react-native-windows": "^0.62.5",
     "typescript": "^3.9.7"
   },
   "eslintConfig": {
