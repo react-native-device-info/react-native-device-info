@@ -5439,10 +5439,6 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-"react-native-device-info@github:react-native-community/react-native-device-info":
-  version "5.6.1"
-  resolved "https://codeload.github.com/react-native-community/react-native-device-info/tar.gz/bf226fa4d53fd2092da28596d937beec9c705c0a"
-
 react-native-windows@^0.62.5:
   version "0.62.5"
   resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.62.5.tgz#fe91f32d8fdcb5786f628b1a15018e24e005a09f"

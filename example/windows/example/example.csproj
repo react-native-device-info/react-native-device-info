@@ -151,6 +151,12 @@
       <Version>6.2.8</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\node_modules\react-native-device-info\windows\RNDeviceInfo\RNDeviceInfo.csproj">
+      <Project>{50c383e5-7dc6-4621-9478-e9b083a84ba2}</Project>
+      <Name>RNDeviceInfo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '16.0' ">
     <VisualStudioVersion>16.0</VisualStudioVersion>
   </PropertyGroup>
