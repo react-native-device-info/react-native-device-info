@@ -14,7 +14,7 @@ namespace example
             InstanceSettings.UseFastRefresh = false;
 #else
             JavaScriptMainModuleName = "index";
-            InstanceSettings.UseWebDebugger = true;
+            InstanceSettings.UseWebDebugger = false; // Set to false to get synchronous module methods calls to work, for example DeviceInfo.getSerialNumberSync()
             InstanceSettings.UseFastRefresh = true;
 #endif
 
