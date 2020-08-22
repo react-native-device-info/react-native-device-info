@@ -15,6 +15,7 @@
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #import <DeviceCheck/DeviceCheck.h>
+#import <IRLSize/IRLSize.h>
 
 #if !(TARGET_OS_TV)
 #import <WebKit/WebKit.h>
@@ -760,6 +761,34 @@ RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve 
     resolve(self.getAvailableLocationProviders);
 }
 
+- (NSDictionary *) getScreenDimensions {
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenNativeBounds = [[UIScreen mainScreen] nativeBounds];
+    IRLRawMillimeters rawScreenWidth = UIDevice.currentDevice.irl_rawPhysicalScreenWidth;
+    IRLRawMillimeters rawScreenHeight = UIDevice.currentDevice.irl_rawPhysicalScreenHeight;
+    return @{
+        @"pt": @{
+                @"width": [NSNumber numberWithDouble:screenBounds.size.width],
+                @"height": [NSNumber numberWithDouble:screenBounds.size.height]
+        },
+        @"px": @{
+                @"width": [NSNumber numberWithDouble:screenNativeBounds.size.width],
+                @"height": [NSNumber numberWithDouble:screenNativeBounds.size.height]
+        },
+        @"mm": @{
+                @"width": [NSNumber numberWithDouble:rawScreenWidth],
+                @"height": [NSNumber numberWithDouble:rawScreenHeight]
+        }
+    };
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getScreenDimensionsSync) {
+    return self.getScreenDimensions;
+}
+
+RCT_EXPORT_METHOD(getScreenDimensions:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(self.getScreenDimensions);
+}
 
 - (void)dealloc
 {
