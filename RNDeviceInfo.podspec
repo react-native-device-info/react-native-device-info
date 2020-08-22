@@ -18,4 +18,5 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/**/*.{h,m}"
 
   s.dependency 'React'
+  s.dependency 'IRLSize', '~> 2.2.4'
 end

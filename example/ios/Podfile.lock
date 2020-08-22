@@ -67,9 +67,12 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - IRLSize (2.2.4):
+    - Orchard/ObjC (>= 1.3.0)
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
+  - Orchard/ObjC (1.6.1)
   - RCTRequired (0.63.0)
   - RCTTypeSafety (0.63.0):
     - FBLazyVector (= 0.63.0)
@@ -297,6 +300,7 @@ PODS:
     - React-cxxreact (= 0.63.0)
     - React-jsi (= 0.63.0)
   - RNDeviceInfo (5.6.1):
+    - IRLSize (~> 2.2.4)
     - React
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -364,7 +368,9 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
+    - IRLSize
     - OpenSSL-Universal
+    - Orchard
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -439,7 +445,9 @@ SPEC CHECKSUMS:
   FlipperKit: bc68102cd4952a258a23c9c1b316c7bec1fecf83
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
+  IRLSize: 8da910f7dbe71d10086936a8272873b14e209529
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
+  Orchard: dff65bdb248b2eaf3de25f89cdef6ac9cdab31e8
   RCTRequired: e46bb77db03887b3e200d34b08515c804669db99
   RCTTypeSafety: 270fed6675c42f80fb87b47d626ef3cede1505e6
   React: e008906ff1328f9bccb345ff4f7826397ad223fc
