@@ -145,6 +145,7 @@ export default class App extends Component {
     deviceJSON.incremental = DeviceInfo.getIncrementalSync();
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
+    deviceJSON.screenDimensions = DeviceInfo.getScreenDimensionsSync();
 
     return deviceJSON;
   }
@@ -212,8 +213,11 @@ export default class App extends Component {
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
-        console.log('Trouble getting device token, likely a simulator or not iOS11+');
+        console.log(
+          'Trouble getting device token, likely a simulator or not iOS11+',
+        );
       }
+      deviceJSON.screenDimensions = await DeviceInfo.getScreenDimensions();
     } catch (e) {
       console.log('Trouble getting device info ', e);
     }
