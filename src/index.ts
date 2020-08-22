@@ -4,7 +4,13 @@ import { useOnMount } from './internal/asyncHookWrappers';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import { DeviceInfoModule } from './internal/privateTypes';
-import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from './internal/types';
+import {
+  AsyncHookResult,
+  DeviceType,
+  LocationProviderInfo,
+  PowerState,
+  ScreenDimensions,
+} from './internal/types';
 
 let uniqueId: string;
 export function getUniqueId() {
@@ -1242,6 +1248,20 @@ export async function getDeviceToken() {
   return 'unknown';
 }
 
+export async function getScreenDimensions(): Promise<ScreenDimensions | {}> {
+  if (Platform.OS === 'ios') {
+    return RNDeviceInfo.getScreenDimensions();
+  }
+  return {};
+}
+
+export function getScreenDimensionsSync(): ScreenDimensions | {} {
+  if (Platform.OS === 'ios') {
+    return RNDeviceInfo.getScreenDimensionsSync();
+  }
+  return {};
+}
+
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -1409,6 +1429,8 @@ const deviceInfoModule: DeviceInfoModule = {
   getProduct,
   getProductSync,
   getReadableVersion,
+  getScreenDimensions,
+  getScreenDimensionsSync,
   getSecurityPatch,
   getSecurityPatchSync,
   getSerialNumber,

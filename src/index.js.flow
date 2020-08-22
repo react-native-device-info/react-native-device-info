@@ -15,6 +15,21 @@ export type LocationProviderInfo = {
   [key: string]: boolean,
 };
 
+export type ScreenDimensions =  {
+  pt: {
+    width: number,
+    height: number,
+  },
+  px: {
+    width: number,
+    height: number,
+  },
+  mm: {
+    width: number,
+    height: number,
+  },
+}
+
 export type AsyncHookResult<T> = {
   loading: boolean,
   result: T,
@@ -92,6 +107,8 @@ declare module.exports: {
   getProduct: () => Promise<string>,
   getProductSync: () => string,
   getReadableVersion: () => string,
+  getScreenDimensions: () => Promise<ScreenDimensions | {}>,
+  getScreenDimensionsSync: () => ScreenDimensions | {},
   getSecurityPatch: () => Promise<string>,
   getSecurityPatchSync: () => string,
   getSerialNumber: () => Promise<string>,

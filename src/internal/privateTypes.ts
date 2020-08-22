@@ -1,4 +1,10 @@
-import { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
+import {
+  DeviceType,
+  LocationProviderInfo,
+  PowerState,
+  AsyncHookResult,
+  ScreenDimensions,
+} from './types';
 
 export type NotchDevice = {
   brand: string;
@@ -95,6 +101,8 @@ interface ExposedNativeMethods {
   getPreviewSdkIntSync: () => number;
   getProduct: () => Promise<string>;
   getProductSync: () => string;
+  getScreenDimensions: () => Promise<ScreenDimensions | {}>;
+  getScreenDimensionsSync: () => ScreenDimensions | {};
   getSecurityPatch: () => Promise<string>;
   getSecurityPatchSync: () => string;
   getSerialNumber: () => Promise<string>;
