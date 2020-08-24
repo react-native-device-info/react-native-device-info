@@ -407,7 +407,7 @@ namespace RNDeviceInfo
             try
             {
                 var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
-                return !deviceInfo.OperatingSystem.Equals("WINDOWS");
+                return this.IsTablet(deviceInfo.OperatingSystem);
             }
             catch (Exception)
             {
