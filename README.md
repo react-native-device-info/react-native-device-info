@@ -1651,6 +1651,7 @@ if(deviceTypeResolver.isTablet){
 
 When installing or using `react-native-device-info`, you may encounter the following problems:
 
+<details>
   <summary>[android] - Unable to merge dex / Multiple dex files / Problems with `com.google.android.gms`</summary>
 
 `react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstanceId()][#getinstanceid].
@@ -1669,6 +1670,7 @@ ignore this dependency in your gradle file:
 }
 ```
 
+</details>
 
 <details>
   <summary>[ios] - ld: library not found for -lRNDeviceInfo-tvOS</summary>
