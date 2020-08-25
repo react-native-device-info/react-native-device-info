@@ -977,9 +977,9 @@ export async function getTotalDiskCapacity() {
   return -1;
 }
 
-export async function getTotalDiskCapacityNew() {
+export async function getTotalDiskCapacityOld() {
   if (Platform.OS === 'android') {
-    return RNDeviceInfo.getTotalDiskCapacityNew();
+    return RNDeviceInfo.getTotalDiskCapacityOld();
   }
   if (Platform.OS === 'ios' || Platform.OS === 'web') {
     return getTotalDiskCapacity();
@@ -995,9 +995,9 @@ export function getTotalDiskCapacitySync() {
   return -1;
 }
 
-export function getTotalDiskCapacityNewSync() {
+export function getTotalDiskCapacityOldSync() {
   if (Platform.OS === 'android') {
-    return RNDeviceInfo.getTotalDiskCapacityNewSync();
+    return RNDeviceInfo.getTotalDiskCapacityOldSync();
   }
   if (Platform.OS === 'ios' || Platform.OS === 'web') {
     return getTotalDiskCapacitySync();
@@ -1013,9 +1013,9 @@ export async function getFreeDiskStorage() {
   return -1;
 }
 
-export async function getFreeDiskStorageNew() {
+export async function getFreeDiskStorageOld() {
   if (Platform.OS === 'android') {
-    return RNDeviceInfo.getFreeDiskStorageNew();
+    return RNDeviceInfo.getFreeDiskStorageOld();
   }
   if (Platform.OS === 'ios' || Platform.OS === 'web') {
     return getFreeDiskStorage();
@@ -1031,12 +1031,12 @@ export function getFreeDiskStorageSync() {
   return -1;
 }
 
-export function getFreeDiskStorageNewSync() {
+export function getFreeDiskStorageOldSync() {
   if (Platform.OS === 'android') {
-    return RNDeviceInfo.getFreeDiskStorageNewSync();
+    return RNDeviceInfo.getFreeDiskStorageOldSync();
   }
   if (Platform.OS === 'ios' || Platform.OS === 'web') {
-    return getFreeDiskStorage();
+    return getFreeDiskStorageSync();
   }
 
   return -1;
@@ -1420,9 +1420,9 @@ const deviceInfoModule: DeviceInfoModule = {
   getFontScale,
   getFontScaleSync,
   getFreeDiskStorage,
-  getFreeDiskStorageNew,
+  getFreeDiskStorageOld,
   getFreeDiskStorageSync,
-  getFreeDiskStorageNewSync,
+  getFreeDiskStorageOldSync,
   getHardware,
   getHardwareSync,
   getHost,
@@ -1466,9 +1466,9 @@ const deviceInfoModule: DeviceInfoModule = {
   getTags,
   getTagsSync,
   getTotalDiskCapacity,
-  getTotalDiskCapacityNew,
+  getTotalDiskCapacityOld,
   getTotalDiskCapacitySync,
-  getTotalDiskCapacityNewSync,
+  getTotalDiskCapacityOldSync,
   getTotalMemory,
   getTotalMemorySync,
   getType,

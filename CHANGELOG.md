@@ -2,10 +2,13 @@
 
 # Release Notes
 
+## 6.0.0
 
-## Next
-
-- fix(android): Add `getTotalDiskCapacityNew` and `getFreeDiskStorageNew` - and their sync variants. Calculations now take into account both `Root` and `Data` file systems.
+- BREAKING CHANGE(android, storage): Replace`getTotalDiskCapacity` and `getFreeDiskStorage` implementations, original
+  implementations are `getTotalDiskCapacityOld` and `getFreeDiskStorageOld`. New implementation adds `Root` and `Data` file systems.
+  Old implementations are deprecated, they use deprecated Android APIs, and they will disappear in a future version.
+  This _should_ be a positive change as the resulting calculation should match Android settings storage calculation,
+  but the old API is there if you need it, and you can open an issue to discuss if necessary. (#1054, thanks @gabriel-franzoni-pier!)
 
 ## 5.6.5
 
@@ -14,7 +17,6 @@
 ## 5.6.4
 
 - fix(android): fix missing Huawei P30 model name in devicesWithNotch.ts (@tronin)
-
 
 ## 5.6.3
 
