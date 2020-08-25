@@ -330,6 +330,65 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getCarrier(Promise p) { p.resolve(getCarrierSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getTotalDiskCapacityNewSync() {
+    try {
+      StatFs rootDir = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+
+      BigInteger rootDirCapacity = getDirTotalCapacity(rootDir);
+      BigInteger dataDirCapacity = getDirTotalCapacity(dataDir);
+
+      return rootDirCapacity.add(dataDirCapacity).doubleValue();
+    } catch (Exception e) {
+      return -1;
+    }
+  }
+  @ReactMethod
+  public void getTotalDiskCapacityNew(Promise p) { p.resolve(getTotalDiskCapacityNewSync()); }
+
+  private BigInteger getDirTotalCapacity(StatFs dir) {
+    Boolean intApiDeprecated = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
+
+    long blockCount = intApiDeprecated ? dir.getBlockCountLong() : dir.getBlockCount();
+    long blockSize = intApiDeprecated ? dir.getBlockSizeLong() : dir.getBlockSize();
+
+    return BigInteger.valueOf(blockCount).multiply(BigInteger.valueOf(blockSize));
+  }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getFreeDiskStorageNewSync() {
+    try {
+      StatFs rootDir = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+
+      Boolean intApiDeprecated = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
+      long availableBlocks = getTotalAvailableBlocks(rootDir, dataDir, intApiDeprecated);
+      long blockSize = getTotalBlockSize(rootDir, dataDir, intApiDeprecated);
+
+      return BigInteger.valueOf(availableBlocks).multiply(BigInteger.valueOf(blockSize)).doubleValue();
+    } catch (Exception e) {
+      return -1;
+    }
+  }
+  @ReactMethod
+  public void getFreeDiskStorageNew(Promise p) { p.resolve(getFreeDiskStorageNewSync()); }
+
+  private BigInteger getTotalAvailableBlocks(StatFs dir, StatFs dir, Boolean intApiDeprecated) {
+    long rootAvailableBlocks = intApiDeprecated ? rootDir.getAvailableBlocksLong() : rootDir.getAvailableBlocks();
+    long dataAvailableBlocks = intApiDeprecated ? dataDir.getAvailableBlocksLong() : dataDir.getAvailableBlocks();
+
+    return dataAvailableBlocks.sum(rootAvailableBlocks)
+  }
+
+  private BigInteger getTotalBlockSize(StatFs dir, StatFs dir, Boolean intApiDeprecated) {
+    long rootBlockSize = intApiDeprecated ? rootDir.getBlockSizeLong() : rootDir.getBlockSize();
+    long dataBlockSize = intApiDeprecated ? dataDir.getBlockSizeLong() : dataDir.getBlockSize();
+
+    return dataBlockSize.sum(rootBlockSize)
+  }
+
+  @Deprecated
+  @ReactMethod(isBlockingSynchronousMethod = true)
   public double getTotalDiskCapacitySync() {
     try {
       StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());

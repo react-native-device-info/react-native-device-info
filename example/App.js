@@ -114,7 +114,9 @@ export default class App extends Component {
     deviceJSON.totalMemory = DeviceInfo.getTotalMemorySync();
     deviceJSON.maxMemory = DeviceInfo.getMaxMemorySync();
     deviceJSON.totalDiskCapacity = DeviceInfo.getTotalDiskCapacitySync();
+    deviceJSON.totalDiskCapacityNew = DeviceInfo.getTotalDiskCapacityNewSync();
     deviceJSON.freeDiskStorage = DeviceInfo.getFreeDiskStorageSync();
+    deviceJSON.freeDiskStorageNew = DeviceInfo.getFreeDiskStorageNewSync();
     deviceJSON.batteryLevel = DeviceInfo.getBatteryLevelSync();
     deviceJSON.isLandscape = DeviceInfo.isLandscapeSync();
     deviceJSON.isAirplaneMode = DeviceInfo.isAirplaneModeSync();
@@ -177,7 +179,9 @@ export default class App extends Component {
       deviceJSON.totalMemory = await DeviceInfo.getTotalMemory();
       deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
+      deviceJSON.totalDiskCapacityNew = await DeviceInfo.getTotalDiskCapacityNew();
       deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
+      deviceJSON.freeDiskStorageNew = await DeviceInfo.getFreeDiskStorageNew();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
       deviceJSON.isAirplaneMode = await DeviceInfo.isAirplaneMode();

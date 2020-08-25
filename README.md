@@ -330,6 +330,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ❌ |
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getFreeDiskStorageNew()](#getfreediskstoragenew)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
@@ -355,6 +356,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getTotalDiskCapacityNew()](#gettotaldiskcapacitynew)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
@@ -713,6 +715,8 @@ DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
 
 > From [developer.android.com](<https://developer.android.com/reference/android/os/Environment.html#getExternalStorageDirectory()>):
 >
+> This method was deprecated in API level 29.
+>
 > Return the primary shared/external storage directory.
 >
 > Note: don't be confused by the word "external" here. This directory can better be thought as
@@ -720,6 +724,21 @@ DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
 > that is shared across all applications (does not enforce permissions). Traditionally this is
 > an SD card, but it may also be implemented as built-in storage in a device that is distinct
 > from the protected internal storage and can be mounted as a filesystem on a computer.
+
+---
+
+### getFreeDiskStorageNew()
+
+New method that gets available storage size, in bytes, taking into account both root and data file systems calculation instead of shared/external storage directory (Android only - no difference from the older one for iOS).
+
+#### Examples
+
+```js
+DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
+  // Android: 17179869184
+  // iOS: 17179869184
+});
+```
 
 ---
 
@@ -1113,6 +1132,21 @@ DeviceInfo.getType().then(type => {
 ### getTotalDiskCapacity()
 
 Gets full disk storage size, in bytes.
+
+#### Examples
+
+```js
+DeviceInfo.getTotalDiskCapacity().then(capacity => {
+  // Android: 17179869184
+  // iOS: 17179869184
+});
+```
+
+---
+
+### getTotalDiskCapacityNew()
+
+New method that gets full disk storage size, in bytes, taking into account both root and data file systems calculation instead of shared/external storage directory (Android only - no difference from the older one for iOS).
 
 #### Examples
 
