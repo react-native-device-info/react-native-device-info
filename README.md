@@ -1654,7 +1654,7 @@ When installing or using `react-native-device-info`, you may encounter the follo
 <details>
   <summary>[android] - Unable to merge dex / Multiple dex files / Problems with `com.google.android.gms`</summary>
 
-`react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstance()][#getinstance].
+`react-native-device-info` uses `com.google.android.gms:play-services-gcm` to provide [getInstanceId()](#getinstanceid).
 This can lead to conflicts when building the Android application.
 
 If you're using a different version of `com.google.android.gms:play-services-gcm` in your app, you can define the
