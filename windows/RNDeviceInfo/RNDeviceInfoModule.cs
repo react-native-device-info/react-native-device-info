@@ -420,5 +420,17 @@ namespace RNDeviceInfo
             promise.Resolve(isTabletSync());
         }
 
+        [ReactMethod]
+        public void getTotalMemory(ReactPromise<long> promise)
+        {
+            promise.Resolve(-1);
+        }
+
+        [ReactSyncMethod]
+        public long getTotalMemorySync()
+        {
+            return -1;
+        }
+
     }
 }
