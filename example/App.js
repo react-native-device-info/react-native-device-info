@@ -174,7 +174,7 @@ export default class App extends Component {
       deviceJSON.phoneNumber = await DeviceInfo.getPhoneNumber(); // needs android.permission.READ_PHONE_STATE
       deviceJSON.ApiLevel = await DeviceInfo.getApiLevel();
       deviceJSON.carrier = await DeviceInfo.getCarrier();
-      deviceJSON.totalMemory = DeviceInfo.getTotalMemory();
+      deviceJSON.totalMemory = await DeviceInfo.getTotalMemory();
       deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
       deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
