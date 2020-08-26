@@ -1,6 +1,6 @@
 # Notes for building Windows example
 
-# Install packages
+# Install packages in react-native-device-info root
 
 ```
 yarn install
@@ -8,13 +8,11 @@ cd example
 yarn install
 ```
 
-# Copy react-native-device-info module from parent folder to example folder
+# Sync react-native-device-info module from parent folder to example folder
 
 ```
 cd ..
-mkdir -p example/node_modules/react-native-device-info
-dev-sync
-cp package.json example/node_modules/react-native-device-info
+yarn dev-sync
 ```
 
 # Open example solution by Visual studio
