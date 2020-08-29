@@ -216,7 +216,9 @@ export default class App extends Component {
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
-        console.log('Trouble getting device token, likely a simulator or not iOS11+');
+        console.log(
+          'Trouble getting device token, likely a simulator or not iOS11+',
+        );
       }
     } catch (e) {
       console.log('Trouble getting device info ', e);

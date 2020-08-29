@@ -68,6 +68,9 @@
     }
   ],
   "license": "MIT",
+  "peerDependencies": {
+    "react-native": "*"
+  },
   "devDependencies": {
     "@react-native-community/bob": "^0.16.2",
     "@react-native-community/eslint-config": "2.0.0",
@@ -80,7 +83,8 @@
     "np": "^6.4.0",
     "prettier": "^2.0.5",
     "react": "16.13.1",
-    "react-native": "0.63.2",
+    "react-native": "^0.62.2",
+    "react-native-windows": "^0.62.5",
     "typescript": "^3.9.7"
   },
   "eslintConfig": {
