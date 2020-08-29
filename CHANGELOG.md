@@ -10,6 +10,11 @@
   This _should_ be a positive change as the resulting calculation should match Android settings storage calculation,
   but the old API is there if you need it, and you can open an issue to discuss if necessary. (#1054, thanks @gabriel-franzoni-pier!)
 
+- BREAKING CHANGE(windows, vNext): The windows support has been ported from C# (react-native-windows <= 0.59) to C++
+  (react-native-windows >= 0.59). This drops support for react-native-windows lower than 0.59. The port
+  was developed and tested against react-native-windows 0.62.5. (1059#, thanks @tero-paananen!). The getTotalMemory APIs
+  were dropped in the process (it appears react-native-windows vNext does not support them)
+
 ## 5.6.5
 
 - fix(hasNotch): add devices Blackview A30 (#1058, thanks @alexnaiman!)
