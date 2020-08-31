@@ -363,7 +363,41 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"MacBook8,1": @"MacBook (Retina, 12-inch, Early 2015)", // MacBook (Retina, 12-inch, Early 2015)
         @"MacBook9,1": @"MacBook (Retina, 12-inch, Early 2016)", // MacBook (Retina, 12-inch, Early 2016)
         @"MacBook10,1": @"MacBook (Retina, 12-inch, 2017)", // MacBook (Retina, 12-inch, 2017)
-        @"iMacPro1,1": @"iMac Pro" // iMac Pro
+        @"iMacPro1,1": @"iMac Pro", // iMac Pro
+        @"iMac9,1": @"iMac (Early 2009)", // iMac (20-inch/24-inch, Early 2009)
+        @"iMac10,1": @"iMac (Late 2009)", // iMac (21.5-inch/27-inch, Late 2009)
+        @"iMac11,2": @"iMac (21.5-inch, Mid 2010)", // iMac (21.5-inch, Mid 2010)
+        @"iMac11,3": @"iMac (27-inch, Mid 2010)", // iMac (27-inch, Mid 2010)
+        @"iMac12,1": @"iMac (21.5-inch, Mid 2011)", // iMac (21.5-inch, Mid 2011)
+        @"iMac12,2": @"iMac (27-inch, Mid 2011)", // iMac (27-inch, Mid 2011)
+        @"iMac13,1": @"iMac (21.5-inch, Late 2012)", // iMac (21.5-inch, Late 2012)
+        @"iMac13,2": @"iMac (27-inch, Late 2012)", // iMac (27-inch, Late 2012)
+        @"iMac14,1": @"iMac (21.5-inch, Late 2013)", // iMac (21.5-inch, Late 2013)
+        @"iMac14,2": @"iMac (27-inch, Late 2013)", // iMac (27-inch, Late 2013)
+        @"iMac14,4": @"iMac (21.5-inch, Mid 2014)", // iMac (21.5-inch, Mid 2014)
+        @"iMac15,1": @"iMac (Retina 5K, 27-inch, Late 2014 / Mid 2015)", // iMac (Retina 5K, 27-inch, Late 2014 / Mid 2015)
+        @"iMac16,1": @"iMac (21.5-inch, Late 2015)", // iMac (21.5-inch, Late 2015)
+        @"iMac16,2": @"iMac (Retina 4K, 21.5-inch, Late 2015)", // iMac (Retina 4K, 21.5-inch, Late 2015)
+        @"iMac17,1": @"iMac (Retina 5K, 27-inch, Late 2015)", // iMac (Retina 5K, 27-inch, Late 2015)
+        @"iMac18,1": @"iMac (21.5-inch, 2017)", // iMac (21.5-inch, 2017)
+        @"iMac18,2": @"iMac (Retina 4K, 21.5-inch, 2017)", // iMac (Retina 4K, 21.5-inch, 2017)
+        @"iMac18,3": @"iMac (Retina 5K, 27-inch, 2017)", // iMac (Retina 5K, 27-inch, 2017)
+        @"iMac19,1": @"iMac (Retina 5K, 27-inch, 2019)", // iMac (Retina 5K, 27-inch, 2019)
+        @"iMac19,2": @"iMac (Retina 4K, 21.5-inch, 2019)", // iMac (Retina 4K, 21.5-inch, 2019)
+        @"iMac20,1": @"iMac (Retina 5K, 27-inch, 2020)", // iMac (Retina 5K, 27-inch, 2020)
+        @"iMac20,2": @"iMac (Retina 5K, 27-inch, 2020)", // iMac (Retina 5K, 27-inch, 2020)
+        @"Macmini3,1": @"Mac mini (Early/Late 2009)", // Mac mini (Early/Late 2009)
+        @"Macmini4,1": @"Mac mini (Mid 2010)", // Mac mini (Mid 2010)
+        @"Macmini5,1": @"Mac mini (Mid 2011)", // Mac mini (Mid 2011)
+        @"Macmini5,2": @"Mac mini (Mid 2011)", // Mac mini (Mid 2011)
+        @"Macmini6,1": @"Mac mini (Late 2012)", // Mac mini (Late 2012)
+        @"Macmini6,2": @"Mac mini (Late 2012)", // Mac mini (Late 2012)
+        @"Macmini7,1": @"Mac mini (Late 2014)", // Mac mini (Late 2014)
+        @"Macmini8,1": @"Mac mini (2018)", // Mac mini (2018)
+        @"MacPro4,1": @"Mac Pro (Early 2009)", // Mac Pro (Early 2009)
+        @"MacPro5,1": @"Mac Pro (Mid 2010/2012)", // Mac Pro [Server] (Mid 2010/2012)
+        @"MacPro6,1": @"Mac Pro (Late 2013)", // Mac Pro (Late 2013)
+        @"MacPro7,1": @"Mac Pro (2019)" // Mac Pro (2019) Mac Pro (Rack, 2019)
     };
 }
 
@@ -394,6 +428,12 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         return @"Mac Book";
     } else if ([deviceId hasPrefix:@"iMacPro"]) {
         return @"iMac Pro";
+    } else if ([deviceId hasPrefix:@"iMac"]) {
+        return @"iMac"
+    } else if ([deviceId hasPrefix@"Macmini"]) {
+        return @"Macmini"
+    } else if ([deviceId hasPrefix@"MacPro"]) {
+        return @"MacPro"
     }
 
     // If we could not even get a generic, it's unknown
