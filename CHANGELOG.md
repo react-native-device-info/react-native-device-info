@@ -2,6 +2,9 @@
 
 # Release Notes
 
+### Next:
+ * Added the 2nd generation iPhone SE to the deviceNamesByCode list
+
 ## 6.0.0
 
 - BREAKING CHANGE(android, storage): Replace`getTotalDiskCapacity` and `getFreeDiskStorage` implementations, original
