@@ -2,8 +2,8 @@
 
 # Release Notes
 
-### Next:
- * Added the 2nd generation iPhone SE to the deviceNamesByCode list
+### 6.0.1
+ * Added the 2nd generation iPhone SE to the deviceNamesByCode list (#1068, thanks @steve-lorenz!)
 
 ## 6.0.0
 
