@@ -2,6 +2,9 @@
 
 # Release Notes
 
+### 6.0.2
+ *  fix(windows): Targetplatform change for cpp apps to use this module (#1072, thanks @tero-paananen!)
+
 ### 6.0.1
  * Added the 2nd generation iPhone SE to the deviceNamesByCode list (#1068, thanks @steve-lorenz!)
 
