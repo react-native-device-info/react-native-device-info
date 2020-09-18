@@ -360,11 +360,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
 
       Boolean intApiDeprecated = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
-      long rootAvailableBlocks = getTotalAvailableBlocks(dataDir, intApiDeprecated);
+      long rootAvailableBlocks = getTotalAvailableBlocks(rootDir, intApiDeprecated);
       long rootBlockSize = getBlockSize(rootDir, intApiDeprecated);
       double rootFree = BigInteger.valueOf(rootAvailableBlocks).multiply(BigInteger.valueOf(rootBlockSize)).doubleValue();
 
-      long dataAvailableBlocks = getTotalAvailableBlocks(rootDir, intApiDeprecated);
+      long dataAvailableBlocks = getTotalAvailableBlocks(dataDir, intApiDeprecated);
       long dataBlockSize = getBlockSize(dataDir, intApiDeprecated);
       double dataFree = BigInteger.valueOf(dataAvailableBlocks).multiply(BigInteger.valueOf(dataBlockSize)).doubleValue();
 
