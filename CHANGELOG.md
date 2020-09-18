@@ -2,6 +2,10 @@
 
 # Release Notes
 
+### 6.0.4
+
+ * fix(android): fix swapped data/root values in getFreeDiskStorageSync (#1077, thanks @violetchow2611!)
+
 ### 6.0.3
 
  * fix: Xcode 12 compatibility (thanks @radko93! #1075)
