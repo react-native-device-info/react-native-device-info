@@ -387,7 +387,7 @@ Gets the API level.
 
 ```js
 DeviceInfo.getApiLevel().then(apiLevel => {
-  // iOS: ?
+  // iOS: -1
   // Android: 25
   // Windows: ?
 });
