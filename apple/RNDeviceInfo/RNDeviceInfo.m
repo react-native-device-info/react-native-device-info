@@ -430,9 +430,9 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         return @"iMac Pro";
     } else if ([deviceId hasPrefix:@"iMac"]) {
         return @"iMac"
-    } else if ([deviceId hasPrefix@"Macmini"]) {
+    } else if ([deviceId hasPrefix:@"Macmini"]) {
         return @"Macmini"
-    } else if ([deviceId hasPrefix@"MacPro"]) {
+    } else if ([deviceId hasPrefix:@"MacPro"]) {
         return @"MacPro"
     }
 
