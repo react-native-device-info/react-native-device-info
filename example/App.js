@@ -114,7 +114,9 @@ export default class App extends Component {
     deviceJSON.totalMemory = DeviceInfo.getTotalMemorySync();
     deviceJSON.maxMemory = DeviceInfo.getMaxMemorySync();
     deviceJSON.totalDiskCapacity = DeviceInfo.getTotalDiskCapacitySync();
+    deviceJSON.totalDiskCapacityOld = DeviceInfo.getTotalDiskCapacityOldSync();
     deviceJSON.freeDiskStorage = DeviceInfo.getFreeDiskStorageSync();
+    deviceJSON.freeDiskStorageOld = DeviceInfo.getFreeDiskStorageOldSync();
     deviceJSON.batteryLevel = DeviceInfo.getBatteryLevelSync();
     deviceJSON.isLandscape = DeviceInfo.isLandscapeSync();
     deviceJSON.isAirplaneMode = DeviceInfo.isAirplaneModeSync();
@@ -177,7 +179,9 @@ export default class App extends Component {
       deviceJSON.totalMemory = await DeviceInfo.getTotalMemory();
       deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
+      deviceJSON.totalDiskCapacityOld = await DeviceInfo.getTotalDiskCapacityOld();
       deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
+      deviceJSON.freeDiskStorageOld = await DeviceInfo.getFreeDiskStorageOld();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
       deviceJSON.isAirplaneMode = await DeviceInfo.isAirplaneMode();
@@ -212,7 +216,9 @@ export default class App extends Component {
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
-        console.log('Trouble getting device token, likely a simulator or not iOS11+');
+        console.log(
+          'Trouble getting device token, likely a simulator or not iOS11+',
+        );
       }
     } catch (e) {
       console.log('Trouble getting device info ', e);

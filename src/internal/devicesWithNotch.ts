@@ -265,6 +265,10 @@ const devicesWithNotch: NotchDevice[] = [
     brand: 'xiaomi',
     model: 'Mi A2 Lite',
   },
+  {
+    brand: 'Blackview',
+    model: 'A30',
+  },
 ];
 
 export default devicesWithNotch;

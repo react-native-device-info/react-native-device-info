@@ -332,8 +332,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getTotalDiskCapacitySync() {
     try {
-      StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
-      return BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize())).doubleValue();
+      StatFs rootDir = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+
+      BigInteger rootDirCapacity = getDirTotalCapacity(rootDir);
+      BigInteger dataDirCapacity = getDirTotalCapacity(dataDir);
+
+      return rootDirCapacity.add(dataDirCapacity).doubleValue();
     } catch (Exception e) {
       return -1;
     }
@@ -341,8 +346,59 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getTotalDiskCapacity(Promise p) { p.resolve(getTotalDiskCapacitySync()); }
 
+  private BigInteger getDirTotalCapacity(StatFs dir) {
+    boolean intApiDeprecated = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
+    long blockCount = intApiDeprecated ? dir.getBlockCountLong() : dir.getBlockCount();
+    long blockSize = intApiDeprecated ? dir.getBlockSizeLong() : dir.getBlockSize();
+    return BigInteger.valueOf(blockCount).multiply(BigInteger.valueOf(blockSize));
+  }
+
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getFreeDiskStorageSync() {
+    try {
+      StatFs rootDir = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      StatFs dataDir = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+
+      Boolean intApiDeprecated = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
+      long rootAvailableBlocks = getTotalAvailableBlocks(rootDir, intApiDeprecated);
+      long rootBlockSize = getBlockSize(rootDir, intApiDeprecated);
+      double rootFree = BigInteger.valueOf(rootAvailableBlocks).multiply(BigInteger.valueOf(rootBlockSize)).doubleValue();
+
+      long dataAvailableBlocks = getTotalAvailableBlocks(dataDir, intApiDeprecated);
+      long dataBlockSize = getBlockSize(dataDir, intApiDeprecated);
+      double dataFree = BigInteger.valueOf(dataAvailableBlocks).multiply(BigInteger.valueOf(dataBlockSize)).doubleValue();
+
+      return rootFree + dataFree;
+    } catch (Exception e) {
+      return -1;
+    }
+  }
+  @ReactMethod
+  public void getFreeDiskStorage(Promise p) { p.resolve(getFreeDiskStorageSync()); }
+
+  private long getTotalAvailableBlocks(StatFs dir, Boolean intApiDeprecated) {
+    return (intApiDeprecated ? dir.getAvailableBlocksLong() : dir.getAvailableBlocks());
+  }
+
+  private long getBlockSize(StatFs dir, Boolean intApiDeprecated) {
+    return (intApiDeprecated ? dir.getBlockSizeLong() : dir.getBlockSize());
+  }
+
+  @Deprecated
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getTotalDiskCapacityOldSync() {
+    try {
+      StatFs root = new StatFs(Environment.getRootDirectory().getAbsolutePath());
+      return BigInteger.valueOf(root.getBlockCount()).multiply(BigInteger.valueOf(root.getBlockSize())).doubleValue();
+    } catch (Exception e) {
+      return -1;
+    }
+  }
+  @ReactMethod
+  public void getTotalDiskCapacityOld(Promise p) { p.resolve(getTotalDiskCapacityOldSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getFreeDiskStorageOldSync() {
     try {
       StatFs external = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
       long availableBlocks;
@@ -362,7 +418,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
   }
   @ReactMethod
-  public void getFreeDiskStorage(Promise p) { p.resolve(getFreeDiskStorageSync()); }
+  public void getFreeDiskStorageOld(Promise p) { p.resolve(getFreeDiskStorageOldSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean isBatteryChargingSync(){

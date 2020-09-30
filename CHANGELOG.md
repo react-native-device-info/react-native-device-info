@@ -2,6 +2,37 @@
 
 # Release Notes
 
+### 6.0.4
+
+ * fix(android): fix swapped data/root values in getFreeDiskStorageSync (#1077, thanks @violetchow2611!)
+
+### 6.0.3
+
+ * fix: Xcode 12 compatibility (thanks @radko93! #1075)
+
+### 6.0.2
+ * fix(windows): Targetplatform change for cpp apps to use this module (#1072, thanks @tero-paananen!)
+
+### 6.0.1
+ * Added the 2nd generation iPhone SE to the deviceNamesByCode list (#1068, thanks @steve-lorenz!)
+
+## 6.0.0
+
+- BREAKING CHANGE(android, storage): Replace`getTotalDiskCapacity` and `getFreeDiskStorage` implementations, original
+  implementations are `getTotalDiskCapacityOld` and `getFreeDiskStorageOld`. New implementation adds `Root` and `Data` file systems.
+  Old implementations are deprecated, they use deprecated Android APIs, and they will disappear in a future version.
+  This _should_ be a positive change as the resulting calculation should match Android settings storage calculation,
+  but the old API is there if you need it, and you can open an issue to discuss if necessary. (#1054, thanks @gabriel-franzoni-pier!)
+
+- BREAKING CHANGE(windows, vNext): The windows support has been ported from C# (react-native-windows <= 0.59) to C++
+  (react-native-windows >= 0.59). This drops support for react-native-windows lower than 0.59. The port
+  was developed and tested against react-native-windows 0.62.5. (1059#, thanks @tero-paananen!). The getTotalMemory APIs
+  were dropped in the process (it appears react-native-windows vNext does not support them)
+
+## 5.6.5
+
+- fix(hasNotch): add devices Blackview A30 (#1058, thanks @alexnaiman!)
+
 ## 5.6.4
 
 - fix(android): fix missing Huawei P30 model name in devicesWithNotch.ts (@tronin)

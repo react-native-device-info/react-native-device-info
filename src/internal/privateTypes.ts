@@ -68,7 +68,9 @@ interface ExposedNativeMethods {
   getFontScale: () => Promise<number>;
   getFontScaleSync: () => number;
   getFreeDiskStorage: () => Promise<number>;
+  getFreeDiskStorageOld: () => Promise<number>;
   getFreeDiskStorageSync: () => number;
+  getFreeDiskStorageOldSync: () => number;
   getHardware: () => Promise<string>;
   getHardwareSync: () => string;
   getHost: () => Promise<string>;
@@ -104,7 +106,9 @@ interface ExposedNativeMethods {
   getTags: () => Promise<string>;
   getTagsSync: () => string;
   getTotalDiskCapacity: () => Promise<number>;
+  getTotalDiskCapacityOld: () => Promise<number>;
   getTotalDiskCapacitySync: () => number;
+  getTotalDiskCapacityOldSync: () => number;
   getTotalMemory: () => Promise<number>;
   getTotalMemorySync: () => number;
   getType: () => Promise<string>;

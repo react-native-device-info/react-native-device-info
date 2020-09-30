@@ -20,12 +20,11 @@ If you want to open a PR that fixes a bug or adds a feature, then we can't thank
 
 ### Testing your changes
 
-You can test your changes on any React Native application you have set up locally.
-You can also use the testing application available at https://github.com/machour/react-native-device-info-test.
+You should test your changes (and add any new elements in your change) on the example app included in the repo
 
-Just `cd` to your application and type `yarn link react-native-device-info` to make your app use your local modified package instead of the one from npmjs.com (this is what point 5 was about in the previous section).
+Running `yarn dev-sync` in the top level will copy any changes into the example app so a rebuild will use them
+Running `yarn analyze` in the top level will make sure typings etc are up to date and ready for a pull request
 
-If you made changes in the native code, don't forget to run `react-native link` before building your React Native application so that latest changes are taken into account.
 
 ### Opening the Pull Request
 
