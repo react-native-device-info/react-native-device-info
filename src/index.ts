@@ -1066,7 +1066,7 @@ export function getBatteryLevelSync() {
   return -1;
 }
 
-export async function getPowerState() {
+export async function getPowerState(): Promise<PowerState | {}> {
   if (Platform.OS === 'ios' || Platform.OS === 'android' || Platform.OS === 'web') {
     return RNDeviceInfo.getPowerState();
   }
