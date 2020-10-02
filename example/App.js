@@ -26,6 +26,7 @@ import {
   usePowerState,
   useFirstInstallTime,
   useDeviceName,
+  useManufacturer,
   useHasSystemFeature,
   useIsEmulator,
 } from 'react-native-device-info';
@@ -36,6 +37,7 @@ const FunctionalComponent = () => {
   const powerState = usePowerState();
   const firstInstallTime = useFirstInstallTime();
   const deviceName = useDeviceName();
+  const manufacturer = useManufacturer();
   const hasSystemFeature = useHasSystemFeature('amazon.hardware.fire_tv');
   const isEmulator = useIsEmulator();
   const deviceJSON = {
@@ -44,6 +46,7 @@ const FunctionalComponent = () => {
     powerState,
     firstInstallTime,
     deviceName,
+    manufacturer,
     hasSystemFeature,
     isEmulator,
   };
