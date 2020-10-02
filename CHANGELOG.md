@@ -2,6 +2,11 @@
 
 # Release Notes
 
+### 6.1.0
+
+ * feat(hooks): add useManufacturer hook (#1083, thanks @schie!)
+ * fix(types): add returnType to getPowerState (#1082, thanks @ferdicus!)
+
 ### 6.0.4
 
  * fix(android): fix swapped data/root values in getFreeDiskStorageSync (#1077, thanks @violetchow2611!)
