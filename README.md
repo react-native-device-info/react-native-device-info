@@ -1660,10 +1660,28 @@ const { loading, result } = useIsEmulator(); // { loading: true, result: false }
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
 
+---
+
+### useManufacturer
+
+Gets the device manufacturer.
+
+#### Example
+
+```jsx
+import { useManufacturer } from 'react-native-device-info';
+
+const { loading, result } = useManufacturer(); // { loading: true, result: "Apple"}
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
 =======
+
 ## Native interoperatibily
 
 If you need to check for device type from the native side, you can use the following:
+
 ```java
 import com.learnium.resolver.DeviceTypeResolver
 
