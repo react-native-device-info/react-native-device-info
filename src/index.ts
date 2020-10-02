@@ -1379,6 +1379,10 @@ export function useIsEmulator(): AsyncHookResult<boolean> {
   return useOnMount(isEmulator, false);
 }
 
+export function useManufacturer(): AsyncHookResult<string> {
+  return useOnMount(getManufacturer, 'unknown');
+}
+
 export { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
 const deviceInfoModule: DeviceInfoModule = {
@@ -1513,6 +1517,7 @@ const deviceInfoModule: DeviceInfoModule = {
   useHasSystemFeature,
   useIsEmulator,
   usePowerState,
+  useManufacturer,
 };
 
 export default deviceInfoModule;
