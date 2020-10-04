@@ -1676,6 +1676,24 @@ const { loading, result } = useManufacturer(); // { loading: true, result: "Appl
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
 
+---
+
+### useIsHeadphonesConnected
+
+Tells if the device is connected to wired headset or bluetooth headphones.
+
+This hook subscribes to the event, `RNDeviceInfo_headphoneConnectionDidChange` , and updates the `result` field accordingly.
+
+#### Example
+
+```jsx
+import { useIsHeadphonesConnected } from 'react-native-device-info';
+
+const { loading, result } = useIsHeadphonesConnected(); // { loading: true, result: false}
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
 =======
 
 ## Native interoperatibily
