@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import { NativeEventEmitter, NativeModules } from 'react-native';
 import { AsyncHookResult } from './types';
 
 /**
@@ -24,4 +24,36 @@ export function useOnMount<T>(asyncGetter: () => Promise<T>, initialResult: T): 
   }, [asyncGetter]);
 
   return response;
+}
+
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+
+/**
+ * simple hook wrapper for handling events
+ * @param eventName
+ * @param initialValueAsyncGetter
+ * @param defaultValue
+ */
+export function useOnEvent<T>(
+  eventName: string,
+  initialValueAsyncGetter: () => Promise<T>,
+  defaultValue: T
+): AsyncHookResult<T> {
+  const { loading, result: initialResult } = useOnMount(initialValueAsyncGetter, defaultValue);
+  const [result, setResult] = useState<T>(defaultValue);
+
+  // sets the result to what the intial value is on mount
+  useEffect(() => {
+    setResult(initialResult);
+  }, [initialResult]);
+
+  // - set up the event listener to set the result
+  // - set up the clean up function to remove subscription on unmount
+  useEffect(() => {
+    const subscription = deviceInfoEmitter.addListener(eventName, setResult);
+    return () => subscription.remove();
+  }, []);
+
+  // loading will only be true while getting the inital value. After that, it will always be false, but a new result may occur
+  return { loading, result };
 }
