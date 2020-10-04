@@ -68,6 +68,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private final DeviceTypeResolver deviceTypeResolver;
   private final DeviceIdResolver deviceIdResolver;
   private BroadcastReceiver receiver;
+  private BroadcastReceiver headphoneConnectionReceiver;
   private RNInstallReferrerClient installReferrerClient;
 
   private double mLastBatteryLevel = -1;
@@ -127,12 +128,30 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     };
 
     getReactApplicationContext().registerReceiver(receiver, filter);
+    initializeHeadphoneConnectionReceiver();
+  }
+
+  private void initializeHeadphoneConnectionReceiver() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(AudioManager.ACTION_HEADSET_PLUG);
+    filter.addAction(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED);
+
+    headphoneConnectionReceiver = new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent) {
+        boolean isConnected = isHeadphonesConnectedSync();
+        sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneConnectionDidChange", isConnected);
+      }
+    };
+
+    getReactApplicationContext().registerReceiver(headphoneConnectionReceiver, filter);
   }
 
 
   @Override
   public void onCatalystInstanceDestroy() {
     getReactApplicationContext().unregisterReceiver(receiver);
+    getReactApplicationContext().unregisterReceiver(headphoneConnectionReceiver);
   }
 
 
