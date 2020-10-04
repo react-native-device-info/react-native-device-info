@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
-import { useOnMount } from './internal/asyncHookWrappers';
+import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import { DeviceInfoModule } from './internal/privateTypes';
@@ -1362,6 +1362,10 @@ export function usePowerState(): PowerState | {} {
   return powerState;
 }
 
+export function useIsHeadphonesConnected(): AsyncHookResult<boolean> {
+  return useOnEvent('RNDeviceInfo_headphoneConnectionDidChange', isHeadphonesConnected, false);
+}
+
 export function useFirstInstallTime(): AsyncHookResult<number> {
   return useOnMount(getFirstInstallTime, -1);
 }
@@ -1518,6 +1522,7 @@ const deviceInfoModule: DeviceInfoModule = {
   useIsEmulator,
   usePowerState,
   useManufacturer,
+  useIsHeadphonesConnected,
 };
 
 export default deviceInfoModule;

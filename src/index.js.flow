@@ -155,4 +155,5 @@ declare module.exports: {
   useIsEmulator: () => AsyncHookResult<boolean>,
   usePowerState: () => PowerState | {},
   useManufacturer: () => AsyncHookResult<string>,
+  useIsHeadphonesConnected: () => AsyncHookResult<boolean>,
 };

@@ -178,4 +178,5 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useIsEmulator: () => AsyncHookResult<boolean>;
   usePowerState: () => PowerState | {};
   useManufacturer: () => AsyncHookResult<string>;
+  useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
 }
