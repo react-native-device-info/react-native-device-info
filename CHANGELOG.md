@@ -2,6 +2,10 @@
 
 # Release Notes
 
+### 6.2.0
+
+ * feat(hooks): add useIsHeadphonesConnected hook (#1084, thanks again @schie!)
+
 ### 6.1.0
 
  * feat(hooks): add useManufacturer hook (#1083, thanks @schie!)
