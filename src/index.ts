@@ -440,28 +440,13 @@ export function getBootloaderSync() {
   return bootloader;
 }
 
-let device: string;
-export async function getDevice() {
-  if (!device) {
-    if (Platform.OS === 'android') {
-      device = await RNDeviceInfo.getDevice();
-    } else {
-      device = 'unknown';
-    }
-  }
-  return device;
-}
-
-export function getDeviceSync() {
-  if (!device) {
-    if (Platform.OS === 'android') {
-      device = RNDeviceInfo.getDeviceSync();
-    } else {
-      device = 'unknown';
-    }
-  }
-  return device;
-}
+export const [getDevice, getDeviceSync] = getSupportedPlatformInfoFunctions({
+  getter: () => RNDeviceInfo.getDeviceName(),
+  syncGetter: () => RNDeviceInfo.getDeviceNameSync(),
+  defaultValue: 'unknown',
+  memoKey: 'device',
+  supportedPlatforms: ['android'],
+});
 
 let display: string;
 export async function getDisplay() {
