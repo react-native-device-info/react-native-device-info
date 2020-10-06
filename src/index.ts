@@ -3,6 +3,7 @@ import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-n
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
+import { getSupportedPlatformInfoFunctions } from './internal/supported-platform-info';
 import { DeviceInfoModule } from './internal/privateTypes';
 import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from './internal/types';
 
@@ -356,28 +357,13 @@ export function getReadableVersion() {
   return getVersion() + '.' + getBuildNumber();
 }
 
-let deviceName: string;
-export async function getDeviceName() {
-  if (!deviceName) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-      deviceName = await RNDeviceInfo.getDeviceName();
-    } else {
-      deviceName = 'unknown';
-    }
-  }
-  return deviceName;
-}
-
-export function getDeviceNameSync() {
-  if (!deviceName) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-      deviceName = RNDeviceInfo.getDeviceNameSync();
-    } else {
-      deviceName = 'unknown';
-    }
-  }
-  return deviceName;
-}
+export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'deviceName',
+  supportedPlatforms: ['android', 'ios', 'windows'],
+  getter: () => RNDeviceInfo.getDeviceName(),
+  syncGetter: () => RNDeviceInfo.getDeviceNameSync(),
+  defaultValue: 'unknown',
+});
 
 export async function getUsedMemory() {
   if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
