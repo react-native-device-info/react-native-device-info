@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
 
 export type NotchDevice = {
@@ -179,4 +180,29 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   usePowerState: () => PowerState | {};
   useManufacturer: () => AsyncHookResult<string>;
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
+}
+
+export type Getter<T> = () => T;
+export type PlatformArray = typeof Platform.OS[];
+
+export interface GetSupportedPlatformInfoSyncParams<T> {
+  getter: Getter<T>;
+  supportedPlatforms: PlatformArray;
+  defaultValue: T;
+  memoKey?: string;
+}
+
+export interface GetSupportedPlatformInfoAsyncParams<T>
+  extends Omit<GetSupportedPlatformInfoSyncParams<T>, 'getter'> {
+  getter: Getter<Promise<T>>;
+}
+
+export interface GetFilterPlatformFunctionsParams<T>
+  extends GetSupportedPlatformInfoAsyncParams<T> {
+  syncGetter: Getter<T>;
+}
+
+export interface GetSupportedPlatformInfoFunctionsParams<T>
+  extends GetSupportedPlatformInfoAsyncParams<T> {
+  syncGetter: Getter<T>;
 }
