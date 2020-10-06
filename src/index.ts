@@ -441,8 +441,8 @@ export function getBootloaderSync() {
 }
 
 export const [getDevice, getDeviceSync] = getSupportedPlatformInfoFunctions({
-  getter: () => RNDeviceInfo.getDeviceName(),
-  syncGetter: () => RNDeviceInfo.getDeviceNameSync(),
+  getter: () => RNDeviceInfo.getDevice(),
+  syncGetter: () => RNDeviceInfo.getDeviceSync(),
   defaultValue: 'unknown',
   memoKey: 'device',
   supportedPlatforms: ['android'],
