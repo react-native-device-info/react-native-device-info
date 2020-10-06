@@ -12,7 +12,12 @@ type MemoType = { [key: string]: any };
 // centralized memo object
 const memo: MemoType = {};
 
-// function that returns a function
+/**
+ * function returns the proper getter based current platform X supported platforms
+ * @param supportedPlatforms array of supported platforms (OS)
+ * @param getter desired function used to get info
+ * @param defaultGetter getter that returns a default value if desired getter is not supported by current platform
+ */
 function getSupportedFunction<T>(
   supportedPlatforms: PlatformArray,
   getter: Getter<T>,
@@ -28,6 +33,10 @@ function getSupportedFunction<T>(
   });
 }
 
+/**
+ * function used to get desired info synchronously — with optional memoization
+ * @param param0
+ */
 export function getSupportedPlatformInfoSync<T>({
   getter,
   supportedPlatforms,
@@ -45,6 +54,10 @@ export function getSupportedPlatformInfoSync<T>({
   }
 }
 
+/**
+ * function used to get desired info asynchronously — with optional memoization
+ * @param param0
+ */
 export async function getSupportedPlatformInfoAsync<T>({
   getter,
   supportedPlatforms,
@@ -65,6 +78,10 @@ export async function getSupportedPlatformInfoAsync<T>({
   }
 }
 
+/**
+ * function that returns array of getter functions [async, sync]
+ * @param param0
+ */
 export function getSupportedPlatformInfoFunctions<T>({
   syncGetter,
   ...asyncParams
