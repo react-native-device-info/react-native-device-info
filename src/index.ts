@@ -234,51 +234,21 @@ export function getSystemVersion() {
   return systemVersion;
 }
 
-let buildId: string;
-export async function getBuildId() {
-  if (!buildId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      buildId = await RNDeviceInfo.getBuildId();
-    } else {
-      buildId = 'unknown';
-    }
-  }
-  return buildId;
-}
+export const [getBuildId, getBuildIdSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'buildId',
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getBuildId(),
+  syncGetter: () => RNDeviceInfo.getBuildIdSync(),
+  defaultValue: 'unknown',
+});
 
-export function getBuildIdSync() {
-  if (!buildId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      buildId = RNDeviceInfo.getBuildIdSync();
-    } else {
-      buildId = 'unknown';
-    }
-  }
-  return buildId;
-}
-
-let apiLevel: number;
-export async function getApiLevel() {
-  if (!apiLevel) {
-    if (Platform.OS === 'android') {
-      apiLevel = await RNDeviceInfo.getApiLevel();
-    } else {
-      apiLevel = -1;
-    }
-  }
-  return apiLevel;
-}
-
-export function getApiLevelSync() {
-  if (!apiLevel) {
-    if (Platform.OS === 'android') {
-      apiLevel = RNDeviceInfo.getApiLevelSync();
-    } else {
-      apiLevel = -1;
-    }
-  }
-  return apiLevel;
-}
+export const [getApiLevel, getApiLevelSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'apiLevel',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getApiLevel(),
+  syncGetter: () => RNDeviceInfo.getApiLevelSync(),
+  defaultValue: -1,
+});
 
 let bundleId: string;
 export function getBundleId() {
@@ -292,30 +262,16 @@ export function getBundleId() {
   return bundleId;
 }
 
-let installerPackageName: string;
-export async function getInstallerPackageName() {
-  if (!installerPackageName) {
-    if (Platform.OS === 'android') {
-      installerPackageName = await RNDeviceInfo.getInstallerPackageName();
-    } else {
-      installerPackageName = 'unknown';
-    }
-  }
-
-  return installerPackageName;
-}
-
-export function getInstallerPackageNameSync() {
-  if (!installerPackageName) {
-    if (Platform.OS === 'android') {
-      installerPackageName = RNDeviceInfo.getInstallerPackageNameSync();
-    } else {
-      installerPackageName = 'unknown';
-    }
-  }
-
-  return installerPackageName;
-}
+export const [
+  getInstallerPackageName,
+  getInstallerPackageNameSync,
+] = getSupportedPlatformInfoFunctions({
+  memoKey: 'installerPackageName',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getInstallerPackageName(),
+  syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
+  defaultValue: 'unknown',
+});
 
 let appName: string;
 export function getApplicationName() {
@@ -365,19 +321,12 @@ export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFuncti
   defaultValue: 'unknown',
 });
 
-export async function getUsedMemory() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.getUsedMemory();
-  }
-  return -1;
-}
-
-export function getUsedMemorySync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.getUsedMemorySync();
-  }
-  return -1;
-}
+export const [getUsedMemory, getUsedMemorySync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.getUsedMemory(),
+  syncGetter: () => RNDeviceInfo.getUsedMemorySync(),
+  defaultValue: -1,
+});
 
 let userAgent: string;
 export async function getUserAgent() {
@@ -403,19 +352,12 @@ export function getUserAgentSync() {
   return userAgent;
 }
 
-export async function getFontScale() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getFontScale();
-  }
-  return -1;
-}
-
-export function getFontScaleSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getFontScaleSync();
-  }
-  return -1;
-}
+export const [getFontScale, getFontScaleSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getFontScale(),
+  syncGetter: () => RNDeviceInfo.getFontScaleSync(),
+  defaultValue: -1,
+});
 
 let bootloader: string;
 export async function getBootloader() {
@@ -759,19 +701,14 @@ export function isTablet() {
   return tablet;
 }
 
-export async function isPinOrFingerprintSet() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.isPinOrFingerprintSet();
+export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['android', 'ios', 'windows'],
+    getter: () => RNDeviceInfo.isPinOrFingerprintSet(),
+    syncGetter: () => RNDeviceInfo.isPinOrFingerprintSetSync(),
+    defaultValue: false,
   }
-  return false;
-}
-
-export function isPinOrFingerprintSetSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.isPinOrFingerprintSetSync();
-  }
-  return false;
-}
+);
 
 let notch: boolean;
 export function hasNotch() {
@@ -871,19 +808,12 @@ export function getPhoneNumberSync() {
   return 'unknown';
 }
 
-export async function getCarrier() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getCarrier();
-  }
-  return 'unknown';
-}
-
-export function getCarrierSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getCarrierSync();
-  }
-  return 'unknown';
-}
+export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getCarrier(),
+  syncGetter: () => RNDeviceInfo.getCarrierSync(),
+  defaultValue: 'unknown',
+});
 
 let totalMemory: number;
 export async function getTotalMemory() {
