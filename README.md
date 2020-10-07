@@ -330,7 +330,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ❌ |
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
-| [getFreeDiskStorageNew()](#getfreediskstoragenew)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
@@ -356,7 +356,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
-| [getTotalDiskCapacityNew()](#gettotaldiskcapacitynew)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
+| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
@@ -700,12 +700,31 @@ DeviceInfo.getFontScale().then(fontScale => {
 
 ### getFreeDiskStorage()
 
-Gets available storage size, in bytes.
+Method that gets available storage size, in bytes, taking into account both root and data file systems calculation.
 
 #### Examples
 
 ```js
 DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
+  // Android: 17179869184
+  // iOS: 17179869184
+});
+```
+
+#### Notes
+
+The API used by this method for Android was changed in [v6.0.0](https://github.com/react-native-community/react-native-device-info/releases/tag/v6.0.0). The older version has been maintained below as `getFreeDiskStorageOld()`. On iOS, `getFreeDiskStorage()` and `getFreeDiskStorageOld()` return the same value.
+
+---
+
+### getFreeDiskStorageOld()
+
+Old implementation of method that gets available storage size, in bytes.
+
+#### Examples
+
+```js
+DeviceInfo.getFreeDiskStorageOld().then(freeDiskStorage => {
   // Android: 17179869184
   // iOS: 17179869184
 });
@@ -724,21 +743,6 @@ DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
 > that is shared across all applications (does not enforce permissions). Traditionally this is
 > an SD card, but it may also be implemented as built-in storage in a device that is distinct
 > from the protected internal storage and can be mounted as a filesystem on a computer.
-
----
-
-### getFreeDiskStorageNew()
-
-New method that gets available storage size, in bytes, taking into account both root and data file systems calculation instead of shared/external storage directory (Android only - no difference from the older one for iOS).
-
-#### Examples
-
-```js
-DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
-  // Android: 17179869184
-  // iOS: 17179869184
-});
-```
 
 ---
 
@@ -1131,7 +1135,7 @@ DeviceInfo.getType().then(type => {
 
 ### getTotalDiskCapacity()
 
-Gets full disk storage size, in bytes.
+Method that gets full disk storage size, in bytes, taking into account both root and data file systems calculation.
 
 #### Examples
 
@@ -1142,16 +1146,20 @@ DeviceInfo.getTotalDiskCapacity().then(capacity => {
 });
 ```
 
+#### Notes
+
+The API used by this method for Android was changed in [v6.0.0](https://github.com/react-native-community/react-native-device-info/releases/tag/v6.0.0). The older version has been maintained below as `getTotalDiskCapacityOld()`. On iOS, `getTotalDiskCapacity()` and `getTotalDiskCapacityOld()` return the same value.
+
 ---
 
-### getTotalDiskCapacityNew()
+### getTotalDiskCapacityOld()
 
-New method that gets full disk storage size, in bytes, taking into account both root and data file systems calculation instead of shared/external storage directory (Android only - no difference from the older one for iOS).
+Old implementation of method that gets full disk storage size, in bytes.
 
 #### Examples
 
 ```js
-DeviceInfo.getTotalDiskCapacity().then(capacity => {
+DeviceInfo.getTotalDiskCapacityOld().then(capacity => {
   // Android: 17179869184
   // iOS: 17179869184
 });
