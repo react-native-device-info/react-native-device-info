@@ -234,28 +234,13 @@ export function getSystemVersion() {
   return systemVersion;
 }
 
-let buildId: string;
-export async function getBuildId() {
-  if (!buildId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      buildId = await RNDeviceInfo.getBuildId();
-    } else {
-      buildId = 'unknown';
-    }
-  }
-  return buildId;
-}
-
-export function getBuildIdSync() {
-  if (!buildId) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      buildId = RNDeviceInfo.getBuildIdSync();
-    } else {
-      buildId = 'unknown';
-    }
-  }
-  return buildId;
-}
+export const [getBuildId, getBuildIdSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'buildId',
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getBuildId(),
+  syncGetter: () => RNDeviceInfo.getBuildIdSync(),
+  defaultValue: 'unknown',
+});
 
 let apiLevel: number;
 export async function getApiLevel() {
