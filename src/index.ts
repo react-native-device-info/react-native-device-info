@@ -242,28 +242,13 @@ export const [getBuildId, getBuildIdSync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let apiLevel: number;
-export async function getApiLevel() {
-  if (!apiLevel) {
-    if (Platform.OS === 'android') {
-      apiLevel = await RNDeviceInfo.getApiLevel();
-    } else {
-      apiLevel = -1;
-    }
-  }
-  return apiLevel;
-}
-
-export function getApiLevelSync() {
-  if (!apiLevel) {
-    if (Platform.OS === 'android') {
-      apiLevel = RNDeviceInfo.getApiLevelSync();
-    } else {
-      apiLevel = -1;
-    }
-  }
-  return apiLevel;
-}
+export const [getApiLevel, getApiLevelSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'apiLevel',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getApiLevel(),
+  syncGetter: () => RNDeviceInfo.getApiLevelSync(),
+  defaultValue: -1,
+});
 
 let bundleId: string;
 export function getBundleId() {
