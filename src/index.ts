@@ -701,19 +701,14 @@ export function isTablet() {
   return tablet;
 }
 
-export async function isPinOrFingerprintSet() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.isPinOrFingerprintSet();
+export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['android', 'ios', 'windows'],
+    getter: () => RNDeviceInfo.isPinOrFingerprintSet(),
+    syncGetter: () => RNDeviceInfo.isPinOrFingerprintSetSync(),
+    defaultValue: false,
   }
-  return false;
-}
-
-export function isPinOrFingerprintSetSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.isPinOrFingerprintSetSync();
-  }
-  return false;
-}
+);
 
 let notch: boolean;
 export function hasNotch() {
