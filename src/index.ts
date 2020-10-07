@@ -262,30 +262,16 @@ export function getBundleId() {
   return bundleId;
 }
 
-let installerPackageName: string;
-export async function getInstallerPackageName() {
-  if (!installerPackageName) {
-    if (Platform.OS === 'android') {
-      installerPackageName = await RNDeviceInfo.getInstallerPackageName();
-    } else {
-      installerPackageName = 'unknown';
-    }
-  }
-
-  return installerPackageName;
-}
-
-export function getInstallerPackageNameSync() {
-  if (!installerPackageName) {
-    if (Platform.OS === 'android') {
-      installerPackageName = RNDeviceInfo.getInstallerPackageNameSync();
-    } else {
-      installerPackageName = 'unknown';
-    }
-  }
-
-  return installerPackageName;
-}
+export const [
+  getInstallerPackageName,
+  getInstallerPackageNameSync,
+] = getSupportedPlatformInfoFunctions({
+  memoKey: 'installerPackageName',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getInstallerPackageName(),
+  syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
+  defaultValue: 'unknown',
+});
 
 let appName: string;
 export function getApplicationName() {
