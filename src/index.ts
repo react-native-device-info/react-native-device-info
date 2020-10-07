@@ -365,19 +365,12 @@ export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFuncti
   defaultValue: 'unknown',
 });
 
-export async function getUsedMemory() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.getUsedMemory();
-  }
-  return -1;
-}
-
-export function getUsedMemorySync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.getUsedMemorySync();
-  }
-  return -1;
-}
+export const [getUsedMemory, getUsedMemorySync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.getUsedMemory(),
+  syncGetter: () => RNDeviceInfo.getUsedMemorySync(),
+  defaultValue: -1,
+});
 
 let userAgent: string;
 export async function getUserAgent() {
