@@ -808,19 +808,12 @@ export function getPhoneNumberSync() {
   return 'unknown';
 }
 
-export async function getCarrier() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getCarrier();
-  }
-  return 'unknown';
-}
-
-export function getCarrierSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getCarrierSync();
-  }
-  return 'unknown';
-}
+export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getCarrier(),
+  syncGetter: () => RNDeviceInfo.getCarrierSync(),
+  defaultValue: 'unknown',
+});
 
 let totalMemory: number;
 export async function getTotalMemory() {
