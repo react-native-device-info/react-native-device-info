@@ -352,19 +352,12 @@ export function getUserAgentSync() {
   return userAgent;
 }
 
-export async function getFontScale() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getFontScale();
-  }
-  return -1;
-}
-
-export function getFontScaleSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getFontScaleSync();
-  }
-  return -1;
-}
+export const [getFontScale, getFontScaleSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getFontScale(),
+  syncGetter: () => RNDeviceInfo.getFontScaleSync(),
+  defaultValue: -1,
+});
 
 let bootloader: string;
 export async function getBootloader() {
