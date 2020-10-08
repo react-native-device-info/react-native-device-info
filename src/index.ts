@@ -932,19 +932,12 @@ export function getPowerStateSync() {
   return {};
 }
 
-export async function isBatteryCharging() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isBatteryCharging();
-  }
-  return false;
-}
-
-export function isBatteryChargingSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isBatteryChargingSync();
-  }
-  return false;
-}
+export const [isBatteryCharging, isBatteryChargingSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.isBatteryCharging(),
+  syncGetter: () => RNDeviceInfo.isBatteryChargingSync(),
+  defaultValue: false,
+});
 
 export async function isLandscape() {
   return Promise.resolve(isLandscapeSync());
