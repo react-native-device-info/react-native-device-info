@@ -1096,19 +1096,15 @@ export function isHeadphonesConnectedSync() {
   return false;
 }
 
-export async function getAvailableLocationProviders() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getAvailableLocationProviders();
-  }
-  return {};
-}
-
-export function getAvailableLocationProvidersSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getAvailableLocationProvidersSync();
-  }
-  return {};
-}
+export const [
+  getAvailableLocationProviders,
+  getAvailableLocationProvidersSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getAvailableLocationProviders(),
+  syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
+  defaultValue: {},
+});
 
 export async function getDeviceToken() {
   if (Platform.OS === 'ios') {
