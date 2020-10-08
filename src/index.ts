@@ -948,19 +948,12 @@ export function isLandscapeSync() {
   return width >= height;
 }
 
-export async function isAirplaneMode() {
-  if (Platform.OS === 'android' || Platform.OS === 'web') {
-    return RNDeviceInfo.isAirplaneMode();
-  }
-  return Promise.resolve(false);
-}
-
-export function isAirplaneModeSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'web') {
-    return RNDeviceInfo.isAirplaneModeSync();
-  }
-  return false;
-}
+export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'web'],
+  getter: () => RNDeviceInfo.isAirplaneMode(),
+  syncGetter: () => RNDeviceInfo.isAirplaneModeSync(),
+  defaultValue: false,
+});
 
 let deviceType: DeviceType;
 export function getDeviceType() {
