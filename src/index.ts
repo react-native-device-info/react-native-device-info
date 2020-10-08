@@ -794,19 +794,12 @@ export function getLastUpdateTimeSync() {
   return lastUpdateTime;
 }
 
-export async function getPhoneNumber() {
-  if (Platform.OS === 'android') {
-    return RNDeviceInfo.getPhoneNumber();
-  }
-  return 'unknown';
-}
-
-export function getPhoneNumberSync() {
-  if (Platform.OS === 'android') {
-    return RNDeviceInfo.getPhoneNumberSync();
-  }
-  return 'unknown';
-}
+export const [getPhoneNumber, getPhoneNumberSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getPhoneNumber(),
+  syncGetter: () => RNDeviceInfo.getPhoneNumberSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
@@ -815,38 +808,13 @@ export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let totalMemory: number;
-export async function getTotalMemory() {
-  if (!totalMemory) {
-    if (
-      Platform.OS === 'android' ||
-      Platform.OS === 'ios' ||
-      Platform.OS === 'windows' ||
-      Platform.OS === 'web'
-    ) {
-      totalMemory = await RNDeviceInfo.getTotalMemory();
-    } else {
-      totalMemory = -1;
-    }
-  }
-  return totalMemory;
-}
-
-export function getTotalMemorySync() {
-  if (!totalMemory) {
-    if (
-      Platform.OS === 'android' ||
-      Platform.OS === 'ios' ||
-      Platform.OS === 'windows' ||
-      Platform.OS === 'web'
-    ) {
-      totalMemory = RNDeviceInfo.getTotalMemorySync();
-    } else {
-      totalMemory = -1;
-    }
-  }
-  return totalMemory;
-}
+export const [getTotalMemory, getTotalMemorySync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'totalMemory',
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  getter: () => RNDeviceInfo.getTotalMemory(),
+  syncGetter: () => RNDeviceInfo.getTotalMemorySync(),
+  defaultValue: -1,
+});
 
 let maxMemory: number;
 export async function getMaxMemory() {
@@ -943,29 +911,12 @@ export function getFreeDiskStorageOldSync() {
   return -1;
 }
 
-export async function getBatteryLevel() {
-  if (
-    Platform.OS === 'android' ||
-    Platform.OS === 'ios' ||
-    Platform.OS === 'windows' ||
-    Platform.OS === 'web'
-  ) {
-    return RNDeviceInfo.getBatteryLevel();
-  }
-  return -1;
-}
-
-export function getBatteryLevelSync() {
-  if (
-    Platform.OS === 'android' ||
-    Platform.OS === 'ios' ||
-    Platform.OS === 'windows' ||
-    Platform.OS === 'web'
-  ) {
-    return RNDeviceInfo.getBatteryLevelSync();
-  }
-  return -1;
-}
+export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  getter: () => RNDeviceInfo.getBatteryLevel(),
+  syncGetter: () => RNDeviceInfo.getBatteryLevelSync(),
+  defaultValue: -1,
+});
 
 export async function getPowerState(): Promise<PowerState | {}> {
   if (Platform.OS === 'ios' || Platform.OS === 'android' || Platform.OS === 'web') {
@@ -981,19 +932,12 @@ export function getPowerStateSync() {
   return {};
 }
 
-export async function isBatteryCharging() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isBatteryCharging();
-  }
-  return false;
-}
-
-export function isBatteryChargingSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isBatteryChargingSync();
-  }
-  return false;
-}
+export const [isBatteryCharging, isBatteryChargingSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.isBatteryCharging(),
+  syncGetter: () => RNDeviceInfo.isBatteryChargingSync(),
+  defaultValue: false,
+});
 
 export async function isLandscape() {
   return Promise.resolve(isLandscapeSync());
@@ -1004,19 +948,12 @@ export function isLandscapeSync() {
   return width >= height;
 }
 
-export async function isAirplaneMode() {
-  if (Platform.OS === 'android' || Platform.OS === 'web') {
-    return RNDeviceInfo.isAirplaneMode();
-  }
-  return Promise.resolve(false);
-}
-
-export function isAirplaneModeSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'web') {
-    return RNDeviceInfo.isAirplaneModeSync();
-  }
-  return false;
-}
+export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'web'],
+  getter: () => RNDeviceInfo.isAirplaneMode(),
+  syncGetter: () => RNDeviceInfo.isAirplaneModeSync(),
+  defaultValue: false,
+});
 
 let deviceType: DeviceType;
 export function getDeviceType() {
@@ -1138,19 +1075,12 @@ export function getSystemAvailableFeaturesSync() {
   return [];
 }
 
-export async function isLocationEnabled() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isLocationEnabled();
-  }
-  return false;
-}
-
-export function isLocationEnabledSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isLocationEnabledSync();
-  }
-  return false;
-}
+export const [isLocationEnabled, isLocationEnabledSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.isLocationEnabled(),
+  syncGetter: () => RNDeviceInfo.isLocationEnabledSync(),
+  defaultValue: false,
+});
 
 export async function isHeadphonesConnected() {
   if (Platform.OS === 'android' || Platform.OS === 'ios') {
@@ -1166,19 +1096,15 @@ export function isHeadphonesConnectedSync() {
   return false;
 }
 
-export async function getAvailableLocationProviders() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getAvailableLocationProviders();
-  }
-  return {};
-}
-
-export function getAvailableLocationProvidersSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.getAvailableLocationProvidersSync();
-  }
-  return {};
-}
+export const [
+  getAvailableLocationProviders,
+  getAvailableLocationProvidersSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getAvailableLocationProviders(),
+  syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
+  defaultValue: {},
+});
 
 export async function getDeviceToken() {
   if (Platform.OS === 'ios') {
