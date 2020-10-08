@@ -794,19 +794,12 @@ export function getLastUpdateTimeSync() {
   return lastUpdateTime;
 }
 
-export async function getPhoneNumber() {
-  if (Platform.OS === 'android') {
-    return RNDeviceInfo.getPhoneNumber();
-  }
-  return 'unknown';
-}
-
-export function getPhoneNumberSync() {
-  if (Platform.OS === 'android') {
-    return RNDeviceInfo.getPhoneNumberSync();
-  }
-  return 'unknown';
-}
+export const [getPhoneNumber, getPhoneNumberSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getPhoneNumber(),
+  syncGetter: () => RNDeviceInfo.getPhoneNumberSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
