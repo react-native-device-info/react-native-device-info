@@ -808,38 +808,13 @@ export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let totalMemory: number;
-export async function getTotalMemory() {
-  if (!totalMemory) {
-    if (
-      Platform.OS === 'android' ||
-      Platform.OS === 'ios' ||
-      Platform.OS === 'windows' ||
-      Platform.OS === 'web'
-    ) {
-      totalMemory = await RNDeviceInfo.getTotalMemory();
-    } else {
-      totalMemory = -1;
-    }
-  }
-  return totalMemory;
-}
-
-export function getTotalMemorySync() {
-  if (!totalMemory) {
-    if (
-      Platform.OS === 'android' ||
-      Platform.OS === 'ios' ||
-      Platform.OS === 'windows' ||
-      Platform.OS === 'web'
-    ) {
-      totalMemory = RNDeviceInfo.getTotalMemorySync();
-    } else {
-      totalMemory = -1;
-    }
-  }
-  return totalMemory;
-}
+export const [getTotalMemory, getTotalMemorySync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'totalMemory',
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  getter: () => RNDeviceInfo.getTotalMemory(),
+  syncGetter: () => RNDeviceInfo.getTotalMemorySync(),
+  defaultValue: -1,
+});
 
 let maxMemory: number;
 export async function getMaxMemory() {
