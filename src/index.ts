@@ -1075,19 +1075,12 @@ export function getSystemAvailableFeaturesSync() {
   return [];
 }
 
-export async function isLocationEnabled() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isLocationEnabled();
-  }
-  return false;
-}
-
-export function isLocationEnabledSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.isLocationEnabledSync();
-  }
-  return false;
-}
+export const [isLocationEnabled, isLocationEnabledSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.isLocationEnabled(),
+  syncGetter: () => RNDeviceInfo.isLocationEnabledSync(),
+  defaultValue: false,
+});
 
 export async function isHeadphonesConnected() {
   if (Platform.OS === 'android' || Platform.OS === 'ios') {
