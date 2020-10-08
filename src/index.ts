@@ -911,29 +911,12 @@ export function getFreeDiskStorageOldSync() {
   return -1;
 }
 
-export async function getBatteryLevel() {
-  if (
-    Platform.OS === 'android' ||
-    Platform.OS === 'ios' ||
-    Platform.OS === 'windows' ||
-    Platform.OS === 'web'
-  ) {
-    return RNDeviceInfo.getBatteryLevel();
-  }
-  return -1;
-}
-
-export function getBatteryLevelSync() {
-  if (
-    Platform.OS === 'android' ||
-    Platform.OS === 'ios' ||
-    Platform.OS === 'windows' ||
-    Platform.OS === 'web'
-  ) {
-    return RNDeviceInfo.getBatteryLevelSync();
-  }
-  return -1;
-}
+export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  getter: () => RNDeviceInfo.getBatteryLevel(),
+  syncGetter: () => RNDeviceInfo.getBatteryLevelSync(),
+  defaultValue: -1,
+});
 
 export async function getPowerState(): Promise<PowerState | {}> {
   if (Platform.OS === 'ios' || Platform.OS === 'android' || Platform.OS === 'web') {
