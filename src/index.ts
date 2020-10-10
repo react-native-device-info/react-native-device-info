@@ -351,28 +351,13 @@ export function getFingerprintSync() {
   return fingerprint;
 }
 
-let hardware: string;
-export async function getHardware() {
-  if (!hardware) {
-    if (Platform.OS === 'android') {
-      hardware = await RNDeviceInfo.getHardware();
-    } else {
-      hardware = 'unknown';
-    }
-  }
-  return hardware;
-}
-
-export function getHardwareSync() {
-  if (!hardware) {
-    if (Platform.OS === 'android') {
-      hardware = RNDeviceInfo.getHardwareSync();
-    } else {
-      hardware = 'unknown';
-    }
-  }
-  return hardware;
-}
+export const [getHardware, getHardwareSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'hardware',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getHardware(),
+  syncGetter: () => RNDeviceInfo.getHardwareSync(),
+  defaultValue: 'unknown',
+});
 
 let host: string;
 export async function getHost() {
