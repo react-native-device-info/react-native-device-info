@@ -625,28 +625,13 @@ export function hasNotch() {
   return notch;
 }
 
-let firstInstallTime: number;
-export async function getFirstInstallTime() {
-  if (!firstInstallTime) {
-    if (Platform.OS === 'android' || Platform.OS === 'windows') {
-      firstInstallTime = await RNDeviceInfo.getFirstInstallTime();
-    } else {
-      firstInstallTime = -1;
-    }
-  }
-  return firstInstallTime;
-}
-
-export function getFirstInstallTimeSync() {
-  if (!firstInstallTime) {
-    if (Platform.OS === 'android' || Platform.OS === 'windows') {
-      firstInstallTime = RNDeviceInfo.getFirstInstallTimeSync();
-    } else {
-      firstInstallTime = -1;
-    }
-  }
-  return firstInstallTime;
-}
+export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'firstInstallTime',
+  supportedPlatforms: ['android', 'windows'],
+  getter: () => RNDeviceInfo.getFirstInstallTime(),
+  syncGetter: () => RNDeviceInfo.getFirstInstallTimeSync(),
+  defaultValue: -1,
+});
 
 let installReferrer: string;
 export async function getInstallReferrer() {
