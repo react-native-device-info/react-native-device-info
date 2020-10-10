@@ -788,19 +788,14 @@ export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFu
   defaultValue: -1,
 });
 
-export async function getPowerState(): Promise<PowerState | {}> {
-  if (Platform.OS === 'ios' || Platform.OS === 'android' || Platform.OS === 'web') {
-    return RNDeviceInfo.getPowerState();
-  }
-  return {};
-}
-
-export function getPowerStateSync() {
-  if (Platform.OS === 'ios' || Platform.OS === 'android' || Platform.OS === 'web') {
-    return RNDeviceInfo.getPowerStateSync();
-  }
-  return {};
-}
+export const [getPowerState, getPowerStateSync] = getSupportedPlatformInfoFunctions<
+  PowerState | {}
+>({
+  supportedPlatforms: ['ios', 'android', 'web'],
+  getter: () => RNDeviceInfo.getPowerState(),
+  syncGetter: () => RNDeviceInfo.getPowerStateSync(),
+  defaultValue: {},
+});
 
 export const [isBatteryCharging, isBatteryChargingSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'web'],
