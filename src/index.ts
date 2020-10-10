@@ -701,28 +701,13 @@ export const [getTotalMemory, getTotalMemorySync] = getSupportedPlatformInfoFunc
   defaultValue: -1,
 });
 
-let maxMemory: number;
-export async function getMaxMemory() {
-  if (!maxMemory) {
-    if (Platform.OS === 'android' || Platform.OS === 'windows' || Platform.OS === 'web') {
-      maxMemory = await RNDeviceInfo.getMaxMemory();
-    } else {
-      maxMemory = -1;
-    }
-  }
-  return maxMemory;
-}
-
-export function getMaxMemorySync() {
-  if (!maxMemory) {
-    if (Platform.OS === 'android' || Platform.OS === 'windows' || Platform.OS === 'web') {
-      maxMemory = RNDeviceInfo.getMaxMemorySync();
-    } else {
-      maxMemory = -1;
-    }
-  }
-  return maxMemory;
-}
+export const [getMaxMemory, getMaxMemorySync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'maxMemory',
+  supportedPlatforms: ['android', 'windows', 'web'],
+  getter: () => RNDeviceInfo.getMaxMemory(),
+  syncGetter: () => RNDeviceInfo.getMaxMemorySync(),
+  defaultValue: -1,
+});
 
 export async function getTotalDiskCapacity() {
   if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
