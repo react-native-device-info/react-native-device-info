@@ -59,28 +59,13 @@ export function getSerialNumberSync() {
   return serialNumber;
 }
 
-let androidId: string;
-export async function getAndroidId() {
-  if (!androidId) {
-    if (Platform.OS === 'android') {
-      androidId = await RNDeviceInfo.getAndroidId();
-    } else {
-      androidId = 'unknown';
-    }
-  }
-  return androidId;
-}
-
-export function getAndroidIdSync() {
-  if (!androidId) {
-    if (Platform.OS === 'android') {
-      androidId = RNDeviceInfo.getAndroidIdSync();
-    } else {
-      androidId = 'unknown';
-    }
-  }
-  return androidId;
-}
+export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'androidId',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getAndroidId(),
+  syncGetter: () => RNDeviceInfo.getAndroidIdSync(),
+  defaultValue: 'unknown',
+});
 
 export async function getIpAddress() {
   if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
