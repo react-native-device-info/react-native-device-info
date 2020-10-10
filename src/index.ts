@@ -118,32 +118,14 @@ export function getDeviceId() {
   return deviceId;
 }
 
-let manufacturer: string;
-export async function getManufacturer() {
-  if (!manufacturer) {
-    if (Platform.OS === 'android' || Platform.OS === 'windows') {
-      manufacturer = await RNDeviceInfo.getSystemManufacturer();
-    } else if (Platform.OS === 'ios') {
-      manufacturer = 'Apple';
-    } else {
-      manufacturer = 'unknown';
-    }
-  }
-  return manufacturer;
-}
-
-export function getManufacturerSync() {
-  if (!manufacturer) {
-    if (Platform.OS === 'android' || Platform.OS === 'windows') {
-      manufacturer = RNDeviceInfo.getSystemManufacturerSync();
-    } else if (Platform.OS === 'ios') {
-      manufacturer = 'Apple';
-    } else {
-      manufacturer = 'unknown';
-    }
-  }
-  return manufacturer;
-}
+export const [getManufacturer, getManufacturerSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'manufacturer',
+  supportedPlatforms: ['android', 'ios', 'windows'],
+  getter: () =>
+    Platform.OS == 'ios' ? Promise.resolve('Apple') : RNDeviceInfo.getSystemManufacturer(),
+  syncGetter: () => (Platform.OS == 'ios' ? 'Apple' : RNDeviceInfo.getSystemManufacturerSync()),
+  defaultValue: 'unknown',
+});
 
 let model: string;
 export function getModel() {
