@@ -320,28 +320,13 @@ export const [getDevice, getDeviceSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android'],
 });
 
-let display: string;
-export async function getDisplay() {
-  if (!display) {
-    if (Platform.OS === 'android') {
-      display = await RNDeviceInfo.getDisplay();
-    } else {
-      display = 'unknown';
-    }
-  }
-  return display;
-}
-
-export function getDisplaySync() {
-  if (!display) {
-    if (Platform.OS === 'android') {
-      display = RNDeviceInfo.getDisplaySync();
-    } else {
-      display = 'unknown';
-    }
-  }
-  return display;
-}
+export const [getDisplay, getDisplaySync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'display',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getDisplay(),
+  syncGetter: () => RNDeviceInfo.getDisplaySync(),
+  defaultValue: 'unknown',
+});
 
 let fingerprint: string;
 export async function getFingerprint() {
