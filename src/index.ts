@@ -81,19 +81,12 @@ export function getIpAddressSync() {
   return 'unknown';
 }
 
-export async function isCameraPresent() {
-  if (Platform.OS === 'android' || Platform.OS === 'windows' || Platform.OS === 'web') {
-    return RNDeviceInfo.isCameraPresent();
-  }
-  return false;
-}
-
-export function isCameraPresentSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'windows' || Platform.OS === 'web') {
-    return RNDeviceInfo.isCameraPresentSync();
-  }
-  return false;
-}
+export const [isCameraPresent, isCameraPresentSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'windows', 'web'],
+  getter: () => RNDeviceInfo.isCameraPresent(),
+  syncGetter: () => RNDeviceInfo.isCameraPresentSync(),
+  defaultValue: false,
+});
 
 export async function getMacAddress() {
   if (Platform.OS === 'android') {
