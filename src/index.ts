@@ -304,28 +304,13 @@ export const [getFontScale, getFontScaleSync] = getSupportedPlatformInfoFunction
   defaultValue: -1,
 });
 
-let bootloader: string;
-export async function getBootloader() {
-  if (!bootloader) {
-    if (Platform.OS === 'android') {
-      bootloader = await RNDeviceInfo.getBootloader();
-    } else {
-      bootloader = 'unknown';
-    }
-  }
-  return bootloader;
-}
-
-export function getBootloaderSync() {
-  if (!bootloader) {
-    if (Platform.OS === 'android') {
-      bootloader = RNDeviceInfo.getBootloaderSync();
-    } else {
-      bootloader = 'unknown';
-    }
-  }
-  return bootloader;
-}
+export const [getBootloader, getBootloaderSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'bootloader',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getBootloader(),
+  syncGetter: () => RNDeviceInfo.getBootloaderSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getDevice, getDeviceSync] = getSupportedPlatformInfoFunctions({
   getter: () => RNDeviceInfo.getDevice(),
