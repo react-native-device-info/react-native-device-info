@@ -459,28 +459,13 @@ export function getBaseOsSync() {
   return baseOs;
 }
 
-let previewSdkInt: number;
-export async function getPreviewSdkInt() {
-  if (!previewSdkInt) {
-    if (Platform.OS === 'android') {
-      previewSdkInt = await RNDeviceInfo.getPreviewSdkInt();
-    } else {
-      previewSdkInt = -1;
-    }
-  }
-  return previewSdkInt;
-}
-
-export function getPreviewSdkIntSync() {
-  if (!previewSdkInt) {
-    if (Platform.OS === 'android') {
-      previewSdkInt = RNDeviceInfo.getPreviewSdkIntSync();
-    } else {
-      previewSdkInt = -1;
-    }
-  }
-  return previewSdkInt;
-}
+export const [getPreviewSdkInt, getPreviewSdkIntSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'previewSdkInt',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getPreviewSdkInt(),
+  syncGetter: () => RNDeviceInfo.getPreviewSdkIntSync(),
+  defaultValue: -1,
+});
 
 let securityPatch: string;
 export async function getSecurityPatch() {
