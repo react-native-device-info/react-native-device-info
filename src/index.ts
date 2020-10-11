@@ -490,28 +490,13 @@ export function getSecurityPatchSync() {
   return securityPatch;
 }
 
-let codeName: string;
-export async function getCodename() {
-  if (!codeName) {
-    if (Platform.OS === 'android') {
-      codeName = await RNDeviceInfo.getCodename();
-    } else {
-      codeName = 'unknown';
-    }
-  }
-  return codeName;
-}
-
-export function getCodenameSync() {
-  if (!codeName) {
-    if (Platform.OS === 'android') {
-      codeName = RNDeviceInfo.getCodenameSync();
-    } else {
-      codeName = 'unknown';
-    }
-  }
-  return codeName;
-}
+export const [getCodename, getCodenameSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'codeName',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getCodename(),
+  syncGetter: () => RNDeviceInfo.getCodenameSync(),
+  defaultValue: 'unknown',
+});
 
 let incremental: string;
 export async function getIncremental() {
