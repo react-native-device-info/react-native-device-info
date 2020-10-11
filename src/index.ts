@@ -807,19 +807,15 @@ export function hasSystemFeatureSync(feature: string) {
   return false;
 }
 
-export async function getSystemAvailableFeatures() {
-  if (Platform.OS === 'android') {
-    return RNDeviceInfo.getSystemAvailableFeatures();
-  }
-  return [];
-}
-
-export function getSystemAvailableFeaturesSync() {
-  if (Platform.OS === 'android') {
-    return RNDeviceInfo.getSystemAvailableFeaturesSync();
-  }
-  return [];
-}
+export const [
+  getSystemAvailableFeatures,
+  getSystemAvailableFeaturesSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSystemAvailableFeatures(),
+  syncGetter: () => RNDeviceInfo.getSystemAvailableFeaturesSync(),
+  defaultValue: [] as string[],
+});
 
 export const [isLocationEnabled, isLocationEnabledSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'web'],
