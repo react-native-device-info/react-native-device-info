@@ -824,19 +824,14 @@ export const [isLocationEnabled, isLocationEnabledSync] = getSupportedPlatformIn
   defaultValue: false,
 });
 
-export async function isHeadphonesConnected() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.isHeadphonesConnected();
+export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['android', 'ios'],
+    getter: () => RNDeviceInfo.isHeadphonesConnected(),
+    syncGetter: () => RNDeviceInfo.isHeadphonesConnectedSync(),
+    defaultValue: false,
   }
-  return false;
-}
-
-export function isHeadphonesConnectedSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    return RNDeviceInfo.isHeadphonesConnectedSync();
-  }
-  return false;
-}
+);
 
 export const [
   getAvailableLocationProviders,
