@@ -634,12 +634,12 @@ export const [getMaxMemory, getMaxMemorySync] = getSupportedPlatformInfoFunction
   defaultValue: -1,
 });
 
-export async function getTotalDiskCapacity() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.getTotalDiskCapacity();
-  }
-  return -1;
-}
+export const [getTotalDiskCapacity, getTotalDiskCapacitySync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'web'],
+  getter: () => RNDeviceInfo.getTotalDiskCapacity(),
+  syncGetter: () => RNDeviceInfo.getTotalDiskCapacitySync(),
+  defaultValue: -1,
+});
 
 export async function getTotalDiskCapacityOld() {
   if (Platform.OS === 'android') {
@@ -649,13 +649,6 @@ export async function getTotalDiskCapacityOld() {
     return getTotalDiskCapacity();
   }
 
-  return -1;
-}
-
-export function getTotalDiskCapacitySync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-    return RNDeviceInfo.getTotalDiskCapacitySync();
-  }
   return -1;
 }
 
