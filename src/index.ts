@@ -521,28 +521,13 @@ export function getIncrementalSync() {
   return incremental;
 }
 
-let emulator: boolean;
-export async function isEmulator() {
-  if (emulator === undefined) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-      emulator = await RNDeviceInfo.isEmulator();
-    } else {
-      emulator = false;
-    }
-  }
-  return emulator;
-}
-
-export function isEmulatorSync() {
-  if (emulator === undefined) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-      emulator = RNDeviceInfo.isEmulatorSync();
-    } else {
-      emulator = false;
-    }
-  }
-  return emulator;
-}
+export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'emulator',
+  supportedPlatforms: ['android', 'ios', 'windows'],
+  getter: () => RNDeviceInfo.isEmulator(),
+  syncGetter: () => RNDeviceInfo.isEmulatorSync(),
+  defaultValue: false,
+});
 
 let tablet: boolean;
 export function isTablet() {
