@@ -754,28 +754,13 @@ export function getDeviceTypeSync() {
   return deviceType;
 }
 
-let _supportedAbis: string[];
-export async function supportedAbis() {
-  if (!_supportedAbis) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      _supportedAbis = await RNDeviceInfo.getSupportedAbis();
-    } else {
-      _supportedAbis = [];
-    }
-  }
-  return _supportedAbis;
-}
-
-export function supportedAbisSync() {
-  if (!_supportedAbis) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
-      _supportedAbis = RNDeviceInfo.getSupportedAbisSync();
-    } else {
-      _supportedAbis = [];
-    }
-  }
-  return _supportedAbis;
-}
+export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
+  memoKey: '_supportedAbis',
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getSupportedAbis(),
+  syncGetter: () => RNDeviceInfo.getSupportedAbisSync(),
+  defaultValue: [] as string[],
+});
 
 let _supported32BitAbis: string[];
 export async function supported32BitAbis() {
