@@ -428,28 +428,13 @@ export function getTagsSync() {
   return tags;
 }
 
-let type: string;
-export async function getType() {
-  if (!type) {
-    if (Platform.OS === 'android') {
-      type = await RNDeviceInfo.getType();
-    } else {
-      type = 'unknown';
-    }
-  }
-  return type;
-}
-
-export function getTypeSync() {
-  if (!type) {
-    if (Platform.OS === 'android') {
-      type = RNDeviceInfo.getTypeSync();
-    } else {
-      type = 'unknown';
-    }
-  }
-  return type;
-}
+export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'type',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getType(),
+  syncGetter: () => RNDeviceInfo.getTypeSync(),
+  defaultValue: 'unknown',
+});
 
 let baseOs: string;
 export async function getBaseOs() {
