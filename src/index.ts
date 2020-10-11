@@ -596,28 +596,13 @@ export function getInstallReferrerSync() {
   return installReferrer;
 }
 
-let lastUpdateTime: number;
-export async function getLastUpdateTime() {
-  if (!lastUpdateTime) {
-    if (Platform.OS === 'android') {
-      lastUpdateTime = await RNDeviceInfo.getLastUpdateTime();
-    } else {
-      lastUpdateTime = -1;
-    }
-  }
-  return lastUpdateTime;
-}
-
-export function getLastUpdateTimeSync() {
-  if (!lastUpdateTime) {
-    if (Platform.OS === 'android') {
-      lastUpdateTime = RNDeviceInfo.getLastUpdateTimeSync();
-    } else {
-      lastUpdateTime = -1;
-    }
-  }
-  return lastUpdateTime;
-}
+export const [getLastUpdateTime, getLastUpdateTimeSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'lastUpdateTime',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getLastUpdateTime(),
+  syncGetter: () => RNDeviceInfo.getLastUpdateTimeSync(),
+  defaultValue: -1,
+});
 
 export const [getPhoneNumber, getPhoneNumberSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android'],
