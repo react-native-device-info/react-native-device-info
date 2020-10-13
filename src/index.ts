@@ -401,28 +401,13 @@ export const [getCodename, getCodenameSync] = getSupportedPlatformInfoFunctions(
   defaultValue: 'unknown',
 });
 
-let incremental: string;
-export async function getIncremental() {
-  if (!incremental) {
-    if (Platform.OS === 'android') {
-      incremental = await RNDeviceInfo.getIncremental();
-    } else {
-      incremental = 'unknown';
-    }
-  }
-  return incremental;
-}
-
-export function getIncrementalSync() {
-  if (!incremental) {
-    if (Platform.OS === 'android') {
-      incremental = RNDeviceInfo.getIncrementalSync();
-    } else {
-      incremental = 'unknown';
-    }
-  }
-  return incremental;
-}
+export const [getIncremental, getIncrementalSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'incremental',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getIncremental(),
+  syncGetter: () => RNDeviceInfo.getIncrementalSync(),
+  defaultValue: 'unknown',
+});
 
 export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'emulator',
