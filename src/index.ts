@@ -330,28 +330,13 @@ export const [getHost, getHostSync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let product: string;
-export async function getProduct() {
-  if (!product) {
-    if (Platform.OS === 'android') {
-      product = await RNDeviceInfo.getProduct();
-    } else {
-      product = 'unknown';
-    }
-  }
-  return product;
-}
-
-export function getProductSync() {
-  if (!product) {
-    if (Platform.OS === 'android') {
-      product = RNDeviceInfo.getProductSync();
-    } else {
-      product = 'unknown';
-    }
-  }
-  return product;
-}
+export const [getProduct, getProductSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'product',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getProduct(),
+  syncGetter: () => RNDeviceInfo.getProductSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getTags, getTagsSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'tags',
