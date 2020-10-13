@@ -36,28 +36,13 @@ export const [getInstanceId, getInstanceIdSync] = getSupportedPlatformInfoFuncti
   defaultValue: 'unknown',
 });
 
-let serialNumber: string;
-export async function getSerialNumber() {
-  if (!serialNumber) {
-    if (Platform.OS === 'android') {
-      serialNumber = await RNDeviceInfo.getSerialNumber();
-    } else {
-      serialNumber = 'unknown';
-    }
-  }
-  return serialNumber;
-}
-
-export function getSerialNumberSync() {
-  if (!serialNumber) {
-    if (Platform.OS === 'android') {
-      serialNumber = RNDeviceInfo.getSerialNumberSync();
-    } else {
-      serialNumber = 'unknown';
-    }
-  }
-  return serialNumber;
-}
+export const [getSerialNumber, getSerialNumberSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'serialNumber',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSerialNumber(),
+  syncGetter: () => RNDeviceInfo.getSerialNumberSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'androidId',
@@ -67,19 +52,12 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
   defaultValue: 'unknown',
 });
 
-export async function getIpAddress() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.getIpAddress();
-  }
-  return 'unknown';
-}
-
-export function getIpAddressSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.getIpAddressSync();
-  }
-  return 'unknown';
-}
+export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'windows'],
+  getter: () => RNDeviceInfo.getIpAddress(),
+  syncGetter: () => RNDeviceInfo.getIpAddressSync(),
+  defaultValue: 'unknown',
+});
 
 export const [isCameraPresent, isCameraPresentSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'windows', 'web'],
@@ -328,28 +306,13 @@ export const [getDisplay, getDisplaySync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let fingerprint: string;
-export async function getFingerprint() {
-  if (!fingerprint) {
-    if (Platform.OS === 'android') {
-      fingerprint = await RNDeviceInfo.getFingerprint();
-    } else {
-      fingerprint = 'unknown';
-    }
-  }
-  return fingerprint;
-}
-
-export function getFingerprintSync() {
-  if (!fingerprint) {
-    if (Platform.OS === 'android') {
-      fingerprint = RNDeviceInfo.getFingerprintSync();
-    } else {
-      fingerprint = 'unknown';
-    }
-  }
-  return fingerprint;
-}
+export const [getFingerprint, getFingerprintSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'fingerprint',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getFingerprint(),
+  syncGetter: () => RNDeviceInfo.getFingerprintSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getHardware, getHardwareSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'hardware',
@@ -359,74 +322,29 @@ export const [getHardware, getHardwareSync] = getSupportedPlatformInfoFunctions(
   defaultValue: 'unknown',
 });
 
-let host: string;
-export async function getHost() {
-  if (!host) {
-    if (Platform.OS === 'android') {
-      host = await RNDeviceInfo.getHost();
-    } else {
-      host = 'unknown';
-    }
-  }
-  return host;
-}
+export const [getHost, getHostSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'host',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getHost(),
+  syncGetter: () => RNDeviceInfo.getHostSync(),
+  defaultValue: 'unknown',
+});
 
-export function getHostSync() {
-  if (!host) {
-    if (Platform.OS === 'android') {
-      host = RNDeviceInfo.getHostSync();
-    } else {
-      host = 'unknown';
-    }
-  }
-  return host;
-}
+export const [getProduct, getProductSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'product',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getProduct(),
+  syncGetter: () => RNDeviceInfo.getProductSync(),
+  defaultValue: 'unknown',
+});
 
-let product: string;
-export async function getProduct() {
-  if (!product) {
-    if (Platform.OS === 'android') {
-      product = await RNDeviceInfo.getProduct();
-    } else {
-      product = 'unknown';
-    }
-  }
-  return product;
-}
-
-export function getProductSync() {
-  if (!product) {
-    if (Platform.OS === 'android') {
-      product = RNDeviceInfo.getProductSync();
-    } else {
-      product = 'unknown';
-    }
-  }
-  return product;
-}
-
-let tags: string;
-export async function getTags() {
-  if (!tags) {
-    if (Platform.OS === 'android') {
-      tags = await RNDeviceInfo.getTags();
-    } else {
-      tags = 'unknown';
-    }
-  }
-  return tags;
-}
-
-export function getTagsSync() {
-  if (!tags) {
-    if (Platform.OS === 'android') {
-      tags = RNDeviceInfo.getTagsSync();
-    } else {
-      tags = 'unknown';
-    }
-  }
-  return tags;
-}
+export const [getTags, getTagsSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'tags',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getTags(),
+  syncGetter: () => RNDeviceInfo.getTagsSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'type',
@@ -436,28 +354,13 @@ export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let baseOs: string;
-export async function getBaseOs() {
-  if (!baseOs) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      baseOs = await RNDeviceInfo.getBaseOs();
-    } else {
-      baseOs = 'unknown';
-    }
-  }
-  return baseOs;
-}
-
-export function getBaseOsSync() {
-  if (!baseOs) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      baseOs = RNDeviceInfo.getBaseOsSync();
-    } else {
-      baseOs = 'unknown';
-    }
-  }
-  return baseOs;
-}
+export const [getBaseOs, getBaseOsSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'baseOs',
+  supportedPlatforms: ['android', 'web'],
+  getter: () => RNDeviceInfo.getBaseOs(),
+  syncGetter: () => RNDeviceInfo.getBaseOsSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getPreviewSdkInt, getPreviewSdkIntSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'previewSdkInt',
@@ -467,28 +370,13 @@ export const [getPreviewSdkInt, getPreviewSdkIntSync] = getSupportedPlatformInfo
   defaultValue: -1,
 });
 
-let securityPatch: string;
-export async function getSecurityPatch() {
-  if (!securityPatch) {
-    if (Platform.OS === 'android') {
-      securityPatch = await RNDeviceInfo.getSecurityPatch();
-    } else {
-      securityPatch = 'unknown';
-    }
-  }
-  return securityPatch;
-}
-
-export function getSecurityPatchSync() {
-  if (!securityPatch) {
-    if (Platform.OS === 'android') {
-      securityPatch = RNDeviceInfo.getSecurityPatchSync();
-    } else {
-      securityPatch = 'unknown';
-    }
-  }
-  return securityPatch;
-}
+export const [getSecurityPatch, getSecurityPatchSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'securityPatch',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSecurityPatch(),
+  syncGetter: () => RNDeviceInfo.getSecurityPatchSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getCodename, getCodenameSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'codeName',
@@ -498,28 +386,13 @@ export const [getCodename, getCodenameSync] = getSupportedPlatformInfoFunctions(
   defaultValue: 'unknown',
 });
 
-let incremental: string;
-export async function getIncremental() {
-  if (!incremental) {
-    if (Platform.OS === 'android') {
-      incremental = await RNDeviceInfo.getIncremental();
-    } else {
-      incremental = 'unknown';
-    }
-  }
-  return incremental;
-}
-
-export function getIncrementalSync() {
-  if (!incremental) {
-    if (Platform.OS === 'android') {
-      incremental = RNDeviceInfo.getIncrementalSync();
-    } else {
-      incremental = 'unknown';
-    }
-  }
-  return incremental;
-}
+export const [getIncremental, getIncrementalSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'incremental',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getIncremental(),
+  syncGetter: () => RNDeviceInfo.getIncrementalSync(),
+  defaultValue: 'unknown',
+});
 
 export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'emulator',
@@ -573,28 +446,13 @@ export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatfo
   defaultValue: -1,
 });
 
-let installReferrer: string;
-export async function getInstallReferrer() {
-  if (!installReferrer) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      installReferrer = await RNDeviceInfo.getInstallReferrer();
-    } else {
-      installReferrer = 'unknown';
-    }
-  }
-  return installReferrer;
-}
-
-export function getInstallReferrerSync() {
-  if (!installReferrer) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      installReferrer = RNDeviceInfo.getInstallReferrerSync();
-    } else {
-      installReferrer = 'unknown';
-    }
-  }
-  return installReferrer;
-}
+export const [getInstallReferrer, getInstallReferrerSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'installReferrer',
+  supportedPlatforms: ['android', 'web'],
+  getter: () => RNDeviceInfo.getInstallReferrer(),
+  syncGetter: () => RNDeviceInfo.getInstallReferrerSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getLastUpdateTime, getLastUpdateTimeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'lastUpdateTime',
@@ -762,28 +620,13 @@ export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFuncti
   defaultValue: [] as string[],
 });
 
-let _supported32BitAbis: string[];
-export async function supported32BitAbis() {
-  if (!_supported32BitAbis) {
-    if (Platform.OS === 'android') {
-      _supported32BitAbis = await RNDeviceInfo.getSupported32BitAbis();
-    } else {
-      _supported32BitAbis = [];
-    }
-  }
-  return _supported32BitAbis;
-}
-
-export function supported32BitAbisSync() {
-  if (!_supported32BitAbis) {
-    if (Platform.OS === 'android') {
-      _supported32BitAbis = RNDeviceInfo.getSupported32BitAbisSync();
-    } else {
-      _supported32BitAbis = [];
-    }
-  }
-  return _supported32BitAbis;
-}
+export const [supported32BitAbis, supported32BitAbisSync] = getSupportedPlatformInfoFunctions({
+  memoKey: '_supported32BitAbis',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSupported32BitAbis(),
+  syncGetter: () => RNDeviceInfo.getSupported32BitAbisSync(),
+  defaultValue: [] as string[],
+});
 
 export const [supported64BitAbis, supported64BitAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supported64BitAbis',
