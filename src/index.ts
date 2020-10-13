@@ -36,28 +36,13 @@ export const [getInstanceId, getInstanceIdSync] = getSupportedPlatformInfoFuncti
   defaultValue: 'unknown',
 });
 
-let serialNumber: string;
-export async function getSerialNumber() {
-  if (!serialNumber) {
-    if (Platform.OS === 'android') {
-      serialNumber = await RNDeviceInfo.getSerialNumber();
-    } else {
-      serialNumber = 'unknown';
-    }
-  }
-  return serialNumber;
-}
-
-export function getSerialNumberSync() {
-  if (!serialNumber) {
-    if (Platform.OS === 'android') {
-      serialNumber = RNDeviceInfo.getSerialNumberSync();
-    } else {
-      serialNumber = 'unknown';
-    }
-  }
-  return serialNumber;
-}
+export const [getSerialNumber, getSerialNumberSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'serialNumber',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSerialNumber(),
+  syncGetter: () => RNDeviceInfo.getSerialNumberSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'androidId',
