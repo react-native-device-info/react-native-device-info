@@ -421,13 +421,13 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 - (float) getFontScale {
     // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
     float fontScale = 1.0;
-    UIApplication *application = RCTSharedApplication();
+    UITraitCollection *traitCollection = [[UIScreen mainScreen] traitCollection];
 
     // Shared application is unavailable in an app extension.
-    if (application) {
+    if (traitCollection) {
         __block NSString *contentSize = nil;
         RCTUnsafeExecuteOnMainQueueSync(^{
-            contentSize = application.preferredContentSizeCategory;
+            contentSize = traitCollection.preferredContentSizeCategory;
         });
 
         if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
