@@ -7,7 +7,7 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
+import React, {Component, useCallback, memo} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -15,6 +15,7 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
+  NativeModules,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
@@ -62,6 +63,32 @@ const FunctionalComponent = () => {
     </ScrollView>
   );
 };
+
+const ActionExtensionHeader = memo(({isActionExtension}) => {
+  const onDonePress = useCallback(() => {
+    NativeModules.ActionExtension.done();
+  }, []);
+  return isActionExtension ? (
+    <View style={{minHeight: 50, flexDirection: 'row', margin: 10}}>
+      <TouchableOpacity onPress={onDonePress}>
+        <View
+          style={{
+            backgroundColor: 'red',
+            borderRadius: 20,
+            minWidth: 80,
+            minHeight: 40,
+            alignContent: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>Done</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  ) : (
+    <View />
+  );
+});
 
 export default class App extends Component {
   constructor(props) {
@@ -237,6 +264,9 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <ActionExtensionHeader
+          isActionExtension={this.props.isActionExtension}
+        />
         {this.state.activeTab === 'constant' ? (
           <>
             <Text style={styles.welcome}>

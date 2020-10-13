@@ -82,6 +82,10 @@ target 'example' do
     # Pods for testing
   end
 
+  target 'example-app-extension' do
+    inherit! :complete
+  end
+
   use_native_modules!
 
   # Enables Flipper.
@@ -91,8 +95,15 @@ target 'example' do
   add_flipper_pods!
   post_install do |installer|
     flipper_post_install(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+      end
+    end
   end
 end
+
+
 
 target 'example-tvOS' do
   # Pods for example-tvOS
