@@ -353,28 +353,13 @@ export function getProductSync() {
   return product;
 }
 
-let tags: string;
-export async function getTags() {
-  if (!tags) {
-    if (Platform.OS === 'android') {
-      tags = await RNDeviceInfo.getTags();
-    } else {
-      tags = 'unknown';
-    }
-  }
-  return tags;
-}
-
-export function getTagsSync() {
-  if (!tags) {
-    if (Platform.OS === 'android') {
-      tags = RNDeviceInfo.getTagsSync();
-    } else {
-      tags = 'unknown';
-    }
-  }
-  return tags;
-}
+export const [getTags, getTagsSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'tags',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getTags(),
+  syncGetter: () => RNDeviceInfo.getTagsSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'type',
