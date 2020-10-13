@@ -52,19 +52,12 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
   defaultValue: 'unknown',
 });
 
-export async function getIpAddress() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.getIpAddress();
-  }
-  return 'unknown';
-}
-
-export function getIpAddressSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'windows') {
-    return RNDeviceInfo.getIpAddressSync();
-  }
-  return 'unknown';
-}
+export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios', 'windows'],
+  getter: () => RNDeviceInfo.getIpAddress(),
+  syncGetter: () => RNDeviceInfo.getIpAddressSync(),
+  defaultValue: 'unknown',
+});
 
 export const [isCameraPresent, isCameraPresentSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'windows', 'web'],
