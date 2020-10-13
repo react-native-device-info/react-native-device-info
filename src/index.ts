@@ -635,28 +635,13 @@ export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFuncti
   defaultValue: [] as string[],
 });
 
-let _supported32BitAbis: string[];
-export async function supported32BitAbis() {
-  if (!_supported32BitAbis) {
-    if (Platform.OS === 'android') {
-      _supported32BitAbis = await RNDeviceInfo.getSupported32BitAbis();
-    } else {
-      _supported32BitAbis = [];
-    }
-  }
-  return _supported32BitAbis;
-}
-
-export function supported32BitAbisSync() {
-  if (!_supported32BitAbis) {
-    if (Platform.OS === 'android') {
-      _supported32BitAbis = RNDeviceInfo.getSupported32BitAbisSync();
-    } else {
-      _supported32BitAbis = [];
-    }
-  }
-  return _supported32BitAbis;
-}
+export const [supported32BitAbis, supported32BitAbisSync] = getSupportedPlatformInfoFunctions({
+  memoKey: '_supported32BitAbis',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSupported32BitAbis(),
+  syncGetter: () => RNDeviceInfo.getSupported32BitAbisSync(),
+  defaultValue: [] as string[],
+});
 
 export const [supported64BitAbis, supported64BitAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supported64BitAbis',
