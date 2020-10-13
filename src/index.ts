@@ -369,28 +369,13 @@ export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
   defaultValue: 'unknown',
 });
 
-let baseOs: string;
-export async function getBaseOs() {
-  if (!baseOs) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      baseOs = await RNDeviceInfo.getBaseOs();
-    } else {
-      baseOs = 'unknown';
-    }
-  }
-  return baseOs;
-}
-
-export function getBaseOsSync() {
-  if (!baseOs) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      baseOs = RNDeviceInfo.getBaseOsSync();
-    } else {
-      baseOs = 'unknown';
-    }
-  }
-  return baseOs;
-}
+export const [getBaseOs, getBaseOsSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'baseOs',
+  supportedPlatforms: ['android', 'web'],
+  getter: () => RNDeviceInfo.getBaseOs(),
+  syncGetter: () => RNDeviceInfo.getBaseOsSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getPreviewSdkInt, getPreviewSdkIntSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'previewSdkInt',
