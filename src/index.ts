@@ -461,28 +461,13 @@ export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatfo
   defaultValue: -1,
 });
 
-let installReferrer: string;
-export async function getInstallReferrer() {
-  if (!installReferrer) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      installReferrer = await RNDeviceInfo.getInstallReferrer();
-    } else {
-      installReferrer = 'unknown';
-    }
-  }
-  return installReferrer;
-}
-
-export function getInstallReferrerSync() {
-  if (!installReferrer) {
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      installReferrer = RNDeviceInfo.getInstallReferrerSync();
-    } else {
-      installReferrer = 'unknown';
-    }
-  }
-  return installReferrer;
-}
+export const [getInstallReferrer, getInstallReferrerSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'installReferrer',
+  supportedPlatforms: ['android', 'web'],
+  getter: () => RNDeviceInfo.getInstallReferrer(),
+  syncGetter: () => RNDeviceInfo.getInstallReferrerSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getLastUpdateTime, getLastUpdateTimeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'lastUpdateTime',
