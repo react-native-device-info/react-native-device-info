@@ -385,28 +385,13 @@ export const [getPreviewSdkInt, getPreviewSdkIntSync] = getSupportedPlatformInfo
   defaultValue: -1,
 });
 
-let securityPatch: string;
-export async function getSecurityPatch() {
-  if (!securityPatch) {
-    if (Platform.OS === 'android') {
-      securityPatch = await RNDeviceInfo.getSecurityPatch();
-    } else {
-      securityPatch = 'unknown';
-    }
-  }
-  return securityPatch;
-}
-
-export function getSecurityPatchSync() {
-  if (!securityPatch) {
-    if (Platform.OS === 'android') {
-      securityPatch = RNDeviceInfo.getSecurityPatchSync();
-    } else {
-      securityPatch = 'unknown';
-    }
-  }
-  return securityPatch;
-}
+export const [getSecurityPatch, getSecurityPatchSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'securityPatch',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSecurityPatch(),
+  syncGetter: () => RNDeviceInfo.getSecurityPatchSync(),
+  defaultValue: 'unknown',
+});
 
 export const [getCodename, getCodenameSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'codeName',
