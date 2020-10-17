@@ -1813,24 +1813,21 @@ end
 
 `react-native-device-info` contains native code, and needs to be mocked. Jest Snapshot support may work though.
 
-Here's how to do it with jest for example:
-
-```json
-// in your package.json:
-"jest": {
-  "setupFiles": [
-    "./testenv.js"
-  ],
-```
+If you do not have a Jest Setup file configured, you should add the following to your Jest settings and create the jest.setup.js file in project root:
 
 ```js
-// testenv.js:
-jest.mock('react-native-device-info', () => {
-  return {
-    getModel: jest.fn(),
-  };
-});
+setupFiles: ['<rootDir>/jest.setup.js'];
 ```
+
+You should then add the following to your Jest setup file to mock the DeviceInfo Native Module:
+
+```js
+import mockRNDeviceInfo from 'react-native-device-info/jest/react-native-device-info-mock';
+
+jest.mock('react-native-device-info', () => mockRNDeviceInfo);
+```
+
+Checkout the example project for more information.
 
 </details>
 <details>
