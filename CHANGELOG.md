@@ -2,6 +2,15 @@
 
 # Release Notes
 
+### 7.0.0
+
+ * BREAKING CHANGE: Increase iOS minimum to iOS 10. Stay on 6.x if you need to support iOS 9
+ * fix(iOS): supporting `getFontScale` in App Extensions (#1097, thanks @schie!)
+ * feat(mocks): add default set of mocks (#1102, thanks @schie!)
+
+The change to iOS10 minimum was required to fix getFontScale for App Extensions
+react-native 0.63 already requires iOS 10 minimum, so this is in harmony with the ecosystem
+
 ### 6.2.0
 
  * feat(hooks): add useIsHeadphonesConnected hook (#1084, thanks again @schie!)

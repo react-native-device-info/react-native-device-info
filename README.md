@@ -29,6 +29,10 @@ If you are upgrading from v2 to v3, check the guide out: https://github.com/reac
 
 For those upgrading to v4, follow the v2 to v3 guide first, then follow this: https://github.com/react-native-community/react-native-device-info/wiki/V3-to-V4-Migration-Guide
 
+## v6 to v7 upgrade
+
+Your iOS Podfile will need to move to an iOS 10 minimum. v7 of this module no longer supports iOS9.
+
 ## Installation
 
 Using npm:
