@@ -2,6 +2,9 @@
 
 # Release Notes
 
+### 7.0.1
+ * fix(android): fix missing Redmi 7 and Pixel 3a model name in devicesWithNotch.ts (@tronin)
+
 ### 7.0.0
 
  * BREAKING CHANGE: Increase iOS minimum to iOS 10. Stay on 6.x if you need to support iOS 9

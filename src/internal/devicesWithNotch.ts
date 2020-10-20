@@ -58,6 +58,10 @@ const devicesWithNotch: NotchDevice[] = [
     model: 'Pixel 3 XL',
   },
   {
+    brand: 'google',
+    model: 'Pixel 3a',
+  },
+  {
     brand: 'Huawei',
     model: 'P20',
   },
@@ -272,6 +276,10 @@ const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'xiaomi',
     model: 'Redmi Note 7',
+  },
+  {
+    brand: 'xiaomi',
+    model: 'Redmi 7',
   },
   {
     brand: 'xiaomi',
