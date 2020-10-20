@@ -285,6 +285,10 @@ const devicesWithNotch: NotchDevice[] = [
     brand: 'Blackview',
     model: 'A30',
   },
+  {
+    brand: 'Samsung',
+    model: 'SM-A217F',
+  },
 ];
 
 export default devicesWithNotch;
