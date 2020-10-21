@@ -57,3 +57,9 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# MSBuild Binary and Structured Log
+*.binlog
+
+# Debug log
+debug.log

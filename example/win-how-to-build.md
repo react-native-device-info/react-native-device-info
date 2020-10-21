@@ -17,7 +17,7 @@ yarn dev-sync
 
 # Open example solution by Visual studio
 
-example-vnext.sln
+example.sln
 
 ```
 cd example

@@ -5492,13 +5492,13 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
 "react-native-device-info@github:react-native-community/react-native-device-info":
-  version "6.0.3"
-  resolved "https://codeload.github.com/react-native-community/react-native-device-info/tar.gz/69ccf89e70911051e3be3d3768b13aa34f2c748c"
+  version "7.0.2"
+  resolved "https://codeload.github.com/react-native-community/react-native-device-info/tar.gz/c61edfc962d150566a9ddb59d5f5062cfac7fafb"
 
 react-native-windows@^0.62.5:
-  version "0.62.10"
-  resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.62.10.tgz#bfd35e10adca900356ddd4c638029d3e14d37a2d"
-  integrity sha512-FXqpgGcc1IRLVOau/1MQ1m7VUxhFed1f1AThyK0DhFxXault4suuT6+Y2L7UjC3qdfjCJNcH1YBB4d5EFAl4tQ==
+  version "0.62.13"
+  resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.62.13.tgz#0908186aa77c6cd64808540124c26c802770c42a"
+  integrity sha512-zydA1hVB0LHiD3X6SDmxW7WxGXJ4tKcRaS+gRNjVRyiRjWF5h4JqV9TSd2RoviTj/QG+ZonnaJiXx55NogTu7g==
   dependencies:
     "@babel/runtime" "^7.8.4"
     cli-spinners "^2.2.0"
