@@ -23,10 +23,10 @@ function getSupportedFunction<T>(
   getter: Getter<T>,
   defaultGetter: Getter<T>
 ): Getter<T> {
-  const entries = supportedPlatforms
+  let supportedMap : any = {};
+  supportedPlatforms
     .filter((key) => Platform.OS == key)
-    .map((key) => [key, getter]);
-  const supportedMap = Object.fromEntries(entries);
+    .forEach((key) => supportedMap[key] = getter);
   return Platform.select({
     ...supportedMap,
     default: defaultGetter,
