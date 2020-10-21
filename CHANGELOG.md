@@ -2,6 +2,9 @@
 
 # Release Notes
 
+### 7.0.2
+ * fix(windows): remove use of Object.fromEntries (#1110, thanks @jaimecbernardo!)
+
 ### 7.0.1
  * fix(hasNotch): fix missing Redmi 7 and Pixel 3a model name in devicesWithNotch.ts (#1107, thanks @tronin!)
  * fix(hasNotch): fix missing Samsung A21s model in devicesWithNotch (#1106, thanks @djhr!)
