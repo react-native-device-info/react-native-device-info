@@ -1615,7 +1615,7 @@ Gets the time at which the app was first installed, in milliseconds.
 #### Example
 
 ```jsx
-import { usePowerState } from 'react-native-device-info';
+import { useFirstInstallTime } from 'react-native-device-info';
 
 const { loading, result } = useFirstInstallTime(); // { loading: true, result: 1517681764528}
 
