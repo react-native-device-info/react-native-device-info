@@ -10,7 +10,11 @@ import {
 
 type MemoType = { [key: string]: any };
 // centralized memo object
-const memo: MemoType = {};
+let memo: MemoType = {};
+
+export function clearMemo() {
+  memo = {};
+}
 
 /**
  * function returns the proper getter based current platform X supported platforms
