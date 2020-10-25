@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { useOnMount, useOnEvent, deviceInfoEmitter } from '../src/internal/asyncHookWrappers';
 
 describe('async-hook-wrappers', () => {
@@ -60,17 +60,6 @@ describe('async-hook-wrappers', () => {
       expect(result.current).toEqual({ loading: false, result: true });
     });
 
-    it('should return a new Value after event', async () => {
-      const { result, waitForNextUpdate, rerender } = renderHook(() =>
-        useOnEvent(eventName, asyncGetter, initialValue)
-      );
-      const value = Math.random();
-      act(() => {
-        deviceInfoEmitter.emit(eventName, value);
-        rerender();
-      });
-      await waitForNextUpdate();
-      expect(result.current).toEqual({ loading: false, result: value });
-    });
+    // TODO: add tests for NativeEventEmitter :/
   });
 });
