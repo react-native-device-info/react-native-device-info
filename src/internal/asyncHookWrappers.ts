@@ -26,7 +26,7 @@ export function useOnMount<T>(asyncGetter: () => Promise<T>, initialResult: T): 
   return response;
 }
 
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+export const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 
 /**
  * simple hook wrapper for handling events
