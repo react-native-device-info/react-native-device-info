@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
  <Identity
-    Name="0192fe56-e7af-4f97-bfab-0b34c143d446"
+    Name="RNDeviceInfoExample"
     Publisher="CN=tepaa"
     Version="1.0.0.0" />
 
