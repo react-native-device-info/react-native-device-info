@@ -120,7 +120,7 @@ describe('supported platform info', () => {
       clearMemo();
       Platform.OS = 'ios';
       const defaultValue = Math.random() * 10;
-      const memoKey = `getSupportedPlatformInfoSync`;
+      const memoKey = `getSupportedPlatformInfoAsync`;
       const outputA = await getSupportedPlatformInfoAsync({
         getter,
         supportedPlatforms,
