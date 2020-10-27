@@ -4,19 +4,19 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "appium": "appium",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "test:windows": "yarn jest --config=./jest.windows.config.js",
     "lint": "eslint .",
+    "appium": "appium",
+    "test:windows": "yarn jest --config=./jest.windows.config.js",
     "windows": "react-native run-windows"
   },
   "dependencies": {
     "react": "16.13.1",
-    "react-native": "^0.62.2",
+    "react-native": "0.63.3",
     "react-native-device-info": "github:react-native-community/react-native-device-info",
-    "react-native-windows": "^0.62.5"
+    "react-native-windows": "^0.63.0-0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -36,5 +36,8 @@
     "setupFiles": [
       "./jest.setup.js"
     ]
+  },
+  "resolutions": {
+    "appium/appium-windows-driver": "1.13.0"
   }
 }
