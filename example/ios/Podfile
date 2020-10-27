@@ -13,6 +13,10 @@ target 'example' do
     # Pods for testing
   end
 
+  target 'example-app-extension' do
+    inherit! :complete
+  end
+
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
@@ -20,6 +24,11 @@ target 'example' do
   use_flipper!
   post_install do |installer|
     flipper_post_install(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+      end
+    end
   end
 end
 
