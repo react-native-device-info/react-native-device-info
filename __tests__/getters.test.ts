@@ -12,8 +12,28 @@ function makeTable(name: string) {
     mockNativeModule[`${name}Sync`], // syncNativeGetter
   ];
 }
-
-const memoizedStringGetters = ['getInstanceId'].map(makeTable);
+const memoizedStringGetters = [
+  'getInstanceId',
+  'getSerialNumber',
+  'getAndroidId',
+  'getBuildId',
+  'getInstallerPackageName',
+  'getDeviceName',
+  'getBootloader',
+  'getDevice',
+  'getDisplay',
+  'getFingerprint',
+  'getHardware',
+  'getHost',
+  'getProduct',
+  'getTags',
+  'getType',
+  'getBaseOs',
+  'getSecurityPatch',
+  'getCodename',
+  'getIncremental',
+  'getInstallReferrer',
+].map(makeTable);
 
 describe('string getters', () => {
   describe.each(memoizedStringGetters)(
