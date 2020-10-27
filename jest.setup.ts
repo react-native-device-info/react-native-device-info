@@ -66,6 +66,7 @@ const stringFnNames = [
   'getPhoneNumber',
   'getCarrier',
   'deviceType',
+  'getInstallReferrer',
 ];
 for (const name of stringFnNames) {
   RNDeviceInfo[name] = stringFnAsync();
@@ -94,7 +95,6 @@ const numberFnNames = [
   'getFontScale',
   'getPreviewSdkInt',
   'getFirstInstallTime',
-  'getInstallReferrer',
   'getLastUpdateTime',
   'getTotalMemory',
   'getMaxMemory',
