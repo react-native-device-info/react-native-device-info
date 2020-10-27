@@ -6,8 +6,8 @@ let mockNativeModule = jest.requireMock('../src/internal/nativeInterface').defau
 function makeTable(name: string) {
   return [
     name, // name
-    RNDeviceInfo[name], // asyncGetter
-    RNDeviceInfo[`${name}Sync`], // syncGetter
+    (RNDeviceInfo as any)[name], // asyncGetter
+    (RNDeviceInfo as any)[`${name}Sync`], // syncGetter
     mockNativeModule[name], // asyncNativeGetter
     mockNativeModule[`${name}Sync`], // syncNativeGetter
   ];
