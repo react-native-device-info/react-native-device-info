@@ -16,20 +16,11 @@ jobs:
         node-version: '12.9.1'
 
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.0.0
+      uses: microsoft/setup-msbuild@v1
       with:
         vs-version: 16.5
 
-    - name: Check node modules cache
-      uses: actions/cache@v1
-      id: yarn-cache
-      with:
-        path: ./example/node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
     - name: Install node modules
-      if: steps.yarn-cache.outputs.cache-hit != 'true'
       run: |
         yarn --pure-lockfile
         cd example
