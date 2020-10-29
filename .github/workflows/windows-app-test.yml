@@ -20,11 +20,29 @@ jobs:
       with:
         vs-version: 16.5
 
-    - name: Install node modules
+    - name: Check base node modules cache
+      uses: actions/cache@v1
+      id: yarn-base-cache
+      with:
+        path: ./node_modules
+        key: ${{ runner.os }}-yarn-base-${{ hashFiles('yarn.lock') }}
+    - name: Install base node modules
+      if: steps.yarn-base-cache.outputs.cache-hit != 'true'
       run: |
         yarn --pure-lockfile
+
+    - name: Check example node modules cache
+      uses: actions/cache@v1
+      id: yarn-example-cache
+      with:
+        path: ./example/node_modules
+        key: ${{ runner.os }}-yarn-example-${{ hashFiles('./example/yarn.lock') }}
+    - name: Install example modules
+      if: steps.yarn-example-cache.outputs.cache-hit != 'true'
+      run: |
         cd example
         yarn --pure-lockfile
+
     - name: Copy module
       run: |
         xcopy src example\node_modules\react-native-device-info\src /s /e /r /h /i /y
