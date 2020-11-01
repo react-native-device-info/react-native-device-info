@@ -46,7 +46,6 @@ const stringFnNames = [
   'getMacAddress',
   'getSystemManufacturer',
   'getBuildId',
-  'getApiLevel',
   'getInstallerPackageName',
   'getDeviceName',
   'getUserAgent',
@@ -93,6 +92,7 @@ for (const name of booleanFnNames) {
 const numberFnNames = [
   'getUsedMemory',
   'getFontScale',
+  'getApiLevel',
   'getPreviewSdkInt',
   'getFirstInstallTime',
   'getLastUpdateTime',
