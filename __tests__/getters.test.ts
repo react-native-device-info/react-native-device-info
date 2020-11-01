@@ -210,6 +210,14 @@ describe('number getters', () => {
 });
 
 const memoizedBooleanGetters = ['isEmulator'].map(makeTable);
+const nonMemoizedBooleanGetters = [
+  'isCameraPresent',
+  'isPinOrFingerprintSet',
+  'isBatteryCharging',
+  'isAirplaneMode',
+  'isLocationEnabled',
+  'isHeadphonesConnected',
+].map(makeTable);
 
 describe('boolean getters', () => {
   describe.each(memoizedBooleanGetters)(
@@ -262,6 +270,52 @@ describe('boolean getters', () => {
         expect(resp).toBe(resp2);
         expect(asyncNativeGetter).toHaveBeenCalled();
         expect(syncNativeGetter).not.toHaveBeenCalled();
+      });
+    }
+  );
+
+  describe.each(nonMemoizedBooleanGetters)(
+    '%s*',
+    (_name, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter) => {
+      beforeEach(() => {
+        clearMemo();
+        Platform.OS = 'android';
+        asyncNativeGetter.mockClear();
+        syncNativeGetter.mockClear();
+      });
+
+      it('should have an async version', () => {
+        expect(typeof asyncGetter).toBe('function');
+      });
+
+      it('should have a sync version', () => {
+        expect(typeof syncGetter).toBe('function');
+      });
+
+      it('should call native async module function', async () => {
+        const resp = await asyncGetter();
+        expect(resp).toEqual(false);
+        expect(asyncNativeGetter).toHaveBeenCalled();
+      });
+
+      it('should call native sync module function', () => {
+        const resp = syncGetter();
+        expect(resp).toEqual(false);
+        expect(syncNativeGetter).toHaveBeenCalled();
+      });
+
+      it('should not call native sync module function on unsupported OS', () => {
+        Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+        const resp = syncGetter();
+        expect(resp).toEqual(false);
+        expect(syncNativeGetter).not.toHaveBeenCalled();
+      });
+
+      it('should not call native async module function on unsupported OS', async () => {
+        Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+        const resp = await asyncGetter();
+        expect(resp).toEqual(false);
+        expect(asyncNativeGetter).not.toHaveBeenCalled();
       });
     }
   );
