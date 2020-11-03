@@ -107,7 +107,6 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(getIpAddressSync());
     }
 
-
     IAsyncOperation<bool> isCameraPresentTask()
     {
       Windows::Devices::Enumeration::DeviceInformationCollection devices =
@@ -161,6 +160,53 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(getBatteryLevelSync());
     }
 
+    REACT_SYNC_METHOD(getPowerStateSync);
+    JSValue getPowerStateSync() noexcept
+    {
+      JSValueObject result = JSValueObject{};
+      const std::string states[4] = { "not present", "discharging", "idle", "charging" };
+      auto aggBattery = Windows::Devices::Power::Battery::AggregateBattery();
+      auto report = aggBattery.GetReport();
+      if (report.FullChargeCapacityInMilliwattHours() != nullptr &&
+        report.RemainingCapacityInMilliwattHours() != nullptr)
+      {
+        auto max = report.FullChargeCapacityInMilliwattHours().GetDouble();
+        auto value = report.RemainingCapacityInMilliwattHours().GetDouble();
+        if (max <= 0)
+        {
+          result["batteryLevel"] = (double)-1;
+        } else
+        {
+          result["batteryLevel"] = value / max;
+        }
+        result["batteryState"] = states[static_cast<int>(report.Status())];
+        result["lowPowerMode"] = (Windows::System::Power::PowerManager::EnergySaverStatus() == Windows::System::Power::EnergySaverStatus::On);
+      }
+
+      return result;
+    }
+
+    REACT_METHOD(getPowerState);
+    void getPowerState(ReactPromise<JSValue> promise) noexcept
+    {
+      promise.Resolve(getPowerStateSync());
+    }
+
+    REACT_SYNC_METHOD(isBatteryChargingSync);
+    bool isBatteryChargingSync() noexcept
+    {
+      auto aggBattery = Windows::Devices::Power::Battery::AggregateBattery();
+      auto report = aggBattery.GetReport();
+      return report.Status() == Windows::System::Power::BatteryStatus::Charging;
+    }
+
+    REACT_METHOD(isBatteryCharging);
+    void isBatteryCharging(ReactPromise<bool> promise) noexcept
+    {
+      promise.Resolve(isBatteryChargingSync());
+    }
+
+
     REACT_SYNC_METHOD(getAppVersionSync);
     std::string getAppVersionSync() noexcept
     {
@@ -212,6 +258,62 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(getBuildVersionSync());
     }
 
+    REACT_SYNC_METHOD(getInstallerPackageNameSync);
+    std::string getInstallerPackageNameSync() noexcept
+    {
+      try
+      {
+        return winrt::to_string(Windows::ApplicationModel::Package::Current().Id().Name());
+      } catch (...)
+      {
+        return "unknown";
+      }
+    }
+    REACT_METHOD(getInstallerPackageName);
+    void getInstallerPackageName(ReactPromise<std::string> promise) noexcept
+    {
+      promise.Resolve(getInstallerPackageNameSync());
+    }
+
+    REACT_SYNC_METHOD(getInstallReferrerSync);
+    std::string getInstallReferrerSync() noexcept
+    {
+      try
+      {
+        Windows::Services::Store::StoreContext context = Windows::Services::Store::StoreContext::GetDefault();
+
+        // Get campaign ID for users with a recognized Microsoft account.
+        Windows::Services::Store::StoreProductResult result = context.GetStoreProductForCurrentAppAsync().get();
+        if (result.Product() != nullptr)
+        {
+          for (auto sku : result.Product().Skus())
+          {
+            if (sku.IsInUserCollection())
+            {
+              return winrt::to_string(sku.CollectionData().CampaignId());
+            }
+          }
+        }
+
+        // Get campaing ID from the license data for users without a recognized Microsoft account.
+        Windows::Services::Store::StoreAppLicense license = context.GetAppLicenseAsync().get();
+        auto json = Windows::Data::Json::JsonObject::Parse(license.ExtendedJsonData());
+        if (json.HasKey(L"customPolicyField1"))
+        {
+          return winrt::to_string(json.GetNamedString(L"customPolicyField1", L"unknown"));
+        }
+
+      } catch (...)
+      {
+      }
+      return "unknown";
+    }
+    REACT_METHOD(getInstallReferrer);
+    void getInstallReferrer(ReactPromise<std::string> promise) noexcept
+    {
+      promise.Resolve(getInstallReferrerSync());
+    }
+
     REACT_SYNC_METHOD(getMaxMemorySync);
     uint64_t getMaxMemorySync() noexcept
     {
@@ -222,6 +324,18 @@ namespace winrt::RNDeviceInfoCPP
     void getMaxMemory(ReactPromise<uint64_t> promise) noexcept
     {
       promise.Resolve(getMaxMemorySync());
+    }
+
+    REACT_SYNC_METHOD(getUsedMemorySync);
+    uint64_t getUsedMemorySync() noexcept
+    {
+      return Windows::System::MemoryManager::AppMemoryUsage();
+    }
+
+    REACT_METHOD(getUsedMemory);
+    void getUsedMemory(ReactPromise<uint64_t> promise) noexcept
+    {
+      promise.Resolve(getUsedMemorySync());
     }
 
     REACT_SYNC_METHOD(getFirstInstallTimeSync);
@@ -301,6 +415,55 @@ namespace winrt::RNDeviceInfoCPP
     void getSystemVersion(ReactPromise<std::string> promise) noexcept
     {
       promise.Resolve(getSystemVersionSync());
+    }
+
+    REACT_SYNC_METHOD(getBaseOsSync);
+    std::string getBaseOsSync() noexcept
+    {
+      try
+      {
+        std::string deviceFamilyVersion = winrt::to_string(Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamilyVersion());
+        uint64_t version2 = std::stoull(deviceFamilyVersion);
+        uint64_t major = (version2 & 0xFFFF000000000000L) >> 48;
+        uint64_t minor = (version2 & 0x0000FFFF00000000L) >> 32;
+        uint64_t build = (version2 & 0x00000000FFFF0000L) >> 16;
+        uint64_t revision = (version2 & 0x000000000000FFFFL);
+        std::ostringstream ostream;
+        ostream << major << "." << minor << "." << build << "." << revision;
+        return ostream.str();
+      } catch (...)
+      {
+        return "unknown";
+      }
+    }
+
+    REACT_METHOD(getBaseOs);
+    void getBaseOs(ReactPromise<std::string> promise) noexcept
+    {
+      promise.Resolve(getBaseOsSync());
+    }
+
+    REACT_SYNC_METHOD(getBuildIdSync);
+    std::string getBuildIdSync() noexcept
+    {
+      try
+      {
+        std::string deviceFamilyVersion = winrt::to_string(Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamilyVersion());
+        uint64_t version2 = std::stoull(deviceFamilyVersion);
+        uint64_t build = (version2 & 0x00000000FFFF0000L) >> 16;
+        std::ostringstream ostream;
+        ostream << build;
+        return ostream.str();
+      } catch (...)
+      {
+        return "unknown";
+      }
+    }
+
+    REACT_METHOD(getBuildId);
+    void getBuildId(ReactPromise<std::string> promise) noexcept
+    {
+      promise.Resolve(getBuildIdSync());
     }
 
     REACT_SYNC_METHOD(getModelSync);
@@ -435,6 +598,77 @@ namespace winrt::RNDeviceInfoCPP
     void getTotalMemory(ReactPromise<int64_t> promise) noexcept
     {
       promise.Resolve(getTotalMemorySync());
+    }
+
+    REACT_SYNC_METHOD(getFontScaleSync);
+    double getFontScaleSync() noexcept
+    {
+      Windows::UI::ViewManagement::UISettings uiSettings;
+      return uiSettings.TextScaleFactor();
+    }
+
+    REACT_METHOD(getFontScale);
+    void getFontScale(ReactPromise<double> promise) noexcept
+    {
+      promise.Resolve(getFontScaleSync());
+    }
+
+    IAsyncOperation<int64_t> getFreeDiskStorageTask()
+    {
+      try
+      {
+        auto localFolder = Windows::Storage::ApplicationData::Current().LocalFolder();
+        auto props = co_await localFolder.Properties().RetrievePropertiesAsync({ L"System.FreeSpace" });
+        return winrt::unbox_value<uint64_t>(props.Lookup(L"System.FreeSpace"));
+      } catch (...)
+      {
+        co_return -1;
+      }
+    }
+
+    REACT_SYNC_METHOD(getFreeDiskStorageSync);
+    int64_t getFreeDiskStorageSync() noexcept
+    {
+      return getFreeDiskStorageTask().get();
+    }
+
+    REACT_METHOD(getFreeDiskStorage);
+    void getFreeDiskStorage(ReactPromise<int64_t> promise) noexcept
+    {
+      auto async_op = getFreeDiskStorageTask();
+      async_op.Completed([promise](auto const& op, auto const&)
+        {
+          promise.Resolve(op.GetResults());
+        });
+    }
+
+    IAsyncOperation<int64_t> getTotalDiskCapacityTask()
+    {
+      try
+      {
+        auto localFolder = Windows::Storage::ApplicationData::Current().LocalFolder();
+        auto props = co_await localFolder.Properties().RetrievePropertiesAsync({ L"System.Capacity" });
+        return winrt::unbox_value<uint64_t>(props.Lookup(L"System.Capacity"));
+      } catch (...)
+      {
+        co_return -1;
+      }
+    }
+
+    REACT_SYNC_METHOD(getTotalDiskCapacitySync);
+    int64_t getTotalDiskCapacitySync() noexcept
+    {
+      return getTotalDiskCapacityTask().get();
+    }
+
+    REACT_METHOD(getTotalDiskCapacity);
+    void getTotalDiskCapacity(ReactPromise<int64_t> promise) noexcept
+    {
+      auto async_op = getTotalDiskCapacityTask();
+      async_op.Completed([promise](auto const& op, auto const&)
+        {
+          promise.Resolve(op.GetResults());
+        });
     }
 
   };
