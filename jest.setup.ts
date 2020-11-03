@@ -23,6 +23,7 @@ const stringKeys = [
   'appName',
   'buildNumber',
   'appVersion',
+  'deviceType',
 ];
 
 for (const key of stringKeys) {
@@ -64,7 +65,6 @@ const stringFnNames = [
   'getIncremental',
   'getPhoneNumber',
   'getCarrier',
-  'deviceType',
   'getInstallReferrer',
 ];
 for (const name of stringFnNames) {
