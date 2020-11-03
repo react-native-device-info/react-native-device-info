@@ -27,12 +27,12 @@ const stringKeys = [
 ];
 
 for (const key of stringKeys) {
-  RNDeviceInfo[key] = 'unknown';
+  RNDeviceInfo[key] = 'unknown-test';
 }
 
 const booleanKeys = ['isTablet'];
 for (const key of booleanKeys) {
-  RNDeviceInfo[key] = false;
+  RNDeviceInfo[key] = true;
 }
 
 RNDeviceInfo.syncUniqueId = stringFnAsync();
