@@ -134,7 +134,7 @@ jest.mock('react-native', () => {
 
   type OS = typeof RN.Platform.OS;
   jest.spyOn(RN.Platform, 'select').mockImplementation((obj: OS) => {
-    return obj.android || obj.ios || obj.default;
+    return obj.android || obj.ios || obj.windows || obj.web || obj.default;
   });
 
   return RN;
