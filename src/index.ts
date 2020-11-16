@@ -371,6 +371,13 @@ export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
   defaultValue: false,
 });
 
+export const isCatalyst = getSupportedPlatformInfoSync({
+  defaultValue: false,
+  memoKey: 'catalyst',
+  supportedPlatforms: ['ios', 'macos', 'windows'],
+  getter: () => RNDeviceInfo.isCatalyst(),
+});
+
 export const isTablet = () =>
   getSupportedPlatformInfoSync({
     defaultValue: false,
