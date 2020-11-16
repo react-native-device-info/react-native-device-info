@@ -364,7 +364,7 @@ export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
 export const isCatalyst = getSupportedPlatformInfoSync({
   defaultValue: false,
   memoKey: 'catalyst',
-  supportedPlatforms: ['ios', 'macos', 'windows'],
+  supportedPlatforms: ['ios', 'macos'],
   getter: () => RNDeviceInfo.isCatalyst(),
 });
 
