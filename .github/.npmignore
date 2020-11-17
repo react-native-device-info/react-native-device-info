@@ -1,0 +1,5 @@
+.npmignore
+ISSUE_TEMPLATE/
+issue_template.md
+pull_request_template.md
+workflows/
