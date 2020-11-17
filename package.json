@@ -1,6 +1,6 @@
 {
   "name": "react-native-device-info",
-  "version": "7.0.2",
+  "version": "7.1.0",
   "description": "Get device information using react-native",
   "react-native": "src/index.ts",
   "types": "lib/typescript/index.d.ts",
