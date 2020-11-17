@@ -403,6 +403,20 @@ export function hasNotch() {
   return notch;
 }
 
+export const [hasGms, hasGmsSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.hasGms(),
+  syncGetter: () => RNDeviceInfo.hasGmsSync(),
+  defaultValue: false,
+});
+
+export const [hasHms, hasHmsSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.hasHms(),
+  syncGetter: () => RNDeviceInfo.hasHmsSync(),
+  defaultValue: false,
+});
+
 export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'firstInstallTime',
   supportedPlatforms: ['android', 'windows'],
@@ -852,6 +866,10 @@ const deviceInfoModule: DeviceInfoModule = {
   getUserAgent,
   getUserAgentSync,
   getVersion,
+  hasGms,
+  hasGmsSync,
+  hasHms,
+  hasHmsSync,
   hasNotch,
   hasSystemFeature,
   hasSystemFeatureSync,
