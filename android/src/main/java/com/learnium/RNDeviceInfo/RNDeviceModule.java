@@ -44,6 +44,10 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.learnium.RNDeviceInfo.resolver.DeviceIdResolver;
 import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -497,6 +501,31 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void isAirplaneMode(Promise p) { p.resolve(isAirplaneModeSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean hasGmsSync() {
+    GoogleApiAvailability gms = GoogleApiAvailability.getInstance();
+    int isGMS = gms.isGooglePlayServicesAvailable(getReactApplicationContext());
+    return isGMS == ConnectionResult.SUCCESS;
+  }
+  @ReactMethod
+  public void hasGms(Promise p) { p.resolve(hasGmsSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean hasHmsSync() {
+    try {
+      Class<?> huaweiApiAvailability = Class.forName("com.huawei.hms.api.HuaweiApiAvailability");
+      Method getInstanceMethod = huaweiApiAvailability.getMethod("getInstance");
+      Object hmsObject = getInstanceMethod.invoke(null);
+      Method isHuaweiMobileServicesAvailableMethod = hmsObject.getClass().getMethod("isHuaweiMobileServicesAvailable", Context.class);
+      int isHMS = (int) isHuaweiMobileServicesAvailableMethod.invoke(hmsObject, getReactApplicationContext());
+      return isHMS == ConnectionResult.SUCCESS;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+  @ReactMethod
+  public void hasHms(Promise p) { p.resolve(hasHmsSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean hasSystemFeatureSync(String feature) {

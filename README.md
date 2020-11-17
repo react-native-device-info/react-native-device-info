@@ -366,6 +366,8 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅ |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
+| [hasGms()](#hasGms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌ |
+| [hasHms()](#hasHms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌ |
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌ |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌ |
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅ |
@@ -1365,6 +1367,32 @@ Tells if the device is currently in landscape mode.
 DeviceInfo.isLandscape().then(isLandscape => {
   // true
 });
+```
+
+---
+
+### hasGms()
+
+Tells if the device supports Google Mobile Services.
+
+#### Examples
+
+```js
+let hasGms = DeviceInfo.hasGms();
+  // true
+```
+
+---
+
+### hasHms()
+
+Tells if the device supports Huawei Mobile Services.
+
+#### Examples
+
+```js
+let hasHms = DeviceInfo.hasHms();
+  // true
 ```
 
 ---

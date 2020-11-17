@@ -2,6 +2,10 @@
 
 # Release Notes
 
+### Next
+ * feat(hasHms): added `hasHms` to indicate if Android device supports Huawei Mobile Services.
+ * feat(hasGms): added `hasGms` to indicate if Android device supports Google Mobile Services.
+
 ### 7.0.2
  * fix(windows): remove use of Object.fromEntries (#1110, thanks @jaimecbernardo!)
 

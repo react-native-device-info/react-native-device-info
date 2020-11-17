@@ -180,6 +180,8 @@ export default class App extends Component {
     deviceJSON.incremental = DeviceInfo.getIncrementalSync();
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
+    deviceJSON.hasGms = DeviceInfo.hasGmsSync();
+    deviceJSON.hasHms = DeviceInfo.hasHmsSync();
 
     return deviceJSON;
   }
@@ -245,6 +247,8 @@ export default class App extends Component {
       deviceJSON.incremental = await DeviceInfo.getIncremental();
       deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
       deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
+      deviceJSON.hasGms = await DeviceInfo.hasGms();
+      deviceJSON.hasHms = await DeviceInfo.hasHms();
       deviceJSON.synchronizedUniqueId = await DeviceInfo.syncUniqueId();
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
