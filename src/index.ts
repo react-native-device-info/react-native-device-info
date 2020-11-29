@@ -144,7 +144,7 @@ export const getSystemVersion = () =>
 
 export const [getBuildId, getBuildIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'buildId',
-  supportedPlatforms: ['android', 'ios'],
+  supportedPlatforms: ['android', 'ios', 'windows'],
   getter: () => RNDeviceInfo.getBuildId(),
   syncGetter: () => RNDeviceInfo.getBuildIdSync(),
   defaultValue: 'unknown',
@@ -171,7 +171,7 @@ export const [
   getInstallerPackageNameSync,
 ] = getSupportedPlatformInfoFunctions({
   memoKey: 'installerPackageName',
-  supportedPlatforms: ['android'],
+  supportedPlatforms: ['android', 'windows'],
   getter: () => RNDeviceInfo.getInstallerPackageName(),
   syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
   defaultValue: 'unknown',
@@ -214,7 +214,7 @@ export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFuncti
 });
 
 export const [getUsedMemory, getUsedMemorySync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
   getter: () => RNDeviceInfo.getUsedMemory(),
   syncGetter: () => RNDeviceInfo.getUsedMemorySync(),
   defaultValue: -1,
@@ -245,7 +245,7 @@ export function getUserAgentSync() {
 }
 
 export const [getFontScale, getFontScaleSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios'],
+  supportedPlatforms: ['android', 'ios', 'windows'],
   getter: () => RNDeviceInfo.getFontScale(),
   syncGetter: () => RNDeviceInfo.getFontScaleSync(),
   defaultValue: -1,
@@ -325,7 +325,7 @@ export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
 
 export const [getBaseOs, getBaseOsSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'baseOs',
-  supportedPlatforms: ['android', 'web'],
+  supportedPlatforms: ['android', 'web', 'windows'],
   getter: () => RNDeviceInfo.getBaseOs(),
   syncGetter: () => RNDeviceInfo.getBaseOsSync(),
   defaultValue: 'unknown',
@@ -427,7 +427,7 @@ export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatfo
 
 export const [getInstallReferrer, getInstallReferrerSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'installReferrer',
-  supportedPlatforms: ['android', 'web'],
+  supportedPlatforms: ['android', 'windows', 'web'],
   getter: () => RNDeviceInfo.getInstallReferrer(),
   syncGetter: () => RNDeviceInfo.getInstallReferrerSync(),
   defaultValue: 'unknown',
@@ -472,7 +472,7 @@ export const [getMaxMemory, getMaxMemorySync] = getSupportedPlatformInfoFunction
 });
 
 export const [getTotalDiskCapacity, getTotalDiskCapacitySync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
   getter: () => RNDeviceInfo.getTotalDiskCapacity(),
   syncGetter: () => RNDeviceInfo.getTotalDiskCapacitySync(),
   defaultValue: -1,
@@ -482,7 +482,7 @@ export async function getTotalDiskCapacityOld() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getTotalDiskCapacityOld();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
     return getTotalDiskCapacity();
   }
 
@@ -493,7 +493,7 @@ export function getTotalDiskCapacityOldSync() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getTotalDiskCapacityOldSync();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
     return getTotalDiskCapacitySync();
   }
 
@@ -501,7 +501,7 @@ export function getTotalDiskCapacityOldSync() {
 }
 
 export const [getFreeDiskStorage, getFreeDiskStorageSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
   getter: () => RNDeviceInfo.getFreeDiskStorage(),
   syncGetter: () => RNDeviceInfo.getFreeDiskStorageSync(),
   defaultValue: -1,
@@ -511,7 +511,7 @@ export async function getFreeDiskStorageOld() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getFreeDiskStorageOld();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
     return getFreeDiskStorage();
   }
 
@@ -522,7 +522,7 @@ export function getFreeDiskStorageOldSync() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getFreeDiskStorageOldSync();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'web') {
+  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
     return getFreeDiskStorageSync();
   }
 
@@ -539,14 +539,14 @@ export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFu
 export const [getPowerState, getPowerStateSync] = getSupportedPlatformInfoFunctions<
   PowerState | {}
 >({
-  supportedPlatforms: ['ios', 'android', 'web'],
+  supportedPlatforms: ['ios', 'android', 'windows', 'web'],
   getter: () => RNDeviceInfo.getPowerState(),
   syncGetter: () => RNDeviceInfo.getPowerStateSync(),
   defaultValue: {},
 });
 
 export const [isBatteryCharging, isBatteryChargingSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
   getter: () => RNDeviceInfo.isBatteryCharging(),
   syncGetter: () => RNDeviceInfo.isBatteryChargingSync(),
   defaultValue: false,

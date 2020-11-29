@@ -11,3 +11,9 @@
 #include <winrt/Windows.Devices.Power.h>
 #include <winrt/Windows.ApplicationModel.h>
 #include <winrt/Windows.System.Profile.h>
+#include <winrt/Windows.UI.ViewManagement.h>
+#include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Storage.FileProperties.h>
+#include <winrt/Windows.Services.Store.h>
+#include <winrt/Windows.Data.Json.h>
+#include <winrt/Windows.System.Power.h>
