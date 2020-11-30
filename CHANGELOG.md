@@ -2,6 +2,8 @@
 
 ## Release Notes
 
+- fix(test, mocks): extra comma syntax error in mock definition (#1134, thanks @DorianGrey!)
+
 ### 7.2.0
 
 - feat(windows): implement additional methods (#1122, thanks @jaimecbernardo!)
