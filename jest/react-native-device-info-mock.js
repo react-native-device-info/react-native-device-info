@@ -102,7 +102,7 @@ const diMock = {
   hasHmsSync: booleanFnSync(),
   isAirplaneMode: booleanFnAsync(),
   isAirplaneModeSync: booleanFnSync(),
-  isBatteryCharging: booleanFnAsync(),,
+  isBatteryCharging: booleanFnAsync(),
   isBatteryChargingSync: booleanFnSync(),
   isCameraPresent: booleanFnSync(),
   isCameraPresentSync: booleanFnSync(),
