@@ -118,21 +118,19 @@ export const getBrand = () =>
     getter: () => RNDeviceInfo.brand,
   });
 
-let systemName: string;
-export function getSystemName() {
-  if (!systemName) {
-    if (Platform.OS === 'ios') {
-      systemName = RNDeviceInfo.systemName;
-    } else if (Platform.OS === 'android') {
-      systemName = 'Android';
-    } else if (Platform.OS === 'windows') {
-      systemName = 'Windows';
-    } else {
-      systemName = 'unknown';
-    }
-  }
-  return systemName;
-}
+export const getSystemName = () =>
+  getSupportedPlatformInfoSync({
+    defaultValue: 'unknown',
+    supportedPlatforms: ['ios', 'android', 'windows'],
+    memoKey: 'systemName',
+    getter: () =>
+      Platform.select({
+        ios: RNDeviceInfo.systemName,
+        android: 'Android',
+        windows: 'Windows',
+        default: 'unknown',
+      }),
+  });
 
 export const getSystemVersion = () =>
   getSupportedPlatformInfoSync({
