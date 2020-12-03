@@ -7,7 +7,7 @@ buildscript {
             google()
             jcenter()
         }
-        def buildGradleVersion = ext.has('buildGradlePluginVersion') ? ext.get('buildGradlePluginVersion') : '3.5.1'
+        def buildGradleVersion = ext.has('buildGradlePluginVersion') ? ext.get('buildGradlePluginVersion') : '4.1.2'
 
         dependencies {
             classpath "com.android.tools.build:gradle:$buildGradleVersion"
