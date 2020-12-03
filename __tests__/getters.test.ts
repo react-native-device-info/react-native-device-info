@@ -347,6 +347,38 @@ describe('string getters', () => {
       expect(nativeGetter).not.toHaveBeenCalled();
     });
   });
+
+  describe('getSystemName', () => {
+    const getter = RNDeviceInfo.getSystemName;
+    const supportedPlatforms = [
+      ['ios', mockNativeModule.systemName],
+      ['android', 'Android'],
+      ['windows', 'Windows'],
+    ];
+
+    beforeEach(() => {
+      clearMemo();
+    });
+
+    it('should exist as a function', () => {
+      expect(typeof getter).toBe('function');
+    });
+
+    it.each(supportedPlatforms)(
+      'should call native async module function for supported platform, %s',
+      (platform, value) => {
+        Platform.OS = platform as any;
+        const resp = getter();
+        expect(resp).toEqual(value);
+      }
+    );
+
+    it('should not call native module function on unsupported OS', () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = getter();
+      expect(resp).toEqual('unknown');
+    });
+  });
 });
 
 const memoizedNumberGetters = [
