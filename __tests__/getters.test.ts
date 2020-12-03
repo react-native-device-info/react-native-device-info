@@ -281,6 +281,72 @@ describe('string getters', () => {
       }
     );
   });
+
+  describe('getUserAgent', () => {
+    const getter = RNDeviceInfo.getUserAgent;
+    const nativeGetter = mockNativeModule.getUserAgent;
+
+    const supportedPlatforms = ['android', 'ios', 'web'];
+
+    beforeEach(() => {
+      clearMemo();
+      nativeGetter.mockClear();
+    });
+
+    it('should exist as a function', () => {
+      expect(typeof getter).toBe('function');
+    });
+
+    it.each(supportedPlatforms)(
+      'should call native async module function for supported platform, %s',
+      async (platform) => {
+        Platform.OS = platform as any;
+        const resp = await getter();
+        expect(resp).toEqual('unknown');
+        expect(nativeGetter).toHaveBeenCalled();
+      }
+    );
+
+    it('should not call native module function on unsupported OS', async () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = await getter();
+      expect(resp).toEqual('unknown');
+      expect(nativeGetter).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getUserAgentSync', () => {
+    const getter = RNDeviceInfo.getUserAgentSync;
+    const nativeGetter = mockNativeModule.getUserAgentSync;
+
+    const supportedPlatforms = ['android', 'web'];
+
+    beforeEach(() => {
+      clearMemo();
+      nativeGetter.mockClear();
+    });
+
+    it('should exist as a function', () => {
+      expect(typeof getter).toBe('function');
+    });
+
+    it.each(supportedPlatforms)(
+      'should call native async module function for supported platform, %s',
+      (platform) => {
+        Platform.OS = platform as any;
+        const resp = getter();
+        expect(resp).toEqual('unknown');
+        expect(nativeGetter).toHaveBeenCalled();
+      }
+    );
+
+    it('should not call native module function on unsupported OS', () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = getter();
+      expect(resp).toEqual('unknown');
+      expect(nativeGetter).not.toHaveBeenCalled();
+    });
+  });
 });
 
 const memoizedNumberGetters = [
