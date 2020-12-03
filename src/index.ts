@@ -220,29 +220,21 @@ export const [getUsedMemory, getUsedMemorySync] = getSupportedPlatformInfoFuncti
   defaultValue: -1,
 });
 
-let userAgent: string;
-export async function getUserAgent() {
-  if (!userAgent) {
-    if (Platform.OS === 'android' || Platform.OS === 'ios' || Platform.OS === 'web') {
-      userAgent = await RNDeviceInfo.getUserAgent();
-    } else {
-      userAgent = 'unknown';
-    }
-  }
-  return userAgent;
-}
+export const getUserAgent = () =>
+  getSupportedPlatformInfoAsync({
+    memoKey: 'userAgent',
+    defaultValue: 'unknown',
+    supportedPlatforms: ['android', 'ios', 'web'],
+    getter: () => RNDeviceInfo.getUserAgent(),
+  });
 
-export function getUserAgentSync() {
-  if (!userAgent) {
-    // getUserAgentSync is not available on iOS since it rely on an completion operation
-    if (Platform.OS === 'android' || Platform.OS === 'web') {
-      userAgent = RNDeviceInfo.getUserAgentSync();
-    } else {
-      userAgent = 'unknown';
-    }
-  }
-  return userAgent;
-}
+export const getUserAgentSync = () =>
+  getSupportedPlatformInfoSync({
+    memoKey: 'userAgent',
+    defaultValue: 'unknown',
+    supportedPlatforms: ['android', 'web'],
+    getter: () => RNDeviceInfo.getUserAgentSync(),
+  });
 
 export const [getFontScale, getFontScaleSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
