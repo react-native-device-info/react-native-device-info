@@ -657,3 +657,60 @@ describe('array getters', () => {
     });
   });
 });
+
+describe('Object Getters', () => {
+  describe('getPowerState*', () => {
+    const [_name, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
+      'getPowerState'
+    );
+    const supportedPlatforms = ['android', 'ios', 'windows', 'web'];
+
+    beforeEach(() => {
+      clearMemo();
+      asyncNativeGetter.mockClear();
+      syncNativeGetter.mockClear();
+    });
+
+    it('should have an async version', () => {
+      expect(typeof asyncGetter).toBe('function');
+    });
+
+    it('should have a sync version', () => {
+      expect(typeof syncGetter).toBe('function');
+    });
+
+    it.each(supportedPlatforms)(
+      'should call native async module function for supported platform, %s',
+      async (platform) => {
+        Platform.OS = platform as any;
+        const resp = await asyncGetter();
+        expect(resp).toEqual({});
+        expect(asyncNativeGetter).toHaveBeenCalled();
+      }
+    );
+
+    it.each(supportedPlatforms)(
+      'should call native sync module function for supported platform, %s',
+      (platform) => {
+        Platform.OS = platform as any;
+        const resp = syncGetter();
+        expect(resp).toEqual({});
+        expect(syncNativeGetter).toHaveBeenCalled();
+      }
+    );
+
+    it('should not call native sync module function on unsupported OS', () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = syncGetter();
+      expect(resp).toEqual({});
+      expect(syncNativeGetter).not.toHaveBeenCalled();
+    });
+
+    it('should not call native async module function on unsupported OS', async () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = await asyncGetter();
+      expect(resp).toEqual({});
+      expect(asyncNativeGetter).not.toHaveBeenCalled();
+    });
+  });
+});
