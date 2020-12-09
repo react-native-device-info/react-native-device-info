@@ -2,6 +2,15 @@
 
 ## Release Notes
 
+### 7.3.0
+
+- feat(android, build): add ability to specify firebase bill of materials for iid versioning (#1133, thanks @Dimon70007!)
+- fix(notch): add Redmi 9 to hasNotch list (#1140, thanks @esgudnason!) 
+- test: Adding more tests and refactoring some getters (#1136, thanks @schie!)
+- chore: dependency updates (@mikehardy)
+
+### 7.2.1
+
 - fix(test, mocks): extra comma syntax error in mock definition (#1134, thanks @DorianGrey!)
 
 ### 7.2.0
