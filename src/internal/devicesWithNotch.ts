@@ -222,6 +222,10 @@ const devicesWithNotch: NotchDevice[] = [
     model: 'U18',
   },
   {
+    brand: 'Redmi',
+    model: 'M2004J19C',
+  },
+  {
     brand: 'Sharp',
     model: 'Aquos S3',
   },
