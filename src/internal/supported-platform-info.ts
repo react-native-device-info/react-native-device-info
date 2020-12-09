@@ -27,10 +27,10 @@ function getSupportedFunction<T>(
   getter: Getter<T>,
   defaultGetter: Getter<T>
 ): Getter<T> {
-  let supportedMap : any = {};
+  let supportedMap: any = {};
   supportedPlatforms
     .filter((key) => Platform.OS == key)
-    .forEach((key) => supportedMap[key] = getter);
+    .forEach((key) => (supportedMap[key] = getter));
   return Platform.select({
     ...supportedMap,
     default: defaultGetter,
