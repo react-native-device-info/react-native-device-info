@@ -2,6 +2,10 @@
 
 ## Release Notes
 
+### 7.3.1
+
+- fix(android, test): drop mockito to 3.6.28 to fix android test build break (thanks @jamsch!)
+
 ### 7.3.0
 
 - feat(android, build): add ability to specify firebase bill of materials for iid versioning (#1133, thanks @Dimon70007!)
