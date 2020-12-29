@@ -370,6 +370,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌ |
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅ |
 | [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅ |
+| [isCatalyst()](#iscatalyst)                                       | `boolean`           |  ✅  |   ❌    |   ❌    | ❌ |
 | [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
 | [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
 | [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅ |
@@ -1308,6 +1309,18 @@ Tells if the battery is currently charging.
 DeviceInfo.isBatteryCharging().then(isCharging => {
   // true or false
 });
+```
+
+---
+
+### isCatalyst()
+
+Tells if the application is running on iOS or Mac Catalyst.
+
+#### Examples
+
+```js
+let isCatalyst = DeviceInfo.isCatalyst();
 ```
 
 ---

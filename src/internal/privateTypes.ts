@@ -126,6 +126,7 @@ interface ExposedNativeMethods {
   isBatteryChargingSync: () => boolean;
   isCameraPresent: () => Promise<boolean>;
   isCameraPresentSync: () => boolean;
+  isCatalyst: () => boolean;
   isEmulator: () => Promise<boolean>;
   isEmulatorSync: () => boolean;
   isHeadphonesConnected: () => Promise<boolean>;
@@ -162,6 +163,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   hasNotch: () => boolean;
   hasSystemFeature: (feature: string) => Promise<boolean>;
   hasSystemFeatureSync: (feature: string) => boolean;
+  isCatalyst: () => boolean;
   isLandscape: () => Promise<boolean>;
   isLandscapeSync: () => boolean;
   isTablet: () => boolean;

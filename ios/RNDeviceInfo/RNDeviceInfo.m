@@ -66,6 +66,7 @@ RCT_EXPORT_MODULE();
          @"brand": @"Apple",
          @"model": [self getModel],
          @"deviceType": [self getDeviceTypeName],
+         @"isCatalyst": @([self isCatalyst]),
      };
 }
 
@@ -508,6 +509,15 @@ RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(R
 - (NSString *) getDeviceTypeName {
     return [DeviceTypeValues objectAtIndex: [self getDeviceType]];
 }
+
+- (BOOL) isCatalyst {
+#if TARGET_OS_MACCATALYST
+    return YES;
+#else
+    return NO;
+#endif
+}
+
 
 - (NSArray *) getSupportedAbis {
     /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
