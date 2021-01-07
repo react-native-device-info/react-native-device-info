@@ -2,6 +2,10 @@
 
 ## Release Notes
 
+## 7.3.2
+
+- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
+
 ### 7.3.1
 
 - fix(android, test): drop mockito to 3.6.28 to fix android test build break (thanks @jamsch!)
@@ -145,10 +149,6 @@ all the help I can get. Cheers!
 - fix: memoization of static boolean return values (@jmheik)
 - fix: add mac catalyst compatibility to getCarrier (#973) (thanks @robertying!)
 - fix: add wider exception handling in install referrer (thanks @jmunozDevsu!)
-
-## 5.5.4
-
-- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
 
 ## 5.5.3
 
