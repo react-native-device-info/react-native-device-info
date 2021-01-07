@@ -2,6 +2,10 @@
 
 ## Release Notes
 
+## 7.3.2
+
+- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
+
 ### 7.3.1
 
 - fix(android, test): drop mockito to 3.6.28 to fix android test build break (thanks @jamsch!)
