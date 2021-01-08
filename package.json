@@ -30,7 +30,7 @@
     "flow-check": "npx flow-bin check-contents < src/index.js.flow",
     "ts-check": "npx tsc --noEmit",
     "clean": "cd example && npx react-native-clean-project --keep-node-modules --remove-iOS-build --remove-iOS-pods --remove-android-build --clean-android-project --keep-brew --keep-pods && \\rm -fr ios/Pods",
-    "dev-sync": "yarn build && cp -r *podspec lib windows android ios src jest example/node_modules/react-native-device-info/",
+    "dev-sync": "yarn build && cp -r package.json *podspec lib windows android ios src jest example/node_modules/react-native-device-info/",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
     "shipit": "yarn clean && np",
     "test": "jest",
