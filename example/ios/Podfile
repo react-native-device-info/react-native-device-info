@@ -8,13 +8,13 @@ target 'example' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  target 'example-app-extension' do
+    inherit! :complete
+  end
+
   target 'exampleTests' do
     inherit! :complete
     # Pods for testing
-  end
-
-  target 'example-app-extension' do
-    inherit! :complete
   end
 
   # Enables Flipper.
@@ -24,11 +24,6 @@ target 'example' do
   use_flipper!
   post_install do |installer|
     flipper_post_install(installer)
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
-      end
-    end
   end
 end
 
