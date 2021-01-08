@@ -1,6 +1,13 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 
-## Release Notes
+# CHANGELOG
+
+## 7.4.0
+
+- feat(android, install referrer): add ability to run without install referrer (#1153, thanks @saghul!)
+- feat(ios, catalyst): added DeviceTypeDesktop to getDeviceType() (#1137, thanks @exotexot!)
+- fix(android, install referrer): remove old install referrer api (#1150 @nicoburns!)
+- chore(ci, example): add ios/android CI, lint CI, de-lint project (@mikehardy)
 
 ## 7.3.2
 
@@ -13,7 +20,7 @@
 ### 7.3.0
 
 - feat(android, build): add ability to specify firebase bill of materials for iid versioning (#1133, thanks @Dimon70007!)
-- fix(notch): add Redmi 9 to hasNotch list (#1140, thanks @esgudnason!) 
+- fix(notch): add Redmi 9 to hasNotch list (#1140, thanks @esgudnason!)
 - test: Adding more tests and refactoring some getters (#1136, thanks @schie!)
 - chore: dependency updates (@mikehardy)
 
