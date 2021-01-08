@@ -11,23 +11,13 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 
 ## TOC
 
-- [v2 to v3 Upgrade](#v2-to-v3-upgrade)
-- [v3 to v4 Upgrade](#v3-to-v4-upgrade)
 - [Installation](#installation)
-- [Linking](#linking-for-react-native--059-only-react-native--060-skip-this-as-auto-linking-should-work)
+- [Linking](#linking)
 - [Usage](#usage)
 - [API](#api)
 - [Troubleshooting](#troubleshooting)
 - [Release Notes](#release-notes)
 - [react-native-dom / react-native-web](#react-native-dom)
-
-## v2 to v3 upgrade
-
-If you are upgrading from v2 to v3, check the guide out: https://github.com/react-native-community/react-native-device-info/wiki/V2-to-V3-Migration-Guide
-
-## v3 to v4 upgrade
-
-For those upgrading to v4, follow the v2 to v3 guide first, then follow this: https://github.com/react-native-community/react-native-device-info/wiki/V3-to-V4-Migration-Guide
 
 ## v6 to v7 upgrade
 
@@ -46,8 +36,6 @@ or using yarn:
 ```shell
 yarn add react-native-device-info
 ```
-
-> ⚠️ If you are on React Native > 0.47, you must use version 0.11.0 of this library or higher
 
 ## AndroidX Support
 
@@ -84,222 +72,13 @@ This module defaults to AndroidX you should configure your library versions simi
 
 If you need non-AndroidX you will need to use the jetifier package in reverse mode, documentation available with that package.
 
-## Linking (for React Native <= 0.59 only, React Native >= 0.60 skip this as auto-linking should work)
+## Linking
 
-### Automatic
+Linking in native modules is a frequent source of trouble for new react-native developers, resulting in errors like "RNDeviceInfo is null" etc. For this reason automatic linking was implemented, and it should be used in your project.
 
-```shell
-react-native link react-native-device-info
-```
+Automatic linking is supported for all platforms (even windows on React native >= 0.63!)
 
-(or using [`rnpm`](https://github.com/rnpm/rnpm) for versions of React Native < 0.27)
-
-```shell
-rnpm link react-native-device-info
-```
-
-_For iOS users using Pods_
-You still need to run `pod install` after running the above link command inside your `IOS` folder.
-
-_For Windows users_
-Automatic linking is supported on React native >= 0.63. Previous versions need to do manual linking.
-
-### Manual
-
-<details>
-    <summary>iOS (via CocoaPods) RN <= 59 </summary>
-
-RN <= 59: [`Bug`](https://github.com/react-native-community/react-native-device-info/issues/748)
-
-```
-mv ios/Podfile .
-react-native link react-native-device-info
-mv Podfile ios
-```
-
-Do _not_ append `pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'` to the Podfile
-
-</details>
-
-<details>
-    <summary>iOS (via CocoaPods) RN >= 60</summary>
-
-Add the following lines to your build targets in your `Podfile`
-
-```ruby
-pod 'React', :path => '../node_modules/react-native'
-
-# Explicitly include Yoga if you are using RN >= 0.42.0
-pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-
-pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
-
-# React-Native is not great about React double-including from the Podfile
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == "React"
-      target.remove_from_project
-    end
-
-    # It removes React & Yoga from the Pods project, as it is already included in the main project.
-    targets_to_ignore = %w(React yoga)
-    if targets_to_ignore.include? target.name
-      target.remove_from_project
-    end
-  end
-end
-```
-
-Then run `pod install`
-
-</details>
-
-<details>
-    <summary>iOS (without CocoaPods)</summary>
-
-In XCode, in the project navigator:
-
-- Right click _Libraries_
-- Add Files to _[your project's name]_
-- Go to `node_modules/react-native-device-info/ios`
-- Add the file `RNDeviceInfo.xcodeproj`
-
-In XCode, in the project navigator, select your project.
-
-- Add the `libRNDeviceInfo.a` from the _deviceinfo_ project to your project's _Build Phases ➜ Link Binary With Libraries_
-- Click `.xcodeproj` file you added before in the project navigator and go the _Build Settings_ tab. Make sure _All_ is toggled on (instead of _Basic_).
-- Look for _Header Search Paths_ and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React`
-- Mark both as recursive (should be OK by default).
-
-Run your project (Cmd+R)
-
-(Thanks to @brysgo for writing the instructions)
-
-</details>
-
-<details>
-    <summary>Android</summary>
-
-- **_optional_** in `android/build.gradle`:
-
-```gradle
-...
-  ext {
-    // dependency versions
-    googlePlayServicesVersion = "<Your play services version>" // default: "16.1.0" - pre-AndroidX, override for AndroidX
-    compileSdkVersion = "<Your compile SDK version>" // default: 28
-    targetSdkVersion = "<Your target SDK version>" // default: 28
-  }
-...
-```
-
-- in `android/app/build.gradle`:
-
-```diff
-dependencies {
-    ...
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-+   implementation project(':react-native-device-info')
-}
-```
-
-- in `android/settings.gradle`:
-
-```diff
-...
-include ':app'
-+ include ':react-native-device-info'
-+ project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
-```
-
-#### With React Native 0.29+
-
-- in `MainApplication.java`:
-
-```diff
-+ import com.learnium.RNDeviceInfo.RNDeviceInfo;
-
-  public class MainApplication extends Application implements ReactApplication {
-    //......
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-+         new RNDeviceInfo(),
-          new MainReactPackage()
-      );
-    }
-
-    ......
-  }
-```
-
-#### With older versions of React Native
-
-- in `MainActivity.java`:
-
-```diff
-+ import com.learnium.RNDeviceInfo.RNDeviceInfo;
-
-  public class MainActivity extends ReactActivity {
-    ......
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-+       new RNDeviceInfo(),
-        new MainReactPackage()
-      );
-    }
-  }
-```
-
-NOTE: If you faced with this error: `Could not resolve all files for configuration ':react-native-device-info:debugCompileClasspath'.`, in `build.gradle` put `google()` in the first line (according to https://stackoverflow.com/a/50748249)
-
-- in `android/build.gradle`:
-
-```diff
-allprojects {
-    repositories {
-+       google()
-        ...
-    }
-}
-```
-
-(Thanks to @chirag04 for writing the instructions)
-
-</details>
-
-<details>
-    <summary>Windows</summary>
-
-You can either use autolinking on react-native-windows 0.63 and later or manually link the module on earlier realeases.
-
-#### Manual installation on RNW >= 0.62
-- `npm install react-native-device-info --save`
-- Open your solution in Visual Studio 2019 (eg. `windows\yourapp.sln`)
-- Right-click Solution icon in Solution Explorer > Add > Existing Project...
-- Add `node_modules\react-native-device-info\windows\RNDeviceInfoCPP\RNDeviceInfoCPP.vcxproj`
-- Right-click main application project > Add > Reference...
-- Select `RNDeviceInfoCPP` in Solution Projects
-- In app `pch.h` add `#include "winrt/RNDeviceInfoCPP.h"`
-- In `App.cpp` add `PackageProviders().Append(winrt::RNDeviceInfoCPP::ReactPackageProvider());` before `InitializeComponent();`:
-
-```diff
-App::App() noexcept
-{
-...
-    PackageProviders().Append(make<ReactPackageProvider>()); // Includes all modules in this project
-+   PackageProviders().Append(winrt::RNDeviceInfoCPP::ReactPackageProvider());
-
-    InitializeComponent();
-}
-```
-
-### Manual installation on RNW 0.61
-Do the same steps as for 0.62, but use `node_modules\RNDeviceInfoCPP\windows\RNDeviceInfoCPP61\RNDeviceInfoCPP.vcxproj` in step 4.
-</details>
+Previous versions need to do manual linking. No support is offered for these previous react-native versions but you may refer to older versions of this README if you like. _Upgrade to modern versions of react-native. Use `upgrade-helper` tool on the internet if needed._
 
 ## Usage
 
@@ -317,80 +96,82 @@ Note that many APIs are platform-specific. If there is no implementation for a p
 
 Most APIs return a Promise but also have a corresponding API with `Sync` on the end that operates synchronously. For example, you may prefer to call `isCameraPresentSync()` during your app bootstrap to avoid async calls during the first parts of app startup.
 
+The example app in this repository shows an example usage of every single API, consult the example app if you have questions, and if you think you see a problem make sure you can reproduce it using the example app before reporting it, thank you.
+
 | Method                                                            | Return Type         |  iOS | Android | Windows | Web |
 | ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-: |
-| [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    | ❌ |
-| [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ✅ |
-| [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
-| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ✅ |
-| [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ❌ |
-| [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ❌ |
-| [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
-| [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌ |
-| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ❌ |
-| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ❌ |
-| [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
-| [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ❌ |
-| [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ✅ |
-| [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ❌ |
-| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌ |
-| [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ✅ |
-| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌ |
-| [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getSystemVersion()](#getsystemversion)                           | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌ |
-| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅ |
-| [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅ |
-| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅ |
-| [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌ |
-| [hasGms()](#hasGms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌ |
-| [hasHms()](#hasHms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌ |
-| [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌ |
-| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌ |
-| [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅ |
-| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ✅ |
-| [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
-| [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
-| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅ |
-| [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ❌ |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌ |
-| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌ |
-| [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌ |
-| [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌ |
-| [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | ❌ |
-| [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌ |
+| [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    | ❌  |
+| [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ✅  |
+| [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
+| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    | ✅  |
+| [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ❌  |
+| [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    | ❌  |
+| [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
+| [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌  |
+| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ❌  |
+| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ❌  |
+| [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
+| [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ❌  |
+| [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ✅  |
+| [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ❌  |
+| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
+| [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ✅  |
+| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
+| [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getSystemVersion()](#getsystemversion)                           | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅  |
+| [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
+| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅  |
+| [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [hasGms()](#hasGms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
+| [hasHms()](#hasHms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
+| [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
+| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
+| [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅  |
+| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ✅  |
+| [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
+| [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
+| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅  |
+| [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ❌  |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
+| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
+| [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
+| [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
+| [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | ❌  |
+| [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌  |
 
 ---
 
@@ -401,7 +182,7 @@ Gets the API level.
 #### Examples
 
 ```js
-DeviceInfo.getApiLevel().then(apiLevel => {
+DeviceInfo.getApiLevel().then((apiLevel) => {
   // iOS: ?
   // Android: 25
   // Windows: ?
@@ -421,7 +202,7 @@ Gets the ANDROID_ID. See [API documentation](https://developer.android.com/refer
 #### Examples
 
 ```js
-DeviceInfo.getAndroidId().then(androidId => {
+DeviceInfo.getAndroidId().then((androidId) => {
   // androidId here
 });
 ```
@@ -448,7 +229,7 @@ The base OS build the product is based on.
 #### Examples
 
 ```js
-DeviceInfo.getBaseOs().then(baseOs => {
+DeviceInfo.getBaseOs().then((baseOs) => {
   // "Windows", "Android" etc
 });
 ```
@@ -462,7 +243,7 @@ Gets the battery level of the device as a float comprised between 0 and 1.
 #### Examples
 
 ```js
-DeviceInfo.getBatteryLevel().then(batteryLevel => {
+DeviceInfo.getBatteryLevel().then((batteryLevel) => {
   // 0.759999
 });
 ```
@@ -489,7 +270,7 @@ The system bootloader version number.
 #### Examples
 
 ```js
-DeviceInfo.getBootloader().then(bootloader => {
+DeviceInfo.getBootloader().then((bootloader) => {
   // "mw8998-002.0069.00"
 });
 ```
@@ -547,10 +328,10 @@ Tells if the device have any camera now.
 
 ```js
 DeviceInfo.isCameraPresent()
-  .then(isCameraPresent => {
+  .then((isCameraPresent) => {
     // true or false
   })
-  .catch(cameraAccessException => {
+  .catch((cameraAccessException) => {
     // is thrown if a camera device could not be queried or opened by the CameraManager on Android
   });
 ```
@@ -569,7 +350,7 @@ Gets the carrier name (network operator).
 #### Examples
 
 ```js
-DeviceInfo.getCarrier().then(carrier => {
+DeviceInfo.getCarrier().then((carrier) => {
   // "SOFTBANK"
 });
 ```
@@ -583,7 +364,7 @@ The current development codename, or the string "REL" if this is a release build
 #### Examples
 
 ```js
-DeviceInfo.getCodename().then(codename => {
+DeviceInfo.getCodename().then((codename) => {
   // "REL"
 });
 ```
@@ -597,7 +378,7 @@ The name of the industrial design.
 #### Examples
 
 ```js
-DeviceInfo.getDevice().then(device => {
+DeviceInfo.getDevice().then((device) => {
   // "walleye"
 });
 ```
@@ -626,7 +407,7 @@ A build ID string meant for displaying to the user.
 #### Examples
 
 ```js
-DeviceInfo.getDisplay().then(display => {
+DeviceInfo.getDisplay().then((display) => {
   // "OPM2.171026.006.G1"
 });
 ```
@@ -640,7 +421,7 @@ Gets the device name.
 #### Examples
 
 ```js
-DeviceInfo.getDeviceName().then(deviceName => {
+DeviceInfo.getDeviceName().then((deviceName) => {
   // iOS: "Becca's iPhone 6"
   // Android: ?
   // Windows: ?
@@ -659,11 +440,10 @@ This will reject the promise when getDeviceToken is not supported, be careful wi
 #### Examples
 
 ```js
-DeviceInfo.getDeviceToken().then(deviceToken => {
+DeviceInfo.getDeviceToken().then((deviceToken) => {
   // iOS: "a2Jqsd0kanz..."
 });
 ```
-
 
 ---
 
@@ -674,7 +454,7 @@ Gets the time at which the app was first installed, in milliseconds.
 #### Examples
 
 ```js
-DeviceInfo.getFirstInstallTime().then(firstInstallTime => {
+DeviceInfo.getFirstInstallTime().then((firstInstallTime) => {
   // Android: 1517681764528
 });
 ```
@@ -688,7 +468,7 @@ A string that uniquely identifies this build.
 #### Examples
 
 ```js
-DeviceInfo.getFingerprint().then(fingerprint => {
+DeviceInfo.getFingerprint().then((fingerprint) => {
   // "google/walleye/walleye:8.1.0/OPM2.171026.006.G1/4820017:user/release-keys"
 });
 ```
@@ -704,7 +484,7 @@ This can be used to determine if accessability settings has been changed for the
 #### Examples
 
 ```js
-DeviceInfo.getFontScale().then(fontScale => {
+DeviceInfo.getFontScale().then((fontScale) => {
   // 1.2
 });
 ```
@@ -718,7 +498,7 @@ Method that gets available storage size, in bytes, taking into account both root
 #### Examples
 
 ```js
-DeviceInfo.getFreeDiskStorage().then(freeDiskStorage => {
+DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
   // Android: 17179869184
   // iOS: 17179869184
 });
@@ -737,7 +517,7 @@ Old implementation of method that gets available storage size, in bytes.
 #### Examples
 
 ```js
-DeviceInfo.getFreeDiskStorageOld().then(freeDiskStorage => {
+DeviceInfo.getFreeDiskStorageOld().then((freeDiskStorage) => {
   // Android: 17179869184
   // iOS: 17179869184
 });
@@ -780,7 +560,7 @@ Hostname
 #### Examples
 
 ```js
-DeviceInfo.getHost().then(host => {
+DeviceInfo.getHost().then((host) => {
   // "wprd10.hot.corp.google.com"
 });
 ```
@@ -795,7 +575,7 @@ Switch to @react-native-community/netinfo or react-native-network-info
 #### Examples
 
 ```js
-DeviceInfo.getIpAddress().then(ip => {
+DeviceInfo.getIpAddress().then((ip) => {
   // "92.168.32.44"
 });
 ```
@@ -817,7 +597,7 @@ The internal value used by the underlying source control to represent this build
 #### Examples
 
 ```js
-DeviceInfo.getIncremental().then(incremental => {
+DeviceInfo.getIncremental().then((incremental) => {
   // "4820017"
 });
 ```
@@ -831,7 +611,7 @@ The internal value used by the underlying source control to represent this build
 #### Examples
 
 ```js
-DeviceInfo.getInstallerPackageName().then(installerPackageName => {
+DeviceInfo.getInstallerPackageName().then((installerPackageName) => {
   // Play Store: "com.android.vending"
   // Amazon: "com.amazon.venezia"
   // Samsung App Store: "com.sec.android.app.samsungapps"
@@ -848,7 +628,7 @@ Gets the referrer string upon application installation.
 #### Examples
 
 ```js
-DeviceInfo.getInstallReferrer().then(installReferrer => {
+DeviceInfo.getInstallReferrer().then((installReferrer) => {
   // If the app was installed from https://play.google.com/store/apps/details?id=com.myapp&referrer=my_install_referrer
   // the result will be "my_install_referrer"
 });
@@ -863,7 +643,7 @@ Gets the application instance ID.
 #### Examples
 
 ```js
-DeviceInfo.getInstanceId().then(instanceId => {
+DeviceInfo.getInstanceId().then((instanceId) => {
   // Android: ?
 });
 ```
@@ -881,7 +661,7 @@ Gets the time at which the app was last updated, in milliseconds.
 #### Examples
 
 ```js
-DeviceInfo.getLastUpdateTime().then(lastUpdateTime => {
+DeviceInfo.getLastUpdateTime().then((lastUpdateTime) => {
   // Android: 1517681764992
 });
 ```
@@ -895,7 +675,7 @@ Gets the network adapter MAC address.
 #### Examples
 
 ```js
-DeviceInfo.getMacAddress().then(mac => {
+DeviceInfo.getMacAddress().then((mac) => {
   // "E5:12:D8:E5:69:97"
 });
 ```
@@ -917,7 +697,7 @@ Gets the device manufacturer.
 #### Examples
 
 ```js
-DeviceInfo.getManufacturer().then(manufacturer => {
+DeviceInfo.getManufacturer().then((manufacturer) => {
   // iOS: "Apple"
   // Android: "Google"
   // Windows: ?
@@ -933,7 +713,7 @@ Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 #### Examples
 
 ```js
-DeviceInfo.getMaxMemory().then(maxMemory => {
+DeviceInfo.getMaxMemory().then((maxMemory) => {
   // 402653183
 });
 ```
@@ -964,7 +744,7 @@ Gets the device phone number.
 #### Examples
 
 ```js
-DeviceInfo.getPhoneNumber().then(phoneNumber => {
+DeviceInfo.getPhoneNumber().then((phoneNumber) => {
   // Android: null return: no permission, empty string: unprogrammed or empty SIM1, e.g. "+15555215558": normal return value
 });
 ```
@@ -987,7 +767,7 @@ Displays a warning on iOS if battery monitoring not enabled, or if attempted on 
 #### Examples
 
 ```js
-DeviceInfo.getPowerState().then(state => {
+DeviceInfo.getPowerState().then((state) => {
   // {
   //   batteryLevel: 0.759999,
   //   batteryState: 'unplugged',
@@ -1005,7 +785,7 @@ The name of the overall product.
 #### Examples
 
 ```js
-DeviceInfo.getProduct().then(product => {
+DeviceInfo.getProduct().then((product) => {
   // "walleye"
 });
 ```
@@ -1019,7 +799,7 @@ The developer preview revision of a prerelease SDK.
 #### Examples
 
 ```js
-DeviceInfo.getPreviewSdkInt().then(previewSdkInt => {
+DeviceInfo.getPreviewSdkInt().then((previewSdkInt) => {
   // 0
 });
 ```
@@ -1048,7 +828,7 @@ Gets the device serial number. Will be 'unknown' in almost all cases [unless you
 #### Examples
 
 ```js
-DeviceInfo.getSerialNumber().then(serialNumber => {
+DeviceInfo.getSerialNumber().then((serialNumber) => {
   // iOS: unknown
   // Android: ? (maybe a serial number, if your app is privileged)
   // Windows: unknown
@@ -1064,7 +844,7 @@ The user-visible security patch level.
 #### Examples
 
 ```js
-DeviceInfo.getSecurityPatch().then(securityPatch => {
+DeviceInfo.getSecurityPatch().then((securityPatch) => {
   // "2018-07-05"
 });
 ```
@@ -1108,7 +888,7 @@ Gets build number of the operating system.
 #### Examples
 
 ```js
-DeviceInfo.getBuildId().then(buildId => {
+DeviceInfo.getBuildId().then((buildId) => {
   // iOS: "12A269"
   // tvOS: not available
   // Android: "13D15"
@@ -1125,7 +905,7 @@ Comma-separated tags describing the build.
 #### Examples
 
 ```js
-DeviceInfo.getTags().then(tags => {
+DeviceInfo.getTags().then((tags) => {
   // "release-keys, unsigned, debug",
 });
 ```
@@ -1139,7 +919,7 @@ The type of build.
 #### Examples
 
 ```js
-DeviceInfo.getType().then(type => {
+DeviceInfo.getType().then((type) => {
   // "user", "eng"
 });
 ```
@@ -1153,7 +933,7 @@ Method that gets full disk storage size, in bytes, taking into account both root
 #### Examples
 
 ```js
-DeviceInfo.getTotalDiskCapacity().then(capacity => {
+DeviceInfo.getTotalDiskCapacity().then((capacity) => {
   // Android: 17179869184
   // iOS: 17179869184
 });
@@ -1172,7 +952,7 @@ Old implementation of method that gets full disk storage size, in bytes.
 #### Examples
 
 ```js
-DeviceInfo.getTotalDiskCapacityOld().then(capacity => {
+DeviceInfo.getTotalDiskCapacityOld().then((capacity) => {
   // Android: 17179869184
   // iOS: 17179869184
 });
@@ -1187,7 +967,7 @@ Gets the device total memory, in bytes.
 #### Examples
 
 ```js
-DeviceInfo.getTotalMemory().then(totalMemory => {
+DeviceInfo.getTotalMemory().then((totalMemory) => {
   // 1995018240
 });
 ```
@@ -1232,7 +1012,7 @@ On other platforms it just call `getUniqueId()` in this module.
 #### Examples
 
 ```js
-DeviceInfo.syncUniqueId().then(uniqueId => {
+DeviceInfo.syncUniqueId().then((uniqueId) => {
   // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
   // Android: "dd96dec43fb81c97"
   // Windows: ?
@@ -1252,7 +1032,7 @@ Gets the app memory usage, in bytes.
 #### Examples
 
 ```js
-DeviceInfo.getUsedMemory().then(usedMemory => {
+DeviceInfo.getUsedMemory().then((usedMemory) => {
   // 23452345
 });
 ```
@@ -1266,7 +1046,7 @@ Gets the device User Agent.
 #### Examples
 
 ```js
-DeviceInfo.getUserAgent().then(userAgent => {
+DeviceInfo.getUserAgent().then((userAgent) => {
   // iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143"
   // tvOS: not available
   // Android: ?
@@ -1298,7 +1078,7 @@ Tells if the device is in Airplane Mode.
 #### Examples
 
 ```js
-DeviceInfo.isAirplaneMode().then(airplaneModeOn => {
+DeviceInfo.isAirplaneMode().then((airplaneModeOn) => {
   // false
 });
 ```
@@ -1316,7 +1096,7 @@ Tells if the battery is currently charging.
 #### Examples
 
 ```js
-DeviceInfo.isBatteryCharging().then(isCharging => {
+DeviceInfo.isBatteryCharging().then((isCharging) => {
   // true or false
 });
 ```
@@ -1330,7 +1110,7 @@ Tells if the application is running in an emulator.
 #### Examples
 
 ```js
-DeviceInfo.isEmulator().then(isEmulator => {
+DeviceInfo.isEmulator().then((isEmulator) => {
   // false
 });
 ```
@@ -1344,7 +1124,7 @@ Tells if a PIN number or a fingerprint was set for the device.
 #### Examples
 
 ```js
-DeviceInfo.isPinOrFingerprintSet().then(isPinOrFingerprintSet => {
+DeviceInfo.isPinOrFingerprintSet().then((isPinOrFingerprintSet) => {
   if (!isPinOrFingerprintSet) {
     // ...
   }
@@ -1373,7 +1153,7 @@ Tells if the device is currently in landscape mode.
 #### Examples
 
 ```js
-DeviceInfo.isLandscape().then(isLandscape => {
+DeviceInfo.isLandscape().then((isLandscape) => {
   // true
 });
 ```
@@ -1388,7 +1168,7 @@ Tells if the device supports Google Mobile Services.
 
 ```js
 let hasGms = DeviceInfo.hasGms();
-  // true
+// true
 ```
 
 ---
@@ -1401,7 +1181,7 @@ Tells if the device supports Huawei Mobile Services.
 
 ```js
 let hasHms = DeviceInfo.hasHms();
-  // true
+// true
 ```
 
 ---
@@ -1414,7 +1194,7 @@ Tells if the device has a notch.
 
 ```js
 let hasNotch = DeviceInfo.hasNotch();
-  // true
+// true
 ```
 
 ---
@@ -1444,7 +1224,7 @@ An ordered list of 32 bit ABIs supported by this device.
 #### Examples
 
 ```js
-DeviceInfo.supported32BitAbis().then(abis => {
+DeviceInfo.supported32BitAbis().then((abis) => {
   // ["armeabi-v7a", "armeabi"]
 });
 ```
@@ -1458,7 +1238,7 @@ An ordered list of 64 bit ABIs supported by this device.
 #### Examples
 
 ```js
-DeviceInfo.supported64BitAbis().then(abis => {
+DeviceInfo.supported64BitAbis().then((abis) => {
   // ["arm64-v8a"]
 });
 ```
@@ -1472,7 +1252,7 @@ Returns a list of supported processor architecture version
 #### Examples
 
 ```js
-DeviceInfo.supportedAbis().then(abis => {
+DeviceInfo.supportedAbis().then((abis) => {
   // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi" ]
 });
 ```
@@ -1486,7 +1266,7 @@ Tells if the device has a specific system feature.
 #### Examples
 
 ```js
-DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv').then(hasFeature => {
+DeviceInfo.hasSystemFeature('amazon.hardware.fire_tv').then((hasFeature) => {
   // true or false
 });
 ```
@@ -1500,7 +1280,7 @@ Returns a list of available system features on Android.
 #### Examples
 
 ```js
-DeviceInfo.getSystemAvailableFeatures().then(features => {
+DeviceInfo.getSystemAvailableFeatures().then((features) => {
   // ["android.software.backup", "android.hardware.screen.landscape", "android.hardware.wifi", ...]
 });
 ```
@@ -1512,7 +1292,7 @@ Tells if the device has location services turned off at the device-level (NOT re
 #### Examples
 
 ```js
-DeviceInfo.isLocationEnabled().then(enabled => {
+DeviceInfo.isLocationEnabled().then((enabled) => {
   // true or false
 });
 ```
@@ -1524,9 +1304,9 @@ Tells if the device is connected to wired headset or bluetooth headphones
 #### Examples
 
 ```js
-DeviceInfo.isHeadphonesConnected().then(enabled => {
+DeviceInfo.isHeadphonesConnected().then((enabled) => {
   // true or false
-})
+});
 ```
 
 ### getAvailableLocationProviders()
@@ -1538,7 +1318,7 @@ Returns an object of **platform-specfic** location providers/servcies, with `boo
 #### Android Example
 
 ```js
-DeviceInfo.getAvailableLocationProviders().then(providers => {
+DeviceInfo.getAvailableLocationProviders().then((providers) => {
   // {
   //   gps: true
   //   network: true
@@ -1550,7 +1330,7 @@ DeviceInfo.getAvailableLocationProviders().then(providers => {
 #### iOS Example
 
 ```js
-DeviceInfo.getAvailableLocationProviders().then(providers => {
+DeviceInfo.getAvailableLocationProviders().then((providers) => {
   // {
   //   headingAvailable: false
   //   isRangingAvailable: false
@@ -1571,18 +1351,18 @@ Fired when the battery level changes; sent no more frequently than once per minu
 #### Examples
 
 ```js
-import { useBatteryLevel } from 'react-native-device-info'
+import { useBatteryLevel } from 'react-native-device-info';
 
 const batteryLevel = useBatteryLevel(); // 0.759999
 
-<Text>{ batteryLevel }</Text>
+<Text>{batteryLevel}</Text>;
 ```
 
 ```js
 import { NativeEventEmitter, NativeModules } from 'react-native';
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 
-deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', level => {
+deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', (level) => {
   // 0.759999
 });
 ```
@@ -1602,18 +1382,18 @@ Fired when the battery drops is considered low
 #### Examples
 
 ```js
-import { useBatteryLevelIsLow } from 'react-native-device-info'
+import { useBatteryLevelIsLow } from 'react-native-device-info';
 
 const batteryLevelIsLow = useBatteryLevelIsLow(); // 0.19
 
-<Text>{ batteryLevelIsLow }</Text>
+<Text>{batteryLevelIsLow}</Text>;
 ```
 
 ```js
 import { NativeEventEmitter, NativeModules } from 'react-native';
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 
-deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', level => {
+deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', (level) => {
   // 0.19
 });
 ```
@@ -1627,11 +1407,11 @@ Fired when the battery state changes, for example when the device enters chargin
 #### Examples
 
 ```js
-import { usePowerState } from 'react-native-device-info'
+import { usePowerState } from 'react-native-device-info';
 
 const powerState = usePowerState(); // 'charging'
 
-<Text>{ powerState }</Text>
+<Text>{powerState}</Text>;
 ```
 
 ```js
@@ -1760,9 +1540,6 @@ if(deviceTypeResolver.isTablet){
   ...
 }
 ```
-
-
-
 
 ## Troubleshooting
 
