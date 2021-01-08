@@ -52,7 +52,7 @@ export function useOnEvent<T>(
   useEffect(() => {
     const subscription = deviceInfoEmitter.addListener(eventName, setResult);
     return () => subscription.remove();
-  }, []);
+  }, [eventName]);
 
   // loading will only be true while getting the inital value. After that, it will always be false, but a new result may occur
   return { loading, result };

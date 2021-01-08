@@ -14,9 +14,7 @@ describe('async-hook-wrappers', () => {
       expect(typeof useOnMount).toBe('function');
     });
     it('should return initial value before effect load', async () => {
-      const { result, waitForNextUpdate, unmount } = renderHook(() =>
-        useOnMount(asyncGetter, initialValue)
-      );
+      const { result, waitForNextUpdate } = renderHook(() => useOnMount(asyncGetter, initialValue));
       expect(result.current).toEqual({ loading: true, result: initialValue });
       await waitForNextUpdate();
     });

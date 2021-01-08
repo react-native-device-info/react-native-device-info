@@ -1,3 +1,4 @@
+/* eslint-disable no-undef -- jest is not defined and cannot be */
 const asyncFn = (response) => () => jest.fn(() => Promise.resolve(response));
 const syncFn = (response) => () => jest.fn(() => response);
 const makeFns = (response) => [asyncFn(response), syncFn(response)];

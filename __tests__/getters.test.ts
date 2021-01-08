@@ -211,7 +211,7 @@ describe('string getters', () => {
     });
 
     it('should not use native module for iOS (async)', async () => {
-      const resp = await RNDeviceInfo.getMacAddress();
+      await RNDeviceInfo.getMacAddress();
       expect(mockNativeModule.getMacAddress).not.toHaveBeenCalled();
     });
 
@@ -221,7 +221,7 @@ describe('string getters', () => {
     });
 
     it('should not use native module for iOS (sync)', () => {
-      const resp = RNDeviceInfo.getMacAddressSync();
+      RNDeviceInfo.getMacAddressSync();
       expect(mockNativeModule.getMacAddressSync).not.toHaveBeenCalled();
     });
   });
@@ -240,7 +240,7 @@ describe('string getters', () => {
     });
 
     it('should not use native module for iOS (async)', async () => {
-      const resp = await RNDeviceInfo.getManufacturer();
+      await RNDeviceInfo.getManufacturer();
       expect(mockNativeModule.getSystemManufacturer).not.toHaveBeenCalled();
     });
 
@@ -250,7 +250,7 @@ describe('string getters', () => {
     });
 
     it('should not use native module for iOS (sync)', () => {
-      const resp = RNDeviceInfo.getManufacturerSync();
+      RNDeviceInfo.getManufacturerSync();
       expect(mockNativeModule.getSystemManufacturerSync).not.toHaveBeenCalled();
     });
   });
@@ -758,7 +758,7 @@ describe('array getters', () => {
 
 describe('Object Getters', () => {
   describe('getPowerState*', () => {
-    const [_name, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
+    const [, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
       'getPowerState'
     );
     const supportedPlatforms = ['android', 'ios', 'windows', 'web'];
@@ -813,7 +813,7 @@ describe('Object Getters', () => {
   });
 
   describe('getAvailableLocationProviders*', () => {
-    const [_name, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
+    const [, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
       'getAvailableLocationProviders'
     );
     const supportedPlatforms = ['android', 'ios'];
