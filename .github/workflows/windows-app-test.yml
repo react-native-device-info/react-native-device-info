@@ -27,9 +27,12 @@ jobs:
         path: ./node_modules
         key: ${{ runner.os }}-yarn-base-${{ hashFiles('yarn.lock') }}
     - name: Install base node modules
+      uses: nick-invision/retry@v2
       if: steps.yarn-base-cache.outputs.cache-hit != 'true'
-      run: |
-        yarn --pure-lockfile
+      with:
+        max_attempts: 3
+        timeout_minutes: 3
+        command: yarn --pure-lockfile
 
     - name: Check example node modules cache
       uses: actions/cache@v1
@@ -38,10 +41,13 @@ jobs:
         path: ./example/node_modules
         key: ${{ runner.os }}-yarn-example-${{ hashFiles('./example/yarn.lock') }}
     - name: Install example modules
+      uses: nick-invision/retry@v2
       if: steps.yarn-example-cache.outputs.cache-hit != 'true'
-      run: |
-        cd example
-        yarn --pure-lockfile
+      with:
+        max_attempts: 3
+        timeout_minutes: 3
+        shell: pwsh
+        command: cd example; & yarn --pure-lockfile
 
     - name: Copy module
       run: |
