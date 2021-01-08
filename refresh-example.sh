@@ -41,9 +41,9 @@ npx react-native init example
 pushd example
 npx react-native-windows-init --overwrite
 yarn add github:react-native-community/react-native-device-info
-yarn add appium --dev
-yarn add selenium-appium --dev
-yarn add selenium-webdriver --dev
+yarn add appium@"1.18.3" --dev
+yarn add selenium-appium@"0.0.15" --dev
+yarn add selenium-webdriver@"4.0.0-alpha.7" --dev
 
 
 # react-native 0.60 is cocoapods mainly now, so run pod install after installing react-native-device-info
@@ -89,10 +89,6 @@ rm -f windows/example/Package.appxmanifest??
 
 # Add additional scripts to package.json
 npx json -I -f package.json -e "this.scripts.appium='appium'; this.scripts['test:windows']='yarn jest --config=./jest.windows.config.js'; this.scripts.windows='react-native run-windows'; this.jest.setupFiles=['./jest.setup.js'];"
-
-# Force resolution of appium-windows-driver 1.13.0, since the latest versions seem to have compatibility issues with selenium-appium.
-npx json -I -f package.json -e "this.resolutions={'appium/appium-windows-driver':'1.13.0'};"
-yarn
 
 # Copy the important files back in
 popd
