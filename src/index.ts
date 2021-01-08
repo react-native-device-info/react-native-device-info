@@ -559,8 +559,7 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
 });
 
 export const getDeviceType = () => {
-
-  if (Platform.OS === "windows") return "Desktop"
+  if (Platform.OS === 'windows') return 'Desktop';
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
@@ -568,11 +567,10 @@ export const getDeviceType = () => {
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.deviceType,
   });
-}
+};
 
 export const getDeviceTypeSync = () => {
-
-  if (Platform.OS === "windows") return "Desktop"
+  if (Platform.OS === 'windows') return 'Desktop';
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
@@ -580,7 +578,7 @@ export const getDeviceTypeSync = () => {
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.deviceType,
   });
-}
+};
 
 export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supportedAbis',
