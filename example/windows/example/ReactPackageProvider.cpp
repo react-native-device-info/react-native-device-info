@@ -2,7 +2,6 @@
 #include "ReactPackageProvider.h"
 #include "NativeModules.h"
 
-
 using namespace winrt::Microsoft::ReactNative;
 
 namespace winrt::example::implementation
@@ -14,5 +13,3 @@ void ReactPackageProvider::CreatePackage(IReactPackageBuilder const &packageBuil
 }
 
 } // namespace winrt::example::implementation
-
-

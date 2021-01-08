@@ -16,5 +16,3 @@ namespace winrt::example::implementation
         using super = AppT<App>;
     };
 } // namespace winrt::example::implementation
-
-

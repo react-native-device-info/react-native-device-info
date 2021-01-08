@@ -14,11 +14,16 @@ if [ -d TEMP ]; then
 else
   echo "Saving files to TEMP while refreshing scaffolding..."
   mkdir -p TEMP/android
-  mkdir -p TEMP/ios
+  mkdir -p TEMP/ios/example
+  mkdir -p TEMP/ios/example.xcodeproj
   mkdir -p TEMP/windows/example
   cp example/README.md TEMP/
   cp example/android/local.properties TEMP/android/ || true
   cp example/windows/example/example_TemporaryKey.pfx TEMP/windows/example/
+  cp -r example/ios/example-app-extension TEMP/ios/
+  cp example/ios/example/ActionExtension.h TEMP/ios/example/
+  cp example/ios/example/ActionExtension.m TEMP/ios/example/
+  cp example/ios/example.xcodeproj/project.pbxproj TEMP/ios/example.xcodeproj/
   cp example/App.js TEMP/
   cp example/jest.setup.js TEMP/
   cp example/jest.setup.js TEMP/
@@ -36,15 +41,20 @@ npx react-native init example
 pushd example
 npx react-native-windows-init --overwrite
 yarn add github:react-native-community/react-native-device-info
-yarn add appium --dev
-yarn add selenium-appium --dev
-yarn add selenium-webdriver --dev
 
-# react-native 0.60 does auto-linking! comment out manual link
-#npx react-native link react-native-device-info
+# Windows CI requires versions just a bit behind current in order to work #1155
+yarn add \
+  appium@1.18.3 \
+  selenium-appium@0.0.15 \
+  selenium-webdriver@4.0.0-alpha.7 --dev
+
 
 # react-native 0.60 is cocoapods mainly now, so run pod install after installing react-native-device-info
 cd ios && pod install && cd ..
+
+# Add our app extension back to the template Podfile
+sed -i -e $'s/^  target \'exampleTests\' do/  target \'example-app-extension\' do\\\n    inherit! :complete\\\n  end\\\n\\\n  target \'exampleTests\' do/' ios/Podfile
+rm -f ios/Podfile??
 
 # Patch the build.gradle directly to slice in our android play version
 # react-native 0.60 is AndroidX! Set up a bunch of AndroidX version
