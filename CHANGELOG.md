@@ -2,10 +2,19 @@
 
 # CHANGELOG
 
+## 8.0.0
+
+- BREAKING(ios, xcode): Xcode 12 required with #1137. Use 7.3.2 if you must use outdated Xcode (#1151)
+- feat(android, hms/gms): add ability to run without play services (#1156, thanks @saghul!)
+
+7.4.0 was inadvertently breaking. I hadn't realized any iOS developers failed to update Xcode to stable
+after an Xcode release. For a variety of reasons, you should always keep Xcode up to date, nevertheless
+dropping Xcode 11 support is breaking. Update your Xcode or use 7.3.2.
+
 ## 7.4.0
 
 - feat(android, install referrer): add ability to run without install referrer (#1153, thanks @saghul!)
-- feat(ios, catalyst): added DeviceTypeDesktop to getDeviceType() (#1137, thanks @exotexot!)
+- BREAKING feat(ios, catalyst): added DeviceTypeDesktop to getDeviceType() (#1137, thanks @exotexot!)
 - fix(android, install referrer): remove old install referrer api (#1150 @nicoburns!)
 - chore(ci, example): add ios/android CI, lint CI, de-lint project (@mikehardy)
 
