@@ -156,8 +156,8 @@ The example app in this repository shows an example usage of every single API, c
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅  |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
-| [hasGms()](#hasGms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
-| [hasHms()](#hasHms)                                               | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
+| [hasGms()](#hasGms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
+| [hasHms()](#hasHms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅  |
@@ -1167,8 +1167,9 @@ Tells if the device supports Google Mobile Services.
 #### Examples
 
 ```js
-let hasGms = DeviceInfo.hasGms();
-// true
+DeviceInfo.hasGms().then((hasGms) => {
+  // true
+});
 ```
 
 ---
@@ -1180,8 +1181,9 @@ Tells if the device supports Huawei Mobile Services.
 #### Examples
 
 ```js
-let hasHms = DeviceInfo.hasHms();
-// true
+DeviceInfo.hasHms().then((hasHms) => {
+  // true
+});
 ```
 
 ---
