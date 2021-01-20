@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
+import type { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
 
 export type NotchDevice = {
   brand: string;
