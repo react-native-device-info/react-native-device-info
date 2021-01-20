@@ -2,6 +2,10 @@
 
 # CHANGELOG
 
+## 8.0.1
+
+- Fix the exporting and importing of typings in ES6 build module (#1164, thanks @diego-antonelli!)
+
 ## 8.0.0
 
 - BREAKING(ios, xcode): Xcode 12 required with #1137. Use 7.3.2 if you must use outdated Xcode (#1151)

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
-import { AsyncHookResult } from './types';
+import type { AsyncHookResult } from './types';
 
 /**
  * simple hook wrapper for async functions for 'on-mount / componentDidMount' that only need to fired once

@@ -9,7 +9,12 @@ import {
   getSupportedPlatformInfoAsync,
 } from './internal/supported-platform-info';
 import { DeviceInfoModule } from './internal/privateTypes';
-import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from './internal/types';
+import type {
+  AsyncHookResult,
+  DeviceType,
+  LocationProviderInfo,
+  PowerState,
+} from './internal/types';
 
 export const getUniqueId = () =>
   getSupportedPlatformInfoSync({
@@ -762,7 +767,7 @@ export function useManufacturer(): AsyncHookResult<string> {
   return useOnMount(getManufacturer, 'unknown');
 }
 
-export { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
+export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
 const deviceInfoModule: DeviceInfoModule = {
   getAndroidId,
