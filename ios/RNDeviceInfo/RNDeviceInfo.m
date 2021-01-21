@@ -488,15 +488,28 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     resolve(@(self.getTotalDiskCapacity));
 }
 
-- (double) getFreeDiskStorage {
-    uint64_t freeSpace = 0;
-    NSDictionary *storage = [self getStorageDictionary];
-
-    if (storage) {
-        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
-        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+- (uint64_t) getFreeDiskStorage {
+    uint64_t totalFreeSpace = 0;
+    if (@available(iOS 11.0, *)) {
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:NSHomeDirectory()];
+        NSError *error = nil;
+        NSDictionary *results = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
+	    
+        if (results) {
+            totalFreeSpace = ((NSString *)results[NSURLVolumeAvailableCapacityForImportantUsageKey]).longLongValue;
+        }
+    } else {
+        NSError *error = nil;
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
+        
+        if (dictionary) {
+            NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+            totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        }
+        
     }
-    return (double) freeSpace;
+    return (uint64_t) totalFreeSpace;
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
