@@ -3,22 +3,6 @@ import { NotchDevice } from './privateTypes';
 const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'Apple',
-    model: 'iPhone 12 mini',
-  },
-  {
-    brand: 'Apple',
-    model: 'iPhone 12',
-  },
-  {
-    brand: 'Apple',
-    model: 'iPhone 12 Pro',
-  },
-  {
-    brand: 'Apple',
-    model: 'iPhone 12 Pro Max',
-  },
-  {
-    brand: 'Apple',
     model: 'iPhone 11',
   },
   {
@@ -56,10 +40,6 @@ const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'google',
     model: 'Pixel 3 XL',
-  },
-  {
-    brand: 'google',
-    model: 'Pixel 3a',
   },
   {
     brand: 'Huawei',
@@ -222,10 +202,6 @@ const devicesWithNotch: NotchDevice[] = [
     model: 'U18',
   },
   {
-    brand: 'Redmi',
-    model: 'M2004J19C',
-  },
-  {
     brand: 'Sharp',
     model: 'Aquos S3',
   },
@@ -283,10 +259,6 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'xiaomi',
-    model: 'Redmi 7',
-  },
-  {
-    brand: 'xiaomi',
     model: 'Redmi Note 8',
   },
   {
@@ -296,10 +268,6 @@ const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'Blackview',
     model: 'A30',
-  },
-  {
-    brand: 'Samsung',
-    model: 'SM-A217F',
   },
 ];
 

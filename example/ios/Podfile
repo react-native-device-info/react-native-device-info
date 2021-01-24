@@ -8,10 +8,6 @@ target 'example' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'example-app-extension' do
-    inherit! :complete
-  end
-
   target 'exampleTests' do
     inherit! :complete
     # Pods for testing

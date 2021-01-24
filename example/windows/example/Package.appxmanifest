@@ -6,8 +6,8 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity
-    Name="RNDeviceInfoExample"
+ <Identity
+    Name="0192fe56-e7af-4f97-bfab-0b34c143d446"
     Publisher="CN=tepaa"
     Version="1.0.0.0" />
 
@@ -28,8 +28,7 @@
   </Resources>
 
   <Applications>
-    <Application
-      Id="App"
+    <Application Id="App"
       Executable="$targetnametoken$.exe"
       EntryPoint="example.App">
       <uap:VisualElements

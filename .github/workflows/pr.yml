@@ -1,0 +1,29 @@
+name: PR
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  Windows:
+    name: Windows
+    runs-on: windows-2016
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v2
+      - uses: warrenbuckley/Setup-MSBuild@v1
+      - uses: warrenbuckley/Setup-Nuget@v1
+      - uses: fbactions/setup-winsdk@v1
+      - run: yarn --frozen-lockfile
+      - run: yarn build
+      - name: Init new project
+        run: cd ${{ runner.temp }} && npx react-native-cli init testcli --version 0.59.10
+      - name: Install rnpm-plugin-windows
+        run: cd ${{ runner.temp }}\testcli && yarn add rnpm-plugin-windows
+      - name: Generate React Native Windows template project
+        run: cd ${{ runner.temp }}\testcli && yarn react-native windows --template legacy
+      - name: Install react-native-device-info from local directory
+        run: cd ${{ runner.temp }}\testcli && yarn add react-native-device-info@file:${{ runner.workspace }}\react-native-device-info
+      - name: Nuget restore
+        run: cd ${{ runner.temp }}\testcli && nuget restore windows\testcli.sln
+      - name: Build Windows Solution
+        run: cd ${{ runner.temp }}\testcli && msbuild windows\testcli.sln /nologo /nr:false /p:PreferredToolArchitecture=x64 /p:platform=x86 /p:configuration=Debug

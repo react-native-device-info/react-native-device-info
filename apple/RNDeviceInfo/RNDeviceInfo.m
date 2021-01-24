@@ -25,11 +25,11 @@ typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeHandset,
     DeviceTypeTablet,
     DeviceTypeTv,
-    DeviceTypeDesktop,
+    DeviceTypeMac,
     DeviceTypeUnknown
 };
 
-#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"unknown", nil]
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Mac", @"unknown", nil]
 
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
@@ -57,7 +57,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange"];
+    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange"];
 }
 
 - (NSDictionary *)constantsToExport {
@@ -96,10 +96,6 @@ RCT_EXPORT_MODULE();
                                                  selector:@selector(powerStateDidChange:)
                                                      name:NSProcessInfoPowerStateDidChangeNotification
                                                    object: nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(headphoneConnectionDidChange:)
-                                                     name:AVAudioSessionRouteChangeNotification
-                                                   object: [AVAudioSession sharedInstance]];
 #endif
     }
 
@@ -119,9 +115,8 @@ RCT_EXPORT_MODULE();
 #if (!TARGET_OS_OSX)
     switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
         case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
-        case UIUserInterfaceIdiomPad: return TARGET_OS_MACCATALYST ? DeviceTypeDesktop : DeviceTypeTablet;
+        case UIUserInterfaceIdiomPad: return DeviceTypeTablet;
         case UIUserInterfaceIdiomTV: return DeviceTypeTv;
-        case UIUserInterfaceIdiomMac: return DeviceTypeDesktop;
         default: return DeviceTypeUnknown;
     }
 #endif
@@ -268,10 +263,6 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"iPhone12,1": @"iPhone 11",
         @"iPhone12,3": @"iPhone 11 Pro",
         @"iPhone12,5": @"iPhone 11 Pro Max",
-        @"iPhone13,1": @"iPhone 12 mini",
-        @"iPhone13,2": @"iPhone 12",
-        @"iPhone13,3": @"iPhone 12 Pro",
-        @"iPhone13,4": @"iPhone 12 Pro Max",
         @"iPhone12,8": @"iPhone SE", // (2nd Generation iPhone SE)
         @"iPad4,1": @"iPad Air", // 5th Generation iPad (iPad Air) - Wifi
         @"iPad4,2": @"iPad Air", // 5th Generation iPad (iPad Air) - Cellular
@@ -590,13 +581,13 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 #if !TARGET_OS_OSX
     // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
     float fontScale = 1.0;
-    UITraitCollection *traitCollection = [[UIScreen mainScreen] traitCollection];
+    UIApplication *application = RCTSharedApplication();
 
     // Shared application is unavailable in an app extension.
-    if (traitCollection) {
+    if (application) {
         __block NSString *contentSize = nil;
         RCTUnsafeExecuteOnMainQueueSync(^{
-            contentSize = traitCollection.preferredContentSizeCategory;
+            contentSize = application.preferredContentSizeCategory;
         });
 
         if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
@@ -782,14 +773,6 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
         return;
     }
     [self sendEventWithName:@"RNDeviceInfo_powerStateDidChange" body:self.powerState];
-}
-
-- (void) headphoneConnectionDidChange:(NSNotification *)notification {
-    if (!hasListeners) {
-        return;
-    }
-    BOOL isConnected = [self isHeadphonesConnected];
-    [self sendEventWithName:@"RNDeviceInfo_headphoneConnectionDidChange" body:[NSNumber numberWithBool:isConnected]];
 }
 
 - (NSDictionary *) powerState {

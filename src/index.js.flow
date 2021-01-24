@@ -1,6 +1,6 @@
 // @flow
 
-export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Desktop' | 'unknown';
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'unknown';
 
 export type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
 
@@ -154,6 +154,4 @@ declare module.exports: {
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>,
   useIsEmulator: () => AsyncHookResult<boolean>,
   usePowerState: () => PowerState | {},
-  useManufacturer: () => AsyncHookResult<string>,
-  useIsHeadphonesConnected: () => AsyncHookResult<boolean>,
 };

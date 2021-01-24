@@ -44,7 +44,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.learnium.RNDeviceInfo.resolver.DeviceIdResolver;
 import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
-import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -69,7 +68,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private final DeviceTypeResolver deviceTypeResolver;
   private final DeviceIdResolver deviceIdResolver;
   private BroadcastReceiver receiver;
-  private BroadcastReceiver headphoneConnectionReceiver;
   private RNInstallReferrerClient installReferrerClient;
 
   private double mLastBatteryLevel = -1;
@@ -129,30 +127,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     };
 
     getReactApplicationContext().registerReceiver(receiver, filter);
-    initializeHeadphoneConnectionReceiver();
-  }
-
-  private void initializeHeadphoneConnectionReceiver() {
-    IntentFilter filter = new IntentFilter();
-    filter.addAction(AudioManager.ACTION_HEADSET_PLUG);
-    filter.addAction(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED);
-
-    headphoneConnectionReceiver = new BroadcastReceiver() {
-      @Override
-      public void onReceive(Context context, Intent intent) {
-        boolean isConnected = isHeadphonesConnectedSync();
-        sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneConnectionDidChange", isConnected);
-      }
-    };
-
-    getReactApplicationContext().registerReceiver(headphoneConnectionReceiver, filter);
   }
 
 
   @Override
   public void onCatalystInstanceDestroy() {
     getReactApplicationContext().unregisterReceiver(receiver);
-    getReactApplicationContext().unregisterReceiver(headphoneConnectionReceiver);
   }
 
 
@@ -498,38 +478,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void isAirplaneMode(Promise p) { p.resolve(isAirplaneModeSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public boolean hasGmsSync() {
-    try {
-      Class<?> googleApiAvailability = Class.forName("com.google.android.gms.common.GoogleApiAvailability");
-      Method getInstanceMethod = googleApiAvailability.getMethod("getInstance");
-      Object gmsObject = getInstanceMethod.invoke(null);
-      Method isGooglePlayServicesAvailableMethod = gmsObject.getClass().getMethod("isGooglePlayServicesAvailable", Context.class);
-      int isGMS = (int) isGooglePlayServicesAvailableMethod.invoke(gmsObject, getReactApplicationContext());
-      return isGMS == 0; // ConnectionResult.SUCCESS
-    } catch (Exception e) {
-      return false;
-    }
-  }
-  @ReactMethod
-  public void hasGms(Promise p) { p.resolve(hasGmsSync()); }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public boolean hasHmsSync() {
-    try {
-      Class<?> huaweiApiAvailability = Class.forName("com.huawei.hms.api.HuaweiApiAvailability");
-      Method getInstanceMethod = huaweiApiAvailability.getMethod("getInstance");
-      Object hmsObject = getInstanceMethod.invoke(null);
-      Method isHuaweiMobileServicesAvailableMethod = hmsObject.getClass().getMethod("isHuaweiMobileServicesAvailable", Context.class);
-      int isHMS = (int) isHuaweiMobileServicesAvailableMethod.invoke(hmsObject, getReactApplicationContext());
-      return isHMS == 0; // ConnectionResult.SUCCESS
-    } catch (Exception e) {
-      return false;
-    }
-  }
-  @ReactMethod
-  public void hasHms(Promise p) { p.resolve(hasHmsSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean hasSystemFeatureSync(String feature) {

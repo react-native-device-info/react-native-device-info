@@ -1,103 +1,20 @@
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 
-# CHANGELOG
-
-## 8.0.1
-
-- Fix the exporting and importing of typings in ES6 build module (#1164, thanks @diego-antonelli!)
-
-## 8.0.0
-
-- BREAKING(ios, xcode): Xcode 12 required with #1137. Use 7.3.2 if you must use outdated Xcode (#1151)
-- feat(android, hms/gms): add ability to run without play services (#1156, thanks @saghul!)
-
-7.4.0 was inadvertently breaking. I hadn't realized any iOS developers failed to update Xcode to stable
-after an Xcode release. For a variety of reasons, you should always keep Xcode up to date, nevertheless
-dropping Xcode 11 support is breaking. Update your Xcode or use 7.3.2.
-
-## 7.4.0
-
-- feat(android, install referrer): add ability to run without install referrer (#1153, thanks @saghul!)
-- BREAKING feat(ios, catalyst): added DeviceTypeDesktop to getDeviceType() (#1137, thanks @exotexot!)
-- fix(android, install referrer): remove old install referrer api (#1150 @nicoburns!)
-- chore(ci, example): add ios/android CI, lint CI, de-lint project (@mikehardy)
-
-## 7.3.2
-
-- fix: remove deprecated way of retrieving INSTALL_REFERRER on Android (#965) (@Minishlink)
-
-### 7.3.1
-
-- fix(android, test): drop mockito to 3.6.28 to fix android test build break (thanks @jamsch!)
-
-### 7.3.0
-
-- feat(android, build): add ability to specify firebase bill of materials for iid versioning (#1133, thanks @Dimon70007!)
-- fix(notch): add Redmi 9 to hasNotch list (#1140, thanks @esgudnason!)
-- test: Adding more tests and refactoring some getters (#1136, thanks @schie!)
-- chore: dependency updates (@mikehardy)
-
-### 7.2.1
-
-- fix(test, mocks): extra comma syntax error in mock definition (#1134, thanks @DorianGrey!)
-
-### 7.2.0
-
-- feat(windows): implement additional methods (#1122, thanks @jaimecbernardo!)
-- feat(windows): port C# Windows implementation to C++ (#1113, thanks @jaimecbernardo!)
-- feat(test, mocks): adding rest of jest mocks (#1132, thanks @schie!)
-- fix(ios, keychain): change keychain access control to non-deprecated value (#1131, thanks @dmitry-bluescape!)
-
-### 7.1.0
-
-- feat(hasHms): added `hasHms` to indicate if Android device supports Huawei Mobile Services. (#1129, thanks @craig95!)
-- feat(hasGms): added `hasGms` to indicate if Android device supports Google Mobile Services. (#1129, thanks @craig95!)
-
-This release includes a truly enormous amount of testing and internal refactoring work that has made the module much
-easier to maintain, all courtesy of @schie in the form of a pile of PRs implementing the same. Thank you, Dustin Schie!
-
-### 7.0.2
-
-- fix(windows): remove use of Object.fromEntries (#1110, thanks @jaimecbernardo!)
-
-### 7.0.1
-
-- fix(hasNotch): fix missing Redmi 7 and Pixel 3a model name in devicesWithNotch.ts (#1107, thanks @tronin!)
-- fix(hasNotch): fix missing Samsung A21s model in devicesWithNotch (#1106, thanks @djhr!)
-
-### 7.0.0
-
-- BREAKING CHANGE: Increase iOS minimum to iOS 10. Stay on 6.x if you need to support iOS 9
-- fix(iOS): supporting `getFontScale` in App Extensions (#1097, thanks @schie!)
-- feat(mocks): add default set of mocks (#1102, thanks @schie!)
-
-The change to iOS10 minimum was required to fix getFontScale for App Extensions
-react-native 0.63 already requires iOS 10 minimum, so this is in harmony with the ecosystem
-
-### 6.2.0
-
-- feat(hooks): add useIsHeadphonesConnected hook (#1084, thanks again @schie!)
-
-### 6.1.0
-
-- feat(hooks): add useManufacturer hook (#1083, thanks @schie!)
-- fix(types): add returnType to getPowerState (#1082, thanks @ferdicus!)
+# Release Notes
 
 ### 6.0.4
 
-- fix(android): fix swapped data/root values in getFreeDiskStorageSync (#1077, thanks @violetchow2611!)
+ * fix(android): fix swapped data/root values in getFreeDiskStorageSync (#1077, thanks @violetchow2611!)
 
 ### 6.0.3
 
-- fix: Xcode 12 compatibility (thanks @radko93! #1075)
+ * fix: Xcode 12 compatibility (thanks @radko93! #1075)
 
 ### 6.0.2
-
-- fix(windows): Targetplatform change for cpp apps to use this module (#1072, thanks @tero-paananen!)
+ * fix(windows): Targetplatform change for cpp apps to use this module (#1072, thanks @tero-paananen!)
 
 ### 6.0.1
-
-- Added the 2nd generation iPhone SE to the deviceNamesByCode list (#1068, thanks @steve-lorenz!)
+ * Added the 2nd generation iPhone SE to the deviceNamesByCode list (#1068, thanks @steve-lorenz!)
 
 ## 6.0.0
 

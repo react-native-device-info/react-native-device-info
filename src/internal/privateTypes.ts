@@ -1,5 +1,4 @@
-import { Platform } from 'react-native';
-import type { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
+import { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
 
 export type NotchDevice = {
   brand: string;
@@ -118,10 +117,6 @@ interface ExposedNativeMethods {
   getUsedMemorySync: () => number;
   getUserAgent: () => Promise<string>;
   getUserAgentSync: () => string;
-  hasGms: () => Promise<boolean>;
-  hasGmsSync: () => boolean;
-  hasHms: () => Promise<boolean>;
-  hasHmsSync: () => boolean;
   hasSystemFeature: (feature: string) => Promise<boolean>;
   hasSystemFeatureSync: (feature: string) => boolean;
   isAirplaneMode: () => Promise<boolean>;
@@ -182,31 +177,4 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>;
   useIsEmulator: () => AsyncHookResult<boolean>;
   usePowerState: () => PowerState | {};
-  useManufacturer: () => AsyncHookResult<string>;
-  useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
-}
-
-export type Getter<T> = () => T;
-export type PlatformArray = typeof Platform.OS[];
-
-export interface GetSupportedPlatformInfoSyncParams<T> {
-  getter: Getter<T>;
-  supportedPlatforms: PlatformArray;
-  defaultValue: T;
-  memoKey?: string;
-}
-
-export interface GetSupportedPlatformInfoAsyncParams<T>
-  extends Omit<GetSupportedPlatformInfoSyncParams<T>, 'getter'> {
-  getter: Getter<Promise<T>>;
-}
-
-export interface GetFilterPlatformFunctionsParams<T>
-  extends GetSupportedPlatformInfoAsyncParams<T> {
-  syncGetter: Getter<T>;
-}
-
-export interface GetSupportedPlatformInfoFunctionsParams<T>
-  extends GetSupportedPlatformInfoAsyncParams<T> {
-  syncGetter: Getter<T>;
 }

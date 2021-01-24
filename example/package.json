@@ -7,37 +7,25 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "appium": "appium",
-    "test:windows": "yarn jest --config=./jest.windows.config.js",
-    "windows": "react-native run-windows"
+    "lint": "eslint ."
   },
   "dependencies": {
     "react": "16.13.1",
-    "react-native": "0.63.4",
-    "react-native-device-info": "github:react-native-community/react-native-device-info",
-    "react-native-windows": "^0.63.0-0"
+    "react-native": "^0.62.2",
+    "react-native-windows": "^0.62.5",
+    "react-native-device-info": "github:react-native-community/react-native-device-info"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
-    "appium": "1.18.3",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
-    "react-test-renderer": "16.13.1",
-    "selenium-appium": "0.0.15",
-    "selenium-webdriver": "4.0.0-alpha.7"
+    "react-test-renderer": "16.13.1"
   },
   "jest": {
-    "preset": "react-native",
-    "setupFiles": [
-      "./jest.setup.js"
-    ]
-  },
-  "resolutions": {
-    "appium/appium-windows-driver": "1.13.0"
+    "preset": "react-native"
   }
 }
