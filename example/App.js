@@ -7,7 +7,7 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
+import React, {Component, useCallback, memo} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -15,6 +15,7 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
+  NativeModules,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {
@@ -26,8 +27,10 @@ import {
   usePowerState,
   useFirstInstallTime,
   useDeviceName,
+  useManufacturer,
   useHasSystemFeature,
   useIsEmulator,
+  useIsHeadphonesConnected,
 } from 'react-native-device-info';
 
 const FunctionalComponent = () => {
@@ -36,26 +39,56 @@ const FunctionalComponent = () => {
   const powerState = usePowerState();
   const firstInstallTime = useFirstInstallTime();
   const deviceName = useDeviceName();
+  const manufacturer = useManufacturer();
   const hasSystemFeature = useHasSystemFeature('amazon.hardware.fire_tv');
   const isEmulator = useIsEmulator();
+  const isHeadphonesConnected = useIsHeadphonesConnected();
   const deviceJSON = {
     batteryLevel,
     batteryLevelIsLow,
     powerState,
     firstInstallTime,
     deviceName,
+    manufacturer,
     hasSystemFeature,
     isEmulator,
+    isHeadphonesConnected,
   };
 
   return (
     <ScrollView>
-      <Text style={styles.instructions}>
+      <Text style={styles.instructions} testID="hooks tab contents">
         {JSON.stringify(deviceJSON, null, '  ')}
       </Text>
     </ScrollView>
   );
 };
+
+const ActionExtensionHeader = memo(({isActionExtension}) => {
+  const onDonePress = useCallback(() => {
+    NativeModules.ActionExtension.done();
+  }, []);
+  return isActionExtension ? (
+    <View style={{minHeight: 50, flexDirection: 'row', margin: 10}}>
+      <TouchableOpacity onPress={onDonePress}>
+        <View
+          style={{
+            backgroundColor: 'red',
+            borderRadius: 20,
+            minWidth: 80,
+            minHeight: 40,
+            alignContent: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>Done</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  ) : (
+    <View />
+  );
+});
 
 export default class App extends Component {
   constructor(props) {
@@ -147,6 +180,8 @@ export default class App extends Component {
     deviceJSON.incremental = DeviceInfo.getIncrementalSync();
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
+    deviceJSON.hasGms = DeviceInfo.hasGmsSync();
+    deviceJSON.hasHms = DeviceInfo.hasHmsSync();
 
     return deviceJSON;
   }
@@ -212,6 +247,8 @@ export default class App extends Component {
       deviceJSON.incremental = await DeviceInfo.getIncremental();
       deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
       deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
+      deviceJSON.hasGms = await DeviceInfo.hasGms();
+      deviceJSON.hasHms = await DeviceInfo.hasHms();
       deviceJSON.synchronizedUniqueId = await DeviceInfo.syncUniqueId();
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
@@ -231,13 +268,16 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <ActionExtensionHeader
+          isActionExtension={this.props.isActionExtension}
+        />
         {this.state.activeTab === 'constant' ? (
           <>
             <Text style={styles.welcome}>
               react-native-device-info example - constant info:
             </Text>
             <ScrollView>
-              <Text style={styles.instructions}>
+              <Text style={styles.instructions} testID="constant tab contents">
                 {JSON.stringify(this.state.constantdeviceinfo, null, '  ')}
               </Text>
             </ScrollView>
@@ -248,7 +288,7 @@ export default class App extends Component {
               react-native-device-info example - sync info:
             </Text>
             <ScrollView>
-              <Text style={styles.instructions}>
+              <Text style={styles.instructions} testID="sync tab contents">
                 {JSON.stringify(this.state.syncdeviceinfo, null, '  ')}
               </Text>
             </ScrollView>
@@ -259,7 +299,7 @@ export default class App extends Component {
               react-native-device-info example - async info:
             </Text>
             <ScrollView>
-              <Text style={styles.instructions}>
+              <Text style={styles.instructions} testID="async tab contents">
                 {JSON.stringify(this.state.asyncdeviceinfo, null, '  ')}
               </Text>
             </ScrollView>
@@ -276,6 +316,7 @@ export default class App extends Component {
         <View style={styles.tabBar}>
           <TouchableOpacity
             style={styles.tab}
+            testID="constant button"
             onPress={() => this.setState({activeTab: 'constant'})}>
             <Text
               style={[
@@ -288,6 +329,7 @@ export default class App extends Component {
 
           <TouchableOpacity
             style={styles.tab}
+            testID="sync button"
             onPress={() => this.setState({activeTab: 'sync'})}>
             <Text
               style={[
@@ -300,6 +342,7 @@ export default class App extends Component {
 
           <TouchableOpacity
             style={styles.tab}
+            testID="async button"
             onPress={() => this.setState({activeTab: 'async'})}>
             <Text
               style={[
@@ -312,6 +355,7 @@ export default class App extends Component {
 
           <TouchableOpacity
             style={styles.tab}
+            testID="hooks button"
             onPress={() => this.setState({activeTab: 'hooks'})}>
             <Text
               style={[

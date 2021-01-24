@@ -71,3 +71,9 @@ windows/RNDeviceInfo/obj
 windows/.vs
 windows/packages
 windows/RNDeviceInfo/.vs/*
+
+# MSBuild Binary and Structured Log
+example/*.binlog
+
+# Debug log
+example/debug.log
