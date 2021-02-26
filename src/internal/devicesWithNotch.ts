@@ -62,6 +62,10 @@ const devicesWithNotch: NotchDevice[] = [
     model: 'Pixel 3a',
   },
   {
+    brand: 'google',
+    model: 'Pixel 4a',
+  },
+  {
     brand: 'Huawei',
     model: 'P20',
   },
