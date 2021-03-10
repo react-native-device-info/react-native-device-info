@@ -44,7 +44,7 @@
     "precommit": "lint-staged && yarn analyze",
     "build": "bob build",
     "prepare": "bob build",
-    "postinstall": "husky install"
+    "postinstall": "npm husky install"
   },
   "lint-staged": {
     "*.ts": [
