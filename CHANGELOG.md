@@ -2,6 +2,13 @@
 
 # CHANGELOG
 
+## 8.0.4
+
+fix: prefix husky install with with npm or package install fails
+
+Husky is just a pre-commit hook package we use for QA, quite unfortunate that as
+we ported to the next major version in v8.0.3 I broke the install for everyone. Apologies! @mikehardy
+
 ## 8.0.3
 
 - fix(types, PowerState): use Partial<PowerState> vs union with '{}' (#1175, thanks @vvscode!)
