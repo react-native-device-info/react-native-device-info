@@ -43,8 +43,7 @@
     "test": "jest",
     "precommit": "lint-staged && yarn analyze",
     "build": "bob build",
-    "prepare": "bob build",
-    "postinstall": "npm husky install"
+    "prepare": "bob build"
   },
   "lint-staged": {
     "*.ts": [
