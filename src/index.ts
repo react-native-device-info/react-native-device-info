@@ -532,7 +532,7 @@ export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFu
 });
 
 export const [getPowerState, getPowerStateSync] = getSupportedPlatformInfoFunctions<
-  PowerState | {}
+  Partial<PowerState>
 >({
   supportedPlatforms: ['ios', 'android', 'windows', 'web'],
   getter: () => RNDeviceInfo.getPowerState(),
@@ -716,12 +716,12 @@ export function useBatteryLevelIsLow(): number | null {
   return batteryLevelIsLow;
 }
 
-export function usePowerState(): PowerState | {} {
-  const [powerState, setPowerState] = useState<PowerState | {}>({});
+export function usePowerState(): Partial<PowerState> {
+  const [powerState, setPowerState] = useState<Partial<PowerState>>({});
 
   useEffect(() => {
     const setInitialValue = async () => {
-      const initialValue: PowerState | {} = await getPowerState();
+      const initialValue: Partial<PowerState> = await getPowerState();
       setPowerState(initialValue);
     };
 

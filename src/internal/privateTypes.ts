@@ -156,8 +156,8 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   getManufacturer: () => Promise<string>;
   getManufacturerSync: () => string;
   getModel: () => string;
-  getPowerState: () => Promise<PowerState | {}>;
-  getPowerStateSync: () => PowerState | {};
+  getPowerState: () => Promise<Partial<PowerState>>;
+  getPowerStateSync: () => Partial<PowerState>;
   getReadableVersion: () => string;
   getSystemName: () => string;
   getSystemVersion: () => string;
@@ -181,7 +181,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useFirstInstallTime: () => AsyncHookResult<number>;
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>;
   useIsEmulator: () => AsyncHookResult<boolean>;
-  usePowerState: () => PowerState | {};
+  usePowerState: () => Partial<PowerState>;
   useManufacturer: () => AsyncHookResult<string>;
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
 }
