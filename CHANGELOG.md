@@ -2,6 +2,10 @@
 
 # CHANGELOG
 
+## 8.0.3
+
+- fix(types, PowerState): use Partial<PowerState> vs union with '{}' (#1175, thanks @vvscode!)
+
 ## 8.0.2
 
 - fix(hasNotch): fix missing Pixel 4a model name in devicesWithNotch.ts (@zarvedan)
