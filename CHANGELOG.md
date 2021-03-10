@@ -2,6 +2,15 @@
 
 # CHANGELOG
 
+## 8.0.5
+
+fix: remove husky from postinstall entirely
+
+Apparently there is no way to conditionally run postinstall, and while
+we really want husky for contributors here, we must not fail on install
+of library consumers (and we don't want to install husky for everyone,
+even though it's a great package)
+
 ## 8.0.4
 
 fix: prefix husky install with with npm or package install fails
