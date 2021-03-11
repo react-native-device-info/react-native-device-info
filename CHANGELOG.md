@@ -28,7 +28,11 @@ we ported to the next major version in v8.0.3 I broke the install for everyone. 
 
 ## 8.0.1
 
-- Fix the exporting and importing of typings in ES6 build module (#1164, thanks @diego-antonelli!)
+- BREAKING: Fix the exporting and importing of typings in ES6 build module (#1164, thanks @diego-antonelli!)
+
+Note, if you use typescript, this requires a minimum version of typescript 3.8
+This change was inadvertently released without realizing it was a breaking change, apologies.
+It is close enough to the 8.0.0 release that it will stand here though, without bumping to 9.0.0
 
 ## 8.0.0
 
