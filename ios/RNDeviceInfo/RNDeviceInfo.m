@@ -112,8 +112,13 @@ RCT_EXPORT_MODULE();
     switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
         case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
         case UIUserInterfaceIdiomPad:
-            if (TARGET_OS_MACCATALYST || (@available(iOS 14.0, *) && [NSProcessInfo processInfo].isiOSAppOnMac)) {
+            if (TARGET_OS_MACCATALYST) {
                 return DeviceTypeDesktop;
+            }
+            if (@available(iOS 14.0, *)) {
+                if ([NSProcessInfo processInfo].isiOSAppOnMac) {
+                    return DeviceTypeDesktop;
+                }
             }
             return DeviceTypeTablet;
         case UIUserInterfaceIdiomTV: return DeviceTypeTv;
