@@ -356,24 +356,19 @@ RCT_EXPORT_METHOD(syncUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     uname(&systemInfo);
     NSString* deviceId = [NSString stringWithCString:systemInfo.machine
                                             encoding:NSUTF8StringEncoding];
-    if ([deviceId isEqualToString:@"i386"] || [deviceId isEqualToString:@"x86_64"] ) {
+    #if TARGET_IPHONE_SIMULATOR
         deviceId = [NSString stringWithFormat:@"%s", getenv("SIMULATOR_MODEL_IDENTIFIER")];
-    }
+    #endif
     return deviceId;
 }
 
 
 - (BOOL) isEmulator {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString* deviceId = [NSString stringWithCString:systemInfo.machine
-                                            encoding:NSUTF8StringEncoding];
-
-    if ([deviceId isEqualToString:@"i386"] || [deviceId isEqualToString:@"x86_64"] ) {
+    #if TARGET_IPHONE_SIMULATOR
         return YES;
-    } else {
+    #else
         return NO;
-    }
+    #endif
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isEmulatorSync) {
