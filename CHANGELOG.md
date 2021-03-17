@@ -2,9 +2,13 @@
 
 # CHANGELOG
 
+## 8.0.6
+- fix(ios, deviceType): support iOS-compiled app running on macOS (#1181, thanks @user-none!)
+- fix(ios, isEmulator): correct emulator detection for arm64 simulator (#1180, thanks @Arkkeeper!)
+
 ## 8.0.5
 
-fix: remove husky from postinstall entirely
+- fix: remove husky from postinstall entirely
 
 Apparently there is no way to conditionally run postinstall, and while
 we really want husky for contributors here, we must not fail on install
@@ -13,7 +17,7 @@ even though it's a great package)
 
 ## 8.0.4
 
-fix: prefix husky install with with npm or package install fails
+- fix: prefix husky install with with npm or package install fails
 
 Husky is just a pre-commit hook package we use for QA, quite unfortunate that as
 we ported to the next major version in v8.0.3 I broke the install for everyone. Apologies! @mikehardy
