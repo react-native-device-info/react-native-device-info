@@ -688,6 +688,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         if (getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
           return Build.getSerial();
         }
+      } else {
+        return Build.SERIAL;
       }
     } catch (Exception e) {
       // This is almost always a PermissionException. We will log it but return unknown
