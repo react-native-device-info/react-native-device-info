@@ -1,3 +1,10 @@
+## [8.0.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.0.6...v8.0.7) (2021-03-24)
+
+
+### Bug Fixes
+
+* get legacy serial number for old APIs ([#1056](https://github.com/react-native-device-info/react-native-device-info/issues/1056)) ([40aa45b](https://github.com/react-native-device-info/react-native-device-info/commit/40aa45b021addb329a6b6f652fd8e4ec9fc17a94))
+
 <!-- markdownlint-disable MD024 MD034 MD033 -->
 
 # CHANGELOG
