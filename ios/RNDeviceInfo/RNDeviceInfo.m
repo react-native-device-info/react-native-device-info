@@ -541,7 +541,9 @@ RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCT
         // Loop through linked list of interfaces
         temp_addr = interfaces;
         while(temp_addr != NULL) {
-            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+            sa_family_t addr_family = temp_addr->ifa_addr->sa_family;
+            // Check for IPv4 or IPv6-only interfaces
+            if(addr_family == AF_INET || addr_family == AF_INET6) {
                 NSString* ifname = [NSString stringWithUTF8String:temp_addr->ifa_name];
                     if(
                         // Check if interface is en0 which is the wifi connection the iPhone
@@ -550,8 +552,15 @@ RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCT
                         // Check if interface is en1 which is the wifi connection on the Apple TV
                         [ifname isEqualToString:@"en1"]
                     ) {
-                        // Get NSString from C String
-                        address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                        const struct sockaddr_in *addr = (const struct sockaddr_in*)temp_addr->ifa_addr;
+                        socklen_t addr_len = addr_family == AF_INET ? INET_ADDRSTRLEN : INET6_ADDRSTRLEN;
+                        char addr_buffer[addr_len];
+                        // We use inet_ntop because it also supports getting an address from
+                        // interfaces that are IPv6-only
+                        char *netname = inet_ntop(addr_family, &addr->sin_addr, addr_buffer, addr_len);
+
+                         // Get NSString from C String
+                        address = [NSString stringWithUTF8String:netname];
                     }
             }
             temp_addr = temp_addr->ifa_next;
