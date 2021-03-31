@@ -1,3 +1,10 @@
+## [8.0.8](https://github.com/react-native-device-info/react-native-device-info/compare/v8.0.7...v8.0.8) (2021-03-31)
+
+
+### Bug Fixes
+
+* **ios:** update getIpAddress to support IPv6-only interfaces ([#1190](https://github.com/react-native-device-info/react-native-device-info/issues/1190)) ([c977f30](https://github.com/react-native-device-info/react-native-device-info/commit/c977f30072c57b73c5e69969d6b5937b0baff042))
+
 ## [8.0.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.0.6...v8.0.7) (2021-03-24)
 
 
