@@ -15,6 +15,7 @@
 #import "RNDeviceInfo.h"
 #import "DeviceUID.h"
 #import <DeviceCheck/DeviceCheck.h>
+#import "EnvironmentUtil.h"
 
 #if !(TARGET_OS_TV)
 #import <WebKit/WebKit.h>
@@ -792,6 +793,17 @@ RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve 
     resolve(self.getAvailableLocationProviders);
 }
 
+#pragma mark - Installer Package Name -
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getInstallerPackageNameSync) {
+    return [EnvironmentValues objectAtIndex:[EnvironmentUtil currentAppEnvironment]];
+}
+
+RCT_EXPORT_METHOD(getInstallerPackageName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve([EnvironmentValues objectAtIndex:[EnvironmentUtil currentAppEnvironment]]);
+}
+
+#pragma mark - dealloc -
 
 - (void)dealloc
 {

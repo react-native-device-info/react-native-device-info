@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		663F51B9262200CA0023385E /* EnvironmentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 663F51B8262200CA0023385E /* EnvironmentUtil.m */; };
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
 		BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
 		DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
@@ -43,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		663F51B7262200520023385E /* EnvironmentUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnvironmentUtil.h; sourceTree = "<group>"; };
+		663F51B8262200CA0023385E /* EnvironmentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvironmentUtil.m; sourceTree = "<group>"; };
 		76E65CA21D4CA143009B7AF1 /* DeviceUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUID.h; sourceTree = "<group>"; };
 		76E65CA31D4CA143009B7AF1 /* DeviceUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUID.m; sourceTree = "<group>"; };
 		DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +96,8 @@
 				76E65CA31D4CA143009B7AF1 /* DeviceUID.m */,
 				DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */,
 				DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */,
+				663F51B7262200520023385E /* EnvironmentUtil.h */,
+				663F51B8262200CA0023385E /* EnvironmentUtil.m */,
 			);
 			path = RNDeviceInfo;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */,
+				663F51B9262200CA0023385E /* EnvironmentUtil.m in Sources */,
 				DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
