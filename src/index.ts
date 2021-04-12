@@ -174,7 +174,7 @@ export const [
   getInstallerPackageNameSync,
 ] = getSupportedPlatformInfoFunctions({
   memoKey: 'installerPackageName',
-  supportedPlatforms: ['android', 'windows'],
+  supportedPlatforms: ['android', 'windows', 'ios'],
   getter: () => RNDeviceInfo.getInstallerPackageName(),
   syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
   defaultValue: 'unknown',

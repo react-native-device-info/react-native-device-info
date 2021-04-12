@@ -129,7 +129,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
-| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ❌  |
+| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ✅  |
 | [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
@@ -615,7 +615,7 @@ DeviceInfo.getInstallerPackageName().then((installerPackageName) => {
   // Play Store: "com.android.vending"
   // Amazon: "com.amazon.venezia"
   // Samsung App Store: "com.sec.android.app.samsungapps"
-  // Developer, iOS: "unknown"
+  // iOS: "AppStore", "TestFlight", "Other"
 });
 ```
 
