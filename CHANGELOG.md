@@ -1,3 +1,10 @@
+# [8.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.0.8...v8.1.0) (2021-04-12)
+
+
+### Features
+
+* **ios:** add getInstallerPackageName support for iOS ([#1217](https://github.com/react-native-device-info/react-native-device-info/issues/1217)) ([9a844bf](https://github.com/react-native-device-info/react-native-device-info/commit/9a844bf0dfbe0351416a934890a4239886c2d451))
+
 ## [8.0.8](https://github.com/react-native-device-info/react-native-device-info/compare/v8.0.7...v8.0.8) (2021-03-31)
 
 
