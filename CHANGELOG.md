@@ -1,3 +1,10 @@
+## [8.1.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.0...v8.1.1) (2021-04-18)
+
+
+### Bug Fixes
+
+* **android:** use mavenCentral vs jcenter before jcenter shutdown ([#1220](https://github.com/react-native-device-info/react-native-device-info/issues/1220)) ([bffcce2](https://github.com/react-native-device-info/react-native-device-info/commit/bffcce242ef62e924650788c87bf9b30d8a9181c))
+
 # [8.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.0.8...v8.1.0) (2021-04-12)
 
 
