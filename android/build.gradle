@@ -4,8 +4,8 @@ buildscript {
     // module dependency in an application project.
     if (project == rootProject) {
         repositories {
+            mavenCentral()
             google()
-            jcenter()
         }
         def buildGradleVersion = ext.has('buildGradlePluginVersion') ? ext.get('buildGradlePluginVersion') : '4.1.1'
 
@@ -40,12 +40,12 @@ android {
 }
 
 repositories {
+    mavenCentral()
     google()
     maven {
         // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
         url "$rootDir/../node_modules/react-native/android"
     }
-    jcenter()
 }
 
 dependencies {
