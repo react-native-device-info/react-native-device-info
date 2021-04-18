@@ -1,3 +1,10 @@
+## [8.1.2](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.1...v8.1.2) (2021-04-18)
+
+
+### Bug Fixes
+
+* **notch:** remove `pixel 3a` from devicesWithNotch.ts ([#1221](https://github.com/react-native-device-info/react-native-device-info/issues/1221)) ([ee959d9](https://github.com/react-native-device-info/react-native-device-info/commit/ee959d98e157a691b871a00496c55f4c3605b0d8))
+
 ## [8.1.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.0...v8.1.1) (2021-04-18)
 
 
