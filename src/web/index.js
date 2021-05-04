@@ -56,7 +56,7 @@ export const getUsedMemorySync = () => {
 };
 
 const init = async () => {
-  if (navigator.getBattery) {
+  if (typeof navigator !== 'undefined' && navigator.getBattery) {
     const battery = await navigator.getBattery();
 
     batteryCharging = battery.charging;
