@@ -980,7 +980,9 @@ This is a constant and may be referenced directly
 
 Gets the device unique ID.
 On Android it is currently identical to `getAndroidId()` in this module.
+
 On iOS it uses the `DeviceUID` uid identifier or generates random UUID if IDFV is not available. On iOS 14.5 or earlier, you must request IDFA access. For example use [react-native-permissions](https://github.com/zoontek/react-native-permissions).
+
 On Windows it uses `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.id`.
 
 #### Examples
