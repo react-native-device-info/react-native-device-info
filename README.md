@@ -1004,7 +1004,7 @@ let uniqueId = DeviceInfo.getUniqueId();
 
 This method is intended for iOS.
 
-This synchronizes uniqueId with [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or sets new a random string.
+This synchronizes uniqueId with [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) if IDFV is empty it just call getUniqueId.
 
 On iOS it uses the `DeviceUID` uid identifier.
 On other platforms it just call `getUniqueId()` in this module.

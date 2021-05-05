@@ -59,8 +59,8 @@ NSString * const UIDKey = @"deviceUID";
 */
 - (NSString *)syncUid {
     _uid = [[self class] appleIFV];
-    if (!_uid) _uid = [[self class] randomUUID];
-    [self save];
+    if (!_uid) _uid = [[self class] uid];
+    [self saveIfNeed];
     return _uid;
 }
 
