@@ -980,7 +980,7 @@ This is a constant and may be referenced directly
 
 Gets the device unique ID.
 On Android it is currently identical to `getAndroidId()` in this module.
-On iOS it uses the `DeviceUID` uid identifier.
+On iOS it uses the `DeviceUID` uid identifier or generates random UUID if IDFV is not available. On iOS 14.5 or earlier, you must request IDFA access. For example use [react-native-permissions](https://github.com/zoontek/react-native-permissions).
 On Windows it uses `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.id`.
 
 #### Examples
@@ -994,7 +994,7 @@ let uniqueId = DeviceInfo.getUniqueId();
 
 #### Notes
 
-> - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
+> - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations or if you call syncUniqueId().
 >   Beware: The IDFV is calculated using your bundle identifier and thus will be different in app extensions.
 > - android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
 
@@ -1002,12 +1002,11 @@ let uniqueId = DeviceInfo.getUniqueId();
 
 ### syncUniqueId()
 
-This method is intended for iOS.
+This method is intended for iOS. You might need it after [App Tracking Transparency](https://developer.apple.com/documentation/apptrackingtransparency) request.
 
-This synchronizes uniqueId with [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) if IDFV is empty it just call getUniqueId.
+If IDFV is avaliable it synchronizes uniqueId with [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor). 
 
-On iOS it uses the `DeviceUID` uid identifier.
-On other platforms it just call `getUniqueId()` in this module.
+On other platforms or if IDFV is not avaliable it just call `getUniqueId()` in this module.
 
 #### Examples
 
