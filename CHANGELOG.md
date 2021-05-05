@@ -1,3 +1,10 @@
+## [8.1.3](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.2...v8.1.3) (2021-05-05)
+
+
+### Bug Fixes
+
+* **web:** only call navigator methods if navigator is defined ([#1225](https://github.com/react-native-device-info/react-native-device-info/issues/1225)) ([35ffa26](https://github.com/react-native-device-info/react-native-device-info/commit/35ffa26f774e8e6512d070b9a899cc9271ed093f))
+
 ## [8.1.2](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.1...v8.1.2) (2021-04-18)
 
 
