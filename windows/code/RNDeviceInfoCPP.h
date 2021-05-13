@@ -55,7 +55,8 @@ namespace winrt::RNDeviceInfoCPP
       bool isTabletByAnalytics = deviceForm == L"Tablet" || deviceForm == L"Mobile" || deviceFamily == L"Windows.Mobile";
       bool isTabletByOsRegex = std::regex_match(os, std::regex(".*windowsphone.*", std::regex_constants::icase));
 
-      if (isTabletByAnalytics || isTabletByOsRegex) {
+      if (isTabletByAnalytics || isTabletByOsRegex)
+	  {
           return true;
       }
 
