@@ -337,14 +337,26 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getMacAddress(Promise p) { p.resolve(getMacAddressSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getCarrierSync() {
-    TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+  public List<String> getCarrierSync() {
+    List<String> carrierNames = new ArrayList<>();
     if (telMgr != null) {
-      return telMgr.getNetworkOperatorName();
+       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1){
+        SubscriptionManager subscriptionManager = (SubscriptionManager) getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+        List<SubscriptionInfo> subscriptionInfos = subscriptionManager.getActiveSubscriptionInfoList();
+        for (int i = 0; i < subscriptionInfos.size(); i++) {
+            carrierNames.add(subscriptionInfos.get(i).getCarrierName().toString());
+        }
+       }
+       else{
+        TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+        carrierNames.add(telMgr.getNetworkOperatorName());
+       }
     } else {
       System.err.println("Unable to get network operator name. TelephonyManager was null");
-      return "unknown";
+      carrierNames.add("unknown");
     }
+
+    return carrierNames;
   }
   @ReactMethod
   public void getCarrier(Promise p) { p.resolve(getCarrierSync()); }
