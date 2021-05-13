@@ -337,29 +337,42 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getMacAddress(Promise p) { p.resolve(getMacAddressSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public List<String> getCarrierSync() {
-    List<String> carrierNames = new ArrayList<>();
+  public String getCarrierSync() {
+    TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+    if (telMgr != null) {
+      return telMgr.getNetworkOperatorName();
+    } else {
+      System.err.println("Unable to get network operator name. TelephonyManager was null");
+      return "unknown";
+    }
+  }
+  @ReactMethod
+  public void getCarrier(Promise p) { p.resolve(getCarrierSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public List<String> getCarriersSync() {
+    List<String> carriersNames = new ArrayList<>();
     if (telMgr != null) {
        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1){
         SubscriptionManager subscriptionManager = (SubscriptionManager) getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
         List<SubscriptionInfo> subscriptionInfos = subscriptionManager.getActiveSubscriptionInfoList();
         for (int i = 0; i < subscriptionInfos.size(); i++) {
-            carrierNames.add(subscriptionInfos.get(i).getCarrierName().toString());
+            carriersNames.add(subscriptionInfos.get(i).getCarrierName().toString());
         }
        }
        else{
         TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        carrierNames.add(telMgr.getNetworkOperatorName());
+        carriersNames.add(telMgr.getNetworkOperatorName());
        }
     } else {
       System.err.println("Unable to get network operator name. TelephonyManager was null");
-      carrierNames.add("unknown");
+      carriersNames.add("unknown");
     }
 
-    return carrierNames;
+    return carriersNames;
   }
   @ReactMethod
-  public void getCarrier(Promise p) { p.resolve(getCarrierSync()); }
+  public void getCarriers(Promise p) { p.resolve(getCarriersSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getTotalDiskCapacitySync() {
