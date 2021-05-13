@@ -563,19 +563,23 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
   defaultValue: false,
 });
 
-export const getDeviceType = getSupportedPlatformInfoSync({
-  memoKey: 'deviceType',
-  supportedPlatforms: ['android', 'ios', 'windows'],
-  defaultValue: 'unknown',
-  getter: () => RNDeviceInfo.deviceType,
-});
+export const getDeviceType = () => {
+  return getSupportedPlatformInfoSync({
+    memoKey: 'deviceType',
+    supportedPlatforms: ['android', 'ios', 'windows'],
+    defaultValue: 'unknown',
+    getter: () => RNDeviceInfo.deviceType,
+  });
+};
 
-export const getDeviceTypeSync = getSupportedPlatformInfoSync({
-  memoKey: 'deviceType',
-  supportedPlatforms: ['android', 'ios', 'windows'],
-  defaultValue: 'unknown',
-  getter: () => RNDeviceInfo.deviceType,
-});
+export const getDeviceTypeSync = () => {
+  return getSupportedPlatformInfoSync({
+    memoKey: 'deviceType',
+    supportedPlatforms: ['android', 'ios', 'windows'],
+    defaultValue: 'unknown',
+    getter: () => RNDeviceInfo.deviceType,
+  });
+};
 
 export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supportedAbis',
