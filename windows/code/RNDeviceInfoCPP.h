@@ -44,7 +44,29 @@ namespace winrt::RNDeviceInfoCPP
 
     bool isTabletHelper(std::string os)
     {
-      return std::regex_match(os, std::regex(".*windowsphone.*", std::regex_constants::icase));
+      // AnalyticsInfo is considered flakey or unreliable by most sources to be used, but no recommended alternatives were discovered.
+      // DeviceForm potential but not inclusive results:
+      // [Mobile, Tablet, Television, Car, Watch, VirtualReality, Desktop, Unknown]
+      // DeviceFamily potential but not inclusive results:
+      // [Windows.Desktop, Windows.Mobile, Windows.Xbox, Windows.Holographic, Windows.Team, Windows.IoT]
+      auto deviceForm = AnalyticsInfo::DeviceForm();
+      auto deviceFamily = AnalyticsInfo::VersionInfo().DeviceFamily();
+
+      bool isTabletByAnalytics = deviceForm == L"Tablet" || deviceForm == L"Mobile" || deviceFamily == L"Windows.Mobile";
+      bool isTabletByOsRegex = std::regex_match(os, std::regex(".*windowsphone.*", std::regex_constants::icase));
+
+      if (isTabletByAnalytics || isTabletByOsRegex) {
+          return true;
+      }
+
+      // If there is no keyboard, is that considered functionally equivalent to a 'tablet' in the Windows OS world?
+      auto keyboardCapabilities = winrt::Windows::Devices::Input::KeyboardCapabilities();
+      if (!keyboardCapabilities.KeyboardPresent)
+      {
+          return true;
+      }
+
+      return false;
     }
 
     IAsyncOperation<bool> isPinOrFingerprint()
