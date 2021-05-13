@@ -36,7 +36,7 @@ namespace winrt::RNDeviceInfoCPP
       provider.Add(L"appName", getAppNameSync());
       provider.Add(L"brand", getBrandSync());
       provider.Add(L"model", getModelSync());
-	  provider.Add(L"deviceType", getDeviceTypeSync());
+      provider.Add(L"deviceType", getDeviceTypeSync());
     }
 
     bool isEmulatorHelper(std::string model)
