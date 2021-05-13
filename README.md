@@ -1208,6 +1208,7 @@ Returns the device's type as a string, which will be one of:
 - `Handset`
 - `Tablet`
 - `Tv`
+- `Desktop`
 - `unknown`
 
 #### Examples
