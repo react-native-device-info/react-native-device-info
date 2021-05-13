@@ -81,6 +81,18 @@ namespace winrt::RNDeviceInfoCPP
         return false;
       }
     }
+	
+	REACT_SYNC_METHOD(getDeviceTypeSync);
+    std::string getDeviceTypeSync() noexcept
+    {
+      return "Desktop"
+    }
+
+    REACT_METHOD(getDeviceType);
+    void getDeviceType(ReactPromise<std::string> promise) noexcept
+    {
+      promise.resolve(getDeviceTypeSync());
+    }
 
     REACT_SYNC_METHOD(isPinOrFingerprintSetSync);
     bool isPinOrFingerprintSetSync() noexcept
