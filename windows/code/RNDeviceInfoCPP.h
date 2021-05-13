@@ -84,7 +84,7 @@ namespace winrt::RNDeviceInfoCPP
       }
     }
 	
-	REACT_SYNC_METHOD(getDeviceTypeSync);
+    REACT_SYNC_METHOD(getDeviceTypeSync);
     std::string getDeviceTypeSync() noexcept
     {
       return "Desktop"
