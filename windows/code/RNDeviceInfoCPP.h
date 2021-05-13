@@ -44,7 +44,7 @@ namespace winrt::RNDeviceInfoCPP
 
     bool isTabletHelper(std::string os)
     {
-      return !std::regex_match(os, std::regex(".*windowsphone.*", std::regex_constants::icase));
+      return std::regex_match(os, std::regex(".*windowsphone.*", std::regex_constants::icase));
     }
 
     IAsyncOperation<bool> isPinOrFingerprint()
