@@ -64,7 +64,7 @@ namespace winrt::RNDeviceInfoCPP
 
       // If there is no keyboard, is that considered functionally equivalent to a 'tablet' in the Windows OS world?
       auto keyboardCapabilities = winrt::Windows::Devices::Input::KeyboardCapabilities();
-      if (!keyboardCapabilities.KeyboardPresent)
+      if (!keyboardCapabilities.KeyboardPresent())
       {
           return true;
       }
@@ -87,13 +87,13 @@ namespace winrt::RNDeviceInfoCPP
     REACT_SYNC_METHOD(getDeviceTypeSync);
     std::string getDeviceTypeSync() noexcept
     {
-      return "Desktop"
+      return "Desktop";
     }
 
     REACT_METHOD(getDeviceType);
     void getDeviceType(ReactPromise<std::string> promise) noexcept
     {
-      promise.resolve(getDeviceTypeSync());
+      promise.Resolve(getDeviceTypeSync());
     }
 
     REACT_SYNC_METHOD(isPinOrFingerprintSetSync);
