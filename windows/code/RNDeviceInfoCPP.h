@@ -8,7 +8,6 @@
 
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
-using namespace winrt::Windows::System::Profile;
 
 #ifdef RNW61
 #define JSVALUEOBJECTPARAMETER
