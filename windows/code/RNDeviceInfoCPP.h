@@ -5,6 +5,7 @@
 #include <regex>
 #include <sstream>
 #include <chrono>
+#include <future>
 
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
@@ -21,6 +22,12 @@ namespace winrt::RNDeviceInfoCPP
   struct RNDeviceInfoCPP
   {
     const std::string Name = "RNDeviceInfo";
+
+    ReactContext m_reactContext;
+    REACT_INIT(Initialize)
+    void Initialize(ReactContext const& reactContext) noexcept {
+      m_reactContext = reactContext;
+    }
 
     REACT_CONSTANT_PROVIDER(constantsViaConstantsProvider);
     void constantsViaConstantsProvider(ReactConstantProvider& provider) noexcept
@@ -45,20 +52,29 @@ namespace winrt::RNDeviceInfoCPP
 
     bool isTabletHelper()
     {
-      auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
-      auto mode = view.UserInteractionMode();
-      switch(mode)
-      {
-      case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
-      {
-        return true;
-      }
-      case winrt::Windows::UI::ViewManagement::UserInteractionMode::Mouse:
-      default:
-      {
-        return false;
-      }
-      }
+      // Force into sync. Can this be done better?
+      std::promise<bool> promise;
+      auto future = promise.get_future();
+      m_reactContext.UIDispatcher().Post([prom = std::move(promise)]() mutable {
+        auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
+        auto mode = view.UserInteractionMode();
+        switch(mode)
+        {
+        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
+        {
+          prom.set_value(true);
+          return;
+        }
+        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Mouse:
+        default:
+        {
+          prom.set_value(false);
+          return;
+        }
+        }    
+      });
+      bool isTablet = future.get();
+      return isTablet;
     }
 
     IAsyncOperation<bool> isPinOrFingerprint()
