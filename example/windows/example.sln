@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mso", "..\node_modules\reac
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Include", "..\node_modules\react-native-windows\include\Include.vcxitems", "{EF074BA1-2D54-4D49-A28E-5E040B47CD2E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RNDeviceInfoCPP", "..\node_modules\react-native-device-info\windows\RNDeviceInfoCPP\RNDeviceInfoCPP.vcxproj", "{3E3931F2-4735-4417-8CB0-33668A7314D6}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\node_modules\react-native-windows\JSI\Shared\JSI.Shared.vcxitems*{0cc28589-39e4-4288-b162-97b959f8b843}*SharedItemsImports = 9
@@ -164,6 +166,22 @@ Global
 		{FCA38F3C-7C73-4C47-BE4E-32F77FA8538D}.Release|x64.Build.0 = Release|x64
 		{FCA38F3C-7C73-4C47-BE4E-32F77FA8538D}.Release|x86.ActiveCfg = Release|Win32
 		{FCA38F3C-7C73-4C47-BE4E-32F77FA8538D}.Release|x86.Build.0 = Release|Win32
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|ARM.ActiveCfg = Debug|ARM
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|ARM.Build.0 = Debug|ARM
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|ARM64.Build.0 = Debug|ARM64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|x64.ActiveCfg = Debug|x64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|x64.Build.0 = Debug|x64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|x86.ActiveCfg = Debug|Win32
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Debug|x86.Build.0 = Debug|Win32
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|ARM.ActiveCfg = Release|ARM
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|ARM.Build.0 = Release|ARM
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|ARM64.ActiveCfg = Release|ARM64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|ARM64.Build.0 = Release|ARM64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|x64.ActiveCfg = Release|x64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|x64.Build.0 = Release|x64
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|x86.ActiveCfg = Release|Win32
+		{3E3931F2-4735-4417-8CB0-33668A7314D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
