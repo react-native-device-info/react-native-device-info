@@ -137,8 +137,8 @@ namespace winrt::RNDeviceInfoCPP
     REACT_SYNC_METHOD(isMouseConnectedSync);
     bool isMouseConnectedSync() noexcept
     {
-      auto keyboardCapabilities = winrt::Windows::Devices::Input::MouseCapabilities();
-      return keyboardCapabilities.MousePresent();
+      auto mouseCapabilities = winrt::Windows::Devices::Input::MouseCapabilities();
+      return mouseCapabilities.MousePresent();
     }
 
     REACT_METHOD(isMouseConnected);
