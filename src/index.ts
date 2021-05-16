@@ -645,6 +645,33 @@ export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPl
   }
 );
 
+export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['windows'],
+    getter: () => RNDeviceInfo.isMouseConnected(),
+    syncGetter: () => RNDeviceInfo.isMouseConnectedSync(),
+    defaultValue: false,
+  }
+);
+
+
+export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['windows'],
+    getter: () => RNDeviceInfo.isKeyboardConnected(),
+    syncGetter: () => RNDeviceInfo.isKeyboardConnectedSync(),
+    defaultValue: false,
+  }
+);
+
+export const [isTabletMode] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['windows'],
+    getter: () => RNDeviceInfo.isTabletMode(),
+    defaultValue: false,
+  }
+);
+
 export const [
   getAvailableLocationProviders,
   getAvailableLocationProvidersSync,

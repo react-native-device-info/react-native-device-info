@@ -9,6 +9,7 @@
 
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::System::Profile;
 
 #ifdef RNW61
 #define JSVALUEOBJECTPARAMETER
@@ -50,31 +51,29 @@ namespace winrt::RNDeviceInfoCPP
       return std::regex_match(model, std::regex(".*virtual.*", std::regex_constants::icase));
     }
 
+    // What is a tablet is a debateable topic in Windows, as some windows devices can dynamically switch back and forth.
+    // Also, see isTabletMode() instead of isTablet or deviceType.
+    // For right now, we generally are considered mobile as 'tablets', as opposed to desktop computers.
+    // More refinement should be applied into this area as neccesary. 
     bool isTabletHelper()
     {
-      // Force into sync. Can this be done better?
-      std::promise<bool> promise;
-      auto future = promise.get_future();
-      m_reactContext.UIDispatcher().Post([prom = std::move(promise)]() mutable {
-        auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
-        auto mode = view.UserInteractionMode();
-        switch(mode)
-        {
-        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
-        {
-          prom.set_value(true);
-          return;
-        }
-        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Mouse:
-        default:
-        {
-          prom.set_value(false);
-          return;
-        }
-        }    
-      });
-      bool isTablet = future.get();
-      return isTablet;
+      std::string osName = winrt::to_string(Windows::Security::ExchangeActiveSyncProvisioning::EasClientDeviceInformation().OperatingSystem());
+      // AnalyticsInfo is considered flakey or unreliable by most sources to be used, but no recommended alternatives were discovered.
+      // DeviceForm potential but not inclusive results:
+      // [Mobile, Tablet, Television, Car, Watch, VirtualReality, Desktop, Unknown]
+      // DeviceFamily potential but not inclusive results:
+      // [Windows.Desktop, Windows.Mobile, Windows.Xbox, Windows.Holographic, Windows.Team, Windows.IoT]
+      auto deviceForm = AnalyticsInfo::DeviceForm();
+      auto deviceFamily = AnalyticsInfo::VersionInfo().DeviceFamily();
+      
+      bool isTabletByAnalytics = deviceForm == L"Tablet" || deviceForm == L"Mobile" || deviceFamily == L"Windows.Mobile";
+      bool isTabletByOsRegex = std::regex_match(osName, std::regex(".*windowsphone.*", std::regex_constants::icase));
+      
+      if (isTabletByAnalytics || isTabletByOsRegex)
+      {
+        return true;
+      }
+      return false;
     }
 
     IAsyncOperation<bool> isPinOrFingerprint()
@@ -122,6 +121,53 @@ namespace winrt::RNDeviceInfoCPP
         });
     }
 
+    REACT_SYNC_METHOD(isKeyboardConnectedSync);
+    bool isKeyboardConnectedSync() noexcept
+    {
+      auto keyboardCapabilities = winrt::Windows::Devices::Input::KeyboardCapabilities();
+      return keyboardCapabilities.KeyboardPresent();
+    }
+
+    REACT_METHOD(isKeyboardConnected);
+    void isKeyboardConnected(ReactPromise<bool> promise) noexcept
+    {
+      promise.Resolve(isKeyboardConnectedSync());
+    }
+
+    REACT_SYNC_METHOD(isMouseConnectedSync);
+    bool isMouseConnectedSync() noexcept
+    {
+      auto keyboardCapabilities = winrt::Windows::Devices::Input::MouseCapabilities();
+      return keyboardCapabilities.MousePresent();
+    }
+
+    REACT_METHOD(isMouseConnected);
+    void isMouseConnected(ReactPromise<bool> promise) noexcept
+    {
+      promise.Resolve(isMouseConnectedSync());
+    }
+
+    REACT_METHOD(isTabletMode);
+    void isTabletMode(ReactPromise<bool> promise) noexcept
+    {
+      m_reactContext.UIDispatcher().Post([promise]() {
+        auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
+        auto mode = view.UserInteractionMode();
+        switch(mode)
+        {
+        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
+        {
+          promise.Resolve(true);
+          return;
+        }
+        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Mouse:
+        default:
+        {
+          promise.Resolve(false);
+        }
+        }    
+      });
+    }
 
     REACT_SYNC_METHOD(getIpAddressSync);
     std::string getIpAddressSync() noexcept
