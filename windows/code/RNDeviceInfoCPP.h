@@ -53,12 +53,10 @@ namespace winrt::RNDeviceInfoCPP
 
     // What is a tablet is a debateable topic in Windows, as some windows devices can dynamically switch back and forth.
     // Also, see isTabletMode() instead of isTablet or deviceType.
-    // For right now, we generally are considered mobile as 'tablets', as opposed to desktop computers.
     // More refinement should be applied into this area as neccesary. 
     bool isTabletHelper()
     {
-      std::string osName = winrt::to_string(Windows::Security::ExchangeActiveSyncProvisioning::EasClientDeviceInformation().OperatingSystem());
-      // AnalyticsInfo is considered flakey or unreliable by most sources to be used, but no recommended alternatives were discovered.
+      // AnalyticsInfo doesn't always return the values one might expect.
       // DeviceForm potential but not inclusive results:
       // [Mobile, Tablet, Television, Car, Watch, VirtualReality, Desktop, Unknown]
       // DeviceFamily potential but not inclusive results:
@@ -67,9 +65,8 @@ namespace winrt::RNDeviceInfoCPP
       auto deviceFamily = AnalyticsInfo::VersionInfo().DeviceFamily();
       
       bool isTabletByAnalytics = deviceForm == L"Tablet" || deviceForm == L"Mobile" || deviceFamily == L"Windows.Mobile";
-      bool isTabletByOsRegex = std::regex_match(osName, std::regex(".*windowsphone.*", std::regex_constants::icase));
       
-      if (isTabletByAnalytics || isTabletByOsRegex)
+      if (isTabletByAnalytics)
       {
         return true;
       }
@@ -147,6 +144,7 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(isMouseConnectedSync());
     }
 
+    // Can only be used in a uwp app.
     REACT_METHOD(isTabletMode);
     void isTabletMode(ReactPromise<bool> promise) noexcept
     {
