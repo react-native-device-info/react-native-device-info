@@ -7,15 +7,59 @@
 #include <chrono>
 #include <future>
 
+#include <processthreadsapi.h>
+#include <appmodel.h>
+#include <UI.Xaml.Media.h>
+#include <winrt/Windows.Foundation.Metadata.h>
+#include <windows.h>
+
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
 using namespace winrt::Windows::System::Profile;
+
+namespace winrt {
+    using namespace xaml::Controls::Primitives;
+    using namespace xaml::Media;
+    using namespace Windows::Foundation::Metadata;
+} // namespace winrt
 
 #ifdef RNW61
 #define JSVALUEOBJECTPARAMETER
 #else
 #define JSVALUEOBJECTPARAMETER const &
 #endif
+
+extern "C" {
+  typedef enum AppPolicyWindowingModel { AppPolicyWindowingModel_None, AppPolicyWindowingModel_Universal, AppPolicyWindowingModel_ClassicDesktop, AppPolicyWindowingModel_ClassicPhone } ;
+  LONG AppPolicyGetWindowingModel(HANDLE processToken, AppPolicyWindowingModel *policy);
+  int GetSystemMetrics(int nIndex);
+}
+
+namespace details {
+struct IndirectLibraryDeleter {
+  void operator()(void *l) {
+    WINRT_IMPL_FreeLibrary(l);
+  }
+};
+
+using IndirectLibrary = std::unique_ptr<void, IndirectLibraryDeleter>;
+__declspec(selectany) std::unordered_map<std::wstring, IndirectLibrary> indirectLibraries{};
+} // namespace details
+
+// In later versions of RNW, The following will become available and this can be removed.
+template <typename TFn, typename... TArgs>
+auto CallIndirect(const wchar_t *dllName, const char *fnName, TArgs &&... args) noexcept {
+    if (details::indirectLibraries.count(dllName) == 0) {
+        details::indirectLibraries.emplace(dllName, WINRT_IMPL_LoadLibraryW(dllName));
+    }
+    auto &library = details::indirectLibraries[dllName];
+    auto pfn = reinterpret_cast<TFn>(WINRT_IMPL_GetProcAddress(library.get(), fnName));
+    return pfn(args...);
+}
+
+#define CALL_INDIRECT(dllName, fn, ...) \
+  CallIndirect<decltype(&fn)>(dllName, #fn, __VA_ARGS__)
+
 
 namespace winrt::RNDeviceInfoCPP
 {
@@ -144,27 +188,50 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(isMouseConnectedSync());
     }
 
-    // Can only be used in a uwp app.
+    bool IsXamlIsland() {
+      AppPolicyWindowingModel e;
+      auto token = GetCurrentThreadEffectiveToken();
+      auto windowingModel = CALL_INDIRECT(L"Api-ms-win-appmodel-runtime-l1-1-2.dll", AppPolicyGetWindowingModel, token, &e);
+      if (FAILED(windowingModel) || e == AppPolicyWindowingModel_ClassicDesktop) {
+        return true;
+      }
+      return false;
+    }
+
     REACT_METHOD(isTabletMode);
     void isTabletMode(ReactPromise<bool> promise) noexcept
     {
-      m_reactContext.UIDispatcher().Post([promise]() {
-        auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
-        auto mode = view.UserInteractionMode();
-        switch(mode)
-        {
-        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
-        {
-          promise.Resolve(true);
-          return;
-        }
-        case winrt::Windows::UI::ViewManagement::UserInteractionMode::Mouse:
-        default:
+      if (IsXamlIsland()) {
+        // If the function succeeds, the return value is the requested system metric or configuration setting.
+        // If the function fails, the return value is 0. GetLastError does not provide extended error information.
+        auto ret = CALL_INDIRECT(L"ext-ms-win-ntuser-sysparams-ext-l1-1-0.dll", GetSystemMetrics, SM_TABLETPC);
+        if (ret == 0) 
         {
           promise.Resolve(false);
+          return;
         }
-        }    
-      });
+        promise.Resolve(true);
+      }
+      else
+      {
+        m_reactContext.UIDispatcher().Post([promise]() {
+          auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
+          auto mode = view.UserInteractionMode();
+          switch(mode)
+          {
+          case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
+          {
+            promise.Resolve(true);
+            return;
+          }
+          case winrt::Windows::UI::ViewManagement::UserInteractionMode::Mouse:
+          default:
+          {
+            promise.Resolve(false);
+          }
+          }    
+        });
+      }
     }
 
     REACT_SYNC_METHOD(getIpAddressSync);

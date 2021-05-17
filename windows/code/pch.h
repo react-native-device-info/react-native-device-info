@@ -8,6 +8,7 @@
 #include <winrt/Windows.Security.Credentials.UI.h>
 #include <winrt/Windows.Networking.Connectivity.h>
 #include <winrt/Windows.Devices.Enumeration.h>
+#include <winrt/Windows.Devices.Input.h>
 #include <winrt/Windows.Devices.Power.h>
 #include <winrt/Windows.ApplicationModel.h>
 #include <winrt/Windows.System.Profile.h>
