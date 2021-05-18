@@ -7,21 +7,8 @@
 #include <chrono>
 #include <future>
 
-#include <processthreadsapi.h>
-#include <appmodel.h>
-#include <UI.Xaml.Media.h>
-#include <winrt/Windows.Foundation.Metadata.h>
-#include <windows.h>
-
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
-using namespace winrt::Windows::System::Profile;
-
-namespace winrt {
-    using namespace xaml::Controls::Primitives;
-    using namespace xaml::Media;
-    using namespace Windows::Foundation::Metadata;
-} // namespace winrt
 
 #ifdef RNW61
 #define JSVALUEOBJECTPARAMETER
@@ -29,8 +16,11 @@ namespace winrt {
 #define JSVALUEOBJECTPARAMETER const &
 #endif
 
+// The following CALL_INDIRECT helper functions might be removeable in the future, if/when RNW expose some additional helper APIs themselves.
+// The following code copied is from React-Native-Window's repo inside DesktopWindowBridge.h, but is not currently exposed as public apis.
+// BEGIN CALL_INDIRECT HELPERS
 extern "C" {
-  typedef enum AppPolicyWindowingModel { AppPolicyWindowingModel_None, AppPolicyWindowingModel_Universal, AppPolicyWindowingModel_ClassicDesktop, AppPolicyWindowingModel_ClassicPhone } ;
+  enum AppPolicyWindowingModel { AppPolicyWindowingModel_None, AppPolicyWindowingModel_Universal, AppPolicyWindowingModel_ClassicDesktop, AppPolicyWindowingModel_ClassicPhone } ;
   LONG AppPolicyGetWindowingModel(HANDLE processToken, AppPolicyWindowingModel *policy);
   int GetSystemMetrics(int nIndex);
 }
@@ -59,6 +49,7 @@ auto CallIndirect(const wchar_t *dllName, const char *fnName, TArgs &&... args) 
 
 #define CALL_INDIRECT(dllName, fn, ...) \
   CallIndirect<decltype(&fn)>(dllName, #fn, __VA_ARGS__)
+// END CALL_INDIRECT HELPERS
 
 
 namespace winrt::RNDeviceInfoCPP
@@ -105,8 +96,8 @@ namespace winrt::RNDeviceInfoCPP
       // [Mobile, Tablet, Television, Car, Watch, VirtualReality, Desktop, Unknown]
       // DeviceFamily potential but not inclusive results:
       // [Windows.Desktop, Windows.Mobile, Windows.Xbox, Windows.Holographic, Windows.Team, Windows.IoT]
-      auto deviceForm = AnalyticsInfo::DeviceForm();
-      auto deviceFamily = AnalyticsInfo::VersionInfo().DeviceFamily();
+      auto deviceForm = winrt::Windows::System::Profile::AnalyticsInfo::DeviceForm();
+      auto deviceFamily = winrt::Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamily();
       
       bool isTabletByAnalytics = deviceForm == L"Tablet" || deviceForm == L"Mobile" || deviceFamily == L"Windows.Mobile";
       
@@ -188,9 +179,11 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(isMouseConnectedSync());
     }
 
+    // Helper function, should eventually be removed/replaced when it's exposed through RNW's public API.
     bool IsXamlIsland() {
       AppPolicyWindowingModel e;
-      auto token = GetCurrentThreadEffectiveToken();
+      // This value comes from an inline function GetCurrentThreadEffectiveToken() from processthreadsapi.h
+      auto token = (HANDLE)(LONG_PTR) -6;
       auto windowingModel = CALL_INDIRECT(L"Api-ms-win-appmodel-runtime-l1-1-2.dll", AppPolicyGetWindowingModel, token, &e);
       if (FAILED(windowingModel) || e == AppPolicyWindowingModel_ClassicDesktop) {
         return true;
