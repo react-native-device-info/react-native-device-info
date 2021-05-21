@@ -663,7 +663,7 @@ export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatfo
   }
 );
 
-export const [isTabletMode] = getSupportedPlatformInfoFunctions(
+export const isTabletMode = () => getSupportedPlatformInfoAsync(
   {
     supportedPlatforms: ['windows'],
     getter: () => RNDeviceInfo.isTabletMode(),

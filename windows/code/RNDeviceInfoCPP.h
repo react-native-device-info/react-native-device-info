@@ -126,6 +126,10 @@ namespace winrt::RNDeviceInfoCPP
       if (isTabletHelper()) {
         return "Tablet";
       }
+      else if (winrt::Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamily() == L"Windows.Xbox")
+      {
+        return "GameConsole";
+      }
       else {
         return "Desktop";
       }
