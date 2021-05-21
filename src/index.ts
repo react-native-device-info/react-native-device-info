@@ -4,9 +4,9 @@ import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
+  getSupportedPlatformInfoAsync,
   getSupportedPlatformInfoFunctions,
   getSupportedPlatformInfoSync,
-  getSupportedPlatformInfoAsync,
 } from './internal/supported-platform-info';
 import { DeviceInfoModule } from './internal/privateTypes';
 import type {
@@ -654,7 +654,6 @@ export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfo
   }
 );
 
-
 export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatformInfoFunctions(
   {
     supportedPlatforms: ['windows'],
@@ -914,6 +913,11 @@ const deviceInfoModule: DeviceInfoModule = {
   isPinOrFingerprintSet,
   isPinOrFingerprintSetSync,
   isTablet,
+  isMouseConnected,
+  isMouseConnectedSync,
+  isKeyboardConnected,
+  isKeyboardConnectedSync,
+  isTabletMode,
   supported32BitAbis,
   supported32BitAbisSync,
   supported64BitAbis,
