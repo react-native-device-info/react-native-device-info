@@ -197,7 +197,7 @@ namespace winrt::RNDeviceInfoCPP
       if (IsXamlIsland()) {
         // If the function succeeds, the return value is the requested system metric or configuration setting.
         // If the function fails, the return value is 0. GetLastError does not provide extended error information.
-        auto ret = CALL_INDIRECT(L"ext-ms-win-ntuser-sysparams-ext-l1-1-0.dll", GetSystemMetrics, SM_DIGITIZER);
+        auto ret = CALL_INDIRECT(L"ext-ms-win-ntuser-sysparams-ext-l1-1-0.dll", GetSystemMetrics, SM_CONVERTIBLESLATEMODE);
         if (ret == 0) 
         {
           promise.Resolve(false);
