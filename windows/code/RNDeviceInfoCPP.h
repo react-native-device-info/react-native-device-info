@@ -128,7 +128,7 @@ namespace winrt::RNDeviceInfoCPP
       }
       else if (winrt::Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamily() == L"Windows.Xbox")
       {
-        return "GameConsole";
+        return "GamingConsole";
       }
       else {
         return "Desktop";
