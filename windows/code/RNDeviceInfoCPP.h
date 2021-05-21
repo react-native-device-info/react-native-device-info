@@ -185,7 +185,7 @@ namespace winrt::RNDeviceInfoCPP
       // This value comes from an inline function GetCurrentThreadEffectiveToken() from processthreadsapi.h
       auto token = (HANDLE)(LONG_PTR) -6;
       auto windowingModel = CALL_INDIRECT(L"Api-ms-win-appmodel-runtime-l1-1-2.dll", AppPolicyGetWindowingModel, token, &e);
-      if (FAILED(windowingModel) || e == AppPolicyWindowingModel_ClassicDesktop) {
+      if ((ERROR_SUCCESS != windowingModel) || e == AppPolicyWindowingModel_ClassicDesktop) {
         return true;
       }
       return false;
@@ -197,7 +197,7 @@ namespace winrt::RNDeviceInfoCPP
       if (IsXamlIsland()) {
         // If the function succeeds, the return value is the requested system metric or configuration setting.
         // If the function fails, the return value is 0. GetLastError does not provide extended error information.
-        auto ret = CALL_INDIRECT(L"ext-ms-win-ntuser-sysparams-ext-l1-1-0.dll", GetSystemMetrics, SM_TABLETPC);
+        auto ret = CALL_INDIRECT(L"ext-ms-win-ntuser-sysparams-ext-l1-1-0.dll", GetSystemMetrics, SM_DIGITIZER);
         if (ret == 0) 
         {
           promise.Resolve(false);
