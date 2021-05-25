@@ -37,6 +37,16 @@ or using yarn:
 yarn add react-native-device-info
 ```
 
+## Proguard
+
+If you want to use Install Referrer tracking, you will need to add this config to your Proguard config
+
+```
+-keepclassmembers class com.android.installreferrer.api.** {
+  *;
+}
+```
+
 ## AndroidX Support
 
 This module defaults to AndroidX you should configure your library versions similar to this in your `android/build.gradle` file's "ext" block
