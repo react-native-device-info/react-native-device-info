@@ -332,7 +332,7 @@ let bundleId = DeviceInfo.getBundleId();
 
 ### isCameraPresent()
 
-Tells if the device have any camera now.
+Tells if the device has any camera now.
 
 #### Examples
 
