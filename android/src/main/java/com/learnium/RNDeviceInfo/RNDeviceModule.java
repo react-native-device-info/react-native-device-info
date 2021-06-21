@@ -48,6 +48,8 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -311,6 +313,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
           byte[] macBytes = nif.getHardwareAddress();
           if (macBytes == null) {
             macAddress = "";
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+              List<InetAddress> addrs = Collections.list(nif.getInetAddresses());
+              for (InetAddress addr : addrs) {
+                String sAddr = addr.getHostAddress();
+                if (!addr.isLoopbackAddress()) {
+                  int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
+                  String ipv6 =  delim<0 ? sAddr : sAddr.substring(0, delim);
+                  macAddress = getMacAddressFromIpv6(ipv6);
+                }
+              }
+            }
           } else {
 
             StringBuilder res1 = new StringBuilder();
@@ -957,5 +970,31 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(eventName, data);
+  }
+
+  private String getMacAddressFromIpv6(String ipv6){
+    String[] arr = ipv6.split(":");
+    List<String> fullList = new ArrayList<String>(Arrays.asList(arr));
+    fullList.remove(0);
+    fullList.remove(0);
+    List<String> fullArr = new ArrayList<>();
+    for (String str: fullList
+    ) {
+      if(str.length()<4){
+        str="0"+str;
+      }
+      fullArr.add(str.trim().substring(0,2));
+      fullArr.add(str.trim().substring(2,4));
+    }
+    fullArr.remove(3);
+    fullArr.remove(4);
+    int hex = (Integer.parseInt(fullArr.get(0), 16)^2);
+    fullArr.set(0,Integer.toHexString(hex));
+    String macAddress = "";
+    for (int i=0;i<fullArr.size();i++){
+      macAddress = macAddress.concat(fullArr.get(i));
+      if (!(i == 5)) macAddress = macAddress.concat(":");
+    }
+    return macAddress;
   }
 }
