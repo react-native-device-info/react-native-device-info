@@ -320,7 +320,9 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
                 if (!addr.isLoopbackAddress()) {
                   int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
                   String ipv6 =  delim<0 ? sAddr : sAddr.substring(0, delim);
-                  macAddress = getMacAddressFromIpv6(ipv6);
+                  if(ipv6.trim().length()>0){
+                    macAddress = getMacAddressFromIpv6(ipv6);
+                  }
                 }
               }
             }
