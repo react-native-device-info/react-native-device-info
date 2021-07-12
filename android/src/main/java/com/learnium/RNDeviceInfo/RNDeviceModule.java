@@ -20,6 +20,8 @@ import android.os.Environment;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.BatteryManager;
+import android.os.Debug;
+import android.os.Process;
 import android.provider.Settings;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -454,11 +456,26 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void isBatteryCharging(Promise p) { p.resolve(isBatteryChargingSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public int getUsedMemorySync() {
-    Runtime rt = Runtime.getRuntime();
-    long usedMemory = rt.totalMemory() - rt.freeMemory();
-    return (int)usedMemory;
+  public double getUsedMemorySync() {
+    ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+    if (actMgr != null) {
+      int pid = android.os.Process.myPid();
+      android.os.Debug.MemoryInfo[] memInfos = actMgr.getProcessMemoryInfo(new int[]{pid});
+
+      if(memInfos.length != 1) {
+        System.err.println("Unable to getProcessMemoryInfo. getProcessMemoryInfo did not return any info for the PID");
+        return -1;
+      }
+
+      android.os.Debug.MemoryInfo memInfo = memInfos[0];
+
+      return memInfo.getTotalPss() * 1024D;
+    } else {
+      System.err.println("Unable to getProcessMemoryInfo. ActivityManager was null");
+      return -1;
+    }
   }
+
   @ReactMethod
   public void getUsedMemory(Promise p) { p.resolve(getUsedMemorySync()); }
 

@@ -1039,6 +1039,9 @@ DeviceInfo.syncUniqueId().then((uniqueId) => {
 
 Gets the app memory usage, in bytes.
 
+⚠️ [A note from the Android docs.](https://developer.android.com/reference/android/app/ActivityManager#getProcessMemoryInfo(int%5B%5D))
+> Note: this method is only intended for debugging or building a user-facing process management UI.
+
 #### Examples
 
 ```js
