@@ -107,7 +107,7 @@
     "react": "16.14.0",
     "react-native": "^0.63.4",
     "react-native-builder-bob": "^0.18.1",
-    "react-native-windows": "^0.63.23",
+    "react-native-windows": "^1.0.0",
     "react-test-renderer": "^17.0.1",
     "semantic-release": "^17.4.2",
     "ts-jest": "^26.5.3",
