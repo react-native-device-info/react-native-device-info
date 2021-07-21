@@ -96,7 +96,7 @@
     "@testing-library/react-hooks": "^5.1.0",
     "@types/jest": "^26.0.20",
     "@types/react": "16.14.5",
-    "@types/react-native": "^0.63.51",
+    "@types/react-native": "^0.64.2",
     "eslint": "^7.21.0",
     "eslint-plugin-prettier": "^3.3.1",
     "husky": "^6.0.0",
