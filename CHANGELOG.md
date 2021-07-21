@@ -1,3 +1,10 @@
+## [8.1.4](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.3...v8.1.4) (2021-07-21)
+
+
+### Bug Fixes
+
+* Updated getUsedMemory to pull from ActivityManager debug memory info ([ed99cd3](https://github.com/react-native-device-info/react-native-device-info/commit/ed99cd3e34e97b4766383724cdb336a189647200))
+
 ## [8.1.3](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.2...v8.1.3) (2021-05-05)
 
 
