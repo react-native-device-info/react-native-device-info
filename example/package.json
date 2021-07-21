@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "react": "16.13.1",
-    "react-native": "0.63.4",
+    "react-native": "0.64.1",
     "react-native-device-info": "github:react-native-community/react-native-device-info",
     "react-native-windows": "^0.63.0-0"
   },
