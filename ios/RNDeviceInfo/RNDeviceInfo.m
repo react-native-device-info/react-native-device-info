@@ -276,6 +276,8 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"iPad11,2": @"iPad Mini 5", // (5th Generation iPad Mini)
         @"iPad11,3": @"iPad Air (3rd generation)",
         @"iPad11,4": @"iPad Air (3rd generation)",
+        @"iPad13,1": @"iPad Air (4th generation)",
+        @"iPad13,2": @"iPad Air (4th generation)",
         @"AppleTV2,1": @"Apple TV", // Apple TV (2nd Generation)
         @"AppleTV3,1": @"Apple TV", // Apple TV (3rd Generation)
         @"AppleTV3,2": @"Apple TV", // Apple TV (3rd Generation - Rev A)
