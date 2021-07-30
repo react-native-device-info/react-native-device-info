@@ -1,3 +1,10 @@
+## [8.1.5](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.4...v8.1.5) (2021-07-30)
+
+
+### Bug Fixes
+
+* **iOS:** Adds iPad Air 4th gen name description ([#1273](https://github.com/react-native-device-info/react-native-device-info/issues/1273)) ([3c0d766](https://github.com/react-native-device-info/react-native-device-info/commit/3c0d7664c252753178ad5a75a8e395ffd3eacdec))
+
 ## [8.1.4](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.3...v8.1.4) (2021-07-21)
 
 

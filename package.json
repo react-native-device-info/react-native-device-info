@@ -1,6 +1,6 @@
 {
   "name": "react-native-device-info",
-  "version": "8.1.4",
+  "version": "8.1.5",
   "description": "Get device information using react-native",
   "react-native": "src/index.ts",
   "types": "lib/typescript/index.d.ts",
