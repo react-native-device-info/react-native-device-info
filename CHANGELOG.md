@@ -1,4 +1,4 @@
-## [8.1.6]
+## [8.1.6](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.5...v8.1.6) (2021-08-03)
 
 - fix(hasNotch): fix missing Redme Note 8 Pro model name in devicesWithNotch.ts (@yevhenlv)
 
