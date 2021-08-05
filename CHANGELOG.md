@@ -1,3 +1,10 @@
+## [8.1.6](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.5...v8.1.6) (2021-08-05)
+
+
+### Bug Fixes
+
+* **hasNotch:** add Redmi Note 8 Pro to hasNotch list ([#1276](https://github.com/react-native-device-info/react-native-device-info/issues/1276)) ([06e2b6c](https://github.com/react-native-device-info/react-native-device-info/commit/06e2b6c6740b10ffa93918c50040f5f9faf9595e))
+
 ## [8.1.5](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.4...v8.1.5) (2021-07-30)
 
 
