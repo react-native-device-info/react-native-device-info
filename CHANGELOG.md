@@ -1,3 +1,10 @@
+## [8.1.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.6...v8.1.7) (2021-08-05)
+
+
+### Bug Fixes
+
+* **windows:** react-native-device-info don't work with apps in RNW v0.64 ([#1279](https://github.com/react-native-device-info/react-native-device-info/issues/1279)) ([d1a5c4e](https://github.com/react-native-device-info/react-native-device-info/commit/d1a5c4ecd9be07169ea260ec959fe9499b0dbf66))
+
 ## [8.1.6](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.5...v8.1.6) (2021-08-05)
 
 
