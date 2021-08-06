@@ -209,7 +209,6 @@ export function getReadableVersion() {
 }
 
 export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFunctions({
-  memoKey: 'deviceName',
   supportedPlatforms: ['android', 'ios', 'windows'],
   getter: () => RNDeviceInfo.getDeviceName(),
   syncGetter: () => RNDeviceInfo.getDeviceNameSync(),
