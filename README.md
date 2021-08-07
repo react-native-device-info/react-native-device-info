@@ -580,7 +580,7 @@ DeviceInfo.getHost().then((host) => {
 ### getIpAddress()
 
 **Deprecated** Gets the device current IP address. (of wifi only)
-Switch to @react-native-community/netinfo or react-native-network-info
+Switch to [react-native-netinfo/netinfo](https://github.com/react-native-netinfo/react-native-netinfo) or [react-native-network-info](https://github.com/pusherman/react-native-network-info)
 
 #### Examples
 
