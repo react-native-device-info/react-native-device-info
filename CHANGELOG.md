@@ -1,3 +1,24 @@
+## [8.1.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.6...v8.1.7) (2021-08-05)
+
+
+### Bug Fixes
+
+* **windows:** react-native-device-info don't work with apps in RNW v0.64 ([#1279](https://github.com/react-native-device-info/react-native-device-info/issues/1279)) ([d1a5c4e](https://github.com/react-native-device-info/react-native-device-info/commit/d1a5c4ecd9be07169ea260ec959fe9499b0dbf66))
+
+## [8.1.6](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.5...v8.1.6) (2021-08-05)
+
+
+### Bug Fixes
+
+* **hasNotch:** add Redmi Note 8 Pro to hasNotch list ([#1276](https://github.com/react-native-device-info/react-native-device-info/issues/1276)) ([06e2b6c](https://github.com/react-native-device-info/react-native-device-info/commit/06e2b6c6740b10ffa93918c50040f5f9faf9595e))
+
+## [8.1.5](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.4...v8.1.5) (2021-07-30)
+
+
+### Bug Fixes
+
+* **iOS:** Adds iPad Air 4th gen name description ([#1273](https://github.com/react-native-device-info/react-native-device-info/issues/1273)) ([3c0d766](https://github.com/react-native-device-info/react-native-device-info/commit/3c0d7664c252753178ad5a75a8e395ffd3eacdec))
+
 ## [8.1.4](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.3...v8.1.4) (2021-07-21)
 
 
