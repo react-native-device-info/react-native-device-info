@@ -844,7 +844,6 @@ DeviceInfo.getSerialNumber().then((serialNumber) => {
   // Windows: ? (a serial number, if your app has the "capability smbios")
 });
 ```
-
 ## Notes
 ### capability smbios
 If you want to use this method in windows, you have to add smbios capability in your aplication. Please following this [documentation](https://docs.microsoft.com/en-us/windows/win32/sysinfo/access-smbios-information-from-a-universal-windows-app) for add the capability in your manifest file.
