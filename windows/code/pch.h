@@ -17,3 +17,4 @@
 #include <winrt/Windows.Services.Store.h>
 #include <winrt/Windows.Data.Json.h>
 #include <winrt/Windows.System.Power.h>
+#include <winrt/Windows.System.Profile.SystemManufacturers.h>

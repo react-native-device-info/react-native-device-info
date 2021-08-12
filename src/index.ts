@@ -44,7 +44,7 @@ export const [getInstanceId, getInstanceIdSync] = getSupportedPlatformInfoFuncti
 
 export const [getSerialNumber, getSerialNumberSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'serialNumber',
-  supportedPlatforms: ['android'],
+  supportedPlatforms: ['android', 'windows'],
   getter: () => RNDeviceInfo.getSerialNumber(),
   syncGetter: () => RNDeviceInfo.getSerialNumberSync(),
   defaultValue: 'unknown',
@@ -564,7 +564,9 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
 });
 
 export const getDeviceType = () => {
-  if (Platform.OS === 'windows') return 'Desktop';
+  if (Platform.OS === 'windows') {
+    return 'Desktop';
+  }
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
@@ -575,7 +577,9 @@ export const getDeviceType = () => {
 };
 
 export const getDeviceTypeSync = () => {
-  if (Platform.OS === 'windows') return 'Desktop';
+  if (Platform.OS === 'windows') {
+    return 'Desktop';
+  }
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
