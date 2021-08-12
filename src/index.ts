@@ -44,7 +44,7 @@ export const [getInstanceId, getInstanceIdSync] = getSupportedPlatformInfoFuncti
 
 export const [getSerialNumber, getSerialNumberSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'serialNumber',
-  supportedPlatforms: ['android'],
+  supportedPlatforms: ['android', 'windows'],
   getter: () => RNDeviceInfo.getSerialNumber(),
   syncGetter: () => RNDeviceInfo.getSerialNumberSync(),
   defaultValue: 'unknown',

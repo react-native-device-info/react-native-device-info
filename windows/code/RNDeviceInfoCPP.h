@@ -27,6 +27,7 @@ namespace winrt::RNDeviceInfoCPP
     {
       provider.Add(L"uniqueId", getUniqueIdSync());
       provider.Add(L"deviceId", getDeviceIdSync());
+      provider.Add(L"serialNumber", getSerialNumberSync());
       provider.Add(L"bundleId", getBundleIdSync());
       provider.Add(L"systemVersion", getSystemVersionSync());
       provider.Add(L"appVersion", getAppVersionSync());
@@ -549,6 +550,25 @@ namespace winrt::RNDeviceInfoCPP
     void getDeviceId(ReactPromise<std::string> promise) noexcept
     {
       promise.Resolve(getDeviceIdSync());
+    }
+    
+    REACT_SYNC_METHOD(getSerialNumberSync);
+    std::string getSerialNumberSync() noexcept
+    {
+        try
+        {
+            return winrt::to_string(Windows::System::Profile::SystemManufacturers::SmbiosInformation::SerialNumber().c_str());
+        }
+        catch (...)
+        {
+            return "unknown";
+        }
+    }
+
+    REACT_METHOD(getSerialNumber);
+    void getSerialNumber(ReactPromise<std::string> promise) noexcept
+    {
+        promise.Resolve(getSerialNumberSync());
     }
 
     REACT_SYNC_METHOD(getSystemManufacturerSync);

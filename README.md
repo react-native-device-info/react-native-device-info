@@ -108,7 +108,7 @@ Most APIs return a Promise but also have a corresponding API with `Sync` on the 
 
 The example app in this repository shows an example usage of every single API, consult the example app if you have questions, and if you think you see a problem make sure you can reproduce it using the example app before reporting it, thank you.
 
-| Method                                                            | Return Type         |  iOS | Android | Windows | Web |
+| Method                                                            | Return Type         |  iOS | Android | Windows | Web |
 | ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-: |
 | [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
@@ -152,7 +152,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
-| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
+| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ❌  |
 | [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
@@ -841,9 +841,12 @@ Gets the device serial number. Will be 'unknown' in almost all cases [unless you
 DeviceInfo.getSerialNumber().then((serialNumber) => {
   // iOS: unknown
   // Android: ? (maybe a serial number, if your app is privileged)
-  // Windows: unknown
+  // Windows: ? (a serial number, if your app has the "capability smbios")
 });
 ```
+## Notes
+### capability smbios
+If you want to use this method in windows, you have to add smbios capability in your aplication. Please following this [documentation](https://docs.microsoft.com/en-us/windows/win32/sysinfo/access-smbios-information-from-a-universal-windows-app) for add the capability in your manifest file.
 
 ---
 
