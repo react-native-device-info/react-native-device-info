@@ -564,9 +564,7 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
 });
 
 export const getDeviceType = () => {
-  if (Platform.OS === 'windows') {
-    return 'Desktop';
-  }
+  if (Platform.OS === 'windows') return 'Desktop';
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
@@ -577,9 +575,7 @@ export const getDeviceType = () => {
 };
 
 export const getDeviceTypeSync = () => {
-  if (Platform.OS === 'windows') {
-    return 'Desktop';
-  }
+  if (Platform.OS === 'windows') return 'Desktop';
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',

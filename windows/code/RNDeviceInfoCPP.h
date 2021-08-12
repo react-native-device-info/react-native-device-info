@@ -1,7 +1,6 @@
 #pragma once
 
 #include "pch.h"
-#include <windows.h>
 #include "NativeModules.h"
 #include <regex>
 #include <sstream>
