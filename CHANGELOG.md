@@ -1,3 +1,10 @@
+# [8.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.7...v8.2.0) (2021-08-12)
+
+
+### Features
+
+* Added getSerialNumber for windows ([#1287](https://github.com/react-native-device-info/react-native-device-info/issues/1287)) ([5b44183](https://github.com/react-native-device-info/react-native-device-info/commit/5b44183272a5a7730ac06c1b278fe0782ab9d87b))
+
 ## [8.1.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.6...v8.1.7) (2021-08-05)
 
 
