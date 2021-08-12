@@ -540,7 +540,7 @@ namespace winrt::RNDeviceInfoCPP
     {
       try
       {
-        return winrt::to_string(Windows::System::Profile::SystemManufacturers::SmbiosInformation::SerialNumber().c_str());
+        return winrt::to_string(Windows::Security::ExchangeActiveSyncProvisioning::EasClientDeviceInformation().SystemHardwareVersion());
       } catch (...)
       {
         return "unknown";
