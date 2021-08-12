@@ -405,7 +405,7 @@ Gets the device ID.
 let deviceId = DeviceInfo.getDeviceId();
 // iOS: "iPhone7,2"
 // Android: "goldfish"
-// Windows: ?
+// Windows: "Y3R94UC#AC4"
 ```
 
 ---
