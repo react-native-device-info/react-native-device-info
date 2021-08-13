@@ -539,7 +539,7 @@ namespace winrt::RNDeviceInfoCPP
     {
       try
       {
-        return winrt::to_string(Windows::Security::ExchangeActiveSyncProvisioning::EasClientDeviceInformation().SystemHardwareVersion());
+        return  winrt::to_string(Windows::Security::ExchangeActiveSyncProvisioning::EasClientDeviceInformation().SystemSku());
       } catch (...)
       {
         return "unknown";
