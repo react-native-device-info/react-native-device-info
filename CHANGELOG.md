@@ -1,3 +1,10 @@
+# [8.3.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.2.0...v8.3.0) (2021-08-13)
+
+
+### Features
+
+* **windows, device-id:** Added get device id for windows ([#1286](https://github.com/react-native-device-info/react-native-device-info/issues/1286)) ([dce34b7](https://github.com/react-native-device-info/react-native-device-info/commit/dce34b797631f2da3d1fe0fc44c5c112c8abedee))
+
 # [8.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.1.7...v8.2.0) (2021-08-12)
 
 
