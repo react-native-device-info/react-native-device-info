@@ -1,3 +1,10 @@
+## [8.3.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.0...v8.3.1) (2021-08-20)
+
+
+### Bug Fixes
+
+* addListener/removeListeners native stubs for react-native 0.65 copmatibility ([3917f33](https://github.com/react-native-device-info/react-native-device-info/commit/3917f339207a5a2b05e3922f7489a0568dfde666)), closes [#1288](https://github.com/react-native-device-info/react-native-device-info/issues/1288)
+
 # [8.3.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.2.0...v8.3.0) (2021-08-13)
 
 
