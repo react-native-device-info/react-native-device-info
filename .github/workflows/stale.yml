@@ -13,6 +13,8 @@ jobs:
     steps:
     - uses: actions/stale@v4
       with:
+        operations-per-run: 100
+        ascending: true
         repo-token: ${{ secrets.GH_TOKEN }}
         stale-issue-message: 'Hello 👋, this issue has been opened for more than 2 months with no activity on it. If the issue is sti
 ll here, please keep in mind that we need community support and help to fix it! Just comment something like _still searching for solu
