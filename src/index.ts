@@ -563,8 +563,18 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
   defaultValue: false,
 });
 
-export const getDeviceType = () => {
-  if (Platform.OS === 'windows') return 'Desktop';
+export const deviceType = {
+  DESKTOP: 'Desktop',
+  HANDSET: 'Handset',
+  TABLET: 'Tablet',
+  TV: 'Tv',
+  UNKNOWN: 'unknown'
+} as const
+
+type DeviceTypeReturnType = typeof deviceType[keyof typeof deviceType]
+
+export const getDeviceType = (): DeviceTypeReturnType => {
+  if (Platform.OS === 'windows') return deviceType.DESKTOP;
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
@@ -574,8 +584,8 @@ export const getDeviceType = () => {
   });
 };
 
-export const getDeviceTypeSync = () => {
-  if (Platform.OS === 'windows') return 'Desktop';
+export const getDeviceTypeSync = (): DeviceTypeReturnType => {
+  if (Platform.OS === 'windows') return deviceType.DESKTOP;
 
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
