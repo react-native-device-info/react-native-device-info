@@ -47,6 +47,11 @@ If you want to use Install Referrer tracking, you will need to add this config t
 }
 ```
 
+If you are experiencing issues with hasGms() on your release apks, please add the following rule to your Proguard config
+```
+-keep class com.google.android.gms.common.** {*;}
+```
+
 ## AndroidX Support
 
 This module defaults to AndroidX you should configure your library versions similar to this in your `android/build.gradle` file's "ext" block
