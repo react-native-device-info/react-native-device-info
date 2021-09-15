@@ -1,3 +1,10 @@
+## [8.3.2](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.1...v8.3.2) (2021-09-15)
+
+
+### Bug Fixes
+
+* **hasNotch:** Add iPhone 13 lineup to list of devices with notch ([#1307](https://github.com/react-native-device-info/react-native-device-info/issues/1307)) ([44193d5](https://github.com/react-native-device-info/react-native-device-info/commit/44193d5addaaa859e09447257a27549ddf8ff7ce))
+
 ## [8.3.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.0...v8.3.1) (2021-08-20)
 
 
