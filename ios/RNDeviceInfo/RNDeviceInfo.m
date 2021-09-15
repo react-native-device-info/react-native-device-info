@@ -590,6 +590,20 @@ RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
     resolve(self.getIpAddress);
 }
 
+- (NSNumber *) getIsAirplaneEnabled {
+    NSString * radio = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
+    bool isEnabled = radio == nil;
+    return [NSNumber numberWithBool: isEnabled]
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isAirplaneEnabledSync) {
+    return self.getIsAirplaneEnabled
+}
+
+RCT_EXPORT_METHOD(isAirplaneEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    resolve(self.getIsAirplaneEnabled)
+}
+
 - (BOOL) isPinOrFingerprintSet {
 #if TARGET_OS_TV
     return NO;

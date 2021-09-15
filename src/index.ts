@@ -557,7 +557,7 @@ export function isLandscapeSync() {
 }
 
 export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'web'],
+  supportedPlatforms: ['android', 'web', 'ios'],
   getter: () => RNDeviceInfo.isAirplaneMode(),
   syncGetter: () => RNDeviceInfo.isAirplaneModeSync(),
   defaultValue: false,
