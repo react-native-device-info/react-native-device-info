@@ -245,10 +245,10 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"iPhone13,2": @"iPhone 12",
         @"iPhone13,3": @"iPhone 12 Pro",
         @"iPhone13,4": @"iPhone 12 Pro Max",
-	@"iPhone14,1": @"iPhone 12 mini",
-        @"iPhone14,2": @"iPhone 12",
-        @"iPhone14,3": @"iPhone 12 Pro",
-        @"iPhone14,4": @"iPhone 12 Pro Max",
+	@"iPhone14,1": @"iPhone 13 mini",
+        @"iPhone14,2": @"iPhone 13",
+        @"iPhone14,3": @"iPhone 13 Pro",
+        @"iPhone14,4": @"iPhone 13 Pro Max",
         @"iPad4,1": @"iPad Air", // 5th Generation iPad (iPad Air) - Wifi
         @"iPad4,2": @"iPad Air", // 5th Generation iPad (iPad Air) - Cellular
         @"iPad4,3": @"iPad Air", // 5th Generation iPad (iPad Air)
