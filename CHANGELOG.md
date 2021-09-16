@@ -1,3 +1,10 @@
+## [8.3.3](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.2...v8.3.3) (2021-09-16)
+
+
+### Bug Fixes
+
+* **hasNotch:** Missing device name for iPhone 13 ([#1309](https://github.com/react-native-device-info/react-native-device-info/issues/1309)) ([0bc979e](https://github.com/react-native-device-info/react-native-device-info/commit/0bc979e687ef9ddbbd29410a60980cf536ce6002)), closes [#1307](https://github.com/react-native-device-info/react-native-device-info/issues/1307)
+
 ## [8.3.2](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.1...v8.3.2) (2021-09-15)
 
 
