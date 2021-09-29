@@ -183,39 +183,16 @@ namespace winrt::RNDeviceInfoCPP
       promise.Resolve(isMouseConnectedSync());
     }
 
-    // Helper function, should eventually be removed/replaced when it's exposed through RNW's public API.
-    bool IsXamlIsland() {
-      AppPolicyWindowingModel e;
-      // This value comes from an inline function GetCurrentThreadEffectiveToken() from processthreadsapi.h
-      auto token = (HANDLE)(LONG_PTR) -6;
-      auto windowingModel = CALL_INDIRECT(L"Api-ms-win-appmodel-runtime-l1-1-2.dll", AppPolicyGetWindowingModel, token, &e);
-      if ((ERROR_SUCCESS != windowingModel) || e == AppPolicyWindowingModel_ClassicDesktop) {
-        return true;
-      }
-      return false;
-    }
-
     REACT_METHOD(isTabletMode);
     void isTabletMode(ReactPromise<bool> promise) noexcept
     {
-      if (IsXamlIsland()) {
-        // If the function succeeds, the return value is the requested system metric or configuration setting.
-        // If the function fails, the return value is 0. GetLastError does not provide extended error information.
-        auto ret = CALL_INDIRECT(L"ext-ms-win-ntuser-sysparams-ext-l1-1-0.dll", GetSystemMetrics, SM_CONVERTIBLESLATEMODE);
-        if (ret == 0) 
+      // NOTE: Should eventually add IsXamlIsland() relevant code when it's exposed through RNW's public API.
+
+      m_reactContext.UIDispatcher().Post([promise]() {
+        auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
+        auto mode = view.UserInteractionMode();
+        switch(mode)
         {
-          promise.Resolve(false);
-          return;
-        }
-        promise.Resolve(true);
-      }
-      else
-      {
-        m_reactContext.UIDispatcher().Post([promise]() {
-          auto view = winrt::Windows::UI::ViewManagement::UIViewSettings::GetForCurrentView();
-          auto mode = view.UserInteractionMode();
-          switch(mode)
-          {
           case winrt::Windows::UI::ViewManagement::UserInteractionMode::Touch:
           {
             promise.Resolve(true);
@@ -226,9 +203,8 @@ namespace winrt::RNDeviceInfoCPP
           {
             promise.Resolve(false);
           }
-          }    
-        });
-      }
+        }
+      });
     }
 
     REACT_SYNC_METHOD(getIpAddressSync);
