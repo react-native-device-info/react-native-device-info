@@ -1,11 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext {        firebaseIidVersion = "19.0.1"
+    ext {
+        firebaseIidVersion = "19.0.1"
         buildToolsVersion = "29.0.2"
         minSdkVersion = 16
         compileSdkVersion = 29
         targetSdkVersion = 29
+        // The build wasn't working on the latest build machine's latest NDK (23.0.7599858). So pinning it for now.
+        ndkVersion = "22.1.7171670"
     }
     repositories {
         google()
