@@ -16,42 +16,6 @@ using namespace winrt::Windows::Foundation;
 #define JSVALUEOBJECTPARAMETER const &
 #endif
 
-// The following CALL_INDIRECT helper functions might be removeable in the future, if/when RNW expose some additional helper APIs themselves.
-// The following code copied is from React-Native-Window's repo inside DesktopWindowBridge.h, but is not currently exposed as public apis.
-// BEGIN CALL_INDIRECT HELPERS
-extern "C" {
-  enum AppPolicyWindowingModel { AppPolicyWindowingModel_None, AppPolicyWindowingModel_Universal, AppPolicyWindowingModel_ClassicDesktop, AppPolicyWindowingModel_ClassicPhone } ;
-  LONG AppPolicyGetWindowingModel(HANDLE processToken, AppPolicyWindowingModel *policy);
-  int GetSystemMetrics(int nIndex);
-}
-
-namespace details {
-struct IndirectLibraryDeleter {
-  void operator()(void *l) {
-    WINRT_IMPL_FreeLibrary(l);
-  }
-};
-
-using IndirectLibrary = std::unique_ptr<void, IndirectLibraryDeleter>;
-__declspec(selectany) std::unordered_map<std::wstring, IndirectLibrary> indirectLibraries{};
-} // namespace details
-
-// In later versions of RNW, The following will become available and this can be removed.
-template <typename TFn, typename... TArgs>
-auto CallIndirect(const wchar_t *dllName, const char *fnName, TArgs &&... args) noexcept {
-    if (details::indirectLibraries.count(dllName) == 0) {
-        details::indirectLibraries.emplace(dllName, WINRT_IMPL_LoadLibraryW(dllName));
-    }
-    auto &library = details::indirectLibraries[dllName];
-    auto pfn = reinterpret_cast<TFn>(WINRT_IMPL_GetProcAddress(library.get(), fnName));
-    return pfn(args...);
-}
-
-#define CALL_INDIRECT(dllName, fn, ...) \
-  CallIndirect<decltype(&fn)>(dllName, #fn, __VA_ARGS__)
-// END CALL_INDIRECT HELPERS
-
-
 namespace winrt::RNDeviceInfoCPP
 {
   REACT_MODULE(RNDeviceInfoCPP, L"RNDeviceInfo");
