@@ -1,4 +1,4 @@
-export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Desktop' | 'unknown';
+export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Desktop' | 'GamingConsole' | 'unknown';
 
 export type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
 

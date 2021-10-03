@@ -4,9 +4,9 @@ import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
+  getSupportedPlatformInfoAsync,
   getSupportedPlatformInfoFunctions,
   getSupportedPlatformInfoSync,
-  getSupportedPlatformInfoAsync,
 } from './internal/supported-platform-info';
 import { DeviceInfoModule } from './internal/privateTypes';
 import type {
@@ -564,22 +564,18 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
 });
 
 export const getDeviceType = () => {
-  if (Platform.OS === 'windows') return 'Desktop';
-
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
-    supportedPlatforms: ['android', 'ios'],
+    supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.deviceType,
   });
 };
 
 export const getDeviceTypeSync = () => {
-  if (Platform.OS === 'windows') return 'Desktop';
-
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
-    supportedPlatforms: ['android', 'ios'],
+    supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.deviceType,
   });
@@ -645,6 +641,32 @@ export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPl
     supportedPlatforms: ['android', 'ios'],
     getter: () => RNDeviceInfo.isHeadphonesConnected(),
     syncGetter: () => RNDeviceInfo.isHeadphonesConnectedSync(),
+    defaultValue: false,
+  }
+);
+
+export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['windows'],
+    getter: () => RNDeviceInfo.isMouseConnected(),
+    syncGetter: () => RNDeviceInfo.isMouseConnectedSync(),
+    defaultValue: false,
+  }
+);
+
+export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['windows'],
+    getter: () => RNDeviceInfo.isKeyboardConnected(),
+    syncGetter: () => RNDeviceInfo.isKeyboardConnectedSync(),
+    defaultValue: false,
+  }
+);
+
+export const isTabletMode = () => getSupportedPlatformInfoAsync(
+  {
+    supportedPlatforms: ['windows'],
+    getter: () => RNDeviceInfo.isTabletMode(),
     defaultValue: false,
   }
 );
@@ -890,6 +912,11 @@ const deviceInfoModule: DeviceInfoModule = {
   isLocationEnabledSync,
   isPinOrFingerprintSet,
   isPinOrFingerprintSetSync,
+  isMouseConnected,
+  isMouseConnectedSync,
+  isKeyboardConnected,
+  isKeyboardConnectedSync,
+  isTabletMode,
   isTablet,
   supported32BitAbis,
   supported32BitAbisSync,

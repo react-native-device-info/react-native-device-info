@@ -178,11 +178,14 @@ The example app in this repository shows an example usage of every single API, c
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅  |
 | [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ✅  |
 | [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
+| [isKeyboardConnected()](#iskeyboardconnected)                     | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
 | [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
 | [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ✅  |
+| [isMouseConnected()](#ismouseconneted)                            | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
 | [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ❌  |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
+| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | ❌  |
@@ -1138,6 +1141,19 @@ DeviceInfo.isEmulator().then((isEmulator) => {
 
 ---
 
+### isKeyboardConnected()
+
+Tells if the device has a keyboard connected.
+
+#### Examples
+
+```js
+let isKeyboardConnected = DeviceInfo.isKeyboardConnected();
+// true
+```
+
+---
+
 ### isPinOrFingerprintSet()
 
 Tells if a PIN number or a fingerprint was set for the device.
@@ -1167,6 +1183,19 @@ let isTablet = DeviceInfo.isTablet();
 
 ---
 
+### isTabletMode()
+
+Tells if the device is in tablet mode.
+
+#### Examples
+
+```js
+let isTabletMode = DeviceInfo.isTabletMode();
+// true
+```
+
+---
+
 ### isLandscape()
 
 Tells if the device is currently in landscape mode.
@@ -1177,6 +1206,19 @@ Tells if the device is currently in landscape mode.
 DeviceInfo.isLandscape().then((isLandscape) => {
   // true
 });
+```
+
+---
+
+### isMouseConnected()
+
+Tells if the device has a mouse connected.
+
+#### Examples
+
+```js
+let isMouseConnected = DeviceInfo.isMouseConnected();
+// true
 ```
 
 ---
@@ -1230,6 +1272,7 @@ Returns the device's type as a string, which will be one of:
 - `Tablet`
 - `Tv`
 - `Desktop`
+- `GamingConsole`
 - `unknown`
 
 #### Examples

@@ -138,6 +138,11 @@ interface ExposedNativeMethods {
   isLocationEnabledSync: () => boolean;
   isPinOrFingerprintSet: () => Promise<boolean>;
   isPinOrFingerprintSetSync: () => boolean;
+  isMouseConnected: () => Promise<boolean>;
+  isMouseConnectedSync: () => boolean;
+  isKeyboardConnected: () => Promise<boolean>;
+  isKeyboardConnectedSync: () => boolean;
+  isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
 }
 

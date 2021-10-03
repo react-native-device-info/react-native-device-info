@@ -182,6 +182,8 @@ export default class App extends Component {
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
     deviceJSON.hasGms = DeviceInfo.hasGmsSync();
     deviceJSON.hasHms = DeviceInfo.hasHmsSync();
+    deviceJSON.isMouseConnected = DeviceInfo.isMouseConnectedSync();
+    deviceJSON.isKeyboardConnected = DeviceInfo.isKeyboardConnectedSync();
 
     return deviceJSON;
   }
@@ -250,6 +252,9 @@ export default class App extends Component {
       deviceJSON.hasGms = await DeviceInfo.hasGms();
       deviceJSON.hasHms = await DeviceInfo.hasHms();
       deviceJSON.synchronizedUniqueId = await DeviceInfo.syncUniqueId();
+      deviceJSON.isMouseConnected = await DeviceInfo.isMouseConnected();
+      deviceJSON.isKeyboardConnected = await DeviceInfo.isKeyboardConnected();
+      deviceJSON.isTabletMode = await DeviceInfo.isTabletMode();
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
