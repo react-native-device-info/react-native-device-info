@@ -1,3 +1,10 @@
+# [8.4.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.3...v8.4.0) (2021-10-03)
+
+
+### Features
+
+* **windows:** add isTabletMode/isKeyboardConnected/isMouseConnected/DeviceType:GamingConsole  ([#1238](https://github.com/react-native-device-info/react-native-device-info/issues/1238)) ([e186394](https://github.com/react-native-device-info/react-native-device-info/commit/e186394d1b1afc6af74703e52c99192dccc9b9d9))
+
 ## [8.3.3](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.2...v8.3.3) (2021-09-16)
 
 
