@@ -79,6 +79,11 @@
       "name": "Mike Hardy",
       "email": "github@mikehardy.net",
       "url": "https://github.com/mikehardy"
+    },
+    {
+      "name": "Dustin Schie",
+      "email": "github@schie.io",
+      "url": "https://github.com/schie"
     }
   ],
   "license": "MIT",
