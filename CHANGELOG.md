@@ -1,3 +1,10 @@
+## [8.4.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.0...v8.4.1) (2021-10-14)
+
+
+### Bug Fixes
+
+* **ios, uniqueID:** handle keychain duplicateItem during setValue ([#1329](https://github.com/react-native-device-info/react-native-device-info/issues/1329)) ([a5ae298](https://github.com/react-native-device-info/react-native-device-info/commit/a5ae29847cbe6059d56db841999157bc14ba8fad))
+
 # [8.4.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.3.3...v8.4.0) (2021-10-03)
 
 
