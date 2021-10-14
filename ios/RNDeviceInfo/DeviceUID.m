@@ -104,7 +104,13 @@ NSString * const UIDKey = @"deviceUID";
 + (OSStatus)setValue:(NSString *)value forKeychainKey:(NSString *)key inService:(NSString *)service {
     NSMutableDictionary *keychainItem = [[self class] keychainItemForKey:key service:service];
     keychainItem[(__bridge id)kSecValueData] = [value dataUsingEncoding:NSUTF8StringEncoding];
-    return SecItemAdd((__bridge CFDictionaryRef)keychainItem, NULL);
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)keychainItem, NULL);
+    
+    if (status == errSecDuplicateItem) {
+        [DeviceUID deleteValue:key inService:service];
+        status =  SecItemAdd((__bridge CFDictionaryRef)keychainItem, NULL);
+    }
+    return  status;
 }
 
 /*! Updates
@@ -124,6 +130,19 @@ NSString * const UIDKey = @"deviceUID";
 
     return SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
 }
+
++ (OSStatus)deleteValue:(NSString *)key inService:(NSString *)service {
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
+                           (__bridge id)kSecClassGenericPassword, kSecClass,
+                           key, kSecAttrAccount,
+                           service, kSecAttrService,
+                           nil];
+
+    OSStatus status= SecItemDelete((__bridge CFDictionaryRef)query);
+    return  status;
+    
+}
+
 
 + (NSString *)valueForKeychainKey:(NSString *)key service:(NSString *)service {
     OSStatus status;
