@@ -576,7 +576,7 @@ RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCT
                         char addr_buffer[addr_len];
                         // We use inet_ntop because it also supports getting an address from
                         // interfaces that are IPv6-only
-                        char *netname = inet_ntop(addr_family, &addr->sin_addr, addr_buffer, addr_len);
+                        const char *netname = inet_ntop(addr_family, &addr->sin_addr, addr_buffer, addr_len);
 
                          // Get NSString from C String
                         address = [NSString stringWithUTF8String:netname];
