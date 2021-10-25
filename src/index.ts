@@ -209,7 +209,6 @@ export function getReadableVersion() {
 }
 
 export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFunctions({
-  memoKey: 'deviceName',
   supportedPlatforms: ['android', 'ios', 'windows'],
   getter: () => RNDeviceInfo.getDeviceName(),
   syncGetter: () => RNDeviceInfo.getDeviceNameSync(),
@@ -645,31 +644,26 @@ export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPl
   }
 );
 
-export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['windows'],
-    getter: () => RNDeviceInfo.isMouseConnected(),
-    syncGetter: () => RNDeviceInfo.isMouseConnectedSync(),
-    defaultValue: false,
-  }
-);
+export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['windows'],
+  getter: () => RNDeviceInfo.isMouseConnected(),
+  syncGetter: () => RNDeviceInfo.isMouseConnectedSync(),
+  defaultValue: false,
+});
 
-export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['windows'],
-    getter: () => RNDeviceInfo.isKeyboardConnected(),
-    syncGetter: () => RNDeviceInfo.isKeyboardConnectedSync(),
-    defaultValue: false,
-  }
-);
+export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['windows'],
+  getter: () => RNDeviceInfo.isKeyboardConnected(),
+  syncGetter: () => RNDeviceInfo.isKeyboardConnectedSync(),
+  defaultValue: false,
+});
 
-export const isTabletMode = () => getSupportedPlatformInfoAsync(
-  {
+export const isTabletMode = () =>
+  getSupportedPlatformInfoAsync({
     supportedPlatforms: ['windows'],
     getter: () => RNDeviceInfo.isTabletMode(),
     defaultValue: false,
-  }
-);
+  });
 
 export const [
   getAvailableLocationProviders,
