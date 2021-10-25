@@ -620,7 +620,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
         return;
     }
 
-    float batteryLevel = [self.powerState[@"batteryLevel"] floatValue];
+    float batteryLevel = self.getBatteryLevel;
     [self sendEventWithName:@"RNDeviceInfo_batteryLevelDidChange" body:@(batteryLevel)];
 
     if (batteryLevel <= _lowBatteryThreshold) {
@@ -655,13 +655,14 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
         RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
     }
 #endif
+    float batteryLevel = self.getBatteryLevel;
 
     return @{
 #if TARGET_OS_TV
-             @"batteryLevel": @1,
+             @"batteryLevel": @(batteryLevel),
              @"batteryState": @"full",
 #else
-             @"batteryLevel": @([UIDevice currentDevice].batteryLevel),
+             @"batteryLevel": @(batteryLevel),
              @"batteryState": [@[@"unknown", @"unplugged", @"charging", @"full"] objectAtIndex: [UIDevice currentDevice].batteryState],
              @"lowPowerMode": @([NSProcessInfo processInfo].isLowPowerModeEnabled),
 #endif
@@ -677,7 +678,11 @@ RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 }
 
 - (float) getBatteryLevel {
-    return [self.powerState[@"batteryLevel"] floatValue];
+#if TARGET_OS_TV
+    return [@1 floatValue];
+#else
+    return [@([UIDevice currentDevice].batteryLevel) floatValue];
+#endif
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBatteryLevelSync) {
