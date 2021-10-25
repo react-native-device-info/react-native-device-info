@@ -1,3 +1,10 @@
+## [8.4.2](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.1...v8.4.2) (2021-10-25)
+
+
+### Bug Fixes
+
+* **ios, deadlock:** split battery level from power state fetch ([30e7ebc](https://github.com/react-native-device-info/react-native-device-info/commit/30e7ebc9761c059f773f23ae223f9ef5110ee21e)), closes [#1330](https://github.com/react-native-device-info/react-native-device-info/issues/1330)
+
 ## [8.4.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.0...v8.4.1) (2021-10-14)
 
 
