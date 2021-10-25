@@ -112,7 +112,7 @@ RCT_EXPORT_METHOD(addListener : (NSString *)eventName) {
   // Keep: Required for RN built in Event Emitter Calls.
 }
 
-RCT_EXPORT_METHOD(removeListeners : (NSInteger)count) {
+RCT_EXPORT_METHOD(removeListeners : (double)count) {
   // Keep: Required for RN built in Event Emitter Calls.
 }
 
