@@ -448,7 +448,11 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     if (traitCollection) {
         __block NSString *contentSize = nil;
         RCTUnsafeExecuteOnMainQueueSync(^{
-            contentSize = traitCollection.preferredContentSizeCategory;
+            if (@available(iOS 10.0, tvOS 10.0, macCatalyst 13.0, *)) {
+                contentSize = traitCollection.preferredContentSizeCategory;
+            } else {
+                // if we can't get contentSize, we'll fall back to 1.0
+            }
         });
 
         if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
