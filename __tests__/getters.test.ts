@@ -18,7 +18,6 @@ const memoizedStringGetters = [
   'getAndroidId',
   'getBuildId',
   'getInstallerPackageName',
-  'getDeviceName',
   'getBootloader',
   'getDevice',
   'getDisplay',
@@ -45,6 +44,7 @@ memoizedStringGetters.push([
 const nonMemoizedStringGetters = [
   'getMacAddress',
   'getIpAddress',
+  'getDeviceName',
   'getPhoneNumber',
   'getCarrier',
 ].map(makeTable);
