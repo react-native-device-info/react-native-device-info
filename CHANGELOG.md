@@ -1,3 +1,10 @@
+## [8.4.3](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.2...v8.4.3) (2021-10-26)
+
+
+### Bug Fixes
+
+* **getDeviceName:** un-memoize device name so it updates ([#1332](https://github.com/react-native-device-info/react-native-device-info/issues/1332)) ([7026844](https://github.com/react-native-device-info/react-native-device-info/commit/70268448dc4b61ccb863c4ff81be2bf42673efc9)), closes [#1272](https://github.com/react-native-device-info/react-native-device-info/issues/1272)
+
 ## [8.4.2](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.1...v8.4.2) (2021-10-25)
 
 
