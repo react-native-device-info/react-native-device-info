@@ -133,7 +133,7 @@ export const isBatteryChargingSync = () => {
 };
 
 export const isCameraPresent = async () => {
-  if (navigator.getBattery) {
+  if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
     return navigator.mediaDevices.enumerateDevices().then(devices => {
       return !!devices.find((d) => d.kind === 'videoinput');
     });
