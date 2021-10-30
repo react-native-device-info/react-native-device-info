@@ -524,7 +524,7 @@ DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
 
 #### Notes
 
-The API used by this method for Android was changed in [v6.0.0](https://github.com/react-native-community/react-native-device-info/releases/tag/v6.0.0). The older version has been maintained below as `getFreeDiskStorageOld()`. On iOS, `getFreeDiskStorage()` and `getFreeDiskStorageOld()` return the same value.
+The API used by this method for Android was changed in [v6.0.0](https://github.com/react-native-device-info/react-native-device-info/releases/tag/v6.0.0). The older version has been maintained below as `getFreeDiskStorageOld()`. On iOS, `getFreeDiskStorage()` and `getFreeDiskStorageOld()` return the same value.
 
 ---
 
@@ -962,7 +962,7 @@ DeviceInfo.getTotalDiskCapacity().then((capacity) => {
 
 #### Notes
 
-The API used by this method for Android was changed in [v6.0.0](https://github.com/react-native-community/react-native-device-info/releases/tag/v6.0.0). The older version has been maintained below as `getTotalDiskCapacityOld()`. On iOS, `getTotalDiskCapacity()` and `getTotalDiskCapacityOld()` return the same value.
+The API used by this method for Android was changed in [v6.0.0](https://github.com/react-native-device-info/react-native-device-info/releases/tag/v6.0.0). The older version has been maintained below as `getTotalDiskCapacityOld()`. On iOS, `getTotalDiskCapacity()` and `getTotalDiskCapacityOld()` return the same value.
 
 ---
 
@@ -1727,7 +1727,7 @@ YellowBox.ignoreWarnings(['Battery state']);
 
 ## Release Notes
 
-See the [CHANGELOG.md](https://github.com/react-native-community/react-native-device-info/blob/master/CHANGELOG.md).
+See the [CHANGELOG.md](https://github.com/react-native-device-info/react-native-device-info/blob/master/CHANGELOG.md).
 
 ## Contributing
 

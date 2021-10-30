@@ -30,4 +30,4 @@ This document will help you maintain this repository for the benefit of everyone
 - make sure your working directory is clean and "origin" (or your default git remote) is the main repo
 - run `npm install && rm package-lock.json && npm run shipit` from a terminal where you are logged in to npmjs with credentials associated with an account that has publish access to react-native-device-info
 - make sure the tags are pushed to the repo afterward (`npm push --tags`)
-- edit [the release on github](https://github.com/react-native-community/react-native-device-info/releases) to put the release note snippet from the changelog in place
+- edit [the release on github](https://github.com/react-native-device-info/react-native-device-info/releases) to put the release note snippet from the changelog in place
