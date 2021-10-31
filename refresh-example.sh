@@ -40,7 +40,7 @@ fi
 npx react-native init example
 pushd example
 npx react-native-windows-init --overwrite
-yarn add github:react-native-community/react-native-device-info
+yarn add github:react-native-device-info/react-native-device-info
 
 # Windows CI requires versions just a bit behind current in order to work #1155
 yarn add \
