@@ -2,7 +2,7 @@
 
 ## Installation
 
-* `git clone https://github.com/react-native-community/react-native-device-info.git`
+* `git clone https://github.com/react-native-device-info/react-native-device-info.git`
 * `cd react-native-device-info/example`
 * `yarn`
 
