@@ -1,3 +1,16 @@
+## [8.4.4](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.3...v8.4.4) (2021-11-01)
+
+
+### Bug Fixes
+
+* **internal/nativeinferface:** fixing exception message when RNDeviceInfo is not found ([068a433](https://github.com/react-native-device-info/react-native-device-info/commit/068a433959ba9fe671ddd80f896988c7448a1dd6))
+* **rndeviceinfo.podspec:** changing podspec git source ([e91d3fd](https://github.com/react-native-device-info/react-native-device-info/commit/e91d3fd50ee072a22b055a9043219871933efc6c))
+
+
+### Reverts
+
+* **ios/rndeviceinfo:** removing ios listener stubs ([e157189](https://github.com/react-native-device-info/react-native-device-info/commit/e157189c0cf70d0a9854e7ba9305fb758cd39fd2)), closes [#1301](https://github.com/react-native-device-info/react-native-device-info/issues/1301)
+
 ## [8.4.3](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.2...v8.4.3) (2021-10-26)
 
 
