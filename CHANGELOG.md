@@ -1,3 +1,10 @@
+## [8.4.5](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.4...v8.4.5) (2021-11-04)
+
+
+### Bug Fixes
+
+* **hasNotch:** added Huawei Honor Play and Samsung Galaxy A71 to hasNotch list ([#1303](https://github.com/react-native-device-info/react-native-device-info/issues/1303)) ([f158ecc](https://github.com/react-native-device-info/react-native-device-info/commit/f158ecc2fc67a7431efe4891a16112763d88e9ae))
+
 ## [8.4.4](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.3...v8.4.4) (2021-11-01)
 
 
