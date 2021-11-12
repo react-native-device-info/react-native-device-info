@@ -1,3 +1,10 @@
+## [8.4.6](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.5...v8.4.6) (2021-11-12)
+
+
+### Bug Fixes
+
+* **android:** gracefully handle SecurityException in getPhoneNumber ([3745097](https://github.com/react-native-device-info/react-native-device-info/commit/3745097e75e44c6dd51c2daf2cdb21cf687301e3))
+
 ## [8.4.5](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.4...v8.4.5) (2021-11-04)
 
 
