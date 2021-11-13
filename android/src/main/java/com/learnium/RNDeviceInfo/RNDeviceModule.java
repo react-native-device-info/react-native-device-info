@@ -712,9 +712,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public String getSerialNumberSync() {
     try {
       if (Build.VERSION.SDK_INT >= 26) {
-        if (getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-          return Build.getSerial();
-        }
+        // There are a lot of conditions to access to getSerial api
+        // For details, see https://developer.android.com/reference/android/os/Build#getSerial()
+        // Rather than check each one, just try and rely on the catch below, for discussion on this approach, refer to
+        // https://github.com/react-native-device-info/react-native-device-info/issues/1320
+        return Build.getSerial();
       } else {
         return Build.SERIAL;
       }
