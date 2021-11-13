@@ -1,3 +1,10 @@
+## [8.4.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.6...v8.4.7) (2021-11-13)
+
+
+### Bug Fixes
+
+* **android, serial:** Fix permission access to serial number ([#1344](https://github.com/react-native-device-info/react-native-device-info/issues/1344)) ([ebc2e10](https://github.com/react-native-device-info/react-native-device-info/commit/ebc2e1019cc44c64ce4d5a8187b3228f10a54c5d))
+
 ## [8.4.6](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.5...v8.4.6) (2021-11-12)
 
 
