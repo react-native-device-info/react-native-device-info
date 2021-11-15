@@ -15,6 +15,7 @@ Device Information for [React Native](https://github.com/facebook/react-native).
 - [Linking](#linking)
 - [Usage](#usage)
 - [API](#api)
+- [Hooks & Events](#hooks--events)
 - [Troubleshooting](#troubleshooting)
 - [Release Notes](#release-notes)
 - [react-native-dom / react-native-web](#react-native-dom)
