@@ -713,16 +713,9 @@ export function useBatteryLevelIsLow(): number | null {
   const [batteryLevelIsLow, setBatteryLevelIsLow] = useState<number | null>(null);
 
   useEffect(() => {
-    const setInitialValue = async () => {
-      const initialValue: number = await getBatteryLevel();
-      setBatteryLevelIsLow(initialValue);
-    };
-
     const onChange = (level: number) => {
       setBatteryLevelIsLow(level);
     };
-
-    setInitialValue();
 
     const subscription = deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', onChange);
 
