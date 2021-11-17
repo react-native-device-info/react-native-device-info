@@ -618,6 +618,13 @@ export function hasSystemFeatureSync(feature: string) {
   return false;
 }
 
+export function isLowBatteryLevel(level: number): boolean {
+  if (Platform.OS === 'android') {
+    return level < 0.15;
+  }
+  return level < 0.2;
+}
+
 export const [
   getSystemAvailableFeatures,
   getSystemAvailableFeaturesSync,
@@ -715,14 +722,14 @@ export function useBatteryLevelIsLow(): number | null {
   useEffect(() => {
     const setInitialValue = async () => {
       const initialValue: number = await getBatteryLevel();
-      setBatteryLevelIsLow(initialValue);
+      isLowBatteryLevel(initialValue) && setBatteryLevelIsLow(initialValue);
     };
+
+    setInitialValue();
 
     const onChange = (level: number) => {
       setBatteryLevelIsLow(level);
     };
-
-    setInitialValue();
 
     const subscription = deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', onChange);
 
