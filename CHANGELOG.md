@@ -1,3 +1,10 @@
+## [8.4.8](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.7...v8.4.8) (2021-11-17)
+
+
+### Bug Fixes
+
+* **useBatteryIsLow:** return battery level only if low on first run ([#1347](https://github.com/react-native-device-info/react-native-device-info/issues/1347)) ([6b6fb5e](https://github.com/react-native-device-info/react-native-device-info/commit/6b6fb5ec624b761e9cc4b86ca9a835cd9185254f))
+
 ## [8.4.7](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.6...v8.4.7) (2021-11-13)
 
 
