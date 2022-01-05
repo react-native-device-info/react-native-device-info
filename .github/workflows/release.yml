@@ -9,6 +9,7 @@ on:
 
 jobs:
   release:
+    if: github.event.repository.fork == false
     name: Release
     runs-on: ubuntu-latest
     steps:
