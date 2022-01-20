@@ -770,7 +770,8 @@ DeviceInfo.getPhoneNumber().then((phoneNumber) => {
 
 #### Android Permissions
 
-- [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
+- Android 10 and below: [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
+- Android 11 and up: [android.permission.READ_SMS](https://developer.android.com/reference/android/Manifest.permission.html#READ_SMS)
 
 #### Notes
 
