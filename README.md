@@ -770,11 +770,13 @@ DeviceInfo.getPhoneNumber().then((phoneNumber) => {
 
 #### Android Permissions
 
-- [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE)
+Please refer to the [Android docs](https://developer.android.com/about/versions/11/privacy/permissions#phone-numbers) for information about which permission you need, depending on which version of Android you are supporting. Read the note below for more information.
 
 #### Notes
 
 > This can return `undefined` in certain cases and should not be relied on. [SO entry on the subject](https://stackoverflow.com/questions/2480288/programmatically-obtain-the-phone-number-of-the-android-phone#answer-2480307).
+
+> If the above permissions do not work, you can try using `android.permission.READ_SMS`. However, this is not in the Android docs. If you are supporting Android 10 and below: [android.permission.READ_PHONE_STATE](https://developer.android.com/reference/android/Manifest.permission.html#READ_PHONE_STATE). If you are supporting Android 11 and up: [android.permission.READ_SMS](https://developer.android.com/reference/android/Manifest.permission.html#READ_SMS)
 
 ---
 
