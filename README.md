@@ -187,6 +187,7 @@ The example app in this repository shows an example usage of every single API, c
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
 | [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
+| [isMac()](#ismac)                                              | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ❌    | ❌  |
@@ -1194,6 +1195,19 @@ Tells if the device is in tablet mode.
 
 ```js
 let isTabletMode = DeviceInfo.isTabletMode();
+// true
+```
+
+---
+
+### isMac()
+
+Tells if this is an iOS app running on a Mac with Apple Silicon.
+
+#### Examples
+
+```js
+let isMac = DeviceInfo.isMac();
 // true
 ```
 

@@ -40,6 +40,7 @@ namespace winrt::RNDeviceInfoCPP
       provider.Add(L"appVersion", getAppVersionSync());
       provider.Add(L"buildNumber", getBuildNumberSync());
       provider.Add(L"isTablet", isTabletSync());
+      provider.Add(L"isMac", false);
       provider.Add(L"appName", getAppNameSync());
       provider.Add(L"brand", getBrandSync());
       provider.Add(L"model", getModelSync());

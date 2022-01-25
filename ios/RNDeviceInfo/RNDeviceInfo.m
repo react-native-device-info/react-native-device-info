@@ -64,6 +64,7 @@ RCT_EXPORT_MODULE();
          @"appVersion": [self getAppVersion],
          @"buildNumber": [self getBuildNumber],
          @"isTablet": @([self isTablet]),
+         @"isMac": @([self isMac]),
          @"appName": [self getAppName],
          @"brand": @"Apple",
          @"model": [self getModel],
@@ -401,6 +402,14 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     } else {
         return NO;
     }
+}
+
+- (BOOL) isMac {
+    BOOL mac = NO;
+    if (@available(iOS 14.0, *)) {
+        mac = [[NSProcessInfo processInfo] isiOSAppOnMac];
+    }
+    return mac;
 }
 
 RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {

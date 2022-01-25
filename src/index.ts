@@ -373,6 +373,14 @@ export const isTablet = () =>
     getter: () => RNDeviceInfo.isTablet,
   });
 
+export const isMac = () =>
+  getSupportedPlatformInfoSync({
+      defaultValue: false,
+      supportedPlatforms: ['android', 'ios', 'windows'],
+      memoKey: 'mac',
+      getter: () => RNDeviceInfo.isMac,
+  });
+
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
   {
     supportedPlatforms: ['android', 'ios', 'windows'],
@@ -919,6 +927,7 @@ const deviceInfoModule: DeviceInfoModule = {
   isKeyboardConnectedSync,
   isTabletMode,
   isTablet,
+  isMac,
   supported32BitAbis,
   supported32BitAbisSync,
   supported64BitAbis,
