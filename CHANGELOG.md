@@ -1,3 +1,10 @@
+## [8.4.9](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.8...v8.4.9) (2022-02-07)
+
+
+### Bug Fixes
+
+* **has-notch:** add huawei p40 lite to notches list ([#1378](https://github.com/react-native-device-info/react-native-device-info/issues/1378)) ([bbca38f](https://github.com/react-native-device-info/react-native-device-info/commit/bbca38f575534a37f6026cc90e29520c6c444052))
+
 ## [8.4.8](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.7...v8.4.8) (2021-11-17)
 
 
