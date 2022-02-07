@@ -131,6 +131,10 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'Huawei',
+    model: 'JNY-LX1', // P40 Lite
+  },
+  {
+    brand: 'Huawei',
     model: 'Nova 3',
   },
   {
