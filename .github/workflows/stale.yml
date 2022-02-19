@@ -7,10 +7,11 @@ on:
 
 jobs:
   stale:
-    if: github.event.repository.fork == false
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale@v4
+    - run: echo "IS_FORK=$(curl "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY" | jq -r .fork)" >> $GITHUB_ENV
+    - if: env.IS_FORK == 'false'
+      uses: actions/stale@v4
       with:
         operations-per-run: 100
         ascending: true
@@ -23,5 +24,3 @@ stake please comment and ping a maintainer to get this merged ASAP! Thanks for c
 utomatically'
         exempt-issue-labels: 'Keep Open'
         exempt-pr-labels: 'Keep Open'
-
-
