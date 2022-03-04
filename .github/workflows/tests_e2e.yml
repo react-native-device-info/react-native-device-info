@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -203,7 +203,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:

@@ -13,7 +13,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: 16
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1
