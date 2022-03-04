@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
@@ -582,7 +583,7 @@ export const getDeviceTypeSync = () => {
 
 export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supportedAbis',
-  supportedPlatforms: ['android', 'ios'],
+  supportedPlatforms: ['android', 'ios', 'windows'],
   getter: () => RNDeviceInfo.getSupportedAbis(),
   syncGetter: () => RNDeviceInfo.getSupportedAbisSync(),
   defaultValue: [] as string[],

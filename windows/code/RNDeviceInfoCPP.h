@@ -44,6 +44,7 @@ namespace winrt::RNDeviceInfoCPP
       provider.Add(L"brand", getBrandSync());
       provider.Add(L"model", getModelSync());
       provider.Add(L"deviceType", getDeviceTypeSync());
+      provider.Add(L"supportedAbis", getSupportedABIsSync());
     }
 
     bool isEmulatorHelper(std::string model)
@@ -83,6 +84,31 @@ namespace winrt::RNDeviceInfoCPP
       {
         return false;
       }
+    }
+
+    REACT_SYNC_METHOD(getSupportedABIsSync);
+    JSValueArray getSupportedABIsSync() noexcept
+    {
+        JSValueArray result = JSValueArray{};
+        winrt::Windows::System::ProcessorArchitecture architecture = winrt::Windows::ApplicationModel::Package::Current().Id().Architecture();
+        std::string arch;
+        switch (architecture)
+        {
+        case Windows::System::ProcessorArchitecture::X86:
+            arch = "win_x86";
+        case Windows::System::ProcessorArchitecture::Arm:
+            arch = "win_arm";
+        case Windows::System::ProcessorArchitecture::X64:
+            arch = "win_x64";
+        case Windows::System::ProcessorArchitecture::Neutral:
+            arch = "neutral";
+        case Windows::System::ProcessorArchitecture::Unknown:
+            arch = "unknown";
+        default:
+            arch = "???";
+        }
+        result.push_back(arch);
+        return result;
     }
 	
     REACT_SYNC_METHOD(getDeviceTypeSync);
