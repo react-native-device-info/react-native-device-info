@@ -90,7 +90,8 @@ namespace winrt::RNDeviceInfoCPP
     JSValueArray getSupportedAbisSync() noexcept
     {
         JSValueArray result = JSValueArray{};
-        winrt::Windows::System::ProcessorArchitecture architecture = winrt::Windows::ApplicationModel::Package::Current().Id().Architecture();
+        winrt::Windows::System::ProcessorArchitecture architecture = 
+            winrt::Windows::ApplicationModel::Package::Current().Id().Architecture();
         std::string arch;
         switch (architecture)
         {
