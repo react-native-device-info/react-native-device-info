@@ -188,7 +188,7 @@ jobs:
     name: iOS
     runs-on: macos-latest
     # TODO matrix across APIs, at least 10 and 13 (lowest to highest)
-    timeout-minutes: 40
+    timeout-minutes: 60
     env:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
