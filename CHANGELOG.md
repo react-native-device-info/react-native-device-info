@@ -1,3 +1,10 @@
+# [8.5.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.9...v8.5.0) (2022-03-04)
+
+
+### Features
+
+* **windows, supportedAbis:** Add supportedAbis for windows ([#1389](https://github.com/react-native-device-info/react-native-device-info/issues/1389)) ([8a97c4c](https://github.com/react-native-device-info/react-native-device-info/commit/8a97c4c9484e18296f316c572e1356b5ebb3725f))
+
 ## [8.4.9](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.8...v8.4.9) (2022-02-07)
 
 
