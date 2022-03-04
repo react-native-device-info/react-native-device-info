@@ -37,9 +37,11 @@ fi
 \rm -fr example
 
 # Make the new example
-npx react-native init example
+npm_config_yes=true npx react-native init example --skip-install
 pushd example
-npx react-native-windows-init --overwrite
+rm -f _ruby-version Gemfile*
+yarn
+npm_config_yes=true npx react-native-windows-init --overwrite
 
 yarn add github:react-native-device-info/react-native-device-info
 
@@ -92,10 +94,10 @@ sed -i -e 's/<PublisherDisplayName>[a-zA-Z0-9]*<\/PublisherDisplayName>/<Publish
 rm -f windows/example/Package.appxmanifest??
 
 # Add additional scripts to package.json
-npx json -I -f package.json -e "this.scripts.appium='appium'; this.scripts['test:windows']='yarn jest --config=./jest.windows.config.js'; this.scripts.windows='react-native run-windows'; this.jest.setupFiles=['./jest.setup.js'];"
+npm_config_yes=true npx json -I -f package.json -e "this.scripts.appium='appium'; this.scripts['test:windows']='yarn jest --config=./jest.windows.config.js'; this.scripts.windows='react-native run-windows'; this.jest.setupFiles=['./jest.setup.js'];"
 
 # Force resolution of appium-windows-driver 1.13.0, since the latest versions seem to have compatibility issues with selenium-appium.
-npx json -I -f package.json -e "this.resolutions={'appium/appium-windows-driver':'1.13.0'};"
+npm_config_yes=true npx json -I -f package.json -e "this.resolutions={'appium/appium-windows-driver':'1.13.0'};"
 yarn
 
 # Copy the important files back in
