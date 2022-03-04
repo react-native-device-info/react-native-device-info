@@ -44,6 +44,7 @@ namespace winrt::RNDeviceInfoCPP
       provider.Add(L"brand", getBrandSync());
       provider.Add(L"model", getModelSync());
       provider.Add(L"deviceType", getDeviceTypeSync());
+      provider.Add(L"supportedAbis", getSupportedAbisSync());
     }
 
     bool isEmulatorHelper(std::string model)
@@ -83,6 +84,41 @@ namespace winrt::RNDeviceInfoCPP
       {
         return false;
       }
+    }
+
+    REACT_SYNC_METHOD(getSupportedAbisSync);
+    JSValueArray getSupportedAbisSync() noexcept
+    {
+        JSValueArray result = JSValueArray{};
+        winrt::Windows::System::ProcessorArchitecture architecture = 
+            winrt::Windows::ApplicationModel::Package::Current().Id().Architecture();
+        std::string arch;
+        switch (architecture)
+        {
+        case Windows::System::ProcessorArchitecture::X86:
+            arch = "win_x86";
+            break;
+        case Windows::System::ProcessorArchitecture::Arm:
+            arch = "win_arm";
+            break;
+        case Windows::System::ProcessorArchitecture::X64:
+            arch = "win_x64";
+            break;
+        case Windows::System::ProcessorArchitecture::Neutral:
+            arch = "neutral";
+            break;
+        default:
+            arch = "unknown";
+            break;
+        }
+        result.push_back(arch);
+        return result;
+    }
+    
+    REACT_METHOD(getSupportedAbis)
+    void getSupportedAbis(ReactPromise<JSValueArray> promise) noexcept
+    {
+        promise.Resolve(getSupportedAbisSync());
     }
 	
     REACT_SYNC_METHOD(getDeviceTypeSync);
