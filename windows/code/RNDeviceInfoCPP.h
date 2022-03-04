@@ -44,7 +44,7 @@ namespace winrt::RNDeviceInfoCPP
       provider.Add(L"brand", getBrandSync());
       provider.Add(L"model", getModelSync());
       provider.Add(L"deviceType", getDeviceTypeSync());
-      provider.Add(L"supportedAbis", getSupportedABIsSync());
+      provider.Add(L"supportedAbis", getSupportedAbisSync());
     }
 
     bool isEmulatorHelper(std::string model)
