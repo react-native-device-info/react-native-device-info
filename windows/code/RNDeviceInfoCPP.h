@@ -106,11 +106,8 @@ namespace winrt::RNDeviceInfoCPP
         case Windows::System::ProcessorArchitecture::Neutral:
             arch = "neutral";
             break;
-        case Windows::System::ProcessorArchitecture::Unknown:
-            arch = "unknown";
-            break;
         default:
-            arch = "???";
+            arch = "unknown";
             break;
         }
         result.push_back(arch);
