@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
