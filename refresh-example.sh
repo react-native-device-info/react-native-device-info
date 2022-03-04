@@ -17,6 +17,7 @@ else
   mkdir -p TEMP/ios/example
   mkdir -p TEMP/ios/example.xcodeproj
   mkdir -p TEMP/windows/example
+  mkdir -p TEMP/patches
   cp example/README.md TEMP/
   cp example/android/local.properties TEMP/android/ || true
   cp example/windows/example/example_TemporaryKey.pfx TEMP/windows/example/
@@ -31,6 +32,7 @@ else
   cp -R example/__tests__ TEMP/
   cp -R example/__windows_tests__ TEMP/
   cp -R example/jest-windows TEMP/
+  cp -r example/patches TEMP/
 fi
 
 # Purge the old sample
@@ -105,8 +107,15 @@ popd
 echo "Copying device-info example files into refreshed example..."
 cp -frv TEMP/* example/
 
+# Add patch-package to make sure any necessary patches are installed
+pushd example
+yarn add patch-package --dev
+npm_config_yes=true npx json -I -f package.json -e "this.scripts.prepare='patch-package'"
+
+
 # run pod install after installing react-native-device-info
-cd example/ios && rm -f Podfile.lock && pod install && cd ../..
+cd ios && rm -f Podfile.lock && pod install && cd ..
 
 # Clean up after ourselves
+popd
 \rm -fr TEMP
