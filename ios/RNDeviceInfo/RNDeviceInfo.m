@@ -241,7 +241,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"iPhone14,5": @"iPhone 13",
         @"iPhone14,2": @"iPhone 13 Pro",
         @"iPhone14,3": @"iPhone 13 Pro Max",
-	@"iPhone14,6": @"iPhone SE", // (3nd Generation iPhone SE),
+        @"iPhone14,6": @"iPhone SE", // (3nd Generation iPhone SE),
         @"iPad4,1": @"iPad Air", // 5th Generation iPad (iPad Air) - Wifi
         @"iPad4,2": @"iPad Air", // 5th Generation iPad (iPad Air) - Cellular
         @"iPad4,3": @"iPad Air", // 5th Generation iPad (iPad Air)
