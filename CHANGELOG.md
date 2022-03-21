@@ -1,3 +1,10 @@
+## [8.5.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.5.0...v8.5.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* **ios:** add device name for iPhone SE 3rd gen ([#1394](https://github.com/react-native-device-info/react-native-device-info/issues/1394)) ([8923995](https://github.com/react-native-device-info/react-native-device-info/commit/89239958414d22485e04552bf28c349f50fadb50))
+
 # [8.5.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.4.9...v8.5.0) (2022-03-04)
 
 
