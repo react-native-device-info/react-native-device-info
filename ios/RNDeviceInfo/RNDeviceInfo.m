@@ -819,6 +819,22 @@ RCT_EXPORT_METHOD(getInstallerPackageName:(RCTPromiseResolveBlock)resolve reject
     resolve([EnvironmentValues objectAtIndex:[EnvironmentUtil currentAppEnvironment]]);
 }
 
+- (NSNumber *) getBrightness {
+#if !TARGET_OS_TV
+    return @([UIScreen mainScreen].brightness);
+#else
+    return @(-1);
+#endif
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBrightnessSync) {
+    return self.getBrightness;
+}
+
+RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(self.getBrightness);
+}
+
 #pragma mark - dealloc -
 
 - (void)dealloc

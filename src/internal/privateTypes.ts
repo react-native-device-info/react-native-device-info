@@ -118,6 +118,8 @@ interface ExposedNativeMethods {
   getUsedMemorySync: () => number;
   getUserAgent: () => Promise<string>;
   getUserAgentSync: () => string;
+  getBrightness: () => Promise<number>;
+  getBrightnessSync: () => number;
   hasGms: () => Promise<boolean>;
   hasGmsSync: () => boolean;
   hasHms: () => Promise<boolean>;

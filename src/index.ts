@@ -682,6 +682,13 @@ export const [
   defaultValue: {},
 });
 
+export const [getBrightness, getBrightnessSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['ios'],
+  getter: () => RNDeviceInfo.getBrightness(),
+  syncGetter: () => RNDeviceInfo.getBrightnessSync(),
+  defaultValue: -1,
+});
+
 export async function getDeviceToken() {
   if (Platform.OS === 'ios') {
     return RNDeviceInfo.getDeviceToken();
@@ -890,6 +897,8 @@ const deviceInfoModule: DeviceInfoModule = {
   getUserAgent,
   getUserAgentSync,
   getVersion,
+  getBrightness,
+  getBrightnessSync,
   hasGms,
   hasGmsSync,
   hasHms,

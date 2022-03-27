@@ -118,6 +118,8 @@ declare module.exports: {
   getUserAgent: () => Promise<string>,
   getUserAgentSync: () => string,
   getVersion: () => string,
+  getBrightness: () => Promise<number>,
+  getBrightnessSync: () => number,
   hasNotch: () => boolean,
   hasSystemFeature: (feature: string) => Promise<boolean>,
   hasSystemFeature: (feature: string) => Promise<boolean>,
