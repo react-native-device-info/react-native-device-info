@@ -1604,6 +1604,34 @@ const { loading, result } = useIsHeadphonesConnected(); // { loading: true, resu
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
 
+---
+
+### useBrightness
+
+Gets the current brightness level of the device's main screen. Currently iOS only. Returns a number between 0.0 and 1.0, inclusive.
+
+This hook subscribes to the event, `RNDeviceInfo_brightnessDidChange` , and updates the `brightness` field accordingly.
+
+#### Example
+
+```jsx
+import { useBrightness } from 'react-native-device-info';
+
+const brightness = useBrightness(); // 0.46578987897654567
+
+<Text>{brightness}</Text>;
+```
+
+```js
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+
+deviceInfoEmitter.addListener('RNDeviceInfo_brightnessDidChange', (brightness) => {
+  // 0.46578987897654567
+});
+```
+
 =======
 
 ## Native interoperatibily

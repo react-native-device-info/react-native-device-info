@@ -51,7 +51,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange"];
+    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_brightnessDidChange"];
 }
 
 - (NSDictionary *)constantsToExport {
@@ -94,6 +94,10 @@ RCT_EXPORT_MODULE();
                                                  selector:@selector(headphoneConnectionDidChange:)
                                                      name:AVAudioSessionRouteChangeNotification
                                                    object: [AVAudioSession sharedInstance]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(brightnessDidChange:)
+                                                     name:UIScreenBrightnessDidChangeNotification
+                                                   object: nil];
 #endif
     }
 
@@ -634,6 +638,13 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
     }
     BOOL isConnected = [self isHeadphonesConnected];
     [self sendEventWithName:@"RNDeviceInfo_headphoneConnectionDidChange" body:[NSNumber numberWithBool:isConnected]];
+}
+
+- (void) brightnessDidChange:(NSNotification *)notification {
+    if (!hasListeners) {
+        return;
+    }
+    [self sendEventWithName:@"RNDeviceInfo_brightnessDidChange" body:self.getBrightness];
 }
 
 - (NSDictionary *) powerState {

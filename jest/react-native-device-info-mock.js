@@ -158,6 +158,7 @@ const diMock = {
   useHasSystemFeature: booleanAsyncHookResultHook(),
   useIsEmulator: booleanAsyncHookResultHook(),
   useManufacturer: stringAsyncHookResultHook(),
+  useBrightness: numberFnSync(),
 };
 
 module.exports = diMock;

@@ -163,4 +163,5 @@ declare module.exports: {
   usePowerState: () => PowerState | {},
   useManufacturer: () => AsyncHookResult<string>,
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>,
+  useBrightness: () => number | null,
 };

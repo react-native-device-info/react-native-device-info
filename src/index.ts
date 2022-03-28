@@ -797,6 +797,32 @@ export function useManufacturer(): AsyncHookResult<string> {
   return useOnMount(getManufacturer, 'unknown');
 }
 
+export function useBrightness(): number | null {
+  const [brightness, setBrightness] = useState<number | null>(null);
+
+  useEffect(() => {
+    const setInitialValue = async () => {
+      const initialValue: number = await getBrightness();
+      setBrightness(initialValue);
+    };
+
+    const onChange = (value: number) => {
+      setBrightness(value);
+    };
+
+    setInitialValue();
+
+    const subscription = deviceInfoEmitter.addListener(
+      'RNDeviceInfo_brightnessDidChange',
+      onChange
+    );
+
+    return () => subscription.remove();
+  }, []);
+
+  return brightness;
+}
+
 export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
 const deviceInfoModule: DeviceInfoModule = {
@@ -944,6 +970,7 @@ const deviceInfoModule: DeviceInfoModule = {
   usePowerState,
   useManufacturer,
   useIsHeadphonesConnected,
+  useBrightness,
 };
 
 export default deviceInfoModule;
