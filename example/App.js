@@ -178,6 +178,7 @@ export default class App extends Component {
     deviceJSON.securityPatch = DeviceInfo.getSecurityPatchSync();
     deviceJSON.codename = DeviceInfo.getCodenameSync();
     deviceJSON.incremental = DeviceInfo.getIncrementalSync();
+    deviceJSON.brightness = DeviceInfo.getBrightnessSync();
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
     deviceJSON.hasGms = DeviceInfo.hasGmsSync();
@@ -247,6 +248,7 @@ export default class App extends Component {
       deviceJSON.securityPatch = await DeviceInfo.getSecurityPatch();
       deviceJSON.codename = await DeviceInfo.getCodename();
       deviceJSON.incremental = await DeviceInfo.getIncremental();
+      deviceJSON.brightness = await DeviceInfo.getBrightness();
       deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
       deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
       deviceJSON.hasGms = await DeviceInfo.hasGms();

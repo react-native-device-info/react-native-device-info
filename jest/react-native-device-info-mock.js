@@ -132,6 +132,8 @@ const diMock = {
   getSystemVersion: stringFnSync(),
   getUniqueId: stringFnSync(),
   getVersion: stringFnSync(),
+  getBrightness: numberFnAsync(),
+  getBrightnessSync: numberFnSync(),
   hasNotch: booleanFnSync(),
   isLandscape: booleanFnAsync(),
   isLandscapeSync: booleanFnSync(),

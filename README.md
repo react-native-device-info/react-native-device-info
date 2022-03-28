@@ -172,6 +172,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅  |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getBrightness()](#getBrightness)                                 | `Promise<number>`   |  ✅  |   ❌    |   ❌    | ❌  |
 | [hasGms()](#hasGms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [hasHms()](#hasHms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
@@ -1407,6 +1408,18 @@ DeviceInfo.getAvailableLocationProviders().then((providers) => {
   //   locationServicesEnabled: true
   //   significantLocationChangeMonitoringAvailable: true
   // }
+});
+```
+
+### getBrightness()
+
+Gets the current brightness level of the device's main screen. Currently iOS only. Returns a number between 0.0 and 1.0, inclusive.
+
+#### Examples
+
+```js
+DeviceInfo.getBrightness().then((brightness) => {
+  // iOS: 0.6
 });
 ```
 
