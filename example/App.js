@@ -31,6 +31,7 @@ import {
   useHasSystemFeature,
   useIsEmulator,
   useIsHeadphonesConnected,
+  useBrightness,
 } from 'react-native-device-info';
 
 const FunctionalComponent = () => {
@@ -43,6 +44,7 @@ const FunctionalComponent = () => {
   const hasSystemFeature = useHasSystemFeature('amazon.hardware.fire_tv');
   const isEmulator = useIsEmulator();
   const isHeadphonesConnected = useIsHeadphonesConnected();
+  const brightness = useBrightness();
   const deviceJSON = {
     batteryLevel,
     batteryLevelIsLow,
@@ -53,6 +55,7 @@ const FunctionalComponent = () => {
     hasSystemFeature,
     isEmulator,
     isHeadphonesConnected,
+    brightness,
   };
 
   return (
