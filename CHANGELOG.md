@@ -1,3 +1,10 @@
+# [8.7.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.6.0...v8.7.0) (2022-03-29)
+
+
+### Features
+
+* **ios:** add useBrightness for iOS ([#1402](https://github.com/react-native-device-info/react-native-device-info/issues/1402)) ([5bf9df7](https://github.com/react-native-device-info/react-native-device-info/commit/5bf9df7459d1bda3928bfe2887ac56f67e861249))
+
 # [8.6.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.5.1...v8.6.0) (2022-03-28)
 
 
