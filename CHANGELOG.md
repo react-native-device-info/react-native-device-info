@@ -1,3 +1,10 @@
+## [8.7.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.7.0...v8.7.1) (2022-04-30)
+
+
+### Bug Fixes
+
+* **windows:** addListener/removeListeners native stubs to quiet warnings ([#1408](https://github.com/react-native-device-info/react-native-device-info/issues/1408)) ([55166b4](https://github.com/react-native-device-info/react-native-device-info/commit/55166b4bc8a9ca1a81acac4aa1110c759c28169e)), closes [#1288](https://github.com/react-native-device-info/react-native-device-info/issues/1288)
+
 # [8.7.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.6.0...v8.7.0) (2022-03-29)
 
 
