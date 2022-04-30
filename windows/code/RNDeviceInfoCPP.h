@@ -822,6 +822,18 @@ namespace winrt::RNDeviceInfoCPP
         });
     }
 
+    REACT_METHOD(addListener);
+    void addListener(std::string) noexcept
+    {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    REACT_METHOD(removeListeners);
+    void removeListeners(int64_t) noexcept
+    {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
   };
 
 }
