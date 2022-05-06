@@ -1087,13 +1087,14 @@ DeviceInfo.getUserAgent().then((userAgent) => {
 ### getVersion()
 
 Gets the application version.
+Take in account that a version string is a device/OS formatted and can contains any additional data (such as build number etc.). If you want to be sure about version format, you can use some regexp.
 
 #### Examples
 
 ```js
 let version = DeviceInfo.getVersion();
 // iOS: "1.0"
-// Android: "1.0"
+// Android: "1.0" or "1.0.2-alpha.12"
 // Windows: ?
 ```
 
