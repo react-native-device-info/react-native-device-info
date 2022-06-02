@@ -10,12 +10,6 @@
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
 
-#ifdef RNW61
-#define JSVALUEOBJECTPARAMETER
-#else
-#define JSVALUEOBJECTPARAMETER const &
-#endif
-
 namespace winrt::RNDeviceInfoCPP
 {
   REACT_MODULE(RNDeviceInfoCPP, L"RNDeviceInfo");
@@ -25,7 +19,8 @@ namespace winrt::RNDeviceInfoCPP
 
     ReactContext m_reactContext;
     REACT_INIT(Initialize)
-    void Initialize(ReactContext const& reactContext) noexcept {
+    void Initialize(ReactContext const &reactContext) noexcept
+    {
       m_reactContext = reactContext;
     }
 
@@ -80,7 +75,8 @@ namespace winrt::RNDeviceInfoCPP
       {
         auto ucAvailability = co_await Windows::Security::Credentials::UI::UserConsentVerifier::CheckAvailabilityAsync();
         return ucAvailability == Windows::Security::Credentials::UI::UserConsentVerifierAvailability::Available;
-      } catch (...)
+      }
+      catch (...)
       {
         return false;
       }
@@ -124,14 +120,16 @@ namespace winrt::RNDeviceInfoCPP
     REACT_SYNC_METHOD(getDeviceTypeSync);
     std::string getDeviceTypeSync() noexcept
     {
-      if (isTabletHelper()) {
+      if (isTabletHelper())
+      {
         return "Tablet";
       }
       else if (winrt::Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamily() == L"Windows.Xbox")
       {
         return "GamingConsole";
       }
-      else {
+      else
+      {
         return "Desktop";
       }
     }
@@ -204,8 +202,7 @@ namespace winrt::RNDeviceInfoCPP
           {
             promise.Resolve(false);
           }
-        }
-      });
+        } });
     }
 
     REACT_SYNC_METHOD(getIpAddressSync);
@@ -215,7 +212,8 @@ namespace winrt::RNDeviceInfoCPP
       if (!icp || !icp.NetworkAdapter())
       {
         return "unknown";
-      } else
+      }
+      else
       {
         auto hostnames = Windows::Networking::Connectivity::NetworkInformation::GetHostNames();
         for (auto const& hostname : hostnames)
@@ -272,14 +270,16 @@ namespace winrt::RNDeviceInfoCPP
         report.RemainingCapacityInMilliwattHours() == nullptr)
       {
         return (double)-1;
-      } else
+      }
+      else
       {
         auto max = report.FullChargeCapacityInMilliwattHours().GetDouble();
         auto value = report.RemainingCapacityInMilliwattHours().GetDouble();
         if (max <= 0)
         {
           return (double)-1;
-        } else
+        }
+        else
         {
           return value / max;
         }
@@ -307,7 +307,8 @@ namespace winrt::RNDeviceInfoCPP
         if (max <= 0)
         {
           result["batteryLevel"] = (double)-1;
-        } else
+        }
+        else
         {
           result["batteryLevel"] = value / max;
         }
@@ -337,7 +338,6 @@ namespace winrt::RNDeviceInfoCPP
     {
       promise.Resolve(isBatteryChargingSync());
     }
-
 
     REACT_SYNC_METHOD(getAppVersionSync);
     std::string getAppVersionSync() noexcept
@@ -537,7 +537,8 @@ namespace winrt::RNDeviceInfoCPP
         std::ostringstream ostream;
         ostream << major << "." << minor;
         return ostream.str();
-      } catch (...)
+      }
+      catch (...)
       {
         return "unknown";
       }
@@ -563,7 +564,8 @@ namespace winrt::RNDeviceInfoCPP
         std::ostringstream ostream;
         ostream << major << "." << minor << "." << build << "." << revision;
         return ostream.str();
-      } catch (...)
+      }
+      catch (...)
       {
         return "unknown";
       }
@@ -586,7 +588,8 @@ namespace winrt::RNDeviceInfoCPP
         std::ostringstream ostream;
         ostream << build;
         return ostream.str();
-      } catch (...)
+      }
+      catch (...)
       {
         return "unknown";
       }
@@ -604,7 +607,8 @@ namespace winrt::RNDeviceInfoCPP
       try
       {
         return winrt::to_string(Windows::Security::ExchangeActiveSyncProvisioning::EasClientDeviceInformation().SystemProductName());
-      } catch (...)
+      }
+      catch (...)
       {
         return "unknown";
       }
@@ -833,7 +837,6 @@ namespace winrt::RNDeviceInfoCPP
     {
         // Keep: Required for RN built in Event Emitter Calls.
     }
-
   };
 
 }
