@@ -1,6 +1,12 @@
 # react-native-device-info Windows Implementation
 
-### Automatic install with autolinking
+## Minimum supported versions
+
+- react-native-windows 0.63 or newer
+- MSVC build tools v142 (included in Visual Studio 2019) or newer
+- x86, x64, or arm64 are supported, arm (32-bit) is not supported
+
+## Automatic install with autolinking
 
 react-native-device-info supports autolinking. Just call: `npm i react-native-device-info --save`
 
