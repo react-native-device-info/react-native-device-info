@@ -1,3 +1,13 @@
+# [9.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.7.1...v9.0.0) (2022-06-02)
+
+
+* fix(windows)!: Misc cleanup to windows. Support only RNW63 and newer. (#1419) ([3bd6f88](https://github.com/react-native-device-info/react-native-device-info/commit/3bd6f8803f092a5f228e39c53c53e75ea3115452)), closes [#1419](https://github.com/react-native-device-info/react-native-device-info/issues/1419)
+
+
+### BREAKING CHANGES
+
+* needs react-native-windows 0.63+ and MSVC build tools v142+ (Visual Studio 2019+), drop arm32
+
 ## [8.7.1](https://github.com/react-native-device-info/react-native-device-info/compare/v8.7.0...v8.7.1) (2022-04-30)
 
 
