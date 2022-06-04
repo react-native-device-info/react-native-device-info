@@ -55,10 +55,10 @@ export const getUsedMemorySync = () => {
   return -1;
 };
 
-const init = async () => {
-  if (typeof navigator !== 'undefined' && navigator.getBattery) {
-    const battery = await navigator.getBattery();
+const init = () => {
+  if (typeof navigator === 'undefined' || !navigator.getBattery) return;
 
+  navigator.getBattery().then((battery) => {
     batteryCharging = battery.charging;
 
     battery.addEventListener('chargingchange', () => {
@@ -81,7 +81,7 @@ const init = async () => {
         deviceInfoEmitter.emit('RNDeviceInfo_batteryLevelIsLow', level);
       }
     });
-  }
+  });
 };
 
 const getBaseOsSync = () => {
@@ -123,8 +123,7 @@ export const getUserAgent = async () => {
 
 export const isBatteryCharging = async () => {
   if (navigator.getBattery) {
-    const battery = await navigator.getBattery();
-    return battery.level;
+    return navigator.getBattery().then(battery => battery.charging);
   }
   return false;
 };
@@ -134,9 +133,10 @@ export const isBatteryChargingSync = () => {
 };
 
 export const isCameraPresent = async () => {
-  if (navigator.getBattery) {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    return !!devices.find((d) => d.kind === 'videoinput');
+  if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+    return navigator.mediaDevices.enumerateDevices().then(devices => {
+      return !!devices.find((d) => d.kind === 'videoinput');
+    });
   }
   return false;
 };
@@ -150,8 +150,7 @@ export const isCameraPresentSync = () => {
 
 export const getBatteryLevel = async () => {
   if (navigator.getBattery) {
-    const battery = await navigator.getBattery();
-    return battery.level;
+    return navigator.getBattery().then(battery => battery.level);
   }
   return -1;
 };
@@ -174,8 +173,7 @@ export const getBaseOs = async () => {
 
 export const getTotalDiskCapacity = async () => {
   if (navigator.storage && navigator.storage.estimate) {
-    const { quota } = await navigator.storage.estimate();
-    return quota;
+    return navigator.storage.estimate().then(({ quota }) => quota)
   }
   return -1;
 };
@@ -189,8 +187,7 @@ export const getTotalDiskCapacitySync = () => {
 
 export const getFreeDiskStorage = async () => {
   if (navigator.storage && navigator.storage.estimate) {
-    const { quota, usage } = await navigator.storage.estimate();
-    return quota - usage;
+    return navigator.storage.estimate().then(({ quota, usage }) => quota - usage)
   }
   return -1;
 };
@@ -216,9 +213,7 @@ export const getTotalMemory = async () => {
 
 export const getPowerState = async () => {
   if (navigator.getBattery) {
-    const battery = await navigator.getBattery();
-
-    return _readPowerState(battery);
+    return navigator.getBattery().then((battery) => _readPowerState(battery))
   }
   return {};
 };
