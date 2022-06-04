@@ -1,3 +1,10 @@
+## [9.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v9.0.0...v9.0.1) (2022-06-04)
+
+
+### Bug Fixes
+
+* **web:** Illegal invocation from getBattery call ([#1333](https://github.com/react-native-device-info/react-native-device-info/issues/1333)) ([77dcf2c](https://github.com/react-native-device-info/react-native-device-info/commit/77dcf2cab4db3523f4cf4da56a80e962a05cc593)), closes [#1223](https://github.com/react-native-device-info/react-native-device-info/issues/1223)
+
 # [9.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v8.7.1...v9.0.0) (2022-06-02)
 
 
