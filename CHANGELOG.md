@@ -1,3 +1,10 @@
+## [9.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v9.0.1...v9.0.2) (2022-06-04)
+
+
+### Bug Fixes
+
+* **example, windows:** Define an explicit 10.0 in example project to use latest windows 10 sdk ([#1424](https://github.com/react-native-device-info/react-native-device-info/issues/1424)) ([92c4db6](https://github.com/react-native-device-info/react-native-device-info/commit/92c4db6e543377485736920a94558e1d0ab4885c)), closes [#1288](https://github.com/react-native-device-info/react-native-device-info/issues/1288)
+
 ## [9.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v9.0.0...v9.0.1) (2022-06-04)
 
 
