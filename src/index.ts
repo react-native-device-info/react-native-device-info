@@ -21,7 +21,7 @@ export const getUniqueId = () =>
     defaultValue: 'unknown',
     memoKey: 'uniqueId',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.uniqueId,
+    getter: () => RNDeviceInfo.getUniqueIdSync(),
   });
 
 let uniqueId: string;
@@ -918,6 +918,7 @@ const deviceInfoModule: DeviceInfoModule = {
   getType,
   getTypeSync,
   getUniqueId,
+  getUniqueIdSync: getUniqueId,
   getUsedMemory,
   getUsedMemorySync,
   getUserAgent,

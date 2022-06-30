@@ -1001,8 +1001,6 @@ DeviceInfo.getTotalMemory().then((totalMemory) => {
 
 ### getUniqueId()
 
-This is a constant and may be referenced directly
-
 Gets the device unique ID.
 On Android it is currently identical to `getAndroidId()` in this module.
 On iOS it uses the `DeviceUID` uid identifier.
