@@ -27,6 +27,7 @@ namespace winrt::RNDeviceInfoCPP
     REACT_CONSTANT_PROVIDER(constantsViaConstantsProvider);
     void constantsViaConstantsProvider(ReactConstantProvider& provider) noexcept
     {
+      provider.Add(L"uniqueId", getUniqueIdSync());
       provider.Add(L"deviceId", getDeviceIdSync());
       provider.Add(L"serialNumber", getSerialNumberSync());
       provider.Add(L"bundleId", getBundleIdSync());
@@ -48,7 +49,7 @@ namespace winrt::RNDeviceInfoCPP
 
     // What is a tablet is a debateable topic in Windows, as some windows devices can dynamically switch back and forth.
     // Also, see isTabletMode() instead of isTablet or deviceType.
-    // More refinement should be applied into this area as neccesary.
+    // More refinement should be applied into this area as neccesary. 
     bool isTabletHelper()
     {
       // AnalyticsInfo doesn't always return the values one might expect.
@@ -58,9 +59,9 @@ namespace winrt::RNDeviceInfoCPP
       // [Windows.Desktop, Windows.Mobile, Windows.Xbox, Windows.Holographic, Windows.Team, Windows.IoT]
       auto deviceForm = winrt::Windows::System::Profile::AnalyticsInfo::DeviceForm();
       auto deviceFamily = winrt::Windows::System::Profile::AnalyticsInfo::VersionInfo().DeviceFamily();
-
+      
       bool isTabletByAnalytics = deviceForm == L"Tablet" || deviceForm == L"Mobile" || deviceFamily == L"Windows.Mobile";
-
+      
       if (isTabletByAnalytics)
       {
         return true;
@@ -85,7 +86,7 @@ namespace winrt::RNDeviceInfoCPP
     JSValueArray getSupportedAbisSync() noexcept
     {
         JSValueArray result = JSValueArray{};
-        winrt::Windows::System::ProcessorArchitecture architecture =
+        winrt::Windows::System::ProcessorArchitecture architecture = 
             winrt::Windows::ApplicationModel::Package::Current().Id().Architecture();
         std::string arch;
         switch (architecture)
@@ -109,13 +110,13 @@ namespace winrt::RNDeviceInfoCPP
         result.push_back(arch);
         return result;
     }
-
+    
     REACT_METHOD(getSupportedAbis)
     void getSupportedAbis(ReactPromise<JSValueArray> promise) noexcept
     {
         promise.Resolve(getSupportedAbisSync());
     }
-
+	
     REACT_SYNC_METHOD(getDeviceTypeSync);
     std::string getDeviceTypeSync() noexcept
     {
@@ -685,7 +686,7 @@ namespace winrt::RNDeviceInfoCPP
     {
       promise.Resolve(getDeviceIdSync());
     }
-
+    
     REACT_SYNC_METHOD(getSerialNumberSync);
     std::string getSerialNumberSync() noexcept
     {

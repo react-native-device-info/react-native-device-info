@@ -20,6 +20,7 @@ interface NativeConstants {
   model: string;
   systemName: string;
   systemVersion: string;
+  uniqueId?: string;
 }
 
 interface HiddenNativeMethods {
