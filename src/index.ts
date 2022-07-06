@@ -16,20 +16,20 @@ import type {
   PowerState,
 } from './internal/types';
 
-export const getUniqueId = () =>
-  getSupportedPlatformInfoSync({
-    defaultValue: 'unknown',
-    memoKey: 'uniqueId',
-    supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.getUniqueIdSync(),
-  });
+export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'uniqueId',
+  supportedPlatforms: ['android', 'ios', 'windows'],
+  getter: () => RNDeviceInfo.getUniqueId(),
+  syncGetter: () => RNDeviceInfo.getUniqueIdSync(),
+  defaultValue: 'unknown',
+});
 
 let uniqueId: string;
 export async function syncUniqueId() {
   if (Platform.OS === 'ios') {
     uniqueId = await RNDeviceInfo.syncUniqueId();
   } else {
-    uniqueId = getUniqueId();
+    uniqueId = await getUniqueId();
   }
   return uniqueId;
 }
@@ -918,7 +918,7 @@ const deviceInfoModule: DeviceInfoModule = {
   getType,
   getTypeSync,
   getUniqueId,
-  getUniqueIdSync: getUniqueId,
+  getUniqueIdSync,
   getUsedMemory,
   getUsedMemorySync,
   getUserAgent,
