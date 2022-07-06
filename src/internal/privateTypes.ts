@@ -20,7 +20,6 @@ interface NativeConstants {
   model: string;
   systemName: string;
   systemVersion: string;
-  uniqueId: string;
 }
 
 interface HiddenNativeMethods {
@@ -114,6 +113,7 @@ interface ExposedNativeMethods {
   getTotalMemorySync: () => number;
   getType: () => Promise<string>;
   getTypeSync: () => string;
+  getUniqueIdSync: () => string;
   getUsedMemory: () => Promise<number>;
   getUsedMemorySync: () => number;
   getUserAgent: () => Promise<string>;

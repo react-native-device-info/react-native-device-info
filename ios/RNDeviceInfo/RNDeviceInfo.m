@@ -56,7 +56,6 @@ RCT_EXPORT_MODULE();
 
 - (NSDictionary *)constantsToExport {
     return @{
-         @"uniqueId": [self getUniqueId],
          @"deviceId": [self getDeviceId],
          @"bundleId": [self getBundleId],
          @"systemName": [self getSystemName],
@@ -364,7 +363,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBuildIdSync) {
     return self.getBuildId;
 }
 
-- (NSString *) getUniqueId {
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUniqueIdSync) {
     return [DeviceUID uid];
 }
 
