@@ -14,7 +14,6 @@ const [objectFnAsync, objectFnSync] = makeFns({});
 
 const RNDeviceInfo: any = {};
 const stringKeys = [
-  'uniqueId',
   'deviceId',
   'model',
   'brand',
