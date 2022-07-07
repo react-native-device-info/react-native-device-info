@@ -41,6 +41,7 @@ RNDeviceInfo.getDeviceToken = stringFnSync();
 
 // string getters
 const stringFnNames = [
+  'getUniqueId',
   'getInstanceId',
   'getSerialNumber',
   'getAndroidId',
