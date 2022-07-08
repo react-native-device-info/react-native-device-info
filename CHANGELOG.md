@@ -1,3 +1,14 @@
+# [10.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v9.0.2...v10.0.0) (2022-07-08)
+
+
+* fix!: remove uniqueId from constants, move to sync/async methods (#1433) ([449e1a8](https://github.com/react-native-device-info/react-native-device-info/commit/449e1a8579d057e27aa331963204e595a5179a17)), closes [#1433](https://github.com/react-native-device-info/react-native-device-info/issues/1433)
+
+
+### BREAKING CHANGES
+
+* `uniqueId` constant is no longer available, use either `getUniqueIdSync()` or `getUniqueId()` 
+(which now returns `Promise<string>`) instead. This is to confirm with app store policies that may reject your app if you access this constant before obtaining consent (thus requiring removal from the set of constants, which are fetched on startup)
+
 ## [9.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v9.0.1...v9.0.2) (2022-06-04)
 
 
