@@ -189,7 +189,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     final Map<String, Object> constants = new HashMap<>();
 
-    constants.put("uniqueId", getUniqueIdSync());
     constants.put("deviceId", Build.BOARD);
     constants.put("bundleId", getReactApplicationContext().getPackageName());
     constants.put("systemName", "Android");
@@ -803,6 +802,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @SuppressLint("HardwareIds")
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getUniqueIdSync() { return getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID); }
+  @ReactMethod
+  public void getUniqueId(Promise p) {
+    p.resolve(getUniqueIdSync());
+  }
 
   @SuppressLint("HardwareIds")
   @ReactMethod(isBlockingSynchronousMethod = true)

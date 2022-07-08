@@ -20,7 +20,6 @@ interface NativeConstants {
   model: string;
   systemName: string;
   systemVersion: string;
-  uniqueId: string;
 }
 
 interface HiddenNativeMethods {
@@ -114,6 +113,8 @@ interface ExposedNativeMethods {
   getTotalMemorySync: () => number;
   getType: () => Promise<string>;
   getTypeSync: () => string;
+  getUniqueId: () => Promise<string>;
+  getUniqueIdSync: () => string;
   getUsedMemory: () => Promise<number>;
   getUsedMemorySync: () => number;
   getUserAgent: () => Promise<string>;
@@ -168,7 +169,8 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   getReadableVersion: () => string;
   getSystemName: () => string;
   getSystemVersion: () => string;
-  getUniqueId: () => string;
+  getUniqueId: () => Promise<string>;
+  getUniqueIdSync: () => string;
   getVersion: () => string;
   hasNotch: () => boolean;
   hasSystemFeature: (feature: string) => Promise<boolean>;

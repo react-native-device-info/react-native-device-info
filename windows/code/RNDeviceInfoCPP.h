@@ -27,7 +27,6 @@ namespace winrt::RNDeviceInfoCPP
     REACT_CONSTANT_PROVIDER(constantsViaConstantsProvider);
     void constantsViaConstantsProvider(ReactConstantProvider& provider) noexcept
     {
-      provider.Add(L"uniqueId", getUniqueIdSync());
       provider.Add(L"deviceId", getDeviceIdSync());
       provider.Add(L"serialNumber", getSerialNumberSync());
       provider.Add(L"bundleId", getBundleIdSync());

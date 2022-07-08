@@ -168,7 +168,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    | ✅  |
-| [getUniqueId()](#getuniqueid)                                     | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅  |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
@@ -1001,7 +1001,7 @@ DeviceInfo.getTotalMemory().then((totalMemory) => {
 
 ### getUniqueId()
 
-This is a constant and may be referenced directly
+*This identifier is considered sensitive information in some app stores (e.g. Huawei or Google Play) and may lead to your app being removed or rejected, if used without user consent or for unapproved purposes. Refer to store policies for more information (see notes below).*
 
 Gets the device unique ID.
 On Android it is currently identical to `getAndroidId()` in this module.
@@ -1011,10 +1011,11 @@ On Windows it uses `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDev
 #### Examples
 
 ```js
-let uniqueId = DeviceInfo.getUniqueId();
+DeviceInfo.getUniqueId().then((uniqueId) => {
 // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
 // Android: "dd96dec43fb81c97"
-// Windows: ?
+// Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
+});
 ```
 
 #### Notes
@@ -1022,6 +1023,7 @@ let uniqueId = DeviceInfo.getUniqueId();
 > - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
 >   Beware: The IDFV is calculated using your bundle identifier and thus will be different in app extensions.
 > - android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
+> - android: [Google Play policy](https://support.google.com/googleplay/android-developer/answer/10144311), see "persistent device identifiers". [Huawei - AppGallery Review Guidelines](https://developer.huawei.com/consumer/en/doc/30202) see "permanent device identifier" and "obtaining user consent".
 
 ---
 

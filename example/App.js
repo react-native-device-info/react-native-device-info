@@ -22,6 +22,8 @@ import {
   getManufacturer,
   getManufacturerSync,
   syncUniqueId,
+  getUniqueId,
+  getUniqueIdSync,
   useBatteryLevel,
   useBatteryLevelIsLow,
   usePowerState,
@@ -107,7 +109,6 @@ export default class App extends Component {
   getConstantDeviceInfo() {
     let deviceJSON = {};
 
-    deviceJSON.uniqueId = DeviceInfo.getUniqueId();
     deviceJSON.deviceId = DeviceInfo.getDeviceId();
     deviceJSON.bundleId = DeviceInfo.getBundleId();
     deviceJSON.systemName = DeviceInfo.getSystemName();
@@ -127,6 +128,7 @@ export default class App extends Component {
   getSyncDeviceInfo() {
     let deviceJSON = {};
 
+    deviceJSON.uniqueId = getUniqueIdSync();
     deviceJSON.manufacturer = getManufacturerSync();
     deviceJSON.buildId = DeviceInfo.getBuildIdSync();
     deviceJSON.isCameraPresent = DeviceInfo.isCameraPresentSync();
@@ -196,6 +198,8 @@ export default class App extends Component {
     let deviceJSON = {};
 
     try {
+      deviceJSON.uniqueId = await getUniqueId();
+      deviceJSON.syncUniqueId = await syncUniqueId();
       deviceJSON.manufacturer = await getManufacturer();
       deviceJSON.buildId = await DeviceInfo.getBuildId();
       deviceJSON.isCameraPresent = await DeviceInfo.isCameraPresent();

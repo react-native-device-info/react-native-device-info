@@ -14,7 +14,6 @@ const [objectFnAsync, objectFnSync] = makeFns({});
 
 const RNDeviceInfo: any = {};
 const stringKeys = [
-  'uniqueId',
   'deviceId',
   'model',
   'brand',
@@ -41,6 +40,7 @@ RNDeviceInfo.getDeviceToken = stringFnSync();
 
 // string getters
 const stringFnNames = [
+  'getUniqueId',
   'getInstanceId',
   'getSerialNumber',
   'getAndroidId',
