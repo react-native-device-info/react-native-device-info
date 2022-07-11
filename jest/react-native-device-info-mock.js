@@ -37,6 +37,8 @@ const diMock = {
   getDeviceName: stringFnAsync(),
   getDeviceNameSync: stringFnSync(),
   getDeviceToken: stringFnAsync(),
+  getDeviceType: stringFnAsync(),
+  getDeviceTypeSync: stringFnSync(),
   getDisplay: stringFnAsync(),
   getDisplaySync: stringFnSync(),
   getFingerprint: stringFnAsync(),
