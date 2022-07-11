@@ -1,3 +1,10 @@
+## [10.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.0.0...v10.0.1) (2022-07-11)
+
+
+### Bug Fixes
+
+* **types:** add missing hasGms hasHms flow types ([#1436](https://github.com/react-native-device-info/react-native-device-info/issues/1436)) ([f51fb98](https://github.com/react-native-device-info/react-native-device-info/commit/f51fb98716c76d4598a3e8c832d706fa215f2831))
+
 # [10.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v9.0.2...v10.0.0) (2022-07-08)
 
 
