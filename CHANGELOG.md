@@ -1,3 +1,10 @@
+## [10.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v10.0.1...v10.0.2) (2022-07-18)
+
+
+### Bug Fixes
+
+* **types, flow:** add missing getUniqueIdSync in index.js.flow ([#1441](https://github.com/react-native-device-info/react-native-device-info/issues/1441)) ([1d3890a](https://github.com/react-native-device-info/react-native-device-info/commit/1d3890a31ea9a18837c595ee8df86057e9c0a792))
+
 ## [10.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.0.0...v10.0.1) (2022-07-11)
 
 
