@@ -1089,7 +1089,7 @@ DeviceInfo.getUserAgent().then((userAgent) => {
 ### getVersion()
 
 Gets the application version.
-Take into account that a version string is device/OS formatted and can contains any additional data (such as build number etc.). If you want to be sure about version format, you can use a regular expression to get the desired portion of the returned version string.
+Take into account that a version string is device/OS formatted and can contain any additional data (such as build number etc.). If you want to be sure about version format, you can use a regular expression to get the desired portion of the returned version string.
 
 #### Examples
 
