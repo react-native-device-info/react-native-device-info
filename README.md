@@ -176,6 +176,7 @@ The example app in this repository shows an example usage of every single API, c
 | [hasGms()](#hasGms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [hasHms()](#hasHms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
+| [hasDynamicIsland()](#hasDynamicIsland)                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
 | [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
 | [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ✅  |
 | [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ✅  |
@@ -1266,6 +1267,19 @@ Tells if the device has a notch.
 
 ```js
 let hasNotch = DeviceInfo.hasNotch();
+// true
+```
+
+---
+
+### hasDynamicIsland()
+
+Tells if the device has a dynamic island.
+
+#### Examples
+
+```js
+let hasDynamicIsland = DeviceInfo.hasDynamicIsland();
 // true
 ```
 

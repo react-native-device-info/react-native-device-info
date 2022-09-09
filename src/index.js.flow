@@ -122,6 +122,7 @@ declare module.exports: {
   getBrightness: () => Promise<number>,
   getBrightnessSync: () => number,
   hasNotch: () => boolean,
+  hasDynamicIsland: () => boolean,
   hasSystemFeature: (feature: string) => Promise<boolean>,
   hasSystemFeature: (feature: string) => Promise<boolean>,
   hasSystemFeatureSync: (feature: string) => boolean,

@@ -173,6 +173,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   getUniqueIdSync: () => string;
   getVersion: () => string;
   hasNotch: () => boolean;
+  hasDynamicIsland: () => boolean;
   hasSystemFeature: (feature: string) => Promise<boolean>;
   hasSystemFeatureSync: (feature: string) => boolean;
   isLandscape: () => Promise<boolean>;
