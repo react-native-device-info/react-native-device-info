@@ -3,6 +3,14 @@ import { NotchDevice } from './privateTypes';
 const devicesWithNotch: NotchDevice[] = [
   {
     brand: 'Apple',
+    model: 'iPhone 14',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone 14 Plus',
+  },
+  {
+    brand: 'Apple',
     model: 'iPhone 13 mini',
   },
   {
