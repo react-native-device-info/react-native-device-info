@@ -122,6 +122,7 @@ const diMock = {
   getBundleId: stringFnSync(),
   getDeviceId: stringFnSync(),
   getDeviceType: stringFnSync(),
+  getDeviceTypeSync: stringFnSync(),
   getManufacturer: stringFnAsync(),
   getManufacturerSync: stringFnSync(),
   getModel: stringFnSync(),
