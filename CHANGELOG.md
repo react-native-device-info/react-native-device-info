@@ -1,3 +1,10 @@
+## [10.1.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.1.0...v10.1.1) (2022-09-09)
+
+
+### Bug Fixes
+
+* add getDeviceType and getDeviceTypeSync mocks ([#1437](https://github.com/react-native-device-info/react-native-device-info/issues/1437)) ([d92e9f9](https://github.com/react-native-device-info/react-native-device-info/commit/d92e9f93d2c00d892345dbba75104e63b2983b2b))
+
 # [10.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.0.2...v10.1.0) (2022-09-09)
 
 
