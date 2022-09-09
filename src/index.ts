@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
+import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -395,6 +396,21 @@ export function hasNotch() {
       ) !== -1;
   }
   return notch;
+}
+
+let dynamicIsland: boolean;
+export function hasDynamicIsland() {
+  if (dynamicIsland === undefined) {
+    let _brand = getBrand();
+    let _model = getModel();
+    dynamicIsland =
+      devicesWithDynamicIsland.findIndex(
+        (item) =>
+          item.brand.toLowerCase() === _brand.toLowerCase() &&
+          item.model.toLowerCase() === _model.toLowerCase()
+      ) !== -1;
+  }
+  return dynamicIsland;
 }
 
 export const [hasGms, hasGmsSync] = getSupportedPlatformInfoFunctions({
@@ -931,6 +947,7 @@ const deviceInfoModule: DeviceInfoModule = {
   hasHms,
   hasHmsSync,
   hasNotch,
+  hasDynamicIsland,
   hasSystemFeature,
   hasSystemFeatureSync,
   isAirplaneMode,

@@ -140,6 +140,7 @@ export default class App extends Component {
     deviceJSON.isEmulator = DeviceInfo.isEmulatorSync();
     deviceJSON.fontScale = DeviceInfo.getFontScaleSync();
     deviceJSON.hasNotch = DeviceInfo.hasNotch();
+    deviceJSON.hasDynamicIsland = DeviceInfo.hasDynamicIsland();
     deviceJSON.firstInstallTime = DeviceInfo.getFirstInstallTimeSync();
     deviceJSON.lastUpdateTime = DeviceInfo.getLastUpdateTimeSync();
     deviceJSON.serialNumber = DeviceInfo.getSerialNumberSync();
@@ -212,6 +213,7 @@ export default class App extends Component {
       deviceJSON.isEmulator = await DeviceInfo.isEmulator();
       deviceJSON.fontScale = await DeviceInfo.getFontScale();
       deviceJSON.hasNotch = await DeviceInfo.hasNotch();
+      deviceJSON.hasDynamicIsland = await DeviceInfo.hasDynamicIsland();
       deviceJSON.firstInstallTime = await DeviceInfo.getFirstInstallTime();
       deviceJSON.lastUpdateTime = await DeviceInfo.getLastUpdateTime();
       deviceJSON.serialNumber = await DeviceInfo.getSerialNumber();
