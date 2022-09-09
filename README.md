@@ -112,6 +112,10 @@ Note that many APIs are platform-specific. If there is no implementation for a p
 
 Most APIs return a Promise but also have a corresponding API with `Sync` on the end that operates synchronously. For example, you may prefer to call `isCameraPresentSync()` during your app bootstrap to avoid async calls during the first parts of app startup.
 
+**Note about getUserAgentSync**
+
+While the asynchronous method `getUserAgent` is available on both platforms, `getUserAgentSync` is only supported on Android.
+
 The example app in this repository shows an example usage of every single API, consult the example app if you have questions, and if you think you see a problem make sure you can reproduce it using the example app before reporting it, thank you.
 
 | Method                                                            | Return Type         |  iOS | Android | Windows | Web |
@@ -171,6 +175,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    | ✅  |
+| [getUserAgentSync()](#getuseragent)                               | `string`            |  ❌  |   ✅    |   ❌    | ✅  |
 | [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
 | [getBrightness()](#getBrightness)                                 | `Promise<number>`   |  ✅  |   ❌    |   ❌    | ❌  |
 | [hasGms()](#hasGms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    | ❌  |
