@@ -1,3 +1,16 @@
+# [10.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.0.2...v10.1.0) (2022-09-09)
+
+
+### Bug Fixes
+
+* **hasNotch:** add iPhone 14 / iPhone 14 Plus to devices with notch ([fc3b488](https://github.com/react-native-device-info/react-native-device-info/commit/fc3b48846ad5ad2970698ac9b01a21ef1694cf43))
+
+
+### Features
+
+* add device names for iPhone 14 family ([2df220f](https://github.com/react-native-device-info/react-native-device-info/commit/2df220fb9e8672350c2404da87f61d81a3725d6d))
+* add method to check if device has dynamic island ([6119011](https://github.com/react-native-device-info/react-native-device-info/commit/6119011d54a9626377f0831f18b2ba61838f3943))
+
 ## [10.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v10.0.1...v10.0.2) (2022-07-18)
 
 
