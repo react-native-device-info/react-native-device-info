@@ -11,6 +11,14 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'Apple',
+    model: 'iPhone 14 Pro',
+  },
+  {
+    brand: 'Apple',
+    model: 'iPhone 14 Pro Max',
+  },
+  {
+    brand: 'Apple',
     model: 'iPhone 13 mini',
   },
   {
