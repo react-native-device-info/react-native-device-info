@@ -1,3 +1,10 @@
+## [10.1.2](https://github.com/react-native-device-info/react-native-device-info/compare/v10.1.1...v10.1.2) (2022-09-13)
+
+
+### Bug Fixes
+
+* **hasNotch:** add iPhone 14 Pro / Pro Max to devices with notch ([b818d9f](https://github.com/react-native-device-info/react-native-device-info/commit/b818d9f51bf4e86e4a80cd07b33eda3c6147747c))
+
 ## [10.1.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.1.0...v10.1.1) (2022-09-09)
 
 
