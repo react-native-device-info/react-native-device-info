@@ -95,6 +95,7 @@ const diMock = {
   getUsedMemorySync: numberFnSync(),
   getUserAgent: stringFnAsync(),
   getUserAgentSync: stringFnSync(),
+  hasDynamicIsland: booleanFnSync(),
   hasSystemFeature: booleanFnAsync(),
   hasSystemFeatureSync: booleanFnSync(),
   hasGms: booleanFnAsync(),
