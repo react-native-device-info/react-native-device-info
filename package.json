@@ -39,7 +39,7 @@
     "example:install:pods": "cd example/ios && pod install",
     "example:android": "cd example && yarn android",
     "example:android:build": "cd example/android && ./gradlew assembleDebug",
-    "example:ios": "cd example && yarn ios",
+    "example:ios": "cd example && yarn ios --simulator 'iPhone 14'",
     "example:ios:build": "cd example/ios && xcodebuild CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ -workspace example.xcworkspace -configuration Debug -scheme example -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=YES | xcpretty",
     "example:windows": "cd example && yarn windows",
     "example:packager": "cd example && yarn start",
