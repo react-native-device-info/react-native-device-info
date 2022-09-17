@@ -429,7 +429,7 @@ export const [hasHms, hasHmsSync] = getSupportedPlatformInfoFunctions({
 
 export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'firstInstallTime',
-  supportedPlatforms: ['android', 'windows'],
+  supportedPlatforms: ['android', 'ios', 'windows'],
   getter: () => RNDeviceInfo.getFirstInstallTime(),
   syncGetter: () => RNDeviceInfo.getFirstInstallTimeSync(),
   defaultValue: -1,

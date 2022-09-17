@@ -857,6 +857,21 @@ RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     resolve(self.getBrightness);
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFirstInstallTimeSync) {
+    return @(self.getFirstInstallTime);
+}
+
+RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.getFirstInstallTime));
+}
+
+- (long long) getFirstInstallTime {
+    NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSError *error;
+    NSDate *installDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error] objectForKey:NSFileCreationDate];
+    return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
+}
+
 #pragma mark - dealloc -
 
 - (void)dealloc
