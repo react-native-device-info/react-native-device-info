@@ -46,6 +46,15 @@ target 'example' do
         config.build_settings["APPLICATION_EXTENSION_API_ONLY"] = "NO"
       end
     end
+
+    # quiet non-module warnings - only interested in our own warnings
+    installer.pods_project.targets.each do |target|
+      if !target.name.include? "react-native-device-info"
+        target.build_configurations.each do |config|
+          config.build_settings["GCC_WARN_INHIBIT_ALL_WARNINGS"] = "YES"
+        end
+      end
+    end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
