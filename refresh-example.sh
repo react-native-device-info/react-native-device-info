@@ -58,6 +58,10 @@ yarn add \
 sed -i -e $'s/^  target \'exampleTests\' do/  target \'example-app-extension\' do\\\n    inherit! :complete\\\n  end\\\n\\\n  target \'exampleTests\' do/' ios/Podfile
 rm -f ios/Podfile??
 
+# React-native builds on iOS are very noisy with warnings in other packages that drown our warnings out. Reduce warnings to just our packages.
+sed -i -e $'s/react_native_post_install(installer)/react_native_post_install(installer)\\\n\\\n    # quiet non-module warnings - only interested in our module warnings\\\n    installer.pods_project.targets.each do |target|\\\n      if !target.name.include? "react-native-device-info"\\\n        target.build_configurations.each do |config|\\\n          config.build_settings["GCC_WARN_INHIBIT_ALL_WARNINGS"] = "YES"\\\n        end\\\n      end\\\n    end/' ios/Podfile
+rm -f ios/Podfile??
+
 # We need to fix a compile problem with "sharedApplication" usage in iOS extensions
 # https://stackoverflow.com/questions/52503400/sharedapplication-is-unavailable-not-available-on-ios-app-extension-use-v
 sed -i -e $'s/react_native_post_install(installer)/react_native_post_install(installer)\\\n    \\\n    installer.pods_project.targets.each do |target|\\\n      target.build_configurations.each do |config|\\\n        # Fix sharedApplication is unavailable: not available on iOS App Extension - Use view controller based solutions where appropriate instead\\\n        # https:\/\/stackoverflow.com\/questions\/52503400\/sharedapplication-is-unavailable-not-available-on-ios-app-extension-use-v\\\n        config.build_settings["APPLICATION_EXTENSION_API_ONLY"] = "NO"\\\n      end\\\n    end/' ios/Podfile
