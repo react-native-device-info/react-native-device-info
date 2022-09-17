@@ -140,7 +140,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌  |
-| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ❌  |   ✅    |   ✅    | ❌  |
+| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ❌  |
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅    | ✅  |
