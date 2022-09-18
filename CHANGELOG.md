@@ -1,3 +1,10 @@
+# [10.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.1.2...v10.2.0) (2022-09-18)
+
+
+### Features
+
+* **ios, firstInstallTime:** implement first install time for iOS ([63b9feb](https://github.com/react-native-device-info/react-native-device-info/commit/63b9febdb7639c61c9f369cef9d8af45092390e1))
+
 ## [10.1.2](https://github.com/react-native-device-info/react-native-device-info/compare/v10.1.1...v10.1.2) (2022-09-13)
 
 
