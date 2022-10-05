@@ -1,3 +1,10 @@
+## [10.2.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.2.0...v10.2.1) (2022-10-05)
+
+
+### Bug Fixes
+
+* **android:**  getDeviceName handle new exception beginning API>=32 ([#1471](https://github.com/react-native-device-info/react-native-device-info/issues/1471)) ([2364514](https://github.com/react-native-device-info/react-native-device-info/commit/2364514aea0caa305f7b96e892f63b58711036c1))
+
 # [10.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.1.2...v10.2.0) (2022-09-18)
 
 
