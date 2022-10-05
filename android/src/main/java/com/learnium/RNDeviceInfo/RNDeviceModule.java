@@ -687,9 +687,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getDeviceNameSync() {
     try {
-      String bluetoothName = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name");
-      if (bluetoothName != null) {
-        return bluetoothName;
+      if (Build.VERSION.SDK_INT <= 31) {
+        String bluetoothName = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name");
+        if (bluetoothName != null) {
+          return bluetoothName;
+        }
       }
 
       if (Build.VERSION.SDK_INT >= 25) {
