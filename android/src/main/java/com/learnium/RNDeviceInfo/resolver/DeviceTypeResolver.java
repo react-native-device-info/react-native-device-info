@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 import com.learnium.RNDeviceInfo.DeviceType;
 
@@ -66,19 +67,29 @@ public class DeviceTypeResolver {
       return DeviceType.UNKNOWN;
     }
 
-    // Get display metrics to see if we can differentiate handsets and tablets.
-    // NOTE: for API level 16 the metrics will exclude window decor.
+    double widthInches;
+    double heightInches;
     DisplayMetrics metrics = new DisplayMetrics();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      windowManager.getDefaultDisplay().getRealMetrics(metrics);
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+      // Get display metrics to see if we can differentiate handsets and tablets.
+      // NOTE: for API level 16 the metrics will exclude window decor.
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        windowManager.getDefaultDisplay().getRealMetrics(metrics);
+      } else {
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+      }
+      // Calculate physical size.
+      widthInches = metrics.widthPixels / (double) metrics.xdpi;
+      heightInches = metrics.heightPixels / (double) metrics.ydpi;
     } else {
-      windowManager.getDefaultDisplay().getMetrics(metrics);
+      final WindowMetrics windowMetrics = windowManager.getCurrentWindowMetrics();
+      metrics = context.getApplicationContext().getResources().getDisplayMetrics();
+
+      widthInches = windowMetrics.getBounds().width() / (double) metrics.xdpi;
+      heightInches = windowMetrics.getBounds().height() / (double) metrics.ydpi;
     }
 
-    // Calculate physical size.
-    double widthInches = metrics.widthPixels / (double) metrics.xdpi;
-    double heightInches = metrics.heightPixels / (double) metrics.ydpi;
-    double diagonalSizeInches = Math.sqrt(Math.pow(widthInches, 2) + Math.pow(heightInches, 2));
+    double diagonalSizeInches = Math.floor(Math.sqrt(Math.pow(widthInches, 2) + Math.pow(heightInches, 2)));
 
     if (diagonalSizeInches >= 3.0 && diagonalSizeInches <= 6.9) {
       // Devices in a sane range for phones are considered to be Handsets.
