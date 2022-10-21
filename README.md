@@ -664,7 +664,12 @@ DeviceInfo.getInstallReferrer().then((installReferrer) => {
 
 ### getInstanceId()
 
+**Deprecated**
 Gets the application instance ID.
+
+Note that this requires the deprecated Firebase Instance Id package, so will likely return "unknown" if your dependencies are up to date and you remove the `firebase:iid` dependency as you should.
+
+In Android 8.0+ the "getUniqueId" methods are equivalent, as they resolve to ANDROID_ID which is scoped to the specific install of the app on a specific device by a specific user.
 
 #### Examples
 
