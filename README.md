@@ -665,18 +665,24 @@ DeviceInfo.getInstallReferrer().then((installReferrer) => {
 
 ### getInstanceId()
 
-**Deprecated**
 Gets the application instance ID.
 
-Note that this requires the deprecated Firebase Instance Id package, so will likely return "unknown" if your dependencies are up to date and you remove the `firebase:iid` dependency as you should.
+This attempts to get an instance ID from these sources, in this order:
 
-In Android 8.0+ the "getUniqueId" methods are equivalent, as they resolve to ANDROID_ID which is scoped to the specific install of the app on a specific device by a specific user.
+- a value under key `instanceId` in SharedPreferences file `react-native-device-info`
+- Firebase IID (if `firebaseBomVersion` or `firebaseIidVersion` is defined in gradle ext - **deprecated**)
+- GMS IID (if `googlePlayServicesIidVersion` or `googlePlayServicesVersion` is defined in gradle ext - **deprecated**)
+- a random UUID generated from java.util.UUID.randomUUID() and stored in SharedPreferences
+
+If you are using the deprecated sources, the instance ID generated is stored in shared preferences so it will be stable during this major version of react-native-device-info.
+
+In a future version of react-native-device-info, the Firebase IID and GMS IID implementations will be removed, and all future values will be the value (if any) stored in SharedPreferences, or a new random UUID that will then be stored and used for that app installation in the future.
 
 #### Examples
 
 ```js
 DeviceInfo.getInstanceId().then((instanceId) => {
-  // Android: ?
+  // Android: da4e0245-5d6c-402a-a07c-0c5349f229e2
 });
 ```
 

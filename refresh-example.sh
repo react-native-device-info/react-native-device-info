@@ -74,7 +74,6 @@ sed -i -e $'s/react_native_post_install(installer)/react_native_post_install(ins
 rm -f ios/Podfile??
 
 # Patch the build.gradle directly to slice in our android play version
-sed -i -e 's/ext {$/ext {        firebaseIidVersion = "21.1.0"/' android/build.gradle
 sed -i -e 's/ext {$/ext {        supportLibVersion = "1.7.0/' android/build.gradle
 sed -i -e 's/ext {$/ext {        mediaCompatVersion = "1.4.3"/' android/build.gradle
 sed -i -e 's/ext {$/ext {        supportV4Version = "1.0.1"/' android/build.gradle

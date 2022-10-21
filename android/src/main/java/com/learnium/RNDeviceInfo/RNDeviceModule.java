@@ -164,7 +164,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
-  public static SharedPreferences getRNDISharedPreferences(ReactApplicationContext context) {
+  public static SharedPreferences getRNDISharedPreferences(Context context) {
     return context.getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
   }
 
