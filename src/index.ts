@@ -841,7 +841,7 @@ export function useBrightness(): number | null {
 
 export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
-const deviceInfoModule: DeviceInfoModule = {
+const DeviceInfo: DeviceInfoModule = {
   getAndroidId,
   getAndroidIdSync,
   getApiLevel,
@@ -991,4 +991,4 @@ const deviceInfoModule: DeviceInfoModule = {
   useBrightness,
 };
 
-export default deviceInfoModule;
+export default DeviceInfo;
