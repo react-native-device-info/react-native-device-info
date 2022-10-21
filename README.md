@@ -49,6 +49,7 @@ If you want to use Install Referrer tracking, you will need to add this config t
 ```
 
 If you are experiencing issues with hasGms() on your release apks, please add the following rule to your Proguard config
+
 ```
 -keep class com.google.android.gms.common.** {*;}
 ```
@@ -867,8 +868,11 @@ DeviceInfo.getSerialNumber().then((serialNumber) => {
   // Windows: ? (a serial number, if your app has the "capability smbios")
 });
 ```
+
 ## Notes
+
 ### capability smbios
+
 If you want to use this method in windows, you have to add smbios capability in your aplication. Please following this [documentation](https://docs.microsoft.com/en-us/windows/win32/sysinfo/access-smbios-information-from-a-universal-windows-app) for add the capability in your manifest file.
 
 ---
@@ -1012,7 +1016,7 @@ DeviceInfo.getTotalMemory().then((totalMemory) => {
 
 ### getUniqueId()
 
-*This identifier is considered sensitive information in some app stores (e.g. Huawei or Google Play) and may lead to your app being removed or rejected, if used without user consent or for unapproved purposes. Refer to store policies for more information (see notes below).*
+_This identifier is considered sensitive information in some app stores (e.g. Huawei or Google Play) and may lead to your app being removed or rejected, if used without user consent or for unapproved purposes. Refer to store policies for more information (see notes below)._
 
 Gets the device unique ID.
 On Android it is currently identical to `getAndroidId()` in this module.
