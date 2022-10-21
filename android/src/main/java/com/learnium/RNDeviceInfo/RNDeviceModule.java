@@ -164,6 +164,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
+  public static SharedPreferences getRNDISharedPreferences(ReactApplicationContext context) {
+    return context.getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
+  }
+
   @SuppressLint("MissingPermission")
   private WifiInfo getWifiInfo() {
     WifiManager manager = (WifiManager) getReactApplicationContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -637,7 +641,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getInstallReferrerSync() {
-    SharedPreferences sharedPref = getReactApplicationContext().getSharedPreferences("react-native-device-info", Context.MODE_PRIVATE);
+    SharedPreferences sharedPref = getRNDISharedPreferences(getReactApplicationContext());
     return sharedPref.getString("installReferrer", Build.UNKNOWN);
   }
   @ReactMethod
