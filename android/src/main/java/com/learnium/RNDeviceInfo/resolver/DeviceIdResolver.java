@@ -1,9 +1,14 @@
 package com.learnium.RNDeviceInfo.resolver;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.UUID;
+
+import com.learnium.RNDeviceInfo.RNDeviceModule;
 
 /**
  * Instance Id resolver's single purpose is to get the device's Instance Id
@@ -18,29 +23,56 @@ public class DeviceIdResolver {
   }
 
   public String getInstanceIdSync() {
+    String instanceId = getInstanceIdFromPrefs();
+
+    if (instanceId != Build.UNKNOWN) {
+      return instanceId;
+    }
+
     try {
-      return getFirebaseInstanceId();
+      instanceId = getFirebaseInstanceId();
+      setInstanceIdInPrefs(instanceId);
+      return instanceId;
     } catch (ClassNotFoundException ignored) {
     } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
       System.err.println("N/A: Unsupported version of com.google.firebase:firebase-iid in your project.");
     }
 
     try {
-      return getGmsInstanceId();
+      instanceId = getGmsInstanceId();
+      setInstanceIdInPrefs(instanceId);
+      return instanceId;
     } catch (ClassNotFoundException ignored) {
     } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
       System.err.println("N/A: Unsupported version of com.google.android.gms.iid in your project.");
     }
 
-    System.err.println("Can't generate id. Please add com.google.firebase:firebase-iid to your project.");
+    instanceId = getUUIDInstanceId();
+    setInstanceIdInPrefs(instanceId);
+    return instanceId;
+  }
 
-    return "unknown";
+  String getUUIDInstanceId() {
+    String uuidInstanceId = UUID.randomUUID().toString();
+    return uuidInstanceId;
+  }
+
+  String getInstanceIdFromPrefs() {
+    SharedPreferences prefs = RNDeviceModule.getRNDISharedPreferences(context);
+    String instanceId = prefs.getString("instanceId", Build.UNKNOWN);
+    return instanceId;
+  }
+
+  void setInstanceIdInPrefs(String instanceId) {
+    SharedPreferences.Editor editor = RNDeviceModule.getRNDISharedPreferences(context).edit();
+    editor.putString("instanceId", instanceId);
+    editor.apply();
   }
 
   String getGmsInstanceId() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     Class<?> clazz = Class.forName("com.google.android.gms.iid.InstanceID");
     Method method = clazz.getDeclaredMethod("getInstance", Context.class);
-    Object obj = method.invoke(null, context);
+    Object obj = method.invoke(null, context.getApplicationContext());
     Method method1 = obj.getClass().getMethod("getId");
     return (String) method1.invoke(obj);
   }

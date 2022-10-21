@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext {        firebaseIidVersion = "21.1.0"
+    ext {
         buildToolsVersion = "30.0.2"
         minSdkVersion = 21
         compileSdkVersion = 30
