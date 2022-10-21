@@ -1,3 +1,10 @@
+# [10.3.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.2.1...v10.3.0) (2022-10-21)
+
+
+### Features
+
+* **android, instanceId:** implement instanceId as UUIDv4 in prefs ([00aa218](https://github.com/react-native-device-info/react-native-device-info/commit/00aa218f2670b7e3517a4204b627596b3f7d139c))
+
 ## [10.2.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.2.0...v10.2.1) (2022-10-05)
 
 
