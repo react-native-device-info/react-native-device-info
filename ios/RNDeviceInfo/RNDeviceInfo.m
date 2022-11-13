@@ -73,7 +73,7 @@ RCT_EXPORT_MODULE();
 - (id)init
 {
     if ((self = [super init])) {
-#if !TARGET_OS_TV
+#if (!TARGET_OS_TV && !TARGET_OS_OSX)
         _lowBatteryThreshold = 0.20;
         [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
 
@@ -113,6 +113,7 @@ RCT_EXPORT_MODULE();
 
 - (DeviceType) getDeviceType
 {
+#if (!TARGET_OS_OSX)
     switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
         case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
         case UIUserInterfaceIdiomPad:
@@ -129,6 +130,8 @@ RCT_EXPORT_MODULE();
         case UIUserInterfaceIdiomMac: return DeviceTypeDesktop;
         default: return DeviceTypeUnknown;
     }
+#endif
+    return DeviceTypeUnknown;
 }
 
 - (NSDictionary *) getStorageDictionary {
@@ -137,18 +140,36 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSString *) getSystemName {
+#if TARGET_OS_OSX
+    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
+    return processInfo.operatingSystemVersionString;
+#endif
+#if (!TARGET_OS_OSX)
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.systemName;
+#endif
 }
 
 - (NSString *) getSystemVersion {
+#if TARGET_OS_OSX
+    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
+    return processInfo.operatingSystemVersionString;
+#endif
+#if (!TARGET_OS_OSX)
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.systemVersion;
+#endif
 }
 
 - (NSString *) getDeviceName {
+#if TARGET_OS_OSX
+    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
+    return processInfo.operatingSystemVersionString;
+#endif
+#if (!TARGET_OS_OSX)
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.name;
+#endif
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceNameSync) {
@@ -324,7 +345,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 }
 
 - (NSString *) getCarrier {
-#if (TARGET_OS_TV || TARGET_OS_MACCATALYST)
+#if (TARGET_OS_TV || TARGET_OS_MACCATALYST || TARGET_OS_OSX)
     return @"unknown";
 #else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
@@ -448,6 +469,7 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 }
 
 - (float) getFontScale {
+#if !TARGET_OS_OSX
     // Font scales based on font sizes from https://developer.apple.com/ios/human-interface-guidelines/visual-design/typography/
     float fontScale = 1.0;
     UITraitCollection *traitCollection = [[UIScreen mainScreen] traitCollection];
@@ -478,6 +500,9 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     }
 
     return fontScale;
+#endif
+    return -1.0;
+
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFontScaleSync) {
@@ -659,13 +684,13 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
 }
 
 - (NSDictionary *) powerState {
-#if RCT_DEV && (!TARGET_IPHONE_SIMULATOR) && !TARGET_OS_TV
+#if RCT_DEV && (!TARGET_IPHONE_SIMULATOR) && !TARGET_OS_TV && !TARGET_OS_OSX
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
         RCTLogWarn(@"Battery monitoring is not enabled. "
                    "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
     }
 #endif
-#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV
+#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV && !TARGET_OS_OSX
     if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
         RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
     }
@@ -676,7 +701,7 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
 #if TARGET_OS_TV
              @"batteryLevel": @(batteryLevel),
              @"batteryState": @"full",
-#else
+#elif !TARGET_OS_OSX
              @"batteryLevel": @(batteryLevel),
              @"batteryState": [@[@"unknown", @"unplugged", @"charging", @"full"] objectAtIndex: [UIDevice currentDevice].batteryState],
              @"lowPowerMode": @([NSProcessInfo processInfo].isLowPowerModeEnabled),
@@ -693,7 +718,7 @@ RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 }
 
 - (float) getBatteryLevel {
-#if TARGET_OS_TV
+#if TARGET_OS_TV || TARGET_OS_OSX
     return [@1 floatValue];
 #else
     return [@([UIDevice currentDevice].batteryLevel) floatValue];
@@ -733,6 +758,7 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
 }
 
 - (BOOL) isHeadphonesConnected {
+#if (!TARGET_OS_OSX)
     AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];
     for (AVAudioSessionPortDescription* desc in [route outputs]) {
         if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones]) {
@@ -745,6 +771,7 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
             return YES;
         }
     }
+#endif
     return NO;
 }
 
@@ -842,7 +869,7 @@ RCT_EXPORT_METHOD(getInstallerPackageName:(RCTPromiseResolveBlock)resolve reject
 }
 
 - (NSNumber *) getBrightness {
-#if !TARGET_OS_TV
+#if !TARGET_OS_TV && !TARGET_OS_OSX
     return @([UIScreen mainScreen].brightness);
 #else
     return @(-1);

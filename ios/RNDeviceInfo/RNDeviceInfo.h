@@ -6,7 +6,12 @@
 //  Copyright © 2015 Learnium Limited. All rights reserved.
 //
 
+#if !(TARGET_OS_OSX)
 #import <UIKit/UIKit.h>
+#endif
+#if TARGET_OS_OSX
+#import <AppKit/AppKit.h>
+#endif
 #import <AVFoundation/AVFoundation.h>
 #import <sys/utsname.h>
 #import <React/RCTBridgeModule.h>

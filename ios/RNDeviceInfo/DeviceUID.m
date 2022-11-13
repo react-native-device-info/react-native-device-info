@@ -4,7 +4,12 @@
 
 #import "DeviceUID.h"
 
+#if !(TARGET_OS_OSX)
 @import UIKit;
+#endif
+#if TARGET_OS_OSX
+@import AppKit;
+#endif
 
 @interface DeviceUID ()
 
@@ -176,10 +181,12 @@ NSString * const UIDKey = @"deviceUID";
 #pragma mark - UID Generation methods
 
 + (NSString *)appleIFV {
+    #if !(TARGET_OS_OSX)
     if(NSClassFromString(@"UIDevice") && [UIDevice instancesRespondToSelector:@selector(identifierForVendor)]) {
         // only available in iOS >= 6.0
         return [[UIDevice currentDevice].identifierForVendor UUIDString];
     }
+    #endif
     return nil;
 }
 

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		663F51B9262200CA0023385E /* EnvironmentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 663F51B8262200CA0023385E /* EnvironmentUtil.m */; };
+		6A423C89292074270039E426 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
+		6A423C8A292074270039E426 /* EnvironmentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 663F51B8262200CA0023385E /* EnvironmentUtil.m */; };
+		6A423C8B292074270039E426 /* RNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */; };
+		6A423C8E292074270039E426 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
+		6A423C8F292074270039E426 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
 		BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
 		DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
@@ -19,6 +24,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6A423C8D292074270039E426 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				6A423C8E292074270039E426 /* DeviceUID.h in CopyFiles */,
+				6A423C8F292074270039E426 /* RNDeviceInfo.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5891D61BA9A9FC002B4DB2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +62,7 @@
 /* Begin PBXFileReference section */
 		663F51B7262200520023385E /* EnvironmentUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnvironmentUtil.h; sourceTree = "<group>"; };
 		663F51B8262200CA0023385E /* EnvironmentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvironmentUtil.m; sourceTree = "<group>"; };
+		6A423C93292074270039E426 /* libRNDeviceInfo-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRNDeviceInfo-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76E65CA21D4CA143009B7AF1 /* DeviceUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUID.h; sourceTree = "<group>"; };
 		76E65CA31D4CA143009B7AF1 /* DeviceUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUID.m; sourceTree = "<group>"; };
 		DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +72,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6A423C8C292074270039E426 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5891D51BA9A9FC002B4DB2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,6 +109,7 @@
 			children = (
 				DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */,
 				E72EC1401F7ABB5A0001BC90 /* libRNDeviceInfo-tvOS.a */,
+				6A423C93292074270039E426 /* libRNDeviceInfo-macOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,6 +130,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6A423C87292074270039E426 /* RNDeviceInfo-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A423C90292074270039E426 /* Build configuration list for PBXNativeTarget "RNDeviceInfo-macOS" */;
+			buildPhases = (
+				6A423C88292074270039E426 /* Sources */,
+				6A423C8C292074270039E426 /* Frameworks */,
+				6A423C8D292074270039E426 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RNDeviceInfo-macOS";
+			productName = RNDeviceInfo;
+			productReference = 6A423C93292074270039E426 /* libRNDeviceInfo-macOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		DA5891D71BA9A9FC002B4DB2 /* RNDeviceInfo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA5891E11BA9A9FC002B4DB2 /* Build configuration list for PBXNativeTarget "RNDeviceInfo" */;
@@ -172,11 +214,22 @@
 			targets = (
 				DA5891D71BA9A9FC002B4DB2 /* RNDeviceInfo */,
 				E72EC13F1F7ABB5A0001BC90 /* RNDeviceInfo-tvOS */,
+				6A423C87292074270039E426 /* RNDeviceInfo-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6A423C88292074270039E426 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A423C89292074270039E426 /* DeviceUID.m in Sources */,
+				6A423C8A292074270039E426 /* EnvironmentUtil.m in Sources */,
+				6A423C8B292074270039E426 /* RNDeviceInfo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5891D41BA9A9FC002B4DB2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,6 +252,42 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		6A423C91292074270039E426 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)/usr/local/include",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6A423C92292074270039E426 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILT_PRODUCTS_DIR)/usr/local/include",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		DA5891DF1BA9A9FC002B4DB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -402,6 +491,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6A423C90292074270039E426 /* Build configuration list for PBXNativeTarget "RNDeviceInfo-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A423C91292074270039E426 /* Debug */,
+				6A423C92292074270039E426 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DA5891D31BA9A9FC002B4DB2 /* Build configuration list for PBXProject "RNDeviceInfo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -13,6 +13,7 @@ if (!RNDeviceInfo) {
   if (
     Platform.OS === 'android' ||
     Platform.OS === 'ios' ||
+    Platform.OS === 'macos' ||
     Platform.OS === 'web' ||
     // @ts-ignore
     Platform.OS === 'dom'
