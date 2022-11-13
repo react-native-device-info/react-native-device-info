@@ -17,6 +17,7 @@
     "react": "17.0.2",
     "react-native": "0.67.3",
     "react-native-device-info": "github:react-native-device-info/react-native-device-info",
+    "react-native-macos": "^0.66.0",
     "react-native-windows": "0.67.3"
   },
   "devDependencies": {
