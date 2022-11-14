@@ -20,6 +20,7 @@ Added `yourNewMethodName()` that allows ...
 | iOS     |    ✅❌     |
 | Android |    ✅❌     |
 | Windows |    ✅❌     |
+| MacOS |    ✅❌     |
 
 ## Checklist
 
