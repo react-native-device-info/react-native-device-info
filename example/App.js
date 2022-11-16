@@ -100,9 +100,9 @@ export default class App extends Component {
     super(props);
     this.state = {
       activeTab: 'constant',
-      constantdeviceinfo: {}, // this.getConstantDeviceInfo(),
+      constantdeviceinfo: this.getConstantDeviceInfo(),
       asyncdeviceinfo: {},
-      syncdeviceinfo: {} // this.getSyncDeviceInfo(),
+      syncdeviceinfo: this.getSyncDeviceInfo(),
     };
   }
 
@@ -325,7 +325,7 @@ export default class App extends Component {
             <Text style={styles.welcome}>
               react-native-device-info example - hooks:
             </Text>
-            {/* <FunctionalComponent /> */}
+            <FunctionalComponent />
           </>
         ) : null}
 

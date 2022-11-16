@@ -338,7 +338,7 @@ PODS:
     - React-jsi (= 0.66.80)
     - React-logger (= 0.66.80)
     - React-perflogger (= 0.66.80)
-  - RNDeviceInfo (8.4.9):
+  - RNDeviceInfo (10.3.0):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -398,7 +398,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native-macos/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native-macos/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native-macos/ReactCommon`)
-  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNDeviceInfo (from `~/Desktop/Workspace/OpenSource/react-native-device-info`)
   - Yoga (from `../node_modules/react-native-macos/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -480,7 +480,7 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native-macos/ReactCommon"
   RNDeviceInfo:
-    :path: "../node_modules/react-native-device-info"
+    :path: "~/Desktop/Workspace/OpenSource/react-native-device-info"
   Yoga:
     :path: "../node_modules/react-native-macos/ReactCommon/yoga"
 
@@ -528,10 +528,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: 23001e27314533e09a6f94fed5408dc73ef10523
   React-runtimeexecutor: 7650506546b4d75e75b6245f9ec03200c0371181
   ReactCommon: e0f884412211a2e119ea0df18ca6da9334d31569
-  RNDeviceInfo: 4944cf8787b9c5bffaf301fda68cc1a2ec003341
+  RNDeviceInfo: 548a47c1ed57bdbee85f26a941851499995449c8
   Yoga: c9910e717bc4ca0dff059aaef88015eba12c2799
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: deb255e5f156b69722e6f9d222991e11359ffe11
+PODFILE CHECKSUM: 9f44568447c37f1c0a9ee35d96baf3853f86d1e4
 
 COCOAPODS: 1.11.3

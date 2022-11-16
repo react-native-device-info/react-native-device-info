@@ -13,6 +13,7 @@ target 'example-macOS' do
     # Then enable this option:
     #   :hermes_enabled => true
   )
+  pod 'RNDeviceInfo', :path => '~/Desktop/Workspace/OpenSource/react-native-device-info'
 
   # Pods specifically for macOS target
 end

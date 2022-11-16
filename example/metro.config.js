@@ -12,8 +12,19 @@ const rnwPath = fs.realpathSync(
   path.resolve(require.resolve('react-native-windows/package.json'), '..'),
 );
 
+const extraNodeModules = {
+  'react-native-device-info': path.resolve(__dirname + '/../src'),
+};
+const watchFolders = [path.resolve(__dirname + '/../src')];
+
 module.exports = {
+  watchFolders,
   resolver: {
+    extraNodeModules,
+    nodeModulesPaths: [
+      __dirname + '/node_modules',
+      __dirname + '/../node_modules',
+    ],
     blockList: exclusionList([
       // This stops "react-native run-windows" from causing the metro server to crash if its already running
       new RegExp(
