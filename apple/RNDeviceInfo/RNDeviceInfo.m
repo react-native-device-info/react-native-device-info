@@ -190,6 +190,14 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 }
 
+- (NSString *) getBaseOs {
+#if (TARGET_OS_OSX)
+    return @"macOS";
+#else
+    return @"unknown";
+#endif
+}
+
 - (NSString *) getAppVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
@@ -503,6 +511,14 @@ RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 #endif
     return -1.0;
 
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBaseOsSync) {
+    return self.getBaseOs;
+}
+
+RCT_EXPORT_METHOD(getBaseOs:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(self.getBaseOs);
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFontScaleSync) {

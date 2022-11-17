@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -320,7 +320,7 @@ export const [getType, getTypeSync] = getSupportedPlatformInfoFunctions({
 
 export const [getBaseOs, getBaseOsSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'baseOs',
-  supportedPlatforms: ['android', 'web', 'windows'],
+  supportedPlatforms: ['android', 'web', 'windows', 'macos'],
   getter: () => RNDeviceInfo.getBaseOs(),
   syncGetter: () => RNDeviceInfo.getBaseOsSync(),
   defaultValue: 'unknown',
