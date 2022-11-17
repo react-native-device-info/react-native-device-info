@@ -119,7 +119,7 @@ export const getModel = () =>
 export const getBrand = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'brand',
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.brand,
   });
@@ -192,7 +192,7 @@ export const getApplicationName = () =>
 export const getBuildNumber = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'buildNumber',
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     getter: () => RNDeviceInfo.buildNumber,
     defaultValue: 'unknown',
   });
