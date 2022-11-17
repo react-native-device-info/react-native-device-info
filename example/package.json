@@ -9,6 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "windows": "react-native run-windows",
+    "macos": "react-native run-macos",
     "appium": "appium",
     "test:windows": "yarn jest --config=./jest.windows.config.js",
     "prepare": "patch-package"
