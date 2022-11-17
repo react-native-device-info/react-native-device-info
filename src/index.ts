@@ -148,7 +148,7 @@ export const getSystemVersion = () =>
 
 export const [getBuildId, getBuildIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'buildId',
-  supportedPlatforms: ['android', 'ios', 'windows'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   getter: () => RNDeviceInfo.getBuildId(),
   syncGetter: () => RNDeviceInfo.getBuildIdSync(),
   defaultValue: 'unknown',
