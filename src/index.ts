@@ -19,7 +19,7 @@ import type {
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'uniqueId',
-  supportedPlatforms: ['android', 'ios', 'windows'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   getter: () => RNDeviceInfo.getUniqueId(),
   syncGetter: () => RNDeviceInfo.getUniqueIdSync(),
   defaultValue: 'unknown',
@@ -60,7 +60,7 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
 });
 
 export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'windows'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   getter: () => RNDeviceInfo.getIpAddress(),
   syncGetter: () => RNDeviceInfo.getIpAddressSync(),
   defaultValue: 'unknown',
