@@ -74,7 +74,7 @@ export const [isCameraPresent, isCameraPresentSync] = getSupportedPlatformInfoFu
 });
 
 export async function getMacAddress() {
-  if (Platform.OS === 'android') {
+  if (Platform.OS === 'android' || Platform.OS === 'macos') {
     return RNDeviceInfo.getMacAddress();
   } else if (Platform.OS === 'ios') {
     return '02:00:00:00:00:00';
@@ -83,7 +83,7 @@ export async function getMacAddress() {
 }
 
 export function getMacAddressSync() {
-  if (Platform.OS === 'android') {
+  if (Platform.OS === 'android' || Platform.OS === 'macos') {
     return RNDeviceInfo.getMacAddressSync();
   } else if (Platform.OS === 'ios') {
     return '02:00:00:00:00:00';
@@ -186,7 +186,7 @@ export const getApplicationName = () =>
     memoKey: 'appName',
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.appName,
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   });
 
 export const getBuildNumber = () =>
