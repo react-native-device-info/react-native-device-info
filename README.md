@@ -127,7 +127,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    |  ✅  | ❌  |
 | [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ✅    |  ✅  | ✅  |
 | [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❌  | ✅  |
+| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
 | [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |

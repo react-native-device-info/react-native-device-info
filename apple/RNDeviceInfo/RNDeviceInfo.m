@@ -22,6 +22,10 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
 
+#if TARGET_OS_OSX
+#import <IOKit/ps/IOPowerSources.h>
+#import <IOKit/ps/IOPSKeys.h>
+#endif
 typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeHandset,
     DeviceTypeTablet,
@@ -733,8 +737,38 @@ RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
     resolve(self.powerState);
 }
 
+#if TARGET_OS_OSX
+- (id)IOKitPowerSourceKey:(id)key {
+    id result = nil;
+    
+    CFTypeRef info = IOPSCopyPowerSourcesInfo();
+    CFArrayRef list = IOPSCopyPowerSourcesList(info);
+    
+    for(int i = 0; i < CFArrayGetCount(list); i++) {
+        CFDictionaryRef description = IOPSGetPowerSourceDescription(info, CFArrayGetValueAtIndex(list, i));
+        if(description != NULL) {
+            result = (__bridge id)CFDictionaryGetValue(description, (__bridge void *)key);
+            if(result)
+                break;
+        }
+    }
+    
+    CFRelease(list);
+    CFRelease(info);
+    
+    return result;
+}
+#endif
+
+
 - (float) getBatteryLevel {
-#if TARGET_OS_TV || TARGET_OS_OSX
+#if TARGET_OS_OSX
+    if (@available(macOS 10.2, *)) {
+        float batteryLevel = [[self IOKitPowerSourceKey:@kIOPSCurrentCapacityKey] floatValue];
+        return batteryLevel;
+    }
+    return [@1 floatValue];
+#elif TARGET_OS_TV
     return [@1 floatValue];
 #else
     return [@([UIDevice currentDevice].batteryLevel) floatValue];

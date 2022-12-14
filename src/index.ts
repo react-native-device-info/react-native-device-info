@@ -74,7 +74,7 @@ export const [isCameraPresent, isCameraPresentSync] = getSupportedPlatformInfoFu
 });
 
 export async function getMacAddress() {
-  if (Platform.OS === 'android' || Platform.OS === 'macos') {
+  if (Platform.OS === 'android') {
     return RNDeviceInfo.getMacAddress();
   } else if (Platform.OS === 'ios') {
     return '02:00:00:00:00:00';
@@ -540,7 +540,7 @@ export function getFreeDiskStorageOldSync() {
 }
 
 export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos', 'web'],
   getter: () => RNDeviceInfo.getBatteryLevel(),
   syncGetter: () => RNDeviceInfo.getBatteryLevelSync(),
   defaultValue: -1,
