@@ -852,17 +852,33 @@ RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
 }
 
 - (NSDictionary *) getAvailableLocationProviders {
-#if !TARGET_OS_TV
+    NSNumber *locationServicesEnabled = [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]];
+#if (TARGET_OS_IOS)
     return @{
-              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]],
+              @"locationServicesEnabled": locationServicesEnabled,
               @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
               @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
               @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
               };
+#elif (TARGET_OS_OSX)
+    if (@available(macOS 10.15, *)) {
+        return @{
+            @"locationServicesEnabled": locationServicesEnabled,
+            @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
+            @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
+            @"isRangingAvailable": [NSNumber numberWithBool: [CLLocationManager isRangingAvailable]]
+        };
+    } else {
+        return @{
+            @"locationServicesEnabled": locationServicesEnabled,
+            @"significantLocationChangeMonitoringAvailable": [NSNumber numberWithBool: [CLLocationManager significantLocationChangeMonitoringAvailable]],
+            @"headingAvailable": [NSNumber numberWithBool: [CLLocationManager headingAvailable]],
+        };
+    }
 #else
     return @{
-              @"locationServicesEnabled": [NSNumber numberWithBool: [CLLocationManager locationServicesEnabled]]
-              };
+        @"locationServicesEnabled":locationServicesEnabled
+    };
 #endif
 }
 

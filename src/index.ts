@@ -692,7 +692,7 @@ export const [
   getAvailableLocationProviders,
   getAvailableLocationProvidersSync,
 ] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios'],
+  supportedPlatforms: ['android', 'ios', 'macos'],
   getter: () => RNDeviceInfo.getAvailableLocationProviders(),
   syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
   defaultValue: {},

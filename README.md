@@ -124,7 +124,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    |  ❌  | ❌  |
+| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    |  ✅  | ❌  |
 | [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ✅    |  ✅  | ✅  |
 | [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❌  | ✅  |
