@@ -168,10 +168,8 @@ RCT_EXPORT_MODULE();
 
 - (NSString *) getDeviceName {
 #if TARGET_OS_OSX
-    NSProcessInfo *processInfo = [NSProcessInfo processInfo];
-    return processInfo.operatingSystemVersionString;
-#endif
-#if (!TARGET_OS_OSX)
+    return [[NSHost currentHost] localizedName];
+#else
     UIDevice *currentDevice = [UIDevice currentDevice];
     return currentDevice.name;
 #endif
