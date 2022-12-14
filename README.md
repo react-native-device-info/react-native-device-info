@@ -131,7 +131,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
+| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |  ❌  | ✅  |
 | [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
