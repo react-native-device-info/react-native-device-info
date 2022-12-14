@@ -417,14 +417,27 @@ RCT_EXPORT_METHOD(syncUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
 }
 
 - (NSString *) getDeviceId {
+#if TARGET_IPHONE_SIMULATOR
+     return [NSString stringWithFormat:@"%s", getenv("SIMULATOR_MODEL_IDENTIFIER")];
+#elif !TARGET_OS_OSX
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString* deviceId = [NSString stringWithCString:systemInfo.machine
                                             encoding:NSUTF8StringEncoding];
-    #if TARGET_IPHONE_SIMULATOR
-        deviceId = [NSString stringWithFormat:@"%s", getenv("SIMULATOR_MODEL_IDENTIFIER")];
-    #endif
     return deviceId;
+#else
+    NSString *deviceId = @"unknown";
+    size_t len = 0;
+    sysctlbyname("hw.model", NULL, &len, NULL, 0);
+    if (len) {
+        char *model = malloc(len*sizeof(char));
+        sysctlbyname("hw.model", model, &len, NULL, 0);
+        deviceId = [NSString stringWithUTF8String:model];
+        free(model);
+    }
+    
+    return deviceId;
+#endif
 }
 
 

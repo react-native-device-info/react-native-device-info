@@ -96,7 +96,7 @@ export const getDeviceId = () =>
     defaultValue: 'unknown',
     memoKey: 'deviceId',
     getter: () => RNDeviceInfo.deviceId,
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   });
 
 export const [getManufacturer, getManufacturerSync] = getSupportedPlatformInfoFunctions({
