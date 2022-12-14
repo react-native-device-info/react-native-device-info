@@ -31,10 +31,11 @@ typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeTablet,
     DeviceTypeTv,
     DeviceTypeDesktop,
+    DeviceTypeMac,
     DeviceTypeUnknown
 };
 
-#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"unknown", nil]
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"Mac", @"unknown", nil]
 
 #if !(TARGET_OS_TV)
 @import CoreTelephony;
@@ -135,7 +136,7 @@ RCT_EXPORT_MODULE();
         default: return DeviceTypeUnknown;
     }
 #endif
-    return DeviceTypeUnknown;
+    return DeviceTypeMac;
 }
 
 - (NSDictionary *) getStorageDictionary {

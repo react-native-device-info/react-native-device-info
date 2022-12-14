@@ -83,7 +83,7 @@ export async function getMacAddress() {
 }
 
 export function getMacAddressSync() {
-  if (Platform.OS === 'android' || Platform.OS === 'macos') {
+  if (Platform.OS === 'android') {
     return RNDeviceInfo.getMacAddressSync();
   } else if (Platform.OS === 'ios') {
     return '02:00:00:00:00:00';
@@ -581,7 +581,7 @@ export const [isAirplaneMode, isAirplaneModeSync] = getSupportedPlatformInfoFunc
 export const getDeviceType = () => {
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.deviceType,
   });
@@ -590,7 +590,7 @@ export const getDeviceType = () => {
 export const getDeviceTypeSync = () => {
   return getSupportedPlatformInfoSync({
     memoKey: 'deviceType',
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     defaultValue: 'unknown',
     getter: () => RNDeviceInfo.deviceType,
   });

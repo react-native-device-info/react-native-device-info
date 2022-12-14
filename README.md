@@ -137,7 +137,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    |  ❌  | ❌  |
+| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    |  ✅  | ❌  |
 | [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
 | [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    |  ❌  | ❌  |
