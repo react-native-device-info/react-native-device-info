@@ -613,7 +613,7 @@ export const getDeviceTypeSync = () => {
 
 export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supportedAbis',
-  supportedPlatforms: ['android', 'ios', 'windows'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   getter: () => RNDeviceInfo.getSupportedAbis(),
   syncGetter: () => RNDeviceInfo.getSupportedAbisSync(),
   defaultValue: [] as string[],

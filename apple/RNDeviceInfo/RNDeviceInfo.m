@@ -732,6 +732,11 @@ RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(R
     /* https://stackoverflow.com/questions/19859388/how-can-i-get-the-ios-device-cpu-architecture-in-runtime */
     const NXArchInfo *info = NXGetLocalArchInfo();
     NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
+#if TARGET_OS_OSX
+    if([typeOfCpu rangeOfString:@"arm64"].location == NSNotFound){
+        return @[typeOfCpu, @"x86"];
+    }
+#endif
     return @[typeOfCpu];
 }
 
