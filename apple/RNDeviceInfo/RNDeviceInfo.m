@@ -326,7 +326,109 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"AppleTV3,1": @"Apple TV", // Apple TV (3rd Generation)
         @"AppleTV3,2": @"Apple TV", // Apple TV (3rd Generation - Rev A)
         @"AppleTV5,3": @"Apple TV", // Apple TV (4th Generation)
-        @"AppleTV6,2": @"Apple TV 4K" // Apple TV 4K
+        @"AppleTV6,2": @"Apple TV 4K", // Apple TV 4K
+        @"MacBookAir2,1": @"MacBook Air (Mid 2009)", // MacBook Air (Mid 2009)
+        @"MacBookAir3,1": @"MacBook Air (11-inch, Late 2010)", // MacBook Air (11-inch, Late 2010)
+        @"MacBookAir3,2": @"MacBook Air (13-inch, Late 2010)", // MacBook Air (13-inch, Late 2010)
+        @"MacBookAir4,1": @"MacBook Air (11-inch, Mid 2011)", // MacBook Air (11-inch, Mid 2011)
+        @"MacBookAir4,2": @"MacBook Air (13-inch, Mid 2011)", // MacBook Air (13-inch, Mid 2011)
+        @"MacBookAir5,1": @"MacBook Air (11-inch, Mid 2012)", // MacBook Air (11-inch, Mid 2012)
+        @"MacBookAir5,2": @"MacBook Air (13-inch, Mid 2012)", // MacBook Air (13-inch, Mid 2012)
+        // @"MacBookAir6,1": @"MacBook Air (11-inch, Mid 2013)", // MacBook Air (11-inch, Mid 2013) NOTE: Cannot be separated by model identifier, ned to use part number also
+        // @"MacBookAir6,2": @"MacBook Air (13-inch, Mid 2013)", // MacBook Air (13-inch, Mid 2013) NOTE: Cannot be separated by model identifier, ned to use part number also
+        @"MacBookAir6,1": @"MacBook Air (11-inch, Early 2014)", // MacBook Air (11-inch, Early 2014)
+        @"MacBookAir6,2": @"MacBook Air (13-inch, Early 2014)", // MacBook Air (13-inch, Early 2014)
+        @"MacBookAir7,1": @"MacBook Air (11-inch, Early 2015)", // MacBook Air (11-inch, Early 2015)
+        @"MacBookAir7,2": @"MacBook Air (13-inch, Early 2015 / 2017)", // MacBook Air (13-inch, Early 2015) or MacBook Air (13-inch, 2017)
+        @"MacBookAir8,1": @"MacBook Air (Retina, 13-inch, 2018)", // MacBook Air (Retina, 13-inch, 2018)
+        @"MacBookAir8,2": @"MacBook Air (Retina, 13-inch, 2019)", // MacBook Air (Retina, 13-inch, 2019)
+        @"MacBookAir9,1": @"MacBook Air (Retina, 13-inch, 2020)", // MacBook Air (Retina, 13-inch, 2020)
+        @"MacBookAir10,1": @"MacBook Air (M1, 2020)", // MacBook Air (M1, 2020)
+        @"MacBookPro4,1": @"MacBook Pro (Early 2008)", // MacBook Pro (15-inch, Early 2008) or MacBook Pro (17-inch, Early 2008)
+        @"MacBookPro5,1": @"MacBook Pro (15-inch, Late 2008)", // MacBook Pro (15-inch, Late 2008)
+        @" MacBookPro5,2": @"MacBook Pro (17-inch Early 2009 / Mid 2009)", // MacBook Pro (17-inch, Mid 2009) or MacBook Pro (17-inch, Early 2009)
+        @"MacBookPro5,3": @"MacBook Pro (15-inch, Mid 2009)", // MacBook Pro (15-inch, Mid 2009) or MacBook Pro (15-inch, 2.53GHz, Mid 2009)
+        @"MacBookPro5,5": @"MacBook Pro (13-inch, Mid 2009)", // MacBook Pro (13-inch, Mid 2009)
+        @"MacBookPro6,1": @"MacBook Pro (17-inch, Mid 2010)", // MacBook Pro (17-inch, Mid 2010)
+        @"MacBookPro6,2": @"MacBook Pro (15-inch, Mid 2010)", // MacBook Pro (15-inch, Mid 2010)
+        @"MacBookPro7,1": @"MacBook Pro (13-inch, Mid 2010)", // MacBook Pro (13-inch, Mid 2010)
+        @"MacBookPro8,1": @"MacBook Pro (13-inch, Early 2011 / Late 2011)", // MacBook Pro (13-inch, Early 2011) or MacBook Pro (13-inch, Late 2011)
+        @"MacBookPro8,2": @"MacBook Pro (15-inch, Early 2011 / Late 2011)", // MacBook Pro (15-inch, Early 2011) or MacBook Pro (15-inch, Late 2011)
+        @"MacBookPro8,3": @"MacBook Pro (17-inch, Early 2011 / Late 2011)", // MacBook Pro (17-inch, Early 2011) or MacBook Pro (17-inch, Late 2011)
+        @"MacBookPro9,1": @"MacBook Pro (15-inch, Mid 2012)", // MacBook Pro (15-inch, Mid 2012)
+        @"MacBookPro9,2": @"MacBook Pro (13-inch, Mid 2012)", // MacBook Pro (13-inch, Mid 2012)
+        @"MacBookPro10,1": @"MacBook Pro (Retina, 15-inch, Mid 2012 / Early 2013)", // MacBook Pro (Retina, 15-inch, Mid 2012) or MacBook Pro (Retina, 15-inch, Early 2013)
+        @"MacBookPro10,2": @"MacBook Pro (Retina, 13-inch, Late 2012 / Early 2013)", // MacBook Pro (Retina, 13-inch, Late 2012) or MacBook Pro (Retina, 13-inch, Early 2013)
+        @"MacBookPro11,1": @"MacBook Pro (Retina, 13-inch, Late 2013 / Mid 2014)", // MacBook Pro (Retina, 13-inch, Late 2013) or MacBook Pro (Retina, 13-inch, Mid 2014)
+        @"MacBookPro11,2": @"MacBook Pro (Retina, 15-inch, Late 2013 / Mid 2014)", // MacBook Pro (Retina, 15-inch, Late 2013) or MacBook Pro (Retina, 15-inch, Mid 2014)
+        @"MacBookPro11,3": @"MacBook Pro (Retina, 15-inch, Late 2013 / Mid 2014)", // MacBook Pro (Retina, 15-inch, Late 2014) or MacBook Pro (Retina, 15-inch, Mid 2014)
+        @"MacBookPro11,4": @"MacBook Pro (Retina, 15-inch, Mid 2015)", // MacBook Pro (Retina, 15-inch, Mid 2015)
+        @"MacBookPro11,5": @"MacBook Pro (Retina, 15-inch, Mid 2015)", // MacBook Pro (Retina, 15-inch, Mid 2015)
+        @"MacBookPro12,1": @"MacBook Pro (Retina, 13-inch, Early 2015)", // MacBook Pro (Retina, 13-inch, Early 2015)
+        @"MacBookPro13,1": @"MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)
+        @"MacBookPro13,2": @"MacBook Pro (13-inch, 2016, Four Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2016, Four Thunderbolt 3 ports)
+        @"MacBookPro13,3": @"MacBook Pro (15-inch, 2016)", // MacBook Pro (15-inch, 2016)
+        @"MacBookPro14,1": @"MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)
+        @"MacBookPro14,2": @"MacBook Pro (13-inch, 2017, Four Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2017, Four Thunderbolt 3 ports)
+        @"MacBookPro14,3": @"MacBook Pro (15-inch, 2017)", // MacBook Pro (15-inch, 2017)
+        @"MacBookPro15,1": @"MacBook Pro (15-inch, 2018 / 2019)", // MacBook Pro (15-inch, 2018) or MacBook Pro (15-inch, 2019)
+        @"MacBookPro15,2": @"MacBook Pro (13-inch, 2018 / 2019, Four Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2018, Four Thunderbolt 3 ports) or MacBook Pro (13-inch, 2019, Four Thunderbolt 3 ports)
+        @"MacBookPro15,3": @"MacBook Pro (15-inch, 2019)", // MacBook Pro (15-inch, 2019)
+        @"MacBookPro15,4": @"MacBook Pro (13-inch, 2019, Two Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2019, Two Thunderbolt 3 ports)
+        @"MacBookPro16,1": @"MacBook Pro (16-inch, 2019)", // MacBook Pro (16-inch, 2019)
+        @"MacBookPro16,2": @"MacBook Pro (13-inch, 2020, Four Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2020, Four Thunderbolt 3 ports)
+        @"MacBookPro16,3": @"MacBook Pro (13-inch, 2020, Two Thunderbolt 3 ports)", // MacBook Pro (13-inch, 2020, Two Thunderbolt 3 ports)
+        @"MacBookPro16,4": @"MacBook Pro (16-inch, 2019)", // MacBook Pro (16-inch, 2019)
+        @"MacBookPro17,1": @"MacBook Pro (13-inch, M1, 2020)", // MacBook Pro (13-inch, M1, 2020)
+        @"MacBookPro18,1": @"MacBook Pro (16-inch, 2021)", //MacBook Pro (16-inch, 2021)
+        @"MacBookPro18,2": @"MacBook Pro (16-inch, 2021)", //MacBook Pro (16-inch, 2021)
+        @"MacBookPro18,3": @"MacBook Pro (14-inch, 2021)", // MacBook Pro (14-inch, 2021)
+        @"MacBookPro18,4": @"MacBook Pro (14-inch, 2021)", // MacBook Pro (14-inch, 2021)
+        @"MacBook5,2": @"MacBook (13-inch, Early 2009 / Mid 2009)", // MacBook (13-inch, Early 2009) or MacBook (13-inch, Mid 2009)
+        @"MacBook6,1": @"MacBook (13-inch, Late 2009)", // MacBook (13-inch, Late 2009)
+        @"MacBook7,1": @"MacBook (13-inch, Mid 2010)", // MacBook (13-inch, Mid 2010)
+        @"MacBook8,1": @"MacBook (Retina, 12-inch, Early 2015)", // MacBook (Retina, 12-inch, Early 2015)
+        @"MacBook9,1": @"MacBook (Retina, 12-inch, Early 2016)", // MacBook (Retina, 12-inch, Early 2016)
+        @"MacBook10,1": @"MacBook (Retina, 12-inch, 2017)", // MacBook (Retina, 12-inch, 2017)
+        @"iMacPro1,1": @"iMac Pro", // iMac Pro
+        @"iMac9,1": @"iMac (Early 2009)", // iMac (20-inch/24-inch, Early 2009)
+        @"iMac10,1": @"iMac (Late 2009)", // iMac (21.5-inch/27-inch, Late 2009)
+        @"iMac11,2": @"iMac (21.5-inch, Mid 2010)", // iMac (21.5-inch, Mid 2010)
+        @"iMac11,3": @"iMac (27-inch, Mid 2010)", // iMac (27-inch, Mid 2010)
+        @"iMac12,1": @"iMac (21.5-inch, Mid 2011)", // iMac (21.5-inch, Mid 2011)
+        @"iMac12,2": @"iMac (27-inch, Mid 2011)", // iMac (27-inch, Mid 2011)
+        @"iMac13,1": @"iMac (21.5-inch, Late 2012)", // iMac (21.5-inch, Late 2012)
+        @"iMac13,2": @"iMac (27-inch, Late 2012)", // iMac (27-inch, Late 2012)
+        @"iMac14,1": @"iMac (21.5-inch, Late 2013)", // iMac (21.5-inch, Late 2013)
+        @"iMac14,2": @"iMac (27-inch, Late 2013)", // iMac (27-inch, Late 2013)
+        @"iMac14,4": @"iMac (21.5-inch, Mid 2014)", // iMac (21.5-inch, Mid 2014)
+        @"iMac15,1": @"iMac (Retina 5K, 27-inch, Late 2014 / Mid 2015)", // iMac (Retina 5K, 27-inch, Late 2014 / Mid 2015)
+        @"iMac16,1": @"iMac (21.5-inch, Late 2015)", // iMac (21.5-inch, Late 2015)
+        @"iMac16,2": @"iMac (Retina 4K, 21.5-inch, Late 2015)", // iMac (Retina 4K, 21.5-inch, Late 2015)
+        @"iMac17,1": @"iMac (Retina 5K, 27-inch, Late 2015)", // iMac (Retina 5K, 27-inch, Late 2015)
+        @"iMac18,1": @"iMac (21.5-inch, 2017)", // iMac (21.5-inch, 2017)
+        @"iMac18,2": @"iMac (Retina 4K, 21.5-inch, 2017)", // iMac (Retina 4K, 21.5-inch, 2017)
+        @"iMac18,3": @"iMac (Retina 5K, 27-inch, 2017)", // iMac (Retina 5K, 27-inch, 2017)
+        @"iMac19,1": @"iMac (Retina 5K, 27-inch, 2019)", // iMac (Retina 5K, 27-inch, 2019)
+        @"iMac19,2": @"iMac (Retina 4K, 21.5-inch, 2019)", // iMac (Retina 4K, 21.5-inch, 2019)
+        @"iMac20,1": @"iMac (Retina 5K, 27-inch, 2020)", // iMac (Retina 5K, 27-inch, 2020)
+        @"iMac20,2": @"iMac (Retina 5K, 27-inch, 2020)", // iMac (Retina 5K, 27-inch, 2020)
+        @"iMac21,1": @"iMac (24-inch, M1, 2021)", // iMac (24-inch, M1, 2021)
+        @"iMac21,2": @"iMac (24-inch, M1, 2021)", // iMac (24-inch, M1, 2021)
+        @"Macmini3,1": @"Mac mini (Early/Late 2009)", // Mac mini (Early/Late 2009)
+        @"Macmini4,1": @"Mac mini (Mid 2010)", // Mac mini (Mid 2010)
+        @"Macmini5,1": @"Mac mini (Mid 2011)", // Mac mini (Mid 2011)
+        @"Macmini5,2": @"Mac mini (Mid 2011)", // Mac mini (Mid 2011)
+        @"Macmini6,1": @"Mac mini (Late 2012)", // Mac mini (Late 2012)
+        @"Macmini6,2": @"Mac mini (Late 2012)", // Mac mini (Late 2012)
+        @"Macmini7,1": @"Mac mini (Late 2014)", // Mac mini (Late 2014)
+        @"Macmini8,1": @"Mac mini (2018)", // Mac mini (2018)
+        @"MacPro4,1": @"Mac Pro (Early 2009)", // Mac Pro (Early 2009)
+        @"MacPro5,1": @"Mac Pro (Mid 2010/2012)", // Mac Pro [Server] (Mid 2010/2012)
+        @"MacPro6,1": @"Mac Pro (Late 2013)", // Mac Pro (Late 2013)
+        @"MacPro7,1": @"Mac Pro (2019)", // Mac Pro (2019) Mac Pro (Rack, 2019)
+        @"Mac14,2": @"MacBook Air (M2, 2022)", // MacBook Air (M2, 2022)
+        @"Mac14,7": @"MacBook Pro (13-inch, M2, 2022)", // MacBook Pro (13-inch, M2, 2022)
     };
 }
 
@@ -349,8 +451,24 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         return @"iPhone";
     } else if ([deviceId hasPrefix:@"AppleTV"]) {
         return @"Apple TV";
+    } else if ([deviceId hasPrefix:@"MacBookAir"]) {
+        return @"MacBook Air";
+    } else if ([deviceId hasPrefix:@"MacBookPro"]) {
+        return @"MacBook Pro";
+    } else if ([deviceId hasPrefix:@"MacBook"]) {
+        return @"Mac Book";
+    } else if ([deviceId hasPrefix:@"iMacPro"]) {
+        return @"iMac Pro";
+    } else if ([deviceId hasPrefix:@"iMac"]) {
+        return @"iMac";
+    } else if ([deviceId hasPrefix:@"Macmini"]) {
+        return @"Macmini";
+    } else if ([deviceId hasPrefix:@"MacPro"]) {
+        return @"MacPro";
+    } else if ([deviceId hasPrefix:@"Mac"]) {
+        return @"Mac";
     }
-
+    
     // If we could not even get a generic, it's unknown
     return @"unknown";
 }

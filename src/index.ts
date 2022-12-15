@@ -117,7 +117,7 @@ export const getModel = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'model',
     defaultValue: 'unknown',
-    supportedPlatforms: ['ios', 'android', 'windows'],
+    supportedPlatforms: ['ios', 'android', 'windows', 'macos'],
     getter: () => RNDeviceInfo.model,
   });
 

@@ -157,7 +157,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❓  | ❌  |
 | [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    |  ❌  | ✅  |
-| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
+| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ✅    |  ❌  | ✅  |
 | [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
