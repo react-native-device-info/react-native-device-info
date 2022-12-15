@@ -193,8 +193,8 @@ The example app in this repository shows an example usage of every single API, c
 | [isMouseConnected()](#ismouseconneted)                            | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❓  | ❌  |
 | [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |  ❓  | ❌  |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❓  | ❌  |
+| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
+| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❌  | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |

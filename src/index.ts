@@ -374,7 +374,7 @@ export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
 export const isTablet = () =>
   getSupportedPlatformInfoSync({
     defaultValue: false,
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     memoKey: 'tablet',
     getter: () => RNDeviceInfo.isTablet,
   });
