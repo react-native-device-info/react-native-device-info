@@ -487,7 +487,7 @@ export const [getMaxMemory, getMaxMemorySync] = getSupportedPlatformInfoFunction
 });
 
 export const [getTotalDiskCapacity, getTotalDiskCapacitySync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos', 'web'],
   getter: () => RNDeviceInfo.getTotalDiskCapacity(),
   syncGetter: () => RNDeviceInfo.getTotalDiskCapacitySync(),
   defaultValue: -1,
@@ -497,7 +497,12 @@ export async function getTotalDiskCapacityOld() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getTotalDiskCapacityOld();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
+  if (
+    Platform.OS === 'ios' ||
+    Platform.OS === 'windows' ||
+    Platform.OS === 'macos' ||
+    Platform.OS === 'web'
+  ) {
     return getTotalDiskCapacity();
   }
 
