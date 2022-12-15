@@ -472,7 +472,7 @@ export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
 
 export const [getTotalMemory, getTotalMemorySync] = getSupportedPlatformInfoFunctions({
   memoKey: 'totalMemory',
-  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos', 'web'],
   getter: () => RNDeviceInfo.getTotalMemory(),
   syncGetter: () => RNDeviceInfo.getTotalMemorySync(),
   defaultValue: -1,

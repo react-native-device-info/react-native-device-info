@@ -172,7 +172,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
 | [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    |  ❓  | ✅  |
+| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    |  ✅  | ✅  |
 | [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❓  | ✅  |
 | [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❓  | ✅  |
