@@ -1111,6 +1111,21 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
     return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
 }
 
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isCameraPresentSync) {
+    return @(self.isCameraPresent);
+}
+
+RCT_EXPORT_METHOD(isCameraPresent:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.isCameraPresent));
+}
+
+- (BOOL) isCameraPresent {
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    return device != nil;
+}
+
 #pragma mark - dealloc -
 
 - (void)dealloc

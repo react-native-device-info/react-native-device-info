@@ -67,7 +67,7 @@ export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunction
 });
 
 export const [isCameraPresent, isCameraPresentSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'windows', 'web'],
+  supportedPlatforms: ['android', 'windows', 'macos', 'web'],
   getter: () => RNDeviceInfo.isCameraPresent(),
   syncGetter: () => RNDeviceInfo.isCameraPresentSync(),
   defaultValue: false,
