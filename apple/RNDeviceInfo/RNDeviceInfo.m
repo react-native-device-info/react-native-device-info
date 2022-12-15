@@ -814,9 +814,12 @@ RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
 - (BOOL) isPinOrFingerprintSet {
 #if TARGET_OS_TV
     return NO;
-#else
+#endif
     LAContext *context = [[LAContext alloc] init];
-    return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:nil];
+#if TARGET_OS_OSX
+    return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
+#else
+    return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error: nil];
 #endif
 }
 

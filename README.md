@@ -192,7 +192,7 @@ The example app in this repository shows an example usage of every single API, c
 | [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |  ❓  | ✅  |
 | [isMouseConnected()](#ismouseconneted)                            | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❓  | ❌  |
 | [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |  ❓  | ❌  |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❌  | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |

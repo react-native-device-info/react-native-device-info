@@ -381,7 +381,7 @@ export const isTablet = () =>
 
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
   {
-    supportedPlatforms: ['android', 'ios', 'windows'],
+    supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     getter: () => RNDeviceInfo.isPinOrFingerprintSet(),
     syncGetter: () => RNDeviceInfo.isPinOrFingerprintSetSync(),
     defaultValue: false,
