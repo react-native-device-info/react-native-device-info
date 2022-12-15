@@ -746,6 +746,8 @@ RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(R
     NSString *typeOfCpu = [NSString stringWithUTF8String:info->description];
 #if TARGET_OS_OSX
     if([typeOfCpu rangeOfString:@"arm64"].location == NSNotFound){
+        return @[typeOfCpu];
+    } else {
         return @[typeOfCpu, @"x86"];
     }
 #endif
