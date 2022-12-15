@@ -465,7 +465,7 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
 }
 
 RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11.0, macOS 10.15, *)) {
         if (TARGET_IPHONE_SIMULATOR) {
             reject(@"NOT AVAILABLE", @"Device check is only available for physical devices", nil);
             return;
