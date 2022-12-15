@@ -150,12 +150,12 @@ The example app in this repository shows an example usage of every single API, c
 | [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
+| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
 | [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ✅    |  ❌  | ✅  |
 | [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
+| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❓  | ❌  |
+| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    |  ❌  | ✅  |
 | [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
 | [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |

@@ -101,10 +101,15 @@ export const getDeviceId = () =>
 
 export const [getManufacturer, getManufacturerSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'manufacturer',
-  supportedPlatforms: ['android', 'ios', 'windows'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
   getter: () =>
-    Platform.OS == 'ios' ? Promise.resolve('Apple') : RNDeviceInfo.getSystemManufacturer(),
-  syncGetter: () => (Platform.OS == 'ios' ? 'Apple' : RNDeviceInfo.getSystemManufacturerSync()),
+    Platform.OS === 'ios' || Platform.OS === 'macos'
+      ? Promise.resolve('Apple')
+      : RNDeviceInfo.getSystemManufacturer(),
+  syncGetter: () =>
+    Platform.OS === 'ios' || Platform.OS === 'macos'
+      ? 'Apple'
+      : RNDeviceInfo.getSystemManufacturerSync(),
   defaultValue: 'unknown',
 });
 
