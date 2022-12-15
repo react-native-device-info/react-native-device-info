@@ -132,7 +132,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |  ❌  | ✅  |
+| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |  ❓  | ✅  |
 | [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
@@ -141,9 +141,9 @@ The example app in this repository shows an example usage of every single API, c
 | [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
 | [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
 | [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    |  ✅  | ❌  |
-| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
-| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❌  | ❌  |
+| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
+| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❓  | ❌  |
+| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❌  | ✅  |
 | [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❌  | ✅  |
 | [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |

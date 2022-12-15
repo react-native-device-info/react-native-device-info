@@ -511,7 +511,7 @@ export function getTotalDiskCapacityOldSync() {
 }
 
 export const [getFreeDiskStorage, getFreeDiskStorageSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android', 'ios', 'windows', 'web'],
+  supportedPlatforms: ['android', 'ios', 'windows', 'macos', 'web'],
   getter: () => RNDeviceInfo.getFreeDiskStorage(),
   syncGetter: () => RNDeviceInfo.getFreeDiskStorageSync(),
   defaultValue: -1,
@@ -521,7 +521,12 @@ export async function getFreeDiskStorageOld() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getFreeDiskStorageOld();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
+  if (
+    Platform.OS === 'ios' ||
+    Platform.OS === 'windows' ||
+    Platform.OS === 'macos' ||
+    Platform.OS === 'web'
+  ) {
     return getFreeDiskStorage();
   }
 
@@ -532,7 +537,12 @@ export function getFreeDiskStorageOldSync() {
   if (Platform.OS === 'android') {
     return RNDeviceInfo.getFreeDiskStorageOldSync();
   }
-  if (Platform.OS === 'ios' || Platform.OS === 'windows' || Platform.OS === 'web') {
+  if (
+    Platform.OS === 'ios' ||
+    Platform.OS === 'windows' ||
+    Platform.OS === 'macos' ||
+    Platform.OS === 'web'
+  ) {
     return getFreeDiskStorageSync();
   }
 

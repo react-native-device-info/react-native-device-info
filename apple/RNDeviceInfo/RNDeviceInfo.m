@@ -577,14 +577,25 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
 }
 
 - (double) getFreeDiskStorage {
+#if !TARGET_OS_OSX
     uint64_t freeSpace = 0;
     NSDictionary *storage = [self getStorageDictionary];
-
+    
     if (storage) {
         NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
         freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
     }
     return (double) freeSpace;
+#else
+    NSError *error;
+    NSDictionary* fileAttributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:@"/" error:&error];
+    if (error) {
+        return -1;
+    }
+    
+    unsigned long long freeSpace = [[fileAttributes objectForKey:NSFileSystemFreeSize] longLongValue];
+    return freeSpace;
+#endif
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
