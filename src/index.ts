@@ -27,7 +27,7 @@ export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions(
 
 let uniqueId: string;
 export async function syncUniqueId() {
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === 'ios' || Platform.OS === 'macos') {
     uniqueId = await RNDeviceInfo.syncUniqueId();
   } else {
     uniqueId = await getUniqueId();
