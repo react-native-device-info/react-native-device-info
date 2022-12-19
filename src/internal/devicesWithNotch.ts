@@ -343,6 +343,10 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'Samsung',
+    model: 'SM-A202F',
+  },
+  {
+    brand: 'Samsung',
     model: 'SM-A217F',
   },
   {
