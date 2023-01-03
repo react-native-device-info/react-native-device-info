@@ -153,6 +153,7 @@ declare module.exports: {
   isKeyboardConnectedSync: () => boolean,
   isTabletMode: () => Promise<boolean>,
   isTablet: () => boolean,
+  isDisplayZoomed: () => boolean,
   supported32BitAbis: () => Promise<string[]>,
   supported32BitAbisSync: () => string[],
   supported64BitAbis: () => Promise<string[]>,
