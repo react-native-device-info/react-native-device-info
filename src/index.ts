@@ -233,7 +233,7 @@ export const getUserAgent = () =>
 
 export const getUserAgentSync = () =>
   getSupportedPlatformInfoSync({
-    memoKey: 'userAgent',
+    memoKey: 'userAgentSync',
     defaultValue: 'unknown',
     supportedPlatforms: ['android', 'web'],
     getter: () => RNDeviceInfo.getUserAgentSync(),
