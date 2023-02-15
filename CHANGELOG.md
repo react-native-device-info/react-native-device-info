@@ -1,3 +1,10 @@
+# [10.4.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.3.1...v10.4.0) (2023-02-15)
+
+
+### Features
+
+* **ios:** add isDisplayZoomed constant ([#1495](https://github.com/react-native-device-info/react-native-device-info/issues/1495)) ([0f7ac92](https://github.com/react-native-device-info/react-native-device-info/commit/0f7ac9283d0463111d8ba1a6b1ab98dac042ba64))
+
 ## [10.3.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.3.0...v10.3.1) (2023-02-15)
 
 
