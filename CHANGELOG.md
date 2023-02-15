@@ -1,3 +1,10 @@
+## [10.3.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.3.0...v10.3.1) (2023-02-15)
+
+
+### Bug Fixes
+
+* **ios:** getUserAgentSync: separate memoKeys for sync / non-sync usage ([#1506](https://github.com/react-native-device-info/react-native-device-info/issues/1506)) ([4bda3ba](https://github.com/react-native-device-info/react-native-device-info/commit/4bda3ba139333160a35f4935e06ba1899a91f59d))
+
 # [10.3.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.2.1...v10.3.0) (2022-10-21)
 
 
