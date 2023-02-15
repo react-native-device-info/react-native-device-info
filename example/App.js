@@ -117,6 +117,7 @@ export default class App extends Component {
     deviceJSON.readableVersion = DeviceInfo.getReadableVersion();
     deviceJSON.buildNumber = DeviceInfo.getBuildNumber();
     deviceJSON.isTablet = DeviceInfo.isTablet();
+    deviceJSON.isDisplayZoomed = DeviceInfo.isDisplayZoomed();
     deviceJSON.appName = DeviceInfo.getApplicationName();
     deviceJSON.brand = DeviceInfo.getBrand();
     deviceJSON.model = DeviceInfo.getModel();

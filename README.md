@@ -194,6 +194,7 @@ The example app in this repository shows an example usage of every single API, c
 | [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ❌  |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
+| [isDisplayZoomed()](#isdisplayzoomed)                             | `boolean`           |  ✅  |   ❌    |   ❌    | ❌  |
 | [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
@@ -1206,6 +1207,19 @@ Tells if the device is a tablet.
 
 ```js
 let isTablet = DeviceInfo.isTablet();
+// true
+```
+
+---
+
+### isDisplayZoomed()
+
+Tells if the user changed Display Zoom to Zoomed
+
+#### Examples
+
+```js
+let isDisplayZoomed = DeviceInfo.isDisplayZoomed();
 // true
 ```
 

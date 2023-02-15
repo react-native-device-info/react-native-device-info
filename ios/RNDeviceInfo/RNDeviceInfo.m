@@ -67,6 +67,7 @@ RCT_EXPORT_MODULE();
          @"brand": @"Apple",
          @"model": [self getModel],
          @"deviceType": [self getDeviceTypeName],
+         @"isDisplayZoomed": @([self isDisplayZoomed]),
      };
 }
 
@@ -157,6 +158,10 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceNameSync) {
 
 RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getDeviceName);
+}
+
+- (BOOL) isDisplayZoomed {
+    return [UIScreen mainScreen].scale != [UIScreen mainScreen].nativeScale;
 }
 
 - (NSString *) getAppName {

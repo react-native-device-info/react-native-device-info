@@ -374,6 +374,14 @@ export const isTablet = () =>
     getter: () => RNDeviceInfo.isTablet,
   });
 
+export const isDisplayZoomed = () =>
+  getSupportedPlatformInfoSync({
+    defaultValue: false,
+    supportedPlatforms: ['ios'],
+    memoKey: 'zoomed',
+    getter: () => RNDeviceInfo.isDisplayZoomed,
+  });
+
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
   {
     supportedPlatforms: ['android', 'ios', 'windows'],
@@ -972,6 +980,7 @@ const DeviceInfo: DeviceInfoModule = {
   isKeyboardConnectedSync,
   isTabletMode,
   isTablet,
+  isDisplayZoomed,
   supported32BitAbis,
   supported32BitAbisSync,
   supported64BitAbis,
