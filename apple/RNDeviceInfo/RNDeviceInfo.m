@@ -25,6 +25,7 @@
 #if TARGET_OS_OSX
 #import <IOKit/ps/IOPowerSources.h>
 #import <IOKit/ps/IOPSKeys.h>
+#import <IOBluetooth/IOBluetooth.h>
 #endif
 typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeHandset,
@@ -72,6 +73,7 @@ RCT_EXPORT_MODULE();
          @"brand": @"Apple",
          @"model": [self getModel],
          @"deviceType": [self getDeviceTypeName],
+         @"isDisplayZoomed": @([self isDisplayZoomed]),
      };
 }
 
@@ -181,6 +183,14 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceNameSync) {
 
 RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getDeviceName);
+}
+
+- (BOOL) isDisplayZoomed {
+#if (!TARGET_OS_OSX)
+    return [UIScreen mainScreen].scale != [UIScreen mainScreen].nativeScale;
+#else
+    return false;
+#endif
 }
 
 - (NSString *) getAppName {
@@ -518,7 +528,8 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBuildIdSync) {
 }
 
 - (NSString *) uniqueId {
-    return [DeviceUID uid];
+    return @"Testing unique id";
+//    return [DeviceUID uid];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUniqueIdSync) {
@@ -984,8 +995,35 @@ RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RC
             return YES;
         }
     }
-#endif
+    
     return NO;
+#else
+    BOOL isHeadphonesConnected = false;
+
+    AudioDeviceID defaultDevice = 0;
+    UInt32 defaultSize = sizeof(AudioDeviceID);
+
+    const AudioObjectPropertyAddress defaultAddr = {
+        kAudioHardwarePropertyDefaultOutputDevice,
+        kAudioObjectPropertyScopeGlobal,
+        kAudioObjectPropertyElementMaster
+    };
+
+    AudioObjectGetPropertyData(kAudioObjectSystemObject, &defaultAddr, 0, NULL, &defaultSize, &defaultDevice);
+
+    AudioObjectPropertyAddress sourceAddr;
+    sourceAddr.mSelector = kAudioDevicePropertyDataSource;
+    sourceAddr.mScope = kAudioDevicePropertyScopeOutput;
+    sourceAddr.mElement = kAudioObjectPropertyElementMaster;
+
+    UInt32 dataSourceId = 0;
+    UInt32 dataSourceIdSize = sizeof(UInt32);
+    AudioObjectGetPropertyData(defaultDevice, &sourceAddr, 0, NULL, &dataSourceIdSize, &dataSourceId);
+    isHeadphonesConnected = dataSourceId == 'hdpn';
+    //Todo: Bluetooth devices
+    
+    return isHeadphonesConnected;
+#endif
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isHeadphonesConnectedSync) {

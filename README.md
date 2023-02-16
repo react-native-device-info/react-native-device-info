@@ -119,86 +119,87 @@ While the asynchronous method `getUserAgent` is available on both platforms, `ge
 
 The example app in this repository shows an example usage of every single API, consult the example app if you have questions, and if you think you see a problem make sure you can reproduce it using the example app before reporting it, thank you.
 
-| Method                                                            | Return Type         |  iOS | Android | Windows | MacOS | Web |
-| ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-----: |  :-: |
-| [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getApplicationName()](#getapplicationname)                       | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   |  ✅  |   ✅    |   ❌    |  ✅  | ❌  |
-| [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   |  ❌  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getBuildId()](#getbuildid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getBootloader()](#getbootloader)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getBrand()](#getbrand)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getBuildNumber()](#getbuildnumber)                               | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getBundleId()](#getbundleid)                                     | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  |  ❌  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getCarrier()](#getcarrier)                                       | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getCodename()](#getcodename)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getDevice()](#getdevice)                                         | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getDeviceId()](#getdeviceid)                                     | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getDeviceType()](#getDeviceType)                                 | `string`            |  ✅  |   ✅    |   ❌    |  ✅  | ❌  |
-| [getDisplay()](#getdisplay)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getDeviceName()](#getdevicename)                                 | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   |  ✅  |   ❌    |   ❌    |  ✅  | ❌  |
-| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❓  | ❌  |
-| [getFontScale()](#getfontscale)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getHardware()](#gethardware)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getHost()](#gethost)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getIpAddress()](#getipaddress)                                   | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getIncremental()](#getincremental)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   |  ❌  |   ✅    |   ✅    |  ❓  | ✅  |
-| [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❓  | ❌  |
-| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   |  ❌  |   ✅    |   ✅    |  ❓  | ✅  |
-| [getModel()](#getmodel)                                           | `string`            |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ✅    |  ❓  | ✅  |
-| [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getSystemName()](#getsystemname)                                 | `string`            |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getSystemVersion()](#getsystemversion)                           | `string`            |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getTags()](#gettags)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getType()](#gettype)                                             | `Promise<string>`   |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ✅  | ✅  |
-| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   |  ✅  |   ✅    |   ❌    |  ✅  | ✅  |
-| [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ✅    |  ❓  | ✅  |
-| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   |  ✅  |   ✅    |   ❌    |  ❓  | ✅  |
-| [getUserAgentSync()](#getuseragent)                               | `string`            |  ❌  |   ✅    |   ❌    |  ❌  | ✅  |
-| [getVersion()](#getversion)                                       | `string`            |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [getBrightness()](#getBrightness)                                 | `Promise<number>`   |  ✅  |   ❌    |   ❌    |  ❓  | ❌  |
-| [hasGms()](#hasGms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [hasHms()](#hasHms)                                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [hasNotch()](#hasNotch)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [hasDynamicIsland()](#hasDynamicIsland)                           | `boolean`           |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  |  ❌  |   ✅    |   ❌    |  ❌  | ✅  |
-| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ❓  | ✅  |
-| [isEmulator()](#isemulator)                                       | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [isKeyboardConnected()](#iskeyboardconnected)                     | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❓  | ❌  |
-| [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ❓  | ❌  |
-| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |  ❓  | ✅  |
-| [isMouseConnected()](#ismouseconneted)                            | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❓  | ❌  |
-| [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    |  ❓  | ❌  |
-| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    |  ❌  | ❌  |
-| [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    |  ❌  | ❌  |
-| [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ✅    |  ✅  | ❌  |
-| [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    |  ✅  | ❌  |
+| Method                                                            | Return Type         | iOS | Android | Windows | MacOS | Web |
+| ----------------------------------------------------------------- | ------------------- | :-: | :-----: | :-----: | :---: | :-: |
+| [getAndroidId()](#getandroidid)                                   | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getApiLevel()](#getapilevel)                                     | `Promise<number>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getApplicationName()](#getapplicationname)                       | `string`            | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getAvailableLocationProviders()](#getAvailableLocationProviders) | `Promise<Object>`   | ✅  |   ✅    |   ❌    |  ✅   | ❌  |
+| [getBaseOs()](#getbaseOs)                                         | `Promise<string>`   | ❌  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getBuildId()](#getbuildid)                                       | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getBatteryLevel()](#getbatterylevel)                             | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getBootloader()](#getbootloader)                                 | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getBrand()](#getbrand)                                           | `string`            | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getBuildNumber()](#getbuildnumber)                               | `string`            | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getBundleId()](#getbundleid)                                     | `string`            | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [isCameraPresent()](#iscamerapresent)                             | `Promise<boolean>`  | ❌  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getCarrier()](#getcarrier)                                       | `Promise<string>`   | ✅  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getCodename()](#getcodename)                                     | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getDevice()](#getdevice)                                         | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getDeviceId()](#getdeviceid)                                     | `string`            | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getDeviceType()](#getDeviceType)                                 | `string`            | ✅  |   ✅    |   ❌    |  ✅   | ❌  |
+| [getDisplay()](#getdisplay)                                       | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getDeviceName()](#getdevicename)                                 | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getDeviceToken()](#getdevicetoken)                               | `Promise<string>`   | ✅  |   ❌    |   ❌    |  ✅   | ❌  |
+| [getFirstInstallTime()](#getfirstinstalltime)                     | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getFingerprint()](#getfingerprint)                               | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❓   | ❌  |
+| [getFontScale()](#getfontscale)                                   | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getHardware()](#gethardware)                                     | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getHost()](#gethost)                                             | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getIpAddress()](#getipaddress)                                   | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getIncremental()](#getincremental)                               | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getInstallReferrer()](#getinstallreferrer)                       | `Promise<string>`   | ❌  |   ✅    |   ✅    |  ❓   | ✅  |
+| [getInstanceId()](#getinstanceid)                                 | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getLastUpdateTime()](#getlastupdatetime)                         | `Promise<number>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getMacAddress()](#getmacaddress)                                 | `Promise<string>`   | ✅  |   ✅    |   ❌    |  ❓   | ❌  |
+| [getManufacturer()](#getmanufacturer)                             | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getMaxMemory()](#getmaxmemory)                                   | `Promise<number>`   | ❌  |   ✅    |   ✅    |  ❓   | ✅  |
+| [getModel()](#getmodel)                                           | `string`            | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getPhoneNumber()](#getphonenumber)                               | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getPowerState()](#getpowerstate)                                 | `Promise<object>`   | ✅  |   ✅    |   ✅    |  ❓   | ✅  |
+| [getProduct()](#getproduct)                                       | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getReadableVersion()](#getreadableversion)                       | `string`            | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   | ❌  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getSystemName()](#getsystemname)                                 | `string`            | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getSystemVersion()](#getsystemversion)                           | `string`            | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getTags()](#gettags)                                             | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getType()](#gettype)                                             | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getTotalDiskCapacity()](#gettotaldiskcapacity)                   | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)             | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
+| [getTotalMemory()](#gettotalmemory)                               | `Promise<number>`   | ✅  |   ✅    |   ❌    |  ✅   | ✅  |
+| [getUniqueId()](#getuniqueid)                                     | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [getUsedMemory()](#getusedmemory)                                 | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ❓   | ✅  |
+| [getUserAgent()](#getuseragent)                                   | `Promise<string>`   | ✅  |   ✅    |   ❌    |  ❓   | ✅  |
+| [getUserAgentSync()](#getuseragent)                               | `string`            | ❌  |   ✅    |   ❌    |  ❌   | ✅  |
+| [getVersion()](#getversion)                                       | `string`            | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [getBrightness()](#getBrightness)                                 | `Promise<number>`   | ✅  |   ❌    |   ❌    |  ❓   | ❌  |
+| [hasGms()](#hasGms)                                               | `Promise<boolean>`  | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [hasHms()](#hasHms)                                               | `Promise<boolean>`  | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [hasNotch()](#hasNotch)                                           | `boolean`           | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [hasDynamicIsland()](#hasDynamicIsland)                           | `boolean`           | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [hasSystemFeature()](#hassystemfeaturefeature)                    | `Promise<boolean>`  | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [isAirplaneMode()](#isairplanemode)                               | `Promise<boolean>`  | ❌  |   ✅    |   ❌    |  ❌   | ✅  |
+| [isBatteryCharging()](#isbatterycharging)                         | `Promise<boolean>`  | ✅  |   ✅    |   ✅    |  ❓   | ✅  |
+| [isEmulator()](#isemulator)                                       | `Promise<boolean>`  | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [isKeyboardConnected()](#iskeyboardconnected)                     | `Promise<bool>`     | ❌  |   ❌    |   ✅    |  ❓   | ❌  |
+| [isLandscape()](#isLandscape)                                     | `Promise<boolean>`  | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
+| [isLocationEnabled()](#isLocationEnabled)                         | `Promise<boolean>`  | ✅  |   ✅    |   ❌    |  ❓   | ✅  |
+| [isMouseConnected()](#ismouseconneted)                            | `Promise<bool>`     | ❌  |   ❌    |   ✅    |  ❓   | ❌  |
+| [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  | ✅  |   ✅    |   ❌    |  ❓   | ❌  |
+| [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [isTablet()](#istablet)                                           | `boolean`           | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [isDisplayZoomed()](#isdisplayzoomed)                             | `boolean`           | ✅  |   ❌    |   ❌    |  ❌   | ❌  |
+| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     | ❌  |   ❌    |   ✅    |  ❌   | ❌  |
+| [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
+| [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   | ✅  |   ❌    |   ❌    |  ✅   | ❌  |
 
 ---
 
@@ -1033,9 +1034,9 @@ On Windows it uses `Windows.Security.ExchangeActiveSyncProvisioning.EasClientDev
 
 ```js
 DeviceInfo.getUniqueId().then((uniqueId) => {
-// iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
-// Android: "dd96dec43fb81c97"
-// Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
+  // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
+  // Android: "dd96dec43fb81c97"
+  // Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
 });
 ```
 
@@ -1077,7 +1078,8 @@ DeviceInfo.syncUniqueId().then((uniqueId) => {
 
 Gets the app memory usage, in bytes.
 
-⚠️ [A note from the Android docs.](https://developer.android.com/reference/android/app/ActivityManager#getProcessMemoryInfo(int%5B%5D))
+⚠️ [A note from the Android docs.](<https://developer.android.com/reference/android/app/ActivityManager#getProcessMemoryInfo(int%5B%5D)>)
+
 > Note: this method is only intended for debugging or building a user-facing process management UI.
 
 #### Examples
@@ -1206,6 +1208,19 @@ Tells if the device is a tablet.
 
 ```js
 let isTablet = DeviceInfo.isTablet();
+// true
+```
+
+---
+
+### isDisplayZoomed()
+
+Tells if the user changed Display Zoom to Zoomed
+
+#### Examples
+
+```js
+let isDisplayZoomed = DeviceInfo.isDisplayZoomed();
 // true
 ```
 

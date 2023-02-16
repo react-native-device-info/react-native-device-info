@@ -238,7 +238,7 @@ export const getUserAgent = () =>
 
 export const getUserAgentSync = () =>
   getSupportedPlatformInfoSync({
-    memoKey: 'userAgent',
+    memoKey: 'userAgentSync',
     defaultValue: 'unknown',
     supportedPlatforms: ['android', 'web'],
     getter: () => RNDeviceInfo.getUserAgentSync(),
@@ -377,6 +377,14 @@ export const isTablet = () =>
     supportedPlatforms: ['android', 'ios', 'windows', 'macos'],
     memoKey: 'tablet',
     getter: () => RNDeviceInfo.isTablet,
+  });
+
+export const isDisplayZoomed = () =>
+  getSupportedPlatformInfoSync({
+    defaultValue: false,
+    supportedPlatforms: ['ios'],
+    memoKey: 'zoomed',
+    getter: () => RNDeviceInfo.isDisplayZoomed,
   });
 
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
@@ -992,6 +1000,7 @@ const DeviceInfo: DeviceInfoModule = {
   isKeyboardConnectedSync,
   isTabletMode,
   isTablet,
+  isDisplayZoomed,
   supported32BitAbis,
   supported32BitAbisSync,
   supported64BitAbis,
