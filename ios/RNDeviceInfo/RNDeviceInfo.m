@@ -329,6 +329,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 #else
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
+    // carrierName is deprecated in iOS 16 and returns @"--" in the future.
     if (carrier.carrierName != nil && ![carrier.carrierName isEqualToString:@"--"]) {
         return carrier.carrierName;
     }

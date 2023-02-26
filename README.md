@@ -382,6 +382,10 @@ DeviceInfo.getCarrier().then((carrier) => {
 });
 ```
 
+#### Notes
+
+> - According to [apple.developer.com](https://developer.apple.com/documentation/coretelephony/ctcarrier/1620313-carriername), getting the carrier name in iOS 16 is deprecated and returns "unknown" at some point in the future in iOS.
+
 ---
 
 ### getCodename()
