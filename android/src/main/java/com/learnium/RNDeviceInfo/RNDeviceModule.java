@@ -20,8 +20,6 @@ import android.os.Environment;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.BatteryManager;
-import android.os.Debug;
-import android.os.Process;
 import android.provider.Settings;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
@@ -35,7 +33,6 @@ import androidx.annotation.Nullable;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableArray;
@@ -66,7 +63,7 @@ import static android.os.BatteryManager.BATTERY_STATUS_FULL;
 import static android.provider.Settings.Secure.getString;
 
 @ReactModule(name = RNDeviceModule.NAME)
-public class RNDeviceModule extends ReactContextBaseJavaModule {
+public class RNDeviceModule extends NativeDeviceInfoModuleSpec {
   public static final String NAME = "RNDeviceInfo";
   private final DeviceTypeResolver deviceTypeResolver;
   private final DeviceIdResolver deviceIdResolver;
@@ -177,39 +174,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return null;
   }
 
-  @Override
-  public Map<String, Object> getConstants() {
-    String appVersion, buildNumber, appName;
-
-    try {
-      appVersion = getPackageInfo().versionName;
-      buildNumber = Integer.toString(getPackageInfo().versionCode);
-      appName = getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
-    } catch (Exception e) {
-      appVersion = "unknown";
-      buildNumber = "unknown";
-      appName = "unknown";
-    }
-
-    final Map<String, Object> constants = new HashMap<>();
-
-    constants.put("deviceId", Build.BOARD);
-    constants.put("bundleId", getReactApplicationContext().getPackageName());
-    constants.put("systemName", "Android");
-    constants.put("systemVersion", Build.VERSION.RELEASE);
-    constants.put("appVersion", appVersion);
-    constants.put("buildNumber", buildNumber);
-    constants.put("isTablet", deviceTypeResolver.isTablet());
-    constants.put("appName", appName);
-    constants.put("brand", Build.BRAND);
-    constants.put("model", Build.MODEL);
-    constants.put("deviceType", deviceTypeResolver.getDeviceType().getValue());
-
-    return constants;
+  @ReactMethod
+  public void addListener(String eventName) {
+    // Keep: Required for RN built in Event Emitter Calls.
   }
 
   @ReactMethod
-  public void addListener(String eventName) {
+  public void removeListeners(double count) {
     // Keep: Required for RN built in Event Emitter Calls.
   }
 
@@ -252,7 +223,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public float getFontScaleSync() { return getReactApplicationContext().getResources().getConfiguration().fontScale; }
+  public double getFontScaleSync() { return getReactApplicationContext().getResources().getConfiguration().fontScale; }
   @ReactMethod
   public void getFontScale(Promise p) { p.resolve(getFontScaleSync()); }
 
@@ -265,6 +236,68 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     System.err.println("Unable to determine keyguard status. KeyguardManager was null");
     return false;
   }
+
+  @Override
+  public void isMouseConnected(Promise promise) {
+    promise.reject("DeviceInfo:isMouseConnected", "isMouseConnected is not supported on Android");
+  }
+
+  @Override
+  public boolean isMouseConnectedSync() {
+    return false;
+  }
+
+  @Override
+  public void isKeyboardConnected(Promise promise) {
+    promise.reject("DeviceInfo:isKeyboardConnected", "isKeyboardConnected is not supported on Android");
+  }
+
+  @Override
+  public boolean isKeyboardConnectedSync() {
+    return false;
+  }
+
+  @Override
+  public void isTabletMode(Promise promise) {
+promise.reject("DeviceInfo:isTabletMode", "isTabletMode is not supported on Android");
+  }
+
+  @Override
+  public void syncUniqueId(Promise promise) {
+promise.reject("DeviceInfo:syncUniqueId", "syncUniqueId is not supported on Android");
+  }
+
+  @Override
+  protected Map<String, Object> getTypedExportedConstants() {
+    String appVersion, buildNumber, appName;
+
+    try {
+      appVersion = getPackageInfo().versionName;
+      buildNumber = Integer.toString(getPackageInfo().versionCode);
+      appName = getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
+    } catch (Exception e) {
+      appVersion = "unknown";
+      buildNumber = "unknown";
+      appName = "unknown";
+    }
+
+    final Map<String, Object> constants = new HashMap<>();
+
+    constants.put("deviceId", Build.BOARD);
+    constants.put("bundleId", getReactApplicationContext().getPackageName());
+    constants.put("systemName", "Android");
+    constants.put("systemVersion", Build.VERSION.RELEASE);
+    constants.put("appVersion", appVersion);
+    constants.put("buildNumber", buildNumber);
+    constants.put("isTablet", deviceTypeResolver.isTablet());
+    constants.put("appName", appName);
+    constants.put("brand", Build.BRAND);
+    constants.put("model", Build.MODEL);
+    constants.put("deviceType", deviceTypeResolver.getDeviceType().getValue());
+
+    return constants;
+  }
+
   @ReactMethod
   public void isPinOrFingerprintSet(Promise p) { p.resolve(isPinOrFingerprintSetSync()); }
 
@@ -737,6 +770,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getDeviceSync() {  return Build.DEVICE; }
+
+  @Override
+  public void getDeviceToken(Promise promise) {
+    promise.reject("DeviceInfo:getDeviceToken", "getDeviceToken is not supported on Android");
+  }
+
   @ReactMethod
   public void getDevice(Promise p) { p.resolve(getDeviceSync()); }
 
@@ -746,7 +785,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getBuildId(Promise p) { p.resolve(getBuildIdSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public int getApiLevelSync() { return Build.VERSION.SDK_INT; }
+  public double getApiLevelSync() { return Build.VERSION.SDK_INT; }
   @ReactMethod
   public void getApiLevel(Promise p) { p.resolve(getApiLevelSync()); }
 
@@ -858,11 +897,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getBaseOs(Promise p) { p.resolve(getBaseOsSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getPreviewSdkIntSync() {
+  public double getPreviewSdkIntSync() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      return Integer.toString(Build.VERSION.PREVIEW_SDK_INT);
+      return Build.VERSION.PREVIEW_SDK_INT;
     }
-    return "unknown";
+    return -1;
   }
   @ReactMethod
   public void getPreviewSdkInt(Promise p) { p.resolve(getPreviewSdkIntSync()); }
@@ -889,6 +928,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       return System.getProperty("http.agent");
     }
   }
+
+  @Override
+  public void getBrightness(Promise promise) {
+    promise.reject("DeviceInfo:getBrightness", "getBrightness is not supported on Android");
+  }
+
+  @Override
+  public double getBrightnessSync() {
+    return 0;
+  }
+
   @ReactMethod
   public void getUserAgent(Promise p) { p.resolve(getUserAgentSync()); }
 
