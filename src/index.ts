@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import { Dimensions, NativeEventEmitter, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -9,13 +9,22 @@ import {
   getSupportedPlatformInfoFunctions,
   getSupportedPlatformInfoSync,
 } from './internal/supported-platform-info';
-import { DeviceInfoModule } from './internal/privateTypes';
+import { DeviceInfoModule, NativeConstants } from './internal/privateTypes';
 import type {
   AsyncHookResult,
   DeviceType,
   LocationProviderInfo,
   PowerState,
 } from './internal/types';
+
+let constants: NativeConstants;
+
+function getConstants() {
+  if (constants === undefined) {
+    constants = RNDeviceInfo.getConstants();
+  }
+  return constants;
+}
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'uniqueId',
@@ -95,7 +104,7 @@ export const getDeviceId = () =>
   getSupportedPlatformInfoSync({
     defaultValue: 'unknown',
     memoKey: 'deviceId',
-    getter: () => RNDeviceInfo.deviceId,
+    getter: () => getConstants().deviceId,
     supportedPlatforms: ['android', 'ios', 'windows'],
   });
 
@@ -113,7 +122,7 @@ export const getModel = () =>
     memoKey: 'model',
     defaultValue: 'unknown',
     supportedPlatforms: ['ios', 'android', 'windows'],
-    getter: () => RNDeviceInfo.model,
+    getter: () => getConstants().model,
   });
 
 export const getBrand = () =>
@@ -121,7 +130,7 @@ export const getBrand = () =>
     memoKey: 'brand',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.brand,
+    getter: () => getConstants().brand,
   });
 
 export const getSystemName = () =>
@@ -131,7 +140,7 @@ export const getSystemName = () =>
     memoKey: 'systemName',
     getter: () =>
       Platform.select({
-        ios: RNDeviceInfo.systemName,
+        ios: getConstants().systemName,
         android: 'Android',
         windows: 'Windows',
         default: 'unknown',
@@ -141,7 +150,7 @@ export const getSystemName = () =>
 export const getSystemVersion = () =>
   getSupportedPlatformInfoSync({
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.systemVersion,
+    getter: () => getConstants().systemVersion,
     supportedPlatforms: ['android', 'ios', 'windows'],
     memoKey: 'systemVersion',
   });
@@ -167,7 +176,7 @@ export const getBundleId = () =>
     memoKey: 'bundleId',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.bundleId,
+    getter: () => getConstants().bundleId,
   });
 
 export const [
@@ -185,7 +194,7 @@ export const getApplicationName = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'appName',
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.appName,
+    getter: () => getConstants().appName,
     supportedPlatforms: ['android', 'ios', 'windows'],
   });
 
@@ -193,7 +202,7 @@ export const getBuildNumber = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'buildNumber',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.buildNumber,
+    getter: () => getConstants().buildNumber,
     defaultValue: 'unknown',
   });
 
@@ -202,7 +211,7 @@ export const getVersion = () =>
     memoKey: 'version',
     defaultValue: 'unknown',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.appVersion,
+    getter: () => getConstants().appVersion,
   });
 
 export function getReadableVersion() {
@@ -371,7 +380,7 @@ export const isTablet = () =>
     defaultValue: false,
     supportedPlatforms: ['android', 'ios', 'windows'],
     memoKey: 'tablet',
-    getter: () => RNDeviceInfo.isTablet,
+    getter: () => getConstants().isTablet,
   });
 
 export const isDisplayZoomed = () =>
@@ -379,7 +388,7 @@ export const isDisplayZoomed = () =>
     defaultValue: false,
     supportedPlatforms: ['ios'],
     memoKey: 'zoomed',
-    getter: () => RNDeviceInfo.isDisplayZoomed,
+    getter: () => getConstants().isDisplayZoomed,
   });
 
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
@@ -394,6 +403,7 @@ export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPl
 let notch: boolean;
 export function hasNotch() {
   if (notch === undefined) {
+    console.log(RNDeviceInfo);
     let _brand = getBrand();
     let _model = getModel();
     notch =
@@ -591,7 +601,7 @@ export const getDeviceType = () => {
     memoKey: 'deviceType',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.deviceType,
+    getter: () => getConstants().deviceType,
   });
 };
 
@@ -600,7 +610,7 @@ export const getDeviceTypeSync = () => {
     memoKey: 'deviceType',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.deviceType,
+    getter: () => getConstants().deviceType,
   });
 };
 
@@ -720,7 +730,7 @@ export async function getDeviceToken() {
   return 'unknown';
 }
 
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+const deviceInfoEmitter = new NativeEventEmitter(RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
 

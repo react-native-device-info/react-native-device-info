@@ -1,31 +1,18 @@
-import { Platform } from 'react-native';
-import type { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
+import { TurboModuleRegistry, TurboModule } from 'react-native';
 
-export type NotchDevice = {
-  brand: string;
-  model: string;
-
-  [key: string]: string;
-};
-
-interface NativeConstants {
-  appName: string;
-  appVersion: string;
-  brand: string;
-  buildNumber: string;
-  bundleId: string;
-  deviceId: string;
-  deviceType: DeviceType;
-  isTablet: boolean;
-  isDisplayZoomed?: boolean;
-  model: string;
-  systemName: string;
-  systemVersion: string;
-}
-
-interface HiddenNativeMethods {
-  getPowerState: () => Promise<PowerState>;
-  getPowerStateSync: () => PowerState;
+export interface Spec extends TurboModule {
+  getPowerState: () => Promise<{
+    batteryLevel: number;
+    batteryState: string;
+    lowPowerMode: boolean;
+    [key: string]: any;
+  }>;
+  getPowerStateSync: () => {
+    batteryLevel: number;
+    batteryState: string;
+    lowPowerMode: boolean;
+    [key: string]: any;
+  }; // should be PowerState
   getSupported32BitAbis: () => Promise<string[]>;
   getSupported32BitAbisSync: () => string[];
   getSupported64BitAbis: () => Promise<string[]>;
@@ -34,15 +21,12 @@ interface HiddenNativeMethods {
   getSupportedAbisSync: () => string[];
   getSystemManufacturer: () => Promise<string>;
   getSystemManufacturerSync: () => string;
-}
-
-interface ExposedNativeMethods {
   getAndroidId: () => Promise<string>;
   getAndroidIdSync: () => string;
   getApiLevel: () => Promise<number>;
   getApiLevelSync: () => number;
-  getAvailableLocationProviders: () => Promise<LocationProviderInfo>;
-  getAvailableLocationProvidersSync: () => LocationProviderInfo;
+  getAvailableLocationProviders: () => Promise<Object>;
+  getAvailableLocationProvidersSync: () => Object; // should be LocationProviderInfo
   getBaseOs: () => Promise<string>;
   getBaseOsSync: () => string;
   getBatteryLevel: () => Promise<number>;
@@ -148,78 +132,23 @@ interface ExposedNativeMethods {
   isKeyboardConnectedSync: () => boolean;
   isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
+
+  addListener(eventName: string): void;
+  removeListeners(count: number): void;
+  getConstants(): {
+    appName: string;
+    appVersion: string;
+    brand: string;
+    buildNumber: string;
+    bundleId: string;
+    deviceId: string;
+    deviceType: string;
+    isTablet: boolean;
+    isDisplayZoomed?: boolean;
+    model: string;
+    systemName: string;
+    systemVersion: string;
+  };
 }
 
-export interface DeviceInfoNativeModule
-  extends NativeConstants,
-    HiddenNativeMethods,
-    ExposedNativeMethods {}
-
-export interface DeviceInfoModule extends ExposedNativeMethods {
-  getApplicationName: () => string;
-  getBrand: () => string;
-  getBuildNumber: () => string;
-  getBundleId: () => string;
-  getDeviceId: () => string;
-  getDeviceType: () => string;
-  getManufacturer: () => Promise<string>;
-  getManufacturerSync: () => string;
-  getModel: () => string;
-  getPowerState: () => Promise<Partial<PowerState>>;
-  getPowerStateSync: () => Partial<PowerState>;
-  getReadableVersion: () => string;
-  getSystemName: () => string;
-  getSystemVersion: () => string;
-  getUniqueId: () => Promise<string>;
-  getUniqueIdSync: () => string;
-  getVersion: () => string;
-  hasNotch: () => boolean;
-  hasDynamicIsland: () => boolean;
-  hasSystemFeature: (feature: string) => Promise<boolean>;
-  hasSystemFeatureSync: (feature: string) => boolean;
-  isLandscape: () => Promise<boolean>;
-  isLandscapeSync: () => boolean;
-  isTablet: () => boolean;
-  isDisplayZoomed: () => boolean;
-  supported32BitAbis: () => Promise<string[]>;
-  supported32BitAbisSync: () => string[];
-  supported64BitAbis: () => Promise<string[]>;
-  supported64BitAbisSync: () => string[];
-  supportedAbis: () => Promise<string[]>;
-  supportedAbisSync: () => string[];
-  useBatteryLevel: () => number | null;
-  useBatteryLevelIsLow: () => number | null;
-  useDeviceName: () => AsyncHookResult<string>;
-  useFirstInstallTime: () => AsyncHookResult<number>;
-  useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>;
-  useIsEmulator: () => AsyncHookResult<boolean>;
-  usePowerState: () => Partial<PowerState>;
-  useManufacturer: () => AsyncHookResult<string>;
-  useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
-  useBrightness: () => number | null;
-}
-
-export type Getter<T> = () => T;
-export type PlatformArray = typeof Platform.OS[];
-
-export interface GetSupportedPlatformInfoSyncParams<T> {
-  getter: Getter<T>;
-  supportedPlatforms: PlatformArray;
-  defaultValue: T;
-  memoKey?: string;
-}
-
-export interface GetSupportedPlatformInfoAsyncParams<T>
-  extends Omit<GetSupportedPlatformInfoSyncParams<T>, 'getter'> {
-  getter: Getter<Promise<T>>;
-}
-
-export interface GetFilterPlatformFunctionsParams<T>
-  extends GetSupportedPlatformInfoAsyncParams<T> {
-  syncGetter: Getter<T>;
-}
-
-export interface GetSupportedPlatformInfoFunctionsParams<T>
-  extends GetSupportedPlatformInfoAsyncParams<T> {
-  syncGetter: Getter<T>;
-}
+export default TurboModuleRegistry.getEnforcing<Spec>('RNDeviceInfo');

@@ -1,7 +1,7 @@
-import { Platform, NativeModules } from 'react-native';
-import { DeviceInfoNativeModule } from './privateTypes';
+import { Platform } from 'react-native';
+import RNDeviceInfoModule from '../fabric/NativeDeviceInfoModule';
 
-let RNDeviceInfo: DeviceInfoNativeModule | undefined = NativeModules.RNDeviceInfo;
+let RNDeviceInfo = RNDeviceInfoModule;
 
 // @ts-ignore
 if (Platform.OS === 'web' || Platform.OS === 'dom') {
@@ -25,4 +25,4 @@ if (!RNDeviceInfo) {
   }
 }
 
-export default RNDeviceInfo as DeviceInfoNativeModule;
+export default RNDeviceInfo;
