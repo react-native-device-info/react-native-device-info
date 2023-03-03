@@ -5,13 +5,11 @@ export interface Spec extends TurboModule {
     batteryLevel: number;
     batteryState: string;
     lowPowerMode: boolean;
-    [key: string]: any;
   }>;
   getPowerStateSync: () => {
     batteryLevel: number;
     batteryState: string;
     lowPowerMode: boolean;
-    [key: string]: any;
   }; // should be PowerState
   getSupported32BitAbis: () => Promise<string[]>;
   getSupported32BitAbisSync: () => string[];
@@ -25,7 +23,7 @@ export interface Spec extends TurboModule {
   getAndroidIdSync: () => string;
   getApiLevel: () => Promise<number>;
   getApiLevelSync: () => number;
-  getAvailableLocationProviders: () => Promise<{ [key: string]: boolean }>;
+  getAvailableLocationProviders: () => Promise<Object>;
   getAvailableLocationProvidersSync: () => Object; // should be LocationProviderInfo
   getBaseOs: () => Promise<string>;
   getBaseOsSync: () => string;
