@@ -21,7 +21,7 @@ let constants: NativeConstants;
 
 function getConstants() {
   if (constants === undefined) {
-    constants = RNDeviceInfo.getConstants();
+    constants = RNDeviceInfo.getConstants() as NativeConstants;
   }
   return constants;
 }
@@ -568,8 +568,8 @@ export const [getPowerState, getPowerStateSync] = getSupportedPlatformInfoFuncti
   Partial<PowerState>
 >({
   supportedPlatforms: ['ios', 'android', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getPowerState(),
-  syncGetter: () => RNDeviceInfo.getPowerStateSync(),
+  getter: () => RNDeviceInfo.getPowerState() as Promise<Partial<PowerState>>,
+  syncGetter: () => RNDeviceInfo.getPowerStateSync() as Partial<PowerState>,
   defaultValue: {},
 });
 
@@ -711,8 +711,8 @@ export const [
   getAvailableLocationProvidersSync,
 ] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
-  getter: () => RNDeviceInfo.getAvailableLocationProviders(),
-  syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
+  getter: () => RNDeviceInfo.getAvailableLocationProviders() as Promise<LocationProviderInfo>,
+  syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync() as LocationProviderInfo,
   defaultValue: {},
 });
 

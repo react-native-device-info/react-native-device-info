@@ -25,7 +25,7 @@ export interface Spec extends TurboModule {
   getAndroidIdSync: () => string;
   getApiLevel: () => Promise<number>;
   getApiLevelSync: () => number;
-  getAvailableLocationProviders: () => Promise<Object>;
+  getAvailableLocationProviders: () => Promise<{ [key: string]: boolean }>;
   getAvailableLocationProvidersSync: () => Object; // should be LocationProviderInfo
   getBaseOs: () => Promise<string>;
   getBaseOsSync: () => string;
