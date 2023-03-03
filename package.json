@@ -104,7 +104,7 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.4.1",
     "@types/react": "17.0.39",
-    "@types/react-native": "^0.67.2",
+    "@types/react-native": "^0.71.3",
     "eslint": "^7",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
@@ -134,5 +134,13 @@
       "module",
       "typescript"
     ]
+  },
+  "codegenConfig": {
+    "name": "rndeviceinfomodule",
+    "type": "modules",
+    "jsSrcsDir": "./src/fabric",
+    "android": {
+      "javaPackageName": "com.learnium.RNDeviceInfo"
+    }
   }
 }
