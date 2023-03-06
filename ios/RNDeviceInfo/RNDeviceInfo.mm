@@ -133,7 +133,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSDictionary *) getStorageDictionary {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
 }
 
@@ -876,7 +876,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getAndroidIdSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getAndroidIdSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -886,7 +887,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)getApiLevelSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getApiLevelSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -896,7 +898,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getBaseOsSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getBaseOsSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -906,7 +909,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getBootloaderSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getBootloaderSync is not supported on iOS");
+    return nil;
 }
 
 - (void)getCodename:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
@@ -915,7 +919,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getCodenameSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getCodenameSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -929,7 +934,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 }
 
 - (NSString *)getDeviceSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getDeviceSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -939,7 +945,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getDisplaySync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getDisplaySync is not supported on iOS");
+    return nil;
 }
 
 
@@ -949,7 +956,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getFingerprintSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getFingerprintSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -959,7 +967,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)getFreeDiskStorageOldSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getFreeDiskStorageOldSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -969,7 +978,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getHardwareSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getHardwareSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -979,7 +989,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getHostSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getHostSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -989,7 +1000,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getIncrementalSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getIncrementalSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -999,7 +1011,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getInstallReferrerSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getInstallReferrerSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1009,7 +1022,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getInstanceIdSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getInstanceIdSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1019,7 +1033,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)getLastUpdateTimeSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getLastUpdateTimeSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1029,7 +1044,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getMacAddressSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getMacAddressSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1039,7 +1055,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)getMaxMemorySync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getMaxMemorySync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1049,7 +1066,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getPhoneNumberSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getPhoneNumberSync is not supported on iOS");
+    return nil;
 }
 
 - (void)getPreviewSdkInt:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
@@ -1058,7 +1076,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)getPreviewSdkIntSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getPreviewSdkIntSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1068,7 +1087,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getProductSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getProductSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1078,7 +1098,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getSecurityPatchSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getSecurityPatchSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1088,7 +1109,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getSerialNumberSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getSerialNumberSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1098,7 +1120,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSArray<NSString *> *)getSupported32BitAbisSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getSupported32BitAbisSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1108,7 +1131,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSArray<NSString *> *)getSupported64BitAbisSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getSupported64BitAbisSync is not supported on iOS");
+    return nil;
 }
 
 - (void)getSystemAvailableFeatures:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
@@ -1117,7 +1141,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSArray<NSString *> *)getSystemAvailableFeaturesSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getSystemAvailableFeaturesSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1127,7 +1152,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getSystemManufacturerSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getSystemManufacturerSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1137,7 +1163,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getTagsSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getTagsSync is not supported on iOS");
+    return nil;
 }
 
 - (void)getTotalDiskCapacityOld:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
@@ -1146,7 +1173,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)getTotalDiskCapacityOldSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getTotalDiskCapacityOldSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1156,11 +1184,13 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSString *)getTypeSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getTypeSync is not supported on iOS");
+    return nil;
 }
 
 - (NSString *)getUserAgentSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:getUserAgentSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1170,7 +1200,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)hasGmsSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:hasGmsSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1180,7 +1211,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)hasHmsSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:hasHmsSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1190,7 +1222,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)hasSystemFeatureSync:(NSString *)feature {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:hasSystemFeatureSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1200,7 +1233,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)isAirplaneModeSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:isAirplaneModeSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1210,7 +1244,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)isCameraPresentSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:isCameraPresentSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1220,7 +1255,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)isKeyboardConnectedSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:isKeyboardConnectedSync is not supported on iOS");
+    return nil;
 }
 
 
@@ -1230,7 +1266,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 
 
 - (NSNumber *)isMouseConnectedSync {
-    RCTLogError(@"");
+    RCTLogError(@"DeviceInfo:isMouseConnectedSync is not supported on iOS");
+    return nil;
 }
 
 
