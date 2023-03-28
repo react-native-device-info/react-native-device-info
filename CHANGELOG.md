@@ -1,3 +1,10 @@
+# [10.5.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.4.0...v10.5.0) (2023-03-28)
+
+
+### Features
+
+* **windows:** implementation of EnergySaverStatusChanged to emitt event RNDeviceInfo_powerStateDidChange ([c974b31](https://github.com/react-native-device-info/react-native-device-info/commit/c974b3172273b720e800eaff1e9a3e539143397f))
+
 # [10.4.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.3.1...v10.4.0) (2023-02-15)
 
 
