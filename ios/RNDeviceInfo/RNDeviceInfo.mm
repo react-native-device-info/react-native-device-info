@@ -924,7 +924,7 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
 }
 
 
-- (facebook::react::ModuleConstants<JS::NativeDeviceInfoModule::Constants::Builder>)getConstants {
+- (NSDictionary *)getConstants {
     return [self constantsToExport];
 }
 
