@@ -1,3 +1,10 @@
+## [10.5.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.0...v10.5.1) (2023-03-29)
+
+
+### Bug Fixes
+
+* add missing mock ([#1511](https://github.com/react-native-device-info/react-native-device-info/issues/1511)) ([5d7a8d2](https://github.com/react-native-device-info/react-native-device-info/commit/5d7a8d2f4fde8ee8cba6995101c37f44de1371b1))
+
 # [10.5.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.4.0...v10.5.0) (2023-03-28)
 
 
