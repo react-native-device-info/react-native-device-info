@@ -22,6 +22,8 @@ namespace winrt::RNDeviceInfoCPP
     void Initialize(ReactContext const &reactContext) noexcept
     {
       m_reactContext = reactContext;
+      Windows::System::Power::PowerManager::EnergySaverStatusChanged([&](
+          const auto&, winrt::Windows::Foundation::IInspectable obj) { OnEnergySaverStatusChanged(); });
     }
 
     REACT_CONSTANT_PROVIDER(constantsViaConstantsProvider);
@@ -835,6 +837,11 @@ namespace winrt::RNDeviceInfoCPP
     void removeListeners(int64_t) noexcept
     {
         // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    void OnEnergySaverStatusChanged()
+    {
+        m_reactContext.EmitJSEvent(L"RCTDeviceEventEmitter", L"RNDeviceInfo_powerStateDidChange", getPowerStateSync());
     }
   };
 
