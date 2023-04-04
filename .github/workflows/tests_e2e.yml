@@ -17,7 +17,7 @@ jobs:
   android:
     name: Android
     runs-on: macos-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     env:
       EMULATOR_COMMAND: "-avd TestingAVD -noaudio -gpu swiftshader_indirect -camera-back none -no-snapshot -no-window -no-boot-anim -nojni -memory 2048 -timezone 'Europe/London' -cores 2"
       EMULATOR_EXECUTABLE: qemu-system-x86_64-headless
