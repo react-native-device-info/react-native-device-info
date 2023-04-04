@@ -1476,7 +1476,7 @@ DeviceInfo.getBrightness().then((brightness) => {
 
 ## Hooks & Events
 
-Currently iOS & Android only (web support for battery/charging-related APIs).
+Supported in Windows, iOS & Android (web support for battery/charging-related APIs).
 
 ### useBatteryLevel or RNDeviceInfo_batteryLevelDidChange
 
@@ -1505,13 +1505,14 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', (level) => {
 
 ### useBatteryLevelIsLow or RNDeviceInfo_batteryLevelIsLow
 
-Fired when the battery drops is considered low
+Fired when the battery level is considered low (multiple times untill charged)
 
 | Platform | Percentage |
 | -------- | ---------- |
 | iOS      | 20         |
 | Android  | 15         |
 | Web      | 20         |
+| Windows  | 20         |
 
 #### Examples
 
@@ -1536,7 +1537,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', (level) => {
 
 ### usePowerState or RNDeviceInfo_powerStateDidChange
 
-Fired when the battery state changes, for example when the device enters charging mode or is unplugged.
+Fired when the battery state changes or device enters in the power saving mode, for example when the device enters charging mode or is unplugged.
 
 #### Examples
 
