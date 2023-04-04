@@ -24,6 +24,8 @@ namespace winrt::RNDeviceInfoCPP
       m_reactContext = reactContext;
       Windows::System::Power::PowerManager::EnergySaverStatusChanged([&](
           const auto&, winrt::Windows::Foundation::IInspectable obj) { OnEnergySaverStatusChanged(); });
+      Windows::Devices::Power::Battery::AggregateBattery().ReportUpdated([&](
+          const auto&, winrt::Windows::Foundation::IInspectable obj) { OnBatteryReportUpdated(); });
     }
 
     REACT_CONSTANT_PROVIDER(constantsViaConstantsProvider);
@@ -282,7 +284,12 @@ namespace winrt::RNDeviceInfoCPP
         }
         else
         {
-          return value / max;
+          auto result = value / max;
+          if (result <= 0.2)
+          {
+              m_reactContext.EmitJSEvent(L"RCTDeviceEventEmitter", L"RNDeviceInfo_batteryLevelIsLow", result);
+          }
+          return result;
         }
       }
     }
@@ -842,6 +849,10 @@ namespace winrt::RNDeviceInfoCPP
     void OnEnergySaverStatusChanged()
     {
         m_reactContext.EmitJSEvent(L"RCTDeviceEventEmitter", L"RNDeviceInfo_powerStateDidChange", getPowerStateSync());
+    }
+    void OnBatteryReportUpdated()
+    {
+        m_reactContext.EmitJSEvent(L"RCTDeviceEventEmitter", L"RNDeviceInfo_batteryLevelDidChange", getBatteryLevelSync());
     }
   };
 
