@@ -1815,8 +1815,8 @@ Checkout the example project for more information.
 Some of the APIs (like getBatteryState) will throw warnings in certain conditions like on tvOS or the iOS emulator. This won't be visible in production but even in development it may be irritating. It is useful to have the warnings because these devices return no state, and that can be surprising, leading to github support issues. The warnings is intended to educate you as a developer. If the warnings are troublesome you may try this in your code to suppress them:
 
 ```javascript
-import { YellowBox } from 'react-native';
-YellowBox.ignoreWarnings(['Battery state']);
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Battery state']);
 ```
 
 </details>
