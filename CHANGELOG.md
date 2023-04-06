@@ -1,3 +1,10 @@
+# [10.6.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.1...v10.6.0) (2023-04-06)
+
+
+### Features
+
+* **windows:** implementation for useBatteryLevel & useBatteryLevelIsLow ([18e3a54](https://github.com/react-native-device-info/react-native-device-info/commit/18e3a54d68dbb7d5865bb4e25b1f24fd6b75474a))
+
 ## [10.5.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.0...v10.5.1) (2023-03-29)
 
 
