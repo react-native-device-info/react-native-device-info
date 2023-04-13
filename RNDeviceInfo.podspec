@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/react-native-device-info/react-native-device-info.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,mm}"
-  s.pod_target_xcconfig = { 'OTHER_CPLUSPLUSFLAGS' => '-fcxx-modules' }
 
   if fabric_enabled
     folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
@@ -28,7 +27,7 @@ Pod::Spec.new do |s|
       'CLANG_CXX_LANGUAGE_STANDARD' => 'c++17',
     }
     s.platforms       = { ios: '11.0', tvos: '11.0' }
-    s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED -fmodules -fcxx-modules'
+    s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED'
 
     s.dependency "React"
     s.dependency "React-RCTFabric" # This is for fabric component
