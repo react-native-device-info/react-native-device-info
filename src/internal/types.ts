@@ -1,4 +1,11 @@
-export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Desktop' | 'GamingConsole' | 'unknown';
+export enum DeviceType {
+    DESKTOP = 'Desktop',
+    HANDSET = 'Handset',
+    TABLET = 'Tablet',
+    TV = 'Tv',
+    GAMINGCONSOLE = 'GamingConsole',
+    UNKNOWN=  'unknown'
+}
 
 export type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
 
