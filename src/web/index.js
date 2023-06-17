@@ -150,7 +150,7 @@ export const isCameraPresentSync = () => {
 
 export const getBatteryLevel = async () => {
   if (navigator.getBattery) {
-    return navigator.getBattery().then(battery => battery.level);
+    return navigator.getBattery().then(battery => battery.level).catch(() => {});
   }
   return -1;
 };
@@ -213,7 +213,7 @@ export const getTotalMemory = async () => {
 
 export const getPowerState = async () => {
   if (navigator.getBattery) {
-    return navigator.getBattery().then((battery) => _readPowerState(battery))
+    return navigator.getBattery().then((battery) => _readPowerState(battery)).catch(() => ({}))
   }
   return {};
 };
