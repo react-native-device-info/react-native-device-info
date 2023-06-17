@@ -81,7 +81,7 @@ const init = () => {
         deviceInfoEmitter.emit('RNDeviceInfo_batteryLevelIsLow', level);
       }
     });
-  });
+  }).catch(() => {});
 };
 
 const getBaseOsSync = () => {
@@ -123,7 +123,7 @@ export const getUserAgent = async () => {
 
 export const isBatteryCharging = async () => {
   if (navigator.getBattery) {
-    return navigator.getBattery().then(battery => battery.charging);
+    return navigator.getBattery().then(battery => battery.charging).catch(() => false);
   }
   return false;
 };
