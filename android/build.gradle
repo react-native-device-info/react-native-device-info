@@ -22,6 +22,7 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
+    namespace = "com.learnium.RNDeviceInfo"
     compileSdkVersion safeExtGet('compileSdkVersion', 30)
 
     defaultConfig {
