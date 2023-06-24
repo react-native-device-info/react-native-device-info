@@ -1102,7 +1102,7 @@ Gets the device User Agent.
 DeviceInfo.getUserAgent().then((userAgent) => {
   // iOS: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143"
   // tvOS: not available
-  // Android: ?
+  // Android: "Mozilla/5.0 (Linux; Android 12; sdk_gphone64_arm64 Build/SE1A.220630.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.114 Mobile Safari/537.36"
   // Windows: ?
 });
 ```
@@ -1477,7 +1477,7 @@ DeviceInfo.getBrightness().then((brightness) => {
 
 ## Hooks & Events
 
-Currently iOS & Android only (web support for battery/charging-related APIs).
+Supported in Windows, iOS & Android (web support for battery/charging-related APIs).
 
 ### useBatteryLevel or RNDeviceInfo_batteryLevelDidChange
 
@@ -1506,13 +1506,14 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', (level) => {
 
 ### useBatteryLevelIsLow or RNDeviceInfo_batteryLevelIsLow
 
-Fired when the battery drops is considered low
+Fired when the battery level is considered low (multiple times untill charged)
 
 | Platform | Percentage |
 | -------- | ---------- |
 | iOS      | 20         |
 | Android  | 15         |
 | Web      | 20         |
+| Windows  | 20         |
 
 #### Examples
 
@@ -1537,7 +1538,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelIsLow', (level) => {
 
 ### usePowerState or RNDeviceInfo_powerStateDidChange
 
-Fired when the battery state changes, for example when the device enters charging mode or is unplugged.
+Fired when the battery state changes or device enters in the power saving mode, for example when the device enters charging mode or is unplugged.
 
 #### Examples
 
@@ -1815,8 +1816,8 @@ Checkout the example project for more information.
 Some of the APIs (like getBatteryState) will throw warnings in certain conditions like on tvOS or the iOS emulator. This won't be visible in production but even in development it may be irritating. It is useful to have the warnings because these devices return no state, and that can be surprising, leading to github support issues. The warnings is intended to educate you as a developer. If the warnings are troublesome you may try this in your code to suppress them:
 
 ```javascript
-import { YellowBox } from 'react-native';
-YellowBox.ignoreWarnings(['Battery state']);
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Battery state']);
 ```
 
 </details>

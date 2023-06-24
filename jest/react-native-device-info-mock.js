@@ -138,6 +138,7 @@ const diMock = {
   getBrightness: numberFnAsync(),
   getBrightnessSync: numberFnSync(),
   hasNotch: booleanFnSync(),
+  isDisplayZoomed: booleanFnSync(),  
   isLandscape: booleanFnAsync(),
   isLandscapeSync: booleanFnSync(),
   isMouseConnected: booleanFnAsync(),

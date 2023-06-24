@@ -1,3 +1,24 @@
+# [10.6.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.1...v10.6.0) (2023-04-06)
+
+
+### Features
+
+* **windows:** implementation for useBatteryLevel & useBatteryLevelIsLow ([18e3a54](https://github.com/react-native-device-info/react-native-device-info/commit/18e3a54d68dbb7d5865bb4e25b1f24fd6b75474a))
+
+## [10.5.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.0...v10.5.1) (2023-03-29)
+
+
+### Bug Fixes
+
+* add missing mock ([#1511](https://github.com/react-native-device-info/react-native-device-info/issues/1511)) ([5d7a8d2](https://github.com/react-native-device-info/react-native-device-info/commit/5d7a8d2f4fde8ee8cba6995101c37f44de1371b1))
+
+# [10.5.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.4.0...v10.5.0) (2023-03-28)
+
+
+### Features
+
+* **windows:** implementation of EnergySaverStatusChanged to emitt event RNDeviceInfo_powerStateDidChange ([c974b31](https://github.com/react-native-device-info/react-native-device-info/commit/c974b3172273b720e800eaff1e9a3e539143397f))
+
 # [10.4.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.3.1...v10.4.0) (2023-02-15)
 
 
