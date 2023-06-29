@@ -26,7 +26,7 @@ else
   cp example/ios/example/ActionExtension.m TEMP/ios/example/
   cp example/ios/example.xcodeproj/project.pbxproj TEMP/ios/example.xcodeproj/
   cp example/App.js TEMP/
-  cp example/jest.setup.js TEMP/
+  cp example/jest.config.js TEMP/
   cp example/jest.setup.js TEMP/
   cp example/jest.windows.config.js TEMP/
   cp -R example/__tests__ TEMP/
@@ -59,24 +59,24 @@ sed -i -e $'s/^  target \'exampleTests\' do/  target \'example-app-extension\' d
 rm -f ios/Podfile??
 
 # React-native builds on iOS are very noisy with warnings in other packages that drown our warnings out. Reduce warnings to just our packages.
-sed -i -e $'s/react_native_post_install(installer)/react_native_post_install(installer)\\\n\\\n    # quiet non-module warnings - only interested in our module warnings\\\n    installer.pods_project.targets.each do |target|\\\n      if !target.name.include? "react-native-device-info"\\\n        target.build_configurations.each do |config|\\\n          config.build_settings["GCC_WARN_INHIBIT_ALL_WARNINGS"] = "YES"\\\n        end\\\n      end\\\n    end/' ios/Podfile
+sed -i -e $'s/__apply_Xcode_12_5_M1_post_install_workaround(installer)/# quiet non-module warnings - only interested in our module warnings\\\n    installer.pods_project.targets.each do |target|\\\n      if !target.name.include? "react-native-device-info"\\\n        target.build_configurations.each do |config|\\\n          config.build_settings["GCC_WARN_INHIBIT_ALL_WARNINGS"] = "YES"\\\n        end\\\n      end\\\n    end\\\n\\\n    __apply_Xcode_12_5_M1_post_install_workaround(installer)/' ios/Podfile
 rm -f ios/Podfile??
 
 # We need to fix a compile problem with "sharedApplication" usage in iOS extensions
 # https://stackoverflow.com/questions/52503400/sharedapplication-is-unavailable-not-available-on-ios-app-extension-use-v
-sed -i -e $'s/react_native_post_install(installer)/react_native_post_install(installer)\\\n    \\\n    installer.pods_project.targets.each do |target|\\\n      target.build_configurations.each do |config|\\\n        # Fix sharedApplication is unavailable: not available on iOS App Extension - Use view controller based solutions where appropriate instead\\\n        # https:\/\/stackoverflow.com\/questions\/52503400\/sharedapplication-is-unavailable-not-available-on-ios-app-extension-use-v\\\n        config.build_settings["APPLICATION_EXTENSION_API_ONLY"] = "NO"\\\n      end\\\n    end/' ios/Podfile
+sed -i -e $'s/__apply_Xcode_12_5_M1_post_install_workaround(installer)/installer.pods_project.targets.each do |target|\\\n      target.build_configurations.each do |config|\\\n        # Fix sharedApplication is unavailable: not available on iOS App Extension - Use view controller based solutions where appropriate instead\\\n        # https:\/\/stackoverflow.com\/questions\/52503400\/sharedapplication-is-unavailable-not-available-on-ios-app-extension-use-v\\\n        config.build_settings["APPLICATION_EXTENSION_API_ONLY"] = "NO"\\\n      end\\\n    end\\\n\\\n    __apply_Xcode_12_5_M1_post_install_workaround(installer)/' ios/Podfile
 rm -f ios/Podfile??
 
 # This is just a speed optimization, very optional, but asks xcodebuild to use clang and clang++ without the fully-qualified path
 # That means that you can then make a symlink in your path with clang or clang++ and have it use a different binary
 # In that way you can install ccache or buildcache and get much faster compiles...
-sed -i -e $'s/react_native_post_install(installer)/react_native_post_install(installer)\\\n    \\\n    installer.pods_project.targets.each do |target|\\\n      target.build_configurations.each do |config|\\\n        config.build_settings["CC"] = "clang"\\\n        config.build_settings["LD"] = "clang"\\\n        config.build_settings["CXX"] = "clang++"\\\n        config.build_settings["LDPLUSPLUS"] = "clang++"\\\n      end\\\n    end/' ios/Podfile
+sed -i -e $'s/__apply_Xcode_12_5_M1_post_install_workaround(installer)/installer.pods_project.targets.each do |target|\\\n      target.build_configurations.each do |config|\\\n        config.build_settings["CC"] = "clang"\\\n        config.build_settings["LD"] = "clang"\\\n        config.build_settings["CXX"] = "clang++"\\\n        config.build_settings["LDPLUSPLUS"] = "clang++"\\\n      end\\\n    end\\\n\\\n    __apply_Xcode_12_5_M1_post_install_workaround(installer)/' ios/Podfile
 rm -f ios/Podfile??
 
 # Patch the build.gradle directly to slice in our android play version
-sed -i -e 's/ext {$/ext {        supportLibVersion = "1.7.0/' android/build.gradle
-sed -i -e 's/ext {$/ext {        mediaCompatVersion = "1.4.3"/' android/build.gradle
-sed -i -e 's/ext {$/ext {        supportV4Version = "1.0.1"/' android/build.gradle
+sed -i -e 's/ext {$/ext {\n        supportLibVersion = "1.7.0"/' android/build.gradle
+sed -i -e 's/ext {$/ext {\n        mediaCompatVersion = "1.4.3"/' android/build.gradle
+sed -i -e 's/ext {$/ext {\n        supportV4Version = "1.0.1"/' android/build.gradle
 rm -f android/build.gradle??
 
 # Patch the AndroidManifest directly to add our permissions
@@ -84,8 +84,8 @@ sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.p
 rm -f android/app/src/main/AndroidManifest.xml??
 
 # Patch the AppDelegate for iOS battery level
-sed -i -e $'s/  return YES;/#if !TARGET_OS_TV\\\n  \[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n#endif\\\n  return YES;/' ios/example/AppDelegate.m
-rm -f ios/example/AppDelegate.m??
+sed -i -e $'s/  return/#if !TARGET_OS_TV\\\n  \[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n#endif\\\n\\\n  return/' ios/example/AppDelegate.mm
+rm -f ios/example/AppDelegate.mm??
 
 # Patch Windows App.cpp to disable Web Debugger (can't run sync with Web Debugger on Windows)
 sed -i -e 's/InstanceSettings()\.UseWebDebugger(true);/InstanceSettings()\.UseWebDebugger(false); \/\/ Set to false to get synchronous module methods calls to work./' windows/example/App.cpp
@@ -99,11 +99,14 @@ sed -i -e 's/<PublisherDisplayName>[a-zA-Z0-9]*<\/PublisherDisplayName>/<Publish
 rm -f windows/example/Package.appxmanifest??
 
 # Add additional scripts to package.json
-npm_config_yes=true npx json -I -f package.json -e "this.scripts.appium='appium'; this.scripts['test:windows']='yarn jest --config=./jest.windows.config.js'; this.scripts.windows='react-native run-windows'; this.jest.setupFiles=['./jest.setup.js'];"
+npm_config_yes=true npx json -I -f package.json -e "this.scripts.appium='appium'; this.scripts['test:windows']='yarn jest --config=./jest.windows.config.js'; this.scripts.windows='react-native run-windows';"
 
 # Force resolution of appium-windows-driver 1.13.0, since the latest versions seem to have compatibility issues with selenium-appium.
 npm_config_yes=true npx json -I -f package.json -e "this.resolutions={'appium/appium-windows-driver':'1.13.0'};"
 yarn
+
+# Remove the boilerplate App file, our preserved copy from TEMP will replace it
+rm -f App.tsx
 
 # Copy the important files back in
 popd
