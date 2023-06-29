@@ -1,3 +1,10 @@
+## [10.6.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.6.0...v10.6.1) (2023-06-29)
+
+
+### Bug Fixes
+
+* **windows:** bump WindowsTargetPlatformMinVersion ([#1537](https://github.com/react-native-device-info/react-native-device-info/issues/1537)) ([7f0f1c2](https://github.com/react-native-device-info/react-native-device-info/commit/7f0f1c28d04bb3c1eb460ee014dbe76a45b354f1))
+
 # [10.6.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.1...v10.6.0) (2023-04-06)
 
 
