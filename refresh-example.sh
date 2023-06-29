@@ -83,6 +83,11 @@ rm -f android/build.gradle??
 sed -i -e 's/INTERNET" \/>/INTERNET" \/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" \/><uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/><uses-permission android:name="android.permission.READ_PHONE_STATE" \/>/' android/app/src/main/AndroidManifest.xml
 rm -f android/app/src/main/AndroidManifest.xml??
 
+# Patch MainApplication to disable flipper for API < 23 since it does not work in current versions of Flipper
+sed -i -e 's/^import android.app.Application;/import android.app.Application;\nimport android.os.Build;/' android/app/src/main/java/com/example/MainApplication.java
+sed -i -e 's/^    ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());/    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {\n      ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());\n    }/' android/app/src/main/java/com/example/MainApplication.java
+rm -f android/app/src/main/java/com/example/MainApplication.java??
+
 # Patch the AppDelegate for iOS battery level
 sed -i -e $'s/  return/#if !TARGET_OS_TV\\\n  \[UIDevice currentDevice\].batteryMonitoringEnabled = true;\\\n#endif\\\n\\\n  return/' ios/example/AppDelegate.mm
 rm -f ios/example/AppDelegate.mm??
