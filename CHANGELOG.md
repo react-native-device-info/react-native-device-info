@@ -1,3 +1,10 @@
+# [10.7.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.6.1...v10.7.0) (2023-06-30)
+
+
+### Features
+
+* **android:** add support for React Native 0.73 ([#1546](https://github.com/react-native-device-info/react-native-device-info/issues/1546)) ([38f9665](https://github.com/react-native-device-info/react-native-device-info/commit/38f96650d61198c88d7691c9998098c4969bca49))
+
 ## [10.6.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.6.0...v10.6.1) (2023-06-29)
 
 
