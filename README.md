@@ -584,7 +584,7 @@ DeviceInfo.getHardware().then(hardware => {
 ### getHost()
 
 Gets the hostname for android and windows device.
-Note: Provides full system name in case of windows device.
+Note: Provides full system name in case of windows devices.
 
 #### Examples
 
