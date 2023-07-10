@@ -288,7 +288,7 @@ export const [getHardware, getHardwareSync] = getSupportedPlatformInfoFunctions(
 
 export const [getHost, getHostSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'host',
-  supportedPlatforms: ['android'],
+  supportedPlatforms: ['android', 'windows'],
   getter: () => RNDeviceInfo.getHost(),
   syncGetter: () => RNDeviceInfo.getHostSync(),
   defaultValue: 'unknown',
