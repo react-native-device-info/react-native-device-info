@@ -1,3 +1,10 @@
+# [10.8.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.7.0...v10.8.0) (2023-07-12)
+
+
+### Features
+
+* **windows:** Implemented gethost() for windows ([#1552](https://github.com/react-native-device-info/react-native-device-info/issues/1552)) ([aa4f6e0](https://github.com/react-native-device-info/react-native-device-info/commit/aa4f6e07c587601872445d53e62a976a7b773418))
+
 # [10.7.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.6.1...v10.7.0) (2023-06-30)
 
 
