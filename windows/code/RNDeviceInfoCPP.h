@@ -838,7 +838,7 @@ namespace winrt::RNDeviceInfoCPP
         });
     }
 	
-	REACT_SYNC_METHOD(getHostSync);
+    REACT_SYNC_METHOD(getHostSync);
     std::string getHostSync() noexcept
     {
         try
