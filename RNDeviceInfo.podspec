@@ -20,22 +20,7 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/**/*.{h,m,mm}"
 
   if fabric_enabled
-    folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
-
-    s.pod_target_xcconfig = {
-      'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/boost" "$(PODS_ROOT)/boost-for-react-native" "$(PODS_ROOT)/RCT-Folly"',
-      'CLANG_CXX_LANGUAGE_STANDARD' => 'c++17',
-    }
-    s.platforms       = { ios: '11.0', tvos: '11.0' }
-    s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED'
-
-    s.dependency "React"
-    s.dependency "React-RCTFabric" # This is for fabric component
-    s.dependency "React-Codegen"
-    s.dependency "RCT-Folly"
-    s.dependency "RCTRequired"
-    s.dependency "RCTTypeSafety"
-    s.dependency "ReactCommon/turbomodule/core"
+    install_modules_dependencies(s)
   else
     s.platforms = { :ios => "9.0", :tvos => "9.0" }
 
