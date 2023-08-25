@@ -76,6 +76,8 @@ interface ExposedNativeMethods {
   getHardwareSync: () => string;
   getHost: () => Promise<string>;
   getHostSync: () => string;
+  getHostNames: () => Promise<string[]>;
+  getHostNamesSync: () => string[];
   getIncremental: () => Promise<string>;
   getIncrementalSync: () => string;
   getInstallerPackageName: () => Promise<string>;
