@@ -857,6 +857,25 @@ namespace winrt::RNDeviceInfoCPP
         promise.Resolve(getHostSync());
     }
 
+    REACT_SYNC_METHOD(getHostNamesSync);
+    JSValueArray getHostNamesSync() noexcept
+    {
+         JSValueArray result = JSValueArray{};
+        winrt::Windows::Foundation::Collections::IVectorView<HostName> hostNames = NetworkInformation::GetHostNames();
+        for (HostName hostName : hostNames)
+        {
+            result.push_back(winrt::to_string(hostName.DisplayName()));
+        }
+
+        return result;
+    }
+    
+    REACT_METHOD(getHostNames)
+    void getHostNames(ReactPromise<JSValueArray> promise) noexcept
+    {
+        promise.Resolve(getHostNamesSync());
+    }
+
     REACT_METHOD(addListener);
     void addListener(std::string) noexcept
     {
