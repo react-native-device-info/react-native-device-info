@@ -1,3 +1,10 @@
+# [10.9.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.8.0...v10.9.0) (2023-08-28)
+
+
+### Features
+
+* **windows:** Implemented getHostNames() for windows ([#1565](https://github.com/react-native-device-info/react-native-device-info/issues/1565)) ([eab4992](https://github.com/react-native-device-info/react-native-device-info/commit/eab49922deaeb6e9e73cfaab6ad1e674de1d21cb))
+
 # [10.8.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.7.0...v10.8.0) (2023-07-12)
 
 
