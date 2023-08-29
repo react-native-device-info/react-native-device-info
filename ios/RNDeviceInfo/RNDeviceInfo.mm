@@ -16,6 +16,7 @@
 #import "DeviceUID.h"
 #import <DeviceCheck/DeviceCheck.h>
 #import "EnvironmentUtil.h"
+#import "RNDeviceInfoHelper.h"
 
 #if !(TARGET_OS_TV)
 #import <WebKit/WebKit.h>
@@ -31,11 +32,6 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 };
 
 #define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"unknown", nil]
-
-#if !(TARGET_OS_TV)
-@import CoreTelephony;
-@import Darwin.sys.sysctl;
-#endif
 
 @implementation RNDeviceInfo
 {
@@ -133,7 +129,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSDictionary *) getStorageDictionary {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: nil];
 }
 
@@ -156,7 +152,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getDeviceNameSync) {
     return self.getDeviceName;
 }
 
-RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getDeviceName);
 }
 
@@ -329,42 +325,22 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 }
 
 - (NSString *) getCarrier {
-#if (TARGET_OS_TV || TARGET_OS_MACCATALYST)
-    return @"unknown";
-#else
-    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    if (carrier.carrierName != nil) {
-        return carrier.carrierName;
-    }
-    return @"unknown";
-#endif
+    return [RNDeviceInfoHelper getCarrier];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCarrierSync) {
     return self.getCarrier;
 }
 
-RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getCarrier);
 }
 
 - (NSString *) getBuildId {
-#if TARGET_OS_TV
-    return @"unknown";
-#else
-    size_t bufferSize = 64;
-    NSMutableData *buffer = [[NSMutableData alloc] initWithLength:bufferSize];
-    int status = sysctlbyname("kern.osversion", buffer.mutableBytes, &bufferSize, NULL, 0);
-    if (status != 0) {
-        return @"unknown";
-    }
-    NSString* buildId = [[NSString alloc] initWithCString:buffer.mutableBytes encoding:NSUTF8StringEncoding];
-    return buildId;
-#endif
+    return [RNDeviceInfoHelper getBuildId];
 }
 
-RCT_EXPORT_METHOD(getBuildId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getBuildId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getBuildId);
 }
 
@@ -380,11 +356,11 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUniqueIdSync) {
     return self.uniqueId;
 }
 
-RCT_EXPORT_METHOD(getUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getUniqueId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.uniqueId);
 }
 
-RCT_EXPORT_METHOD(syncUniqueId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(syncUniqueId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([DeviceUID syncUid]);
 }
 
@@ -412,7 +388,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isEmulatorSync) {
     return @(self.isEmulator);
 }
 
-RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isEmulator));
 }
 
@@ -424,7 +400,7 @@ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
     }
 }
 
-RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     if (@available(iOS 11.0, *)) {
         if (TARGET_IPHONE_SIMULATOR) {
             reject(@"NOT AVAILABLE", @"Device check is only available for physical devices", nil);
@@ -489,7 +465,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFontScaleSync) {
     return @(self.getFontScale);
 }
 
-RCT_EXPORT_METHOD(getFontScale:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getFontScale:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getFontScale));
 }
 
@@ -501,7 +477,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTotalMemorySync) {
     return @(self.getTotalMemory);
 }
 
-RCT_EXPORT_METHOD(getTotalMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getTotalMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getTotalMemory));
 }
 
@@ -520,7 +496,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTotalDiskCapacitySync) {
     return @(self.getTotalDiskCapacity);
 }
 
-RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getTotalDiskCapacity));
 }
 
@@ -539,7 +515,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
     return @(self.getFreeDiskStorage);
 }
 
-RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getFreeDiskStorage));
 }
 
@@ -558,7 +534,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getSupportedAbisSync) {
     return self.getSupportedAbis;
 }
 
-RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getSupportedAbis);
 }
 
@@ -607,7 +583,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getIpAddressSync) {
     return self.getIpAddress;
 }
 
-RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getIpAddress);
 }
 
@@ -624,7 +600,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isPinOrFingerprintSetSync) {
     return @(self.isPinOrFingerprintSet);
 }
 
-RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isPinOrFingerprintSet));
 }
 
@@ -693,7 +669,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getPowerStateSync) {
     return self.powerState;
 }
 
-RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.powerState);
 }
 
@@ -709,7 +685,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBatteryLevelSync) {
     return @(self.getBatteryLevel);
 }
 
-RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getBatteryLevel));
 }
 
@@ -721,7 +697,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isBatteryChargingSync) {
     return @(self.isBatteryCharging);
 }
 
-RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isBatteryCharging));
 }
 
@@ -733,7 +709,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isLocationEnabledSync) {
     return @(self.isLocationEnabled);
 }
 
-RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isLocationEnabled));
 }
 
@@ -757,7 +733,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isHeadphonesConnectedSync) {
     return @(self.isHeadphonesConnected);
 }
 
-RCT_EXPORT_METHOD(isHeadphonesConnected:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(isHeadphonesConnected:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isHeadphonesConnected));
 }
 
@@ -775,7 +751,7 @@ RCT_EXPORT_METHOD(isHeadphonesConnected:(RCTPromiseResolveBlock)resolve rejecter
     return (unsigned long)info.resident_size;
 }
 
-RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     unsigned long usedMemory = self.getUsedMemory;
     if (usedMemory == -1) {
         reject(@"fetch_error", @"task_info failed", nil);
@@ -788,7 +764,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUsedMemorySync) {
     return @(self.getUsedMemory);
 }
 
-RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
 #if TARGET_OS_TV
     reject(@"not_available_error", @"not available on tvOS", nil);
 #else
@@ -832,7 +808,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getAvailableLocationProvidersSync) {
     return self.getAvailableLocationProviders;
 }
 
-RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getAvailableLocationProviders);
 }
 
@@ -842,7 +818,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getInstallerPackageNameSync) {
     return [EnvironmentValues objectAtIndex:[EnvironmentUtil currentAppEnvironment]];
 }
 
-RCT_EXPORT_METHOD(getInstallerPackageName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getInstallerPackageName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([EnvironmentValues objectAtIndex:[EnvironmentUtil currentAppEnvironment]]);
 }
 
@@ -858,7 +834,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBrightnessSync) {
     return self.getBrightness;
 }
 
-RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(self.getBrightness);
 }
 
@@ -866,8 +842,413 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFirstInstallTimeSync) {
     return @(self.getFirstInstallTime);
 }
 
-RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.getFirstInstallTime));
+}
+
+- (void)getAndroidId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getAndroidId", @"getAndroidId is not supported on iOS", nil);
+}
+
+
+- (NSString *)getAndroidIdSync {
+    RCTLogError(@"DeviceInfo:getAndroidIdSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getApiLevel:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getApiLevel", @"getApiLevel is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)getApiLevelSync {
+    RCTLogError(@"DeviceInfo:getApiLevelSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getBaseOs:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getBaseOs", @"getBaseOs is not supported on iOS", nil);
+}
+
+
+- (NSString *)getBaseOsSync {
+    RCTLogError(@"DeviceInfo:getBaseOsSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getBootloader:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getBootloader", @"getBootloader is not supported on iOS", nil);
+}
+
+
+- (NSString *)getBootloaderSync {
+    RCTLogError(@"DeviceInfo:getBootloaderSync is not supported on iOS");
+    return nil;
+}
+
+- (void)getCodename:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getCodename", @"getCodename is not supported on iOS", nil);
+}
+
+
+- (NSString *)getCodenameSync {
+    RCTLogError(@"DeviceInfo:getCodenameSync is not supported on iOS");
+    return nil;
+}
+
+
+- (NSDictionary *)getConstants {
+    return [self constantsToExport];
+}
+
+
+- (void)getDevice:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getDevice", @"getDevice is not supported on iOS", nil);
+}
+
+- (NSString *)getDeviceSync {
+    RCTLogError(@"DeviceInfo:getDeviceSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getDisplay:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getDisplay", @"getDisplay is not supported on iOS", nil);
+}
+
+
+- (NSString *)getDisplaySync {
+    RCTLogError(@"DeviceInfo:getDisplaySync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getFingerprint:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getFingerprint", @"getFingerprint is not supported on iOS", nil);
+}
+
+
+- (NSString *)getFingerprintSync {
+    RCTLogError(@"DeviceInfo:getFingerprintSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getFreeDiskStorageOld:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getFreeDiskStorageOld", @"getFreeDiskStorageOld is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)getFreeDiskStorageOldSync {
+    RCTLogError(@"DeviceInfo:getFreeDiskStorageOldSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getHardware:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getHardware", @"getHardware is not supported on iOS", nil);
+}
+
+
+- (NSString *)getHardwareSync {
+    RCTLogError(@"DeviceInfo:getHardwareSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getHost:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getHost", @"getHost is not supported on iOS", nil);
+}
+
+
+- (NSString *)getHostSync {
+    RCTLogError(@"DeviceInfo:getHostSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getIncremental:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getIncremental", @"getIncremental is not supported on iOS", nil);
+}
+
+
+- (NSString *)getIncrementalSync {
+    RCTLogError(@"DeviceInfo:getIncrementalSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getInstallReferrer:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getInstallReferrer", @"getInstallReferrer is not supported on iOS", nil);
+}
+
+
+- (NSString *)getInstallReferrerSync {
+    RCTLogError(@"DeviceInfo:getInstallReferrerSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getInstanceId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getInstanceId", @"getInstanceId is not supported on iOS", nil);
+}
+
+
+- (NSString *)getInstanceIdSync {
+    RCTLogError(@"DeviceInfo:getInstanceIdSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getLastUpdateTime:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getLastUpdateTime", @"getLastUpdateTime is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)getLastUpdateTimeSync {
+    RCTLogError(@"DeviceInfo:getLastUpdateTimeSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getMacAddress:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getMacAddress", @"getMacAddress is not supported on iOS", nil);
+}
+
+
+- (NSString *)getMacAddressSync {
+    RCTLogError(@"DeviceInfo:getMacAddressSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getMaxMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getMaxMemory", @"getMaxMemory is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)getMaxMemorySync {
+    RCTLogError(@"DeviceInfo:getMaxMemorySync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getPhoneNumber:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getPhoneNumber", @"getPhoneNumber is not supported on iOS", nil);
+}
+
+
+- (NSString *)getPhoneNumberSync {
+    RCTLogError(@"DeviceInfo:getPhoneNumberSync is not supported on iOS");
+    return nil;
+}
+
+- (void)getPreviewSdkInt:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getPreviewSdkInt", @"getPreviewSdkInt is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)getPreviewSdkIntSync {
+    RCTLogError(@"DeviceInfo:getPreviewSdkIntSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getProduct:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getProduct", @"getProduct is not supported on iOS", nil);
+}
+
+
+- (NSString *)getProductSync {
+    RCTLogError(@"DeviceInfo:getProductSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getSecurityPatch:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getSecurityPatch", @"getSecurityPatch is not supported on iOS", nil);
+}
+
+
+- (NSString *)getSecurityPatchSync {
+    RCTLogError(@"DeviceInfo:getSecurityPatchSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getSerialNumber:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getSerialNumber", @"getSerialNumber is not supported on iOS", nil);
+}
+
+
+- (NSString *)getSerialNumberSync {
+    RCTLogError(@"DeviceInfo:getSerialNumberSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getSupported32BitAbis:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getSupported32BitAbis", @"getSupported32BitAbis is not supported on iOS", nil);
+}
+
+
+- (NSArray<NSString *> *)getSupported32BitAbisSync {
+    RCTLogError(@"DeviceInfo:getSupported32BitAbisSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getSupported64BitAbis:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getSupported64BitAbis", @"getSupported64BitAbis is not supported on iOS", nil);
+}
+
+
+- (NSArray<NSString *> *)getSupported64BitAbisSync {
+    RCTLogError(@"DeviceInfo:getSupported64BitAbisSync is not supported on iOS");
+    return nil;
+}
+
+- (void)getSystemAvailableFeatures:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getSystemAvailableFeatures", @"getSystemAvailableFeatures is not supported on iOS", nil);
+}
+
+
+- (NSArray<NSString *> *)getSystemAvailableFeaturesSync {
+    RCTLogError(@"DeviceInfo:getSystemAvailableFeaturesSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getSystemManufacturer:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getSystemManufacturer", @"getSystemManufacturer is not supported on iOS", nil);
+}
+
+
+- (NSString *)getSystemManufacturerSync {
+    RCTLogError(@"DeviceInfo:getSystemManufacturerSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getTags:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getTags", @"getTags is not supported on iOS", nil);
+}
+
+
+- (NSString *)getTagsSync {
+    RCTLogError(@"DeviceInfo:getTagsSync is not supported on iOS");
+    return nil;
+}
+
+- (void)getTotalDiskCapacityOld:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getTotalDiskCapacityOld", @"getTotalDiskCapacityOld is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)getTotalDiskCapacityOldSync {
+    RCTLogError(@"DeviceInfo:getTotalDiskCapacityOldSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)getType:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:getType", @"getType is not supported on iOS", nil);
+}
+
+
+- (NSString *)getTypeSync {
+    RCTLogError(@"DeviceInfo:getTypeSync is not supported on iOS");
+    return nil;
+}
+
+- (NSString *)getUserAgentSync {
+    RCTLogError(@"DeviceInfo:getUserAgentSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)hasGms:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:hasGms", @"hasGms is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)hasGmsSync {
+    RCTLogError(@"DeviceInfo:hasGmsSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)hasHms:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:hasHms", @"hasHms is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)hasHmsSync {
+    RCTLogError(@"DeviceInfo:hasHmsSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)hasSystemFeature:(NSString *)feature resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:hasSystemFeature", @"hasSystemFeature is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)hasSystemFeatureSync:(NSString *)feature {
+    RCTLogError(@"DeviceInfo:hasSystemFeatureSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)isAirplaneMode:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:isAirplaneMode", @"isAirplaneMode is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)isAirplaneModeSync {
+    RCTLogError(@"DeviceInfo:isAirplaneModeSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)isCameraPresent:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:isCameraPresent", @"isCameraPresent is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)isCameraPresentSync {
+    RCTLogError(@"DeviceInfo:isCameraPresentSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)isKeyboardConnected:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:isKeyboardConnected", @"isKeyboardConnected is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)isKeyboardConnectedSync {
+    RCTLogError(@"DeviceInfo:isKeyboardConnectedSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)isMouseConnected:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:isMouseConnected", @"isMouseConnected is not supported on iOS", nil);
+}
+
+
+- (NSNumber *)isMouseConnectedSync {
+    RCTLogError(@"DeviceInfo:isMouseConnectedSync is not supported on iOS");
+    return nil;
+}
+
+
+- (void)isTabletMode:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    reject(@"DeviceInfo:isTabletMode", @"isTabletMode is not supported on iOS", nil);
 }
 
 - (long long) getFirstInstallTime {
@@ -883,5 +1264,13 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#ifdef RCT_NEW_ARCH_ENABLED
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params
+{
+    return std::make_shared<facebook::react::NativeDeviceInfoModuleSpecJSI>(params);
+}
+#endif
 
 @end

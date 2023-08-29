@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import { NativeEventEmitter } from 'react-native';
+import RNDeviceInfo from './nativeInterface';
 import type { AsyncHookResult } from './types';
 
 /**
@@ -26,7 +27,7 @@ export function useOnMount<T>(asyncGetter: () => Promise<T>, initialResult: T): 
   return response;
 }
 
-export const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+export const deviceInfoEmitter = new NativeEventEmitter(RNDeviceInfo);
 
 /**
  * simple hook wrapper for handling events

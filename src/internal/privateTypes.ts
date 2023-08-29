@@ -8,7 +8,7 @@ export type NotchDevice = {
   [key: string]: string;
 };
 
-interface NativeConstants {
+export interface NativeConstants {
   appName: string;
   appVersion: string;
   brand: string;
@@ -17,7 +17,7 @@ interface NativeConstants {
   deviceId: string;
   deviceType: DeviceType;
   isTablet: boolean;
-  isDisplayZoomed: boolean;
+  isDisplayZoomed?: boolean;
   model: string;
   systemName: string;
   systemVersion: string;
@@ -182,7 +182,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   isLandscape: () => Promise<boolean>;
   isLandscapeSync: () => boolean;
   isTablet: () => boolean;
-  isDisplayZoomed: () => boolean;
+  isDisplayZoomed: () => boolean | undefined;
   supported32BitAbis: () => Promise<string[]>;
   supported32BitAbisSync: () => string[];
   supported64BitAbis: () => Promise<string[]>;
