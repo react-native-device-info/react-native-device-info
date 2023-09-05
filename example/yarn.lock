@@ -8755,8 +8755,8 @@ react-native-codegen@^0.0.8:
     nullthrows "^1.1.1"
 
 "react-native-device-info@github:react-native-device-info/react-native-device-info":
-  version "10.4.0"
-  resolved "https://codeload.github.com/react-native-device-info/react-native-device-info/tar.gz/4f1c0fec7a041eba97814274ee86990f61c213ad"
+  version "10.9.0"
+  resolved "https://codeload.github.com/react-native-device-info/react-native-device-info/tar.gz/d73b01af2640417fe35c5afa4913ce46237f6cdf"
 
 react-native-macos@^0.66.0:
   version "0.66.80"
