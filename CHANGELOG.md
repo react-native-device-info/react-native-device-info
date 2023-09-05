@@ -1,3 +1,31 @@
+# [10.9.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.8.0...v10.9.0) (2023-08-28)
+
+
+### Features
+
+* **windows:** Implemented getHostNames() for windows ([#1565](https://github.com/react-native-device-info/react-native-device-info/issues/1565)) ([eab4992](https://github.com/react-native-device-info/react-native-device-info/commit/eab49922deaeb6e9e73cfaab6ad1e674de1d21cb))
+
+# [10.8.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.7.0...v10.8.0) (2023-07-12)
+
+
+### Features
+
+* **windows:** Implemented gethost() for windows ([#1552](https://github.com/react-native-device-info/react-native-device-info/issues/1552)) ([aa4f6e0](https://github.com/react-native-device-info/react-native-device-info/commit/aa4f6e07c587601872445d53e62a976a7b773418))
+
+# [10.7.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.6.1...v10.7.0) (2023-06-30)
+
+
+### Features
+
+* **android:** add support for React Native 0.73 ([#1546](https://github.com/react-native-device-info/react-native-device-info/issues/1546)) ([38f9665](https://github.com/react-native-device-info/react-native-device-info/commit/38f96650d61198c88d7691c9998098c4969bca49))
+
+## [10.6.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.6.0...v10.6.1) (2023-06-29)
+
+
+### Bug Fixes
+
+* **windows:** bump WindowsTargetPlatformMinVersion ([#1537](https://github.com/react-native-device-info/react-native-device-info/issues/1537)) ([7f0f1c2](https://github.com/react-native-device-info/react-native-device-info/commit/7f0f1c28d04bb3c1eb460ee014dbe76a45b354f1))
+
 # [10.6.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.5.1...v10.6.0) (2023-04-06)
 
 

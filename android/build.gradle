@@ -23,6 +23,12 @@ def safeExtGet(prop, fallback) {
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 30)
+    
+    def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
+    // Check AGP version for backward compatibility reasons
+    if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
+      namespace = "com.learnium.RNDeviceInfo"
+    }
 
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 16)

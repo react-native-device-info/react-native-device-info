@@ -6,9 +6,13 @@
 #include <sstream>
 #include <chrono>
 #include <future>
+#include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Networking.Connectivity.h>
 
 using namespace winrt::Microsoft::ReactNative;
 using namespace winrt::Windows::Foundation;
+using namespace winrt::Windows::Networking;
+using namespace winrt::Windows::Networking::Connectivity;
 
 namespace winrt::RNDeviceInfoCPP
 {
@@ -832,6 +836,44 @@ namespace winrt::RNDeviceInfoCPP
         {
           promise.Resolve(op.GetResults());
         });
+    }
+	
+    REACT_SYNC_METHOD(getHostSync);
+    std::string getHostSync() noexcept
+    {
+        try
+        {
+            return winrt::to_string(NetworkInformation::GetHostNames().GetAt(0).DisplayName());
+        }
+        catch (...)
+        {
+            return "unknown";
+        }
+    }
+
+    REACT_METHOD(getHost);
+    void getHost(ReactPromise<std::string> promise) noexcept
+    {
+        promise.Resolve(getHostSync());
+    }
+
+    REACT_SYNC_METHOD(getHostNamesSync);
+    JSValueArray getHostNamesSync() noexcept
+    {
+         JSValueArray result = JSValueArray{};
+        winrt::Windows::Foundation::Collections::IVectorView<HostName> hostNames = NetworkInformation::GetHostNames();
+        for (HostName hostName : hostNames)
+        {
+            result.push_back(winrt::to_string(hostName.DisplayName()));
+        }
+
+        return result;
+    }
+    
+    REACT_METHOD(getHostNames)
+    void getHostNames(ReactPromise<JSValueArray> promise) noexcept
+    {
+        promise.Resolve(getHostNamesSync());
     }
 
     REACT_METHOD(addListener);

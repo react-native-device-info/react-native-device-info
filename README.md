@@ -147,7 +147,8 @@ The example app in this repository shows an example usage of every single API, c
 | [getFreeDiskStorage()](#getfreediskstorage)                       | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
 | [getFreeDiskStorageOld()](#getfreediskstorageold)                 | `Promise<number>`   | ✅  |   ✅    |   ✅    |  ✅   | ✅  |
 | [getHardware()](#gethardware)                                     | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
-| [getHost()](#gethost)                                             | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
+| [getHost()](#gethost)                                             | `Promise<string>`   | ❌  |   ✅    |   ✅    |  ❌   | ❌  |
+| [getHostNames()](#getHostNames)                                   | `Promise<string>`   | ❌  |   ❌    |   ✅    |  ❌   | ❌  |
 | [getIpAddress()](#getipaddress)                                   | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ✅   | ❌  |
 | [getIncremental()](#getincremental)                               | `Promise<string>`   | ❌  |   ✅    |   ❌    |  ❌   | ❌  |
 | [getInstallerPackageName()](#getinstallerpackagename)             | `Promise<string>`   | ✅  |   ✅    |   ✅    |  ❓   | ❌  |
@@ -456,7 +457,7 @@ DeviceInfo.getDeviceName().then((deviceName) => {
 });
 ```
 
-This used to require the android.permission.BLUETOOTH but the new implementation in v3 does not need it. You may remove that from your AndroidManifest.xml if you had it for this API.
+This used to require the android.permission.BLUETOOTH but the new implementation in v3 does not need it. You may remove that from your AndroidManifest.xml if you had it for this API. iOS 16 and greater [require entitlements]([url](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_device-information_user-assigned-device-name)) to access user-defined device name, otherwise a generic value is returned (ie. 'iPad', 'iPhone')
 
 ---
 

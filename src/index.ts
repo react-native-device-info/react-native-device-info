@@ -293,10 +293,18 @@ export const [getHardware, getHardwareSync] = getSupportedPlatformInfoFunctions(
 
 export const [getHost, getHostSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'host',
-  supportedPlatforms: ['android'],
+  supportedPlatforms: ['android', 'windows'],
   getter: () => RNDeviceInfo.getHost(),
   syncGetter: () => RNDeviceInfo.getHostSync(),
   defaultValue: 'unknown',
+});
+
+export const [getHostNames, getHostNamesSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'hostNames',
+  supportedPlatforms: ['windows'],
+  getter: () => RNDeviceInfo.getHostNames(),
+  syncGetter: () => RNDeviceInfo.getHostNamesSync(),
+  defaultValue: [] as string[],
 });
 
 export const [getProduct, getProductSync] = getSupportedPlatformInfoFunctions({
@@ -915,6 +923,8 @@ const DeviceInfo: DeviceInfoModule = {
   getHardwareSync,
   getHost,
   getHostSync,
+  getHostNames,
+  getHostNamesSync,
   getIncremental,
   getIncrementalSync,
   getInstallerPackageName,
