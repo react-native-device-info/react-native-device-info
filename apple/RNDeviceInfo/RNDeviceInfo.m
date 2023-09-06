@@ -528,8 +528,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBuildIdSync) {
 }
 
 - (NSString *) uniqueId {
-    return @"Testing unique id";
-//    return [DeviceUID uid];
+   return [DeviceUID uid];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getUniqueIdSync) {
