@@ -215,6 +215,7 @@ DeviceInfo.getApiLevel().then((apiLevel) => {
   // iOS: ?
   // Android: 25
   // Windows: ?
+  // MacOS: ?
 });
 ```
 
@@ -317,6 +318,7 @@ let brand = DeviceInfo.getBrand();
 // iOS: "Apple"
 // Android: "xiaomi"
 // Windows: ?
+// MacOS: "Apple"
 ```
 
 ---
@@ -332,6 +334,7 @@ let buildNumber = DeviceInfo.getBuildNumber();
 // iOS: "89"
 // Android: "4"
 // Windows: ?
+// MacOS: "1"
 ```
 
 ---
@@ -425,6 +428,7 @@ let deviceId = DeviceInfo.getDeviceId();
 // iOS: "iPhone7,2"
 // Android: "goldfish"
 // Windows: "Y3R94UC#AC4"
+// MacOS: "MacbookPro11,4"
 ```
 
 ---
@@ -454,6 +458,7 @@ DeviceInfo.getDeviceName().then((deviceName) => {
   // iOS: "Becca's iPhone 6"
   // Android: ?
   // Windows: ?
+  // MacOS: Filip's MacBook Pro
 });
 ```
 
@@ -530,6 +535,7 @@ Method that gets available storage size, in bytes, taking into account both root
 DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
   // Android: 17179869184
   // iOS: 17179869184
+  // MacOS: 10327007232
 });
 ```
 
@@ -549,6 +555,7 @@ Old implementation of method that gets available storage size, in bytes.
 DeviceInfo.getFreeDiskStorageOld().then((freeDiskStorage) => {
   // Android: 17179869184
   // iOS: 17179869184
+  // MacOS: 10327007232
 });
 ```
 
@@ -741,6 +748,7 @@ DeviceInfo.getManufacturer().then((manufacturer) => {
   // iOS: "Apple"
   // Android: "Google"
   // Windows: ?
+  // MacOS: "Apple"
 });
 ```
 
@@ -773,6 +781,7 @@ let model = DeviceInfo.getModel();
 // iOS: ?
 // Android: ?
 // Windows: ?
+// MacOS: "MacBook Pro (Retina, 15-inch, Mid 2015)"
 ```
 
 ---
@@ -859,6 +868,7 @@ let readableVersion = DeviceInfo.getReadableVersion();
 // iOS: 1.0.1.32
 // Android: 1.0.1.234
 // Windows: ?
+// MacOS: ?
 ```
 
 ---
@@ -874,6 +884,7 @@ DeviceInfo.getSerialNumber().then((serialNumber) => {
   // iOS: unknown
   // Android: ? (maybe a serial number, if your app is privileged)
   // Windows: ? (a serial number, if your app has the "capability smbios")
+  // MacOS: ?
 });
 ```
 
@@ -910,6 +921,7 @@ let systemName = DeviceInfo.getSystemName();
 // iOS: "iOS" on newer iOS devices "iPhone OS" on older devices (including older iPad models), "iPadOS" for iPads using iPadOS 15.0 or higher.
 // Android: "Android"
 // Windows: ?
+// MacOS: ?
 ```
 
 ---
@@ -925,6 +937,7 @@ let systemVersion = DeviceInfo.getSystemVersion();
 // iOS: "11.0"
 // Android: "7.1.1"
 // Windows: ?
+// MacOS: ?
 ```
 
 ---
@@ -941,6 +954,7 @@ DeviceInfo.getBuildId().then((buildId) => {
   // tvOS: not available
   // Android: "13D15"
   // Windows: not available
+  // MacOS: "21G320"
 });
 ```
 
@@ -984,6 +998,7 @@ Method that gets full disk storage size, in bytes, taking into account both root
 DeviceInfo.getTotalDiskCapacity().then((capacity) => {
   // Android: 17179869184
   // iOS: 17179869184
+  // MacOS: 250790436864
 });
 ```
 
@@ -1003,6 +1018,7 @@ Old implementation of method that gets full disk storage size, in bytes.
 DeviceInfo.getTotalDiskCapacityOld().then((capacity) => {
   // Android: 17179869184
   // iOS: 17179869184
+  // MacOS: 250790436864
 });
 ```
 
@@ -1038,6 +1054,7 @@ DeviceInfo.getUniqueId().then((uniqueId) => {
   // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
   // Android: "dd96dec43fb81c97"
   // Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
+  // MacOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
 });
 ```
 
@@ -1066,6 +1083,7 @@ DeviceInfo.syncUniqueId().then((uniqueId) => {
   // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
   // Android: "dd96dec43fb81c97"
   // Windows: ?
+  // MacOS: "466FFE64-B1AB-4HDA-AA89-EE7279B2ABE5"
 });
 ```
 
@@ -1105,6 +1123,7 @@ DeviceInfo.getUserAgent().then((userAgent) => {
   // tvOS: not available
   // Android: "Mozilla/5.0 (Linux; Android 12; sdk_gphone64_arm64 Build/SE1A.220630.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.114 Mobile Safari/537.36"
   // Windows: ?
+  // MacOS: ?
 });
 ```
 
@@ -1122,6 +1141,7 @@ let version = DeviceInfo.getVersion();
 // iOS: "1.0"
 // Android: "1.0" or "1.0.2-alpha.12"
 // Windows: ?
+// MacOS: ?
 ```
 
 ---
@@ -1473,6 +1493,7 @@ Gets the current brightness level of the device's main screen. Currently iOS onl
 ```js
 DeviceInfo.getBrightness().then((brightness) => {
   // iOS: 0.6
+  // MacOS: ?
 });
 ```
 
