@@ -29,6 +29,10 @@ build/
 local.properties
 *.iml
 *.hprof
+example/ios/.xcode.env.local
+example/.cxx/
+example/*.keystore
+example/!debug.keystore
 
 # node.js
 #
@@ -52,9 +56,20 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
 
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
+# Ruby / CocoaPods
 /ios/Pods/
+/vendor/bundle/
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+
+# testing
+/coverage

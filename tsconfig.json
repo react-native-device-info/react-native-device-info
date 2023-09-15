@@ -1,13 +1,14 @@
 {
   "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "moduleResolution": "node",
-    "lib": ["es2015", "es2016", "esnext"],
     "jsx": "react-native",
-    "resolveJsonModule": true
+    "lib": ["es2015", "es2016", "esnext"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es5"
   },
   "exclude": ["node_modules"]
 }
