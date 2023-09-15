@@ -195,6 +195,7 @@ The example app in this repository shows an example usage of every single API, c
 | [isHeadphonesConnected()](#isHeadphonesConnected)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ❌    | ❌  |
 | [isPinOrFingerprintSet()](#ispinorfingerprintset)                 | `Promise<boolean>`  |  ✅  |   ✅    |   ✅    | ❌  |
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
+| [isLowRamDevice()](#istablet)                                     | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
 | [isDisplayZoomed()](#isdisplayzoomed)                             | `boolean`           |  ✅  |   ❌    |   ❌    | ❌  |
 | [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
@@ -1208,6 +1209,19 @@ Tells if the device is a tablet.
 
 ```js
 let isTablet = DeviceInfo.isTablet();
+// true
+```
+
+---
+
+### isLowRamDevice()
+
+Tells if the device has low RAM.
+
+#### Examples
+
+```js
+let isLowRamDevice = DeviceInfo.isLowRamDevice();
 // true
 ```
 

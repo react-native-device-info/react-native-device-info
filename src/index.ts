@@ -382,6 +382,14 @@ export const isTablet = () =>
     getter: () => RNDeviceInfo.isTablet,
   });
 
+export const isLowRamDevice = () =>
+  getSupportedPlatformInfoSync({
+    defaultValue: false,
+    supportedPlatforms: ['android'],
+    memoKey: 'lowRam',
+    getter: () => RNDeviceInfo.isLowRamDevice,
+  });
+
 export const isDisplayZoomed = () =>
   getSupportedPlatformInfoSync({
     defaultValue: false,
@@ -990,6 +998,7 @@ const DeviceInfo: DeviceInfoModule = {
   isKeyboardConnectedSync,
   isTabletMode,
   isTablet,
+  isLowRamDevice,
   isDisplayZoomed,
   supported32BitAbis,
   supported32BitAbisSync,
