@@ -1,3 +1,10 @@
+# [10.10.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.9.0...v10.10.0) (2023-09-19)
+
+
+### Features
+
+* Add device names for iPhone 15 family, add check for dynamic island ([#1569](https://github.com/react-native-device-info/react-native-device-info/issues/1569)) ([8e512ec](https://github.com/react-native-device-info/react-native-device-info/commit/8e512ecdffc855f49fc51fecc6e433eda9c6ca6c))
+
 # [10.9.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.8.0...v10.9.0) (2023-08-28)
 
 
