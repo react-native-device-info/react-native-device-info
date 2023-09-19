@@ -1,3 +1,10 @@
+# [10.11.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.10.0...v10.11.0) (2023-09-19)
+
+
+### Features
+
+* **android:** add new isLowRamDevice constant ([#1571](https://github.com/react-native-device-info/react-native-device-info/issues/1571)) ([f608fd5](https://github.com/react-native-device-info/react-native-device-info/commit/f608fd5afe9cc130098f99bb7134251d01410a97))
+
 # [10.10.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.9.0...v10.10.0) (2023-09-19)
 
 
