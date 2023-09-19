@@ -61,6 +61,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+import static android.content.Context.ACTIVITY_SERVICE;
 import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
 import static android.os.BatteryManager.BATTERY_STATUS_FULL;
 import static android.provider.Settings.Secure.getString;
@@ -177,6 +178,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return null;
   }
 
+  @Nonnull
+  private Boolean isLowRamDevice() {
+    ActivityManager am = (ActivityManager) getReactApplicationContext().getSystemService(ACTIVITY_SERVICE);
+    boolean isLowRamDevice = false;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      isLowRamDevice = am.isLowRamDevice();
+    }
+    return isLowRamDevice;
+  }
+
   @Override
   public Map<String, Object> getConstants() {
     String appVersion, buildNumber, appName;
@@ -200,6 +211,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     constants.put("appVersion", appVersion);
     constants.put("buildNumber", buildNumber);
     constants.put("isTablet", deviceTypeResolver.isTablet());
+    constants.put("isLowRamDevice", isLowRamDevice());
     constants.put("appName", appName);
     constants.put("brand", Build.BRAND);
     constants.put("model", Build.MODEL);
@@ -470,7 +482,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getUsedMemorySync() {
-    ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+    ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(ACTIVITY_SERVICE);
     if (actMgr != null) {
       int pid = android.os.Process.myPid();
       android.os.Debug.MemoryInfo[] memInfos = actMgr.getProcessMemoryInfo(new int[]{pid});
@@ -826,7 +838,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getTotalMemorySync() {
-    ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+    ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(ACTIVITY_SERVICE);
     ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
     if (actMgr != null) {
       actMgr.getMemoryInfo(memInfo);

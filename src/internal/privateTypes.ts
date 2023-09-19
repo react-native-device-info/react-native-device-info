@@ -17,6 +17,7 @@ interface NativeConstants {
   deviceId: string;
   deviceType: DeviceType;
   isTablet: boolean;
+  isLowRamDevice: boolean;
   isDisplayZoomed: boolean;
   model: string;
   systemName: string;
@@ -182,6 +183,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   isLandscape: () => Promise<boolean>;
   isLandscapeSync: () => boolean;
   isTablet: () => boolean;
+  isLowRamDevice: () => boolean;
   isDisplayZoomed: () => boolean;
   supported32BitAbis: () => Promise<string[]>;
   supported32BitAbisSync: () => string[];
