@@ -11,65 +11,71 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-      name: Checkout Code
+      - uses: actions/checkout@v3
+        name: Checkout Code
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
-      with:
-        vs-version: '[17.6,18)'
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        with:
+          vs-version: '[17.6,18)'
 
-    - name: Check base node modules cache
-      uses: actions/cache@v3
-      id: yarn-base-cache
-      with:
-        path: ./node_modules
-        key: ${{ runner.os }}-yarn-base-${{ hashFiles('yarn.lock') }}
-    - name: Install base node modules
-      uses: nick-invision/retry@v2
-      if: steps.yarn-base-cache.outputs.cache-hit != 'true'
-      with:
-        max_attempts: 3
-        timeout_minutes: 3
-        command: yarn --pure-lockfile
+      - name: install RNW dependencies
+        run: |
+          Set-ExecutionPolicy Unrestricted -Scope Process -Force;
+          Invoke-WebRequest https://aka.ms/rnw-vs2022-deps.ps1 -OutFile .\rnw-deps.ps1
+          iex ".\rnw-deps.ps1 -Verbose -Install";
 
-    - name: Check example node modules cache
-      uses: actions/cache@v3
-      id: yarn-example-cache
-      with:
-        path: ./example/node_modules
-        key: ${{ runner.os }}-yarn-example-${{ hashFiles('./example/yarn.lock') }}
-    - name: Install example modules
-      uses: nick-invision/retry@v2
-      if: steps.yarn-example-cache.outputs.cache-hit != 'true'
-      with:
-        max_attempts: 3
-        timeout_minutes: 3
-        shell: pwsh
-        command: cd example; & yarn --pure-lockfile
+      - name: Check base node modules cache
+        uses: actions/cache@v3
+        id: yarn-base-cache
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-yarn-base-${{ hashFiles('yarn.lock') }}
+      - name: Install base node modules
+        uses: nick-invision/retry@v2
+        if: steps.yarn-base-cache.outputs.cache-hit != 'true'
+        with:
+          max_attempts: 3
+          timeout_minutes: 3
+          command: yarn --pure-lockfile
 
-    - name: Copy module
-      run: |
-        xcopy src example\node_modules\react-native-device-info\src /s /e /r /h /i /y
-        xcopy lib example\node_modules\react-native-device-info\lib /s /e /r /h /i /y
-        xcopy windows example\node_modules\react-native-device-info\windows /s /e /r /h /i /y
-        xcopy jest example\node_modules\react-native-device-info\jest /s /e /r /h /i /y
-    - name: Build release
-      run: |
-        cd example
-        npx react-native run-windows --release --no-packager --no-launch --logging
-    - name: Start Appium server
-      shell: powershell
-      run: |
-        cd example
-        Start-Process PowerShell -ArgumentList "yarn appium"
+      - name: Check example node modules cache
+        uses: actions/cache@v3
+        id: yarn-example-cache
+        with:
+          path: ./example/node_modules
+          key: ${{ runner.os }}-yarn-example-${{ hashFiles('./example/yarn.lock') }}
+      - name: Install example modules
+        uses: nick-invision/retry@v2
+        if: steps.yarn-example-cache.outputs.cache-hit != 'true'
+        with:
+          max_attempts: 3
+          timeout_minutes: 3
+          shell: pwsh
+          command: cd example; & yarn --pure-lockfile
 
-    - name: Run tests
-      run: |
-        cd example
-        yarn test:windows
+      - name: Copy module
+        run: |
+          xcopy src example\node_modules\react-native-device-info\src /s /e /r /h /i /y
+          xcopy lib example\node_modules\react-native-device-info\lib /s /e /r /h /i /y
+          xcopy windows example\node_modules\react-native-device-info\windows /s /e /r /h /i /y
+          xcopy jest example\node_modules\react-native-device-info\jest /s /e /r /h /i /y
+      - name: Build release
+        run: |
+          cd example
+          npx react-native run-windows --release --no-packager --no-launch --logging
+      - name: Start Appium server
+        shell: powershell
+        run: |
+          cd example
+          Start-Process PowerShell -ArgumentList "yarn appium"
+
+      - name: Run tests
+        run: |
+          cd example
+          yarn test:windows
