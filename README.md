@@ -202,6 +202,8 @@ The example app in this repository shows an example usage of every single API, c
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ✅    | ❌  |
 | [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌  |
+| [getIsOnline()](#isOnline)                                        | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
+
 
 ---
 
@@ -1438,6 +1440,7 @@ DeviceInfo.isLocationEnabled().then((enabled) => {
 
 Tells if the device is connected to wired headset or bluetooth headphones
 
+
 #### Examples
 
 ```js
@@ -1488,6 +1491,19 @@ DeviceInfo.getBrightness().then((brightness) => {
   // iOS: 0.6
 });
 ```
+
+### getIsOnline()
+
+Gets the device network connectivity state.
+This used to require the android.permission.ACCESS_NETWORK_STATE  - [https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE]
+
+
+#### Examples
+
+```js
+DeviceInfo.getIsOnline();
+```
+
 
 ## Hooks & Events
 

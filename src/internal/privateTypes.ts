@@ -151,6 +151,7 @@ interface ExposedNativeMethods {
   isKeyboardConnectedSync: () => boolean;
   isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
+  getIsOnline: () => boolean | null;
 }
 
 export interface DeviceInfoNativeModule

@@ -194,7 +194,7 @@ export default class App extends Component {
     deviceJSON.hasHms = DeviceInfo.hasHmsSync();
     deviceJSON.isMouseConnected = DeviceInfo.isMouseConnectedSync();
     deviceJSON.isKeyboardConnected = DeviceInfo.isKeyboardConnectedSync();
-
+    deviceJSON.isOnline = DeviceInfo.getIsOnline()
     return deviceJSON;
   }
 
@@ -270,6 +270,7 @@ export default class App extends Component {
       deviceJSON.isMouseConnected = await DeviceInfo.isMouseConnected();
       deviceJSON.isKeyboardConnected = await DeviceInfo.isKeyboardConnected();
       deviceJSON.isTabletMode = await DeviceInfo.isTabletMode();
+      
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {

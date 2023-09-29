@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -736,6 +736,15 @@ export async function getDeviceToken() {
   return 'unknown';
 }
 
+export function getIsOnline() {
+  if (Platform.OS === 'android') {
+    const isOnline = RNDeviceInfo.getIsOnline();
+    return isOnline;
+  }
+
+  return null;
+}
+
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -1017,6 +1026,7 @@ const DeviceInfo: DeviceInfoModule = {
   useManufacturer,
   useIsHeadphonesConnected,
   useBrightness,
+  getIsOnline,
 };
 
 export default DeviceInfo;
