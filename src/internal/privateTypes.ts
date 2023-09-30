@@ -202,6 +202,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useManufacturer: () => AsyncHookResult<string>;
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
   useBrightness: () => number | null;
+  useIsOnline: () => Boolean | null;
 }
 
 export type Getter<T> = () => T;

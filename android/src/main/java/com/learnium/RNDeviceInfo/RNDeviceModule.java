@@ -14,7 +14,10 @@ import android.content.pm.FeatureInfo;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
@@ -32,6 +35,7 @@ import android.app.ActivityManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
@@ -135,6 +139,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     getReactApplicationContext().registerReceiver(receiver, filter);
     initializeHeadphoneConnectionReceiver();
+    registerNetworkConnectionStatusEvent();
   }
 
   private void initializeHeadphoneConnectionReceiver() {
@@ -1013,6 +1018,31 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(eventName, data);
+  }
+
+  private void registerNetworkConnectionStatusEvent() {
+    ConnectivityManager connectivityManager = (ConnectivityManager) getReactApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+      NetworkRequest networkRequest = new NetworkRequest.Builder()
+              .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+              .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+              .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+              .build();
+      ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(@NonNull Network network) {
+          super.onAvailable(network);
+          sendEvent(getReactApplicationContext(), "RNDeviceInfo_NetworkStatusChanged", true);
+        }
+
+        @Override
+        public void onLost(@NonNull Network network) {
+          super.onLost(network);
+          sendEvent(getReactApplicationContext(), "RNDeviceInfo_NetworkStatusChanged", false);
+        }
+      };
+      connectivityManager.requestNetwork(networkRequest, networkCallback);
+    }
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)

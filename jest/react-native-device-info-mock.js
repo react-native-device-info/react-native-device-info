@@ -164,6 +164,7 @@ const diMock = {
   useIsEmulator: booleanAsyncHookResultHook(),
   useManufacturer: stringAsyncHookResultHook(),
   useBrightness: numberFnSync(),
+  useIsOnline: booleanFnSync()
 };
 
 module.exports = diMock;

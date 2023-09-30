@@ -744,7 +744,6 @@ export function getIsOnline() {
 
   return null;
 }
-
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
@@ -770,6 +769,25 @@ export function useBatteryLevel(): number | null {
   }, []);
 
   return batteryLevel;
+}
+
+export function useIsOnline(): Boolean | null {
+  const [isOnline, setIsOnline] = useState<Boolean | null>(null);
+  useEffect(() => {
+    const getInitialStatus = getIsOnline();
+    setIsOnline(getInitialStatus);
+    const onNetworkChange = (val: Boolean) => {
+      setIsOnline(val);
+    };
+    const networkSubscription = deviceInfoEmitter.addListener(
+      'RNDeviceInfo_NetworkStatusChanged',
+      onNetworkChange
+    );
+
+    return () => networkSubscription.remove();
+  }, []);
+
+  return isOnline;
 }
 
 export function useBatteryLevelIsLow(): number | null {
@@ -1027,6 +1045,7 @@ const DeviceInfo: DeviceInfoModule = {
   useIsHeadphonesConnected,
   useBrightness,
   getIsOnline,
+  useIsOnline,
 };
 
 export default DeviceInfo;

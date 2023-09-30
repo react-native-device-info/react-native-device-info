@@ -174,4 +174,6 @@ declare module.exports: {
   useManufacturer: () => AsyncHookResult<string>,
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>,
   useBrightness: () => number | null,
+  useIsOnline: () => Boolean | null;
+  
 };
