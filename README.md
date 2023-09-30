@@ -1495,7 +1495,9 @@ DeviceInfo.getBrightness().then((brightness) => {
 ### getIsOnline()
 
 Gets the device network connectivity state.
-This used to require the android.permission.ACCESS_NETWORK_STATE  - [https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE]
+
+This used to require the android.permission.ACCESS_NETWORK_STATE 
+Please refer to the [Android docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)
 
 
 #### Examples
@@ -1713,6 +1715,28 @@ const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 deviceInfoEmitter.addListener('RNDeviceInfo_brightnessDidChange', (brightness) => {
   // 0.46578987897654567
 });
+```
+
+### useIsOnline
+
+Gets the current Network status of the device. Currently android only. Returns a boolean when user is connected to internet otherwise false, inclusive.
+
+This used to require the android.permission.ACCESS_NETWORK_STATE 
+This used to require the android.permission.CHANGE_NETWORK_STATE 
+This used to require the android.permission.WRITE_SETTINGS 
+
+Please refer to the [Android docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)
+
+This hook subscribes to the event, `RNDeviceInfo_NetworkStatusChanged` , and updates the `isOnline` field accordingly.
+
+#### Example
+
+```jsx
+import { useIsOnline } from 'react-native-device-info';
+
+const isOnline = useIsOnline(); // true
+
+<Text>Connected to intenet {isOnline}</Text>;
 ```
 
 =======
