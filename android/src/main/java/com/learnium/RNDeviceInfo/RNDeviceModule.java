@@ -525,6 +525,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     return powerState.getDouble(BATTERY_LEVEL);
   }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean getAutoRotateSync() {
+    return Settings.System.ACTION_AUTO_ROTATE_SETTINGS;
+  }
+  @ReactMethod
+  public void getAutoRotate(Promise p) { p.resolve(getAutoRotateSync()); }
+
   @ReactMethod
   public void getBatteryLevel(Promise p) { p.resolve(getBatteryLevelSync()); }
 

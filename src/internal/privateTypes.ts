@@ -38,6 +38,8 @@ interface HiddenNativeMethods {
 }
 
 interface ExposedNativeMethods {
+  getAutoRotate: () => Promise<string>;
+  getAutoRotateSync: () => string;
   getAndroidId: () => Promise<string>;
   getAndroidIdSync: () => string;
   getApiLevel: () => Promise<number>;

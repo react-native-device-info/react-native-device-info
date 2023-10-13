@@ -17,6 +17,14 @@ import type {
   PowerState,
 } from './internal/types';
 
+export const [getAutoRotate, getAutoRotateSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'autoRotate',
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getAutoRotate(),
+  syncGetter: () => RNDeviceInfo.getUniqueIdSync(),
+  defaultValue: 'unknown',
+});
+
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'uniqueId',
   supportedPlatforms: ['android', 'ios', 'windows'],
