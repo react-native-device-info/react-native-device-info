@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -816,6 +816,10 @@ export function useIsHeadphonesConnected(): AsyncHookResult<boolean> {
   return useOnEvent('RNDeviceInfo_headphoneConnectionDidChange', isHeadphonesConnected, false);
 }
 
+export function useIsLocationEnabled(): AsyncHookResult<boolean> {
+  return useOnEvent('RNDeviceInfo_locationEnabledDidChange', isLocationEnabled, false);
+}
+
 export function useFirstInstallTime(): AsyncHookResult<number> {
   return useOnMount(getFirstInstallTime, -1);
 }
@@ -1016,6 +1020,7 @@ const DeviceInfo: DeviceInfoModule = {
   usePowerState,
   useManufacturer,
   useIsHeadphonesConnected,
+  useIsLocationEnabled,
   useBrightness,
 };
 

@@ -51,7 +51,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_brightnessDidChange"];
+    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_brightnessDidChange", @"RNDeviceInfo_locationEnabledDidChange"];
 }
 
 - (NSDictionary *)constantsToExport {
@@ -76,6 +76,10 @@ RCT_EXPORT_MODULE();
     if ((self = [super init])) {
 #if !TARGET_OS_TV
         _lowBatteryThreshold = 0.20;
+
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+
         [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -667,6 +671,14 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
     [self sendEventWithName:@"RNDeviceInfo_brightnessDidChange" body:self.getBrightness];
 }
 
+- (void) locationServicesEnabledDidChange {
+    if (!hasListeners) {
+        return;
+    }
+    BOOL isEnabled = [self isLocationEnabled];
+    [self sendEventWithName:@"RNDeviceInfo_locationEnabledDidChange" body:[NSNumber numberWithBool:isEnabled]];
+}
+
 - (NSDictionary *) powerState {
 #if RCT_DEV && (!TARGET_IPHONE_SIMULATOR) && !TARGET_OS_TV
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
@@ -879,6 +891,13 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
     NSError *error;
     NSDate *installDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error] objectForKey:NSFileCreationDate];
     return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    [self locationServicesEnabledDidChange];
 }
 
 #pragma mark - dealloc -

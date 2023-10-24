@@ -73,6 +73,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private final DeviceIdResolver deviceIdResolver;
   private BroadcastReceiver receiver;
   private BroadcastReceiver headphoneConnectionReceiver;
+  private BroadcastReceiver locationServicesEnabledReceiver;
   private RNInstallReferrerClient installReferrerClient;
 
   private double mLastBatteryLevel = -1;
@@ -132,6 +133,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     };
 
     getReactApplicationContext().registerReceiver(receiver, filter);
+    initializeLocationServicesEnabledReceiver();
     initializeHeadphoneConnectionReceiver();
   }
 
@@ -149,6 +151,21 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     };
 
     getReactApplicationContext().registerReceiver(headphoneConnectionReceiver, filter);
+  }
+
+  private void initializeLocationServicesEnabledReceiver() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(LocationManager.MODE_CHANGED_ACTION);
+
+    locationServicesEnabledReceiver = new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent) {
+        boolean isEnabled = isLocationEnabledSync();
+        sendEvent(getReactApplicationContext(), "RNDeviceInfo_locationEnabledDidChange", isEnabled);
+      }
+    };
+
+    getReactApplicationContext().registerReceiver(locationServicesEnabledReceiver, filter);
   }
 
 

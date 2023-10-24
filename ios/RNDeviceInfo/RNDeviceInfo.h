@@ -13,8 +13,9 @@
 #import <React/RCTEventEmitter.h>
 #import <React/RCTLog.h>
 
-@interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule>
+@interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule, CLLocationManagerDelegate>
 
 @property (nonatomic) float lowBatteryThreshold;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end

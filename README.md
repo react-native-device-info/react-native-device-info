@@ -1673,6 +1673,27 @@ const { loading, result } = useIsHeadphonesConnected(); // { loading: true, resu
 
 ---
 
+### useIsLocationEnabled
+
+Tells if the device has location services turned off. 
+
+Required permission: `<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />`
+
+
+This hook subscribes to the event, `RNDeviceInfo_locationEnabledDidChange` , and updates the `result` field accordingly.
+
+#### Example
+
+```jsx
+import { useIsLocationEnabled } from 'react-native-device-info';
+
+const { loading, result } = useIsLocationEnabled(); // { loading: true, result: false}
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
+---
+
 ### useBrightness
 
 Gets the current brightness level of the device's main screen. Currently iOS only. Returns a number between 0.0 and 1.0, inclusive.

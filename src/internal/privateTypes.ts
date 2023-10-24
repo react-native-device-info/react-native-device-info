@@ -200,6 +200,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   usePowerState: () => Partial<PowerState>;
   useManufacturer: () => AsyncHookResult<string>;
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
+  useIsLocationEnabled: () => AsyncHookResult<boolean>;
   useBrightness: () => number | null;
 }
 
