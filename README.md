@@ -1675,7 +1675,7 @@ const { loading, result } = useIsHeadphonesConnected(); // { loading: true, resu
 
 ### useIsLocationEnabled
 
-Tells if the device has location services turned off. 
+Tells if the device has location services are turned on/off. 
 
 Required permission: `<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />`
 
