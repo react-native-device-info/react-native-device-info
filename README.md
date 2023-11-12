@@ -163,7 +163,8 @@ The example app in this repository shows an example usage of every single API, c
 | [getPowerState()](#getpowerstate)                                 | `Promise<object>`   |  ✅  |   ✅    |   ✅    | ✅  |
 | [getProduct()](#getproduct)                                       | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getPreviewSdkInt()](#getPreviewSdkInt)                           | `Promise<number>`   |  ❌  |   ✅    |   ❌    | ❌  |
-| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |
+| [getReadableVersion()](#getreadableversion)                       | `string`            |  ✅  |   ✅    |   ✅    | ❌  |## Usage
+
 | [getSerialNumber()](#getserialnumber)                             | `Promise<string>`   |  ❌  |   ✅    |   ✅    | ❌  |
 | [getSecurityPatch()](#getsecuritypatch)                           | `Promise<string>`   |  ❌  |   ✅    |   ❌    | ❌  |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
@@ -202,6 +203,7 @@ The example app in this repository shows an example usage of every single API, c
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ✅    | ❌  |
 | [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌  |
+| [getSupportedMediaTypeList()](#getSupportedMediaTypeList)         | `Promise<string[]>`   |  ❌  |   ✅    |   ❌    | ❌  |
 
 ---
 
@@ -1088,6 +1090,20 @@ Gets the app memory usage, in bytes.
 ```js
 DeviceInfo.getUsedMemory().then((usedMemory) => {
   // 23452345
+});
+```
+
+---
+
+### getSupportedMediaTypeList()
+
+This method gets the list of supported media codecs.
+
+#### Examples
+
+```js
+DeviceInfo.getSupportedMediaTypeList().then((string[]) => {
+  // ["audio/mpeg", "audio/mp4a-latm", "audio/mp4a-latm", "audio/mp4a-latm", "audio/mp4a-latm", "video/avc", "video/3gpp", "video/hevc", "video/mp4v-es", "video/av01", "video/avc", "video/avc", "video/avc", "video/avc"]
 });
 ```
 

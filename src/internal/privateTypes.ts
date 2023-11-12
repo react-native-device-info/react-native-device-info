@@ -151,12 +151,14 @@ interface ExposedNativeMethods {
   isKeyboardConnectedSync: () => boolean;
   isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
+  getSupportedMediaTypeList: () => Promise<string[]>
+  getSupportedMediaTypeListSync: () => string[]
 }
 
 export interface DeviceInfoNativeModule
   extends NativeConstants,
-    HiddenNativeMethods,
-    ExposedNativeMethods {}
+  HiddenNativeMethods,
+  ExposedNativeMethods { }
 
 export interface DeviceInfoModule extends ExposedNativeMethods {
   getApplicationName: () => string;
@@ -201,6 +203,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useManufacturer: () => AsyncHookResult<string>;
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
   useBrightness: () => number | null;
+
 }
 
 export type Getter<T> = () => T;

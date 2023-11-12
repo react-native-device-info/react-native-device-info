@@ -7,7 +7,7 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component, useCallback, memo} from 'react';
+import React, { Component, useCallback, memo } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -69,12 +69,12 @@ const FunctionalComponent = () => {
   );
 };
 
-const ActionExtensionHeader = memo(({isActionExtension}) => {
+const ActionExtensionHeader = memo(({ isActionExtension }) => {
   const onDonePress = useCallback(() => {
     NativeModules.ActionExtension.done();
   }, []);
   return isActionExtension ? (
-    <View style={{minHeight: 50, flexDirection: 'row', margin: 10}}>
+    <View style={{ minHeight: 50, flexDirection: 'row', margin: 10 }}>
       <TouchableOpacity onPress={onDonePress}>
         <View
           style={{
@@ -194,6 +194,7 @@ export default class App extends Component {
     deviceJSON.hasHms = DeviceInfo.hasHmsSync();
     deviceJSON.isMouseConnected = DeviceInfo.isMouseConnectedSync();
     deviceJSON.isKeyboardConnected = DeviceInfo.isKeyboardConnectedSync();
+    deviceJSON.getSupportedMediaTypeListSync = DeviceInfo.getSupportedMediaTypeListSync();
 
     return deviceJSON;
   }
@@ -270,6 +271,7 @@ export default class App extends Component {
       deviceJSON.isMouseConnected = await DeviceInfo.isMouseConnected();
       deviceJSON.isKeyboardConnected = await DeviceInfo.isKeyboardConnected();
       deviceJSON.isTabletMode = await DeviceInfo.isTabletMode();
+      deviceJSON.getSupportedMediaTypeList = await DeviceInfo.getSupportedMediaTypeList();
       try {
         deviceJSON.deviceToken = await DeviceInfo.getDeviceToken();
       } catch (e) {
@@ -281,7 +283,7 @@ export default class App extends Component {
       console.log('Trouble getting device info ', e);
     }
     // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({asyncdeviceinfo: deviceJSON});
+    this.setState({ asyncdeviceinfo: deviceJSON });
     this.forceUpdate();
   }
 
@@ -337,7 +339,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="constant button"
-            onPress={() => this.setState({activeTab: 'constant'})}>
+            onPress={() => this.setState({ activeTab: 'constant' })}>
             <Text
               style={[
                 styles.tabText,
@@ -350,7 +352,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="sync button"
-            onPress={() => this.setState({activeTab: 'sync'})}>
+            onPress={() => this.setState({ activeTab: 'sync' })}>
             <Text
               style={[
                 styles.tabText,
@@ -363,7 +365,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="async button"
-            onPress={() => this.setState({activeTab: 'async'})}>
+            onPress={() => this.setState({ activeTab: 'async' })}>
             <Text
               style={[
                 styles.tabText,
@@ -376,7 +378,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="hooks button"
-            onPress={() => this.setState({activeTab: 'hooks'})}>
+            onPress={() => this.setState({ activeTab: 'hooks' })}>
             <Text
               style={[
                 styles.tabText,
