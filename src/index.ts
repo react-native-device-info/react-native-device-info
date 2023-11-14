@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -705,14 +705,15 @@ export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatfo
   defaultValue: false,
 });
 
-export const [getSupportedMediaTypeList, getSupportedMediaTypeListSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android'],
-    getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
-    syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
-    defaultValue: []
-  }
-)
+export const [
+  getSupportedMediaTypeList,
+  getSupportedMediaTypeListSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
+  syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
+  defaultValue: [],
+});
 
 export const isTabletMode = () =>
   getSupportedPlatformInfoAsync({
@@ -744,8 +745,6 @@ export async function getDeviceToken() {
   }
   return 'unknown';
 }
-
-
 
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
@@ -1029,7 +1028,7 @@ const DeviceInfo: DeviceInfoModule = {
   useIsHeadphonesConnected,
   useBrightness,
   getSupportedMediaTypeList,
-  getSupportedMediaTypeListSync
+  getSupportedMediaTypeListSync,
 };
 
 export default DeviceInfo;

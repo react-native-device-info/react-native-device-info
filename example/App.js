@@ -7,7 +7,7 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, { Component, useCallback, memo } from 'react';
+import React, {Component, useCallback, memo} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -69,12 +69,12 @@ const FunctionalComponent = () => {
   );
 };
 
-const ActionExtensionHeader = memo(({ isActionExtension }) => {
+const ActionExtensionHeader = memo(({isActionExtension}) => {
   const onDonePress = useCallback(() => {
     NativeModules.ActionExtension.done();
   }, []);
   return isActionExtension ? (
-    <View style={{ minHeight: 50, flexDirection: 'row', margin: 10 }}>
+    <View style={{minHeight: 50, flexDirection: 'row', margin: 10}}>
       <TouchableOpacity onPress={onDonePress}>
         <View
           style={{
@@ -167,11 +167,13 @@ export default class App extends Component {
     deviceJSON.hasSystemFeature = DeviceInfo.hasSystemFeatureSync(
       'android.software.webview',
     );
-    deviceJSON.getSystemAvailableFeatures = DeviceInfo.getSystemAvailableFeaturesSync();
+    deviceJSON.getSystemAvailableFeatures =
+      DeviceInfo.getSystemAvailableFeaturesSync();
     deviceJSON.powerState = DeviceInfo.getPowerStateSync();
     deviceJSON.isLocationEnabled = DeviceInfo.isLocationEnabledSync();
     deviceJSON.headphones = DeviceInfo.isHeadphonesConnectedSync();
-    deviceJSON.getAvailableLocationProviders = DeviceInfo.getAvailableLocationProvidersSync();
+    deviceJSON.getAvailableLocationProviders =
+      DeviceInfo.getAvailableLocationProvidersSync();
     deviceJSON.bootloader = DeviceInfo.getBootloaderSync();
     deviceJSON.device = DeviceInfo.getDeviceSync();
     deviceJSON.display = DeviceInfo.getDisplaySync();
@@ -194,7 +196,8 @@ export default class App extends Component {
     deviceJSON.hasHms = DeviceInfo.hasHmsSync();
     deviceJSON.isMouseConnected = DeviceInfo.isMouseConnectedSync();
     deviceJSON.isKeyboardConnected = DeviceInfo.isKeyboardConnectedSync();
-    deviceJSON.getSupportedMediaTypeListSync = DeviceInfo.getSupportedMediaTypeListSync();
+    deviceJSON.getSupportedMediaTypeListSync =
+      DeviceInfo.getSupportedMediaTypeListSync();
 
     return deviceJSON;
   }
@@ -213,7 +216,8 @@ export default class App extends Component {
       deviceJSON.userAgent = await DeviceInfo.getUserAgent();
       deviceJSON.instanceId = await DeviceInfo.getInstanceId();
       deviceJSON.installReferrer = await DeviceInfo.getInstallReferrer();
-      deviceJSON.installerPackageName = await DeviceInfo.getInstallerPackageName();
+      deviceJSON.installerPackageName =
+        await DeviceInfo.getInstallerPackageName();
       deviceJSON.isEmulator = await DeviceInfo.isEmulator();
       deviceJSON.fontScale = await DeviceInfo.getFontScale();
       deviceJSON.hasNotch = await DeviceInfo.hasNotch();
@@ -230,23 +234,27 @@ export default class App extends Component {
       deviceJSON.totalMemory = await DeviceInfo.getTotalMemory();
       deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
-      deviceJSON.totalDiskCapacityOld = await DeviceInfo.getTotalDiskCapacityOld();
+      deviceJSON.totalDiskCapacityOld =
+        await DeviceInfo.getTotalDiskCapacityOld();
       deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
       deviceJSON.freeDiskStorageOld = await DeviceInfo.getFreeDiskStorageOld();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
       deviceJSON.isAirplaneMode = await DeviceInfo.isAirplaneMode();
       deviceJSON.isBatteryCharging = await DeviceInfo.isBatteryCharging();
-      deviceJSON.isPinOrFingerprintSet = await DeviceInfo.isPinOrFingerprintSet();
+      deviceJSON.isPinOrFingerprintSet =
+        await DeviceInfo.isPinOrFingerprintSet();
       deviceJSON.supportedAbis = await DeviceInfo.supportedAbis();
       deviceJSON.hasSystemFeature = await DeviceInfo.hasSystemFeature(
         'android.software.webview',
       );
-      deviceJSON.getSystemAvailableFeatures = await DeviceInfo.getSystemAvailableFeatures();
+      deviceJSON.getSystemAvailableFeatures =
+        await DeviceInfo.getSystemAvailableFeatures();
       deviceJSON.powerState = await DeviceInfo.getPowerState();
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
       deviceJSON.headphones = await DeviceInfo.isHeadphonesConnected();
-      deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
+      deviceJSON.getAvailableLocationProviders =
+        await DeviceInfo.getAvailableLocationProviders();
       deviceJSON.bootloader = await DeviceInfo.getBootloader();
       deviceJSON.device = await DeviceInfo.getDevice();
       deviceJSON.display = await DeviceInfo.getDisplay();
@@ -283,7 +291,7 @@ export default class App extends Component {
       console.log('Trouble getting device info ', e);
     }
     // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({ asyncdeviceinfo: deviceJSON });
+    this.setState({asyncdeviceinfo: deviceJSON});
     this.forceUpdate();
   }
 
@@ -339,7 +347,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="constant button"
-            onPress={() => this.setState({ activeTab: 'constant' })}>
+            onPress={() => this.setState({activeTab: 'constant'})}>
             <Text
               style={[
                 styles.tabText,
@@ -352,7 +360,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="sync button"
-            onPress={() => this.setState({ activeTab: 'sync' })}>
+            onPress={() => this.setState({activeTab: 'sync'})}>
             <Text
               style={[
                 styles.tabText,
@@ -365,7 +373,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="async button"
-            onPress={() => this.setState({ activeTab: 'async' })}>
+            onPress={() => this.setState({activeTab: 'async'})}>
             <Text
               style={[
                 styles.tabText,
@@ -378,7 +386,7 @@ export default class App extends Component {
           <TouchableOpacity
             style={styles.tab}
             testID="hooks button"
-            onPress={() => this.setState({ activeTab: 'hooks' })}>
+            onPress={() => this.setState({activeTab: 'hooks'})}>
             <Text
               style={[
                 styles.tabText,
