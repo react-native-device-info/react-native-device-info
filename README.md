@@ -1559,7 +1559,12 @@ Fired when the battery state changes or device enters in the power saving mode, 
 ```js
 import { usePowerState } from 'react-native-device-info';
 
-const powerState = usePowerState(); // 'charging'
+const powerState = usePowerState();
+  // {
+  //   batteryLevel: 0.759999,
+  //   batteryState: 'unplugged',
+  //   lowPowerMode: false,
+  // }
 
 <Text>{powerState}</Text>;
 ```
@@ -1568,8 +1573,12 @@ const powerState = usePowerState(); // 'charging'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo)
 
-deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { batteryState } => {
-  // 'charging'
+deviceInfoEmitter.addListener('RNDeviceInfo_powerStateDidChange', { powerState } => {
+  // {
+  //   batteryLevel: 0.759999,
+  //   batteryState: 'unplugged',
+  //   lowPowerMode: false,
+  // }
 });
 ```
 
