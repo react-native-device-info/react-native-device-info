@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.media.MediaCodecInfo;
+import android.media.MediaCodecList;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
@@ -1011,5 +1013,24 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(eventName, data);
+  }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableArray getSupportedMediaTypeListSync() {
+    WritableArray writableArray = new WritableNativeArray();
+    for (int i = 0; i < MediaCodecList.getCodecCount(); i++) {
+      MediaCodecInfo mediaCodecInfo = MediaCodecList.getCodecInfoAt(i);
+      String[] supportedTypes = mediaCodecInfo.getSupportedTypes();
+      for (int j = 0; j < supportedTypes.length; j++) {
+        writableArray.pushString(supportedTypes[j]);
+      }
+    }
+    return writableArray;
+
+  }
+
+  @ReactMethod
+  public void getSupportedMediaTypeList(Promise promise) {
+    promise.resolve(getSupportedMediaTypeListSync());
   }
 }

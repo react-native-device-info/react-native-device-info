@@ -202,6 +202,7 @@ The example app in this repository shows an example usage of every single API, c
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ✅    | ❌  |
 | [syncUniqueId()](#syncuniqueid)                                   | `Promise<string>`   |  ✅  |   ❌    |   ❌    | ❌  |
+| [getSupportedMediaTypeList()](#getSupportedMediaTypeList)         | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 
 ---
 
@@ -1091,6 +1092,16 @@ DeviceInfo.getUsedMemory().then((usedMemory) => {
 });
 ```
 
+---
+
+### getSupportedMediaTypeList()
+This method gets the list of supported media codecs.
+#### Examples
+```js
+DeviceInfo.getSupportedMediaTypeList().then((string[]) => {
+  // ["audio/mpeg", "audio/mp4a-latm", "audio/mp4a-latm", "audio/mp4a-latm", "audio/mp4a-latm", "video/avc", "video/3gpp", "video/hevc", "video/mp4v-es", "video/av01", "video/avc", "video/avc", "video/avc", "video/avc"]
+});
+```
 ---
 
 ### getUserAgent()
