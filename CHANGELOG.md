@@ -1,3 +1,10 @@
+# [10.12.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.11.0...v10.12.0) (2023-11-28)
+
+
+### Features
+
+* **android:** implemented getSupportedMediaTypeList method ([#1590](https://github.com/react-native-device-info/react-native-device-info/issues/1590)) ([89a3c4c](https://github.com/react-native-device-info/react-native-device-info/commit/89a3c4c8860f58b2963a3a4274cdb492dcd50b7c))
+
 # [10.11.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.10.0...v10.11.0) (2023-09-19)
 
 
