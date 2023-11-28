@@ -151,6 +151,8 @@ interface ExposedNativeMethods {
   isKeyboardConnectedSync: () => boolean;
   isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
+  getSupportedMediaTypeList: () => Promise<string[]>
+  getSupportedMediaTypeListSync: () => string[]
 }
 
 export interface DeviceInfoNativeModule

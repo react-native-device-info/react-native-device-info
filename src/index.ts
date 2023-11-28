@@ -705,6 +705,16 @@ export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatfo
   defaultValue: false,
 });
 
+export const [getSupportedMediaTypeList, getSupportedMediaTypeListSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['android'],
+    getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
+    syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
+    defaultValue: []
+  }
+)
+
+
 export const isTabletMode = () =>
   getSupportedPlatformInfoAsync({
     supportedPlatforms: ['windows'],
@@ -1017,6 +1027,8 @@ const DeviceInfo: DeviceInfoModule = {
   useManufacturer,
   useIsHeadphonesConnected,
   useBrightness,
+  getSupportedMediaTypeList,
+  getSupportedMediaTypeListSync
 };
 
 export default DeviceInfo;
