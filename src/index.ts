@@ -717,7 +717,7 @@ export const [getSupportedMediaTypeList, getSupportedMediaTypeListSync] = getSup
 
 export const isTabletMode = () =>
   getSupportedPlatformInfoAsync({
-    supportedPlatforms: ['windows'],
+    supportedPlatforms: ['android', 'windows'],
     getter: () => RNDeviceInfo.isTabletMode(),
     defaultValue: false,
   });

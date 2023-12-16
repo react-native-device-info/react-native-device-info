@@ -197,7 +197,7 @@ The example app in this repository shows an example usage of every single API, c
 | [isTablet()](#istablet)                                           | `boolean`           |  ✅  |   ✅    |   ✅    | ❌  |
 | [isLowRamDevice()](#istablet)                                     | `boolean`           |  ❌  |   ✅    |   ❌    | ❌  |
 | [isDisplayZoomed()](#isdisplayzoomed)                             | `boolean`           |  ✅  |   ❌    |   ❌    | ❌  |
-| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ❌    |   ✅    | ❌  |
+| [isTabletMode()](#istabletmode)                                   | `Promise<bool>`     |  ❌  |   ✅    |   ✅    | ❌  |
 | [supported32BitAbis()](#supported32BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supported64BitAbis()](#supported64BitAbis)                       | `Promise<string[]>` |  ❌  |   ✅    |   ❌    | ❌  |
 | [supportedAbis()](#supportedAbis)                                 | `Promise<string[]>` |  ✅  |   ✅    |   ✅    | ❌  |
@@ -1258,8 +1258,9 @@ Tells if the device is in tablet mode.
 #### Examples
 
 ```js
-let isTabletMode = DeviceInfo.isTabletMode();
-// true
+DeviceInfo.isTabletMode.then((isTabletMode) => {
+  // true
+});
 ```
 
 ---

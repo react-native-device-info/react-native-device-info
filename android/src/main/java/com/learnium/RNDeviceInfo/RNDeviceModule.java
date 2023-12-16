@@ -1033,4 +1033,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   public void getSupportedMediaTypeList(Promise promise) {
     promise.resolve(getSupportedMediaTypeListSync());
   }
+
+  // Some andorid devices with foldable screen can dynamically switch screen sizes.
+  // Different from "isTablet," it is obtained dynamically.
+   @ReactMethod
+  public void isTabletMode(Promise promise) {
+    promise.resolve(deviceTypeResolver.isTablet());
+  }
 }
