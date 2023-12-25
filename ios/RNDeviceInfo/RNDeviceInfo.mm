@@ -29,196 +29,198 @@ RCT_EXPORT_MODULE()
     return NO;
 }
 
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params { 
+#ifdef RCT_NEW_ARCH_ENABLED
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params {
     return std::make_shared<facebook::react::NativeRNDeviceInfoSpecJSI>(params);
 }
+#endif
 
-- (void)getDeviceName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getDeviceName]);
 }
 
-- (NSString *)getDeviceNameSync { 
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getDeviceNameSync) { 
     return [[self moduleImpl] getDeviceName];
 }
 
-- (void)getCarrier:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) { 
     resolve([[self moduleImpl] getCarrier]);
 }
 
 
-- (NSString *)getCarrierSync { 
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getCarrierSync) { 
     return [[self moduleImpl] getCarrier];
 }
 
-- (void)getUniqueId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getUniqueId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getUniqueId]);
 }
 
-- (NSString *)getUniqueIdSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getUniqueIdSync) {
     return [[self moduleImpl] getUniqueId];
 }
 
-- (void)syncUniqueId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(syncUniqueId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] syncUniqueId]);
 }
 
-- (NSNumber *)isEmulatorSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, isEmulatorSync) {
     return @([[self moduleImpl] isEmulator]);
 }
 
-- (void)isEmulator:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] isEmulator]));
 }
 
-- (void)getDeviceToken:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     [[self moduleImpl] getDeviceToken:resolve reject:reject];
 }
 
-- (void)getFontScale:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getFontScale:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] getFontScale]));
 }
 
-- (NSNumber *)getFontScaleSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getFontScaleSync) {
     return @([[self moduleImpl] getFontScale]);
 }
 
-- (NSNumber *)getTotalMemorySync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getTotalMemorySync) {
     return @([[self moduleImpl] getTotalMemory]);
 }
 
-- (void)getTotalMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getTotalMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     return resolve(@([[self moduleImpl] getTotalMemory]));
 }
 
-- (NSNumber *)getTotalDiskCapacitySync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getTotalDiskCapacitySync) {
     return @([[self moduleImpl] getTotalDiskCapacity]);
 }
 
-- (void)getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] getTotalDiskCapacity]));
 }
 
-- (NSNumber *)getFreeDiskStorageSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getFreeDiskStorageSync) {
     return @([[self moduleImpl] getFreeDiskStorage]);
 }
 
-- (void)getFreeDiskStorage:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] getFreeDiskStorage]));
 }
 
-- (void)getBuildId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+RCT_EXPORT_METHOD(getBuildId:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) { 
     resolve([[self moduleImpl] getBuildId]);
 }
 
-- (NSString *)getBuildIdSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getBuildIdSync) {
     return [[self moduleImpl] getBuildId];
 }
 
-- (NSArray<NSString *> *)getSupportedAbisSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSArray<NSString *> *, getSupportedAbisSync) {
     return [[self moduleImpl] getSupportedAbis];
 }
 
-- (void)getSupportedAbis:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getSupportedAbis:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getSupportedAbis]);
 }
 
-- (NSString *)getIpAddressSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getIpAddressSync) {
     return [[self moduleImpl] getIpAddress];
 }
 
-- (void)getIpAddress:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getIpAddress:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getIpAddress]);
 }
 
-- (NSNumber *)isPinOrFingerprintSetSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, isPinOrFingerprintSetSync) {
     return @([[self moduleImpl] isPinOrFingerprintSet]);
 }
 
-- (void)isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] isPinOrFingerprintSet]));
 }
 
-- (NSDictionary *)getPowerStateSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSDictionary *, getPowerStateSync) {
     return [[self moduleImpl] getPowerState];
 }
 
-- (void)getPowerState:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject { 
+RCT_EXPORT_METHOD(getPowerState:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) { 
     resolve([[self moduleImpl] getPowerState]);
 }
 
-- (NSNumber *)getBatteryLevelSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getBatteryLevelSync) {
     return @([[self moduleImpl] getBatteryLevel]);
 }
 
-- (void)getBatteryLevel:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getBatteryLevel:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] getBatteryLevel]));
 }
 
-- (NSNumber *)isBatteryChargingSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, isBatteryChargingSync) {
     return @([[self moduleImpl] isBatteryCharging]);
 }
 
-- (void)isBatteryCharging:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(isBatteryCharging:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] isBatteryCharging]));
 }
 
-- (NSNumber *)isLocationEnabledSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, isLocationEnabledSync) {
     return @([[self moduleImpl] isLocationEnabled]);
 }
 
-- (void)isLocationEnabled:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(isLocationEnabled:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] isLocationEnabled]));
 }
 
-- (NSNumber *)isHeadphonesConnectedSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, isHeadphonesConnectedSync) {
     return @([[self moduleImpl] isHeadphonesConnected]);
 }
 
-- (void)isHeadphonesConnected:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(isHeadphonesConnected:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] isHeadphonesConnected]));
 }
 
-- (NSNumber *)getUsedMemorySync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getUsedMemorySync) {
     return @([[self moduleImpl] getUsedMemory]);
 }
 
-- (void)getUsedMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getUsedMemory:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] getUsedMemory]));
 }
 
-- (void)getUserAgent:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getUserAgent:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     [[self moduleImpl] getUserAgent:resolve reject:reject];
 }
 
-- (NSDictionary *)getAvailableLocationProvidersSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSDictionary *, getAvailableLocationProvidersSync) {
     return [[self moduleImpl] getAvailableLocationProviders];
 }
 
-- (void)getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getAvailableLocationProviders:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getAvailableLocationProviders]);
 }
 
-- (NSString *)getInstallerPackageNameSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getInstallerPackageNameSync) {
     return [[self moduleImpl] getInstallerPackageName];
 }
 
-- (void)getInstallerPackageName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getInstallerPackageName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getInstallerPackageName]);
 }
 
-- (NSNumber *)getBrightnessSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getBrightnessSync) {
     return [[self moduleImpl] getBrightness];
 }
 
-- (void)getBrightness:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getBrightness]);
 }
 
-- (NSNumber *)getFirstInstallTimeSync {
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSNumber *, getFirstInstallTimeSync) {
     return @([[self moduleImpl] getFirstInstallTime]);
 }
 
-- (void)getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve(@([[self moduleImpl] getFirstInstallTime]));
 }
 
