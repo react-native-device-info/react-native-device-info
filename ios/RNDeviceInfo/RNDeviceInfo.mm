@@ -35,6 +35,23 @@ RCT_EXPORT_MODULE()
 }
 #endif
 
+- (NSDictionary *)constantsToExport {
+    return @{
+         @"deviceId": [[self moduleImpl] getDeviceId],
+         @"bundleId": [[self moduleImpl] getBundleId],
+         @"systemName": [[self moduleImpl] getSystemName],
+         @"systemVersion": [[self moduleImpl] getSystemVersion],
+         @"appVersion": [[self moduleImpl] getAppVersion],
+         @"buildNumber": [[self moduleImpl] getBuildNumber],
+         @"isTablet": @([[self moduleImpl] isTablet]),
+         @"appName": [[self moduleImpl] getAppName],
+         @"brand": @"Apple",
+         @"model": [[self moduleImpl] getModel],
+         @"deviceType": [[self moduleImpl] getDeviceTypeName],
+         @"isDisplayZoomed": @([[self moduleImpl] isDisplayZoomed]),
+     };
+}
+
 RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
     resolve([[self moduleImpl] getDeviceName]);
 }

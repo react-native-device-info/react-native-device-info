@@ -36,6 +36,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getInstallerPackageName;
 - (NSNumber *)getBrightness;
 - (long long)getFirstInstallTime;
+- (NSString *)getDeviceId;
+- (NSString *)getBundleId;
+- (NSString *)getSystemName;
+- (NSString *)getSystemVersion;
+- (NSString *)getAppVersion;
+- (NSString *)getBuildNumber;
+- (BOOL)isTablet;
+- (NSString *)getAppName;
+- (NSString *)getModel;
+- (NSString *)getDeviceTypeName;
+- (BOOL)isDisplayZoomed;
 @end
 
 NS_ASSUME_NONNULL_END

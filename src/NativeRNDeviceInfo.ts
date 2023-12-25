@@ -2,6 +2,7 @@ import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
 type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
+type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Desktop' | 'GamingConsole' | 'unknown';
 type PowerState = {
   batteryLevel: number;
   batteryState: BatteryState;
@@ -58,6 +59,21 @@ export interface Spec extends TurboModule {
   getBrightnessSync(): number;
   getFirstInstallTime(): Promise<number>;
   getFirstInstallTimeSync(): number;
+  getConstants(): {
+    appName: string;
+    appVersion: string;
+    brand: string;
+    buildNumber: string;
+    bundleId: string;
+    deviceId: string;
+    deviceType: DeviceType;
+    isTablet: boolean;
+    isLowRamDevice: boolean;
+    isDisplayZoomed: boolean;
+    model: string;
+    systemName: string;
+    systemVersion: string;
+  };
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('RNDeviceInfo');
