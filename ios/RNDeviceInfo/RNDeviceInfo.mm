@@ -242,8 +242,8 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
          .brand = @"Apple",
          .model = [[self moduleImpl] getModel],
          .deviceType = [[self moduleImpl] getDeviceTypeName],
-         .isDisplayZoomed = @([[self moduleImpl] isDisplayZoomed]),
-         .isLowRamDevice = @([[self moduleImpl] isLowRamDevice]),
+         .isDisplayZoomed = [[self moduleImpl] isDisplayZoomed],
+         .isLowRamDevice = [[self moduleImpl] isLowRamDevice],
     });
 }
 #else
@@ -255,7 +255,7 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve reject:(RC
          @"systemVersion": [[self moduleImpl] getSystemVersion],
          @"appVersion": [[self moduleImpl] getAppVersion],
          @"buildNumber": [[self moduleImpl] getBuildNumber],
-         @"isTablet": [[self moduleImpl] isTablet],
+         @"isTablet": @([[self moduleImpl] isTablet]),
          @"appName": [[self moduleImpl] getAppName],
          @"brand": @"Apple",
          @"model": [[self moduleImpl] getModel],
