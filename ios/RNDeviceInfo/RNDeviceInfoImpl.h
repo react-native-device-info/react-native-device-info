@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getModel;
 - (NSString *)getDeviceTypeName;
 - (BOOL)isDisplayZoomed;
+- (BOOL)isLowRamDevice;
 @end
 
 NS_ASSUME_NONNULL_END

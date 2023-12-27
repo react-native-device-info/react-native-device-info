@@ -452,6 +452,11 @@ typedef NS_ENUM(NSInteger, DeviceType) {
     return [UIScreen mainScreen].scale != [UIScreen mainScreen].nativeScale;
 }
 
+// stub method to satisfy Turbo Module spec
+- (BOOL)isLowRamDevice {
+    return true;
+}
+
 - (DeviceType) getDeviceType
 {
     switch ([[UIDevice currentDevice] userInterfaceIdiom]) {

@@ -15,6 +15,6 @@
 @end
 
 #ifdef RCT_NEW_ARCH_ENABLED
-@interface RNDeviceInfo () : <NativeRNDeviceInfoSpec>
+@interface RNDeviceInfo () <NativeRNDeviceInfoSpec>
 @end
 #endif

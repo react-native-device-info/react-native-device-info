@@ -1,7 +1,11 @@
 import { Platform, NativeModules } from 'react-native';
 import { DeviceInfoNativeModule } from './privateTypes';
+import NativeRNDeviceInfo from '../NativeRNDeviceInfo';
 
-let RNDeviceInfo: DeviceInfoNativeModule | undefined = NativeModules.RNDeviceInfo;
+let RNDeviceInfo: DeviceInfoNativeModule | undefined = Platform.select({
+  ios: NativeRNDeviceInfo,
+  default: NativeModules.RNDeviceInfo,
+});
 
 // @ts-ignore
 if (Platform.OS === 'web' || Platform.OS === 'dom') {
