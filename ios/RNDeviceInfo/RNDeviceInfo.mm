@@ -9,8 +9,9 @@
 #import "RNDeviceInfo.h"
 #import "RNDeviceInfoImpl.h"
 
-@interface RNDeviceInfo ()
+@interface RNDeviceInfo () <RNDeviceInfoDelegate>
 @property RNDeviceInfoImpl *moduleImpl;
+@property BOOL hasListeners;
 @end
 
 @implementation RNDeviceInfo
@@ -19,14 +20,36 @@
     self = [super init];
     if (self) {
         self.moduleImpl = [RNDeviceInfoImpl new];
+        self.moduleImpl.delegate = self;
     }
     return self;
 }
 
 RCT_EXPORT_MODULE()
 
+
 + (BOOL)requiresMainQueueSetup {
     return NO;
+}
+
+- (void)sendEventWithName:(NSString *)name body:(id)body{
+    if (!self.hasListeners) {
+        return;
+    }
+    
+    [super sendEventWithName:name body:body];
+}
+
+- (void)startObserving {
+    self.hasListeners = YES;
+}
+
+- (void)stopObserving {
+    self.hasListeners = NO;
+}
+
+- (NSArray<NSString *> *)supportedEvents {
+    return [[self moduleImpl] supportedEvents];
 }
 
 #ifdef RCT_NEW_ARCH_ENABLED

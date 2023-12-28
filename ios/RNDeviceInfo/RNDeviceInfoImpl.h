@@ -10,7 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol RNDeviceInfoDelegate
+- (void) sendEventWithName:(NSString *)eventName body:(id)body;
+@end
+
 @interface RNDeviceInfoImpl : NSObject
+@property (nonatomic, weak, nullable) id<RNDeviceInfoDelegate> delegate;
+
+- (NSArray<NSString *> *)supportedEvents;
 - (NSString *)getDeviceName;
 - (NSString *)getCarrier;
 - (NSString *)getBuildId;

@@ -6,12 +6,12 @@
 //  Copyright © 2015 Learnium Limited. All rights reserved.
 //
 
-#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #ifdef RCT_NEW_ARCH_ENABLED
 #import "RNDeviceInfoSpec.h"
 #endif
 
-@interface RNDeviceInfo : NSObject<RCTBridgeModule>
+@interface RNDeviceInfo : RCTEventEmitter
 @end
 
 #ifdef RCT_NEW_ARCH_ENABLED

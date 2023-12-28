@@ -16,7 +16,8 @@ import type {
   LocationProviderInfo,
   PowerState,
 } from './internal/types';
-import NativeRNDeviceInfo from './NativeRNDeviceInfo';
+import NativeRNDeviceInfo from './internal/NativeRNDeviceInfo';
+import { deviceInfoEmitter } from './internal/deviceInfoEmitter';
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'uniqueId',
@@ -963,7 +964,6 @@ export async function getDeviceToken() {
   return 'unknown';
 }
 
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
 

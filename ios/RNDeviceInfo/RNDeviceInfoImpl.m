@@ -37,9 +37,128 @@ typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeUnknown
 };
 
+typedef NS_ENUM(NSInteger, RNDeviceInfoEventName) {
+    BatteryLevelDidChange,
+    BatteryLevelIsLow,
+    PowerStateDidChange,
+    HeadphoneConnectionDidChange,
+    BrightnessDidChange,
+};
+
 #define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"unknown", nil]
 
+@interface RNDeviceInfoImpl ()
+@property (nonatomic) float lowBatteryThreshold;
+@end
+
 @implementation RNDeviceInfoImpl
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+#if !TARGET_OS_TV
+        self.lowBatteryThreshold = 0.20;
+        [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(batteryLevelDidChange:)
+                                                     name:UIDeviceBatteryLevelDidChangeNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(powerStateDidChange:)
+                                                     name:UIDeviceBatteryStateDidChangeNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(powerStateDidChange:)
+                                                     name:NSProcessInfoPowerStateDidChangeNotification
+                                                   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(headphoneConnectionDidChange:)
+                                                     name:AVAudioSessionRouteChangeNotification
+                                                   object: [AVAudioSession sharedInstance]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(brightnessDidChange:)
+                                                     name:UIScreenBrightnessDidChangeNotification
+                                                   object: nil];
+#endif
+    }
+    return self;
+}
+
+- (void) batteryLevelDidChange:(NSNotification *)notification {
+    float batteryLevel = self.getBatteryLevel;
+    [self.delegate sendEventWithName:@"RNDeviceInfo_batteryLevelDidChange" body:@(batteryLevel)];
+
+    if (batteryLevel <= self.lowBatteryThreshold) {
+        [self.delegate sendEventWithName:@"RNDeviceInfo_batteryLevelIsLow" body:@(batteryLevel)];
+    }
+}
+
+- (void) powerStateDidChange:(NSNotification *)notification {
+    [self.delegate sendEventWithName:@"RNDeviceInfo_powerStateDidChange" body:self.powerState];
+}
+
+- (void) headphoneConnectionDidChange:(NSNotification *)notification {
+    BOOL isConnected = [self isHeadphonesConnected];
+    [self.delegate sendEventWithName:@"RNDeviceInfo_headphoneConnectionDidChange" body:[NSNumber numberWithBool:isConnected]];
+}
+
+- (void) brightnessDidChange:(NSNotification *)notification {
+    [self.delegate sendEventWithName:@"RNDeviceInfo_brightnessDidChange" body:self.getBrightness];
+}
+
+- (NSDictionary *) powerState {
+#if RCT_DEV && (!TARGET_IPHONE_SIMULATOR) && !TARGET_OS_TV
+    if ([UIDevice currentDevice].isBatteryMonitoringEnabled != true) {
+        RCTLogWarn(@"Battery monitoring is not enabled. "
+                   "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
+    }
+#endif
+#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV
+    if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
+        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
+    }
+#endif
+    float batteryLevel = self.getBatteryLevel;
+
+    return @{
+#if TARGET_OS_TV
+             @"batteryLevel": @(batteryLevel),
+             @"batteryState": @"full",
+#else
+             @"batteryLevel": @(batteryLevel),
+             @"batteryState": [@[@"unknown", @"unplugged", @"charging", @"full"] objectAtIndex: [UIDevice currentDevice].batteryState],
+             @"lowPowerMode": @([NSProcessInfo processInfo].isLowPowerModeEnabled),
+#endif
+             };
+}
+
+- (NSArray<NSString *> *)supportedEvents {
+    NSArray *eventNames = @[@(BatteryLevelDidChange), @(BatteryLevelIsLow), @(PowerStateDidChange), @(HeadphoneConnectionDidChange), @(BrightnessDidChange)];
+
+    NSMutableArray<NSString *> *eventStrings = [[NSMutableArray alloc] init];
+
+    for (NSNumber *eventNameNumber in eventNames) {
+        RNDeviceInfoEventName eventName = (RNDeviceInfoEventName)[eventNameNumber integerValue];
+        NSString *eventNameString = [self getEventName:eventName];
+        [eventStrings addObject:eventNameString];
+    }
+
+    return eventStrings;
+}
+
+- (NSString *)getEventName:(RNDeviceInfoEventName) eventName {
+    switch (eventName) {
+        case BatteryLevelDidChange: return @"RNDeviceInfo_batteryLevelDidChange";
+        case BatteryLevelIsLow: return @"RNDeviceInfo_batteryLevelIsLow";
+        case PowerStateDidChange: return @"RNDeviceInfo_powerStateDidChange";
+        case HeadphoneConnectionDidChange: return @"RNDeviceInfo_headphoneConnectionDidChange";
+        case BrightnessDidChange: return @"RNDeviceInfo_brightnessDidChange";
+        default:
+            NSAssert(false, @"Unknown event name passed");
+    }
+}
 
 - (nonnull NSString *)getDeviceName {
     UIDevice *currentDevice = [UIDevice currentDevice];

@@ -1,6 +1,6 @@
 import { Platform, NativeModules } from 'react-native';
 import { DeviceInfoNativeModule } from './privateTypes';
-import NativeRNDeviceInfo from '../NativeRNDeviceInfo';
+import NativeRNDeviceInfo from './NativeRNDeviceInfo';
 
 let RNDeviceInfo: DeviceInfoNativeModule | undefined = Platform.select({
   ios: NativeRNDeviceInfo,

@@ -1,4 +1,10 @@
-import { TurboModule, TurboModuleRegistry } from 'react-native';
+import {
+  NativeEventEmitter,
+  NativeModules,
+  Platform,
+  TurboModule,
+  TurboModuleRegistry,
+} from 'react-native';
 
 type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
 enum DeviceType {
@@ -81,6 +87,9 @@ export interface Spec extends TurboModule {
   getFirstInstallTime(): Promise<number>;
   getFirstInstallTimeSync(): number;
   getConstants(): Constants;
+
+  addListener(eventName: string): void;
+  removeListeners(count: number): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('RNDeviceInfo');
