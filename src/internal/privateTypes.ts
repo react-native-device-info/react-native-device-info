@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import type { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
+import { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
 
 export type NotchDevice = {
   brand: string;
@@ -151,8 +151,8 @@ interface ExposedNativeMethods {
   isKeyboardConnectedSync: () => boolean;
   isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
-  getSupportedMediaTypeList: () => Promise<string[]>
-  getSupportedMediaTypeListSync: () => string[]
+  getSupportedMediaTypeList: () => Promise<string[]>;
+  getSupportedMediaTypeListSync: () => string[];
 }
 
 export interface DeviceInfoNativeModule

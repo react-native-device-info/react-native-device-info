@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
 import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
@@ -10,12 +10,7 @@ import {
   getSupportedPlatformInfoSync,
 } from './internal/supported-platform-info';
 import { DeviceInfoModule } from './internal/privateTypes';
-import type {
-  AsyncHookResult,
-  DeviceType,
-  LocationProviderInfo,
-  PowerState,
-} from './internal/types';
+import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from './internal/types';
 import NativeRNDeviceInfo from './internal/NativeRNDeviceInfo';
 import { deviceInfoEmitter } from './internal/deviceInfoEmitter';
 
@@ -1090,7 +1085,7 @@ export function useBrightness(): number | null {
   return brightness;
 }
 
-export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
+export { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
 const DeviceInfo: DeviceInfoModule = {
   getAndroidId,

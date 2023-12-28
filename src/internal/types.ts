@@ -1,9 +1,4 @@
-import type {
-  DeviceType,
-  BatteryState,
-  PowerState,
-  LocationProviderInfo,
-} from './NativeRNDeviceInfo';
+import { DeviceType, BatteryState, PowerState, LocationProviderInfo } from './NativeRNDeviceInfo';
 
 export { DeviceType, BatteryState, PowerState, LocationProviderInfo };
 
