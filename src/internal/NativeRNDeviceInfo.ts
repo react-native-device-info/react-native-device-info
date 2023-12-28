@@ -1,13 +1,7 @@
-import {
-  NativeEventEmitter,
-  NativeModules,
-  Platform,
-  TurboModule,
-  TurboModuleRegistry,
-} from 'react-native';
+import { TurboModule, TurboModuleRegistry } from 'react-native';
 
-type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
-enum DeviceType {
+export type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
+export enum DeviceType {
   Handset = 'Handset',
   Tablet = 'Tablet',
   Tv = 'Tv',
@@ -15,13 +9,13 @@ enum DeviceType {
   GamingConsole = 'GamingConsole',
   Unknown = 'unknown',
 }
-type PowerState = {
+export type PowerState = {
   batteryLevel: number;
   batteryState: BatteryState;
   lowPowerMode: boolean;
   [key: string]: unknown;
 };
-type LocationProviderInfo = { [key: string]: boolean };
+export type LocationProviderInfo = { [key: string]: boolean };
 type Constants = {
   appName: string;
   appVersion: string;
