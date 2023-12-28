@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import type { AsyncHookResult } from './types';
 
@@ -55,5 +55,5 @@ export function useOnEvent<T>(
   }, [eventName]);
 
   // loading will only be true while getting the inital value. After that, it will always be false, but a new result may occur
-  return { loading, result };
+  return useMemo(() => ({ loading, result }), [loading, result]);
 }
