@@ -25,6 +25,8 @@ import android.os.BatteryManager;
 import android.os.Debug;
 import android.os.Process;
 import android.provider.Settings;
+import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodInfo;
 import android.webkit.WebSettings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -78,6 +80,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private BroadcastReceiver headphoneWiredConnectionReceiver;
   private BroadcastReceiver headphoneBluetoothConnectionReceiver;
   private RNInstallReferrerClient installReferrerClient;
+  private InputMethodManager inputMethodManager;
 
   private double mLastBatteryLevel = -1;
   private String mLastBatteryState = "";
@@ -92,6 +95,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     this.deviceTypeResolver = new DeviceTypeResolver(reactContext);
     this.deviceIdResolver = new DeviceIdResolver(reactContext);
     this.installReferrerClient = new RNInstallReferrerClient(reactContext.getBaseContext());
+    this.inputMethodManager = (InputMethodManager) reactContext.getSystemService(Context.INPUT_METHOD_SERVICE);
   }
 
   @Override
@@ -294,7 +298,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
             || Build.HARDWARE.toLowerCase(Locale.ROOT).contains("nox")
             || Build.PRODUCT.toLowerCase(Locale.ROOT).contains("nox")
             || Build.SERIAL.toLowerCase(Locale.ROOT).contains("nox")
-            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"));
+            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
+            || this.hasKeyboard("memuime"));
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
@@ -1066,5 +1071,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     } else {
       context.registerReceiver(receiver, filter);
     }
+  }
+
+  private boolean hasKeyboard(String name) {
+    List<InputMethodInfo> inputMethodList = this.inputMethodManager.getEnabledInputMethodList();
+    if (inputMethodList != null && !inputMethodList.isEmpty()) {
+      for (InputMethodInfo inputMethodInfo : inputMethodList) {
+        String serviceName = inputMethodInfo.getServiceName().toLowerCase();
+        String id = inputMethodInfo.getId().toLowerCase();
+        if (serviceName.contains(name.toLowerCase()) || id.contains(name.toLowerCase())) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
