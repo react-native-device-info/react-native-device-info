@@ -43,7 +43,7 @@ yarn add react-native-device-info
 If you want to use Install Referrer tracking, you will need to add this config to your Proguard config
 
 ```
--keepclassmembers class com.android.installreferrer.api.** {
+-keep class com.android.installreferrer.api.** {
   *;
 }
 ```
