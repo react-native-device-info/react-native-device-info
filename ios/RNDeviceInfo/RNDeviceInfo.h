@@ -6,15 +6,15 @@
 //  Copyright © 2015 Learnium Limited. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
-#import <sys/utsname.h>
-#import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
-#import <React/RCTLog.h>
+#ifdef RCT_NEW_ARCH_ENABLED
+#import "RNDeviceInfoSpec.h"
+#endif
 
-@interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule>
-
-@property (nonatomic) float lowBatteryThreshold;
-
+@interface RNDeviceInfo : RCTEventEmitter
 @end
+
+#ifdef RCT_NEW_ARCH_ENABLED
+@interface RNDeviceInfo () <NativeRNDeviceInfoSpec>
+@end
+#endif

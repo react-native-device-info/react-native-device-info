@@ -134,5 +134,10 @@
       "module",
       "typescript"
     ]
+  },
+  "codegenConfig": {
+    "name": "RNDeviceInfoSpec",
+    "type": "modules",
+    "jsSrcsDir": "src/internal"
   }
 }

@@ -1,17 +1,6 @@
-export type DeviceType = 'Handset' | 'Tablet' | 'Tv' | 'Desktop' | 'GamingConsole' | 'unknown';
+import { DeviceType, BatteryState, PowerState, LocationProviderInfo } from './NativeRNDeviceInfo';
 
-export type BatteryState = 'unknown' | 'unplugged' | 'charging' | 'full';
-
-export interface PowerState {
-  batteryLevel: number;
-  batteryState: BatteryState;
-  lowPowerMode: boolean;
-  [key: string]: any;
-}
-
-export interface LocationProviderInfo {
-  [key: string]: boolean;
-}
+export { DeviceType, BatteryState, PowerState, LocationProviderInfo };
 
 export interface AsyncHookResult<T> {
   loading: boolean;

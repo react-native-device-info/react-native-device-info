@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -10,25 +10,27 @@ import {
   getSupportedPlatformInfoSync,
 } from './internal/supported-platform-info';
 import { DeviceInfoModule } from './internal/privateTypes';
-import type {
-  AsyncHookResult,
-  DeviceType,
-  LocationProviderInfo,
-  PowerState,
-} from './internal/types';
+import { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState } from './internal/types';
+import NativeRNDeviceInfo from './internal/NativeRNDeviceInfo';
+import { deviceInfoEmitter } from './internal/deviceInfoEmitter';
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'uniqueId',
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getUniqueId(),
-  syncGetter: () => RNDeviceInfo.getUniqueIdSync(),
+  getter: () =>
+    Platform.select({ ios: NativeRNDeviceInfo.getUniqueId(), default: RNDeviceInfo.getUniqueId() }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getUniqueIdSync(),
+      default: RNDeviceInfo.getUniqueIdSync(),
+    }),
   defaultValue: 'unknown',
 });
 
 let uniqueId: string;
 export async function syncUniqueId() {
   if (Platform.OS === 'ios') {
-    uniqueId = await RNDeviceInfo.syncUniqueId();
+    uniqueId = await NativeRNDeviceInfo.syncUniqueId();
   } else {
     uniqueId = await getUniqueId();
   }
@@ -61,8 +63,16 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
 
 export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getIpAddress(),
-  syncGetter: () => RNDeviceInfo.getIpAddressSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getIpAddress(),
+      default: RNDeviceInfo.getIpAddress(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getIpAddressSync(),
+      default: RNDeviceInfo.getIpAddressSync(),
+    }),
   defaultValue: 'unknown',
 });
 
@@ -95,7 +105,11 @@ export const getDeviceId = () =>
   getSupportedPlatformInfoSync({
     defaultValue: 'unknown',
     memoKey: 'deviceId',
-    getter: () => RNDeviceInfo.deviceId,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().deviceId,
+        default: RNDeviceInfo.deviceId,
+      }),
     supportedPlatforms: ['android', 'ios', 'windows'],
   });
 
@@ -113,7 +127,11 @@ export const getModel = () =>
     memoKey: 'model',
     defaultValue: 'unknown',
     supportedPlatforms: ['ios', 'android', 'windows'],
-    getter: () => RNDeviceInfo.model,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().model,
+        default: RNDeviceInfo.model,
+      }),
   });
 
 export const getBrand = () =>
@@ -121,7 +139,11 @@ export const getBrand = () =>
     memoKey: 'brand',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.brand,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().brand,
+        default: RNDeviceInfo.brand,
+      }),
   });
 
 export const getSystemName = () =>
@@ -131,7 +153,7 @@ export const getSystemName = () =>
     memoKey: 'systemName',
     getter: () =>
       Platform.select({
-        ios: RNDeviceInfo.systemName,
+        ios: NativeRNDeviceInfo.getConstants().systemName,
         android: 'Android',
         windows: 'Windows',
         default: 'unknown',
@@ -141,7 +163,11 @@ export const getSystemName = () =>
 export const getSystemVersion = () =>
   getSupportedPlatformInfoSync({
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.systemVersion,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().systemVersion,
+        default: RNDeviceInfo.systemVersion,
+      }),
     supportedPlatforms: ['android', 'ios', 'windows'],
     memoKey: 'systemVersion',
   });
@@ -149,8 +175,13 @@ export const getSystemVersion = () =>
 export const [getBuildId, getBuildIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'buildId',
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getBuildId(),
-  syncGetter: () => RNDeviceInfo.getBuildIdSync(),
+  getter: () =>
+    Platform.select({ ios: NativeRNDeviceInfo.getBuildId(), default: RNDeviceInfo.getBuildId() }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getBuildIdSync(),
+      default: RNDeviceInfo.getBuildIdSync(),
+    }),
   defaultValue: 'unknown',
 });
 
@@ -167,7 +198,11 @@ export const getBundleId = () =>
     memoKey: 'bundleId',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.bundleId,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().bundleId,
+        default: RNDeviceInfo.bundleId,
+      }),
   });
 
 export const [
@@ -176,8 +211,16 @@ export const [
 ] = getSupportedPlatformInfoFunctions({
   memoKey: 'installerPackageName',
   supportedPlatforms: ['android', 'windows', 'ios'],
-  getter: () => RNDeviceInfo.getInstallerPackageName(),
-  syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getInstallerPackageName(),
+      default: RNDeviceInfo.getInstallerPackageName(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getInstallerPackageNameSync(),
+      default: RNDeviceInfo.getInstallerPackageNameSync(),
+    }),
   defaultValue: 'unknown',
 });
 
@@ -185,7 +228,11 @@ export const getApplicationName = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'appName',
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.appName,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().appName,
+        default: RNDeviceInfo.appName,
+      }),
     supportedPlatforms: ['android', 'ios', 'windows'],
   });
 
@@ -193,7 +240,11 @@ export const getBuildNumber = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'buildNumber',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.buildNumber,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().buildNumber,
+        default: RNDeviceInfo.buildNumber,
+      }),
     defaultValue: 'unknown',
   });
 
@@ -202,7 +253,11 @@ export const getVersion = () =>
     memoKey: 'version',
     defaultValue: 'unknown',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.appVersion,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().appVersion,
+        default: RNDeviceInfo.appVersion,
+      }),
   });
 
 export function getReadableVersion() {
@@ -211,15 +266,31 @@ export function getReadableVersion() {
 
 export const [getDeviceName, getDeviceNameSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getDeviceName(),
-  syncGetter: () => RNDeviceInfo.getDeviceNameSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getDeviceName(),
+      default: RNDeviceInfo.getDeviceName(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getDeviceNameSync(),
+      default: RNDeviceInfo.getDeviceNameSync(),
+    }),
   defaultValue: 'unknown',
 });
 
 export const [getUsedMemory, getUsedMemorySync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getUsedMemory(),
-  syncGetter: () => RNDeviceInfo.getUsedMemorySync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getUsedMemory(),
+      default: RNDeviceInfo.getUsedMemory(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getUsedMemorySync(),
+      default: RNDeviceInfo.getUsedMemorySync(),
+    }),
   defaultValue: -1,
 });
 
@@ -228,7 +299,11 @@ export const getUserAgent = () =>
     memoKey: 'userAgent',
     defaultValue: 'unknown',
     supportedPlatforms: ['android', 'ios', 'web'],
-    getter: () => RNDeviceInfo.getUserAgent(),
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getUserAgent(),
+        default: RNDeviceInfo.getUserAgent(),
+      }),
   });
 
 export const getUserAgentSync = () =>
@@ -241,8 +316,16 @@ export const getUserAgentSync = () =>
 
 export const [getFontScale, getFontScaleSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getFontScale(),
-  syncGetter: () => RNDeviceInfo.getFontScaleSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getFontScale(),
+      default: RNDeviceInfo.getFontScale(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getFontScaleSync(),
+      default: RNDeviceInfo.getFontScaleSync(),
+    }),
   defaultValue: -1,
 });
 
@@ -369,8 +452,13 @@ export const [getIncremental, getIncrementalSync] = getSupportedPlatformInfoFunc
 export const [isEmulator, isEmulatorSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'emulator',
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.isEmulator(),
-  syncGetter: () => RNDeviceInfo.isEmulatorSync(),
+  getter: () =>
+    Platform.select({ ios: NativeRNDeviceInfo.isEmulator(), default: RNDeviceInfo.isEmulator() }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.isEmulatorSync(),
+      default: RNDeviceInfo.isEmulatorSync(),
+    }),
   defaultValue: false,
 });
 
@@ -379,7 +467,11 @@ export const isTablet = () =>
     defaultValue: false,
     supportedPlatforms: ['android', 'ios', 'windows'],
     memoKey: 'tablet',
-    getter: () => RNDeviceInfo.isTablet,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().isTablet,
+        default: RNDeviceInfo.isTablet,
+      }),
   });
 
 export const isLowRamDevice = () =>
@@ -395,14 +487,26 @@ export const isDisplayZoomed = () =>
     defaultValue: false,
     supportedPlatforms: ['ios'],
     memoKey: 'zoomed',
-    getter: () => RNDeviceInfo.isDisplayZoomed,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().isDisplayZoomed,
+        default: RNDeviceInfo.isDisplayZoomed,
+      }),
   });
 
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
   {
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => RNDeviceInfo.isPinOrFingerprintSet(),
-    syncGetter: () => RNDeviceInfo.isPinOrFingerprintSetSync(),
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.isPinOrFingerprintSet(),
+        default: RNDeviceInfo.isPinOrFingerprintSet(),
+      }),
+    syncGetter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.isPinOrFingerprintSetSync(),
+        default: RNDeviceInfo.isPinOrFingerprintSetSync(),
+      }),
     defaultValue: false,
   }
 );
@@ -454,8 +558,16 @@ export const [hasHms, hasHmsSync] = getSupportedPlatformInfoFunctions({
 export const [getFirstInstallTime, getFirstInstallTimeSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'firstInstallTime',
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getFirstInstallTime(),
-  syncGetter: () => RNDeviceInfo.getFirstInstallTimeSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getFirstInstallTime(),
+      default: RNDeviceInfo.getFirstInstallTime(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getFirstInstallTimeSync(),
+      default: RNDeviceInfo.getFirstInstallTimeSync(),
+    }),
   defaultValue: -1,
 });
 
@@ -484,16 +596,29 @@ export const [getPhoneNumber, getPhoneNumberSync] = getSupportedPlatformInfoFunc
 
 export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
-  getter: () => RNDeviceInfo.getCarrier(),
-  syncGetter: () => RNDeviceInfo.getCarrierSync(),
+  getter: () =>
+    Platform.select({ ios: NativeRNDeviceInfo.getCarrier(), default: RNDeviceInfo.getCarrier() }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getCarrierSync(),
+      default: RNDeviceInfo.getCarrierSync(),
+    }),
   defaultValue: 'unknown',
 });
 
 export const [getTotalMemory, getTotalMemorySync] = getSupportedPlatformInfoFunctions({
   memoKey: 'totalMemory',
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getTotalMemory(),
-  syncGetter: () => RNDeviceInfo.getTotalMemorySync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getTotalMemory(),
+      default: RNDeviceInfo.getTotalMemory(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getTotalMemorySync(),
+      default: RNDeviceInfo.getTotalMemorySync(),
+    }),
   defaultValue: -1,
 });
 
@@ -507,8 +632,16 @@ export const [getMaxMemory, getMaxMemorySync] = getSupportedPlatformInfoFunction
 
 export const [getTotalDiskCapacity, getTotalDiskCapacitySync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getTotalDiskCapacity(),
-  syncGetter: () => RNDeviceInfo.getTotalDiskCapacitySync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getTotalDiskCapacity(),
+      default: RNDeviceInfo.getTotalDiskCapacity(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getTotalDiskCapacitySync(),
+      default: RNDeviceInfo.getTotalDiskCapacitySync(),
+    }),
   defaultValue: -1,
 });
 
@@ -536,8 +669,16 @@ export function getTotalDiskCapacityOldSync() {
 
 export const [getFreeDiskStorage, getFreeDiskStorageSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getFreeDiskStorage(),
-  syncGetter: () => RNDeviceInfo.getFreeDiskStorageSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getFreeDiskStorage(),
+      default: RNDeviceInfo.getFreeDiskStorage(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getFreeDiskStorageSync(),
+      default: RNDeviceInfo.getFreeDiskStorageSync(),
+    }),
   defaultValue: -1,
 });
 
@@ -565,8 +706,16 @@ export function getFreeDiskStorageOldSync() {
 
 export const [getBatteryLevel, getBatteryLevelSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getBatteryLevel(),
-  syncGetter: () => RNDeviceInfo.getBatteryLevelSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getBatteryLevel(),
+      default: RNDeviceInfo.getBatteryLevel(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getBatteryLevelSync(),
+      default: RNDeviceInfo.getBatteryLevelSync(),
+    }),
   defaultValue: -1,
 });
 
@@ -574,15 +723,31 @@ export const [getPowerState, getPowerStateSync] = getSupportedPlatformInfoFuncti
   Partial<PowerState>
 >({
   supportedPlatforms: ['ios', 'android', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getPowerState(),
-  syncGetter: () => RNDeviceInfo.getPowerStateSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getPowerState(),
+      default: RNDeviceInfo.getPowerState(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getPowerStateSync(),
+      default: RNDeviceInfo.getPowerStateSync(),
+    }),
   defaultValue: {},
 });
 
 export const [isBatteryCharging, isBatteryChargingSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.isBatteryCharging(),
-  syncGetter: () => RNDeviceInfo.isBatteryChargingSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.isBatteryCharging(),
+      default: RNDeviceInfo.isBatteryCharging(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.isBatteryChargingSync(),
+      default: RNDeviceInfo.isBatteryChargingSync(),
+    }),
   defaultValue: false,
 });
 
@@ -607,7 +772,11 @@ export const getDeviceType = () => {
     memoKey: 'deviceType',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.deviceType,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().deviceType,
+        default: RNDeviceInfo.deviceType,
+      }),
   });
 };
 
@@ -616,15 +785,27 @@ export const getDeviceTypeSync = () => {
     memoKey: 'deviceType',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => RNDeviceInfo.deviceType,
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.getConstants().deviceType,
+        default: RNDeviceInfo.deviceType,
+      }),
   });
 };
 
 export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
   memoKey: '_supportedAbis',
   supportedPlatforms: ['android', 'ios', 'windows'],
-  getter: () => RNDeviceInfo.getSupportedAbis(),
-  syncGetter: () => RNDeviceInfo.getSupportedAbisSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getSupportedAbis(),
+      default: RNDeviceInfo.getSupportedAbis(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getSupportedAbisSync(),
+      default: RNDeviceInfo.getSupportedAbisSync(),
+    }),
   defaultValue: [] as string[],
 });
 
@@ -677,16 +858,32 @@ export const [
 
 export const [isLocationEnabled, isLocationEnabledSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'web'],
-  getter: () => RNDeviceInfo.isLocationEnabled(),
-  syncGetter: () => RNDeviceInfo.isLocationEnabledSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.isLocationEnabled(),
+      default: RNDeviceInfo.isLocationEnabled(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.isLocationEnabledSync(),
+      default: RNDeviceInfo.isLocationEnabledSync(),
+    }),
   defaultValue: false,
 });
 
 export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
   {
     supportedPlatforms: ['android', 'ios'],
-    getter: () => RNDeviceInfo.isHeadphonesConnected(),
-    syncGetter: () => RNDeviceInfo.isHeadphonesConnectedSync(),
+    getter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.isHeadphonesConnected(),
+        default: RNDeviceInfo.isHeadphonesConnected(),
+      }),
+    syncGetter: () =>
+      Platform.select({
+        ios: NativeRNDeviceInfo.isHeadphonesConnectedSync(),
+        default: RNDeviceInfo.isHeadphonesConnectedSync(),
+      }),
     defaultValue: false,
   }
 );
@@ -705,15 +902,15 @@ export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatfo
   defaultValue: false,
 });
 
-export const [getSupportedMediaTypeList, getSupportedMediaTypeListSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android'],
-    getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
-    syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
-    defaultValue: []
-  }
-)
-
+export const [
+  getSupportedMediaTypeList,
+  getSupportedMediaTypeListSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
+  syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
+  defaultValue: [],
+});
 
 export const isTabletMode = () =>
   getSupportedPlatformInfoAsync({
@@ -727,26 +924,41 @@ export const [
   getAvailableLocationProvidersSync,
 ] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
-  getter: () => RNDeviceInfo.getAvailableLocationProviders(),
-  syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getAvailableLocationProviders(),
+      default: RNDeviceInfo.getAvailableLocationProviders(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getAvailableLocationProvidersSync(),
+      default: RNDeviceInfo.getAvailableLocationProvidersSync(),
+    }),
   defaultValue: {},
 });
 
 export const [getBrightness, getBrightnessSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['ios'],
-  getter: () => RNDeviceInfo.getBrightness(),
-  syncGetter: () => RNDeviceInfo.getBrightnessSync(),
+  getter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getBrightness(),
+      default: RNDeviceInfo.getBrightness(),
+    }),
+  syncGetter: () =>
+    Platform.select({
+      ios: NativeRNDeviceInfo.getBrightnessSync(),
+      default: RNDeviceInfo.getBrightnessSync(),
+    }),
   defaultValue: -1,
 });
 
 export async function getDeviceToken() {
   if (Platform.OS === 'ios') {
-    return RNDeviceInfo.getDeviceToken();
+    return NativeRNDeviceInfo.getDeviceToken();
   }
   return 'unknown';
 }
 
-const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 export function useBatteryLevel(): number | null {
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
 
@@ -873,7 +1085,7 @@ export function useBrightness(): number | null {
   return brightness;
 }
 
-export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
+export { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
 
 const DeviceInfo: DeviceInfoModule = {
   getAndroidId,
@@ -1028,7 +1240,7 @@ const DeviceInfo: DeviceInfoModule = {
   useIsHeadphonesConnected,
   useBrightness,
   getSupportedMediaTypeList,
-  getSupportedMediaTypeListSync
+  getSupportedMediaTypeListSync,
 };
 
 export default DeviceInfo;
