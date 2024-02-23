@@ -314,7 +314,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"AppleTV3,1": @"Apple TV", // Apple TV (3rd Generation)
         @"AppleTV3,2": @"Apple TV", // Apple TV (3rd Generation - Rev A)
         @"AppleTV5,3": @"Apple TV", // Apple TV (4th Generation)
-        @"AppleTV6,2": @"Apple TV 4K" // Apple TV 4K
+        @"AppleTV6,2": @"Apple TV 4K", // Apple TV 4K
         @"RealityDevice14,1": @"Apple Vision Pro" // Apple Vision Pro
     };
 }
@@ -368,7 +368,7 @@ RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromis
 }
 
 - (NSString *) getBuildId {
-#if TARGET_OS_TV || TARGET_OS_VISION
+#if TARGET_OS_TV
     return @"unknown";
 #else
     size_t bufferSize = 64;
