@@ -22,22 +22,22 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
 
-#if TARGET_OS_VISION
-#include <sys/xattr.h>
-#endif
-
 typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeHandset,
     DeviceTypeTablet,
     DeviceTypeTv,
     DeviceTypeDesktop,
+    DeviceTypeHeadset,
     DeviceTypeUnknown
 };
 
-#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"unknown", nil]
+#define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"Headset", @"unknown", nil]
 
 #if !(TARGET_OS_TV) && !(TARGET_OS_VISION)
 @import CoreTelephony;
+#endif
+
+#if TARGET_OS_VISION && !TARGET_OS_TV
 @import Darwin.sys.sysctl;
 #endif
 
@@ -134,6 +134,7 @@ RCT_EXPORT_MODULE();
             return DeviceTypeTablet;
         case UIUserInterfaceIdiomTV: return DeviceTypeTv;
         case UIUserInterfaceIdiomMac: return DeviceTypeDesktop;
+        case UIUserInterfaceIdiomVision: return DeviceTypeHeadset;
         default: return DeviceTypeUnknown;
     }
 }
@@ -314,6 +315,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"AppleTV3,2": @"Apple TV", // Apple TV (3rd Generation - Rev A)
         @"AppleTV5,3": @"Apple TV", // Apple TV (4th Generation)
         @"AppleTV6,2": @"Apple TV 4K" // Apple TV 4K
+        @"RealityDevice14,1": @"Apple Vision Pro" // Apple Vision Pro
     };
 }
 
@@ -336,6 +338,8 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         return @"iPhone";
     } else if ([deviceId hasPrefix:@"AppleTV"]) {
         return @"Apple TV";
+    } else if ([deviceId hasPrefix:@"RealityDevice"]) {
+        return @"Apple Vision";
     }
 
     // If we could not even get a generic, it's unknown
@@ -687,9 +691,9 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
                    "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
     }
 #endif
-#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV
+#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV && !TARGET_OS_VISION
     if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
-        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
+        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators, tvOS & visionOS.");
     }
 #endif
     float batteryLevel = self.getBatteryLevel;
