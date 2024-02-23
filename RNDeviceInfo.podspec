@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.authors      = package['author']
   s.homepage     = package['repository']['url']
-  s.platform     = :ios, "9.0"
+  s.platforms     = { :ios => "9.0", :visionos => "1.0" }
   s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '10.0'
 
