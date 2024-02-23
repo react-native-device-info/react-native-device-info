@@ -1,3 +1,10 @@
+## [10.12.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.12.0...v10.12.1) (2024-02-23)
+
+
+### Bug Fixes
+
+* wrap return value of useOnEvent in useMemo ([2cdc43d](https://github.com/react-native-device-info/react-native-device-info/commit/2cdc43d93586e93bb00bf0b2b00ec8b9ee0b8c79))
+
 # [10.12.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.11.0...v10.12.0) (2023-11-28)
 
 
