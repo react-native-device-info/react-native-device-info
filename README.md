@@ -119,7 +119,7 @@ While the asynchronous method `getUserAgent` is available on both platforms, `ge
 
 The example app in this repository shows an example usage of every single API, consult the example app if you have questions, and if you think you see a problem make sure you can reproduce it using the example app before reporting it, thank you.
 
-| Method                                                            | Return Type         |  iOS | Android | Windows | Web  | VisionOS |
+| Method                                                            | Return Type         |  iOS | Android | Windows | Web  | visionOS |
 | ----------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-:  | :------: |
 | [getAndroidId()](#getandroidid)                                   | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getApiLevel()](#getapilevel)                                     | `Promise<number>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |

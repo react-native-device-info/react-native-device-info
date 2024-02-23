@@ -33,11 +33,11 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 
 #define DeviceTypeValues [NSArray arrayWithObjects: @"Handset", @"Tablet", @"Tv", @"Desktop", @"Headset", @"unknown", nil]
 
-#if !(TARGET_OS_TV) && !(TARGET_OS_VISION)
+#if (!(TARGET_OS_TV || TARGET_OS_VISION))
 @import CoreTelephony;
 #endif
 
-#if TARGET_OS_VISION && !TARGET_OS_TV
+#if !TARGET_OS_TV
 @import Darwin.sys.sysctl;
 #endif
 
@@ -691,9 +691,9 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
                    "You need to enable monitoring with `[UIDevice currentDevice].batteryMonitoringEnabled = TRUE`");
     }
 #endif
-#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV && !TARGET_OS_VISION
+#if RCT_DEV && TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV
     if ([UIDevice currentDevice].batteryState == UIDeviceBatteryStateUnknown) {
-        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators, tvOS & visionOS.");
+        RCTLogWarn(@"Battery state `unknown` and monitoring disabled, this is normal for simulators and tvOS.");
     }
 #endif
     float batteryLevel = self.getBatteryLevel;
