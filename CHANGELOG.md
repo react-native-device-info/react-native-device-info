@@ -1,3 +1,10 @@
+# [10.13.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.12.1...v10.13.0) (2024-02-23)
+
+
+### Features
+
+* add visionOS platform support ([#1614](https://github.com/react-native-device-info/react-native-device-info/issues/1614)) ([56e42d8](https://github.com/react-native-device-info/react-native-device-info/commit/56e42d898bf31b6d6cfc1a58e8dc26936f3ded82))
+
 ## [10.12.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.12.0...v10.12.1) (2024-02-23)
 
 
