@@ -1,3 +1,10 @@
+## [10.13.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.13.0...v10.13.1) (2024-02-26)
+
+
+### Bug Fixes
+
+* **ios:** fix missing visionOS symbol compile error in xcode < 15 ([#1615](https://github.com/react-native-device-info/react-native-device-info/issues/1615)) ([fd30902](https://github.com/react-native-device-info/react-native-device-info/commit/fd309022551121a938e8ee090fdb9d7e3ba07e60))
+
 # [10.13.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.12.1...v10.13.0) (2024-02-23)
 
 
