@@ -134,7 +134,9 @@ RCT_EXPORT_MODULE();
             return DeviceTypeTablet;
         case UIUserInterfaceIdiomTV: return DeviceTypeTv;
         case UIUserInterfaceIdiomMac: return DeviceTypeDesktop;
+    #if TARGET_OS_VISION
         case UIUserInterfaceIdiomVision: return DeviceTypeHeadset;
+    #endif
         default: return DeviceTypeUnknown;
     }
 }
