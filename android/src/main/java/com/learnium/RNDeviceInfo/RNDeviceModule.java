@@ -954,29 +954,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getUserAgent(Promise p) { p.resolve(getUserAgentSync()); }
 
-  @SuppressLint({"HardwareIds", "MissingPermission"})
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public String getPhoneNumberSync() {
-    if (getReactApplicationContext() != null &&
-            (getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
-                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) ||
-                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getReactApplicationContext().checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED))) {
-      TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-      if (telMgr != null) {
-        try {
-          return telMgr.getLine1Number();
-        } catch (SecurityException e) {
-          System.err.println("getLine1Number called with permission, but threw anyway: " + e.getMessage());
-        }
-      } else {
-        System.err.println("Unable to getPhoneNumber. TelephonyManager was null");
-      }
-    }
-    return "unknown";
-  }
-  @ReactMethod
-  public void getPhoneNumber(Promise p) { p.resolve(getPhoneNumberSync()); }
-
   @ReactMethod(isBlockingSynchronousMethod = true)
   public WritableArray getSupportedAbisSync() {
     WritableArray array = new WritableNativeArray();

@@ -46,7 +46,6 @@ const nonMemoizedStringGetters = [
   'getMacAddress',
   'getIpAddress',
   'getDeviceName',
-  'getPhoneNumber',
   'getCarrier',
 ].map(makeTable);
 
