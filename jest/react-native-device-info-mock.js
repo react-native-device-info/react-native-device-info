@@ -69,8 +69,6 @@ const diMock = {
   getMacAddressSync: stringFnSync(),
   getMaxMemory: numberFnAsync(),
   getMaxMemorySync: numberFnSync(),
-  getPhoneNumber: stringFnAsync(),
-  getPhoneNumberSync: stringFnSync(),
   getPreviewSdkInt: numberFnAsync(),
   getPreviewSdkIntSync: numberFnSync(),
   getProduct: stringFnAsync(),

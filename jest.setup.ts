@@ -64,7 +64,6 @@ const stringFnNames = [
   'getSecurityPatch',
   'getCodename',
   'getIncremental',
-  'getPhoneNumber',
   'getCarrier',
   'getInstallReferrer',
 ];
