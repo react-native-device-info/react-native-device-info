@@ -376,7 +376,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"Watch6,15": @"Apple Watch Series 8 45mm case (GPS)",
         @"Watch6,16": @"Apple Watch Series 8 41mm case (GPS+Cellular)",
         @"Watch6,17": @"Apple Watch Series 8 45mm case (GPS+Cellular)",
-        @"Watch6,18": @"Apple Watch Ultra"
+        @"Watch6,18": @"Apple Watch Ultra",
         @"Watch7,1" : @"Apple Watch Series 9 41mm case (GPS)",
         @"Watch7,2" : @"Apple Watch Series 9 45mm case (GPS)",
         @"Watch7,3" : @"Apple Watch Series 9 41mm case (GPS+Cellular)",
