@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { NativeModule, Platform } from 'react-native';
 import type { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
 
 export type NotchDevice = {
@@ -25,6 +25,7 @@ interface NativeConstants {
 }
 
 interface HiddenNativeMethods {
+  getConstants: () => NativeConstants;
   getPowerState: () => Promise<PowerState>;
   getPowerStateSync: () => PowerState;
   getSupported32BitAbis: () => Promise<string[]>;
@@ -158,7 +159,8 @@ interface ExposedNativeMethods {
 }
 
 export interface DeviceInfoNativeModule
-  extends NativeConstants,
+  extends NativeModule,
+    NativeConstants,
     HiddenNativeMethods,
     ExposedNativeMethods {}
 
@@ -210,7 +212,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
 }
 
 export type Getter<T> = () => T;
-export type PlatformArray = typeof Platform.OS[];
+export type PlatformArray = (typeof Platform.OS)[];
 
 export interface GetSupportedPlatformInfoSyncParams<T> {
   getter: Getter<T>;

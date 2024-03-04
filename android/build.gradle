@@ -21,6 +21,51 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+def resolveReactNativeDirectory() {
+    def reactNativeLocation = safeExtGet("REACT_NATIVE_NODE_MODULES_DIR", null)
+    if (reactNativeLocation != null) {
+        return file(reactNativeLocation)
+    }
+
+    // monorepo workaround
+    // react-native can be hoisted or in project's own node_modules
+    def reactNativeFromProjectNodeModules = file("${rootProject.projectDir}/../node_modules/react-native")
+    if (reactNativeFromProjectNodeModules.exists()) {
+        return reactNativeFromProjectNodeModules
+    }
+
+    def reactNativeFromNodeModulesWithPicker = file("${projectDir}/../../react-native")
+    if (reactNativeFromNodeModulesWithPicker.exists()) {
+        return reactNativeFromNodeModulesWithPicker
+    }
+
+    throw new Exception(
+            "[react-native-picker] Unable to resolve react-native location in " +
+                    "node_modules. You should add project extension property (in app/build.gradle) " +
+                    "`REACT_NATIVE_NODE_MODULES_DIR` with path to react-native."
+    )
+}
+
+def getReactNativeMinorVersion() {
+    def REACT_NATIVE_DIR = resolveReactNativeDirectory()
+
+    def reactProperties = new Properties()
+    file("$REACT_NATIVE_DIR/ReactAndroid/gradle.properties").withInputStream { reactProperties.load(it) }
+
+    def REACT_NATIVE_VERSION = reactProperties.getProperty("VERSION_NAME")
+    def REACT_NATIVE_MINOR_VERSION = REACT_NATIVE_VERSION.startsWith("0.0.0-") ? 1000 : REACT_NATIVE_VERSION.split("\\.")[1].toInteger()
+
+    return REACT_NATIVE_MINOR_VERSION
+}
+
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+if (isNewArchitectureEnabled()) {
+    apply plugin: "com.facebook.react"
+}
+
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 34)
     
@@ -31,11 +76,11 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 28)
-
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 34)
         versionCode 2
         versionName "1.1"
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
     }
     lintOptions {
        warning 'InvalidPackage', 'MissingPermission'
@@ -43,18 +88,37 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-}
 
-repositories {
-    mavenCentral()
-    google()
-    maven {
-        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-        url "$rootDir/../node_modules/react-native/android"
+    sourceSets.main {
+        java {
+            if (isNewArchitectureEnabled()) {
+                srcDirs += [
+                    "src/newArch/java",
+                ]
+            } else {
+                srcDirs += [
+                    "src/oldArch/java",
+                ]
+            }
+        }
     }
 }
 
+repositories {
+  maven {
+      // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+      url "$projectDir/../node_modules/react-native/android"
+  }
+  google()
+  mavenCentral()
+}
+
 dependencies {
+  if (isNewArchitectureEnabled() && getReactNativeMinorVersion() < 71) {
+    implementation project(":ReactAndroid")
+  } else {
+    implementation 'com.facebook.react:react-native:+'
+  }
   implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
   implementation "com.android.installreferrer:installreferrer:${safeExtGet('installReferrerVersion', '1.1.2')}"
   def firebaseBomVersion = safeExtGet("firebaseBomVersion", null)

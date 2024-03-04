@@ -4,7 +4,7 @@
 
 #import "DeviceUID.h"
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @interface DeviceUID ()
 
