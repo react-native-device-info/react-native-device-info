@@ -1,13 +1,25 @@
 {
   "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
     "strict": true,
     "moduleResolution": "node",
-    "lib": ["es2015", "es2016", "esnext"],
-    "jsx": "react-native",
-    "resolveJsonModule": true
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["esnext"],
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"]
 }
