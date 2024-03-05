@@ -33,6 +33,7 @@ import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -135,7 +136,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(receiver, filter);
+    ContextCompat.registerReceiver(getReactApplicationContext(), receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
     initializeHeadphoneConnectionReceivers();
   }
 
@@ -153,7 +154,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(headphoneConnectionReceiver, filter);
+    ContextCompat.registerReceiver(getReactApplicationContext(), headphoneConnectionReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
     // 2. Filter for wired headset
     IntentFilter filterWired = new IntentFilter();
@@ -167,7 +168,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(headphoneWiredConnectionReceiver, filterWired);
+    ContextCompat.registerReceiver(getReactApplicationContext(), headphoneWiredConnectionReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
     // 3. Filter for bluetooth headphones
     IntentFilter filterBluetooth = new IntentFilter();
@@ -181,7 +182,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(headphoneBluetoothConnectionReceiver, filterBluetooth);
+    ContextCompat.registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
   }
 
   @Override
