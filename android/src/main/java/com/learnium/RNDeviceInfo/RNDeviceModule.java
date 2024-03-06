@@ -134,7 +134,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    ContextCompat.registerReceiver(getReactApplicationContext(),receiver,filter,ContextCompat.RECEIVER_NOT_EXPORTED)
+    ContextCompat.registerReceiver(getReactApplicationContext(),receiver,filter,ContextCompat.RECEIVER_NOT_EXPORTED);
     initializeHeadphoneConnectionReceiver();
   }
 
