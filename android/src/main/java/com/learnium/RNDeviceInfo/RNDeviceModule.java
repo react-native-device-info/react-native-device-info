@@ -33,6 +33,7 @@ import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -133,7 +134,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(receiver, filter);
+    ContextCompat.registerReceiver(getReactApplicationContext(),receiver,filter,ContextCompat.RECEIVER_NOT_EXPORTED);
     initializeHeadphoneConnectionReceiver();
   }
 

@@ -22,7 +22,7 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 30)
+    compileSdkVersion safeExtGet('compileSdkVersion', 34)
     
     def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
     // Check AGP version for backward compatibility reasons
