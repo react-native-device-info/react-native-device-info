@@ -1077,9 +1077,7 @@ public class RNDeviceModuleManager {
     private void sendEvent(ReactContext reactContext,
                            String eventName,
                            @Nullable Object data) {
-        reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, data);
+        reactContext.emitDeviceEvent(eventName, data);
     }
 
     public WritableArray getSupportedMediaTypeListSync() {
@@ -1087,8 +1085,8 @@ public class RNDeviceModuleManager {
         for (int i = 0; i < MediaCodecList.getCodecCount(); i++) {
             MediaCodecInfo mediaCodecInfo = MediaCodecList.getCodecInfoAt(i);
             String[] supportedTypes = mediaCodecInfo.getSupportedTypes();
-            for (int j = 0; j < supportedTypes.length; j++) {
-                writableArray.pushString(supportedTypes[j]);
+            for (String supportedType : supportedTypes) {
+                writableArray.pushString(supportedType);
             }
         }
         return writableArray;
