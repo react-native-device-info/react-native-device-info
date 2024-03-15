@@ -691,6 +691,24 @@ export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPl
   }
 );
 
+export const [isWiredHeadphonesConnected, isWiredHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['android', 'ios'],
+    getter: () => RNDeviceInfo.isWiredHeadphonesConnected(),
+    syncGetter: () => RNDeviceInfo.isWiredHeadphonesConnectedSync(),
+    defaultValue: false,
+  }
+);
+
+export const [isBluetoothHeadphonesConnected, isBluetoothHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
+  {
+    supportedPlatforms: ['android', 'ios'],
+    getter: () => RNDeviceInfo.isBluetoothHeadphonesConnected(),
+    syncGetter: () => RNDeviceInfo.isBluetoothHeadphonesConnectedSync(),
+    defaultValue: false,
+  }
+);
+
 export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['windows'],
   getter: () => RNDeviceInfo.isMouseConnected(),
@@ -824,6 +842,14 @@ export function usePowerState(): Partial<PowerState> {
 
 export function useIsHeadphonesConnected(): AsyncHookResult<boolean> {
   return useOnEvent('RNDeviceInfo_headphoneConnectionDidChange', isHeadphonesConnected, false);
+}
+
+export function useIsWiredHeadphonesConnected(): AsyncHookResult<boolean> {
+  return useOnEvent('RNDeviceInfo_headphoneWiredConnectionDidChange', isWiredHeadphonesConnected, false);
+}
+
+export function useIsBluetoothHeadphonesConnected(): AsyncHookResult<boolean> {
+  return useOnEvent('RNDeviceInfo_headphoneBluetoothConnectionDidChange', isBluetoothHeadphonesConnected, false);
 }
 
 export function useFirstInstallTime(): AsyncHookResult<number> {
@@ -996,6 +1022,10 @@ const DeviceInfo: DeviceInfoModule = {
   isEmulatorSync,
   isHeadphonesConnected,
   isHeadphonesConnectedSync,
+  isWiredHeadphonesConnected,
+  isWiredHeadphonesConnectedSync,
+  isBluetoothHeadphonesConnected,
+  isBluetoothHeadphonesConnectedSync,
   isLandscape,
   isLandscapeSync,
   isLocationEnabled,
@@ -1026,6 +1056,8 @@ const DeviceInfo: DeviceInfoModule = {
   usePowerState,
   useManufacturer,
   useIsHeadphonesConnected,
+  useIsWiredHeadphonesConnected,
+  useIsBluetoothHeadphonesConnected,
   useBrightness,
   getSupportedMediaTypeList,
   getSupportedMediaTypeListSync
