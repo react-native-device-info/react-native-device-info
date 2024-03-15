@@ -141,6 +141,10 @@ interface ExposedNativeMethods {
   isEmulatorSync: () => boolean;
   isHeadphonesConnected: () => Promise<boolean>;
   isHeadphonesConnectedSync: () => boolean;
+  isWiredHeadphonesConnected: () => Promise<boolean>;
+  isWiredHeadphonesConnectedSync: () => boolean;
+  isBluetoothHeadphonesConnected: () => Promise<boolean>;
+  isBluetoothHeadphonesConnectedSync: () => boolean;
   isLocationEnabled: () => Promise<boolean>;
   isLocationEnabledSync: () => boolean;
   isPinOrFingerprintSet: () => Promise<boolean>;
@@ -151,8 +155,8 @@ interface ExposedNativeMethods {
   isKeyboardConnectedSync: () => boolean;
   isTabletMode: () => Promise<boolean>;
   syncUniqueId: () => Promise<string>;
-  getSupportedMediaTypeList: () => Promise<string[]>
-  getSupportedMediaTypeListSync: () => string[]
+  getSupportedMediaTypeList: () => Promise<string[]>;
+  getSupportedMediaTypeListSync: () => string[];
 }
 
 export interface DeviceInfoNativeModule
@@ -202,6 +206,8 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   usePowerState: () => Partial<PowerState>;
   useManufacturer: () => AsyncHookResult<string>;
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
+  useIsWiredHeadphonesConnected: () => AsyncHookResult<boolean>;
+  useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>;
   useBrightness: () => number | null;
 }
 

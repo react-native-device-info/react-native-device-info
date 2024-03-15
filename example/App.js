@@ -33,6 +33,8 @@ import {
   useHasSystemFeature,
   useIsEmulator,
   useIsHeadphonesConnected,
+  useIsWiredHeadphonesConnected,
+  useIsBluetoothHeadphonesConnected,
   useBrightness,
 } from 'react-native-device-info';
 
@@ -46,6 +48,8 @@ const FunctionalComponent = () => {
   const hasSystemFeature = useHasSystemFeature('amazon.hardware.fire_tv');
   const isEmulator = useIsEmulator();
   const isHeadphonesConnected = useIsHeadphonesConnected();
+  const isWiredHeadphonesConnected = useIsWiredHeadphonesConnected();
+  const isBluetoothHeadphonesConnected = useIsBluetoothHeadphonesConnected();
   const brightness = useBrightness();
   const deviceJSON = {
     batteryLevel,
@@ -57,6 +61,8 @@ const FunctionalComponent = () => {
     hasSystemFeature,
     isEmulator,
     isHeadphonesConnected,
+    isWiredHeadphonesConnected,
+    isBluetoothHeadphonesConnected,
     brightness,
   };
 
@@ -171,6 +177,8 @@ export default class App extends Component {
     deviceJSON.powerState = DeviceInfo.getPowerStateSync();
     deviceJSON.isLocationEnabled = DeviceInfo.isLocationEnabledSync();
     deviceJSON.headphones = DeviceInfo.isHeadphonesConnectedSync();
+    deviceJSON.headphonesWired = DeviceInfo.isWiredHeadphonesConnectedSync();
+    deviceJSON.headphonesBluetooth = DeviceInfo.isBluetoothHeadphonesConnectedSync();
     deviceJSON.getAvailableLocationProviders = DeviceInfo.getAvailableLocationProvidersSync();
     deviceJSON.bootloader = DeviceInfo.getBootloaderSync();
     deviceJSON.device = DeviceInfo.getDeviceSync();
@@ -246,6 +254,8 @@ export default class App extends Component {
       deviceJSON.powerState = await DeviceInfo.getPowerState();
       deviceJSON.isLocationEnabled = await DeviceInfo.isLocationEnabled();
       deviceJSON.headphones = await DeviceInfo.isHeadphonesConnected();
+      deviceJSON.headphonesWired = await DeviceInfo.isWiredHeadphonesConnected();
+      deviceJSON.headphonesBluetooth = await DeviceInfo.isBluetoothHeadphonesConnected();
       deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
       deviceJSON.bootloader = await DeviceInfo.getBootloader();
       deviceJSON.device = await DeviceInfo.getDevice();

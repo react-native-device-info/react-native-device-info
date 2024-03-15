@@ -507,6 +507,8 @@ const nonMemoizedBooleanGetters = [
   'isAirplaneMode',
   'isLocationEnabled',
   'isHeadphonesConnected',
+  'isWiredHeadphonesConnected',
+  'isBluetoothHeadphonesConnected',
 ].map(makeTable);
 
 describe('boolean getters', () => {

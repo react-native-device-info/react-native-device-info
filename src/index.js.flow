@@ -143,6 +143,10 @@ declare module.exports: {
   isEmulatorSync: () => boolean,
   isHeadphonesConnected: () => Promise<boolean>,
   isHeadphonesConnectedSync: () => boolean,
+  isWiredHeadphonesConnected: () => Promise<boolean>,
+  isWiredHeadphonesConnectedSync: () => boolean,
+  isBluetoothHeadphonesConnected: () => Promise<boolean>,
+  isBluetoothHeadphonesConnectedSync: () => boolean,
   isLandscape: () => Promise<boolean>,
   isLandscapeSync: () => boolean,
   isLocationEnabled: () => Promise<boolean>,
@@ -173,5 +177,7 @@ declare module.exports: {
   usePowerState: () => PowerState | {},
   useManufacturer: () => AsyncHookResult<string>,
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>,
+  useIsWiredHeadphonesConnected: () => AsyncHookResult<boolean>,
+  useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>,
   useBrightness: () => number | null,
 };

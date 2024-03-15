@@ -55,7 +55,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_brightnessDidChange"];
+    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_headphoneWiredConnectionDidChange", @"RNDeviceInfo_headphoneBluetoothConnectionDidChange", @"RNDeviceInfo_brightnessDidChange"];
 }
 
 - (NSDictionary *)constantsToExport {
@@ -96,6 +96,14 @@ RCT_EXPORT_MODULE();
                                                    object: nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(headphoneConnectionDidChange:)
+                                                     name:AVAudioSessionRouteChangeNotification
+                                                   object: [AVAudioSession sharedInstance]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(headphoneWiredConnectionDidChange:)
+                                                     name:AVAudioSessionRouteChangeNotification
+                                                   object: [AVAudioSession sharedInstance]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(headphoneBluetoothConnectionDidChange:)
                                                      name:AVAudioSessionRouteChangeNotification
                                                    object: [AVAudioSession sharedInstance]];
         #if !TARGET_OS_VISION
@@ -679,6 +687,22 @@ RCT_EXPORT_METHOD(isPinOrFingerprintSet:(RCTPromiseResolveBlock)resolve rejecter
     [self sendEventWithName:@"RNDeviceInfo_headphoneConnectionDidChange" body:[NSNumber numberWithBool:isConnected]];
 }
 
+- (void) headphoneWiredConnectionDidChange:(NSNotification *)notification {
+    if (!hasListeners) {
+        return;
+    }
+    BOOL isConnected = [self isWiredHeadphonesConnected];
+    [self sendEventWithName:@"RNDeviceInfo_headphoneWiredConnectionDidChange" body:[NSNumber numberWithBool:isConnected]];
+}
+
+- (void) headphoneBluetoothConnectionDidChange:(NSNotification *)notification {
+    if (!hasListeners) {
+        return;
+    }
+    BOOL isConnected = [self isBluetoothHeadphonesConnected];
+    [self sendEventWithName:@"RNDeviceInfo_headphoneBluetoothConnectionDidChange" body:[NSNumber numberWithBool:isConnected]];
+}
+
 - (void) brightnessDidChange:(NSNotification *)notification {
     if (!hasListeners) {
         return;
@@ -782,6 +806,45 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isHeadphonesConnectedSync) {
 
 RCT_EXPORT_METHOD(isHeadphonesConnected:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(@(self.isHeadphonesConnected));
+}
+
+- (BOOL) isWiredHeadphonesConnected {
+    AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription* desc in [route outputs]) {
+        if ([[desc portType] isEqualToString:AVAudioSessionPortHeadphones]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isWiredHeadphonesConnectedSync) {
+    return @(self.isWiredHeadphonesConnected);
+}
+
+RCT_EXPORT_METHOD(isWiredHeadphonesConnected:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.isWiredHeadphonesConnected));
+}
+
+- (BOOL) isBluetoothHeadphonesConnected {
+    AVAudioSessionRouteDescription* route = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription* desc in [route outputs]) {
+        if ([[desc portType] isEqualToString:AVAudioSessionPortBluetoothA2DP]) {
+            return YES;
+        }
+        if ([[desc portType] isEqualToString:AVAudioSessionPortBluetoothHFP]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isBluetoothHeadphonesConnectedSync) {
+    return @(self.isBluetoothHeadphonesConnected);
+}
+
+RCT_EXPORT_METHOD(isBluetoothHeadphonesConnected:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.isBluetoothHeadphonesConnected));
 }
 
 - (unsigned long) getUsedMemory {
