@@ -1,18 +1,10 @@
 import { Platform } from 'react-native';
-import RNDeviceInfoModule from '../fabric/NativeDeviceInfoModule';
 
-let RNDeviceInfo = RNDeviceInfoModule;
-
-// @ts-ignore
-if (Platform.OS === 'web' || Platform.OS === 'dom') {
-  RNDeviceInfo = require('../web');
-}
+let RNDeviceInfo = require('../web');
 
 if (!RNDeviceInfo) {
   // Produce an error if we don't have the native module
   if (
-    Platform.OS === 'android' ||
-    Platform.OS === 'ios' ||
     Platform.OS === 'web' ||
     // @ts-ignore
     Platform.OS === 'dom'
