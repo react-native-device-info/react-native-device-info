@@ -140,7 +140,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private void initializeHeadphoneConnectionReceivers() {
-    // 1. filter for both wired headset and bluetooth headphones
+    // 1. Filter for both wired headset and bluetooth headphones
     IntentFilter filter = new IntentFilter();
     filter.addAction(AudioManager.ACTION_HEADSET_PLUG);
     filter.addAction(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED);
@@ -155,7 +155,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     getReactApplicationContext().registerReceiver(headphoneConnectionReceiver, filter);
 
-    // 2. filter for wired headset
+    // 2. Filter for wired headset
     IntentFilter filterWired = new IntentFilter();
     filterWired.addAction(AudioManager.ACTION_HEADSET_PLUG);
 
@@ -169,7 +169,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     getReactApplicationContext().registerReceiver(headphoneWiredConnectionReceiver, filterWired);
 
-    // 3. filter for bluetooth headphones
+    // 3. Filter for bluetooth headphones
     IntentFilter filterBluetooth = new IntentFilter();
     filterBluetooth.addAction(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED);
 
