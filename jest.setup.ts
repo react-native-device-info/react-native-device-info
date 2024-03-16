@@ -83,6 +83,8 @@ const booleanFnNames = [
   'hasSystemFeature',
   'isLocationEnabled',
   'isHeadphonesConnected',
+  'isWiredHeadphonesConnected',
+  'isBluetoothHeadphonesConnected',
 ];
 for (const name of booleanFnNames) {
   RNDeviceInfo[name] = booleanFnAsync();
