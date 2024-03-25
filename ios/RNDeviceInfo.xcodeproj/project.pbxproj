@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60FD13C42BB15A9D00518094 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 60FD13C22BB156C000518094 /* PrivacyInfo.xcprivacy */; };
 		663F51B9262200CA0023385E /* EnvironmentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 663F51B8262200CA0023385E /* EnvironmentUtil.m */; };
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
 		BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
@@ -44,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		60FD13C22BB156C000518094 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		663F51B7262200520023385E /* EnvironmentUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnvironmentUtil.h; sourceTree = "<group>"; };
 		663F51B8262200CA0023385E /* EnvironmentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvironmentUtil.m; sourceTree = "<group>"; };
 		76E65CA21D4CA143009B7AF1 /* DeviceUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUID.h; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		DA5891CF1BA9A9FC002B4DB2 = {
 			isa = PBXGroup;
 			children = (
+				60FD13C22BB156C000518094 /* PrivacyInfo.xcprivacy */,
 				DA5891DA1BA9A9FC002B4DB2 /* RNDeviceInfo */,
 				DA5891D91BA9A9FC002B4DB2 /* Products */,
 			);
@@ -112,6 +115,7 @@
 				DA5891D41BA9A9FC002B4DB2 /* Sources */,
 				DA5891D51BA9A9FC002B4DB2 /* Frameworks */,
 				DA5891D61BA9A9FC002B4DB2 /* CopyFiles */,
+				60FD13C32BB15A9800518094 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -175,6 +179,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		60FD13C32BB15A9800518094 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60FD13C42BB15A9D00518094 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DA5891D41BA9A9FC002B4DB2 /* Sources */ = {
