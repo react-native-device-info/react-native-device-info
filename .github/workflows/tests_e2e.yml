@@ -230,7 +230,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:

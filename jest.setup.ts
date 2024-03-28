@@ -1,9 +1,14 @@
 /* eslint-disable no-undef -- jest is not defined and cannot be */
-const asyncFn = <T>(response: T) => () =>
-  jest.fn(() => {
-    return Promise.resolve(response);
-  });
-const syncFn = <T>(response: T) => () => jest.fn(() => response);
+const asyncFn =
+  <T>(response: T) =>
+  () =>
+    jest.fn(() => {
+      return Promise.resolve(response);
+    });
+const syncFn =
+  <T>(response: T) =>
+  () =>
+    jest.fn(() => response);
 const makeFns = <T>(response: T) => [asyncFn(response), syncFn(response)];
 
 const [stringFnAsync, stringFnSync] = makeFns('unknown');
