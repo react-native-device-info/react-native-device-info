@@ -1399,9 +1399,9 @@ SPEC CHECKSUMS:
   React-perflogger: 7f49b96e6f27f3bbe8010bb578a640c3a58e63b9
   React-RCTActionSheet: 516c6f7f962de7198b70d349e718e640367f3d24
   React-RCTAnimation: e85038929eaac53fd70aa75bb3ef40a1d2685a15
-  React-RCTAppDelegate: 4d6509761f38198bdc1a882e039e2af73fe29c4d
+  React-RCTAppDelegate: e8ab526cd20834fa7f56842aa442b3a26ce6d70e
   React-RCTBlob: b9c514add6a9d84ea3049b5c76c3100276c40a26
-  React-RCTFabric: c8f685699996e782d554f453a3b5e5071d4d66d1
+  React-RCTFabric: ab1b10a94d07117794e330b4dc4280183c95e9ff
   React-RCTImage: 6a0bf1f7fb2a7cdc6ca44a3aa5d575ae903d8aed
   React-RCTLinking: f2f5ede719d84a74d5f7543d57320ebffe1eb3d6
   React-RCTNetwork: 789be4ca8eb30ebf556cec6e9e717018991aef5b
@@ -1417,7 +1417,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 39e5e7a103a2061916f6224b324d10a25aefe9d8
   React-utils: 6eb471f63ebb2041ca59c93e33c4cf5cdb7bb55a
   ReactCommon: f72becffc337da2eb3569f08563e39fdde5fcf68
-  RNDeviceInfo: b2e4998fed7a9afa49bbe6a85f301ebe215a0716
+  RNDeviceInfo: 9c677d921c104094cbce5022ca1c8a8f5bf1108d
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 2eae84dda32a99d12e0b1e1a79366c27fc6da572
 
