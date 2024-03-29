@@ -759,9 +759,8 @@ describe('array getters', () => {
 
 describe('Object Getters', () => {
   describe('getPowerState*', () => {
-    const [, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
-      'getPowerState'
-    );
+    const [, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] =
+      makeTable('getPowerState');
     const supportedPlatforms = ['android', 'ios', 'windows', 'web'];
 
     beforeEach(() => {

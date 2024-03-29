@@ -160,7 +160,6 @@ interface ExposedNativeMethods {
 
 export interface DeviceInfoNativeModule
   extends NativeModule,
-    NativeConstants,
     HiddenNativeMethods,
     ExposedNativeMethods {}
 

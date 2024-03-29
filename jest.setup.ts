@@ -9,7 +9,7 @@ const syncFn =
   <T>(response: T) =>
   () =>
     jest.fn(() => response);
-const makeFns = <T>(response: T) => [asyncFn(response), syncFn(response)];
+const makeFns = <T>(response: T) => [asyncFn(response), syncFn(response)] as const;
 
 const [stringFnAsync, stringFnSync] = makeFns('unknown');
 const [numberFnAsync, numberFnSync] = makeFns(-1);
@@ -40,6 +40,7 @@ for (const key of booleanKeys) {
   RNDeviceInfo[key] = true;
 }
 
+RNDeviceInfo.getConstants = jest.fn(() => ({}));
 RNDeviceInfo.syncUniqueId = stringFnAsync();
 RNDeviceInfo.getDeviceToken = stringFnSync();
 
@@ -135,9 +136,6 @@ for (const name of arrayFnNames) {
 
 jest.mock('react-native', () => {
   const RN = jest.requireActual('react-native'); // use original implementation, which comes with mocks out of the box
-
-  // mock modules/components created by assigning to NativeModules
-  RN.NativeModules.RNDeviceInfo = RNDeviceInfo;
 
   type OS = typeof RN.Platform.OS;
   jest.spyOn(RN.Platform, 'select').mockImplementation((obj: OS) => {
