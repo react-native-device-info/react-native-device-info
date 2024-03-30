@@ -29,5 +29,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSPrivacyCollectedDataTypes</key>
+    <array/>
 </dict>
 </plist>
