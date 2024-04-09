@@ -7,6 +7,14 @@
 		<dict>
 			<key>NSPrivacyAccessedAPITypeReasons</key>
 			<array>
+				<string>35F9.1</string>
+			</array>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
 				<string>CA92.1</string>
 			</array>
 			<key>NSPrivacyAccessedAPIType</key>
@@ -30,6 +38,6 @@
 		</dict>
 	</array>
 	<key>NSPrivacyCollectedDataTypes</key>
-    <array/>
+	<array/>
 </dict>
 </plist>
