@@ -14,6 +14,9 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/react-native-device-info/react-native-device-info.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m}"
+  s.resource_bundles = {
+    'RNDeviceInfoPrivacyInfo' => ['ios/PrivacyInfo.xcprivacy'],
+  }
 
   s.dependency 'React-Core'
 end
