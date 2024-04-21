@@ -1,3 +1,10 @@
+## [10.13.2](https://github.com/react-native-device-info/react-native-device-info/compare/v10.13.1...v10.13.2) (2024-04-21)
+
+
+### Bug Fixes
+
+* **ios:** add Apple privacy manifest ([#1624](https://github.com/react-native-device-info/react-native-device-info/issues/1624)) ([23f95db](https://github.com/react-native-device-info/react-native-device-info/commit/23f95dbe55f38f11fc2cba8efe0eb3e11676d07b)), closes [#1622](https://github.com/react-native-device-info/react-native-device-info/issues/1622)
+
 ## [10.13.1](https://github.com/react-native-device-info/react-native-device-info/compare/v10.13.0...v10.13.1) (2024-02-26)
 
 
