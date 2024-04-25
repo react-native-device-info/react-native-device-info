@@ -188,8 +188,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
   }
 
-  @Override
+  // the upstream method was removed in react-native 0.74
+  // this stub remains for backwards compatibility so that react-native < 0.74
+  // (which will still call onCatalystInstanceDestroy) will continue to function
   public void onCatalystInstanceDestroy() {
+    invalidate();
+  }
+
+  // This should have an `@Override` tag, but the method does not exist until
+  // react-native >= 0.74, which would cause linting errors across versions
+  // once minimum supported react-native here is 0.74+, add the tag
+  public void invalidate() {
     getReactApplicationContext().unregisterReceiver(receiver);
     getReactApplicationContext().unregisterReceiver(headphoneConnectionReceiver);
     getReactApplicationContext().unregisterReceiver(headphoneWiredConnectionReceiver);
