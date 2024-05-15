@@ -1,6 +1,10 @@
 name: Windows CI
 on: [pull_request]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-windows-tests:
     name: Build & run tests
