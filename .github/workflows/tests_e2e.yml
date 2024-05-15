@@ -10,6 +10,10 @@ on:
     paths-ignore:
       - '**/*.md'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # ------------------
   #      Android
@@ -22,8 +26,6 @@ jobs:
       EMULATOR_COMMAND: "-avd TestingAVD -noaudio -gpu swiftshader_indirect -camera-back none -no-snapshot -no-window -no-boot-anim -nojni -memory 2048 -timezone 'Europe/London' -cores 2"
       EMULATOR_EXECUTABLE: qemu-system-x86_64-headless
     steps:
-      - uses: styfle/cancel-workflow-action@0.8.0
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 50
@@ -188,8 +190,6 @@ jobs:
     env:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
-      - uses: styfle/cancel-workflow-action@0.8.0
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 50
