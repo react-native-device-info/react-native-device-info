@@ -87,8 +87,6 @@ declare module.exports: {
   getMaxMemory: () => Promise<number>,
   getMaxMemorySync: () => number,
   getModel: () => string,
-  getPhoneNumber: () => Promise<string>,
-  getPhoneNumberSync: () => string,
   getPowerState: () => Promise<PowerState | {}>,
   getPowerStateSync: () => PowerState | {},
   getPreviewSdkInt: () => Promise<number>,

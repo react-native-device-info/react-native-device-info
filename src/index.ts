@@ -475,13 +475,6 @@ export const [getLastUpdateTime, getLastUpdateTimeSync] = getSupportedPlatformIn
   defaultValue: -1,
 });
 
-export const [getPhoneNumber, getPhoneNumberSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['android'],
-  getter: () => RNDeviceInfo.getPhoneNumber(),
-  syncGetter: () => RNDeviceInfo.getPhoneNumberSync(),
-  defaultValue: 'unknown',
-});
-
 export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
   getter: () => RNDeviceInfo.getCarrier(),
@@ -968,8 +961,6 @@ const DeviceInfo: DeviceInfoModule = {
   getMaxMemory,
   getMaxMemorySync,
   getModel,
-  getPhoneNumber,
-  getPhoneNumberSync,
   getPowerState,
   getPowerStateSync,
   getPreviewSdkInt,
