@@ -1,3 +1,16 @@
+# [11.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.14.0...v11.0.0) (2024-05-15)
+
+
+* fix(android)!: removed getPhoneNumber - use react-native-sim-cards-manager (#1617) ([dce8bd5](https://github.com/react-native-device-info/react-native-device-info/commit/dce8bd5e205fe4baf9320613e6e565e21b395687)), closes [#1617](https://github.com/react-native-device-info/react-native-device-info/issues/1617)
+* feat(android)!: targetSdk 34 receiver export specification, requires compileSdk 33+ (#1621) ([b32cde7](https://github.com/react-native-device-info/react-native-device-info/commit/b32cde7bb40b0fbad912c40525b75d6c3dfc08b0)), closes [#1621](https://github.com/react-native-device-info/react-native-device-info/issues/1621)
+
+
+### BREAKING CHANGES
+
+* removed getPhoneNumber to avoid Google Play Store rejections,
+use react-native-sim-cards-manager for similar functionality as desired
+* requires compileSdk 33+
+
 # [10.14.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.13.2...v10.14.0) (2024-05-15)
 
 
