@@ -24,12 +24,12 @@ jobs:
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 50
           submodules: recursive
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
 
@@ -37,21 +37,21 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         name: Yarn Cache
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}-v1
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         name: Gradle Cache
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v1
 
       - name: Yarn Install
-        uses: nick-invision/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -59,8 +59,9 @@ jobs:
           command: yarn example:install
 
       - name: Configure JDK 1.11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
+          distribution: 'temurin'
           java-version: '11' # ubuntu-latest is about to default to 11, force it everywhere
 
       - name: Verify JDK11
@@ -70,7 +71,7 @@ jobs:
         shell: bash
 
       - name: Build Android App
-        uses: nick-invision/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -92,7 +93,7 @@ jobs:
 
       - name: Download Emulator Image
         # This can fail on network request, wrap with retry
-        uses: nick-invision/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -162,24 +163,19 @@ jobs:
 
       # - name: Submit Coverage
       #   # This can fail on timeouts etc, wrap with retry
-      #   uses: nick-invision/retry@v2
+      #   uses: nick-fields/retry@v3
       #   with:
       #     timeout_minutes: 10
       #     retry_wait_seconds: 60
       #     max_attempts: 3
       #     command: curl https://codecov.io/bash -o codecov.sh && bash ./codecov.sh
 
-      - name: Compress Emulator Log
-        if: always()
-        run: gzip -9 adb-log.txt
-        shell: bash
-
       - name: Upload Emulator Log
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: adb_logs
-          path: adb-log.txt.gz
+          path: adb-log.txt
 
   # ------------------
   #        iOS
@@ -194,7 +190,7 @@ jobs:
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 50
           submodules: recursive
@@ -205,7 +201,7 @@ jobs:
           key: ${{ runner.os }}-v2 # makes a unique key w/related restore key internally
           max-size: 750M
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
 
@@ -217,21 +213,21 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         name: Yarn Cache
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}-v1
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         name: Cache Pods
         with:
           path: example/ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}-v1
 
       - name: Yarn Install
-        uses: nick-invision/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -239,7 +235,7 @@ jobs:
           command: yarn example:install
 
       - name: Pod Install
-        uses: nick-invision/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -260,7 +256,7 @@ jobs:
         shell: bash
 
       - name: Install applesimutils
-        uses: nick-invision/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -298,20 +294,16 @@ jobs:
           yarn example:ios
           ccache -s
 
-      - name: Compress Simulator Log
-        if: always()
-        run: gzip -9 simulator.log
-
       - name: Upload Simulator Log
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: simulator_logs
-          path: simulator.log.gz
+          path: simulator.log
 
       # - name: Submit Coverage
       #   # This can fail on timeouts etc, wrap with retry
-      #   uses: nick-invision/retry@v2
+      #   uses: nick-fields/retry@v3
       #   with:
       #     timeout_minutes: 10
       #     retry_wait_seconds: 60

@@ -7,27 +7,27 @@ jobs:
     runs-on: windows-2019
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       name: Checkout Code
 
     - name: Setup Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: 16
 
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
+      uses: microsoft/setup-msbuild@v2
       with:
         vs-version: 16.5
 
     - name: Check base node modules cache
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       id: yarn-base-cache
       with:
         path: ./node_modules
         key: ${{ runner.os }}-yarn-base-${{ hashFiles('yarn.lock') }}
     - name: Install base node modules
-      uses: nick-invision/retry@v2
+      uses: nick-fields/retry@v3
       if: steps.yarn-base-cache.outputs.cache-hit != 'true'
       with:
         max_attempts: 3
@@ -35,13 +35,13 @@ jobs:
         command: yarn --pure-lockfile
 
     - name: Check example node modules cache
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       id: yarn-example-cache
       with:
         path: ./example/node_modules
         key: ${{ runner.os }}-yarn-example-${{ hashFiles('./example/yarn.lock') }}
     - name: Install example modules
-      uses: nick-invision/retry@v2
+      uses: nick-fields/retry@v3
       if: steps.yarn-example-cache.outputs.cache-hit != 'true'
       with:
         max_attempts: 3
