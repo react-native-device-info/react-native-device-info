@@ -337,7 +337,7 @@ PODS:
     - React-jsi (= 0.67.3)
     - React-logger (= 0.67.3)
     - React-perflogger (= 0.67.3)
-  - RNDeviceInfo (10.1.2):
+  - RNDeviceInfo (10.13.2):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -524,10 +524,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: d0361f15ea978958fab7ffb6960f475b5063d83f
   React-runtimeexecutor: af1946623656f9c5fd64ca6f36f3863516193446
   ReactCommon: 650e33cde4fb7d36781cd3143f5276da0abb2f96
-  RNDeviceInfo: 4a2d995e05823cf364e8791bfa450d8f2f461c42
+  RNDeviceInfo: 42aadf1282ffa0a88dc38a504a7be145eb010dfa
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: ee202433a7e1aae29d4fab8c749862a7022ef062
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2
