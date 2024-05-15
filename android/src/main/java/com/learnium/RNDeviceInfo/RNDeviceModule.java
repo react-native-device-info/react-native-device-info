@@ -33,7 +33,6 @@ import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -136,7 +135,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    ContextCompat.registerReceiver(getReactApplicationContext(), receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+    registerReceiver(getReactApplicationContext(), receiver, filter);
     initializeHeadphoneConnectionReceivers();
   }
 
@@ -154,7 +153,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    ContextCompat.registerReceiver(getReactApplicationContext(), headphoneConnectionReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+    registerReceiver(getReactApplicationContext(), headphoneConnectionReceiver, filter);
 
     // 2. Filter for wired headset
     IntentFilter filterWired = new IntentFilter();
@@ -168,7 +167,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    ContextCompat.registerReceiver(getReactApplicationContext(), headphoneWiredConnectionReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+    registerReceiver(getReactApplicationContext(), headphoneWiredConnectionReceiver, filter);
 
     // 3. Filter for bluetooth headphones
     IntentFilter filterBluetooth = new IntentFilter();
@@ -182,7 +181,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    ContextCompat.registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+    registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
   }
 
   @Override
@@ -1081,5 +1080,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSupportedMediaTypeList(Promise promise) {
     promise.resolve(getSupportedMediaTypeListSync());
+  }
+
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
+  private void registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter) {
+    if (Build.VERSION.SDK_INT >= 34 && context.getApplicationInfo().targetSdkVersion >= 34) {
+      context.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
+    } else {
+      context.registerReceiver(receiver, filter);
+    }
   }
 }
