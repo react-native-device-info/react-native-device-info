@@ -1,3 +1,10 @@
+# [11.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v11.0.0...v11.1.0) (2024-05-15)
+
+
+### Features
+
+* **android:** detect MEmu emulator in isEmulator ([ac172f6](https://github.com/react-native-device-info/react-native-device-info/commit/ac172f6b98ca4fca206bb84f270b4dea1f0c3f90))
+
 # [11.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.14.0...v11.0.0) (2024-05-15)
 
 
