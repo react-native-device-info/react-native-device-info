@@ -1,3 +1,10 @@
+# [10.14.0](https://github.com/react-native-device-info/react-native-device-info/compare/v10.13.2...v10.14.0) (2024-05-15)
+
+
+### Features
+
+* Add isWiredHeadphonesConnected and IsBluetoothHeadphonesConnected ([#1623](https://github.com/react-native-device-info/react-native-device-info/issues/1623)) ([fe66322](https://github.com/react-native-device-info/react-native-device-info/commit/fe66322a640309aa52d393976b3c9bf0f38bf648))
+
 ## [10.13.2](https://github.com/react-native-device-info/react-native-device-info/compare/v10.13.1...v10.13.2) (2024-04-21)
 
 
