@@ -135,7 +135,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(receiver, filter);
+    registerReceiver(getReactApplicationContext(), receiver, filter);
     initializeHeadphoneConnectionReceivers();
   }
 
@@ -153,7 +153,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(headphoneConnectionReceiver, filter);
+    registerReceiver(getReactApplicationContext(), headphoneConnectionReceiver, filter);
 
     // 2. Filter for wired headset
     IntentFilter filterWired = new IntentFilter();
@@ -167,7 +167,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(headphoneWiredConnectionReceiver, filterWired);
+    registerReceiver(getReactApplicationContext(), headphoneWiredConnectionReceiver, filter);
 
     // 3. Filter for bluetooth headphones
     IntentFilter filterBluetooth = new IntentFilter();
@@ -181,7 +181,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     };
 
-    getReactApplicationContext().registerReceiver(headphoneBluetoothConnectionReceiver, filterBluetooth);
+    registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
   }
 
   @Override
@@ -1080,5 +1080,14 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSupportedMediaTypeList(Promise promise) {
     promise.resolve(getSupportedMediaTypeListSync());
+  }
+
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
+  private void registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter) {
+    if (Build.VERSION.SDK_INT >= 34 && context.getApplicationInfo().targetSdkVersion >= 34) {
+      context.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
+    } else {
+      context.registerReceiver(receiver, filter);
+    }
   }
 }
