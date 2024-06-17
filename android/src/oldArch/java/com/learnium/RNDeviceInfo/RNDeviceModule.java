@@ -81,7 +81,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     }
 
     @Override
-    public void onCatalystInstanceDestroy() {
+    public void invalidate() {
         module.cleanUp();
     }
 

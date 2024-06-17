@@ -44,7 +44,6 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.learnium.RNDeviceInfo.resolver.DeviceIdResolver;
 import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
@@ -59,6 +58,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
@@ -107,8 +107,8 @@ public class RNDeviceModuleManager {
                 }
 
                 String batteryState = powerState.getString(BATTERY_STATE);
-                Double batteryLevel = powerState.getDouble(BATTERY_LEVEL);
-                Boolean powerSaveState = powerState.getBoolean(LOW_POWER_MODE);
+                double batteryLevel = powerState.getDouble(BATTERY_LEVEL);
+                boolean powerSaveState = powerState.getBoolean(LOW_POWER_MODE);
 
                 if (!mLastBatteryState.equalsIgnoreCase(batteryState) || mLastPowerSaveState != powerSaveState) {
                     sendEvent(reactContext, "RNDeviceInfo_powerStateDidChange", batteryState);
@@ -315,7 +315,6 @@ public class RNDeviceModuleManager {
         p.resolve(getIpAddressSync());
     }
 
-    @SuppressWarnings("deprecation")
     public boolean isCameraPresentSync() {
         CameraManager manager = (CameraManager) reactContext.getSystemService(Context.CAMERA_SERVICE);
         try {
@@ -584,7 +583,7 @@ public class RNDeviceModuleManager {
     }
 
     public boolean hasSystemFeatureSync(String feature) {
-        if (feature == null || feature.equals("")) {
+        if (feature == null || feature.isEmpty()) {
             return false;
         }
 
@@ -694,11 +693,7 @@ public class RNDeviceModuleManager {
         String packageName = reactContext.getPackageName();
         String installerPackageName = reactContext.getPackageManager().getInstallerPackageName(packageName);
 
-        if (installerPackageName == null) {
-            return "unknown";
-        }
-
-        return installerPackageName;
+        return Objects.requireNonNullElse(installerPackageName, "unknown");
     }
 
 
@@ -968,11 +963,7 @@ public class RNDeviceModuleManager {
 
     public String getUserAgentSync() {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                return WebSettings.getDefaultUserAgent(reactContext);
-            } else {
-                return System.getProperty("http.agent");
-            }
+            return WebSettings.getDefaultUserAgent(reactContext);
         } catch (RuntimeException e) {
             return System.getProperty("http.agent");
         }
