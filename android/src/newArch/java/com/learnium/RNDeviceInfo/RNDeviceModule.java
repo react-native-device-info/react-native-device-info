@@ -288,7 +288,7 @@ public class RNDeviceModule extends NativeRNDeviceInfoAndroidSpec {
 
     @Override
     public boolean isWiredHeadphonesConnectedSync() {
-        return module.isWiredHeadphonesConnectedSync()
+        return module.isWiredHeadphonesConnectedSync();
     }
 
     @Override
@@ -606,17 +606,6 @@ public class RNDeviceModule extends NativeRNDeviceInfoAndroidSpec {
     @Override
     public void getUserAgent(Promise p) {
         module.getUserAgent(p);
-    }
-
-    @SuppressLint({"HardwareIds", "MissingPermission"})
-    @Override
-    public String getPhoneNumberSync() {
-        return module.getPhoneNumberSync();
-    }
-
-    @Override
-    public void getPhoneNumber(Promise p) {
-        module.getPhoneNumber(p);
     }
 
     @Override

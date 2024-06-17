@@ -5,7 +5,6 @@ import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
 import static android.os.BatteryManager.BATTERY_STATUS_FULL;
 import static android.provider.Settings.Secure.getString;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.KeyguardManager;
@@ -128,7 +127,7 @@ public class RNDeviceModuleManager {
             }
         };
 
-        registerReceiver(getReactApplicationContext(), receiver, filter);
+        registerReceiver(reactContext, receiver, filter);
         initializeHeadphoneConnectionReceivers();
     }
 
@@ -146,7 +145,7 @@ public class RNDeviceModuleManager {
             }
         };
 
-        registerReceiver(getReactApplicationContext(), headphoneConnectionReceiver, filter);
+        registerReceiver(reactContext, headphoneConnectionReceiver, filter);
 
         // 2. Filter for wired headset
         IntentFilter filterWired = new IntentFilter();
@@ -156,11 +155,11 @@ public class RNDeviceModuleManager {
             @Override
             public void onReceive(Context context, Intent intent) {
             boolean isConnected = isWiredHeadphonesConnectedSync();
-            sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneWiredConnectionDidChange", isConnected);
+            sendEvent(reactContext, "RNDeviceInfo_headphoneWiredConnectionDidChange", isConnected);
             }
         };
 
-        registerReceiver(getReactApplicationContext(), headphoneWiredConnectionReceiver, filter);
+        registerReceiver(reactContext, headphoneWiredConnectionReceiver, filter);
 
         // 3. Filter for bluetooth headphones
         IntentFilter filterBluetooth = new IntentFilter();
@@ -170,11 +169,11 @@ public class RNDeviceModuleManager {
             @Override
             public void onReceive(Context context, Intent intent) {
             boolean isConnected = isBluetoothHeadphonesConnectedSync();
-            sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneBluetoothConnectionDidChange", isConnected);
+            sendEvent(reactContext, "RNDeviceInfo_headphoneBluetoothConnectionDidChange", isConnected);
             }
         };
 
-        registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
+        registerReceiver(reactContext, headphoneBluetoothConnectionReceiver, filter);
   }
 
     public void cleanUp() {
@@ -270,7 +269,7 @@ public class RNDeviceModuleManager {
                 || Build.PRODUCT.toLowerCase(Locale.ROOT).contains("nox")
                 || Build.SERIAL.toLowerCase(Locale.ROOT).contains("nox")
                 || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-                || this.hasKeyboard("memuime"));
+                || this.hasKeyboard("memuime");
     }
 
     public float getFontScaleSync() {
@@ -644,14 +643,14 @@ public class RNDeviceModuleManager {
     }
 
     public boolean isWiredHeadphonesConnectedSync() {
-        AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager)reactContext.getSystemService(Context.AUDIO_SERVICE);
         return audioManager.isWiredHeadsetOn();
     }
     
     public void isWiredHeadphonesConnected(Promise p) {p.resolve(isWiredHeadphonesConnectedSync());}
 
     public boolean isBluetoothHeadphonesConnectedSync() {
-        AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager)reactContext.getSystemService(Context.AUDIO_SERVICE);
         return audioManager.isBluetoothA2dpOn();
     }
   
@@ -973,27 +972,6 @@ public class RNDeviceModuleManager {
         p.resolve(getUserAgentSync());
     }
 
-    @SuppressLint({"HardwareIds", "MissingPermission"})
-    public String getPhoneNumberSync() {
-        if (reactContext != null && (reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED || reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && reactContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED)) {
-            TelephonyManager telMgr = (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
-            if (telMgr != null) {
-                try {
-                    return telMgr.getLine1Number();
-                } catch (SecurityException e) {
-                    System.err.println("getLine1Number called with permission, but threw anyway: " + e.getMessage());
-                }
-            } else {
-                System.err.println("Unable to getPhoneNumber. TelephonyManager was null");
-            }
-        }
-        return "unknown";
-    }
-
-    public void getPhoneNumber(Promise p) {
-        p.resolve(getPhoneNumberSync());
-    }
-
     public WritableArray getSupportedAbisSync() {
         WritableArray array = new WritableNativeArray();
         for (String abi : Build.SUPPORTED_ABIS) {
@@ -1084,8 +1062,32 @@ public class RNDeviceModuleManager {
 
     }
 
-
     public void getSupportedMediaTypeList(Promise promise) {
         promise.resolve(getSupportedMediaTypeListSync());
+    }
+
+
+    private boolean hasKeyboard(String name) {
+        List<InputMethodInfo> inputMethodList = this.inputMethodManager.getEnabledInputMethodList();
+        if (inputMethodList != null && !inputMethodList.isEmpty()) {
+            for (InputMethodInfo inputMethodInfo : inputMethodList) {
+                String serviceName = inputMethodInfo.getServiceName().toLowerCase();
+                String id = inputMethodInfo.getId().toLowerCase();
+                if (serviceName.contains(name.toLowerCase()) || id.contains(name.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    private void registerReceiver(Context context, BroadcastReceiver receiver, IntentFilter filter) {
+        if (Build.VERSION.SDK_INT >= 34 && context.getApplicationInfo().targetSdkVersion >= 34) {
+            context.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(receiver, filter);
+        }
     }
 }

@@ -111,13 +111,13 @@ RCT_EXPORT_MODULE();
                                               selector:@selector(headphoneBluetoothConnectionDidChange:)
                                                   name:AVAudioSessionRouteChangeNotification
                                                 object: [AVAudioSession sharedInstance]];
-        #if !TARGET_OS_VISION
-#if !TARGET_OS_VISION
+   
+    #if !TARGET_OS_VISION
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(brightnessDidChange:)
                                                  name:UIScreenBrightnessDidChangeNotification
                                                object: nil];
-#endif
+    #endif
 #endif
   }
   

@@ -653,17 +653,6 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         module.getUserAgent(p);
     }
 
-    @SuppressLint({"HardwareIds", "MissingPermission"})
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    public String getPhoneNumberSync() {
-        return module.getPhoneNumberSync();
-    }
-
-    @ReactMethod
-    public void getPhoneNumber(Promise p) {
-        module.getPhoneNumber(p);
-    }
-
     @ReactMethod(isBlockingSynchronousMethod = true)
     public WritableArray getSupportedAbisSync() {
         return module.getSupportedAbisSync();
