@@ -43,6 +43,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.module.annotations.ReactModule;
 import com.learnium.RNDeviceInfo.resolver.DeviceIdResolver;
 import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
@@ -61,7 +62,8 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
-public class RNDeviceModuleManager {
+@ReactModule(name = RNDeviceModule.NAME)
+public class RNDeviceModule extends NativeRNDeviceInfoAndroidSpec {
     public static final String NAME = "RNDeviceInfo";
     private final DeviceTypeResolver deviceTypeResolver;
     private final DeviceIdResolver deviceIdResolver;
@@ -70,8 +72,7 @@ public class RNDeviceModuleManager {
     private BroadcastReceiver headphoneConnectionReceiver;
     private BroadcastReceiver headphoneWiredConnectionReceiver;
     private BroadcastReceiver headphoneBluetoothConnectionReceiver;
-    private final ReactApplicationContext reactContext;
-    private InputMethodManager inputMethodManager;
+    private final InputMethodManager inputMethodManager;
 
     private double mLastBatteryLevel = -1;
     private String mLastBatteryState = "";
@@ -81,12 +82,44 @@ public class RNDeviceModuleManager {
     private static final String BATTERY_LEVEL = "batteryLevel";
     private static final String LOW_POWER_MODE = "lowPowerMode";
 
-    public RNDeviceModuleManager(ReactApplicationContext reactContext) {
-        this.reactContext = reactContext;
+    public RNDeviceModule(ReactApplicationContext reactContext) {
+        super(reactContext);
         this.deviceTypeResolver = new DeviceTypeResolver(reactContext);
         this.deviceIdResolver = new DeviceIdResolver(reactContext);
         this.installReferrerClient = new RNInstallReferrerClient(reactContext.getBaseContext());
         this.inputMethodManager = (InputMethodManager) reactContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    @Override
+    protected Map<String, Object> getTypedExportedConstants() {
+        String appVersion, buildNumber, appName;
+
+        try {
+            appVersion = getPackageInfo().versionName;
+            buildNumber = Integer.toString(getPackageInfo().versionCode);
+            appName = getReactApplicationContext().getApplicationInfo().loadLabel(getReactApplicationContext().getPackageManager()).toString();
+        } catch (Exception e) {
+            appVersion = "unknown";
+            buildNumber = "unknown";
+            appName = "unknown";
+        }
+
+        final Map<String, Object> constants = new HashMap<>();
+
+        constants.put("deviceId", Build.BOARD);
+        constants.put("bundleId", getReactApplicationContext().getPackageName());
+        constants.put("systemName", "Android");
+        constants.put("systemVersion", Build.VERSION.RELEASE);
+        constants.put("appVersion", appVersion);
+        constants.put("buildNumber", buildNumber);
+        constants.put("isTablet", deviceTypeResolver.isTablet());
+        constants.put("isLowRamDevice", isLowRamDevice());
+        constants.put("appName", appName);
+        constants.put("brand", Build.BRAND);
+        constants.put("model", Build.MODEL);
+        constants.put("deviceType", deviceTypeResolver.getDeviceType().getValue());
+
+        return constants;
     }
 
     public void initialize() {
@@ -110,16 +143,16 @@ public class RNDeviceModuleManager {
                 boolean powerSaveState = powerState.getBoolean(LOW_POWER_MODE);
 
                 if (!mLastBatteryState.equalsIgnoreCase(batteryState) || mLastPowerSaveState != powerSaveState) {
-                    sendEvent(reactContext, "RNDeviceInfo_powerStateDidChange", batteryState);
+                    sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", batteryState);
                     mLastBatteryState = batteryState;
                     mLastPowerSaveState = powerSaveState;
                 }
 
                 if (mLastBatteryLevel != batteryLevel) {
-                    sendEvent(reactContext, "RNDeviceInfo_batteryLevelDidChange", batteryLevel);
+                    sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelDidChange", batteryLevel);
 
                     if (batteryLevel <= .15) {
-                        sendEvent(reactContext, "RNDeviceInfo_batteryLevelIsLow", batteryLevel);
+                        sendEvent(getReactApplicationContext(), "RNDeviceInfo_batteryLevelIsLow", batteryLevel);
                     }
 
                     mLastBatteryLevel = batteryLevel;
@@ -127,7 +160,7 @@ public class RNDeviceModuleManager {
             }
         };
 
-        registerReceiver(reactContext, receiver, filter);
+        registerReceiver(getReactApplicationContext(), receiver, filter);
         initializeHeadphoneConnectionReceivers();
     }
 
@@ -141,11 +174,11 @@ public class RNDeviceModuleManager {
             @Override
             public void onReceive(Context context, Intent intent) {
                 boolean isConnected = isHeadphonesConnectedSync();
-                sendEvent(reactContext, "RNDeviceInfo_headphoneConnectionDidChange", isConnected);
+                sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneConnectionDidChange", isConnected);
             }
         };
 
-        registerReceiver(reactContext, headphoneConnectionReceiver, filter);
+        registerReceiver(getReactApplicationContext(), headphoneConnectionReceiver, filter);
 
         // 2. Filter for wired headset
         IntentFilter filterWired = new IntentFilter();
@@ -155,11 +188,11 @@ public class RNDeviceModuleManager {
             @Override
             public void onReceive(Context context, Intent intent) {
             boolean isConnected = isWiredHeadphonesConnectedSync();
-            sendEvent(reactContext, "RNDeviceInfo_headphoneWiredConnectionDidChange", isConnected);
+            sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneWiredConnectionDidChange", isConnected);
             }
         };
 
-        registerReceiver(reactContext, headphoneWiredConnectionReceiver, filter);
+        registerReceiver(getReactApplicationContext(), headphoneWiredConnectionReceiver, filter);
 
         // 3. Filter for bluetooth headphones
         IntentFilter filterBluetooth = new IntentFilter();
@@ -169,18 +202,18 @@ public class RNDeviceModuleManager {
             @Override
             public void onReceive(Context context, Intent intent) {
             boolean isConnected = isBluetoothHeadphonesConnectedSync();
-            sendEvent(reactContext, "RNDeviceInfo_headphoneBluetoothConnectionDidChange", isConnected);
+            sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneBluetoothConnectionDidChange", isConnected);
             }
         };
 
-        registerReceiver(reactContext, headphoneBluetoothConnectionReceiver, filter);
+        registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
   }
 
     public void cleanUp() {
-        reactContext.unregisterReceiver(receiver);
-        reactContext.unregisterReceiver(headphoneConnectionReceiver);
-        reactContext.unregisterReceiver(headphoneWiredConnectionReceiver);
-        reactContext.unregisterReceiver(headphoneBluetoothConnectionReceiver);
+        getReactApplicationContext().unregisterReceiver(receiver);
+        getReactApplicationContext().unregisterReceiver(headphoneConnectionReceiver);
+        getReactApplicationContext().unregisterReceiver(headphoneWiredConnectionReceiver);
+        getReactApplicationContext().unregisterReceiver(headphoneBluetoothConnectionReceiver);
     }
 
     @Nonnull
@@ -194,7 +227,7 @@ public class RNDeviceModuleManager {
 
     @SuppressLint("MissingPermission")
     private WifiInfo getWifiInfo() {
-        WifiManager manager = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager) getReactApplicationContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (manager != null) {
             return manager.getConnectionInfo();
         }
@@ -203,41 +236,10 @@ public class RNDeviceModuleManager {
 
     @Nonnull
     private Boolean isLowRamDevice() {
-        ActivityManager am = (ActivityManager) reactContext.getSystemService(ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) getReactApplicationContext().getSystemService(ACTIVITY_SERVICE);
         boolean isLowRamDevice = false;
         isLowRamDevice = am.isLowRamDevice();
         return isLowRamDevice;
-    }
-
-    public Map<String, Object> getConstants() {
-        String appVersion, buildNumber, appName;
-
-        try {
-            appVersion = getPackageInfo().versionName;
-            buildNumber = Integer.toString(getPackageInfo().versionCode);
-            appName = reactContext.getApplicationInfo().loadLabel(reactContext.getPackageManager()).toString();
-        } catch (Exception e) {
-            appVersion = "unknown";
-            buildNumber = "unknown";
-            appName = "unknown";
-        }
-
-        final Map<String, Object> constants = new HashMap<>();
-
-        constants.put("deviceId", Build.BOARD);
-        constants.put("bundleId", reactContext.getPackageName());
-        constants.put("systemName", "Android");
-        constants.put("systemVersion", Build.VERSION.RELEASE);
-        constants.put("appVersion", appVersion);
-        constants.put("buildNumber", buildNumber);
-        constants.put("isTablet", deviceTypeResolver.isTablet());
-        constants.put("isLowRamDevice", isLowRamDevice());
-        constants.put("appName", appName);
-        constants.put("brand", Build.BRAND);
-        constants.put("model", Build.MODEL);
-        constants.put("deviceType", deviceTypeResolver.getDeviceType().getValue());
-
-        return constants;
     }
 
     public void isEmulator(Promise p) {
@@ -272,8 +274,8 @@ public class RNDeviceModuleManager {
                 || this.hasKeyboard("memuime");
     }
 
-    public float getFontScaleSync() {
-        return reactContext.getResources().getConfiguration().fontScale;
+    public double getFontScaleSync() {
+        return getReactApplicationContext().getResources().getConfiguration().fontScale;
     }
 
     public void getFontScale(Promise p) {
@@ -281,7 +283,7 @@ public class RNDeviceModuleManager {
     }
 
     public boolean isPinOrFingerprintSetSync() {
-        KeyguardManager keyguardManager = (KeyguardManager) reactContext.getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager keyguardManager = (KeyguardManager) getReactApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
         if (keyguardManager != null) {
             return keyguardManager.isKeyguardSecure();
         }
@@ -315,7 +317,7 @@ public class RNDeviceModuleManager {
     }
 
     public boolean isCameraPresentSync() {
-        CameraManager manager = (CameraManager) reactContext.getSystemService(Context.CAMERA_SERVICE);
+        CameraManager manager = (CameraManager) getReactApplicationContext().getSystemService(Context.CAMERA_SERVICE);
         try {
             return manager.getCameraIdList().length > 0;
         } catch (Exception e) {
@@ -336,7 +338,7 @@ public class RNDeviceModuleManager {
         }
 
         String permission = "android.permission.INTERNET";
-        int res = reactContext.checkCallingOrSelfPermission(permission);
+        int res = getReactApplicationContext().checkCallingOrSelfPermission(permission);
 
         if (res == PackageManager.PERMISSION_GRANTED) {
             try {
@@ -374,7 +376,7 @@ public class RNDeviceModuleManager {
     }
 
     public String getCarrierSync() {
-        TelephonyManager telMgr = (TelephonyManager) reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (telMgr != null) {
             return telMgr.getNetworkOperatorName();
         } else {
@@ -477,7 +479,7 @@ public class RNDeviceModuleManager {
 
     public boolean isBatteryChargingSync() {
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent batteryStatus = reactContext.registerReceiver(null, ifilter);
+        Intent batteryStatus = getReactApplicationContext().registerReceiver(null, ifilter);
         int status = 0;
         if (batteryStatus != null) {
             status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -490,7 +492,7 @@ public class RNDeviceModuleManager {
     }
 
     public double getUsedMemorySync() {
-        ActivityManager actMgr = (ActivityManager) reactContext.getSystemService(ACTIVITY_SERVICE);
+        ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(ACTIVITY_SERVICE);
         if (actMgr != null) {
             int pid = android.os.Process.myPid();
             android.os.Debug.MemoryInfo[] memInfos = actMgr.getProcessMemoryInfo(new int[]{pid});
@@ -514,7 +516,7 @@ public class RNDeviceModuleManager {
     }
 
     public WritableMap getPowerStateSync() {
-        Intent intent = reactContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Intent intent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         return getPowerStateFromIntent(intent);
     }
 
@@ -523,7 +525,7 @@ public class RNDeviceModuleManager {
     }
 
     public double getBatteryLevelSync() {
-        Intent intent = reactContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Intent intent = getReactApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         WritableMap powerState = getPowerStateFromIntent(intent);
 
         if (powerState == null) {
@@ -539,7 +541,7 @@ public class RNDeviceModuleManager {
 
     public boolean isAirplaneModeSync() {
         boolean isAirplaneMode;
-        isAirplaneMode = Settings.Global.getInt(reactContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+        isAirplaneMode = Settings.Global.getInt(getReactApplicationContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
         return isAirplaneMode;
     }
 
@@ -553,7 +555,7 @@ public class RNDeviceModuleManager {
             Method getInstanceMethod = googleApiAvailability.getMethod("getInstance");
             Object gmsObject = getInstanceMethod.invoke(null);
             Method isGooglePlayServicesAvailableMethod = gmsObject.getClass().getMethod("isGooglePlayServicesAvailable", Context.class);
-            int isGMS = (int) isGooglePlayServicesAvailableMethod.invoke(gmsObject, reactContext);
+            int isGMS = (int) isGooglePlayServicesAvailableMethod.invoke(gmsObject, getReactApplicationContext());
             return isGMS == 0; // ConnectionResult.SUCCESS
         } catch (Exception e) {
             return false;
@@ -570,7 +572,7 @@ public class RNDeviceModuleManager {
             Method getInstanceMethod = huaweiApiAvailability.getMethod("getInstance");
             Object hmsObject = getInstanceMethod.invoke(null);
             Method isHuaweiMobileServicesAvailableMethod = hmsObject.getClass().getMethod("isHuaweiMobileServicesAvailable", Context.class);
-            int isHMS = (int) isHuaweiMobileServicesAvailableMethod.invoke(hmsObject, reactContext);
+            int isHMS = (int) isHuaweiMobileServicesAvailableMethod.invoke(hmsObject, getReactApplicationContext());
             return isHMS == 0; // ConnectionResult.SUCCESS
         } catch (Exception e) {
             return false;
@@ -586,7 +588,7 @@ public class RNDeviceModuleManager {
             return false;
         }
 
-        return reactContext.getPackageManager().hasSystemFeature(feature);
+        return getReactApplicationContext().getPackageManager().hasSystemFeature(feature);
     }
 
     public void hasSystemFeature(String feature, Promise p) {
@@ -594,7 +596,7 @@ public class RNDeviceModuleManager {
     }
 
     public WritableArray getSystemAvailableFeaturesSync() {
-        final FeatureInfo[] featureList = reactContext.getPackageManager().getSystemAvailableFeatures();
+        final FeatureInfo[] featureList = getReactApplicationContext().getPackageManager().getSystemAvailableFeatures();
 
         WritableArray promiseArray = Arguments.createArray();
         for (FeatureInfo f : featureList) {
@@ -614,7 +616,7 @@ public class RNDeviceModuleManager {
         boolean locationEnabled;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            LocationManager mLocationManager = (LocationManager) reactContext.getSystemService(Context.LOCATION_SERVICE);
+            LocationManager mLocationManager = (LocationManager) getReactApplicationContext().getSystemService(Context.LOCATION_SERVICE);
             try {
                 locationEnabled = mLocationManager.isLocationEnabled();
             } catch (Exception e) {
@@ -622,7 +624,7 @@ public class RNDeviceModuleManager {
                 return false;
             }
         } else {
-            int locationMode = Settings.Secure.getInt(reactContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+            int locationMode = Settings.Secure.getInt(getReactApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
             locationEnabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
 
@@ -634,7 +636,7 @@ public class RNDeviceModuleManager {
     }
 
     public boolean isHeadphonesConnectedSync() {
-        AudioManager audioManager = (AudioManager) reactContext.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager) getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         return audioManager.isWiredHeadsetOn() || audioManager.isBluetoothA2dpOn();
     }
 
@@ -643,21 +645,26 @@ public class RNDeviceModuleManager {
     }
 
     public boolean isWiredHeadphonesConnectedSync() {
-        AudioManager audioManager = (AudioManager)reactContext.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         return audioManager.isWiredHeadsetOn();
     }
     
     public void isWiredHeadphonesConnected(Promise p) {p.resolve(isWiredHeadphonesConnectedSync());}
 
     public boolean isBluetoothHeadphonesConnectedSync() {
-        AudioManager audioManager = (AudioManager)reactContext.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         return audioManager.isBluetoothA2dpOn();
     }
-  
+
+    @Override
+    public void syncUniqueId(Promise promise) {
+
+    }
+
     public void isBluetoothHeadphonesConnected(Promise p) {p.resolve(isBluetoothHeadphonesConnectedSync());}
 
     public WritableMap getAvailableLocationProvidersSync() {
-        LocationManager mLocationManager = (LocationManager) reactContext.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager mLocationManager = (LocationManager) getReactApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         WritableMap providersAvailability = Arguments.createMap();
         try {
             List<String> providers = mLocationManager.getProviders(false);
@@ -676,7 +683,7 @@ public class RNDeviceModuleManager {
     }
 
     public String getInstallReferrerSync() {
-        SharedPreferences sharedPref = getRNDISharedPreferences(reactContext);
+        SharedPreferences sharedPref = getRNDISharedPreferences(getReactApplicationContext());
         return sharedPref.getString("installReferrer", Build.UNKNOWN);
     }
 
@@ -685,12 +692,12 @@ public class RNDeviceModuleManager {
     }
 
     private PackageInfo getPackageInfo() throws Exception {
-        return reactContext.getPackageManager().getPackageInfo(reactContext.getPackageName(), 0);
+        return getReactApplicationContext().getPackageManager().getPackageInfo(getReactApplicationContext().getPackageName(), 0);
     }
 
     public String getInstallerPackageNameSync() {
-        String packageName = reactContext.getPackageName();
-        String installerPackageName = reactContext.getPackageManager().getInstallerPackageName(packageName);
+        String packageName = getReactApplicationContext().getPackageName();
+        String installerPackageName = getReactApplicationContext().getPackageManager().getInstallerPackageName(packageName);
 
         return Objects.requireNonNullElse(installerPackageName, "unknown");
     }
@@ -727,14 +734,14 @@ public class RNDeviceModuleManager {
     public String getDeviceNameSync() {
         try {
             if (Build.VERSION.SDK_INT <= 31) {
-                String bluetoothName = Settings.Secure.getString(reactContext.getContentResolver(), "bluetooth_name");
+                String bluetoothName = Settings.Secure.getString(getReactApplicationContext().getContentResolver(), "bluetooth_name");
                 if (bluetoothName != null) {
                     return bluetoothName;
                 }
             }
 
             if (Build.VERSION.SDK_INT >= 25) {
-                String deviceName = Settings.Global.getString(reactContext.getContentResolver(), Settings.Global.DEVICE_NAME);
+                String deviceName = Settings.Global.getString(getReactApplicationContext().getContentResolver(), Settings.Global.DEVICE_NAME);
                 if (deviceName != null) {
                     return deviceName;
                 }
@@ -789,7 +796,7 @@ public class RNDeviceModuleManager {
         p.resolve(getBuildIdSync());
     }
 
-    public int getApiLevelSync() {
+    public double getApiLevelSync() {
         return Build.VERSION.SDK_INT;
     }
 
@@ -865,6 +872,14 @@ public class RNDeviceModuleManager {
         return Build.MANUFACTURER;
     }
 
+    @Override
+    public void addListener(String eventName) {
+    }
+
+    @Override
+    public void removeListeners(double count) {
+    }
+
     public void getSystemManufacturer(Promise p) {
         p.resolve(getSystemManufacturerSync());
     }
@@ -887,7 +902,7 @@ public class RNDeviceModuleManager {
 
     @SuppressLint("HardwareIds")
     public String getUniqueIdSync() {
-        return getString(reactContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return getString(getReactApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     public void getUniqueId(Promise p) {
@@ -912,7 +927,7 @@ public class RNDeviceModuleManager {
     }
 
     public double getTotalMemorySync() {
-        ActivityManager actMgr = (ActivityManager) reactContext.getSystemService(ACTIVITY_SERVICE);
+        ActivityManager actMgr = (ActivityManager) getReactApplicationContext().getSystemService(ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
         if (actMgr != null) {
             actMgr.getMemoryInfo(memInfo);
@@ -944,7 +959,7 @@ public class RNDeviceModuleManager {
         p.resolve(getBaseOsSync());
     }
 
-    public int getPreviewSdkIntSync() {
+    public double getPreviewSdkIntSync() {
         return Build.VERSION.PREVIEW_SDK_INT;
     }
 
@@ -962,7 +977,7 @@ public class RNDeviceModuleManager {
 
     public String getUserAgentSync() {
         try {
-            return WebSettings.getDefaultUserAgent(reactContext);
+            return WebSettings.getDefaultUserAgent(getReactApplicationContext());
         } catch (RuntimeException e) {
             return System.getProperty("http.agent");
         }
@@ -1031,7 +1046,7 @@ public class RNDeviceModuleManager {
             batteryState = "full";
         }
 
-        PowerManager powerManager = (PowerManager) reactContext.getSystemService(Context.POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) getReactApplicationContext().getSystemService(Context.POWER_SERVICE);
         boolean powerSaveMode = false;
         powerSaveMode = powerManager.isPowerSaveMode();
 
@@ -1046,7 +1061,7 @@ public class RNDeviceModuleManager {
     private void sendEvent(ReactContext reactContext,
                            String eventName,
                            @Nullable Object data) {
-        reactContext.emitDeviceEvent(eventName, data);
+        getReactApplicationContext().emitDeviceEvent(eventName, data);
     }
 
     public WritableArray getSupportedMediaTypeListSync() {

@@ -91,13 +91,9 @@ android {
 
     sourceSets.main {
         java {
-            if (isNewArchitectureEnabled()) {
+            if (!isNewArchitectureEnabled()) {
                 srcDirs += [
-                    "src/newArch/java",
-                ]
-            } else {
-                srcDirs += [
-                    "src/oldArch/java",
+                    "src/paper/java",
                 ]
             }
         }
@@ -114,11 +110,8 @@ repositories {
 }
 
 dependencies {
-  if (isNewArchitectureEnabled() && getReactNativeMinorVersion() < 71) {
-    implementation project(":ReactAndroid")
-  } else {
-    implementation 'com.facebook.react:react-native:+'
-  }
+  implementation 'com.facebook.react:react-native:+'
+  
   implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
   implementation "com.android.installreferrer:installreferrer:${safeExtGet('installReferrerVersion', '1.1.2')}"
   def firebaseBomVersion = safeExtGet("firebaseBomVersion", null)

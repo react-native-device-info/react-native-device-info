@@ -1164,7 +1164,7 @@ PODS:
     - React-logger (= 0.74.2)
     - React-perflogger (= 0.74.2)
     - React-utils (= 0.74.2)
-  - RNDeviceInfo (10.13.1):
+  - RNDeviceInfo (11.1.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1418,7 +1418,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 56b642bf605ba5afa500d35790928fc1d51565ad
   React-utils: 4476b7fcbbd95cfd002f3e778616155241d86e31
   ReactCommon: ecad995f26e0d1e24061f60f4e5d74782f003f12
-  RNDeviceInfo: b2e4998fed7a9afa49bbe6a85f301ebe215a0716
+  RNDeviceInfo: e77a332ee18bd0f0b787e986910b350dc2ce4baf
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 2f71ecf38d934aecb366e686278102a51679c308
 

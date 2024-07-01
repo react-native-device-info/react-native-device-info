@@ -8,7 +8,7 @@ export type NotchDevice = {
   [key: string]: string;
 };
 
-interface NativeConstants {
+export interface NativeConstants {
   appName: string;
   appVersion: string;
   brand: string;
@@ -211,7 +211,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
 }
 
 export type Getter<T> = () => T;
-export type PlatformArray = (typeof Platform.OS)[];
+export type PlatformArray = typeof Platform.OS[];
 
 export interface GetSupportedPlatformInfoSyncParams<T> {
   getter: Getter<T>;

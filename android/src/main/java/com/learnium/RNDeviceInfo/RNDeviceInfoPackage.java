@@ -28,7 +28,7 @@ public class RNDeviceInfoPackage extends TurboReactPackage {
     @Nullable
     @Override
     public NativeModule getModule(@NonNull String name, @NonNull ReactApplicationContext reactContext) {
-        if (name.equals(RNDeviceModuleManager.NAME)) {
+        if (name.equals(RNDeviceModule.NAME)) {
             return new RNDeviceModule(reactContext);
         } else {
             return null;
@@ -41,10 +41,10 @@ public class RNDeviceInfoPackage extends TurboReactPackage {
             final Map<String, ReactModuleInfo> moduleInfos = new HashMap<>();
             boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
             moduleInfos.put(
-                    RNDeviceModuleManager.NAME,
+                    RNDeviceModule.NAME,
                     new ReactModuleInfo(
-                            RNDeviceModuleManager.NAME,
-                            RNDeviceModuleManager.NAME,
+                            RNDeviceModule.NAME,
+                            RNDeviceModule.NAME,
                             false,
                             false,
                             false,

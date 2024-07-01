@@ -9,7 +9,7 @@ import {
   getSupportedPlatformInfoFunctions,
   getSupportedPlatformInfoSync,
 } from './internal/supported-platform-info';
-import { DeviceInfoModule } from './internal/privateTypes';
+import { DeviceInfoModule, NativeConstants } from './internal/privateTypes';
 import type {
   AsyncHookResult,
   DeviceType,
@@ -17,7 +17,14 @@ import type {
   PowerState,
 } from './internal/types';
 
-const constants = RNDeviceInfo.getConstants();
+let constants: NativeConstants;
+
+function getConstants() {
+  if (constants === undefined) {
+    constants = RNDeviceInfo.getConstants() as NativeConstants;
+  }
+  return constants;
+}
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'uniqueId',
@@ -97,7 +104,7 @@ export const getDeviceId = () =>
   getSupportedPlatformInfoSync({
     defaultValue: 'unknown',
     memoKey: 'deviceId',
-    getter: () => constants.deviceId,
+    getter: () => getConstants().deviceId,
     supportedPlatforms: ['android', 'ios', 'windows'],
   });
 
@@ -115,7 +122,7 @@ export const getModel = () =>
     memoKey: 'model',
     defaultValue: 'unknown',
     supportedPlatforms: ['ios', 'android', 'windows'],
-    getter: () => constants.model,
+    getter: () => getConstants().model,
   });
 
 export const getBrand = () =>
@@ -123,7 +130,7 @@ export const getBrand = () =>
     memoKey: 'brand',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => constants.brand,
+    getter: () => getConstants().brand,
   });
 
 export const getSystemName = () =>
@@ -133,7 +140,7 @@ export const getSystemName = () =>
     memoKey: 'systemName',
     getter: () =>
       Platform.select({
-        ios: constants.systemName,
+        ios: getConstants().systemName,
         android: 'Android',
         windows: 'Windows',
         default: 'unknown',
@@ -143,7 +150,7 @@ export const getSystemName = () =>
 export const getSystemVersion = () =>
   getSupportedPlatformInfoSync({
     defaultValue: 'unknown',
-    getter: () => constants.systemVersion,
+    getter: () => getConstants().systemVersion,
     supportedPlatforms: ['android', 'ios', 'windows'],
     memoKey: 'systemVersion',
   });
@@ -169,23 +176,25 @@ export const getBundleId = () =>
     memoKey: 'bundleId',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => constants.bundleId,
+    getter: () => getConstants().bundleId,
   });
 
-export const [getInstallerPackageName, getInstallerPackageNameSync] =
-  getSupportedPlatformInfoFunctions({
-    memoKey: 'installerPackageName',
-    supportedPlatforms: ['android', 'windows', 'ios'],
-    getter: () => RNDeviceInfo.getInstallerPackageName(),
-    syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
-    defaultValue: 'unknown',
-  });
+export const [
+  getInstallerPackageName,
+  getInstallerPackageNameSync,
+] = getSupportedPlatformInfoFunctions({
+  memoKey: 'installerPackageName',
+  supportedPlatforms: ['android', 'windows', 'ios'],
+  getter: () => RNDeviceInfo.getInstallerPackageName(),
+  syncGetter: () => RNDeviceInfo.getInstallerPackageNameSync(),
+  defaultValue: 'unknown',
+});
 
 export const getApplicationName = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'appName',
     defaultValue: 'unknown',
-    getter: () => constants.appName,
+    getter: () => getConstants().appName,
     supportedPlatforms: ['android', 'ios', 'windows'],
   });
 
@@ -193,7 +202,7 @@ export const getBuildNumber = () =>
   getSupportedPlatformInfoSync({
     memoKey: 'buildNumber',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => constants.buildNumber,
+    getter: () => getConstants().buildNumber,
     defaultValue: 'unknown',
   });
 
@@ -202,7 +211,7 @@ export const getVersion = () =>
     memoKey: 'version',
     defaultValue: 'unknown',
     supportedPlatforms: ['android', 'ios', 'windows'],
-    getter: () => constants.appVersion,
+    getter: () => getConstants().appVersion,
   });
 
 export function getReadableVersion() {
@@ -379,7 +388,7 @@ export const isTablet = () =>
     defaultValue: false,
     supportedPlatforms: ['android', 'ios', 'windows'],
     memoKey: 'tablet',
-    getter: () => constants.isTablet,
+    getter: () => getConstants().isTablet,
   });
 
 export const isLowRamDevice = () =>
@@ -387,7 +396,7 @@ export const isLowRamDevice = () =>
     defaultValue: false,
     supportedPlatforms: ['android'],
     memoKey: 'lowRam',
-    getter: () => constants.isLowRamDevice,
+    getter: () => getConstants().isLowRamDevice,
   });
 
 export const isDisplayZoomed = () =>
@@ -395,7 +404,7 @@ export const isDisplayZoomed = () =>
     defaultValue: false,
     supportedPlatforms: ['ios'],
     memoKey: 'zoomed',
-    getter: () => constants.isDisplayZoomed,
+    getter: () => getConstants().isDisplayZoomed,
   });
 
 export const [isPinOrFingerprintSet, isPinOrFingerprintSetSync] = getSupportedPlatformInfoFunctions(
@@ -600,7 +609,7 @@ export const getDeviceType = () => {
     memoKey: 'deviceType',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => constants.deviceType,
+    getter: () => getConstants().deviceType,
   });
 };
 
@@ -609,7 +618,7 @@ export const getDeviceTypeSync = () => {
     memoKey: 'deviceType',
     supportedPlatforms: ['android', 'ios', 'windows'],
     defaultValue: 'unknown',
-    getter: () => constants.deviceType,
+    getter: () => getConstants().deviceType,
   });
 };
 
@@ -658,13 +667,15 @@ export function isLowBatteryLevel(level: number): boolean {
   return level < 0.2;
 }
 
-export const [getSystemAvailableFeatures, getSystemAvailableFeaturesSync] =
-  getSupportedPlatformInfoFunctions({
-    supportedPlatforms: ['android'],
-    getter: () => RNDeviceInfo.getSystemAvailableFeatures(),
-    syncGetter: () => RNDeviceInfo.getSystemAvailableFeaturesSync(),
-    defaultValue: [] as string[],
-  });
+export const [
+  getSystemAvailableFeatures,
+  getSystemAvailableFeaturesSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSystemAvailableFeatures(),
+  syncGetter: () => RNDeviceInfo.getSystemAvailableFeaturesSync(),
+  defaultValue: [] as string[],
+});
 
 export const [isLocationEnabled, isLocationEnabledSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'web'],
@@ -682,23 +693,25 @@ export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPl
   }
 );
 
-export const [isWiredHeadphonesConnected, isWiredHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android', 'ios'],
-    getter: () => RNDeviceInfo.isWiredHeadphonesConnected(),
-    syncGetter: () => RNDeviceInfo.isWiredHeadphonesConnectedSync(),
-    defaultValue: false,
-  }
-);
+export const [
+  isWiredHeadphonesConnected,
+  isWiredHeadphonesConnectedSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.isWiredHeadphonesConnected(),
+  syncGetter: () => RNDeviceInfo.isWiredHeadphonesConnectedSync(),
+  defaultValue: false,
+});
 
-export const [isBluetoothHeadphonesConnected, isBluetoothHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android', 'ios'],
-    getter: () => RNDeviceInfo.isBluetoothHeadphonesConnected(),
-    syncGetter: () => RNDeviceInfo.isBluetoothHeadphonesConnectedSync(),
-    defaultValue: false,
-  }
-);
+export const [
+  isBluetoothHeadphonesConnected,
+  isBluetoothHeadphonesConnectedSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.isBluetoothHeadphonesConnected(),
+  syncGetter: () => RNDeviceInfo.isBluetoothHeadphonesConnectedSync(),
+  defaultValue: false,
+});
 
 export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['windows'],
@@ -714,13 +727,15 @@ export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatfo
   defaultValue: false,
 });
 
-export const [getSupportedMediaTypeList, getSupportedMediaTypeListSync] =
-  getSupportedPlatformInfoFunctions({
-    supportedPlatforms: ['android'],
-    getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
-    syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
-    defaultValue: [],
-  });
+export const [
+  getSupportedMediaTypeList,
+  getSupportedMediaTypeListSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
+  syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
+  defaultValue: [],
+});
 
 export const isTabletMode = () =>
   getSupportedPlatformInfoAsync({
@@ -729,13 +744,15 @@ export const isTabletMode = () =>
     defaultValue: false,
   });
 
-export const [getAvailableLocationProviders, getAvailableLocationProvidersSync] =
-  getSupportedPlatformInfoFunctions({
-    supportedPlatforms: ['android', 'ios'],
-    getter: () => RNDeviceInfo.getAvailableLocationProviders(),
-    syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
-    defaultValue: {},
-  });
+export const [
+  getAvailableLocationProviders,
+  getAvailableLocationProvidersSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getAvailableLocationProviders(),
+  syncGetter: () => RNDeviceInfo.getAvailableLocationProvidersSync(),
+  defaultValue: {},
+});
 
 export const [getBrightness, getBrightnessSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['ios'],
@@ -832,11 +849,19 @@ export function useIsHeadphonesConnected(): AsyncHookResult<boolean> {
 }
 
 export function useIsWiredHeadphonesConnected(): AsyncHookResult<boolean> {
-  return useOnEvent('RNDeviceInfo_headphoneWiredConnectionDidChange', isWiredHeadphonesConnected, false);
+  return useOnEvent(
+    'RNDeviceInfo_headphoneWiredConnectionDidChange',
+    isWiredHeadphonesConnected,
+    false
+  );
 }
 
 export function useIsBluetoothHeadphonesConnected(): AsyncHookResult<boolean> {
-  return useOnEvent('RNDeviceInfo_headphoneBluetoothConnectionDidChange', isBluetoothHeadphonesConnected, false);
+  return useOnEvent(
+    'RNDeviceInfo_headphoneBluetoothConnectionDidChange',
+    isBluetoothHeadphonesConnected,
+    false
+  );
 }
 
 export function useFirstInstallTime(): AsyncHookResult<number> {
