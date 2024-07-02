@@ -103,6 +103,8 @@ interface ExposedNativeMethods {
   getSecurityPatchSync: () => string;
   getSerialNumber: () => Promise<string>;
   getSerialNumberSync: () => string;
+  getStartupTime: () => Promise<number>;
+  getStartupTimeSync: () => number;
   getSystemAvailableFeatures: () => Promise<string[]>;
   getSystemAvailableFeaturesSync: () => string[];
   getTags: () => Promise<string>;

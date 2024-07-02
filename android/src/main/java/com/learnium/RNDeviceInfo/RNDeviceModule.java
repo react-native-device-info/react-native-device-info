@@ -24,6 +24,7 @@ import android.os.StatFs;
 import android.os.BatteryManager;
 import android.os.Debug;
 import android.os.Process;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodInfo;
@@ -754,6 +755,22 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void getLastUpdateTime(Promise p) { p.resolve(getLastUpdateTimeSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public double getStartupTimeSync() {
+    // Get time in milliseconds since unix epoch
+    long currentTime = System.currentTimeMillis();
+    // Get the time when the process started in milliseconds since system boot
+    long processStartTime = Process.getStartUptimeMillis();
+    // Get the milliseconds since system boot time
+    long currentUptime = SystemClock.uptimeMillis();
+    // Calculate the process startup time in milliseconds since unix epoch
+    long startupTime = currentTime - currentUptime + processStartTime;
+    return BigInteger.valueOf(startupTime).doubleValue();
+  }
+
+  @ReactMethod
+  public void getStartupTime(Promise p) { p.resolve(getStartupTimeSync()); }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public String getDeviceNameSync() {
