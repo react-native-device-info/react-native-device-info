@@ -77,12 +77,11 @@ jobs:
           max_attempts: 3
           command: yarn example:install
 
-      # Start with JDK11 which older react-native (like our example app currently...) require
-      - name: Configure JDK11
+      - name: Configure JDK17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
       # Now build the app, but with JDK11, with our example being so old, 11 is required and should work
       - name: Build Android App
@@ -105,13 +104,6 @@ jobs:
           echo "Packager is online! Preparing javascript bundle..."
           curl --output /dev/null --silent --head --fail "http://localhost:8081/index.bundle?platform=android&dev=true&minify=false&inlineSourceMap=true"
           echo "...javascript bundle ready."
-
-      # Switch to JDK17 in order to download everything, Android Studio tools require it now...
-      - name: Configure JDK17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
 
       - name: Download Emulator Image
         # This can fail on network request, wrap with retry
@@ -169,13 +161,6 @@ jobs:
           else
              exit 1
           fi
-
-      # Switch back to JDK11 in order to test. Silly but should work
-      - name: Configure JDK11
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
 
       - name: E2E Test
         # Detox uses Espresso to choreograph steps in reaction to UI events, so we need to send a stream of taps.

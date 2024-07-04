@@ -211,7 +211,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
 }
 
 export type Getter<T> = () => T;
-export type PlatformArray = typeof Platform.OS[];
+export type PlatformArray = (typeof Platform.OS)[];
 
 export interface GetSupportedPlatformInfoSyncParams<T> {
   getter: Getter<T>;

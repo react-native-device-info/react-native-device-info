@@ -37,6 +37,7 @@
     "example:install": "yarn && cd FabricExample && yarn && cd .. && yarn dev-sync",
     "example:install-windows": "yarn && cd example && yarn && cd .. && yarn dev-sync-windows",
     "example:install:pods": "cd FabricExample/ios && pod install",
+    "example:install:pods:new-arch": "cd FabricExample/ios && RCT_NEW_ARCH_ENABLED=1 pod install",
     "example:android": "cd FabricExample && yarn android",
     "example:android:build": "cd FabricExample/android && ./gradlew assembleDebug",
     "example:ios": "cd FabricExample && yarn ios --simulator 'iPhone 14'",
@@ -95,7 +96,7 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@react-native/eslint-config": "^0.73.1",
+    "@react-native/eslint-config": "^0.74.85",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
@@ -103,23 +104,24 @@
     "@semantic-release/npm": "^9.0.1",
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@testing-library/react-hooks": "^7.0.2",
+    "@react-native/typescript-config": "0.74.85",
     "@types/jest": "^29.5.5",
-    "@types/react": "17.0.39",
-    "eslint": "^7",
+    "@types/react": "^18.2.6",
+    "eslint": "^8.19.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-config-prettier": "^9.0.0",
     "husky": "^7.0.4",
     "jest": "^29.7.0",
     "lint-staged": "^12.3.4",
-    "prettier": "^3.0.3",
+    "prettier": "2.8.8",
     "react": "18.2.0",
-    "react-native": "0.73.5",
+    "react-native": "0.74.3",
     "react-native-builder-bob": "^0.23.2",
     "react-native-windows": "^0.67.3",
     "react-test-renderer": "18.2.0",
     "semantic-release": "^19.0.2",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.2.2"
+    "typescript": "5.0.4"
   },
   "resolutions": {
     "@types/react": "17.0.39"
