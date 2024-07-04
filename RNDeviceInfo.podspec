@@ -13,10 +13,13 @@ Pod::Spec.new do |s|
   s.platforms     = { :ios => "9.0", :visionos => "1.0", :tvos => "10.0"}
 
   s.source       = { :git => "https://github.com/react-native-device-info/react-native-device-info.git", :tag => "v#{s.version}" }
-  s.source_files  = "ios/**/*.{h,m}"
+  s.source_files = "ios/**/*.{h,m,mm}"
   s.resource_bundles = {
     'RNDeviceInfoPrivacyInfo' => ['ios/PrivacyInfo.xcprivacy'],
   }
 
+  s.frameworks = 'CoreTelephony', 'WebKit', 'LocalAuthentication', 'DeviceCheck'
   s.dependency 'React-Core'
+  
+  install_modules_dependencies(s)
 end

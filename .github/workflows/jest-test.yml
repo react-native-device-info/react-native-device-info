@@ -16,6 +16,6 @@ jobs:
       - name: Test using Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
       - run: yarn install
       - run: yarn test
