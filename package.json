@@ -96,7 +96,13 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@react-native/eslint-config": "^0.74.85",
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native/babel-preset": "0.74.85",
+    "@react-native/eslint-config": "0.74.85",
+    "@react-native/metro-config": "0.74.85",
+    "@react-native/typescript-config": "0.74.85",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
@@ -104,7 +110,6 @@
     "@semantic-release/npm": "^9.0.1",
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@testing-library/react-hooks": "^7.0.2",
-    "@react-native/typescript-config": "0.74.85",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.6",
     "eslint": "^8.19.0",
