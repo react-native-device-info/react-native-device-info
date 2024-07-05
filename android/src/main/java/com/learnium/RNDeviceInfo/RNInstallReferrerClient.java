@@ -3,11 +3,14 @@ package com.learnium.RNDeviceInfo;
 import android.content.SharedPreferences;
 import android.content.Context;
 import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RNInstallReferrerClient {
   private static Class<?> InstallReferrerClientClazz;
@@ -27,6 +30,8 @@ public class RNInstallReferrerClient {
   private final SharedPreferences sharedPreferences;
   private Object mReferrerClient;
   private Object installReferrerStateListener;
+  private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+  private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
   // From InstallReferrerClient.InstallReferrerResponse
   private static final int R_RESPONSE_OK                    = 0;
@@ -40,26 +45,28 @@ public class RNInstallReferrerClient {
       return;
     }
 
-    try {
-      // Build the InstallReferrerClient instance.
-      Method newBuilderMethod = InstallReferrerClientClazz.getMethod("newBuilder", Context.class);
-      Object builder = newBuilderMethod.invoke(null, context);
-      Method buildMethod = builder.getClass().getMethod("build");
-      mReferrerClient = buildMethod.invoke(builder);
+    executorService.execute(() -> {
+      try {
+        // Build the InstallReferrerClient instance.
+        Method newBuilderMethod = InstallReferrerClientClazz.getMethod("newBuilder", Context.class);
+        Object builder = newBuilderMethod.invoke(null, context);
+        Method buildMethod = builder.getClass().getMethod("build");
+        mReferrerClient = buildMethod.invoke(builder);
 
-      // Create the InstallReferrerStateListener instance using a Proxy.
-      installReferrerStateListener = Proxy.newProxyInstance(
-          InstallReferrerStateListenerClazz.getClassLoader(),
-          new Class[]{InstallReferrerStateListenerClazz},
-          new InstallReferrerStateListenerProxy());
+        // Create the InstallReferrerStateListener instance using a Proxy.
+        installReferrerStateListener = Proxy.newProxyInstance(
+            InstallReferrerStateListenerClazz.getClassLoader(),
+            new Class[]{InstallReferrerStateListenerClazz},
+            new InstallReferrerStateListenerProxy());
 
-      // Call startConnection on the client instance.
-      Method startConnectionMethod = InstallReferrerClientClazz.getMethod("startConnection", InstallReferrerStateListenerClazz);
-      startConnectionMethod.invoke(mReferrerClient, installReferrerStateListener);
-    } catch (Exception e) {
-      System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
-      e.printStackTrace(System.err);
-    }
+        // Call startConnection on the client instance.
+        Method startConnectionMethod = InstallReferrerClientClazz.getMethod("startConnection", InstallReferrerStateListenerClazz);
+        startConnectionMethod.invoke(mReferrerClient, installReferrerStateListener);
+      } catch (Exception e) {
+        System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
+        e.printStackTrace(System.err);
+      }
+    });
   }
 
   private class InstallReferrerStateListenerProxy implements InvocationHandler {
@@ -67,11 +74,22 @@ public class RNInstallReferrerClient {
     public Object invoke(Object o, Method method, Object[] args) throws Throwable {
       String methodName = method.getName();
       try {
-          if (methodName.equals("onInstallReferrerSetupFinished") && args != null && args[0] instanceof Integer) {
-            onInstallReferrerSetupFinished((Integer) args[0]);
-          } else if (methodName.equals("onInstallReferrerServiceDisconnected")) {
-            onInstallReferrerServiceDisconnected();
-          }
+        if (methodName.equals("onInstallReferrerSetupFinished") && args != null && args[0] instanceof Integer) {
+          int responseCode = (Integer) args[0];
+          mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+              onInstallReferrerSetupFinished(responseCode);
+            }
+          });
+        } else if (methodName.equals("onInstallReferrerServiceDisconnected")) {
+          mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+              onInstallReferrerServiceDisconnected();
+            }
+          });
+        }
       } catch (Exception e) {
         throw new RuntimeException("unexpected invocation exception: " + e.getMessage());
       }
@@ -83,23 +101,25 @@ public class RNInstallReferrerClient {
       switch (responseCode) {
         case R_RESPONSE_OK:
           // Connection established
-          try {
-            //if (BuildConfig.DEBUG)
-            Log.d("InstallReferrerState", "OK");
-            Method getInstallReferrerMethod = InstallReferrerClientClazz.getMethod("getInstallReferrer");
-            Object response = getInstallReferrerMethod.invoke(mReferrerClient);
-            Method getInstallReferrerMethod2 = ReferrerDetailsClazz.getMethod("getInstallReferrer");
-            String referrer = (String) getInstallReferrerMethod2.invoke(response);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("installReferrer", referrer);
-            editor.apply();
+          executorService.execute(() -> {
+            try {
+              //if (BuildConfig.DEBUG)
+              Log.d("InstallReferrerState", "OK");
+              Method getInstallReferrerMethod = InstallReferrerClientClazz.getMethod("getInstallReferrer");
+              Object response = getInstallReferrerMethod.invoke(mReferrerClient);
+              Method getInstallReferrerMethod2 = ReferrerDetailsClazz.getMethod("getInstallReferrer");
+              String referrer = (String) getInstallReferrerMethod2.invoke(response);
+              SharedPreferences.Editor editor = sharedPreferences.edit();
+              editor.putString("installReferrer", referrer);
+              editor.apply();
 
-            Method endConnectionMethod = InstallReferrerClientClazz.getMethod("endConnection");
-            endConnectionMethod.invoke(mReferrerClient);
-          } catch (Exception e) {
-            System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
-            e.printStackTrace(System.err);
-          }
+              Method endConnectionMethod = InstallReferrerClientClazz.getMethod("endConnection");
+              endConnectionMethod.invoke(mReferrerClient);
+            } catch (Exception e) {
+              System.err.println("RNInstallReferrerClient exception. getInstallReferrer will be unavailable: " + e.getMessage());
+              e.printStackTrace(System.err);
+            }
+          });
           break;
         case R_RESPONSE_FEATURE_NOT_SUPPORTED:
           //if (BuildConfig.DEBUG)
