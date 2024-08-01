@@ -179,7 +179,7 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
 
 - (BOOL) isDisplayZoomed {
     #if !TARGET_OS_VISION
-        return [UIScreen mainScreen].scale != [UIScreen mainScreen].nativeScale;
+        return [UIScreen mainScreen].scale < [UIScreen mainScreen].nativeScale;
     #else
         return NO;
     #endif
