@@ -122,7 +122,12 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
         Boolean powerSaveState = powerState.getBoolean(LOW_POWER_MODE);
 
         if(!mLastBatteryState.equalsIgnoreCase(batteryState) || mLastPowerSaveState != powerSaveState) {
-          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", batteryState);
+          WritableMap updatedPowerState = Arguments.createMap();
+          updatedPowerState.putString(BATTERY_STATE, batteryState);
+          updatedPowerState.putDouble(BATTERY_LEVEL, batteryLevel);
+          updatedPowerState.putBoolean(LOW_POWER_MODE, powerSaveState);
+          
+          sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", updatedPowerState);
           mLastBatteryState = batteryState;
           mLastPowerSaveState = powerSaveState;
         }
