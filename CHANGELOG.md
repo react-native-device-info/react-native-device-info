@@ -1,3 +1,16 @@
+# [12.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v12.0.1...v12.1.0) (2024-09-12)
+
+
+### Bug Fixes
+
+* **ios:** isDisplayZoomed on iPhone 12/13 mini ([12fd354](https://github.com/react-native-device-info/react-native-device-info/commit/12fd354bfbc33d1b67feba0131c2d572e295c211)), closes [#1581](https://github.com/react-native-device-info/react-native-device-info/issues/1581) [#1581](https://github.com/react-native-device-info/react-native-device-info/issues/1581)
+* RNInstallReferrerClient to use background threads for network operations to prevent ANR ([2afb771](https://github.com/react-native-device-info/react-native-device-info/commit/2afb77155d457b23932f52bd44e0572f77781ba6))
+
+
+### Features
+
+* **ios:** add iPhone 16 device names / add missing iPad device names ([#1657](https://github.com/react-native-device-info/react-native-device-info/issues/1657)) ([1c85272](https://github.com/react-native-device-info/react-native-device-info/commit/1c85272a1714dfb41599ebc00557fb2e0bd5c45e))
+
 ## [12.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v12.0.0...v12.0.1) (2024-09-12)
 
 
