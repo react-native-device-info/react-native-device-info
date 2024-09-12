@@ -1,3 +1,10 @@
+## [12.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v12.0.0...v12.0.1) (2024-09-12)
+
+
+### Bug Fixes
+
+* **android:** add invalidate, use it from onCatalystInstanceDestroy ([610714b](https://github.com/react-native-device-info/react-native-device-info/commit/610714b2400b700d95bd6924928161d38c85bb50))
+
 # [12.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v11.1.0...v12.0.0) (2024-09-12)
 
 
