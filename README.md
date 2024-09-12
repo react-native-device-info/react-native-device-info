@@ -1028,7 +1028,7 @@ DeviceInfo.getUniqueId().then((uniqueId) => {
 
 #### Notes
 
-> - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent, cross-install unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
+> - iOS: This is [`IDFV`](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) or a random string if IDFV is unavaliable. Once UID is generated it is stored in iOS Keychain and NSUserDefaults. So it would stay the same even if you delete the app or reset IDFV. You can _carefully_ consider it a persistent unique ID. It can be changed only in case someone manually override values in Keychain/NSUserDefaults or if Apple would change Keychain and NSUserDefaults implementations.
 >   Beware: The IDFV is calculated using your bundle identifier and thus will be different in app extensions.
 > - android: Prior to Oreo, this id ([ANDROID_ID](https://developer.android.com/reference/android/provider/Settings.Secure.html#ANDROID_ID)) will always be the same once you set up your phone.
 > - android: [Google Play policy](https://support.google.com/googleplay/android-developer/answer/10144311), see "persistent device identifiers". [Huawei - AppGallery Review Guidelines](https://developer.huawei.com/consumer/en/doc/30202) see "permanent device identifier" and "obtaining user consent".
