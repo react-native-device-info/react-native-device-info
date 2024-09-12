@@ -1,3 +1,16 @@
+# [13.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v12.1.0...v13.0.0) (2024-09-12)
+
+
+* fix(android)!: powerStateDidChange event returns powerState object not batteryState (#1655) ([2d91018](https://github.com/react-native-device-info/react-native-device-info/commit/2d9101828fbab147980eb17724a801809f705195)), closes [#1655](https://github.com/react-native-device-info/react-native-device-info/issues/1655)
+
+
+### BREAKING CHANGES
+
+* android powerStateDidChange now matches iOS with full powerState object not batteryState
+
+The batteryState object is inside the powerState object, so if this is important to you, the change on android is now
+to go one-level deeper to get the batteryState
+
 # [12.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v12.0.1...v12.1.0) (2024-09-12)
 
 
