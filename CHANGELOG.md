@@ -1,3 +1,23 @@
+# [12.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v11.1.0...v12.0.0) (2024-09-12)
+
+
+### Bug Fixes
+
+* **ios:** Make unique id, unique per device and not per ios account(keychain) ([#1642](https://github.com/react-native-device-info/react-native-device-info/issues/1642)) ([8198f22](https://github.com/react-native-device-info/react-native-device-info/commit/8198f224ea828f7a9df0e57b18a24a170b2d636b))
+
+
+### BREAKING CHANGES
+
+* **ios:** iOS getUniqueId is now per-device similar to android, not per-user
+
+If you relied on the previous per-user behavior on iOS the recommended path forward is
+to use https://github.com/oblador/react-native-keychain with `WHEN_UNLOCKED`
+https://github.com/oblador/react-native-keychain?tab=readme-ov-file#keychainaccessible-enum
+and store your id as a key/value pair of your key and the id mapped into the username/password
+API of react-native-keychain
+
+Co-authored-by: Humaid Arif Khan <humaid@Humaidk-MBP.lan>
+
 # [11.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v11.0.0...v11.1.0) (2024-05-15)
 
 
