@@ -123,6 +123,10 @@ interface ExposedNativeMethods {
   getUserAgentSync: () => string;
   getBrightness: () => Promise<number>;
   getBrightnessSync: () => number;
+  isRootedDevice: () => Promise<boolean>;
+  isRootedDeviceSync: () => boolean;
+  rootedReason: () => Promise<boolean>;
+  rootedReasonSync: () => boolean;
   hasGms: () => Promise<boolean>;
   hasGmsSync: () => boolean;
   hasHms: () => Promise<boolean>;

@@ -16,6 +16,7 @@
 #import "DeviceUID.h"
 #import <DeviceCheck/DeviceCheck.h>
 #import "EnvironmentUtil.h"
+#import "JailbreakUtil.h"
 
 #if !(TARGET_OS_TV)
 #import <WebKit/WebKit.h>
@@ -1006,6 +1007,23 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
     return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isRootedDeviceSync) {
+    return ([NSNumber numberWithBool: [JailbreakUtil isJailBroken]]);
+}
+
+RCT_EXPORT_METHOD(isRootedDevice:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve([NSNumber numberWithBool: [JailbreakUtil isJailBroken]]);
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(rootedReasonSync) {
+    return ([JailbreakUtil jailBrokeReason]);
+}
+
+RCT_EXPORT_METHOD(rootedReason:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve([JailbreakUtil jailBrokeReason]);
+}
+
+
 #pragma mark - dealloc -
 
 - (void)dealloc
@@ -1014,3 +1032,4 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
 }
 
 @end
+

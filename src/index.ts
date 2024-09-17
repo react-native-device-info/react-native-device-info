@@ -750,6 +750,20 @@ export const [getBrightness, getBrightnessSync] = getSupportedPlatformInfoFuncti
   defaultValue: -1,
 });
 
+export const [isRootedDevice, isRootedDeviceSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['ios'],
+  getter: () => RNDeviceInfo.isRootedDevice(),
+  syncGetter: () => RNDeviceInfo.isRootedDeviceSync(),
+  defaultValue: false,
+});
+
+export const [rootedReason, rootedReasonSync] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['ios'],
+  getter: () => RNDeviceInfo.rootedReason(),
+  syncGetter: () => RNDeviceInfo.rootedReasonSync(),
+  defaultValue: false,
+});
+
 export async function getDeviceToken() {
   if (Platform.OS === 'ios') {
     return RNDeviceInfo.getDeviceToken();
@@ -1023,6 +1037,10 @@ const DeviceInfo: DeviceInfoModule = {
   isLocationEnabledSync,
   isPinOrFingerprintSet,
   isPinOrFingerprintSetSync,
+  isRootedDevice,
+  isRootedDeviceSync,
+  rootedReason,
+  rootedReasonSync,
   isMouseConnected,
   isMouseConnectedSync,
   isKeyboardConnected,

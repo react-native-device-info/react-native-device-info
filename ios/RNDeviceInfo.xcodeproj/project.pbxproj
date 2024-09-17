@@ -10,6 +10,7 @@
 		60FD13C42BB15A9D00518094 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 60FD13C22BB156C000518094 /* PrivacyInfo.xcprivacy */; };
 		663F51B9262200CA0023385E /* EnvironmentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 663F51B8262200CA0023385E /* EnvironmentUtil.m */; };
 		76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E65CA31D4CA143009B7AF1 /* DeviceUID.m */; };
+		8AA962F92C9470B9000EF900 /* JailbreakUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA962F82C9470B9000EF900 /* JailbreakUtil.m */; };
 		BF770A3D1F6A3EEE007E5F09 /* DeviceUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 76E65CA21D4CA143009B7AF1 /* DeviceUID.h */; };
 		DA5891DC1BA9A9FC002B4DB2 /* RNDeviceInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */; };
 		DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */; };
@@ -50,6 +51,8 @@
 		663F51B8262200CA0023385E /* EnvironmentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvironmentUtil.m; sourceTree = "<group>"; };
 		76E65CA21D4CA143009B7AF1 /* DeviceUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUID.h; sourceTree = "<group>"; };
 		76E65CA31D4CA143009B7AF1 /* DeviceUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUID.m; sourceTree = "<group>"; };
+		8AA962F72C9470B9000EF900 /* JailbreakUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JailbreakUtil.h; sourceTree = "<group>"; };
+		8AA962F82C9470B9000EF900 /* JailbreakUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JailbreakUtil.m; sourceTree = "<group>"; };
 		DA5891D81BA9A9FC002B4DB2 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNDeviceInfo.h; sourceTree = "<group>"; };
 		DA5891DD1BA9A9FC002B4DB2 /* RNDeviceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNDeviceInfo.m; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 		DA5891DA1BA9A9FC002B4DB2 /* RNDeviceInfo */ = {
 			isa = PBXGroup;
 			children = (
+				8AA962F72C9470B9000EF900 /* JailbreakUtil.h */,
+				8AA962F82C9470B9000EF900 /* JailbreakUtil.m */,
 				76E65CA21D4CA143009B7AF1 /* DeviceUID.h */,
 				76E65CA31D4CA143009B7AF1 /* DeviceUID.m */,
 				DA5891DB1BA9A9FC002B4DB2 /* RNDeviceInfo.h */,
@@ -197,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76E65CA41D4CA143009B7AF1 /* DeviceUID.m in Sources */,
+				8AA962F92C9470B9000EF900 /* JailbreakUtil.m in Sources */,
 				663F51B9262200CA0023385E /* EnvironmentUtil.m in Sources */,
 				DA5891DE1BA9A9FC002B4DB2 /* RNDeviceInfo.m in Sources */,
 			);
