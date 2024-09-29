@@ -603,25 +603,36 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     NSError *error = nil;
 
     // iOS 11 and above: Use NSURLVolumeAvailableCapacityForImportantUsageKey
+    // https://developer.apple.com/documentation/foundation/urlresourcekey/checking_volume_storage_capacity
     if (@available(iOS 11.0, *)) {
         NSURL *fileURL = [NSURL fileURLWithPath:NSHomeDirectory()];
         NSDictionary *storageValues = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
+
+        if (error) {
+            NSLog(@"Error retrieving storage information: %@", error);
+            return 0;
+        }
 
         if (storageValues) {
             NSNumber *availableCapacityForImportantUsage = storageValues[NSURLVolumeAvailableCapacityForImportantUsageKey];
             if (availableCapacityForImportantUsage) {
                 freeSpace = [availableCapacityForImportantUsage unsignedLongLongValue];
             }
-        } else if (error) {
-            NSLog(@"Error retrieving storage information: %@", error);
         }
     }
 
     // Fallback for older iOS versions: Use NSFileSystemFreeSize
-    if (freeSpace == 0) {
-        NSDictionary *storage = [self getStorageDictionary];
-        if (storage) {
-            NSNumber *freeFileSystemSizeInBytes = [storage objectForKey:NSFileSystemFreeSize];
+    if (freeSpace == 0 && !error) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error:&error];
+
+        if (error) {
+            NSLog(@"Error retrieving fallback storage information: %@", error);
+            return 0;
+        }
+
+        if (dictionary) {
+            NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
             freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
         }
     }
