@@ -598,16 +598,37 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     resolve(@(self.getTotalDiskCapacity));
 }
 
-- (double) getFreeDiskStorage {
+- (double)getFreeDiskStorage {
     uint64_t freeSpace = 0;
-    NSDictionary *storage = [self getStorageDictionary];
+    NSError *error = nil;
 
-    if (storage) {
-        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
-        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+    // iOS 11 and above: Use NSURLVolumeAvailableCapacityForImportantUsageKey
+    if (@available(iOS 11.0, *)) {
+        NSURL *fileURL = [NSURL fileURLWithPath:NSHomeDirectory()];
+        NSDictionary *storageValues = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
+
+        if (storageValues) {
+            NSNumber *availableCapacityForImportantUsage = storageValues[NSURLVolumeAvailableCapacityForImportantUsageKey];
+            if (availableCapacityForImportantUsage) {
+                freeSpace = [availableCapacityForImportantUsage unsignedLongLongValue];
+            }
+        } else if (error) {
+            NSLog(@"Error retrieving storage information: %@", error);
+        }
     }
-    return (double) freeSpace;
+
+    // Fallback for older iOS versions: Use NSFileSystemFreeSize
+    if (freeSpace == 0) {
+        NSDictionary *storage = [self getStorageDictionary];
+        if (storage) {
+            NSNumber *freeFileSystemSizeInBytes = [storage objectForKey:NSFileSystemFreeSize];
+            freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        }
+    }
+
+    return (double)freeSpace;
 }
+
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
     return @(self.getFreeDiskStorage);
