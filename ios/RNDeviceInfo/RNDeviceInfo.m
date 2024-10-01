@@ -599,7 +599,6 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
 }
 
 - (double)getFreeDiskStorage {
-    uint64_t freeSpace = 0;
     NSError *error = nil;
 
     // iOS 11 and above: Use NSURLVolumeAvailableCapacityForImportantUsageKey
@@ -613,16 +612,12 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
             return 0;
         }
 
-        if (storageValues) {
-            NSNumber *availableCapacityForImportantUsage = storageValues[NSURLVolumeAvailableCapacityForImportantUsageKey];
-            if (availableCapacityForImportantUsage) {
-                freeSpace = [availableCapacityForImportantUsage unsignedLongLongValue];
-            }
+        NSNumber *availableCapacityForImportantUsage = [storageValues objectForKey:NSURLVolumeAvailableCapacityForImportantUsageKey];
+        if (availableCapacityForImportantUsage) {
+            return (double)[availableCapacityForImportantUsage unsignedLongLongValue];
         }
-    }
-
-    // Fallback for older iOS versions: Use NSFileSystemFreeSize
-    if (freeSpace == 0 && !error) {
+    } else {
+        // Fallback for older iOS versions: Use NSFileSystemFreeSize
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error:&error];
 
@@ -631,13 +626,13 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
             return 0;
         }
 
-        if (dictionary) {
-            NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
-            freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+        if (freeFileSystemSizeInBytes) {
+            return (double)[freeFileSystemSizeInBytes unsignedLongLongValue];
         }
     }
 
-    return (double)freeSpace;
+    return 0;
 }
 
 
