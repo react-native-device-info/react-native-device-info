@@ -580,7 +580,7 @@ The name of the hardware (from the kernel command line or /proc).
 ```js
 DeviceInfo.getHardware().then(hardware => {
   // "walleye"
-};
+});
 ```
 
 ---
