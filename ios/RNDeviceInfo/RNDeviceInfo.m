@@ -598,23 +598,24 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     resolve(@(self.getTotalDiskCapacity));
 }
 
-- (double)getFreeDiskStorage {
+- (double)getFreeDiskStorage:(NSString *)storageType {
     NSError *error = nil;
 
     // iOS 11 and above: Use NSURLVolumeAvailableCapacityForImportantUsageKey
     // https://developer.apple.com/documentation/foundation/urlresourcekey/checking_volume_storage_capacity
     if (@available(iOS 11.0, *)) {
         NSURL *fileURL = [NSURL fileURLWithPath:NSHomeDirectory()];
-        NSDictionary *storageValues = [fileURL resourceValuesForKeys:@[NSURLVolumeAvailableCapacityForImportantUsageKey] error:&error];
+        NSString *capacityKey = [self keyForStorageType:storageType];
+        NSDictionary *storageValues = [fileURL resourceValuesForKeys:@[capacityKey] error:&error];
 
         if (error) {
             NSLog(@"Error retrieving storage information: %@", error);
             return 0;
         }
 
-        NSNumber *availableCapacityForImportantUsage = [storageValues objectForKey:NSURLVolumeAvailableCapacityForImportantUsageKey];
-        if (availableCapacityForImportantUsage) {
-            return (double)[availableCapacityForImportantUsage unsignedLongLongValue];
+        NSNumber *availableCapacity = [storageValues objectForKey:capacityKey];
+        if (availableCapacity) {
+            return (double)[availableCapacity unsignedLongLongValue];
         }
     } else {
         // Fallback for older iOS versions: Use NSFileSystemFreeSize
@@ -635,13 +636,25 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     return 0;
 }
 
-
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
-    return @(self.getFreeDiskStorage);
+- (NSString *)keyForStorageType:(NSString *)storageType {
+    if ([storageType isEqualToString:@"important"]) {
+        return NSURLVolumeAvailableCapacityForImportantUsageKey;
+    } else if ([storageType isEqualToString:@"opportunistic"]) {
+        return NSURLVolumeAvailableCapacityForOpportunisticUsageKey;
+    } else {
+        return NSURLVolumeAvailableCapacityKey;
+    }
 }
 
-RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(@(self.getFreeDiskStorage));
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync:(NSString *)storageType) {
+    return @([self getFreeDiskStorage:storageType]);
+}
+
+RCT_EXPORT_METHOD(getFreeDiskStorage:(NSString *)storageType
+                            resolver:(RCTPromiseResolveBlock)resolve
+                            rejecter:(RCTPromiseRejectBlock)reject) {
+    double freeStorage = [self getFreeDiskStorage:storageType];
+    resolve(@(freeStorage));
 }
 
 - (NSString *) getDeviceTypeName {

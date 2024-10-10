@@ -12,6 +12,7 @@ import {
 import { DeviceInfoModule } from './internal/privateTypes';
 import type {
   AsyncHookResult,
+  AvailableCapacityType,
   DeviceType,
   LocationProviderInfo,
   PowerState,
@@ -529,8 +530,20 @@ export function getTotalDiskCapacityOldSync() {
 
 export const [getFreeDiskStorage, getFreeDiskStorageSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows', 'web'],
-  getter: () => RNDeviceInfo.getFreeDiskStorage(),
-  syncGetter: () => RNDeviceInfo.getFreeDiskStorageSync(),
+  getter: (storageType: AvailableCapacityType = 'total') => {
+    if (Platform.OS === 'ios') {
+      return RNDeviceInfo.getFreeDiskStorage(storageType);
+    } else {
+      return RNDeviceInfo.getFreeDiskStorage();
+    }
+  },
+  syncGetter: (storageType: AvailableCapacityType = 'total') => {
+    if (Platform.OS === 'ios') {
+      return RNDeviceInfo.getFreeDiskStorageSync(storageType);
+    } else {
+      return RNDeviceInfo.getFreeDiskStorageSync();
+    }
+  },
   defaultValue: -1,
 });
 
