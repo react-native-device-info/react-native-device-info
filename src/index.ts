@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import { useOnEvent, useOnMount } from './internal/asyncHookWrappers';
-import devicesWithDynamicIsland from "./internal/devicesWithDynamicIsland";
+import devicesWithDynamicIsland from './internal/devicesWithDynamicIsland';
 import devicesWithNotch from './internal/devicesWithNotch';
 import RNDeviceInfo from './internal/nativeInterface';
 import {
@@ -697,23 +697,25 @@ export const [isHeadphonesConnected, isHeadphonesConnectedSync] = getSupportedPl
   }
 );
 
-export const [isWiredHeadphonesConnected, isWiredHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android', 'ios'],
-    getter: () => RNDeviceInfo.isWiredHeadphonesConnected(),
-    syncGetter: () => RNDeviceInfo.isWiredHeadphonesConnectedSync(),
-    defaultValue: false,
-  }
-);
+export const [
+  isWiredHeadphonesConnected,
+  isWiredHeadphonesConnectedSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.isWiredHeadphonesConnected(),
+  syncGetter: () => RNDeviceInfo.isWiredHeadphonesConnectedSync(),
+  defaultValue: false,
+});
 
-export const [isBluetoothHeadphonesConnected, isBluetoothHeadphonesConnectedSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android', 'ios'],
-    getter: () => RNDeviceInfo.isBluetoothHeadphonesConnected(),
-    syncGetter: () => RNDeviceInfo.isBluetoothHeadphonesConnectedSync(),
-    defaultValue: false,
-  }
-);
+export const [
+  isBluetoothHeadphonesConnected,
+  isBluetoothHeadphonesConnectedSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.isBluetoothHeadphonesConnected(),
+  syncGetter: () => RNDeviceInfo.isBluetoothHeadphonesConnectedSync(),
+  defaultValue: false,
+});
 
 export const [isMouseConnected, isMouseConnectedSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['windows'],
@@ -729,15 +731,15 @@ export const [isKeyboardConnected, isKeyboardConnectedSync] = getSupportedPlatfo
   defaultValue: false,
 });
 
-export const [getSupportedMediaTypeList, getSupportedMediaTypeListSync] = getSupportedPlatformInfoFunctions(
-  {
-    supportedPlatforms: ['android'],
-    getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
-    syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
-    defaultValue: []
-  }
-)
-
+export const [
+  getSupportedMediaTypeList,
+  getSupportedMediaTypeListSync,
+] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getSupportedMediaTypeList(),
+  syncGetter: () => RNDeviceInfo.getSupportedMediaTypeListSync(),
+  defaultValue: [],
+});
 
 export const isTabletMode = () =>
   getSupportedPlatformInfoAsync({
@@ -851,11 +853,19 @@ export function useIsHeadphonesConnected(): AsyncHookResult<boolean> {
 }
 
 export function useIsWiredHeadphonesConnected(): AsyncHookResult<boolean> {
-  return useOnEvent('RNDeviceInfo_headphoneWiredConnectionDidChange', isWiredHeadphonesConnected, false);
+  return useOnEvent(
+    'RNDeviceInfo_headphoneWiredConnectionDidChange',
+    isWiredHeadphonesConnected,
+    false
+  );
 }
 
 export function useIsBluetoothHeadphonesConnected(): AsyncHookResult<boolean> {
-  return useOnEvent('RNDeviceInfo_headphoneBluetoothConnectionDidChange', isBluetoothHeadphonesConnected, false);
+  return useOnEvent(
+    'RNDeviceInfo_headphoneBluetoothConnectionDidChange',
+    isBluetoothHeadphonesConnected,
+    false
+  );
 }
 
 export function useFirstInstallTime(): AsyncHookResult<number> {
@@ -1064,7 +1074,7 @@ const DeviceInfo: DeviceInfoModule = {
   useIsBluetoothHeadphonesConnected,
   useBrightness,
   getSupportedMediaTypeList,
-  getSupportedMediaTypeListSync
+  getSupportedMediaTypeListSync,
 };
 
 export default DeviceInfo;
