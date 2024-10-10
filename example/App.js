@@ -161,7 +161,12 @@ export default class App extends Component {
     deviceJSON.maxMemory = DeviceInfo.getMaxMemorySync();
     deviceJSON.totalDiskCapacity = DeviceInfo.getTotalDiskCapacitySync();
     deviceJSON.totalDiskCapacityOld = DeviceInfo.getTotalDiskCapacityOldSync();
-    deviceJSON.freeDiskStorage = DeviceInfo.getFreeDiskStorageSync();
+    deviceJSON.freeDiskStorage = {
+      default: DeviceInfo.getFreeDiskStorageSync(),
+      total: DeviceInfo.getFreeDiskStorageSync('total'),
+      important: DeviceInfo.getFreeDiskStorageSync('important'),
+      opportunistic: DeviceInfo.getFreeDiskStorageSync('opportunistic'),
+    };
     deviceJSON.freeDiskStorageOld = DeviceInfo.getFreeDiskStorageOldSync();
     deviceJSON.batteryLevel = DeviceInfo.getBatteryLevelSync();
     deviceJSON.isLandscape = DeviceInfo.isLandscapeSync();
@@ -237,7 +242,12 @@ export default class App extends Component {
       deviceJSON.maxMemory = await DeviceInfo.getMaxMemory();
       deviceJSON.totalDiskCapacity = await DeviceInfo.getTotalDiskCapacity();
       deviceJSON.totalDiskCapacityOld = await DeviceInfo.getTotalDiskCapacityOld();
-      deviceJSON.freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
+      deviceJSON.freeDiskStorage = {
+        default: await DeviceInfo.getFreeDiskStorage(),
+        total: await DeviceInfo.getFreeDiskStorage('total'),
+        important: await DeviceInfo.getFreeDiskStorage('important'),
+        opportunistic: await DeviceInfo.getFreeDiskStorage('opportunistic'),
+      };
       deviceJSON.freeDiskStorageOld = await DeviceInfo.getFreeDiskStorageOld();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
