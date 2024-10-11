@@ -25,6 +25,9 @@ jobs:
     env:
       EMULATOR_COMMAND: "-avd TestingAVD -noaudio -gpu swiftshader_indirect -camera-back none -no-snapshot -no-window -no-boot-anim -nojni -memory 2048 -timezone 'Europe/London' -cores 2"
       EMULATOR_EXECUTABLE: qemu-system-x86_64-headless
+      ANDROID_USER_HOME: /home/runner/.android
+      ANDROID_EMULATOR_HOME: /home/runner/.android
+      ANDROID_AVD_HOME: /home/runner/.android/avd
     steps:
       - name: Liberate disk space
         uses: jlumbroso/free-disk-space@main
