@@ -1,3 +1,10 @@
+# [13.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.0.0...v13.1.0) (2024-10-11)
+
+
+### Features
+
+* **ios:** implement all free disk storage types for ios 11+ ([#1664](https://github.com/react-native-device-info/react-native-device-info/issues/1664)) ([99dc37c](https://github.com/react-native-device-info/react-native-device-info/commit/99dc37c771579f73d60c60874bf6480af3b895f9))
+
 # [13.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v12.1.0...v13.0.0) (2024-09-12)
 
 
