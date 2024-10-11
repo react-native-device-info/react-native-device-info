@@ -527,12 +527,23 @@ DeviceInfo.getFontScale().then((fontScale) => {
 
 Method that gets available storage size, in bytes, taking into account both root and data file systems calculation.
 
+On **iOS**, this method accepts the following optional arguments:
+- `'total'`: Uses `volumeAvailableCapacityKey`
+- `'important'`: Uses `volumeAvailableCapacityForImportantUsageKey`
+- `'opportunistic'`: Uses `volumeAvailableCapacityForOpportunisticUsageKey`
+
+For more details, refer to [Apple Documentation on Checking Volume Storage Capacity](https://developer.apple.com/documentation/foundation/urlresourcekey/checking_volume_storage_capacity).
+
 #### Examples
 
 ```js
 DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
   // Android: 17179869184
   // iOS: 17179869184
+});
+
+DeviceInfo.getFreeDiskStorage('important').then((freeDiskStorage) => {
+  // iOS: 18198219342 (important storage)
 });
 ```
 
