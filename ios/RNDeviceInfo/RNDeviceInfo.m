@@ -971,6 +971,8 @@ RCT_EXPORT_METHOD(getStartupTime:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
     resolve(@(self.getStartupTime));
 }
  
+// Reads the process startup time and returns it in milliseconds since 1970
+// Reading the process startup time from the system is more accurate than comparing a date which is initiallized at launch with the current time
 - (long long) getStartupTime {
     size_t len = 4;
     int mib[len];
