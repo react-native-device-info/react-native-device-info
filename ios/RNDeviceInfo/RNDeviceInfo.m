@@ -1046,6 +1046,31 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
     return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getStartupTimeSync) {
+    return @(self.getStartupTime);
+}
+
+RCT_EXPORT_METHOD(getStartupTime:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.getStartupTime));
+}
+ 
+// Reads the process startup time and returns it in milliseconds since 1970
+// Reading the process startup time from the system is more accurate than comparing a date which is initiallized at launch with the current time
+- (long long) getStartupTime {
+    size_t len = 4;
+    int mib[len];
+    struct kinfo_proc kp;
+
+    sysctlnametomib("kern.proc.pid", mib, &len);
+    mib[3] = getpid();
+    len = sizeof(kp);
+    sysctl(mib, 4, &kp, &len, NULL, 0);
+
+    struct timeval startTime = kp.kp_proc.p_un.__p_starttime;
+    double startTimeMilliSeconds = startTime.tv_sec * 1e3 + startTime.tv_usec / 1e3;
+    return [@(floor(startTimeMilliSeconds)) longLongValue];
+}
+
 #pragma mark - dealloc -
 
 - (void)dealloc

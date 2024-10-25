@@ -165,6 +165,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getReadableVersion()](#getreadableversion)                         | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getSerialNumber()](#getserialnumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ✅     | ❌   |   ❌     |
 | [getSecurityPatch()](#getsecuritypatch)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
+| [getStartupTime()](#getstartuptime)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌     | ❌   |   ✅     |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)         | `Promise<string[]>` |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getSystemName()](#getsystemname)                                   | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getSystemVersion()](#getsystemversion)                             | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
@@ -906,6 +907,21 @@ let systemName = DeviceInfo.getSystemName();
 // iOS: "iOS" on newer iOS devices "iPhone OS" on older devices (including older iPad models), "iPadOS" for iPads using iPadOS 15.0 or higher.
 // Android: "Android"
 // Windows: ?
+```
+
+---
+
+### getStartupTime()
+
+Gets the time at which the current app process was started, in milliseconds.
+
+#### Examples
+
+```js
+DeviceInfo.getStartupTime().then((startupTime) => {
+  // Android: 1517681764528
+  // iOS: 1517681764528
+});
 ```
 
 ---

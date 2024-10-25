@@ -151,6 +151,7 @@ export default class App extends Component {
     deviceJSON.hasDynamicIsland = DeviceInfo.hasDynamicIsland();
     deviceJSON.firstInstallTime = DeviceInfo.getFirstInstallTimeSync();
     deviceJSON.lastUpdateTime = DeviceInfo.getLastUpdateTimeSync();
+    deviceJSON.startupTime = DeviceInfo.getStartupTimeSync();
     deviceJSON.serialNumber = DeviceInfo.getSerialNumberSync();
     deviceJSON.androidId = DeviceInfo.getAndroidIdSync();
     deviceJSON.IpAddress = DeviceInfo.getIpAddressSync();
@@ -232,6 +233,7 @@ export default class App extends Component {
       deviceJSON.hasDynamicIsland = await DeviceInfo.hasDynamicIsland();
       deviceJSON.firstInstallTime = await DeviceInfo.getFirstInstallTime();
       deviceJSON.lastUpdateTime = await DeviceInfo.getLastUpdateTime();
+      deviceJSON.startupTime = await DeviceInfo.getStartupTime();
       deviceJSON.serialNumber = await DeviceInfo.getSerialNumber();
       deviceJSON.androidId = await DeviceInfo.getAndroidId();
       deviceJSON.IpAddress = await DeviceInfo.getIpAddress();

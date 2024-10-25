@@ -476,6 +476,14 @@ export const [getLastUpdateTime, getLastUpdateTimeSync] = getSupportedPlatformIn
   defaultValue: -1,
 });
 
+export const [getStartupTime, getStartupTimeSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'startupTime',
+  supportedPlatforms: ['android', 'ios'],
+  getter: () => RNDeviceInfo.getStartupTime(),
+  syncGetter: () => RNDeviceInfo.getStartupTimeSync(),
+  defaultValue: -1,
+});
+
 export const [getCarrier, getCarrierSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios'],
   getter: () => RNDeviceInfo.getCarrier(),
@@ -995,6 +1003,8 @@ const DeviceInfo: DeviceInfoModule = {
   getSecurityPatchSync,
   getSerialNumber,
   getSerialNumberSync,
+  getStartupTime,
+  getStartupTimeSync,
   getSystemAvailableFeatures,
   getSystemAvailableFeaturesSync,
   getSystemName,
