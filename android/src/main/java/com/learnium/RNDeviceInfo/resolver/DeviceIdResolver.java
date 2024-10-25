@@ -37,16 +37,6 @@ public class DeviceIdResolver {
     } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
       System.err.println("N/A: Unsupported version of com.google.firebase:firebase-iid in your project.");
     }
-
-    try {
-      instanceId = getGmsInstanceId();
-      setInstanceIdInPrefs(instanceId);
-      return instanceId;
-    } catch (ClassNotFoundException ignored) {
-    } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
-      System.err.println("N/A: Unsupported version of com.google.android.gms.iid in your project.");
-    }
-
     instanceId = getUUIDInstanceId();
     setInstanceIdInPrefs(instanceId);
     return instanceId;
@@ -68,15 +58,6 @@ public class DeviceIdResolver {
     editor.putString("instanceId", instanceId);
     editor.apply();
   }
-
-  String getGmsInstanceId() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-    Class<?> clazz = Class.forName("com.google.android.gms.iid.InstanceID");
-    Method method = clazz.getDeclaredMethod("getInstance", Context.class);
-    Object obj = method.invoke(null, context.getApplicationContext());
-    Method method1 = obj.getClass().getMethod("getId");
-    return (String) method1.invoke(obj);
-  }
-
   String getFirebaseInstanceId() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     Class<?> clazz = Class.forName("com.google.firebase.iid.FirebaseInstanceId");
     Method method = clazz.getDeclaredMethod("getInstance");
@@ -84,4 +65,5 @@ public class DeviceIdResolver {
     Method method1 = obj.getClass().getMethod("getId");
     return (String) method1.invoke(obj);
   }
+
 }

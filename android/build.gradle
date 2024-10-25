@@ -64,9 +64,6 @@ dependencies {
       implementation "com.google.firebase:firebase-iid"
   } else if(firebaseIidVersion){
       implementation "com.google.firebase:firebase-iid:${firebaseIidVersion}"
-  }else{
-      def iidVersion = safeExtGet('googlePlayServicesIidVersion', safeExtGet('googlePlayServicesVersion', '17.0.0'))
-      implementation "com.google.android.gms:play-services-iid:$iidVersion"
   }
 
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
