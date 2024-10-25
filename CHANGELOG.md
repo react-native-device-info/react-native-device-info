@@ -1,3 +1,10 @@
+# [13.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.1.0...v13.2.0) (2024-10-25)
+
+
+### Features
+
+* add getStartupTime ([#1644](https://github.com/react-native-device-info/react-native-device-info/issues/1644)) ([d390995](https://github.com/react-native-device-info/react-native-device-info/commit/d39099555c8bd9357266ee78d46632e4faee2faa))
+
 # [13.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.0.0...v13.1.0) (2024-10-11)
 
 
