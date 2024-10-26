@@ -1,3 +1,20 @@
+# [14.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.2.0...v14.0.0) (2024-10-26)
+
+
+* fix(android)!: remove AD_ID permission by removing auto-addition of play-services-iid (#1673) ([5009115](https://github.com/react-native-device-info/react-native-device-info/commit/500911526869a4e5cb3443174e3b5b241603b33d)), closes [#1673](https://github.com/react-native-device-info/react-native-device-info/issues/1673)
+
+
+### BREAKING CHANGES
+
+* removed default fallback getDeviceId via play-services-iid dependency
+
+This dependency has the unfortunate side effect of including AD_ID permission, which is
+not permissible for many types of applications.
+
+If you relied on this functionality, you will need to define googlePlayServicesIidVersion in your
+android gradle build files ext version block. We previously used version 17.0.0 but there may be
+newer versions you could use if they work for
+
 # [13.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.1.0...v13.2.0) (2024-10-25)
 
 
