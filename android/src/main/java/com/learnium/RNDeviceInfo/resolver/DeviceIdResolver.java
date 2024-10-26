@@ -84,4 +84,5 @@ public class DeviceIdResolver {
     Method method1 = obj.getClass().getMethod("getId");
     return (String) method1.invoke(obj);
   }
+
 }
