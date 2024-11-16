@@ -6,7 +6,7 @@
 
 ### BREAKING CHANGES
 
-* removed default fallback getDeviceId via play-services-iid dependency
+* removed default fallback getInstanceId via play-services-iid dependency
 
 This dependency has the unfortunate side effect of including AD_ID permission, which is
 not permissible for many types of applications.
