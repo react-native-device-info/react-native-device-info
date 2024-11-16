@@ -1,0 +1,138 @@
+{
+  "name": "react-native-device-info",
+  "version": "14.0.0",
+  "description": "Get device information using react-native",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/index.d.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "files": [
+    "__tests__/",
+    "android/",
+    "ios/",
+    "lib/",
+    "src/",
+    "jest/",
+    "web/",
+    "windows/",
+    "RNDeviceInfo.podspec",
+    "babel.config.js",
+    "jest.config.js",
+    "jest.setup.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-native-device-info/react-native-device-info"
+  },
+  "homepage": "https://github.com/react-native-device-info/react-native-device-info#readme",
+  "scripts": {
+    "analyze": "yarn ts-check && yarn flow-check",
+    "flow-check": "npx flow-bin check-contents < src/index.js.flow",
+    "ts-check": "npx tsc --noEmit",
+    "clean": "cd example && npx react-native-clean-project --keep-node-modules --remove-iOS-build --remove-iOS-pods --remove-android-build --clean-android-project --keep-brew --keep-pods && \\rm -fr ios/Pods",
+    "dev-sync": "yarn build && cp -r package.json *podspec lib windows android ios src jest example/node_modules/react-native-device-info/",
+    "dev-sync-windows": "for %x in (lib windows android src jest) do xcopy \"%x\" .\\example\\node_modules\\react-native-device-info\\%x /S /E /R /H /I /Y",
+    "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
+    "shipit": "yarn clean && semantic-release",
+    "example:install": "yarn && cd example && yarn && cd .. && yarn dev-sync",
+    "example:install-windows": "yarn && cd example && yarn && cd .. && yarn dev-sync-windows",
+    "example:install:pods": "cd example/ios && pod install",
+    "example:android": "cd example && yarn android",
+    "example:android:build": "cd example/android && ./gradlew assembleDebug",
+    "example:ios": "cd example && yarn ios --simulator 'iPhone 16'",
+    "example:ios:build": "cd example/ios && xcodebuild CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ -workspace example.xcworkspace -configuration Debug -scheme example -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=YES | xcpretty",
+    "example:windows": "cd example && yarn windows",
+    "example:packager": "cd example && yarn start",
+    "test": "jest",
+    "precommit": "lint-staged && yarn analyze",
+    "build": "bob build",
+    "prepare": "bob build",
+    "ci:install": "rm -rf ./node_modules && yarn install --frozen-lockfile",
+    "ci:shipit": "semantic-release"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "yarn lint",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "windows",
+    "device",
+    "events",
+    "cocoapod"
+  ],
+  "author": "Rebecca Hughes <rebecca@learnium.net> (https://github.com/rebeccahughes)",
+  "contributors": [
+    {
+      "name": "Gant Laborde",
+      "email": "gant@infinite.red",
+      "url": "https://github.com/gantman"
+    },
+    {
+      "name": "Mehdi Achour",
+      "email": "machour@gmail.com",
+      "url": "https://github.com/machour"
+    },
+    {
+      "name": "Mike Hardy",
+      "email": "github@mikehardy.net",
+      "url": "https://github.com/mikehardy"
+    },
+    {
+      "name": "Dustin Schie",
+      "email": "github@schie.io",
+      "url": "https://github.com/schie"
+    }
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.0.1",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/jest": "^27.4.1",
+    "@types/react": "17.0.39",
+    "@types/react-native": "^0.67.2",
+    "eslint": "^7",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.3.4",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "react": "17.0.2",
+    "react-native": "^0.67.3",
+    "react-native-builder-bob": "^0.18.2",
+    "react-native-windows": "^0.67.3",
+    "react-test-renderer": "^17.0.1",
+    "semantic-release": "^19.0.2",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.6.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.39"
+  },
+  "eslintConfig": {
+    "extends": "@react-native-community"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+#pragma once
+
+#include <unknwn.h>
+#include <winrt/Windows.ApplicationModel.h>
+#include <winrt/Windows.Data.Json.h>
+#include <winrt/Windows.Devices.Enumeration.h>
+#include <winrt/Windows.Devices.Input.h>
+#include <winrt/Windows.Devices.Power.h>
+#include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.Networking.Connectivity.h>
+#include <winrt/Windows.Security.Credentials.UI.h>
+#include <winrt/Windows.Security.ExchangeActiveSyncProvisioning.h>
+#include <winrt/Windows.Services.Store.h>
+#include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Storage.FileProperties.h>
+#include <winrt/Windows.System.h>
+#include <winrt/Windows.System.Profile.h>
+#include <winrt/Windows.System.Power.h>
+#include <winrt/Windows.System.Profile.SystemManufacturers.h>
+#include <winrt/Windows.UI.ViewManagement.h>

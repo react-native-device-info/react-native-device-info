@@ -1,0 +1,26 @@
+name: Mark stale issues and pull requests
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "35 * * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "IS_FORK=$(curl "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY" | jq -r .fork)" >> $GITHUB_ENV
+    - if: env.IS_FORK == 'false'
+      uses: actions/stale@v4
+      with:
+        operations-per-run: 100
+        ascending: true
+        repo-token: ${{ secrets.GH_TOKEN }}
+        stale-issue-message: 'Hello 👋, this issue has been opened for more than 2 months with no activity on it. If the issue is sti
+ll here, please keep in mind that we need community support and help to fix it! Just comment something like _still searching for solu
+tions_ and if you found one, please open a pull request! You have 7 days until this gets closed automatically'
+        stale-pr-message: 'Hello 👋, this PR has been opened for more than 2 months with no activity on it. If you think this is a mi
+stake please comment and ping a maintainer to get this merged ASAP! Thanks for contributing! You have 7 days until this gets closed a
+utomatically'
+        exempt-issue-labels: 'Keep Open'
+        exempt-pr-labels: 'Keep Open'

@@ -1,0 +1,75 @@
+buildscript {
+    // The Android Gradle plugin is only required when opening the android folder stand-alone.
+    // This avoids unnecessary downloads and potential conflicts when the library is included as a
+    // module dependency in an application project.
+    if (project == rootProject) {
+        repositories {
+            mavenCentral()
+            google()
+        }
+        def buildGradleVersion = ext.has('buildGradlePluginVersion') ? ext.get('buildGradlePluginVersion') : '4.2.0'
+
+        dependencies {
+            classpath "com.android.tools.build:gradle:$buildGradleVersion"
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+android {
+    compileSdkVersion safeExtGet('compileSdkVersion', 34)
+    
+    def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
+    // Check AGP version for backward compatibility reasons
+    if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
+      namespace = "com.learnium.RNDeviceInfo"
+    }
+
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+
+        versionCode 2
+        versionName "1.1"
+    }
+    lintOptions {
+       warning 'InvalidPackage', 'MissingPermission'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+repositories {
+    mavenCentral()
+    google()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$rootDir/../node_modules/react-native/android"
+    }
+}
+
+dependencies {
+  implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
+  implementation "com.android.installreferrer:installreferrer:${safeExtGet('installReferrerVersion', '1.1.2')}"
+  def firebaseBomVersion = safeExtGet("firebaseBomVersion", null)
+  def firebaseIidVersion = safeExtGet('firebaseIidVersion', null)
+  def googlePlayServicesIidVersion = safeExtGet('googlePlayServicesIidVersion', null)
+
+  if (firebaseBomVersion) {
+      implementation platform("com.google.firebase:firebase-bom:${firebaseBomVersion}")
+      implementation "com.google.firebase:firebase-iid"
+  } else if(firebaseIidVersion){
+      implementation "com.google.firebase:firebase-iid:${firebaseIidVersion}"
+  } else if(googlePlayServicesIidVersion){
+      implementation "com.google.android.gms:play-services-iid:$googlePlayServicesIidVersion"
+  }
+
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+  testImplementation "org.mockito:mockito-core:3.6.28"
+}

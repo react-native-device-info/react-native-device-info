@@ -1,0 +1,21 @@
+name: Jest Tests
+on:
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test using Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - run: yarn install
+      - run: yarn test
