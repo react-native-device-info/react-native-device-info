@@ -1412,8 +1412,7 @@ Returns a list of supported processor architecture version
 
 ```js
 DeviceInfo.supportedAbis().then((abis) => {
-  // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi", "win_x86", "win_arm", "win_x64" ]
-});
+  // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi", "win_x86", "win_arm", "win_x64", "win_arm64", "win_x86onarm64" ]});
 ```
 
 ---
