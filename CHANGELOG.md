@@ -1,3 +1,10 @@
+## [14.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.0...v14.0.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* **windows:** Update RNDeviceInfoCPP.h for windows on ARM CPU arch on windows ([#1679](https://github.com/react-native-device-info/react-native-device-info/issues/1679)) ([b2c7c4f](https://github.com/react-native-device-info/react-native-device-info/commit/b2c7c4fdbc2d36dda15b5c1996b556cf4d4d499f))
+
 # [14.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.2.0...v14.0.0) (2024-10-26)
 
 
