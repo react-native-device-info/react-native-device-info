@@ -37,9 +37,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 @import CoreTelephony;
 #endif
 
-#if !TARGET_OS_TV
 @import Darwin.sys.sysctl;
-#endif
 
 @implementation RNDeviceInfo
 {
@@ -637,6 +635,9 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
 }
 
 - (NSString *)keyForStorageType:(NSString *)storageType {
+#if TARGET_OS_TV
+    return NSURLVolumeAvailableCapacityKey;
+#else
     if ([storageType isEqualToString:@"important"]) {
         return NSURLVolumeAvailableCapacityForImportantUsageKey;
     } else if ([storageType isEqualToString:@"opportunistic"]) {
@@ -644,6 +645,7 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     } else {
         return NSURLVolumeAvailableCapacityKey;
     }
+#endif
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync:(NSString *)storageType) {
