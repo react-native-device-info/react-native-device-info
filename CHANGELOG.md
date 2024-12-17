@@ -1,3 +1,10 @@
+## [14.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.1...v14.0.2) (2024-12-17)
+
+
+### Bug Fixes
+
+* **tvos:** fix build errors for tvos ([#1670](https://github.com/react-native-device-info/react-native-device-info/issues/1670)) ([#1684](https://github.com/react-native-device-info/react-native-device-info/issues/1684)) ([f750f26](https://github.com/react-native-device-info/react-native-device-info/commit/f750f26365492b8f0676158b06ed7874fd2aac8a))
+
 ## [14.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.0...v14.0.1) (2024-11-23)
 
 
