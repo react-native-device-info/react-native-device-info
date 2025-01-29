@@ -305,7 +305,7 @@ NSMutableDictionary *jailbreakDetectReason;
 }
 
 + (NSMutableDictionary *)jailBrokeReason {
-   return jailbreakDetectReason;
+   return [@"%@", jailbreakDetectReason];
 }
 
 @end

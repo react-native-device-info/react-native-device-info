@@ -125,8 +125,8 @@ interface ExposedNativeMethods {
   getBrightnessSync: () => number;
   isRootedDevice: () => Promise<boolean>;
   isRootedDeviceSync: () => boolean;
-  rootedReason: () => Promise<boolean>;
-  rootedReasonSync: () => boolean;
+  rootedReason: () => Promise<string>;
+  rootedReasonSync: () => string;
   hasGms: () => Promise<boolean>;
   hasGmsSync: () => boolean;
   hasHms: () => Promise<boolean>;

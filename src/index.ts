@@ -751,17 +751,17 @@ export const [getBrightness, getBrightnessSync] = getSupportedPlatformInfoFuncti
 });
 
 export const [isRootedDevice, isRootedDeviceSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['ios'],
+  supportedPlatforms: ['android', 'ios'],
   getter: () => RNDeviceInfo.isRootedDevice(),
   syncGetter: () => RNDeviceInfo.isRootedDeviceSync(),
   defaultValue: false,
 });
 
 export const [rootedReason, rootedReasonSync] = getSupportedPlatformInfoFunctions({
-  supportedPlatforms: ['ios'],
+  supportedPlatforms: ['android', 'ios'],
   getter: () => RNDeviceInfo.rootedReason(),
   syncGetter: () => RNDeviceInfo.rootedReasonSync(),
-  defaultValue: false,
+  defaultValue: "",
 });
 
 export async function getDeviceToken() {

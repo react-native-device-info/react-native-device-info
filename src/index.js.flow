@@ -147,8 +147,8 @@ declare module.exports: {
   isBluetoothHeadphonesConnectedSync: () => boolean,
   isRootedDevice: () => Promise<boolean>,
   isRootedDeviceSync: () => boolean,
-  rootedReason: () => Promise<boolean>,
-  rootedReasonSync: () => boolean,
+  rootedReason: () => Promise<string>;
+  rootedReasonSync: () => string;
   isLandscape: () => Promise<boolean>,
   isLandscapeSync: () => boolean,
   isLocationEnabled: () => Promise<boolean>,

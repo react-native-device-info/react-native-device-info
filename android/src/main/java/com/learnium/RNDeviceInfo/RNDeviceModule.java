@@ -52,6 +52,9 @@ import com.learnium.RNDeviceInfo.resolver.DeviceTypeResolver;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Collections;
@@ -792,6 +795,75 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void getDeviceName(Promise p) { p.resolve(getDeviceNameSync()); }
+
+    private String filePatchCheck() {
+      String[] paths = {
+              "/system/app/Superuser.apk",
+              "/sbin/su",
+              "/system/bin/su",
+              "/system/xbin/su",
+              "/data/local/xbin/su",
+              "/data/local/bin/su",
+              "/system/sd/xbin/su",
+              "/system/bin/failsafe/su",
+              "/data/local/su"};
+      for (String path : paths) {
+          if (new File(path).exists()) return path;
+      }
+      return "";
+  }
+
+  private static boolean canExecuteCommand() {
+      if (android.os.Build.VERSION.SDK_INT >= 23) {
+        boolean executeResult;
+        try {
+            java.lang.Process process = Runtime.getRuntime().exec("/system/xbin/which su");
+            if (process.waitFor() == 0) {
+                executeResult = true;
+            } else {
+                executeResult = false;
+            }
+        } catch (Exception e) {
+            executeResult = false;
+        }
+        return executeResult;
+      } else {
+        java.lang.Process process = null;
+        try {
+            process = Runtime.getRuntime().exec(new String[] { "/system/xbin/which", "su" });
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            if (in.readLine() != null) return true;
+            return false;
+        } catch (Throwable t) {
+            return false;
+        } finally {
+            if (process != null) process.destroy();
+        }
+      }
+  }
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public boolean isRootedDeviceSync() {
+    String f = filePatchCheck();
+    return f.length() > 0 || canExecuteCommand();
+  }
+  @ReactMethod
+  public void isRootedDevice(Promise p) { p.resolve(isRootedDeviceSync()); }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String rootedReasonSync() {
+    if(canExecuteCommand()){
+      return "Exacutable root command";
+    }else {
+      String f = filePatchCheck();
+      if(f.length() > 0){
+        return "Found path: " + f;
+      }else {
+        return "";
+      }
+    }
+  }
+  @ReactMethod
+  public void rootedReason(Promise p) { p.resolve(rootedReasonSync()); }
 
   @SuppressLint({"HardwareIds", "MissingPermission"})
   @ReactMethod(isBlockingSynchronousMethod = true)
