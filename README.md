@@ -199,6 +199,8 @@ The example app in this repository shows an example usage of every single API, c
 | [isLowRamDevice()](#istablet)                                       | `boolean`           |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [isDisplayZoomed()](#isdisplayzoomed)                               | `boolean`           |  ✅  |   ❌    |   ❌     | ❌   |   ❌     |
 | [isTabletMode()](#istabletmode)                                     | `Promise<bool>`     |  ❌  |   ❌    |   ✅     | ❌   |   ❌     |
+| [isRootedDevice()](#isRootedDevice)                                 | `Promise<bool>`     |  ✅  |   ✅    |   ❌     | ❌   |   ❌     |
+| [rootedReason()](#rootedReason)                                     | `Promise<string>`   |  ✅  |   ✅    |   ❌     | ❌   |   ❌     |
 | [supported32BitAbis()](#supported32BitAbis)                         | `Promise<string[]>` |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [supported64BitAbis()](#supported64BitAbis)                         | `Promise<string[]>` |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [supportedAbis()](#supportedAbis)                                   | `Promise<string[]>` |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
@@ -1243,6 +1245,44 @@ Tells if the device is in tablet mode.
 ```js
 let isTabletMode = DeviceInfo.isTabletMode();
 // true
+```
+
+---
+
+### isRootedDevice()
+
+Tells if the device is jailbroken/rooted.
+
+#### Examples
+
+```js
+let isRooted = await DeviceInfo.isRootedDevice();
+// false
+```
+
+---
+
+### rootedReason()
+
+Tells the device is jailbroken/rooted reason, if its not returns empty string.
+
+#### Examples
+
+```js
+let rootedReason = await DeviceInfo.rootedReason(); //Returns as string
+
+/* 
+if device is not rooted => ""
+if device rooted => 
+{
+    existedDylibs = ({DYLIB_NAMES});
+    existedPaths = ({EXISTED_PATHS});
+    existedSchemes = ({{EXISTED_SCHEMES}});
+    ...
+    forked = 1;
+    sandboxViolated = 1;
+}
+*/
 ```
 
 ---

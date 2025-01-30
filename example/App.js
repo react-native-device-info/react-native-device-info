@@ -165,6 +165,8 @@ export default class App extends Component {
     deviceJSON.freeDiskStorageOld = DeviceInfo.getFreeDiskStorageOldSync();
     deviceJSON.batteryLevel = DeviceInfo.getBatteryLevelSync();
     deviceJSON.isLandscape = DeviceInfo.isLandscapeSync();
+    deviceJSON.isRootedDeviceSync = DeviceInfo.isRootedDeviceSync();
+    deviceJSON.rootedReasonSync = DeviceInfo.rootedReasonSync();
     deviceJSON.isAirplaneMode = DeviceInfo.isAirplaneModeSync();
     deviceJSON.isBatteryCharging = DeviceInfo.isBatteryChargingSync();
     deviceJSON.isPinOrFingerprintSet = DeviceInfo.isPinOrFingerprintSetSync();
@@ -241,6 +243,8 @@ export default class App extends Component {
       deviceJSON.freeDiskStorageOld = await DeviceInfo.getFreeDiskStorageOld();
       deviceJSON.batteryLevel = await DeviceInfo.getBatteryLevel();
       deviceJSON.isLandscape = await DeviceInfo.isLandscape();
+      deviceJSON.isRootedDevice = DeviceInfo.isRootedDevice();
+      deviceJSON.rootedReason = DeviceInfo.rootedReason();
       deviceJSON.isAirplaneMode = await DeviceInfo.isAirplaneMode();
       deviceJSON.isBatteryCharging = await DeviceInfo.isBatteryCharging();
       deviceJSON.isPinOrFingerprintSet = await DeviceInfo.isPinOrFingerprintSet();

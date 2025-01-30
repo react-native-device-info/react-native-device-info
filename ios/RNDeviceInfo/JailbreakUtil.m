@@ -304,8 +304,11 @@ NSMutableDictionary *jailbreakDetectReason;
     return [self checkPaths] || [self checkSchemes] || [self canViolateSandbox] || [self canFork] || [self checkSymlinks] || [self checkDylibs];
 }
 
-+ (NSMutableDictionary *)jailBrokeReason {
-   return [@"%@", jailbreakDetectReason];
++ (NSString *)jailBrokeReason {
+    [self isJailBroken];
+    NSString *result = (jailbreakDetectReason.count == 0) ? @"" : [NSString stringWithFormat:@"%@", jailbreakDetectReason];
+    return result;
 }
 
 @end
+
