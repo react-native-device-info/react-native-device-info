@@ -1098,4 +1098,3 @@ RCT_EXPORT_METHOD(rootedReason:(RCTPromiseResolveBlock)resolve rejecter:(RCTProm
 }
 
 @end
-
