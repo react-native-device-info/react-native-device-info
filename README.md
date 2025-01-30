@@ -165,6 +165,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getReadableVersion()](#getreadableversion)                         | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getSerialNumber()](#getserialnumber)                               | `Promise<string>`   |  ❌  |   ✅    |   ✅     | ❌   |   ❌     |
 | [getSecurityPatch()](#getsecuritypatch)                             | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
+| [getStartupTime()](#getstartuptime)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌     | ❌   |   ✅     |
 | [getSystemAvailableFeatures()](#getSystemAvailableFeatures)         | `Promise<string[]>` |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getSystemName()](#getsystemname)                                   | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getSystemVersion()](#getsystemversion)                             | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
@@ -529,12 +530,23 @@ DeviceInfo.getFontScale().then((fontScale) => {
 
 Method that gets available storage size, in bytes, taking into account both root and data file systems calculation.
 
+On **iOS**, this method accepts the following optional arguments:
+- `'total'`: Uses `volumeAvailableCapacityKey`
+- `'important'`: Uses `volumeAvailableCapacityForImportantUsageKey`
+- `'opportunistic'`: Uses `volumeAvailableCapacityForOpportunisticUsageKey`
+
+For more details, refer to [Apple Documentation on Checking Volume Storage Capacity](https://developer.apple.com/documentation/foundation/urlresourcekey/checking_volume_storage_capacity).
+
 #### Examples
 
 ```js
 DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
   // Android: 17179869184
   // iOS: 17179869184
+});
+
+DeviceInfo.getFreeDiskStorage('important').then((freeDiskStorage) => {
+  // iOS: 18198219342 (important storage)
 });
 ```
 
@@ -582,7 +594,7 @@ The name of the hardware (from the kernel command line or /proc).
 ```js
 DeviceInfo.getHardware().then(hardware => {
   // "walleye"
-};
+});
 ```
 
 ---
@@ -897,6 +909,21 @@ let systemName = DeviceInfo.getSystemName();
 // iOS: "iOS" on newer iOS devices "iPhone OS" on older devices (including older iPad models), "iPadOS" for iPads using iPadOS 15.0 or higher.
 // Android: "Android"
 // Windows: ?
+```
+
+---
+
+### getStartupTime()
+
+Gets the time at which the current app process was started, in milliseconds.
+
+#### Examples
+
+```js
+DeviceInfo.getStartupTime().then((startupTime) => {
+  // Android: 1517681764528
+  // iOS: 1517681764528
+});
 ```
 
 ---
@@ -1425,8 +1452,7 @@ Returns a list of supported processor architecture version
 
 ```js
 DeviceInfo.supportedAbis().then((abis) => {
-  // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi", "win_x86", "win_arm", "win_x64" ]
-});
+  // [ "arm64 v8", "Intel x86-64h Haswell", "arm64-v8a", "armeabi-v7a", "armeabi", "win_x86", "win_arm", "win_x64", "win_arm64", "win_x86onarm64" ]});
 ```
 
 ---

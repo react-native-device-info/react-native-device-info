@@ -1,3 +1,48 @@
+## [14.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.1...v14.0.2) (2024-12-17)
+
+
+### Bug Fixes
+
+* **tvos:** fix build errors for tvos ([#1670](https://github.com/react-native-device-info/react-native-device-info/issues/1670)) ([#1684](https://github.com/react-native-device-info/react-native-device-info/issues/1684)) ([f750f26](https://github.com/react-native-device-info/react-native-device-info/commit/f750f26365492b8f0676158b06ed7874fd2aac8a))
+
+## [14.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.0...v14.0.1) (2024-11-23)
+
+
+### Bug Fixes
+
+* **windows:** Update RNDeviceInfoCPP.h for windows on ARM CPU arch on windows ([#1679](https://github.com/react-native-device-info/react-native-device-info/issues/1679)) ([b2c7c4f](https://github.com/react-native-device-info/react-native-device-info/commit/b2c7c4fdbc2d36dda15b5c1996b556cf4d4d499f))
+
+# [14.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.2.0...v14.0.0) (2024-10-26)
+
+
+* fix(android)!: remove AD_ID permission by removing auto-addition of play-services-iid (#1673) ([5009115](https://github.com/react-native-device-info/react-native-device-info/commit/500911526869a4e5cb3443174e3b5b241603b33d)), closes [#1673](https://github.com/react-native-device-info/react-native-device-info/issues/1673)
+
+
+### BREAKING CHANGES
+
+* removed default fallback getInstanceId via play-services-iid dependency
+
+This dependency has the unfortunate side effect of including AD_ID permission, which is
+not permissible for many types of applications.
+
+If you relied on this functionality, you will need to define googlePlayServicesIidVersion in your
+android gradle build files ext version block. We previously used version 17.0.0 but there may be
+newer versions you could use if they work for
+
+# [13.2.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.1.0...v13.2.0) (2024-10-25)
+
+
+### Features
+
+* add getStartupTime ([#1644](https://github.com/react-native-device-info/react-native-device-info/issues/1644)) ([d390995](https://github.com/react-native-device-info/react-native-device-info/commit/d39099555c8bd9357266ee78d46632e4faee2faa))
+
+# [13.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v13.0.0...v13.1.0) (2024-10-11)
+
+
+### Features
+
+* **ios:** implement all free disk storage types for ios 11+ ([#1664](https://github.com/react-native-device-info/react-native-device-info/issues/1664)) ([99dc37c](https://github.com/react-native-device-info/react-native-device-info/commit/99dc37c771579f73d60c60874bf6480af3b895f9))
+
 # [13.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v12.1.0...v13.0.0) (2024-09-12)
 
 

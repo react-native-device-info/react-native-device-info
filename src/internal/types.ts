@@ -17,3 +17,6 @@ export interface AsyncHookResult<T> {
   loading: boolean;
   result: T;
 }
+
+// Only relevant for iOS
+export type AvailableCapacityType = 'total' | 'important' | 'opportunistic';

@@ -1,5 +1,11 @@
 import { Platform } from 'react-native';
-import type { DeviceType, LocationProviderInfo, PowerState, AsyncHookResult } from './types';
+import type {
+  DeviceType,
+  LocationProviderInfo,
+  PowerState,
+  AsyncHookResult,
+  AvailableCapacityType,
+} from './types';
 
 export type NotchDevice = {
   brand: string;
@@ -69,9 +75,9 @@ interface ExposedNativeMethods {
   getFirstInstallTimeSync: () => number;
   getFontScale: () => Promise<number>;
   getFontScaleSync: () => number;
-  getFreeDiskStorage: () => Promise<number>;
+  getFreeDiskStorage: (storageType?: AvailableCapacityType) => Promise<number>;
   getFreeDiskStorageOld: () => Promise<number>;
-  getFreeDiskStorageSync: () => number;
+  getFreeDiskStorageSync: (storageType?: AvailableCapacityType) => number;
   getFreeDiskStorageOldSync: () => number;
   getHardware: () => Promise<string>;
   getHardwareSync: () => string;
@@ -103,6 +109,8 @@ interface ExposedNativeMethods {
   getSecurityPatchSync: () => string;
   getSerialNumber: () => Promise<string>;
   getSerialNumberSync: () => string;
+  getStartupTime: () => Promise<number>;
+  getStartupTimeSync: () => number;
   getSystemAvailableFeatures: () => Promise<string[]>;
   getSystemAvailableFeaturesSync: () => string[];
   getTags: () => Promise<string>;
@@ -213,7 +221,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useBrightness: () => number | null;
 }
 
-export type Getter<T> = () => T;
+export type Getter<T> = (...args: any[]) => T;
 export type PlatformArray = typeof Platform.OS[];
 
 export interface GetSupportedPlatformInfoSyncParams<T> {

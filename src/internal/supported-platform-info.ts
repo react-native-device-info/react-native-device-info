@@ -91,7 +91,9 @@ export function getSupportedPlatformInfoFunctions<T>({
   ...asyncParams
 }: GetSupportedPlatformInfoFunctionsParams<T>): [Getter<Promise<T>>, Getter<T>] {
   return [
-    () => getSupportedPlatformInfoAsync(asyncParams),
-    () => getSupportedPlatformInfoSync({ ...asyncParams, getter: syncGetter }),
+    (...args: any[]) =>
+      getSupportedPlatformInfoAsync({ ...asyncParams, getter: () => asyncParams.getter(...args) }),
+    (...args: any[]) =>
+      getSupportedPlatformInfoSync({ ...asyncParams, getter: () => syncGetter(...args) }),
   ];
 }

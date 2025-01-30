@@ -77,6 +77,8 @@ const diMock = {
   getSecurityPatchSync: stringFnSync(),
   getSerialNumber: stringFnAsync(),
   getSerialNumberSync: stringFnSync(),
+  getStartupTime: stringFnAsync(),
+  getStartupTimeSync: stringFnSync(),
   getSystemAvailableFeatures: arrayFnAsync(),
   getSystemAvailableFeaturesSync: arrayFnSync(),
   getTags: stringFnAsync(),

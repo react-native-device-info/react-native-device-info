@@ -109,6 +109,12 @@ namespace winrt::RNDeviceInfoCPP
             break;
         case Windows::System::ProcessorArchitecture::Neutral:
             arch = "neutral";
+	    break;
+        case Windows::System::ProcessorArchitecture::Arm64:
+            arch = "win_arm64";
+	    break;
+        case Windows::System::ProcessorArchitecture::X86OnArm64:
+            arch = "win_x86onarm64";
             break;
         default:
             arch = "unknown";

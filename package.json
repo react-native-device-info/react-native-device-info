@@ -1,6 +1,6 @@
 {
   "name": "react-native-device-info",
-  "version": "13.0.0",
+  "version": "14.0.2",
   "description": "Get device information using react-native",
   "react-native": "src/index.ts",
   "types": "lib/typescript/index.d.ts",
@@ -39,7 +39,7 @@
     "example:install:pods": "cd example/ios && pod install",
     "example:android": "cd example && yarn android",
     "example:android:build": "cd example/android && ./gradlew assembleDebug",
-    "example:ios": "cd example && yarn ios --simulator 'iPhone 14'",
+    "example:ios": "cd example && yarn ios --simulator 'iPhone 16'",
     "example:ios:build": "cd example/ios && xcodebuild CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ -workspace example.xcworkspace -configuration Debug -scheme example -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=YES | xcpretty",
     "example:windows": "cd example && yarn windows",
     "example:packager": "cd example && yarn start",

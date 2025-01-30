@@ -38,9 +38,7 @@ typedef NS_ENUM(NSInteger, DeviceType) {
 @import CoreTelephony;
 #endif
 
-#if !TARGET_OS_TV
 @import Darwin.sys.sysctl;
-#endif
 
 @implementation RNDeviceInfo
 {
@@ -599,23 +597,67 @@ RCT_EXPORT_METHOD(getTotalDiskCapacity:(RCTPromiseResolveBlock)resolve rejecter:
     resolve(@(self.getTotalDiskCapacity));
 }
 
-- (double) getFreeDiskStorage {
-    uint64_t freeSpace = 0;
-    NSDictionary *storage = [self getStorageDictionary];
+- (double)getFreeDiskStorage:(NSString *)storageType {
+    NSError *error = nil;
 
-    if (storage) {
-        NSNumber *freeFileSystemSizeInBytes = [storage objectForKey: NSFileSystemFreeSize];
-        freeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+    // iOS 11 and above: Use NSURLVolumeAvailableCapacityForImportantUsageKey
+    // https://developer.apple.com/documentation/foundation/urlresourcekey/checking_volume_storage_capacity
+    if (@available(iOS 11.0, *)) {
+        NSURL *fileURL = [NSURL fileURLWithPath:NSHomeDirectory()];
+        NSString *capacityKey = [self keyForStorageType:storageType];
+        NSDictionary *storageValues = [fileURL resourceValuesForKeys:@[capacityKey] error:&error];
+
+        if (error) {
+            NSLog(@"Error retrieving storage information: %@", error);
+            return 0;
+        }
+
+        NSNumber *availableCapacity = [storageValues objectForKey:capacityKey];
+        if (availableCapacity) {
+            return (double)[availableCapacity unsignedLongLongValue];
+        }
+    } else {
+        // Fallback for older iOS versions: Use NSFileSystemFreeSize
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error:&error];
+
+        if (error) {
+            NSLog(@"Error retrieving fallback storage information: %@", error);
+            return 0;
+        }
+
+        NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+        if (freeFileSystemSizeInBytes) {
+            return (double)[freeFileSystemSizeInBytes unsignedLongLongValue];
+        }
     }
-    return (double) freeSpace;
+
+    return 0;
 }
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync) {
-    return @(self.getFreeDiskStorage);
+- (NSString *)keyForStorageType:(NSString *)storageType {
+#if TARGET_OS_TV
+    return NSURLVolumeAvailableCapacityKey;
+#else
+    if ([storageType isEqualToString:@"important"]) {
+        return NSURLVolumeAvailableCapacityForImportantUsageKey;
+    } else if ([storageType isEqualToString:@"opportunistic"]) {
+        return NSURLVolumeAvailableCapacityForOpportunisticUsageKey;
+    } else {
+        return NSURLVolumeAvailableCapacityKey;
+    }
+#endif
 }
 
-RCT_EXPORT_METHOD(getFreeDiskStorage:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    resolve(@(self.getFreeDiskStorage));
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFreeDiskStorageSync:(NSString *)storageType) {
+    return @([self getFreeDiskStorage:storageType]);
+}
+
+RCT_EXPORT_METHOD(getFreeDiskStorage:(NSString *)storageType
+                            resolver:(RCTPromiseResolveBlock)resolve
+                            rejecter:(RCTPromiseRejectBlock)reject) {
+    double freeStorage = [self getFreeDiskStorage:storageType];
+    resolve(@(freeStorage));
 }
 
 - (NSString *) getDeviceTypeName {
@@ -1007,6 +1049,14 @@ RCT_EXPORT_METHOD(getFirstInstallTime:(RCTPromiseResolveBlock)resolve rejecter:(
     return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getStartupTimeSync) {
+    return @(self.getStartupTime);
+}
+
+RCT_EXPORT_METHOD(getStartupTime:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(@(self.getStartupTime));
+}
+
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(isRootedDeviceSync) {
     return ([NSNumber numberWithBool: [JailbreakUtil isJailBroken]]);
 }
@@ -1022,7 +1072,23 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(rootedReasonSync) {
 RCT_EXPORT_METHOD(rootedReason:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve([JailbreakUtil jailBrokeReason]);
 }
+ 
+// Reads the process startup time and returns it in milliseconds since 1970
+// Reading the process startup time from the system is more accurate than comparing a date which is initiallized at launch with the current time
+- (long long) getStartupTime {
+    size_t len = 4;
+    int mib[len];
+    struct kinfo_proc kp;
 
+    sysctlnametomib("kern.proc.pid", mib, &len);
+    mib[3] = getpid();
+    len = sizeof(kp);
+    sysctl(mib, 4, &kp, &len, NULL, 0);
+
+    struct timeval startTime = kp.kp_proc.p_un.__p_starttime;
+    double startTimeMilliSeconds = startTime.tv_sec * 1e3 + startTime.tv_usec / 1e3;
+    return [@(floor(startTimeMilliSeconds)) longLongValue];
+}
 
 #pragma mark - dealloc -
 
