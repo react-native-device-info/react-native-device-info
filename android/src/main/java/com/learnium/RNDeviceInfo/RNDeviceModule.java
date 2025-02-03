@@ -772,15 +772,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public double getStartupTimeSync() {
-    // Get time in milliseconds since unix epoch
-    long currentTime = System.currentTimeMillis();
-    // Get the time when the process started in milliseconds since system boot
-    long processStartTime = Process.getStartUptimeMillis();
-    // Get the milliseconds since system boot time
-    long currentUptime = SystemClock.uptimeMillis();
-    // Calculate the process startup time in milliseconds since unix epoch
-    long startupTime = currentTime - currentUptime + processStartTime;
-    return BigInteger.valueOf(startupTime).doubleValue();
+    if (Build.VERSION.SDK_INT >= 24) {
+      // Get time in milliseconds since unix epoch
+      long currentTime = System.currentTimeMillis();
+      // Get the time when the process started in milliseconds since system boot
+      long processStartTime = Process.getStartUptimeMillis();
+      // Get the milliseconds since system boot time
+      long currentUptime = SystemClock.uptimeMillis();
+      // Calculate the process startup time in milliseconds since unix epoch
+      long startupTime = currentTime - currentUptime + processStartTime;
+      return BigInteger.valueOf(startupTime).doubleValue();
+    }
+
+    return -1;
   }
 
   @ReactMethod
