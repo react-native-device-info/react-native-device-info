@@ -197,6 +197,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   // the upstream method was removed in react-native 0.74
   // this stub remains for backwards compatibility so that react-native < 0.74
   // (which will still call onCatalystInstanceDestroy) will continue to function
+  @SuppressWarnings({"deprecation", "removal"})
   public void onCatalystInstanceDestroy() {
     invalidate();
   }
