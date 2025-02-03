@@ -274,7 +274,7 @@ PODS:
     - React-jsi (= 0.67.3)
     - React-logger (= 0.67.3)
     - React-perflogger (= 0.67.3)
-  - RNDeviceInfo (11.1.0):
+  - RNDeviceInfo (14.0.2):
     - React-Core
   - Yoga (1.14.0)
 
@@ -388,18 +388,18 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 94473205b8741b61402e8c51716dea34aa3f5b2f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
-  RCT-Folly: 803a9cfd78114b2ec0f140cfa6fa2a6bafb2d685
+  RCT-Folly: 96e860489a846babd2d615e2d2887d5f45c1ae31
   RCTRequired: 3c77b683474faf23920fbefc71c4e13af21470c0
   RCTTypeSafety: 720b1841260dac692444c2822b27403178da8b28
   React: 25970dd74abbdac449ca66dec4107652cacc606d
   React-callinvoker: 2d158700bc27b3d49c3c95721d288ed6c1a489ef
-  React-Core: 306cfdc1393bcf9481cc5de9807608db7661817b
+  React-Core: f87728c12adb5e67f4e72eea805fdfde5aaf0f28
   React-CoreModules: 2576a88d630899f3fcdf2cb79fcc0454d7b2a8bb
-  React-cxxreact: a492f0de07d875419dcb9f463c63c22fe51c433b
-  React-jsi: bca092b0c38d5e3fd60bb491d4994ab4a8ac2ad3
-  React-jsiexecutor: 15ea57ead631a11fad57634ff69f78e797113a39
+  React-cxxreact: f1b7b603da531a3b15211efadb2c5aa91ecfb970
+  React-jsi: afadd89c4c07ce2f5f7287a347a41b0ccdcfce29
+  React-jsiexecutor: 80ea691d7891ac048291b7586a29fbd8987c6a64
   React-jsinspector: 1e1e03345cf6d47779e2061d679d0a87d9ae73d8
-  React-logger: 1e10789cb84f99288479ba5f20822ce43ced6ffe
+  React-logger: d29109d51b25a9fb76e867950001b321bad2d70b
   React-perflogger: 93d3f142d6d9a46e635f09ba0518027215a41098
   React-RCTActionSheet: 87327c3722203cc79cf79d02fb83e7332aeedd18
   React-RCTAnimation: 009c87c018d50e0b38692699405ebe631ff4872d
@@ -411,10 +411,10 @@ SPEC CHECKSUMS:
   React-RCTText: 6d09140f514e1f60aff255e0acdf16e3b486ba4c
   React-RCTVibration: d0361f15ea978958fab7ffb6960f475b5063d83f
   React-runtimeexecutor: af1946623656f9c5fd64ca6f36f3863516193446
-  ReactCommon: 650e33cde4fb7d36781cd3143f5276da0abb2f96
-  RNDeviceInfo: b899ce37a403a4dea52b7cb85e16e49c04a5b88e
+  ReactCommon: 4324b64a75cd7f084cb5297e85dd0e847ff73b15
+  RNDeviceInfo: 801c18d0525e86580900e7b5f562dca0c8c05021
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
 
 PODFILE CHECKSUM: bdf45547a4661149d5f0f9e028297666a4cdab29
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
