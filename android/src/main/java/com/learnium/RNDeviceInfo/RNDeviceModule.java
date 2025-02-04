@@ -38,6 +38,7 @@ import android.hardware.camera2.CameraManager;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -72,7 +73,7 @@ import static android.os.BatteryManager.BATTERY_STATUS_FULL;
 import static android.provider.Settings.Secure.getString;
 
 @ReactModule(name = RNDeviceModule.NAME)
-public class RNDeviceModule extends ReactContextBaseJavaModule {
+public class RNDeviceModule extends ReactContextBaseJavaModule implements LifecycleEventListener 
   public static final String NAME = "RNDeviceInfo";
   private final DeviceTypeResolver deviceTypeResolver;
   private final DeviceIdResolver deviceIdResolver;
@@ -194,12 +195,21 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
   }
 
-  // the upstream method was removed in react-native 0.74
-  // this stub remains for backwards compatibility so that react-native < 0.74
-  // (which will still call onCatalystInstanceDestroy) will continue to function
-  @SuppressWarnings({"deprecation", "removal"})
-  public void onCatalystInstanceDestroy() {
+  @Override
+  public void onHostResume() {
+    // Do something?
+  }
+
+  @Override
+  public void onHostPause() {
+    // Do something?
+  }
+  // Will fix the onCataystInstanceDestroy warning / build and work for react-native >= 0.74
+  // Tested on react-native 0.77.0
+  @Override
+  public void onHostDestroy() {
     invalidate();
+    getReactApplicationContext().removeLifecycleEventListener(this);
   }
 
   // This should have an `@Override` tag, but the method does not exist until
