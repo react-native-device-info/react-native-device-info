@@ -7,6 +7,10 @@ const devicesWithNotch: NotchDevice[] = [
   },
   {
     brand: 'Apple',
+    model: 'iPhone 16e',
+  },
+  {
+    brand: 'Apple',
     model: 'iPhone 16 Plus',
   },
   {
