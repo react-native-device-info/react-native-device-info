@@ -127,7 +127,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
           updatedPowerState.putString(BATTERY_STATE, batteryState);
           updatedPowerState.putDouble(BATTERY_LEVEL, batteryLevel);
           updatedPowerState.putBoolean(LOW_POWER_MODE, powerSaveState);
-          
+
           sendEvent(getReactApplicationContext(), "RNDeviceInfo_powerStateDidChange", updatedPowerState);
           mLastBatteryState = batteryState;
           mLastPowerSaveState = powerSaveState;
@@ -1113,8 +1113,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     List<InputMethodInfo> inputMethodList = this.inputMethodManager.getEnabledInputMethodList();
     if (inputMethodList != null && !inputMethodList.isEmpty()) {
       for (InputMethodInfo inputMethodInfo : inputMethodList) {
-        String serviceName = inputMethodInfo.getServiceName().toLowerCase();
-        String id = inputMethodInfo.getId().toLowerCase();
+        String serviceName = inputMethodInfo.getServiceName() != null ? inputMethodInfo.getServiceName().toLowerCase() : "";
+        String id = inputMethodInfo.getId() != null ? inputMethodInfo.getId().toLowerCase() : "";
         if (serviceName.contains(name.toLowerCase()) || id.contains(name.toLowerCase())) {
           return true;
         }
