@@ -1,3 +1,10 @@
+## [14.1.1](https://github.com/react-native-device-info/react-native-device-info/compare/v14.1.0...v14.1.1) (2025-09-17)
+
+
+### Bug Fixes
+
+* **android:** Resolve NullPointerException in hasKeyboard function ([67bc2cd](https://github.com/react-native-device-info/react-native-device-info/commit/67bc2cdc73b0aa293f4987252048efdd16ba740b)), closes [react-native-device-info/react-native-device-info#1722](https://github.com/react-native-device-info/react-native-device-info/issues/1722)
+
 # [14.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.4...v14.1.0) (2025-09-17)
 
 
