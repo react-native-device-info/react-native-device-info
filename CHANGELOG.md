@@ -1,3 +1,10 @@
+# [14.1.0](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.4...v14.1.0) (2025-09-17)
+
+
+### Features
+
+* **ios:** add missing iPhone 17 & 16e device names ([9c0479f](https://github.com/react-native-device-info/react-native-device-info/commit/9c0479fcf0debbc9c21acfe5a3a6b32229b8a4fb))
+
 ## [14.0.4](https://github.com/react-native-device-info/react-native-device-info/compare/v14.0.3...v14.0.4) (2025-02-03)
 
 
