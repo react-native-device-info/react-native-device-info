@@ -8,21 +8,24 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "windows": "react-native run-windows",
+    "windows": "npx @react-native-community/cli run-windows",
     "appium": "appium",
-    "test:windows": "yarn jest --config=./jest.windows.config.js",
+    "test:windows": "jest --config jest.config.windows.js",
     "prepare": "patch-package"
   },
   "dependencies": {
-    "react": "17.0.2",
-    "react-native": "0.67.3",
-    "react-native-device-info": "github:react-native-device-info/react-native-device-info",
-    "react-native-windows": "0.67.3"
+    "react": "^18.2.0",
+    "react-native": "^0.77.2",
+    "react-native-device-info": "link:../",
+    "react-native-windows": "^0.77.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@react-native/babel-preset": "^0.76.1",
+    "@react-native/metro-config": "^0.73.0",
+    "@rnx-kit/jest-preset": "^0.1.17",
     "appium": "1.18.3",
     "babel-jest": "^26.6.3",
     "eslint": "7.14.0",
@@ -42,5 +45,12 @@
   },
   "resolutions": {
     "appium/appium-windows-driver": "1.13.0"
+  },
+  "react-native-windows": {
+    "init-windows": {
+      "name": "RNDeviceInfoExample",
+      "namespace": "RNDeviceInfoExample",
+      "template": "cpp-app"
+    }
   }
 }
