@@ -16,6 +16,7 @@ import type {
   DeviceType,
   LocationProviderInfo,
   PowerState,
+  AppSetIdInfo,
 } from './internal/types';
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
@@ -58,6 +59,14 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
   getter: () => RNDeviceInfo.getAndroidId(),
   syncGetter: () => RNDeviceInfo.getAndroidIdSync(),
   defaultValue: 'unknown',
+});
+
+export const [getAppSetId, getAppSetIdSync] = getSupportedPlatformInfoFunctions({
+  memoKey: 'appSetId',
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getAppSetId(),
+  syncGetter: () => RNDeviceInfo.getAppSetIdSync(),
+  defaultValue: { id: 'unknown', scope: -1, error: 'Not supported on this platform' },
 });
 
 export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
@@ -923,12 +932,14 @@ export function useBrightness(): number | null {
   return brightness;
 }
 
-export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
+export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState, AppSetIdInfo };
 
 const DeviceInfo: DeviceInfoModule = {
   getAndroidId,
   getAndroidIdSync,
   getApiLevel,
+  getAppSetId,
+  getAppSetIdSync,
   getApiLevelSync,
   getApplicationName,
   getAvailableLocationProviders,

@@ -20,3 +20,12 @@ export interface AsyncHookResult<T> {
 
 // Only relevant for iOS
 export type AvailableCapacityType = 'total' | 'important' | 'opportunistic';
+
+// AppSetId types for Android
+export interface AppSetIdInfo {
+  id: string;
+  scope: number;
+  error?: string;
+}
+
+export type AppSetIdScope = 1 | 2; // SCOPE_APP = 1, SCOPE_DEVELOPER = 2

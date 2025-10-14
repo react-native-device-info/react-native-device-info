@@ -8,6 +8,7 @@ const [numberFnAsync, numberFnSync] = makeFns(-1);
 const [arrayFnAsync, arrayFnSync] = makeFns([]);
 const [booleanFnAsync, booleanFnSync] = makeFns(false);
 const [objectFnAsync, objectFnSync] = makeFns({});
+const [appSetIdFnAsync, appSetIdFnSync] = makeFns({ id: 'unknown', scope: -1, error: 'Not supported on this platform' });
 
 const numberAsyncHookResultHook = () => jest.fn(() => ({ loading: false, result: -1 }));
 const booleanAsyncHookResultHook = () => jest.fn(() => ({ loading: false, result: false }));
@@ -16,6 +17,8 @@ const stringAsyncHookResultHook = () => jest.fn(() => ({ loading: false, result:
 const diMock = {
   getAndroidId: stringFnAsync(),
   getAndroidIdSync: stringFnSync(),
+  getAppSetId: appSetIdFnAsync(),
+  getAppSetIdSync: appSetIdFnSync(),
   getApiLevel: numberFnAsync(),
   getApiLevelSync: numberFnSync(),
   getAvailableLocationProviders: objectFnAsync(),

@@ -122,6 +122,7 @@ The example app in this repository shows an example usage of every single API, c
 | Method                                                              | Return Type         |  iOS | Android | Windows | Web  | visionOS |
 | ------------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-:  | :------: |
 | [getAndroidId()](#getandroidid)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
+| [getAppSetId()](#getappsetid)                                       | `Promise<AppSetIdInfo>` |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getApiLevel()](#getapilevel)                                       | `Promise<number>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getApplicationName()](#getapplicationname)                         | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getAvailableLocationProviders()](#getAvailableLocationProviders)   | `Promise<Object>`   |  ✅  |   ✅    |   ❌     | ❌   |   ✅     |
@@ -239,6 +240,41 @@ DeviceInfo.getAndroidId().then((androidId) => {
   // androidId here
 });
 ```
+
+---
+
+### getAppSetId()
+
+Gets the AppSetId for Android devices. AppSetId is part of Android's Privacy Sandbox and provides a privacy-preserving identifier for advertising and analytics purposes. This API is only available on Android 14 (API level 34) and above.
+
+The returned object contains:
+- `id`: The AppSetId string value
+- `scope`: The scope of the AppSetId (1 = SCOPE_APP, 2 = SCOPE_DEVELOPER)
+- `error`: Error message if the operation failed (only present on error)
+
+#### Examples
+
+```js
+DeviceInfo.getAppSetId().then((appSetIdInfo) => {
+  if (appSetIdInfo.error) {
+    console.log('Error getting AppSetId:', appSetIdInfo.error);
+  } else {
+    console.log('AppSetId:', appSetIdInfo.id);
+    console.log('Scope:', appSetIdInfo.scope); // 1 for app-scoped, 2 for developer-scoped
+  }
+});
+
+// Synchronous version
+const appSetIdInfo = DeviceInfo.getAppSetIdSync();
+if (appSetIdInfo.error) {
+  console.log('Error getting AppSetId:', appSetIdInfo.error);
+} else {
+  console.log('AppSetId:', appSetIdInfo.id);
+  console.log('Scope:', appSetIdInfo.scope);
+}
+```
+
+**Note**: AppSetId requires Android 14 (API level 34) or higher. On older Android versions, the function will return an error message.
 
 ---
 

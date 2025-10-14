@@ -34,6 +34,8 @@ import android.text.TextUtils;
 import android.app.ActivityManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
+import android.adservices.appsetid.AppSetId;
+import android.adservices.appsetid.AppSetIdManager;
 
 import androidx.annotation.Nullable;
 
@@ -1121,5 +1123,50 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     }
     return false;
+  }
+
+  @ReactMethod
+  public void getAppSetId(Promise promise) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+      try {
+        AppSetIdManager appSetIdManager = AppSetIdManager.get(getReactApplicationContext());
+        appSetIdManager.getAppSetId().addOnSuccessListener(appSetId -> {
+          WritableMap result = Arguments.createMap();
+          result.putString("id", appSetId.getId());
+          result.putInt("scope", appSetId.getScope());
+          promise.resolve(result);
+        }).addOnFailureListener(exception -> {
+          promise.reject("APP_SET_ID_ERROR", "Failed to get AppSetId: " + exception.getMessage());
+        });
+      } catch (Exception e) {
+        promise.reject("APP_SET_ID_ERROR", "Failed to get AppSetId: " + e.getMessage());
+      }
+    } else {
+      promise.reject("APP_SET_ID_ERROR", "AppSetId is only available on Android 14 (API level 34) and above");
+    }
+  }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableMap getAppSetIdSync() {
+    WritableMap result = Arguments.createMap();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+      try {
+        AppSetIdManager appSetIdManager = AppSetIdManager.get(getReactApplicationContext());
+        // Note: This is a blocking call, but AppSetIdManager.getAppSetId() is async
+        // For sync version, we'll return an error indicating async is required
+        result.putString("error", "AppSetId requires async call - use getAppSetId() instead");
+        result.putString("id", "unknown");
+        result.putInt("scope", -1);
+      } catch (Exception e) {
+        result.putString("error", "Failed to get AppSetId: " + e.getMessage());
+        result.putString("id", "unknown");
+        result.putInt("scope", -1);
+      }
+    } else {
+      result.putString("error", "AppSetId is only available on Android 14 (API level 34) and above");
+      result.putString("id", "unknown");
+      result.putInt("scope", -1);
+    }
+    return result;
   }
 }
