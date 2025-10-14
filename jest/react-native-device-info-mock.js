@@ -8,7 +8,7 @@ const [numberFnAsync, numberFnSync] = makeFns(-1);
 const [arrayFnAsync, arrayFnSync] = makeFns([]);
 const [booleanFnAsync, booleanFnSync] = makeFns(false);
 const [objectFnAsync, objectFnSync] = makeFns({});
-const [appSetIdFnAsync, appSetIdFnSync] = makeFns({ id: 'unknown', scope: -1, error: 'Not supported on this platform' });
+const [appSetIdFnAsync, appSetIdFnSync] = makeFns({ id: 'unknown', scope: -1 });
 
 const numberAsyncHookResultHook = () => jest.fn(() => ({ loading: false, result: -1 }));
 const booleanAsyncHookResultHook = () => jest.fn(() => ({ loading: false, result: false }));

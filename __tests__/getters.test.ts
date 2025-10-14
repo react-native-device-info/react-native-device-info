@@ -783,7 +783,7 @@ describe('Object Getters', () => {
       async (platform) => {
         Platform.OS = platform as any;
         const resp = await asyncGetter();
-        expect(resp).toEqual({ id: 'unknown', scope: -1, error: 'Not supported on this platform' });
+        expect(resp).toEqual({ id: 'unknown', scope: -1 });
         expect(asyncNativeGetter).toHaveBeenCalled();
       }
     );
@@ -793,7 +793,7 @@ describe('Object Getters', () => {
       (platform) => {
         Platform.OS = platform as any;
         const resp = syncGetter();
-        expect(resp).toEqual({ id: 'unknown', scope: -1, error: 'Not supported on this platform' });
+        expect(resp).toEqual({ id: 'unknown', scope: -1 });
         expect(syncNativeGetter).toHaveBeenCalled();
       }
     );
