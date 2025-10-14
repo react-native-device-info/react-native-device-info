@@ -248,16 +248,15 @@ DeviceInfo.getAndroidId().then((androidId) => {
 Gets the AppSetId for Android devices. AppSetId is part of Android's Privacy Sandbox and provides a privacy-preserving identifier for advertising and analytics purposes. This API is only available on Android 14 (API level 34) and above.
 
 The returned object contains:
-- `id`: The AppSetId string value
-- `scope`: The scope of the AppSetId (1 = SCOPE_APP, 2 = SCOPE_DEVELOPER)
-- `error`: Error message if the operation failed (only present on error)
+- `id`: The AppSetId string value (returns "unknown" if not available)
+- `scope`: The scope of the AppSetId (1 = SCOPE_APP, 2 = SCOPE_DEVELOPER, returns -1 if not available)
 
 #### Examples
 
 ```js
 DeviceInfo.getAppSetId().then((appSetIdInfo) => {
-  if (appSetIdInfo.error) {
-    console.log('Error getting AppSetId:', appSetIdInfo.error);
+  if (appSetIdInfo.id === 'unknown') {
+    console.log('AppSetId not available on this device');
   } else {
     console.log('AppSetId:', appSetIdInfo.id);
     console.log('Scope:', appSetIdInfo.scope); // 1 for app-scoped, 2 for developer-scoped
@@ -266,15 +265,15 @@ DeviceInfo.getAppSetId().then((appSetIdInfo) => {
 
 // Synchronous version
 const appSetIdInfo = DeviceInfo.getAppSetIdSync();
-if (appSetIdInfo.error) {
-  console.log('Error getting AppSetId:', appSetIdInfo.error);
+if (appSetIdInfo.id === 'unknown') {
+  console.log('AppSetId not available on this device');
 } else {
   console.log('AppSetId:', appSetIdInfo.id);
   console.log('Scope:', appSetIdInfo.scope);
 }
 ```
 
-**Note**: AppSetId requires Android 14 (API level 34) or higher. On older Android versions, the function will return an error message.
+**Note**: AppSetId requires Android 14 (API level 34) or higher. On older Android versions or when the service is unavailable, the function will return `{ id: 'unknown', scope: -1 }`.
 
 ---
 

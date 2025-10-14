@@ -66,7 +66,7 @@ export const [getAppSetId, getAppSetIdSync] = getSupportedPlatformInfoFunctions(
   supportedPlatforms: ['android'],
   getter: () => RNDeviceInfo.getAppSetId(),
   syncGetter: () => RNDeviceInfo.getAppSetIdSync(),
-  defaultValue: { id: 'unknown', scope: -1, error: 'Not supported on this platform' },
+  defaultValue: { id: 'unknown', scope: -1 },
 });
 
 export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
