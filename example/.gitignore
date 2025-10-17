@@ -30,6 +30,9 @@ local.properties
 *.iml
 *.hprof
 
+# Visual Studio
+.vs/
+
 # node.js
 #
 node_modules/
@@ -58,3 +61,7 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+#NuGet
+packages/
+*.nupkg
