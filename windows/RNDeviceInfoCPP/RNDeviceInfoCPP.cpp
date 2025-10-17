@@ -14,100 +14,56 @@ namespace winrt::RNDeviceInfo {
 
 	// === Synchronous Methods ===
 	std::string RNDeviceInfo::getApplicationName() noexcept {
-		try {
-			// Get the path of the current executable
-			WCHAR exePath[MAX_PATH] = {};
-			DWORD pathLength = GetModuleFileNameW(NULL, exePath, MAX_PATH);
-
-			if (pathLength == 0 || pathLength == MAX_PATH) {
-				return "MyApp"; // Fallback
-			}
-
-			// Get the size of version info
-			DWORD handle = 0;
-			DWORD versionInfoSize = GetFileVersionInfoSizeW(exePath, &handle);
-
-			if (versionInfoSize == 0) {
-				// Try to get just the filename without path as fallback
-				std::wstring pathStr(exePath);
-				size_t lastSlash = pathStr.find_last_of(L"\\/");
-				if (lastSlash != std::wstring::npos) {
-					std::wstring filename = pathStr.substr(lastSlash + 1);
-					// Remove .exe extension if present
-					size_t dotPos = filename.find_last_of(L'.');
-					if (dotPos != std::wstring::npos) {
-						filename = filename.substr(0, dotPos);
-					}
-
-					// Convert to narrow string
-					int len = WideCharToMultiByte(CP_UTF8, 0, filename.c_str(), -1, NULL, 0, NULL, NULL);
-					if (len > 0) {
-						std::string result;
-						result.resize(len - 1);
-						WideCharToMultiByte(CP_UTF8, 0, filename.c_str(), -1, &result[0], len, NULL, NULL);
-						return result.empty() ? "MyApp" : result;
-					}
-				}
-				return "MyApp";
-			}
-
-			// Allocate buffer for version info
-			std::vector<BYTE> versionInfo(versionInfoSize);
-
-			if (!GetFileVersionInfoW(exePath, handle, versionInfoSize, versionInfo.data())) {
-				return "MyApp";
-			}
-
-			// Query for ProductName first, then FileDescription as fallback
-			LPVOID buffer = nullptr;
-			UINT bufferSize = 0;
-
-			// Try ProductName first
-			if (VerQueryValueW(versionInfo.data(), L"\\StringFileInfo\\040904b0\\ProductName", &buffer, &bufferSize)) {
-				if (buffer && bufferSize > 0) {
-					LPCWSTR productName = static_cast<LPCWSTR>(buffer);
-
-					// Convert to narrow string
-					int len = WideCharToMultiByte(CP_UTF8, 0, productName, -1, NULL, 0, NULL, NULL);
-					if (len > 0) {
-						std::string result;
-						result.resize(len - 1);
-						WideCharToMultiByte(CP_UTF8, 0, productName, -1, &result[0], len, NULL, NULL);
-						if (!result.empty()) {
-							return result;
-						}
-					}
-				}
-			}
-
-			// Try FileDescription as fallback
-			if (VerQueryValueW(versionInfo.data(), L"\\StringFileInfo\\040904b0\\FileDescription", &buffer, &bufferSize)) {
-				if (buffer && bufferSize > 0) {
-					LPCWSTR fileDescription = static_cast<LPCWSTR>(buffer);
-
-					// Convert to narrow string
-					int len = WideCharToMultiByte(CP_UTF8, 0, fileDescription, -1, NULL, 0, NULL, NULL);
-					if (len > 0) {
-						std::string result;
-						result.resize(len - 1);
-						WideCharToMultiByte(CP_UTF8, 0, fileDescription, -1, &result[0], len, NULL, NULL);
-						if (!result.empty()) {
-							return result;
-						}
-					}
-				}
-			}
+		
 
 			// Final fallback
 			return "MyApp";
 		}
-		catch (...) {
-			return "MyApp";
-		}
-	}
+		
+	
 
 	std::string RNDeviceInfo::getBrand() noexcept {
-		return "GenericBrand";
+		try {
+			HKEY hKey;
+			LONG result = RegOpenKeyExW(
+				HKEY_LOCAL_MACHINE,
+				L"HARDWARE\\DESCRIPTION\\System\\BIOS",
+				0,
+				KEY_READ | KEY_WOW64_64KEY,
+				&hKey
+			);
+
+			if (result == ERROR_SUCCESS) {
+				WCHAR brand[256] = {};
+				DWORD brandSize = sizeof(brand);
+
+				result = RegQueryValueExW(
+					hKey,
+					L"SystemManufacturer",
+					nullptr,
+					nullptr,
+					reinterpret_cast<LPBYTE>(brand),
+					&brandSize
+				);
+
+				RegCloseKey(hKey);
+
+				if (result == ERROR_SUCCESS && wcslen(brand) > 0) {
+					int len = WideCharToMultiByte(CP_UTF8, 0, brand, -1, nullptr, 0, nullptr, nullptr);
+					if (len > 0) {
+						std::string brandStr;
+						brandStr.resize(len - 1);
+						WideCharToMultiByte(CP_UTF8, 0, brand, -1, &brandStr[0], len, nullptr, nullptr);
+						return brandStr;
+					}
+				}
+			}
+		}
+		catch (...) {
+			// Ignore and fall through to fallback
+		}
+		// Fallback: return a default string if unable to get the brand
+		return "UnknownBrand";
 	}
 
 	std::string RNDeviceInfo::getBuildNumber() noexcept {
@@ -123,7 +79,47 @@ namespace winrt::RNDeviceInfo {
 	}
 
 	std::string RNDeviceInfo::getModel() noexcept {
-		return "GenericModel";
+		try {
+			HKEY hKey;
+			LONG result = RegOpenKeyExW(
+				HKEY_LOCAL_MACHINE,
+				L"HARDWARE\\DESCRIPTION\\System\\BIOS",
+				0,
+				KEY_READ | KEY_WOW64_64KEY,
+				&hKey
+			);
+
+			if (result == ERROR_SUCCESS) {
+				WCHAR model[256] = {};
+				DWORD modelSize = sizeof(model);
+
+				result = RegQueryValueExW(
+					hKey,
+					L"SystemProductName",
+					nullptr,
+					nullptr,
+					reinterpret_cast<LPBYTE>(model),
+					&modelSize
+				);
+
+				RegCloseKey(hKey);
+
+				if (result == ERROR_SUCCESS && wcslen(model) > 0) {
+					int len = WideCharToMultiByte(CP_UTF8, 0, model, -1, nullptr, 0, nullptr, nullptr);
+					if (len > 0) {
+						std::string modelStr;
+						modelStr.resize(len - 1);
+						WideCharToMultiByte(CP_UTF8, 0, model, -1, &modelStr[0], len, nullptr, nullptr);
+						return modelStr;
+					}
+				}
+			}
+		}
+		catch (...) {
+			// Ignore and fall through to fallback
+		}
+		// Fallback: return a default string if unable to get the model
+		return "UnknownModel";
 	}
 
 	std::string RNDeviceInfo::getReadableVersion() noexcept {
@@ -135,61 +131,10 @@ namespace winrt::RNDeviceInfo {
 	}
 
 	std::string RNDeviceInfo::getSystemVersion() noexcept {
-		try {
-			// Simple and reliable approach using registry
-			HKEY hKey;
-			LONG result = RegOpenKeyExW(HKEY_LOCAL_MACHINE,
-				L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
-				0, KEY_READ, &hKey);
-
-			if (result == ERROR_SUCCESS) {
-				// Get the CurrentVersion (like "10.0")
-				WCHAR version[256] = {};
-				DWORD valueSize = sizeof(version);
-
-				result = RegQueryValueExW(hKey, L"CurrentVersion", NULL, NULL,
-					reinterpret_cast<LPBYTE>(version), &valueSize);
-
-				if (result == ERROR_SUCCESS) {
-					// Convert wide string to narrow string
-					std::string versionStr;
-					int len = WideCharToMultiByte(CP_UTF8, 0, version, -1, NULL, 0, NULL, NULL);
-					if (len > 0) {
-						versionStr.resize(len - 1);
-						WideCharToMultiByte(CP_UTF8, 0, version, -1, &versionStr[0], len, NULL, NULL);
-					}
-
-					// Optionally get build number too
-					WCHAR buildNumber[256] = {};
-					valueSize = sizeof(buildNumber);
-					LONG buildResult = RegQueryValueExW(hKey, L"CurrentBuildNumber", NULL, NULL,
-						reinterpret_cast<LPBYTE>(buildNumber), &valueSize);
-
-					if (buildResult == ERROR_SUCCESS && wcslen(buildNumber) > 0) {
-						// Convert build number and append
-						int buildLen = WideCharToMultiByte(CP_UTF8, 0, buildNumber, -1, NULL, 0, NULL, NULL);
-						if (buildLen > 0) {
-							std::string buildStr;
-							buildStr.resize(buildLen - 1);
-							WideCharToMultiByte(CP_UTF8, 0, buildNumber, -1, &buildStr[0], buildLen, NULL, NULL);
-							versionStr += "." + buildStr;
-						}
-					}
-
-					RegCloseKey(hKey);
-					return versionStr.empty() ? "10.0" : versionStr;
-				}
-				RegCloseKey(hKey);
-			}
-
-			// Fallback to simple default
 			return "10.0";
 		}
-		catch (...) {
-			// Return safe default if anything goes wrong
-			return "10.0";
-		}
-	}
+		
+	
 
 	std::string RNDeviceInfo::getVersion() noexcept {
 		return "1.0.0";
@@ -217,7 +162,22 @@ namespace winrt::RNDeviceInfo {
 	}
 
 	void RNDeviceInfo::getBatteryLevel(React::ReactPromise<double>&& promise) noexcept {
-		promise.Resolve(0.75);
+		try {
+			SYSTEM_POWER_STATUS status = {};
+			if (GetSystemPowerStatus(&status)) {
+				// BatteryLifePercent is 0-100, 255 means unknown status
+				if (status.BatteryLifePercent != 255) {
+					double level = static_cast<double>(status.BatteryLifePercent) / 100.0;
+					promise.Resolve(level);
+					return;
+				}
+			}
+		}
+		catch (...) {
+			// Ignore and fall through to fallback
+		}
+		// Fallback: return -1.0 to indicate unknown battery level
+		promise.Resolve(-1.0);
 	}
 
 	void RNDeviceInfo::isCameraPresent(React::ReactPromise<bool>&& promise) noexcept {
@@ -225,7 +185,27 @@ namespace winrt::RNDeviceInfo {
 	}
 
 	void RNDeviceInfo::getDeviceName(React::ReactPromise<std::string>&& promise) noexcept {
-		promise.Resolve("MyDevice");
+		try {
+			WCHAR nameBuffer[MAX_COMPUTERNAME_LENGTH + 1] = {};
+			DWORD size = ARRAYSIZE(nameBuffer);
+
+			// Use ComputerNamePhysicalDnsHostname for a more user-friendly name
+			if (GetComputerNameExW(ComputerNamePhysicalDnsHostname, nameBuffer, &size)) {
+				int len = WideCharToMultiByte(CP_UTF8, 0, nameBuffer, -1, nullptr, 0, nullptr, nullptr);
+				if (len > 0) {
+					std::string deviceName;
+					deviceName.resize(len - 1);
+					WideCharToMultiByte(CP_UTF8, 0, nameBuffer, -1, &deviceName[0], len, nullptr, nullptr);
+					promise.Resolve(deviceName);
+					return;
+				}
+			}
+		}
+		catch (...) {
+			// Ignore and fall through to fallback
+		}
+		// Fallback: return a default string if unable to get the device name
+		promise.Resolve("UnknownDevice");
 	}
 
 	void RNDeviceInfo::getFirstInstallTime(React::ReactPromise<double>&& promise) noexcept {
@@ -283,7 +263,35 @@ namespace winrt::RNDeviceInfo {
 	}
 
 	void RNDeviceInfo::getTotalDiskCapacity(React::ReactPromise<double>&& promise) noexcept {
-		promise.Resolve(static_cast<double>(64LL * 1024 * 1024 * 1024));
+		try {
+			// Get the path of the current executable
+			WCHAR exePath[MAX_PATH] = {};
+			DWORD pathLength = GetModuleFileNameW(NULL, exePath, MAX_PATH);
+
+			if (pathLength == 0 || pathLength == MAX_PATH) {
+				// Fallback: use C:\
+	            wcscpy_s(exePath, L"C:\\");
+			}
+			else {
+				// Remove the filename to get the directory
+				WCHAR* lastSlash = wcsrchr(exePath, L'\\');
+				if (lastSlash) {
+					*(lastSlash + 1) = L'\0';
+				}
+			}
+
+			ULARGE_INTEGER totalNumberOfBytes = {};
+			if (GetDiskFreeSpaceExW(exePath, nullptr, &totalNumberOfBytes, nullptr)) {
+				promise.Resolve(static_cast<double>(totalNumberOfBytes.QuadPart));
+				return;
+			}
+		}
+		catch (...) {
+			// Ignore and fall through to fallback
+		}
+
+		// Fallback: return 0 if unable to determine
+		promise.Resolve(0.0);
 	}
 
 	void RNDeviceInfo::getTotalDiskCapacityOld(React::ReactPromise<double>&& promise) noexcept {
@@ -291,7 +299,50 @@ namespace winrt::RNDeviceInfo {
 	}
 
 	void RNDeviceInfo::getUniqueId(React::ReactPromise<std::string>&& promise) noexcept {
-		promise.Resolve("unique-device-id");
+		try {
+			HKEY hKey;
+			LONG result = RegOpenKeyExW(
+				HKEY_LOCAL_MACHINE,
+				L"SOFTWARE\\Microsoft\\Cryptography",
+				0,
+				KEY_READ | KEY_WOW64_64KEY,
+				&hKey
+			);
+
+			if (result == ERROR_SUCCESS) {
+				WCHAR guid[256] = {};
+				DWORD guidSize = sizeof(guid);
+
+				result = RegQueryValueExW(
+					hKey,
+					L"MachineGuid",
+					nullptr,
+					nullptr,
+					reinterpret_cast<LPBYTE>(guid),
+					&guidSize
+				);
+
+				RegCloseKey(hKey);
+
+				if (result == ERROR_SUCCESS && wcslen(guid) > 0) {
+					// Convert wide string to UTF-8 std::string
+					int len = WideCharToMultiByte(CP_UTF8, 0, guid, -1, nullptr, 0, nullptr, nullptr);
+					if (len > 0) {
+						std::string guidStr;
+						guidStr.resize(len - 1);
+						WideCharToMultiByte(CP_UTF8, 0, guid, -1, &guidStr[0], len, nullptr, nullptr);
+						promise.Resolve(guidStr);
+						return;
+					}
+				}
+			}
+		}
+		catch (...) {
+			// Ignore and fall through to fallback
+		}
+
+		// Fallback: return a default string if unable to get the GUID
+		promise.Resolve("unknown-unique-id");
 	}
 
 	void RNDeviceInfo::getUsedMemory(React::ReactPromise<double>&& promise) noexcept {

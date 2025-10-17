@@ -111,7 +111,7 @@
     "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "metro-react-native-babel-preset": "^0.67.0",
-    "react": "17.0.2",
+    "react": "^18.2.0",
     "react-native": "^0.77.2",
     "react-native-builder-bob": "^0.18.2",
     "react-native-windows": "^0.77.7",

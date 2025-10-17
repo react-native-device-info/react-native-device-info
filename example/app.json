@@ -1,5 +1,4 @@
 {
   "name": "example",
-  "displayName": "example",
-  "jsEngine": "hermes"
+  "displayName": "example"
 }
