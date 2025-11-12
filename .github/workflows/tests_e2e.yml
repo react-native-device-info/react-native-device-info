@@ -61,13 +61,15 @@ jobs:
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}-v1
+          key: ${{ runner.os }}-yarn-${{ hashFiles('package.json', 'example/package.json') }}
 
-      - uses: actions/cache@v4
-        name: Gradle Cache
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v1
+          # Only write to the cache for builds on the main, stops branches evicting main cache
+          # Builds on other branches will only read from main branch cache writes
+          # Comment this and the with: above out for performance testing on a branch
+          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
 
       - name: Yarn Install
         uses: nick-fields/retry@v3
@@ -252,13 +254,13 @@ jobs:
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}-v1
+          key: ${{ runner.os }}-yarn-${{ hashFiles('package.json', 'example/package.json') }}
 
       - uses: actions/cache@v4
         name: Cache Pods
         with:
           path: example/ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}-v1
+          key: ${{ runner.os }}-pods-${{ hashFiles('example/ios/Podfile.lock') }}
 
       - name: Yarn Install
         uses: nick-fields/retry@v3
