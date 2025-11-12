@@ -274,7 +274,7 @@ PODS:
     - React-jsi (= 0.67.3)
     - React-logger (= 0.67.3)
     - React-perflogger (= 0.67.3)
-  - RNDeviceInfo (14.0.2):
+  - RNDeviceInfo (14.1.1):
     - React-Core
   - Yoga (1.14.0)
 
@@ -382,7 +382,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  boost: a7c83b31436843459a1961bfd74b96033dc77234
+  boost: 70c1ff571f5f386b165721cbe01d0eddd99ee53f
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 808f741ddb0896a20e5b98cc665f5b3413b072e2
   FBReactNativeSpec: 94473205b8741b61402e8c51716dea34aa3f5b2f
@@ -412,7 +412,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: d0361f15ea978958fab7ffb6960f475b5063d83f
   React-runtimeexecutor: af1946623656f9c5fd64ca6f36f3863516193446
   ReactCommon: 4324b64a75cd7f084cb5297e85dd0e847ff73b15
-  RNDeviceInfo: 801c18d0525e86580900e7b5f562dca0c8c05021
+  RNDeviceInfo: bcce8752b5043a623fe3c26789679b473f705d3c
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
 
 PODFILE CHECKSUM: bdf45547a4661149d5f0f9e028297666a4cdab29
