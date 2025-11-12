@@ -21,11 +21,15 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: git config
+        run: |
+          git config --global user.name 'RNDI Release Bot'
+          git config --global user.email 'rndi-bot@users.noreply.github.com'
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org"
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: yarn ci:install
       - name: Release
