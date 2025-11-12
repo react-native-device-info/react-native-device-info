@@ -11,13 +11,11 @@ jobs:
     runs-on: windows-2019
 
     steps:
-    - uses: actions/checkout@v4
-      name: Checkout Code
-
+    - uses: actions/checkout@v5
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: 16
+        node-version: "lts/*"
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2

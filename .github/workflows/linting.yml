@@ -12,13 +12,11 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          fetch-depth: 1
-          submodules: recursive
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 16
+          node-version: "lts/*"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
@@ -45,13 +43,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          fetch-depth: 1
-          submodules: recursive
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 16
+          node-version: "lts/*"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
