@@ -31,4 +31,6 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: yarn ci:shipit
+        run: |
+          npm install -g npm@latest
+          npm_config_yes=true npx release-it --ci
