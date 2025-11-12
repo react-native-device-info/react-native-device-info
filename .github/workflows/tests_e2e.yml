@@ -50,7 +50,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "lts/*"
+          node-version: 'lts/*'
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -93,6 +93,11 @@ jobs:
           max_attempts: 3
           command: yarn example:android:build
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 16
+
       - name: Pre-fetch Javascript bundle
         # Prebuild the bundle so that's fast when the app starts.
         run: |
@@ -105,6 +110,11 @@ jobs:
           echo "Packager is online! Preparing javascript bundle..."
           curl --output /dev/null --silent --head --fail "http://localhost:8081/index.bundle?platform=android&dev=true&minify=false&inlineSourceMap=true"
           echo "...javascript bundle ready."
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
 
       # Switch to JDK17 in order to download everything, Android Studio tools require it now...
       - name: Configure JDK17
@@ -217,20 +227,17 @@ jobs:
     env:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          fetch-depth: 50
-          submodules: recursive
+          node-version: 'lts/*'
 
       - uses: hendrikmuhs/ccache-action@v1
         name: Xcode Compile Cache
         with:
           key: ${{ runner.os }}-v2 # makes a unique key w/related restore key internally
           max-size: 750M
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 16
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -290,6 +297,11 @@ jobs:
           max_attempts: 3
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew tap wix/brew && HOMEBREW_NO_AUTO_UPDATE=1 brew install applesimutils && applesimutils --list
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 16
+
       - name: Pre-fetch Javascript bundle
         run: |
           nohup yarn example:packager &
@@ -301,6 +313,11 @@ jobs:
           echo "Packager is online! Preparing bundle..."
           curl --output /dev/null --silent --head --fail "http://localhost:8081/index.bundle?platform=ios&dev=true&minify=false&inlineSourceMap=true"
           echo "...javascript bundle ready"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
 
       - name: Create Simulator Log
         # With a little delay so the detox test below has time to spawn it, missing the first part of boot is fine
