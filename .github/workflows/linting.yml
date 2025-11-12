@@ -56,7 +56,7 @@ jobs:
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('package.json') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Yarn Install
