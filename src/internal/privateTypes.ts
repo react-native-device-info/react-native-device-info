@@ -165,7 +165,6 @@ interface ExposedNativeMethods {
   getSupportedMediaTypeList: () => Promise<string[]>;
   getSupportedMediaTypeListSync: () => string[];
   getAppSetId: () => Promise<AppSetIdInfo>;
-  getAppSetIdSync: () => AppSetIdInfo;
 }
 
 export interface DeviceInfoNativeModule
@@ -219,7 +218,6 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>;
   useBrightness: () => number | null;
   getAppSetId: () => Promise<AppSetIdInfo>;
-  getAppSetIdSync: () => AppSetIdInfo;
 }
 
 export type Getter<T> = (...args: any[]) => T;

@@ -2,6 +2,8 @@ package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.adservices.appsetid.AppSetId;
+import android.adservices.appsetid.AppSetIdManager;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,6 +21,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Environment;
+import android.os.OutcomeReceiver;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.BatteryManager;
@@ -1125,72 +1128,34 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getAppSetId(Promise promise) {
+    System.err.println("RNDI: getAppSetId starting");
     if (Build.VERSION.SDK_INT >= 34) { // Android 14 (API level 34)
       try {
-        // Use reflection to access AppSetId classes since they're only available on API 34+
-        Class<?> appSetIdManagerClass = Class.forName("android.adservices.appsetid.AppSetIdManager");
-        Class<?> appSetIdClass = Class.forName("android.adservices.appsetid.AppSetId");
-        
-        // Get AppSetIdManager instance
-        java.lang.reflect.Method getMethod = appSetIdManagerClass.getMethod("get", android.content.Context.class);
-        Object appSetIdManager = getMethod.invoke(null, getReactApplicationContext());
-        
-        // Get AppSetId
-        java.lang.reflect.Method getAppSetIdMethod = appSetIdManagerClass.getMethod("getAppSetId");
-        Object appSetIdTask = getAppSetIdMethod.invoke(appSetIdManager);
-        
-        // Handle the Task result using reflection
-        Class<?> taskClass = Class.forName("com.google.android.gms.tasks.Task");
-        java.lang.reflect.Method addOnSuccessListenerMethod = taskClass.getMethod("addOnSuccessListener", 
-            Class.forName("com.google.android.gms.tasks.OnSuccessListener"));
-        java.lang.reflect.Method addOnFailureListenerMethod = taskClass.getMethod("addOnFailureListener", 
-            Class.forName("com.google.android.gms.tasks.OnFailureListener"));
-        
-        // Create success listener
-        Object successListener = java.lang.reflect.Proxy.newProxyInstance(
-            getClass().getClassLoader(),
-            new Class[]{Class.forName("com.google.android.gms.tasks.OnSuccessListener")},
-            (proxy, method, args) -> {
-              if ("onSuccess".equals(method.getName())) {
-                Object appSetId = args[0];
-                WritableMap result = Arguments.createMap();
-                
-                // Get id and scope using reflection
-                java.lang.reflect.Method getIdMethod = appSetIdClass.getMethod("getId");
-                java.lang.reflect.Method getScopeMethod = appSetIdClass.getMethod("getScope");
-                
-                String id = (String) getIdMethod.invoke(appSetId);
-                int scope = (Integer) getScopeMethod.invoke(appSetId);
-                
-                result.putString("id", id);
-                result.putInt("scope", scope);
-                promise.resolve(result);
-              }
-              return null;
-            }
+        AppSetIdManager appSetIdManager = AppSetIdManager.get(getReactApplicationContext());
+        appSetIdManager.getAppSetId(
+          getReactApplicationContext().getMainExecutor(), 
+          new OutcomeReceiver<AppSetId, Exception>() {
+            public void onResult(AppSetId appSetId) {
+              System.err.println("RNDI: AppSetId success.");
+              WritableMap result = Arguments.createMap();
+              result.putString("id", appSetId.getId());
+              result.putInt("scope", appSetId.getScope());
+              promise.resolve(result);
+            };
+            public void onError(Exception exception) {
+              System.err.println("RNDI: AppSetId was a failure: " + exception);
+              exception.printStackTrace(System.err);
+              // Return default values instead of rejecting the promise
+              WritableMap result = Arguments.createMap();
+              result.putString("id", "unknown");
+              result.putInt("scope", -1);
+              promise.resolve(result);
+            };
+          }
         );
-        
-        // Create failure listener - return default values instead of rejecting
-        Object failureListener = java.lang.reflect.Proxy.newProxyInstance(
-            getClass().getClassLoader(),
-            new Class[]{Class.forName("com.google.android.gms.tasks.OnFailureListener")},
-            (proxy, method, args) -> {
-              if ("onFailure".equals(method.getName())) {
-                // Return default values instead of rejecting the promise
-                WritableMap result = Arguments.createMap();
-                result.putString("id", "unknown");
-                result.putInt("scope", -1);
-                promise.resolve(result);
-              }
-              return null;
-            }
-        );
-        
-        // Add listeners
-        addOnSuccessListenerMethod.invoke(appSetIdTask, successListener);
-        addOnFailureListenerMethod.invoke(appSetIdTask, failureListener);
-        
       } catch (Exception e) {
+        System.err.println("RNDI Exception: " + e);
+        e.printStackTrace(System.err);
         // Return default values instead of rejecting the promise
         WritableMap result = Arguments.createMap();
         result.putString("id", "unknown");
@@ -1199,19 +1164,11 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     } else {
       // Return default values for unsupported Android versions
+      System.err.println("RNDI: simply didn't try)");
       WritableMap result = Arguments.createMap();
       result.putString("id", "unknown");
       result.putInt("scope", -1);
       promise.resolve(result);
     }
-  }
-
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  public WritableMap getAppSetIdSync() {
-    WritableMap result = Arguments.createMap();
-    // AppSetId is inherently async, so sync version always returns default values
-    result.putString("id", "unknown");
-    result.putInt("scope", -1);
-    return result;
   }
 }

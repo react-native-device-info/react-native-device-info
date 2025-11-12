@@ -155,7 +155,6 @@ export default class App extends Component {
     deviceJSON.startupTime = DeviceInfo.getStartupTimeSync();
     deviceJSON.serialNumber = DeviceInfo.getSerialNumberSync();
     deviceJSON.androidId = DeviceInfo.getAndroidIdSync();
-    deviceJSON.appSetId = DeviceInfo.getAppSetIdSync();
     deviceJSON.IpAddress = DeviceInfo.getIpAddressSync();
     deviceJSON.MacAddress = DeviceInfo.getMacAddressSync(); // needs android.permission.ACCESS_WIFI_STATE
     deviceJSON.ApiLevel = DeviceInfo.getApiLevelSync();

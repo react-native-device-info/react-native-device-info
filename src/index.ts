@@ -61,13 +61,13 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
   defaultValue: 'unknown',
 });
 
-export const [getAppSetId, getAppSetIdSync] = getSupportedPlatformInfoFunctions({
-  memoKey: 'appSetId',
-  supportedPlatforms: ['android'],
-  getter: () => RNDeviceInfo.getAppSetId(),
-  syncGetter: () => RNDeviceInfo.getAppSetIdSync(),
-  defaultValue: { id: 'unknown', scope: -1 },
-});
+export const getAppSetId = () =>
+  getSupportedPlatformInfoAsync({
+    memoKey: 'appSetId',
+    defaultValue: { id: 'unknown', scope: -1 },
+    supportedPlatforms: ['android'],
+    getter: () => RNDeviceInfo.getAppSetId(),
+  });
 
 export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
@@ -939,7 +939,6 @@ const DeviceInfo: DeviceInfoModule = {
   getAndroidIdSync,
   getApiLevel,
   getAppSetId,
-  getAppSetIdSync,
   getApiLevelSync,
   getApplicationName,
   getAvailableLocationProviders,
