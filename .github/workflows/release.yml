@@ -9,24 +9,26 @@ on:
 
 jobs:
   release:
+    permissions:
+      contents: write # For git operations
+      id-token: write # < REQUIRED FOR OIDC
     if: github.event.repository.fork == false
     name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 16
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
       - name: Install dependencies
         run: yarn ci:install
       - name: Release
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn ci:shipit
