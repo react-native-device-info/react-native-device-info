@@ -33,7 +33,6 @@
     "dev-sync": "yarn build && cp -r package.json *podspec lib windows android ios src jest example/node_modules/react-native-device-info/",
     "dev-sync-windows": "for %x in (lib windows android src jest) do xcopy \"%x\" .\\example\\node_modules\\react-native-device-info\\%x /S /E /R /H /I /Y",
     "lint": "npx eslint ./ --ignore-pattern example --ignore-pattern node_modules --fix --quiet",
-    "shipit": "yarn clean && semantic-release",
     "example:install": "yarn && cd example && yarn && cd .. && yarn dev-sync",
     "example:install-windows": "yarn && cd example && yarn && cd .. && yarn dev-sync-windows",
     "example:install:pods": "cd example/ios && pod install",
@@ -48,7 +47,6 @@
     "build": "bob build",
     "prepare": "bob build",
     "ci:install": "rm -rf ./node_modules && yarn install --frozen-lockfile",
-    "ci:shipit": "semantic-release"
   },
   "lint-staged": {
     "*.ts": [
@@ -95,12 +93,6 @@
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^3.0.1",
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/commit-analyzer": "^9.0.2",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.0.2",
-    "@semantic-release/npm": "^9.0.1",
-    "@semantic-release/release-notes-generator": "^10.0.3",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.4.1",
     "@types/react": "17.0.39",
@@ -116,7 +108,6 @@
     "react-native-builder-bob": "^0.18.2",
     "react-native-windows": "^0.67.3",
     "react-test-renderer": "^17.0.1",
-    "semantic-release": "^19.0.2",
     "ts-jest": "^27.1.3",
     "typescript": "^4.6.2"
   },

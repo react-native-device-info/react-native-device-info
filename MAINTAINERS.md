@@ -23,11 +23,10 @@ This document will help you maintain this repository for the benefit of everyone
 - make sure there is a changelog entry queued up under "next"
 - use squash merge and title it like 'feat: blah blah blah (URL to PR)' (or chore, or fix etc)
 
-## NPM release process
+## Release process
 
-- try to release early and often, as soon as something is working, make a release, but RESPECT SEMVER!
-- make sure the changelog is correct for the next version and RESPECT SEMVER! :-)
-- make sure your working directory is clean and "origin" (or your default git remote) is the main repo
-- run `npm install && rm package-lock.json && npm run shipit` from a terminal where you are logged in to npmjs with credentials associated with an account that has publish access to react-native-device-info
-- make sure the tags are pushed to the repo afterward (`npm push --tags`)
-- edit [the release on github](https://github.com/react-native-device-info/react-native-device-info/releases) to put the release note snippet from the changelog in place
+- release early and often, while respecting semver for every change
+- release-please opens automated release PRs that bump the version and changelog; review the generated notes, adjust if needed, then merge once checks pass
+- the merge triggers the `Release & Publish` workflow which tags, creates the GitHub release, and publishes to npm using the build artifacts from CI
+- if you need to force a release (e.g. to batch queued commits), you can manually dispatch the workflow from the Actions tab (`Release & Publish` → Run workflow) and it will either open a release PR or cut the release if one is ready
+- monitor the workflow run to ensure both the release and publish jobs succeed; rerun with fixes if npm publish fails for any reason
