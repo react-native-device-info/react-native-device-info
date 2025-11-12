@@ -5,6 +5,7 @@ import type {
   PowerState,
   AsyncHookResult,
   AvailableCapacityType,
+  AppSetIdInfo,
 } from './types';
 
 export type NotchDevice = {
@@ -163,6 +164,7 @@ interface ExposedNativeMethods {
   syncUniqueId: () => Promise<string>;
   getSupportedMediaTypeList: () => Promise<string[]>;
   getSupportedMediaTypeListSync: () => string[];
+  getAppSetId: () => Promise<AppSetIdInfo>;
 }
 
 export interface DeviceInfoNativeModule
@@ -215,6 +217,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   useIsWiredHeadphonesConnected: () => AsyncHookResult<boolean>;
   useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>;
   useBrightness: () => number | null;
+  getAppSetId: () => Promise<AppSetIdInfo>;
 }
 
 export type Getter<T> = (...args: any[]) => T;

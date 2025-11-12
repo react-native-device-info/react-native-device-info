@@ -758,6 +758,46 @@ describe('array getters', () => {
 });
 
 describe('Object Getters', () => {
+  describe('getAppSetId*', () => {
+    const asyncGetter = RNDeviceInfo.getAppSetId;
+    const asyncNativeGetter = mockNativeModule.getAppSetId;
+    const supportedPlatforms = ['android'];
+
+    beforeEach(() => {
+      clearMemo();
+      asyncNativeGetter.mockClear();
+    });
+
+    it('should have an async version', () => {
+      expect(typeof asyncGetter).toBe('function');
+    });
+
+    it.each(supportedPlatforms)(
+      'should call native async module function for supported platform, %s',
+      async (platform) => {
+        Platform.OS = platform as any;
+        const resp = await asyncGetter();
+        expect(resp).toEqual({ id: 'unknown', scope: -1 });
+        expect(asyncNativeGetter).toHaveBeenCalled();
+      }
+    );
+
+    it('should not call native async module function on unsupported OS', async () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = await asyncGetter();
+      expect(resp).toEqual({ id: 'unknown', scope: -1 });
+      expect(asyncNativeGetter).not.toHaveBeenCalled();
+    });
+
+    it('should use memoized value if there exists one', async () => {
+      Platform.OS = 'android';
+      const resp = await asyncGetter();
+      const resp2 = await asyncGetter();
+      expect(resp).toEqual(resp2);
+      expect(asyncNativeGetter).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('getPowerState*', () => {
     const [, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
       'getPowerState'

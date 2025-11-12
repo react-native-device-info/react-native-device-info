@@ -24,6 +24,7 @@ import {
   syncUniqueId,
   getUniqueId,
   getUniqueIdSync,
+  getAppSetId,
   useBatteryLevel,
   useBatteryLevelIsLow,
   usePowerState,
@@ -236,6 +237,7 @@ export default class App extends Component {
       deviceJSON.startupTime = await DeviceInfo.getStartupTime();
       deviceJSON.serialNumber = await DeviceInfo.getSerialNumber();
       deviceJSON.androidId = await DeviceInfo.getAndroidId();
+      deviceJSON.appSetId = await getAppSetId();
       deviceJSON.IpAddress = await DeviceInfo.getIpAddress();
       deviceJSON.MacAddress = await DeviceInfo.getMacAddress(); // needs android.permission.ACCESS_WIFI_STATE
       deviceJSON.ApiLevel = await DeviceInfo.getApiLevel();

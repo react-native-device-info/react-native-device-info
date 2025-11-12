@@ -16,6 +16,7 @@ import type {
   DeviceType,
   LocationProviderInfo,
   PowerState,
+  AppSetIdInfo,
 } from './internal/types';
 
 export const [getUniqueId, getUniqueIdSync] = getSupportedPlatformInfoFunctions({
@@ -59,6 +60,14 @@ export const [getAndroidId, getAndroidIdSync] = getSupportedPlatformInfoFunction
   syncGetter: () => RNDeviceInfo.getAndroidIdSync(),
   defaultValue: 'unknown',
 });
+
+export const getAppSetId = () =>
+  getSupportedPlatformInfoAsync({
+    memoKey: 'appSetId',
+    defaultValue: { id: 'unknown', scope: -1 },
+    supportedPlatforms: ['android'],
+    getter: () => RNDeviceInfo.getAppSetId(),
+  });
 
 export const [getIpAddress, getIpAddressSync] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
@@ -923,12 +932,13 @@ export function useBrightness(): number | null {
   return brightness;
 }
 
-export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState };
+export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState, AppSetIdInfo };
 
 const DeviceInfo: DeviceInfoModule = {
   getAndroidId,
   getAndroidIdSync,
   getApiLevel,
+  getAppSetId,
   getApiLevelSync,
   getApplicationName,
   getAvailableLocationProviders,
