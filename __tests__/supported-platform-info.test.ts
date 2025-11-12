@@ -178,13 +178,13 @@ describe('supported platform info', () => {
 
     it('should have first getter be an async function that returns expected object', async () => {
       const resp = await generatedFns[0]();
-      expect(getter).toBeCalled();
+      expect(getter).toHaveBeenCalled();
       expect(resp).toEqual(getterResponse);
     });
 
     it('should have second getter be a sync function that returns expected object', () => {
       const resp = generatedFns[1]();
-      expect(syncGetter).toBeCalled();
+      expect(syncGetter).toHaveBeenCalled();
       expect(resp).toEqual(getterResponse);
     });
   });
