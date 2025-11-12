@@ -759,23 +759,17 @@ describe('array getters', () => {
 
 describe('Object Getters', () => {
   describe('getAppSetId*', () => {
-    const [, asyncGetter, syncGetter, asyncNativeGetter, syncNativeGetter] = makeTable(
-      'getAppSetId'
-    );
+    const asyncGetter = RNDeviceInfo.getAppSetId;
+    const asyncNativeGetter = mockNativeModule.getAppSetId;
     const supportedPlatforms = ['android'];
 
     beforeEach(() => {
       clearMemo();
       asyncNativeGetter.mockClear();
-      syncNativeGetter.mockClear();
     });
 
     it('should have an async version', () => {
       expect(typeof asyncGetter).toBe('function');
-    });
-
-    it('should have a sync version', () => {
-      expect(typeof syncGetter).toBe('function');
     });
 
     it.each(supportedPlatforms)(
@@ -788,37 +782,19 @@ describe('Object Getters', () => {
       }
     );
 
-    it.each(supportedPlatforms)(
-      'should call native sync module function for supported platform, %s',
-      (platform) => {
-        Platform.OS = platform as any;
-        const resp = syncGetter();
-        expect(resp).toEqual({ id: 'unknown', scope: -1 });
-        expect(syncNativeGetter).toHaveBeenCalled();
-      }
-    );
-
-    it('should not call native sync module function on unsupported OS', () => {
-      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
-      const resp = syncGetter();
-      expect(resp).toEqual({ id: 'unknown', scope: -1, error: 'Not supported on this platform' });
-      expect(syncNativeGetter).not.toHaveBeenCalled();
-    });
-
     it('should not call native async module function on unsupported OS', async () => {
       Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
       const resp = await asyncGetter();
-      expect(resp).toEqual({ id: 'unknown', scope: -1, error: 'Not supported on this platform' });
+      expect(resp).toEqual({ id: 'unknown', scope: -1 });
       expect(asyncNativeGetter).not.toHaveBeenCalled();
     });
 
     it('should use memoized value if there exists one', async () => {
       Platform.OS = 'android';
       const resp = await asyncGetter();
-      const resp2 = syncGetter();
+      const resp2 = await asyncGetter();
       expect(resp).toEqual(resp2);
       expect(asyncNativeGetter).toHaveBeenCalledTimes(1);
-      expect(syncNativeGetter).not.toHaveBeenCalled();
     });
   });
 

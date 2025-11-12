@@ -120,7 +120,6 @@ for (const name of objectFnNames) {
 // AppSetId getters (returns object with id, scope)
 const appSetIdResponse = { id: 'unknown', scope: -1 };
 RNDeviceInfo.getAppSetId = jest.fn(() => Promise.resolve(appSetIdResponse));
-RNDeviceInfo.getAppSetIdSync = jest.fn(() => appSetIdResponse);
 
 const arrayFnNames = [
   'getSupportedAbis',
