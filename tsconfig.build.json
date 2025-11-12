@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json", // extend setting from main config
+  "compilerOptions": {
+    "typeRoots": []
+  }
+}

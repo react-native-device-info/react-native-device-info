@@ -28,7 +28,7 @@
   "scripts": {
     "analyze": "yarn ts-check && yarn flow-check",
     "flow-check": "npx flow-bin check-contents < src/index.js.flow",
-    "ts-check": "npx tsc --noEmit",
+    "ts-check": "npx tsc -p tsconfig.build.json --noEmit",
     "clean": "cd example && npx react-native-clean-project --keep-node-modules --remove-iOS-build --remove-iOS-pods --remove-android-build --clean-android-project --keep-brew --keep-pods && \\rm -fr ios/Pods",
     "dev-sync": "yarn build && cp -r package.json *podspec lib windows android ios src jest example/node_modules/react-native-device-info/",
     "dev-sync-windows": "for %x in (lib windows android src jest) do xcopy \"%x\" .\\example\\node_modules\\react-native-device-info\\%x /S /E /R /H /I /Y",
@@ -94,10 +94,11 @@
     "react-native": "*"
   },
   "devDependencies": {
+    "@jest/globals": "^30.2.0",
     "@react-native-community/eslint-config": "^3.0.1",
     "@release-it/conventional-changelog": "^10.0.1",
     "@testing-library/react-hooks": "^7.0.2",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^30.0.0",
     "@types/react": "17.0.39",
     "@types/react-native": "^0.67.2",
     "eslint": "^7",
@@ -127,7 +128,12 @@
     "targets": [
       "commonjs",
       "module",
-      "typescript"
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
     ]
   }
 }
