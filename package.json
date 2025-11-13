@@ -48,7 +48,9 @@
     "build": "bob build",
     "prepare": "bob build",
     "ci:install": "rm -rf ./node_modules && yarn install --frozen-lockfile",
-    "ci:shipit": "release-it --ci"
+    "ci:shipit": "release-it --ci",
+    "docs": "npx typedoc",
+    "docs:serve": "npx http-server docs"
   },
   "lint-staged": {
     "*.ts": [

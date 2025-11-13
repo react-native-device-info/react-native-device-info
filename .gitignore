@@ -77,3 +77,5 @@ example/*.binlog
 
 # Debug log
 example/debug.log
+
+docs/
