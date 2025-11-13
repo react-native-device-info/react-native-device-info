@@ -1,5 +1,11 @@
 # Changelog
 
+## [15.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v15.0.0...v15.0.1) (2025-11-13)
+
+### Bug Fixes
+
+* **ci:** require a manual trigger for release ([67e1e7b](https://github.com/react-native-device-info/react-native-device-info/commit/67e1e7b308e51a5b3872dc174a647f4d8e440c02))
+
 ## [15.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v14.1.1...v15.0.0) (2025-11-13)
 
 ### ⚠ BREAKING CHANGES
