@@ -205,17 +205,113 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
   supported64BitAbisSync: () => string[];
   supportedAbis: () => Promise<string[]>;
   supportedAbisSync: () => string[];
+  /**
+   * React hook that streams battery level updates emitted by the native module.
+   *
+   * @example
+   * ```tsx
+   * const level = useBatteryLevel();
+   * ```
+   */
   useBatteryLevel: () => number | null;
+  /**
+   * React hook that notifies when the battery crosses the low-level threshold.
+   *
+   * @example
+   * ```tsx
+   * const level = useBatteryLevelIsLow();
+   * ```
+   */
   useBatteryLevelIsLow: () => number | null;
+  /**
+   * React hook that resolves with the human-readable device name when it becomes available.
+   *
+   * @example
+   * ```tsx
+   * const { result: name } = useDeviceName();
+   * ```
+   */
   useDeviceName: () => AsyncHookResult<string>;
+  /**
+   * React hook that exposes the app's first install timestamp once it is retrieved.
+   *
+   * @example
+   * ```tsx
+   * const { result } = useFirstInstallTime();
+   * ```
+   */
   useFirstInstallTime: () => AsyncHookResult<number>;
+  /**
+   * React hook that checks for an Android system feature and keeps the result cached.
+   *
+   * @example
+   * ```tsx
+   * const { result } = useHasSystemFeature('android.hardware.location.gps');
+   * ```
+   */
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>;
+  /**
+   * React hook that resolves as soon as the emulator detection result is known.
+   *
+   * @example
+   * ```tsx
+   * const { result: emulator } = useIsEmulator();
+   * ```
+   */
   useIsEmulator: () => AsyncHookResult<boolean>;
+  /**
+   * React hook that subscribes to power state changes and returns a partial {@link PowerState}.
+   *
+   * @example
+   * ```tsx
+   * const powerState = usePowerState();
+   * ```
+   */
   usePowerState: () => Partial<PowerState>;
+  /**
+   * React hook that resolves to the device manufacturer string.
+   *
+   * @example
+   * ```tsx
+   * const { result: manufacturer } = useManufacturer();
+   * ```
+   */
   useManufacturer: () => AsyncHookResult<string>;
+  /**
+   * React hook that resolves to true whenever any headphones are connected.
+   *
+   * @example
+   * ```tsx
+   * const { result: connected } = useIsHeadphonesConnected();
+   * ```
+   */
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>;
+  /**
+   * React hook that resolves to true whenever wired headphones are connected.
+   *
+   * @example
+   * ```tsx
+   * const { result } = useIsWiredHeadphonesConnected();
+   * ```
+   */
   useIsWiredHeadphonesConnected: () => AsyncHookResult<boolean>;
+  /**
+   * React hook that resolves to true whenever Bluetooth headphones are connected.
+   *
+   * @example
+   * ```tsx
+   * const { result } = useIsBluetoothHeadphonesConnected();
+   * ```
+   */
   useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>;
+  /**
+   * React hook that subscribes to screen brightness updates on iOS.
+   *
+   * @example
+   * ```tsx
+   * const brightness = useBrightness();
+   * ```
+   */
   useBrightness: () => number | null;
   getAppSetId: () => Promise<AppSetIdInfo>;
 }
