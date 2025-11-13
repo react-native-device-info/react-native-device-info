@@ -1,3 +1,15 @@
+# Changelog
+
+## [15.0.0](https://github.com/react-native-device-info/react-native-device-info/compare/v14.1.1...v15.0.0) (2025-11-13)
+
+### ⚠ BREAKING CHANGES
+
+* **android:** requires compileSdk 34+
+
+### Features
+
+* **android:** getAppSetId - a specific type of android id / requires compileSdk 34+ ([#1738](https://github.com/react-native-device-info/react-native-device-info/issues/1738)) ([dada257](https://github.com/react-native-device-info/react-native-device-info/commit/dada257c756f2e4875fa7e3b617da64898659e74))
+
 ## [14.1.1](https://github.com/react-native-device-info/react-native-device-info/compare/v14.1.0...v14.1.1) (2025-09-17)
 
 
