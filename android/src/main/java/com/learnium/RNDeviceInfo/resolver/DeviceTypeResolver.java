@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.learnium.RNDeviceInfo.DeviceType;
 
 /**
- * Utility class used to get the device type, it's not dependant of React Native, allowing it to
+ * Utility class used to get the device type, it's not dependent of React Native, allowing it to
  * be shared with native code as well as RN through RNDeviceModule
  * author: Andres Aguilar
  */
