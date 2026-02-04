@@ -69,6 +69,8 @@ dependencies {
   } else if(googlePlayServicesIidVersion){
       implementation "com.google.android.gms:play-services-iid:$googlePlayServicesIidVersion"
   }
+  // Needed for getAppSetId() to work
+  implementation 'com.google.android.gms:play-services-appset:16.1.0'
 
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
   testImplementation "org.mockito:mockito-core:3.6.28"
