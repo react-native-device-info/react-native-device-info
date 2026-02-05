@@ -2,8 +2,6 @@ package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.adservices.appsetid.AppSetId;
-import android.adservices.appsetid.AppSetIdManager;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,13 +19,18 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Environment;
-import android.os.OutcomeReceiver;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.BatteryManager;
 import android.os.Debug;
 import android.os.Process;
 import android.os.SystemClock;
+import com.google.android.gms.appset.AppSet;
+import com.google.android.gms.appset.AppSetIdClient;
+import com.google.android.gms.appset.AppSetIdInfo;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import android.provider.Settings;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodInfo;
@@ -1129,42 +1132,35 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getAppSetId(Promise promise) {
     System.err.println("RNDI: getAppSetId starting");
-    if (Build.VERSION.SDK_INT >= 34) { // Android 14 (API level 34)
-      try {
-        AppSetIdManager appSetIdManager = AppSetIdManager.get(getReactApplicationContext());
-        appSetIdManager.getAppSetId(
-          getReactApplicationContext().getMainExecutor(), 
-          new OutcomeReceiver<AppSetId, Exception>() {
-            public void onResult(AppSetId appSetId) {
+    try {
+      AppSetIdClient client = AppSet.getClient(getReactApplicationContext());
+      Task<AppSetIdInfo> task = client.getAppSetIdInfo();
+      task.addOnSuccessListener(
+          new OnSuccessListener<AppSetIdInfo>() {
+            @Override
+            public void onSuccess(AppSetIdInfo appSetIdInfo) {
               System.err.println("RNDI: AppSetId success.");
               WritableMap result = Arguments.createMap();
-              result.putString("id", appSetId.getId());
-              result.putInt("scope", appSetId.getScope());
+              result.putString("id", appSetIdInfo.getId());
+              result.putInt("scope", appSetIdInfo.getScope());
               promise.resolve(result);
-            };
-            public void onError(Exception exception) {
+            }
+          });
+      task.addOnFailureListener(
+          new OnFailureListener() {
+            @Override
+            public void onFailure(Exception exception) {
               System.err.println("RNDI: AppSetId was a failure: " + exception);
               exception.printStackTrace(System.err);
-              // Return default values instead of rejecting the promise
               WritableMap result = Arguments.createMap();
               result.putString("id", "unknown");
               result.putInt("scope", -1);
               promise.resolve(result);
-            };
-          }
-        );
-      } catch (Exception e) {
-        System.err.println("RNDI Exception: " + e);
-        e.printStackTrace(System.err);
-        // Return default values instead of rejecting the promise
-        WritableMap result = Arguments.createMap();
-        result.putString("id", "unknown");
-        result.putInt("scope", -1);
-        promise.resolve(result);
-      }
-    } else {
-      // Return default values for unsupported Android versions
-      System.err.println("RNDI: simply didn't try)");
+            }
+          });
+    } catch (Exception e) {
+      System.err.println("RNDI Exception: " + e);
+      e.printStackTrace(System.err);
       WritableMap result = Arguments.createMap();
       result.putString("id", "unknown");
       result.putInt("scope", -1);
