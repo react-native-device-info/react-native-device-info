@@ -60,6 +60,7 @@ dependencies {
   def firebaseBomVersion = safeExtGet("firebaseBomVersion", null)
   def firebaseIidVersion = safeExtGet('firebaseIidVersion', null)
   def googlePlayServicesIidVersion = safeExtGet('googlePlayServicesIidVersion', null)
+  def playServicesAppSetVersion = safeExtGet('playServicesAppSetVersion', null)
 
   if (firebaseBomVersion) {
       implementation platform("com.google.firebase:firebase-bom:${firebaseBomVersion}")
@@ -69,8 +70,10 @@ dependencies {
   } else if(googlePlayServicesIidVersion){
       implementation "com.google.android.gms:play-services-iid:$googlePlayServicesIidVersion"
   }
-  // Needed for getAppSetId() to work
-  implementation 'com.google.android.gms:play-services-appset:16.1.0'
+  // Needed for getAppSetId() to work - optional: set playServicesAppSetVersion in app's ext to include
+  if (playServicesAppSetVersion) {
+    implementation "com.google.android.gms:play-services-appset:$playServicesAppSetVersion"
+  }
 
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
   testImplementation "org.mockito:mockito-core:3.6.28"
