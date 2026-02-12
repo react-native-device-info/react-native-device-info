@@ -40,6 +40,7 @@ export type AvailableCapacityType = 'total' | 'important' | 'opportunistic';
 
 /**
  * Google Play Services App Set ID payload describing identifier and scope.
+ * When the API is unavailable, id is "unknown" and scope is -1.
  */
 export interface AppSetIdInfo {
   id: string;
