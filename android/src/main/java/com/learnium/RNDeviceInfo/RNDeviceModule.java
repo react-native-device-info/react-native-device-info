@@ -2,8 +2,6 @@ package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.adservices.appsetid.AppSetId;
-import android.adservices.appsetid.AppSetIdManager;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,7 +19,6 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiInfo;
 import android.os.Build;
 import android.os.Environment;
-import android.os.OutcomeReceiver;
 import android.os.PowerManager;
 import android.os.StatFs;
 import android.os.BatteryManager;
@@ -66,6 +63,9 @@ import java.net.NetworkInterface;
 import java.math.BigInteger;
 import java.util.Locale;
 import java.util.Map;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import javax.annotation.Nonnull;
 
@@ -1128,43 +1128,62 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getAppSetId(Promise promise) {
-    System.err.println("RNDI: getAppSetId starting");
-    if (Build.VERSION.SDK_INT >= 34) { // Android 14 (API level 34)
-      try {
-        AppSetIdManager appSetIdManager = AppSetIdManager.get(getReactApplicationContext());
-        appSetIdManager.getAppSetId(
-          getReactApplicationContext().getMainExecutor(), 
-          new OutcomeReceiver<AppSetId, Exception>() {
-            public void onResult(AppSetId appSetId) {
-              System.err.println("RNDI: AppSetId success.");
+    try {
+      // Optionally load App Set classes via reflection (only when play-services-appset is included)
+      Class<?> appSetClass = Class.forName("com.google.android.gms.appset.AppSet");
+      ClassLoader loader = appSetClass.getClassLoader();
+      Method getClientMethod = appSetClass.getMethod("getClient", Context.class);
+      Object client = getClientMethod.invoke(null, getReactApplicationContext());
+      Method getAppSetIdInfoMethod = client.getClass().getMethod("getAppSetIdInfo");
+      Object task = getAppSetIdInfoMethod.invoke(client);
+
+      Class<?> onSuccessListenerClass =
+          Class.forName("com.google.android.gms.tasks.OnSuccessListener", true, loader);
+      InvocationHandler successHandler =
+          (proxy, method, args) -> {
+            if ("onSuccess".equals(method.getName()) && args != null && args.length == 1) {
+              Object appSetIdInfo = args[0];
+              String id = (String) appSetIdInfo.getClass().getMethod("getId").invoke(appSetIdInfo);
+              Object scopeObj = appSetIdInfo.getClass().getMethod("getScope").invoke(appSetIdInfo);
+              int scope = scopeObj instanceof Number ? ((Number) scopeObj).intValue() : -1;
               WritableMap result = Arguments.createMap();
-              result.putString("id", appSetId.getId());
-              result.putInt("scope", appSetId.getScope());
+              result.putString("id", id != null ? id : "unknown");
+              result.putInt("scope", scope);
               promise.resolve(result);
-            };
-            public void onError(Exception exception) {
-              System.err.println("RNDI: AppSetId was a failure: " + exception);
-              exception.printStackTrace(System.err);
-              // Return default values instead of rejecting the promise
+            }
+            return null;
+          };
+      Object successListener =
+          Proxy.newProxyInstance(loader, new Class<?>[] {onSuccessListenerClass}, successHandler);
+
+      Class<?> onFailureListenerClass =
+          Class.forName("com.google.android.gms.tasks.OnFailureListener", true, loader);
+      InvocationHandler failureHandler =
+          (proxy, method, args) -> {
+            if ("onFailure".equals(method.getName()) && args != null && args.length == 1) {
+              Exception e = (Exception) args[0];
+              System.err.println("RNDI: AppSetId was a failure: " + e);
+              e.printStackTrace(System.err);
               WritableMap result = Arguments.createMap();
               result.putString("id", "unknown");
               result.putInt("scope", -1);
               promise.resolve(result);
-            };
-          }
-        );
-      } catch (Exception e) {
-        System.err.println("RNDI Exception: " + e);
-        e.printStackTrace(System.err);
-        // Return default values instead of rejecting the promise
-        WritableMap result = Arguments.createMap();
-        result.putString("id", "unknown");
-        result.putInt("scope", -1);
-        promise.resolve(result);
-      }
-    } else {
-      // Return default values for unsupported Android versions
-      System.err.println("RNDI: simply didn't try)");
+            }
+            return null;
+          };
+      Object failureListener =
+          Proxy.newProxyInstance(loader, new Class<?>[] {onFailureListenerClass}, failureHandler);
+
+      task.getClass()
+          .getMethod("addOnSuccessListener", onSuccessListenerClass)
+          .invoke(task, successListener);
+      task.getClass()
+          .getMethod("addOnFailureListener", onFailureListenerClass)
+          .invoke(task, failureListener);
+    } catch (Throwable t) {
+      // ClassNotFoundException when play-services-appset not included, or other errors
+      System.err.println("RNDI Exception: " + t);
+      t.printStackTrace(System.err);
       WritableMap result = Arguments.createMap();
       result.putString("id", "unknown");
       result.putInt("scope", -1);

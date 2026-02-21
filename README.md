@@ -73,7 +73,8 @@ This module defaults to AndroidX you should configure your library versions simi
     googlePlayServicesIidVersion = "17.0.0" // default: "17.0.0" - AndroidX
     //Option 3 (legacy GooglePlay dependency before AndroidX):
     googlePlayServicesIidVersion = "16.0.1"
-
+    // getAppSetId() - optional: set to include play-services-appset (e.g. "16.1.0")
+    // playServicesAppSetVersion = "16.1.0"
 
     //include as needed:
     compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
@@ -245,7 +246,7 @@ DeviceInfo.getAndroidId().then((androidId) => {
 
 ### getAppSetId()
 
-Gets the AppSetId for Android devices. AppSetId is part of Android's Privacy Sandbox and provides a privacy-preserving identifier for advertising and analytics purposes. This API is only available on Android 14 (API level 34) and above.
+Gets the App Set ID for Android devices via Google Play services. App Set ID provides a privacy-preserving identifier for correlating usage across apps from the same developer (e.g. analytics, fraud prevention). **Optional**: set `playServicesAppSetVersion` in your app's `android/build.gradle` ext to include the dependency; otherwise returns `{ id: 'unknown', scope: -1 }`.
 
 The returned object contains:
 - `id`: The AppSetId string value (returns "unknown" if not available)
@@ -273,7 +274,7 @@ if (appSetIdInfo.id === 'unknown') {
 }
 ```
 
-**Note**: AppSetId requires Android 14 (API level 34) or higher. On older Android versions or when the service is unavailable, the function will return `{ id: 'unknown', scope: -1 }`.
+**Note**: To use `getAppSetId()` on Android you must add the optional dependency by setting `playServicesAppSetVersion` in your app's `android/build.gradle` ext block (e.g. `playServicesAppSetVersion = "16.1.0"`). If the dependency is not included or the service is unavailable, the function returns `{ id: 'unknown', scope: -1 }`.
 
 ---
 
