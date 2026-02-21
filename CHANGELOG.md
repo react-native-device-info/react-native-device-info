@@ -1,5 +1,11 @@
 # Changelog
 
+## [15.0.2](https://github.com/react-native-device-info/react-native-device-info/compare/v15.0.1...v15.0.2) (2026-02-21)
+
+### Bug Fixes
+
+* **android:** add optional gradle dependency for appSetId to work ([#1750](https://github.com/react-native-device-info/react-native-device-info/issues/1750)) ([8401770](https://github.com/react-native-device-info/react-native-device-info/commit/840177075429a2447e1b4d3101504eb3e82dcefc))
+
 ## [15.0.1](https://github.com/react-native-device-info/react-native-device-info/compare/v15.0.0...v15.0.1) (2025-11-13)
 
 ### Bug Fixes
