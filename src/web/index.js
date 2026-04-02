@@ -59,6 +59,7 @@ const init = () => {
   if (typeof navigator === 'undefined' || !navigator.getBattery) return;
 
   navigator.getBattery().then((battery) => {
+    if (!battery) return;
     batteryCharging = battery.charging;
 
     battery.addEventListener('chargingchange', () => {
@@ -123,7 +124,7 @@ export const getUserAgent = async () => {
 
 export const isBatteryCharging = async () => {
   if (navigator.getBattery) {
-    return navigator.getBattery().then((battery) => battery.charging);
+    return navigator.getBattery().then((battery) => (battery ? battery.charging : false));
   }
   return false;
 };
@@ -150,7 +151,7 @@ export const isCameraPresentSync = () => {
 
 export const getBatteryLevel = async () => {
   if (navigator.getBattery) {
-    return navigator.getBattery().then((battery) => battery.level);
+    return navigator.getBattery().then((battery) => (battery ? battery.level : -1));
   }
   return -1;
 };
@@ -213,7 +214,7 @@ export const getTotalMemory = async () => {
 
 export const getPowerState = async () => {
   if (navigator.getBattery) {
-    return navigator.getBattery().then((battery) => _readPowerState(battery));
+    return navigator.getBattery().then((battery) => (battery ? _readPowerState(battery) : {}));
   }
   return {};
 };
