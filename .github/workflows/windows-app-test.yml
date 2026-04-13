@@ -37,7 +37,7 @@ jobs:
           path: ./node_modules
           key: ${{ runner.os }}-yarn-base-${{ hashFiles('yarn.lock') }}
       - name: Install base node modules
-        uses: nick-invision/retry@v2
+        uses: nick-invision/retry@v4
         if: steps.yarn-base-cache.outputs.cache-hit != 'true'
         with:
           max_attempts: 3
@@ -51,7 +51,7 @@ jobs:
           path: ./example/node_modules
           key: ${{ runner.os }}-yarn-example-${{ hashFiles('./example/yarn.lock') }}
       - name: Install example modules
-        uses: nick-invision/retry@v2
+        uses: nick-invision/retry@v4
         if: steps.yarn-example-cache.outputs.cache-hit != 'true'
         with:
           max_attempts: 3
