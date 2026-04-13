@@ -31,7 +31,7 @@ jobs:
           iex ".\rnw-deps.ps1 -Verbose -Install";
 
       - name: Check base node modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         id: yarn-base-cache
         with:
           path: ./node_modules
@@ -45,7 +45,7 @@ jobs:
           command: yarn --pure-lockfile
 
       - name: Check example node modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         id: yarn-example-cache
         with:
           path: ./example/node_modules

@@ -43,7 +43,7 @@ jobs:
           echo "yarn-cache-dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
           echo "tempdir=$TMPDIR" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v5
         name: Yarn Cache
         id: yarn-cache
         with:
@@ -51,7 +51,7 @@ jobs:
           key: ${{ runner.os }}-yarn-v1-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-v1
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v5
         name: Gradle Cache
         with:
           path: ~/.gradle/caches
@@ -86,7 +86,7 @@ jobs:
           command: yarn example:android:build
 
       - name: Metro Bundler Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ${{ steps.workflow-variables.outputs.metro-cache }}
           key: ${{ runner.os }}-metro-v1-${{ github.run_id }}
@@ -234,7 +234,7 @@ jobs:
           echo "yarn-cache-dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
           echo "tempdir=$TMPDIR" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v5
         name: Yarn Cache
         id: yarn-cache
         with:
@@ -242,7 +242,7 @@ jobs:
           key: ${{ runner.os }}-yarn-v1-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-v1
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v5
         name: Cache Pods
         with:
           path: example/ios/Pods
@@ -286,7 +286,7 @@ jobs:
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew tap wix/brew && HOMEBREW_NO_AUTO_UPDATE=1 brew install applesimutils && applesimutils --list
 
       - name: Metro Bundler Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ${{ steps.workflow-variables.outputs.metro-cache }}
           key: ${{ runner.os }}-metro-v1-${{ github.run_id }}
