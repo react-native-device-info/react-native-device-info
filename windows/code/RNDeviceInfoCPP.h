@@ -22,13 +22,22 @@ namespace winrt::RNDeviceInfoCPP
     const std::string Name = "RNDeviceInfo";
 
     ReactContext m_reactContext;
+    winrt::event_token m_energySaverToken{};
+    winrt::event_token m_batteryReportToken{};
+
+    ~RNDeviceInfoCPP()
+    {
+      Windows::System::Power::PowerManager::EnergySaverStatusChanged(m_energySaverToken);
+      Windows::Devices::Power::Battery::AggregateBattery().ReportUpdated(m_batteryReportToken);
+    }
+
     REACT_INIT(Initialize)
     void Initialize(ReactContext const &reactContext) noexcept
     {
       m_reactContext = reactContext;
-      Windows::System::Power::PowerManager::EnergySaverStatusChanged([&](
+      m_energySaverToken = Windows::System::Power::PowerManager::EnergySaverStatusChanged([&](
           const auto&, winrt::Windows::Foundation::IInspectable obj) { OnEnergySaverStatusChanged(); });
-      Windows::Devices::Power::Battery::AggregateBattery().ReportUpdated([&](
+      m_batteryReportToken = Windows::Devices::Power::Battery::AggregateBattery().ReportUpdated([&](
           const auto&, winrt::Windows::Foundation::IInspectable obj) { OnBatteryReportUpdated(); });
     }
 
