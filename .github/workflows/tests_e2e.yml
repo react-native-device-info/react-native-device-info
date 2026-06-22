@@ -190,7 +190,7 @@ jobs:
         shell: bash
 
       - name: Upload Emulator Log
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: adb_logs
@@ -328,7 +328,7 @@ jobs:
         run: gzip -9 simulator.log
 
       - name: Upload Simulator Log
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: simulator_logs
