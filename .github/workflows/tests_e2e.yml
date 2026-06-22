@@ -58,7 +58,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v1
 
       - name: Yarn Install
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -78,7 +78,7 @@ jobs:
         shell: bash
 
       - name: Build Android App
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -107,7 +107,7 @@ jobs:
 
       - name: Download Emulator Image
         # This can fail on network request, wrap with retry
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -249,7 +249,7 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}-v1
 
       - name: Yarn Install
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -257,7 +257,7 @@ jobs:
           command: yarn example:install
 
       - name: Pod Install
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
@@ -278,7 +278,7 @@ jobs:
         shell: bash
 
       - name: Install applesimutils
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 10
           retry_wait_seconds: 60
