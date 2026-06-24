@@ -62,6 +62,10 @@ const init = () => {
     if (!battery) return;
     batteryCharging = battery.charging;
 
+    // Some browsers / privacy tools resolve getBattery() with a stub object
+    // that exposes charging/level but not the EventTarget methods.
+    if (typeof battery.addEventListener !== 'function') return;
+
     battery.addEventListener('chargingchange', () => {
       const { charging } = battery;
 
