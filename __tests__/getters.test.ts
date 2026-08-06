@@ -47,6 +47,7 @@ const nonMemoizedStringGetters = [
   'getIpAddress',
   'getDeviceName',
   'getCarrier',
+  'getFoldState',
 ].map(makeTable);
 
 describe('string getters', () => {

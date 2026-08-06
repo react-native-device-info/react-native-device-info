@@ -36,6 +36,7 @@ import {
   useIsHeadphonesConnected,
   useIsWiredHeadphonesConnected,
   useIsBluetoothHeadphonesConnected,
+  useFoldState,
   useBrightness,
 } from 'react-native-device-info';
 
@@ -51,6 +52,9 @@ const FunctionalComponent = () => {
   const isHeadphonesConnected = useIsHeadphonesConnected();
   const isWiredHeadphonesConnected = useIsWiredHeadphonesConnected();
   const isBluetoothHeadphonesConnected = useIsBluetoothHeadphonesConnected();
+  // always 'unknown' here: the fold state needs the optional androidx.window dependency,
+  // which this example's Android Gradle Plugin is too old to resolve
+  const foldState = useFoldState();
   const brightness = useBrightness();
   const deviceJSON = {
     batteryLevel,
@@ -64,6 +68,7 @@ const FunctionalComponent = () => {
     isHeadphonesConnected,
     isWiredHeadphonesConnected,
     isBluetoothHeadphonesConnected,
+    foldState,
     brightness,
   };
 
@@ -185,6 +190,7 @@ export default class App extends Component {
     deviceJSON.headphones = DeviceInfo.isHeadphonesConnectedSync();
     deviceJSON.headphonesWired = DeviceInfo.isWiredHeadphonesConnectedSync();
     deviceJSON.headphonesBluetooth = DeviceInfo.isBluetoothHeadphonesConnectedSync();
+    deviceJSON.foldState = DeviceInfo.getFoldStateSync();
     deviceJSON.getAvailableLocationProviders = DeviceInfo.getAvailableLocationProvidersSync();
     deviceJSON.bootloader = DeviceInfo.getBootloaderSync();
     deviceJSON.device = DeviceInfo.getDeviceSync();
@@ -268,6 +274,7 @@ export default class App extends Component {
       deviceJSON.headphones = await DeviceInfo.isHeadphonesConnected();
       deviceJSON.headphonesWired = await DeviceInfo.isWiredHeadphonesConnected();
       deviceJSON.headphonesBluetooth = await DeviceInfo.isBluetoothHeadphonesConnected();
+      deviceJSON.foldState = await DeviceInfo.getFoldState();
       deviceJSON.getAvailableLocationProviders = await DeviceInfo.getAvailableLocationProviders();
       deviceJSON.bootloader = await DeviceInfo.getBootloader();
       deviceJSON.device = await DeviceInfo.getDevice();

@@ -2,6 +2,7 @@ package com.learnium.RNDeviceInfo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,11 +39,13 @@ import android.hardware.camera2.CameraManager;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
@@ -63,6 +66,7 @@ import java.net.NetworkInterface;
 import java.math.BigInteger;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.Executor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -85,14 +89,19 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private BroadcastReceiver headphoneBluetoothConnectionReceiver;
   private RNInstallReferrerClient installReferrerClient;
   private InputMethodManager inputMethodManager;
+  private Object foldStateAdapter;
+  private Object foldStateConsumer;
 
   private double mLastBatteryLevel = -1;
   private String mLastBatteryState = "";
   private boolean mLastPowerSaveState = false;
+  // written from the androidx.window callback (UI thread), read from the JS thread
+  private volatile String mLastFoldState = FOLD_STATE_UNKNOWN;
 
   private static String BATTERY_STATE = "batteryState";
   private static String BATTERY_LEVEL= "batteryLevel";
   private static String LOW_POWER_MODE = "lowPowerMode";
+  private static final String FOLD_STATE_UNKNOWN = "unknown";
 
   public RNDeviceModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -150,6 +159,126 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
     registerReceiver(getReactApplicationContext(), receiver, filter);
     initializeHeadphoneConnectionReceivers();
+
+    // the fold listener is activity scoped, so it follows the host lifecycle rather than initialize()
+    getReactApplicationContext().addLifecycleEventListener(new LifecycleEventListener() {
+      @Override
+      public void onHostResume() {
+        startFoldStateUpdates();
+      }
+
+      @Override
+      public void onHostPause() {
+        stopFoldStateUpdates();
+      }
+
+      @Override
+      public void onHostDestroy() {
+        stopFoldStateUpdates();
+      }
+    });
+  }
+
+  /**
+   * Listens for fold state changes with androidx.window, which is an optional dependency (see
+   * androidxWindowVersion in the README) and so is loaded reflectively. Without it, and on devices
+   * that report no fold, the fold state stays "unknown".
+   */
+  private void startFoldStateUpdates() {
+    Activity activity = getCurrentActivity();
+    if (activity == null || foldStateConsumer != null) {
+      return;
+    }
+
+    try {
+      Class<?> trackerClass = Class.forName("androidx.window.layout.WindowInfoTracker");
+      ClassLoader loader = trackerClass.getClassLoader();
+      Object tracker = trackerClass.getMethod("getOrCreate", Context.class).invoke(null, activity);
+
+      Class<?> consumerClass = Class.forName("androidx.core.util.Consumer", true, loader);
+      Class<?> foldingFeatureClass =
+          Class.forName("androidx.window.layout.FoldingFeature", true, loader);
+      // resolve off the interface: the implementations behind it are not public
+      Method getState = foldingFeatureClass.getMethod("getState");
+
+      InvocationHandler consumerHandler =
+          (proxy, method, args) -> {
+            switch (method.getName()) {
+              case "accept":
+                try {
+                  onWindowLayoutInfo(args[0], foldingFeatureClass, getState);
+                } catch (Throwable t) {
+                  // never throw back into the androidx.window dispatcher
+                  System.err.println("RNDI Exception: " + t);
+                }
+                return null;
+              // androidx.window keys its listener map on the consumer, so these cannot fall through
+              case "hashCode":
+                return System.identityHashCode(proxy);
+              case "equals":
+                return proxy == args[0];
+              case "toString":
+                return "RNDeviceInfo_foldStateConsumer";
+              default:
+                return null;
+            }
+          };
+      foldStateConsumer =
+          Proxy.newProxyInstance(loader, new Class<?>[] {consumerClass}, consumerHandler);
+
+      Class<?> adapterClass =
+          Class.forName("androidx.window.java.layout.WindowInfoTrackerCallbackAdapter", true, loader);
+      foldStateAdapter = adapterClass.getConstructor(trackerClass).newInstance(tracker);
+      adapterClass
+          .getMethod("addWindowLayoutInfoListener", Activity.class, Executor.class, consumerClass)
+          .invoke(foldStateAdapter, activity, (Executor) UiThreadUtil::runOnUiThread, foldStateConsumer);
+    } catch (Throwable t) {
+      // ClassNotFoundException when androidx.window is not included, or other errors
+      foldStateAdapter = null;
+      foldStateConsumer = null;
+    }
+  }
+
+  private void onWindowLayoutInfo(Object windowLayoutInfo, Class<?> foldingFeatureClass, Method getState)
+      throws Exception {
+    String foldState = FOLD_STATE_UNKNOWN;
+    List<?> displayFeatures =
+        (List<?>) windowLayoutInfo.getClass().getMethod("getDisplayFeatures").invoke(windowLayoutInfo);
+
+    if (displayFeatures != null) {
+      for (Object feature : displayFeatures) {
+        if (foldingFeatureClass.isInstance(feature)) {
+          // FoldingFeature.State stringifies to FLAT or HALF_OPENED
+          foldState = String.valueOf(getState.invoke(feature));
+          break;
+        }
+      }
+    }
+
+    if (!foldState.equals(mLastFoldState)) {
+      mLastFoldState = foldState;
+      sendEvent(getReactApplicationContext(), "RNDeviceInfo_foldStateDidChange", foldState);
+    }
+  }
+
+  private void stopFoldStateUpdates() {
+    if (foldStateAdapter == null || foldStateConsumer == null) {
+      return;
+    }
+
+    try {
+      // the proxy's only interface is androidx.core.util.Consumer
+      Class<?> consumerClass = foldStateConsumer.getClass().getInterfaces()[0];
+      foldStateAdapter
+          .getClass()
+          .getMethod("removeWindowLayoutInfoListener", consumerClass)
+          .invoke(foldStateAdapter, foldStateConsumer);
+    } catch (Throwable t) {
+      System.err.println("RNDI Exception: " + t);
+    }
+
+    foldStateAdapter = null;
+    foldStateConsumer = null;
   }
 
   private void initializeHeadphoneConnectionReceivers() {
@@ -213,6 +342,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     getReactApplicationContext().unregisterReceiver(headphoneConnectionReceiver);
     getReactApplicationContext().unregisterReceiver(headphoneWiredConnectionReceiver);
     getReactApplicationContext().unregisterReceiver(headphoneBluetoothConnectionReceiver);
+    stopFoldStateUpdates();
   }
 
 
@@ -706,6 +836,13 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
   @ReactMethod
   public void isBluetoothHeadphonesConnected(Promise p) {p.resolve(isBluetoothHeadphonesConnectedSync());}
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public String getFoldStateSync() {
+    return mLastFoldState;
+  }
+  @ReactMethod
+  public void getFoldState(Promise p) {p.resolve(getFoldStateSync());}
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public WritableMap getAvailableLocationProvidersSync() {

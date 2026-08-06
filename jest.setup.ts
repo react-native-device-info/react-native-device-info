@@ -66,6 +66,7 @@ const stringFnNames = [
   'getIncremental',
   'getCarrier',
   'getInstallReferrer',
+  'getFoldState',
 ];
 for (const name of stringFnNames) {
   RNDeviceInfo[name] = stringFnAsync();

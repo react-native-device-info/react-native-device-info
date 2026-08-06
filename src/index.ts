@@ -17,6 +17,7 @@ import type {
   LocationProviderInfo,
   PowerState,
   AppSetIdInfo,
+  FoldState,
 } from './internal/types';
 
 const [getUniqueIdInternal, getUniqueIdSyncInternal] = getSupportedPlatformInfoFunctions({
@@ -2250,6 +2251,42 @@ export const isBluetoothHeadphonesConnected = isBluetoothHeadphonesConnectedInte
  */
 export const isBluetoothHeadphonesConnectedSync = isBluetoothHeadphonesConnectedSyncInternal;
 
+const [getFoldStateInternal, getFoldStateSyncInternal] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['android'],
+  getter: () => RNDeviceInfo.getFoldState(),
+  syncGetter: () => RNDeviceInfo.getFoldStateSync(),
+  defaultValue: 'unknown' as FoldState,
+});
+/**
+ * Retrieves the current posture of a foldable device's hinge.
+ *
+ * Requires the optional `androidx.window` dependency — set `androidxWindowVersion` in your app's
+ * `ext` (see the README). Resolves to `unknown` without it, on devices that have no fold, and
+ * while the device is folded shut.
+ *
+ * **Compatibility:** ![iOS ❌](https://img.shields.io/badge/iOS-%E2%9D%8C-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```ts
+ * const result = await getFoldState();
+ * ```
+ */
+export const getFoldState = getFoldStateInternal;
+/**
+ * Synchronous variant of {@link getFoldState}.
+ *
+ * Returns the most recent fold state observed by the native module, so it reports `unknown` until
+ * the first update arrives after the app is resumed.
+ *
+ * **Compatibility:** ![iOS ❌](https://img.shields.io/badge/iOS-%E2%9D%8C-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```ts
+ * const result = getFoldStateSync();
+ * ```
+ */
+export const getFoldStateSync = getFoldStateSyncInternal;
+
 const [isMouseConnectedInternal, isMouseConnectedSyncInternal] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['windows'],
   getter: () => RNDeviceInfo.isMouseConnected(),
@@ -2618,6 +2655,23 @@ export function useIsBluetoothHeadphonesConnected(): AsyncHookResult<boolean> {
 }
 
 /**
+ * React hook that tracks the fold state of an Android foldable as the hinge is opened and closed.
+ *
+ * **Compatibility:** ![iOS ❌](https://img.shields.io/badge/iOS-%E2%9D%8C-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```tsx
+ * function Layout() {
+ *   const { result: foldState } = useFoldState();
+ *   return foldState === 'HALF_OPENED' ? <TabletopLayout /> : <FlatLayout />;
+ * }
+ * ```
+ */
+export function useFoldState(): AsyncHookResult<FoldState> {
+  return useOnEvent('RNDeviceInfo_foldStateDidChange', getFoldState, 'unknown');
+}
+
+/**
  * React hook that exposes the app's first install timestamp once it is retrieved.
  *
  * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ✅](https://img.shields.io/badge/Windows-%E2%9C%85-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ✅](https://img.shields.io/badge/visionOS-%E2%9C%85-informational?labelColor=555555)
@@ -2742,7 +2796,14 @@ export function useBrightness(): number | null {
   return brightness;
 }
 
-export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState, AppSetIdInfo };
+export type {
+  AsyncHookResult,
+  DeviceType,
+  LocationProviderInfo,
+  PowerState,
+  AppSetIdInfo,
+  FoldState,
+};
 
 /**
  * CommonJS-style namespace that aggregates every exported API from this module.
@@ -2784,6 +2845,8 @@ export const DeviceInfo: DeviceInfoModule = {
   getFingerprintSync,
   getFirstInstallTime,
   getFirstInstallTimeSync,
+  getFoldState,
+  getFoldStateSync,
   getFontScale,
   getFontScaleSync,
   getFreeDiskStorage,
@@ -2905,6 +2968,7 @@ export const DeviceInfo: DeviceInfoModule = {
   useIsHeadphonesConnected,
   useIsWiredHeadphonesConnected,
   useIsBluetoothHeadphonesConnected,
+  useFoldState,
   useBrightness,
   getSupportedMediaTypeList,
   getSupportedMediaTypeListSync,

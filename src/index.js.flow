@@ -20,6 +20,8 @@ export type AsyncHookResult<T> = {
   result: T,
 };
 
+export type FoldState = 'FLAT' | 'HALF_OPENED' | 'unknown';
+
 // ExposedNativeMethods + DeviceInfoModule
 declare module.exports: {
   getAndroidId: () => Promise<string>,
@@ -56,6 +58,8 @@ declare module.exports: {
   getFingerprintSync: () => string,
   getFirstInstallTime: () => Promise<number>,
   getFirstInstallTimeSync: () => number,
+  getFoldState: () => Promise<FoldState>,
+  getFoldStateSync: () => FoldState,
   getFontScale: () => Promise<number>,
   getFontScaleSync: () => number,
   getFreeDiskStorage: () => Promise<number>,
@@ -177,5 +181,6 @@ declare module.exports: {
   useIsHeadphonesConnected: () => AsyncHookResult<boolean>,
   useIsWiredHeadphonesConnected: () => AsyncHookResult<boolean>,
   useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>,
+  useFoldState: () => AsyncHookResult<FoldState>,
   useBrightness: () => number | null,
 };

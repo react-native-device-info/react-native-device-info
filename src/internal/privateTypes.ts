@@ -6,6 +6,7 @@ import type {
   AsyncHookResult,
   AvailableCapacityType,
   AppSetIdInfo,
+  FoldState,
 } from './types';
 
 export type NotchDevice = {
@@ -74,6 +75,8 @@ interface ExposedNativeMethods {
   getFingerprintSync: () => string;
   getFirstInstallTime: () => Promise<number>;
   getFirstInstallTimeSync: () => number;
+  getFoldState: () => Promise<FoldState>;
+  getFoldStateSync: () => FoldState;
   getFontScale: () => Promise<number>;
   getFontScaleSync: () => number;
   getFreeDiskStorage: (storageType?: AvailableCapacityType) => Promise<number>;
@@ -304,6 +307,15 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
    * ```
    */
   useIsBluetoothHeadphonesConnected: () => AsyncHookResult<boolean>;
+  /**
+   * React hook that subscribes to fold state changes on Android foldables.
+   *
+   * @example
+   * ```tsx
+   * const { result } = useFoldState();
+   * ```
+   */
+  useFoldState: () => AsyncHookResult<FoldState>;
   /**
    * React hook that subscribes to screen brightness updates on iOS.
    *

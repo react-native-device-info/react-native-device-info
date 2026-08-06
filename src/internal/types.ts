@@ -51,3 +51,11 @@ export interface AppSetIdInfo {
  * Allowed scope values returned with the App Set ID (1: app, 2: developer).
  */
 export type AppSetIdScope = 1 | 2;
+
+/**
+ * Posture of a foldable device's hinge, mirroring `androidx.window.layout.FoldingFeature.State`.
+ * `FLAT` means the display is fully open, `HALF_OPENED` means the hinge sits somewhere between
+ * open and closed. `unknown` is reported when the device has no fold, when it is folded shut, or
+ * when the optional `androidx.window` dependency is missing.
+ */
+export type FoldState = 'FLAT' | 'HALF_OPENED' | 'unknown';

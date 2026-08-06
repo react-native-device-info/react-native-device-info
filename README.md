@@ -75,6 +75,8 @@ This module defaults to AndroidX you should configure your library versions simi
     googlePlayServicesIidVersion = "16.0.1"
     // getAppSetId() - optional: set to include play-services-appset (e.g. "16.1.0")
     // playServicesAppSetVersion = "16.1.0"
+    // getFoldState() - optional: set to include androidx.window (e.g. "1.5.1")
+    // androidxWindowVersion = "1.5.1"
 
     //include as needed:
     compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
@@ -145,6 +147,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getDeviceToken()](#getdevicetoken)                                 | `Promise<string>`   |  ✅  |   ❌    |   ❌     | ❌   |   ✅     |
 | [getFirstInstallTime()](#getfirstinstalltime)                       | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getFingerprint()](#getfingerprint)                                 | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
+| [getFoldState()](#getfoldstate)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getFontScale()](#getfontscale)                                     | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ❌   |   ❌     |
 | [getFreeDiskStorage()](#getfreediskstorage)                         | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ✅   |   ✅     |
 | [getFreeDiskStorageOld()](#getfreediskstorageold)                   | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ✅   |   ✅     |
@@ -541,6 +544,26 @@ DeviceInfo.getFingerprint().then((fingerprint) => {
   // "google/walleye/walleye:8.1.0/OPM2.171026.006.G1/4820017:user/release-keys"
 });
 ```
+
+---
+
+### getFoldState()
+
+The posture of a foldable device's hinge, mirroring [`androidx.window.layout.FoldingFeature.State`](https://developer.android.com/reference/kotlin/androidx/window/layout/FoldingFeature.State): `'FLAT'` when the display is fully open, `'HALF_OPENED'` when the hinge sits between open and closed.
+
+Returns `'unknown'` on devices without a fold, while the device is folded shut, and before the first fold update arrives after the app is resumed.
+
+**Optional**: set `androidxWindowVersion` in your app's `android/build.gradle` ext to include the dependency (e.g. `androidxWindowVersion = "1.5.1"`); otherwise this always returns `'unknown'`.
+
+#### Examples
+
+```js
+DeviceInfo.getFoldState().then((foldState) => {
+  // 'HALF_OPENED'
+});
+```
+
+To react to the hinge moving, use the [useFoldState](#usefoldstate) hook or listen for the `RNDeviceInfo_foldStateDidChange` event.
 
 ---
 
@@ -1793,6 +1816,24 @@ This hook subscribes to the event, `RNDeviceInfo_headphoneBluetoothConnectionDid
 import { useIsBluetoothHeadphonesConnected } from 'react-native-device-info';
 
 const { loading, result } = useIsBluetoothHeadphonesConnected(); // { loading: true, result: false}
+
+<Text>{loading ? 'loading...' : result}</Text>;
+```
+
+---
+
+### useFoldState
+
+Tells the posture of a foldable device's hinge — `'FLAT'`, `'HALF_OPENED'`, or `'unknown'`. Android only, and requires the optional `androidx.window` dependency (see [getFoldState()](#getfoldstate)).
+
+This hook subscribes to the event, `RNDeviceInfo_foldStateDidChange` , and updates the `result` field accordingly.
+
+#### Example
+
+```jsx
+import { useFoldState } from 'react-native-device-info';
+
+const { loading, result } = useFoldState(); // { loading: true, result: 'unknown' }
 
 <Text>{loading ? 'loading...' : result}</Text>;
 ```
