@@ -1113,7 +1113,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   }
 
   private boolean hasKeyboard(String name) {
-    List<InputMethodInfo> inputMethodList = this.inputMethodManager.getEnabledInputMethodList();
+    return hasKeyboard(this.inputMethodManager, name);
+  }
+
+  static boolean hasKeyboard(InputMethodManager inputMethodManager, String name) {
+    List<InputMethodInfo> inputMethodList;
+    try {
+      inputMethodList = inputMethodManager.getEnabledInputMethodList();
+    } catch (RuntimeException | LinkageError ignored) {
+      // Input methods are only a best-effort emulator signal and must not crash this sync API.
+      return false;
+    }
     if (inputMethodList != null && !inputMethodList.isEmpty()) {
       for (InputMethodInfo inputMethodInfo : inputMethodList) {
         String serviceName = inputMethodInfo.getServiceName() != null ? inputMethodInfo.getServiceName().toLowerCase() : "";
