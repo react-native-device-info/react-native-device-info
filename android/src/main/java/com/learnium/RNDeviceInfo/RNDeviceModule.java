@@ -1120,7 +1120,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     List<InputMethodInfo> inputMethodList;
     try {
       inputMethodList = inputMethodManager.getEnabledInputMethodList();
-    } catch (RuntimeException ignored) {
+    } catch (RuntimeException | LinkageError ignored) {
       // Input methods are only a best-effort emulator signal and must not crash this sync API.
       return false;
     }

@@ -26,4 +26,13 @@ class RNDeviceModuleTest {
 
     assertFalse(RNDeviceModule.hasKeyboard(inputMethodManager, "memuime"));
   }
+
+  @Test
+  void keyboardProbeFailsClosedWhenAndroidCannotLinkTheInputMethodList() {
+    doThrow(new NoSuchMethodError("framework method signature mismatch"))
+      .when(inputMethodManager)
+      .getEnabledInputMethodList();
+
+    assertFalse(RNDeviceModule.hasKeyboard(inputMethodManager, "memuime"));
+  }
 }
