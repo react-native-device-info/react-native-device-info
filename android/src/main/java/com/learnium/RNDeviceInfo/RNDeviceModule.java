@@ -12,6 +12,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.FeatureInfo;
 import android.location.LocationManager;
+import android.media.AudioDeviceCallback;
+import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.media.MediaCodecInfo;
 import android.media.MediaCodecList;
@@ -83,6 +85,8 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   private BroadcastReceiver headphoneConnectionReceiver;
   private BroadcastReceiver headphoneWiredConnectionReceiver;
   private BroadcastReceiver headphoneBluetoothConnectionReceiver;
+  private AudioDeviceCallback headphoneAudioDeviceCallback;
+  private AudioManager audioManager;
   private RNInstallReferrerClient installReferrerClient;
   private InputMethodManager inputMethodManager;
 
@@ -99,6 +103,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     this.deviceTypeResolver = new DeviceTypeResolver(reactContext);
     this.deviceIdResolver = new DeviceIdResolver(reactContext);
     this.installReferrerClient = new RNInstallReferrerClient(reactContext.getBaseContext());
+    this.audioManager = (AudioManager) reactContext.getSystemService(Context.AUDIO_SERVICE);
     this.inputMethodManager = (InputMethodManager) reactContext.getSystemService(Context.INPUT_METHOD_SERVICE);
   }
 
@@ -195,6 +200,33 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     };
 
     registerReceiver(getReactApplicationContext(), headphoneBluetoothConnectionReceiver, filter);
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && audioManager != null) {
+      headphoneAudioDeviceCallback = new AudioDeviceCallback() {
+        @Override
+        public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
+          emitHeadphoneEventsIfNeeded(addedDevices);
+        }
+
+        @Override
+        public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
+          emitHeadphoneEventsIfNeeded(removedDevices);
+        }
+      };
+      audioManager.registerAudioDeviceCallback(headphoneAudioDeviceCallback, null);
+    }
+  }
+
+  private void emitHeadphoneEventsIfNeeded(AudioDeviceInfo[] changedDevices) {
+    if (!HeadphoneConnectionInfo.containsHeadphoneOutputDevice(changedDevices)) {
+      return;
+    }
+
+    boolean wired = isWiredHeadphonesConnectedSync();
+    boolean bluetooth = isBluetoothHeadphonesConnectedSync();
+    sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneConnectionDidChange", wired || bluetooth);
+    sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneWiredConnectionDidChange", wired);
+    sendEvent(getReactApplicationContext(), "RNDeviceInfo_headphoneBluetoothConnectionDidChange", bluetooth);
   }
 
   // the upstream method was removed in react-native 0.74
@@ -213,6 +245,10 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     getReactApplicationContext().unregisterReceiver(headphoneConnectionReceiver);
     getReactApplicationContext().unregisterReceiver(headphoneWiredConnectionReceiver);
     getReactApplicationContext().unregisterReceiver(headphoneBluetoothConnectionReceiver);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && audioManager != null && headphoneAudioDeviceCallback != null) {
+      audioManager.unregisterAudioDeviceCallback(headphoneAudioDeviceCallback);
+      headphoneAudioDeviceCallback = null;
+    }
   }
 
 
@@ -685,15 +721,24 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean isHeadphonesConnectedSync() {
-    AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-    return audioManager.isWiredHeadsetOn() || audioManager.isBluetoothA2dpOn();
+    return isWiredHeadphonesConnectedSync() || isBluetoothHeadphonesConnectedSync();
   }
   @ReactMethod
   public void isHeadphonesConnected(Promise p) {p.resolve(isHeadphonesConnectedSync());}
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean isWiredHeadphonesConnectedSync() {
-    AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    if (audioManager == null) {
+      return false;
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      for (AudioDeviceInfo device : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
+        if (HeadphoneConnectionInfo.isWiredOutputDevice(device.getType())) {
+          return true;
+        }
+      }
+      return false;
+    }
     return audioManager.isWiredHeadsetOn();
   }
   @ReactMethod
@@ -701,8 +746,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   public boolean isBluetoothHeadphonesConnectedSync() {
-    AudioManager audioManager = (AudioManager)getReactApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-    return audioManager.isBluetoothA2dpOn();
+    if (audioManager == null) {
+      return false;
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      for (AudioDeviceInfo device : audioManager.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
+        if (HeadphoneConnectionInfo.isBluetoothOutputDevice(device.getType())) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return audioManager.isBluetoothA2dpOn() || audioManager.isBluetoothScoOn();
   }
   @ReactMethod
   public void isBluetoothHeadphonesConnected(Promise p) {p.resolve(isBluetoothHeadphonesConnectedSync());}
