@@ -11,7 +11,7 @@ jobs:
     steps:
     - run: echo "IS_FORK=$(curl "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY" | jq -r .fork)" >> $GITHUB_ENV
     - if: env.IS_FORK == 'false'
-      uses: actions/stale@v4
+      uses: actions/stale@v11
       with:
         operations-per-run: 100
         ascending: true
