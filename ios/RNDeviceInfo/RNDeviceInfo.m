@@ -265,6 +265,11 @@ RCT_EXPORT_METHOD(getDeviceName:(RCTPromiseResolveBlock)resolve rejecter:(RCTPro
         @"iPhone18,2": @"iPhone 17 Pro Max",
         @"iPhone18,3": @"iPhone 17",
         @"iPhone18,4": @"iPhone Air",
+        @"iPhone18,5": @"iPhone 17e",
+        @"iPhone19,2": @"iPhone 18 Pro",
+        @"iPhone19,3": @"iPhone 18 Pro Max",
+        @"iPhone19,4": @"iPhone Duo",
+        @"iPhone19,7": @"iPhone 18 Pro Max",
 
         @"iPod1,1": @"iPod Touch", // (Original)
         @"iPod2,1": @"iPod Touch", // (Second Generation)
