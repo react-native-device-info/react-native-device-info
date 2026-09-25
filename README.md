@@ -174,7 +174,7 @@ The example app in this repository shows an example usage of every single API, c
 | [getTags()](#gettags)                                               | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getType()](#gettype)                                               | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getTotalDiskCapacity()](#gettotaldiskcapacity)                     | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ✅   |   ✅     |
-| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)               | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ✅   |   ✅     |
+| [getTotalDiskCapacityOld()](#gettotaldiskcapacityold)               | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getTotalMemory()](#gettotalmemory)                                 | `Promise<number>`   |  ✅  |   ✅    |   ❌     | ✅   |   ✅     |
 | [getUniqueId()](#getuniqueid)                                       | `Promise<string>`   |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getUsedMemory()](#getusedmemory)                                   | `Promise<number>`   |  ✅  |   ✅    |   ✅     | ✅   |   ✅     |
@@ -564,6 +564,8 @@ DeviceInfo.getFontScale().then((fontScale) => {
 
 Method that gets available storage size, in bytes, taking into account both root and data file systems calculation.
 
+On **Web**, this returns the available storage quota for the current origin, calculated as `quota - usage` from [`navigator.storage.estimate()`](https://developer.mozilla.org/docs/Web/API/StorageManager/estimate). It does not report free disk space for the device. Returns `-1` when the Storage API is unavailable.
+
 On **iOS**, this method accepts the following optional arguments:
 - `'total'`: Uses `volumeAvailableCapacityKey`
 - `'important'`: Uses `volumeAvailableCapacityForImportantUsageKey`
@@ -801,6 +803,8 @@ DeviceInfo.getManufacturer().then((manufacturer) => {
 
 Returns the maximum amount of memory that the VM will attempt to use, in bytes.
 
+On **Web**, this returns [`performance.memory.jsHeapSizeLimit`](https://developer.mozilla.org/docs/Web/API/Performance/memory) when available. This is the JavaScript heap limit, not total device memory. The API is non-standard and returns `-1` when unavailable.
+
 #### Examples
 
 ```js
@@ -1026,6 +1030,8 @@ DeviceInfo.getType().then((type) => {
 
 Method that gets full disk storage size, in bytes, taking into account both root and data file systems calculation.
 
+On **Web**, this returns the storage quota for the current origin from [`navigator.storage.estimate()`](https://developer.mozilla.org/docs/Web/API/StorageManager/estimate). It does not report total device disk capacity. Returns `-1` when the Storage API is unavailable.
+
 #### Examples
 
 ```js
@@ -1059,6 +1065,8 @@ DeviceInfo.getTotalDiskCapacityOld().then((capacity) => {
 ### getTotalMemory()
 
 Gets the device total memory, in bytes.
+
+On **Web**, this returns `navigator.deviceMemory * 1_000_000_000`, when available. `navigator.deviceMemory` is an approximate device-memory value reported by the browser; it is not an exact measurement. Returns `-1` when unavailable.
 
 #### Examples
 
@@ -1126,6 +1134,8 @@ DeviceInfo.syncUniqueId().then((uniqueId) => {
 ### getUsedMemory()
 
 Gets the app memory usage, in bytes.
+
+On **Web**, this returns [`performance.memory.usedJSHeapSize`](https://developer.mozilla.org/docs/Web/API/Performance/memory) when available. This is JavaScript heap usage, not total application memory usage. The API is non-standard and returns `-1` when unavailable.
 
 ⚠️ [A note from the Android docs.](https://developer.android.com/reference/android/app/ActivityManager#getProcessMemoryInfo(int%5B%5D))
 > Note: this method is only intended for debugging or building a user-facing process management UI.
