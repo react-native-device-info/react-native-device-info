@@ -1190,4 +1190,16 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       promise.resolve(result);
     }
   }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  public WritableMap getHingeInfoSync() {
+    WritableMap result = Arguments.createMap();
+    result.putDouble("angle", 0);
+    return result;
+  }
+
+  @ReactMethod
+  public void getHingeInfo(Promise promise) {
+    promise.resolve(getHingeInfoSync());
+  }
 }

@@ -17,6 +17,7 @@ import type {
   LocationProviderInfo,
   PowerState,
   AppSetIdInfo,
+  HingeInfo,
 } from './internal/types';
 
 const [getUniqueIdInternal, getUniqueIdSyncInternal] = getSupportedPlatformInfoFunctions({
@@ -177,6 +178,39 @@ export const getAppSetId = () =>
     supportedPlatforms: ['android'],
     getter: () => RNDeviceInfo.getAppSetId(),
   });
+
+const defaultHingeInfo: HingeInfo = { angle: 0 };
+
+const [getHingeInfoInternal, getHingeInfoSyncInternal] = getSupportedPlatformInfoFunctions({
+  supportedPlatforms: ['ios'],
+  getter: () => RNDeviceInfo.getHingeInfo(),
+  syncGetter: () => RNDeviceInfo.getHingeInfoSync(),
+  defaultValue: defaultHingeInfo,
+});
+/**
+ * Retrieves the current hinge angle for foldable devices (e.g. iPhone Duo).
+ *
+ * Returns `{ angle: 0 }` on devices without a hinge or on unsupported platforms.
+ *
+ * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ❌](https://img.shields.io/badge/Android-%E2%9D%8C-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```ts
+ * const { angle } = await getHingeInfo();
+ * ```
+ */
+export const getHingeInfo = getHingeInfoInternal;
+/**
+ * Synchronous variant of {@link getHingeInfo}.
+ *
+ * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ❌](https://img.shields.io/badge/Android-%E2%9D%8C-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```ts
+ * const { angle } = getHingeInfoSync();
+ * ```
+ */
+export const getHingeInfoSync = getHingeInfoSyncInternal;
 
 const [getIpAddressInternal, getIpAddressSyncInternal] = getSupportedPlatformInfoFunctions({
   supportedPlatforms: ['android', 'ios', 'windows'],
@@ -2742,7 +2776,54 @@ export function useBrightness(): number | null {
   return brightness;
 }
 
-export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState, AppSetIdInfo };
+/**
+ * React hook that subscribes to hinge angle updates on foldable devices (e.g. iPhone Duo).
+ *
+ * Returns `null` until the first angle is available, then the angle in degrees
+ * (0 when closed, up to 180 when fully open; 0 on devices without a hinge or
+ * unsupported platforms).
+ *
+ * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ❌](https://img.shields.io/badge/Android-%E2%9D%8C-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```tsx
+ * function HingeAngleIndicator() {
+ *   const angle = useHingeAngle();
+ *   return <Text>{angle ?? 'n/a'}</Text>;
+ * }
+ * ```
+ */
+export function useHingeAngle(): number | null {
+  const [angle, setAngle] = useState<number | null>(null);
+
+  useEffect(() => {
+    const setInitialValue = async () => {
+      const info: HingeInfo = await getHingeInfo();
+      setAngle(info.angle);
+    };
+
+    const onChange = (info: HingeInfo) => {
+      setAngle(info.angle);
+    };
+
+    setInitialValue();
+
+    const subscription = deviceInfoEmitter.addListener('RNDeviceInfo_hingeDidChange', onChange);
+
+    return () => subscription.remove();
+  }, []);
+
+  return angle;
+}
+
+export type {
+  AsyncHookResult,
+  DeviceType,
+  LocationProviderInfo,
+  PowerState,
+  AppSetIdInfo,
+  HingeInfo,
+};
 
 /**
  * CommonJS-style namespace that aggregates every exported API from this module.
@@ -2906,6 +2987,9 @@ export const DeviceInfo: DeviceInfoModule = {
   useIsWiredHeadphonesConnected,
   useIsBluetoothHeadphonesConnected,
   useBrightness,
+  getHingeInfo,
+  getHingeInfoSync,
+  useHingeAngle,
   getSupportedMediaTypeList,
   getSupportedMediaTypeListSync,
 };

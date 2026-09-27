@@ -37,6 +37,7 @@ import {
   useIsWiredHeadphonesConnected,
   useIsBluetoothHeadphonesConnected,
   useBrightness,
+  useHingeAngle,
 } from 'react-native-device-info';
 
 const FunctionalComponent = () => {
@@ -52,6 +53,7 @@ const FunctionalComponent = () => {
   const isWiredHeadphonesConnected = useIsWiredHeadphonesConnected();
   const isBluetoothHeadphonesConnected = useIsBluetoothHeadphonesConnected();
   const brightness = useBrightness();
+  const hingeAngle = useHingeAngle();
   const deviceJSON = {
     batteryLevel,
     batteryLevelIsLow,
@@ -65,6 +67,7 @@ const FunctionalComponent = () => {
     isWiredHeadphonesConnected,
     isBluetoothHeadphonesConnected,
     brightness,
+    hingeAngle,
   };
 
   return (
@@ -202,6 +205,7 @@ export default class App extends Component {
     deviceJSON.codename = DeviceInfo.getCodenameSync();
     deviceJSON.incremental = DeviceInfo.getIncrementalSync();
     deviceJSON.brightness = DeviceInfo.getBrightnessSync();
+    deviceJSON.hingeInfo = DeviceInfo.getHingeInfoSync();
     deviceJSON.supported32BitAbis = DeviceInfo.supported32BitAbisSync();
     deviceJSON.supported64BitAbis = DeviceInfo.supported64BitAbisSync();
     deviceJSON.hasGms = DeviceInfo.hasGmsSync();
@@ -285,6 +289,7 @@ export default class App extends Component {
       deviceJSON.codename = await DeviceInfo.getCodename();
       deviceJSON.incremental = await DeviceInfo.getIncremental();
       deviceJSON.brightness = await DeviceInfo.getBrightness();
+      deviceJSON.hingeInfo = await DeviceInfo.getHingeInfo();
       deviceJSON.supported32BitAbis = await DeviceInfo.supported32BitAbis();
       deviceJSON.supported64BitAbis = await DeviceInfo.supported64BitAbis();
       deviceJSON.hasGms = await DeviceInfo.hasGms();

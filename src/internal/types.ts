@@ -51,3 +51,13 @@ export interface AppSetIdInfo {
  * Allowed scope values returned with the App Set ID (1: app, 2: developer).
  */
 export type AppSetIdScope = 1 | 2;
+
+/**
+ * Snapshot of the device's hinge angle.
+ *
+ * `angle` is the hinge angle in degrees (0 when closed, up to 180 when fully
+ * open). It is `0` on devices without a hinge.
+ */
+export interface HingeInfo {
+  angle: number;
+}

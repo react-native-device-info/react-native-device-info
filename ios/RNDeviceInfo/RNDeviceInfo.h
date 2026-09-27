@@ -16,5 +16,7 @@
 @interface RNDeviceInfo : RCTEventEmitter <RCTBridgeModule>
 
 @property (nonatomic) float lowBatteryThreshold;
+@property (nonatomic, strong) id hingeInteraction API_AVAILABLE(ios(27.1));
+@property (nonatomic, strong) NSDictionary *lastHingeInfo;
 
 @end

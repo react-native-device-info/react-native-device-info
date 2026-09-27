@@ -53,7 +53,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_headphoneWiredConnectionDidChange", @"RNDeviceInfo_headphoneBluetoothConnectionDidChange", @"RNDeviceInfo_brightnessDidChange"];
+    return @[@"RNDeviceInfo_batteryLevelDidChange", @"RNDeviceInfo_batteryLevelIsLow", @"RNDeviceInfo_powerStateDidChange", @"RNDeviceInfo_headphoneConnectionDidChange", @"RNDeviceInfo_headphoneWiredConnectionDidChange", @"RNDeviceInfo_headphoneBluetoothConnectionDidChange", @"RNDeviceInfo_brightnessDidChange", @"RNDeviceInfo_hingeDidChange"];
 }
 
 - (NSDictionary *)constantsToExport {
@@ -110,10 +110,90 @@ RCT_EXPORT_MODULE();
                                                      name:UIScreenBrightnessDidChangeNotification
                                                    object: nil];
         #endif
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                                                 selector:@selector(hingeWindowDidBecomeAvailable:)
+                                                                                                         name:UIWindowDidBecomeKeyNotification
+                                                                                                     object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                                                                 selector:@selector(hingeWindowDidBecomeAvailable:)
+                                                                                                         name:UISceneDidActivateNotification
+                                                                                                     object:nil];
+        [self setupHingeIfAvailable];
 #endif
     }
 
     return self;
+}
+
+- (void)hingeWindowDidBecomeAvailable:(NSNotification *)notification
+{
+    [self setupHingeIfAvailable];
+}
+
+- (void)setupHingeIfAvailable
+{
+#if !TARGET_OS_TV && !TARGET_OS_VISION
+    if (@available(iOS 27.1, *)) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            if (!strongSelf) {
+                return;
+            }
+
+            if (strongSelf.hingeInteraction != nil) {
+                return;
+            }
+
+            UIWindow *window = nil;
+            UIWindow *visibleWindow = nil;
+            for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+                if (![scene isKindOfClass:[UIWindowScene class]] ||
+                    (scene.activationState != UISceneActivationStateForegroundActive &&
+                     scene.activationState != UISceneActivationStateForegroundInactive)) {
+                    continue;
+                }
+
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *candidate in windowScene.windows) {
+                    if (candidate.isKeyWindow) {
+                        window = candidate;
+                        break;
+                    }
+                    if (!candidate.hidden && candidate.alpha > 0 && candidate.windowLevel == UIWindowLevelNormal) {
+                        visibleWindow = candidate;
+                    }
+                }
+                if (window) {
+                    break;
+                }
+            }
+
+            if (!window) {
+                window = visibleWindow;
+            }
+
+            if (!window) {
+                return;
+            }
+
+            UIHingeInteraction *interaction = [[UIHingeInteraction alloc] initWithUpdateHandler:^(UIHingeInteraction *interaction, UIHingeInteractionUpdate *update) {
+                __strong typeof(weakSelf) callbackSelf = weakSelf;
+                if (!callbackSelf) {
+                    return;
+                }
+                UIHinge *hinge = update.hinge;
+                NSDictionary *info = [callbackSelf hingeInfoFromHinge:hinge];
+                callbackSelf.lastHingeInfo = info;
+                if (callbackSelf->hasListeners) {
+                    [callbackSelf sendEventWithName:@"RNDeviceInfo_hingeDidChange" body:info];
+                }
+            }];
+            strongSelf.hingeInteraction = interaction;
+            [window addInteraction:interaction];
+        });
+    }
+#endif
 }
 
 - (void)startObserving {
@@ -1036,6 +1116,54 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getBrightnessSync) {
 
 RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getBrightness);
+}
+
+#pragma mark - Hinge
+
+- (NSDictionary *)defaultHingeInfo
+{
+    return @{
+        @"angle": @(0)
+    };
+}
+
+- (NSDictionary *)hingeInfoFromHinge:(id)hinge
+{
+    // Per the UIHingeInteraction API, a non-nil hinge is only delivered while
+    // the interaction is in a hierarchy that provides hinge updates (e.g.
+    // iPhone Duo); a nil hinge is delivered on devices without a hinge, in
+    // which case the angle stays at 0.
+    double angle = 0;
+
+#if !TARGET_OS_TV && !TARGET_OS_VISION
+    if (@available(iOS 27.1, *)) {
+        if (hinge != nil) {
+            UIHinge *deviceHinge = (UIHinge *)hinge;
+            // UIKit reports the hinge angle in radians; convert to degrees.
+            angle = deviceHinge.angle * 180.0 / M_PI;
+        }
+    }
+#endif
+
+    return @{
+        @"angle": @(angle)
+    };
+}
+
+- (NSDictionary *)getHingeInfo
+{
+    if (self.lastHingeInfo != nil) {
+        return self.lastHingeInfo;
+    }
+    return [self defaultHingeInfo];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getHingeInfoSync) {
+    return self.getHingeInfo;
+}
+
+RCT_EXPORT_METHOD(getHingeInfo:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(self.getHingeInfo);
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getFirstInstallTimeSync) {

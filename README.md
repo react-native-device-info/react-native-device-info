@@ -182,6 +182,8 @@ The example app in this repository shows an example usage of every single API, c
 | [getUserAgentSync()](#getuseragent)                                 | `string`            |  ❌  |   ✅    |   ❌     | ✅   |   ❌     |
 | [getVersion()](#getversion)                                         | `string`            |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
 | [getBrightness()](#getBrightness)                                   | `Promise<number>`   |  ✅  |   ❌    |   ❌     | ❌   |   ❌     |
+| [getHingeInfo()](#getHingeInfo)                                     | `Promise<HingeInfo>`|  ✅  |   ❌    |   ❌     | ❌   |   ❌     |
+| [getHingeInfoSync()](#getHingeInfoSync)                             | `HingeInfo`         |  ✅  |   ❌    |   ❌     | ❌   |   ❌     |
 | [hasGms()](#hasGms)                                                 | `Promise<boolean>`  |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [hasHms()](#hasHms)                                                 | `Promise<boolean>`  |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [hasNotch()](#hasNotch)                                             | `boolean`           |  ✅  |   ✅    |   ✅     | ❌   |   ✅     |
@@ -1570,6 +1572,40 @@ DeviceInfo.getBrightness().then((brightness) => {
 });
 ```
 
+### getHingeInfo()
+
+Gets the current hinge state of a foldable device (e.g. iPhone Duo). Currently iOS only (requires iOS 27.1+).
+
+Returns a `HingeInfo` object with the following shape:
+
+```ts
+{
+  angle: number;       // hinge angle in degrees (0 when closed, up to 180 when fully open)
+}
+```
+
+On devices without a hinge, `angle` is `0`.
+
+#### Examples
+
+```js
+DeviceInfo.getHingeInfo().then((info) => {
+  // iOS (iPhone Duo, fully open):
+  // { angle: 180 }
+});
+```
+
+### getHingeInfoSync()
+
+Synchronous variant of [`getHingeInfo()`](#getHingeInfo). Currently iOS only.
+
+#### Examples
+
+```js
+const info = DeviceInfo.getHingeInfoSync();
+// { angle: 110 }
+```
+
 ## Hooks & Events
 
 Supported in Windows, iOS & Android (web support for battery/charging-related APIs).
@@ -1822,6 +1858,36 @@ const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
 
 deviceInfoEmitter.addListener('RNDeviceInfo_brightnessDidChange', (brightness) => {
   // 0.46578987897654567
+});
+```
+
+---
+
+### useHingeAngle or RNDeviceInfo_hingeDidChange
+
+Gets the current hinge angle of a foldable device (e.g. iPhone Duo) in degrees. Currently iOS only (requires iOS 27.1+).
+
+Returns `null` until the first angle is available, then the angle in degrees, ranging from `0` (closed) to `180` (fully open); `0` on devices without a hinge or unsupported platforms.
+
+This hook subscribes to the event `RNDeviceInfo_hingeDidChange`, whose payload is a `HingeInfo` object, and updates the `angle` field accordingly.
+
+#### Example
+
+```jsx
+import { useHingeAngle } from 'react-native-device-info';
+
+const angle = useHingeAngle(); // 110
+
+<Text>{angle}</Text>;
+```
+
+```js
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const deviceInfoEmitter = new NativeEventEmitter(NativeModules.RNDeviceInfo);
+
+deviceInfoEmitter.addListener('RNDeviceInfo_hingeDidChange', (info) => {
+  // { angle: 110 }
 });
 ```
 

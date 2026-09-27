@@ -221,3 +221,13 @@ export const getPowerState = async () => {
 export const getPowerStateSync = () => {
   return powerState;
 };
+
+const defaultHingeInfo = { angle: 0 };
+
+export const getHingeInfo = async () => {
+  return defaultHingeInfo;
+};
+
+export const getHingeInfoSync = () => {
+  return defaultHingeInfo;
+};

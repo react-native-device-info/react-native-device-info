@@ -6,6 +6,7 @@ import type {
   AsyncHookResult,
   AvailableCapacityType,
   AppSetIdInfo,
+  HingeInfo,
 } from './types';
 
 export type NotchDevice = {
@@ -165,6 +166,8 @@ interface ExposedNativeMethods {
   getSupportedMediaTypeList: () => Promise<string[]>;
   getSupportedMediaTypeListSync: () => string[];
   getAppSetId: () => Promise<AppSetIdInfo>;
+  getHingeInfo: () => Promise<HingeInfo>;
+  getHingeInfoSync: () => HingeInfo;
 }
 
 export interface DeviceInfoNativeModule
@@ -314,6 +317,19 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
    */
   useBrightness: () => number | null;
   getAppSetId: () => Promise<AppSetIdInfo>;
+  getHingeInfo: () => Promise<HingeInfo>;
+  getHingeInfoSync: () => HingeInfo;
+  /**
+   * React hook that subscribes to hinge angle changes on foldable devices (e.g. iPhone Duo).
+   *
+   * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ❌](https://img.shields.io/badge/Android-%E2%9D%8C-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+   *
+   * @example
+   * ```tsx
+   * const angle = useHingeAngle();
+   * ```
+   */
+  useHingeAngle: () => number | null;
 }
 
 export type Getter<T> = (...args: any[]) => T;
