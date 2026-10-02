@@ -10,7 +10,11 @@ Pod::Spec.new do |s|
 
   s.authors      = package['author']
   s.homepage     = package['repository']['url']
-  s.platforms     = { :ios => "9.0", :visionos => "1.0", :tvos => "10.0"}
+  # Follow React Native's minimum iOS version when it is available (RN >= 0.69). React Native's
+  # post_install raises the deployment target of pod targets but not of resource bundle targets,
+  # so the privacy bundle would otherwise keep a deployment target newer Xcode versions reject.
+  ios_deployment_target = defined?(min_ios_version_supported) ? min_ios_version_supported : "9.0"
+  s.platforms     = { :ios => ios_deployment_target, :visionos => "1.0", :tvos => "10.0"}
 
   s.source       = { :git => "https://github.com/react-native-device-info/react-native-device-info.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m}"
