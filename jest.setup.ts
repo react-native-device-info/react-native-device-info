@@ -121,6 +121,11 @@ for (const name of objectFnNames) {
 const appSetIdResponse = { id: 'unknown', scope: -1 };
 RNDeviceInfo.getAppSetId = jest.fn(() => Promise.resolve(appSetIdResponse));
 
+// Advertising ID (IDFA) — returns a string when tracking is authorized, else null
+RNDeviceInfo.getAdvertisingId = jest.fn(() =>
+  Promise.resolve('11112222-3333-4444-5555-666677778888')
+);
+
 const arrayFnNames = [
   'getSupportedAbis',
   'getSupported32BitAbis',

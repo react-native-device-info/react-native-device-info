@@ -18,5 +18,16 @@ Pod::Spec.new do |s|
     'RNDeviceInfoPrivacyInfo' => ['ios/PrivacyInfo.xcprivacy'],
   }
 
+  # IDFA / App Tracking Transparency support for getAdvertisingId() is OPT-IN.
+  # By default no AdSupport symbols are linked, so apps that don't need the
+  # advertising identifier keep a clean binary with no App Store IDFA review
+  # implications. To enable it, set this at the top of your ios/Podfile
+  # (before use_native_modules!) and run pod install:
+  #   $RNDeviceInfoEnableIDFA = true
+  if defined?($RNDeviceInfoEnableIDFA) && $RNDeviceInfoEnableIDFA
+    s.weak_frameworks = 'AdSupport', 'AppTrackingTransparency'
+    s.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) RNDI_IDFA=1' }
+  end
+
   s.dependency 'React-Core'
 end

@@ -61,6 +61,7 @@ dependencies {
   def firebaseIidVersion = safeExtGet('firebaseIidVersion', null)
   def googlePlayServicesIidVersion = safeExtGet('googlePlayServicesIidVersion', null)
   def playServicesAppSetVersion = safeExtGet('playServicesAppSetVersion', null)
+  def playServicesAdsIdentifierVersion = safeExtGet('playServicesAdsIdentifierVersion', null)
 
   if (firebaseBomVersion) {
       implementation platform("com.google.firebase:firebase-bom:${firebaseBomVersion}")
@@ -73,6 +74,13 @@ dependencies {
   // Needed for getAppSetId() to work - optional: set playServicesAppSetVersion in app's ext to include
   if (playServicesAppSetVersion) {
     implementation "com.google.android.gms:play-services-appset:$playServicesAppSetVersion"
+  }
+  // Needed for getAdvertisingId() to return the Google Advertising ID (GAID) - optional:
+  // set playServicesAdsIdentifierVersion in app's ext to include. This dependency also adds
+  // the com.google.android.gms.permission.AD_ID permission; without it getAdvertisingId()
+  // resolves null. See the Play Console Data Safety / AD_ID docs before enabling.
+  if (playServicesAdsIdentifierVersion) {
+    implementation "com.google.android.gms:play-services-ads-identifier:$playServicesAdsIdentifierVersion"
   }
 
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

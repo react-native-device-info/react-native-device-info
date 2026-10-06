@@ -347,6 +347,37 @@ describe('string getters', () => {
     });
   });
 
+  describe('getAdvertisingId', () => {
+    const getter = RNDeviceInfo.getAdvertisingId;
+    const nativeGetter = mockNativeModule.getAdvertisingId;
+
+    beforeEach(() => {
+      clearMemo();
+      nativeGetter.mockClear();
+    });
+
+    it('should exist as a function', () => {
+      expect(typeof getter).toBe('function');
+    });
+
+    it.each(['ios', 'android'])(
+      'should return the native advertising id on %s',
+      async (platform) => {
+        Platform.OS = platform as any;
+        const resp = await getter();
+        expect(resp).toEqual('11112222-3333-4444-5555-666677778888');
+        expect(nativeGetter).toHaveBeenCalled();
+      }
+    );
+
+    it('should resolve null on an unsupported OS', async () => {
+      Platform.OS = 'GLaDOS' as any; // setting OS to something that won't match anything
+      const resp = await getter();
+      expect(resp).toBeNull();
+      expect(nativeGetter).not.toHaveBeenCalled();
+    });
+  });
+
   describe('getSystemName', () => {
     const getter = RNDeviceInfo.getSystemName;
     const supportedPlatforms = [

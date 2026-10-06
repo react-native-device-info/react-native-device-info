@@ -1190,4 +1190,39 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       promise.resolve(result);
     }
   }
+
+  @ReactMethod
+  public void getAdvertisingId(Promise promise) {
+    // Async @ReactMethod calls already run on the native-modules background thread,
+    // not the JS/UI thread, so the blocking getAdvertisingIdInfo() call is safe to
+    // make inline here (it only must stay off the main thread).
+    try {
+      // Optionally load the Ads Identifier class via reflection (only present when
+      // play-services-ads-identifier is included). When it is absent this throws
+      // ClassNotFoundException and we resolve null, so apps that don't opt in pull
+      // in neither the dependency nor the AD_ID permission.
+      Class<?> advertisingIdClientClass =
+          Class.forName("com.google.android.gms.ads.identifier.AdvertisingIdClient");
+      Method getAdvertisingIdInfoMethod =
+          advertisingIdClientClass.getMethod("getAdvertisingIdInfo", Context.class);
+      Object adInfo =
+          getAdvertisingIdInfoMethod.invoke(null, getReactApplicationContext());
+
+      // Respect the user's "Limit Ad Tracking" / opt-out choice.
+      Boolean limitAdTracking =
+          (Boolean) adInfo.getClass().getMethod("isLimitAdTrackingEnabled").invoke(adInfo);
+      if (Boolean.TRUE.equals(limitAdTracking)) {
+        promise.resolve(null);
+        return;
+      }
+
+      String id = (String) adInfo.getClass().getMethod("getId").invoke(adInfo);
+      promise.resolve(id);
+    } catch (Throwable t) {
+      // ClassNotFoundException when play-services-ads-identifier not included,
+      // GooglePlayServicesNotAvailableException, etc.
+      System.err.println("RNDI Exception getting advertising id: " + t);
+      promise.resolve(null);
+    }
+  }
 }

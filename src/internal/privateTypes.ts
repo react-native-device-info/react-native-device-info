@@ -45,6 +45,7 @@ interface HiddenNativeMethods {
 }
 
 interface ExposedNativeMethods {
+  getAdvertisingId: () => Promise<string | null>;
   getAndroidId: () => Promise<string>;
   getAndroidIdSync: () => string;
   getApiLevel: () => Promise<number>;
@@ -223,6 +224,15 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
    * ```
    */
   useBatteryLevelIsLow: () => number | null;
+  /**
+   * React hook that resolves with the advertising identifier (IDFA) once available.
+   *
+   * @example
+   * ```tsx
+   * const { result: idfa } = useAdvertisingId();
+   * ```
+   */
+  useAdvertisingId: () => AsyncHookResult<string | null>;
   /**
    * React hook that resolves with the human-readable device name when it becomes available.
    *

@@ -75,6 +75,8 @@ This module defaults to AndroidX you should configure your library versions simi
     googlePlayServicesIidVersion = "16.0.1"
     // getAppSetId() - optional: set to include play-services-appset (e.g. "16.1.0")
     // playServicesAppSetVersion = "16.1.0"
+    // getAdvertisingId() - optional: set to include play-services-ads-identifier (e.g. "18.0.1")
+    // playServicesAdsIdentifierVersion = "18.0.1"
 
     //include as needed:
     compileSdkVersion = "28" // default: 28 (28 is required for AndroidX)
@@ -122,6 +124,7 @@ The example app in this repository shows an example usage of every single API, c
 
 | Method                                                              | Return Type         |  iOS | Android | Windows | Web  | visionOS |
 | ------------------------------------------------------------------- | ------------------- | :--: | :-----: | :-----: | :-:  | :------: |
+| [getAdvertisingId()](#getadvertisingid)                             | `Promise<string \| null>` |  ✅  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getAndroidId()](#getandroidid)                                     | `Promise<string>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getAppSetId()](#getappsetid)                                       | `Promise<AppSetIdInfo>` |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
 | [getApiLevel()](#getapilevel)                                       | `Promise<number>`   |  ❌  |   ✅    |   ❌     | ❌   |   ❌     |
@@ -227,6 +230,62 @@ DeviceInfo.getApiLevel().then((apiLevel) => {
 #### Notes
 
 > See [API Levels](https://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels)
+
+---
+
+### getAdvertisingId()
+
+Gets the platform advertising identifier — the **IDFA** on iOS and the **Google Advertising ID (GAID)** on Android. The value is only returned when the user has consented to tracking; otherwise it resolves to `null`:
+
+- **iOS:** returned only when tracking is authorized via App Tracking Transparency (`ATTrackingManager`). In every other case — not determined, denied, restricted, or an unavailable all‑zero IDFA — it resolves to `null`. This method does **not** display the ATT permission prompt; request tracking authorization in your app first (for example with [`react-native-tracking-transparency`](https://github.com/mrousavy/react-native-tracking-transparency)).
+- **Android:** returns the GAID via Google Play services, unless the user has enabled **Limit Ad Tracking** (then `null`).
+- **Web and all other platforms:** always `null`.
+
+> **Advertising-ID support is opt-in on both platforms.** By default the library pulls in neither Apple's `AdSupport`/`AppTrackingTransparency` frameworks nor Google's `play-services-ads-identifier` — `getAdvertisingId()` simply resolves to `null`. This is deliberate: linking these APIs unconditionally would force **every** app depending on this library through Apple's IDFA review and add the Android `AD_ID` permission (a Play Console Data Safety concern), even for apps that never call this method. You only take on that cost when you explicitly opt in.
+
+#### Enabling on iOS
+
+Add this line to the **top** of your `ios/Podfile` (before `use_native_modules!`), then run `pod install`:
+
+```ruby
+$RNDeviceInfoEnableIDFA = true
+```
+
+It's committed to your repo, so it survives every `pod install` and applies to all teammates and CI automatically. This links the `AdSupport` and `AppTrackingTransparency` frameworks and defines the `RNDI_IDFA` compile flag so the native implementation is included. Without it, the method is a no-op that returns `null`.
+
+#### Enabling on Android
+
+Set `playServicesAdsIdentifierVersion` in your app's `android/build.gradle` `ext` block:
+
+```groovy
+ext {
+  playServicesAdsIdentifierVersion = "18.0.1"
+}
+```
+
+This adds the `com.google.android.gms:play-services-ads-identifier` dependency (which also contributes the `com.google.android.gms.permission.AD_ID` manifest permission). Without it, `getAdvertisingId()` resolves to `null`.
+
+#### Examples
+
+```js
+DeviceInfo.getAdvertisingId().then((adId) => {
+  if (adId) {
+    console.log('Advertising ID:', adId); // e.g. "6D92078A-8246-4BA4-AE5B-76104861E7DC"
+  } else {
+    console.log('Advertising ID unavailable (not opted in, or tracking not consented)');
+  }
+});
+```
+
+**App Store requirements (iOS):** once you opt in, your app must
+
+- add an `NSUserTrackingUsageDescription` string to its `Info.plist`,
+- request tracking authorization at runtime before calling this method, and
+- declare the IDFA usage in your app's privacy manifest (`PrivacyInfo.xcprivacy`) and answer the IDFA question in App Store Connect.
+
+**Play Store requirements (Android):** enabling the dependency adds the `AD_ID` permission, so you must declare advertising-ID usage in your Play Console Data Safety form. If you target apps for children or otherwise must not collect it, keep this disabled (or remove the permission in your app manifest).
+
+If you don't opt in on a platform, none of the above applies — the library stays clean of the advertising-ID symbols and permissions there.
 
 ---
 
@@ -1677,6 +1736,22 @@ import { useFirstInstallTime } from 'react-native-device-info';
 const { loading, result } = useFirstInstallTime(); // { loading: true, result: 1517681764528}
 
 <Text>{loading ? 'loading...' : result}</Text>;
+```
+
+---
+
+### useAdvertisingId
+
+Gets the advertising identifier — IDFA on iOS, Google Advertising ID (GAID) on Android. Resolves to `null` until the value is read, and stays `null` when the identifier is unavailable (tracking not consented, or the platform support not opted in), as well as on web and all other platforms. See [getAdvertisingId()](#getadvertisingid).
+
+#### Example
+
+```jsx
+import { useAdvertisingId } from 'react-native-device-info';
+
+const { loading, result } = useAdvertisingId(); // { loading: true, result: null }
+
+<Text>{loading ? 'loading...' : (result ?? 'unavailable')}</Text>;
 ```
 
 ---

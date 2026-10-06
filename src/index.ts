@@ -129,6 +129,35 @@ export const getSerialNumber = getSerialNumberInternal;
  */
 export const getSerialNumberSync = getSerialNumberSyncInternal;
 
+/**
+ * Retrieves the advertising identifier reported by the native platform.
+ *
+ * On iOS this is the IDFA, returned only when the user has authorized tracking
+ * via App Tracking Transparency (`ATTrackingManager`). On Android it is the
+ * Google Advertising ID (GAID), returned unless the user has enabled "Limit Ad
+ * Tracking". In any other case — not authorized, limited, or the required
+ * platform support not compiled/installed in — it resolves to `null`. This
+ * method does not display the iOS permission prompt; request tracking
+ * authorization in your app before calling it. On web and all other platforms
+ * it always resolves to `null`.
+ *
+ * Both platforms are opt-in (see the README): iOS requires the `RNDI_IDFA`
+ * pod flag, Android requires `playServicesAdsIdentifierVersion`.
+ *
+ * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```ts
+ * const adId = await getAdvertisingId();
+ * ```
+ */
+export const getAdvertisingId = () =>
+  getSupportedPlatformInfoAsync<string | null>({
+    defaultValue: null,
+    supportedPlatforms: ['android', 'ios'],
+    getter: () => RNDeviceInfo.getAdvertisingId(),
+  });
+
 const [getAndroidIdInternal, getAndroidIdSyncInternal] = getSupportedPlatformInfoFunctions({
   memoKey: 'androidId',
   supportedPlatforms: ['android'],
@@ -2652,6 +2681,28 @@ export function useDeviceName(): AsyncHookResult<string> {
 }
 
 /**
+ * React hook that resolves with the advertising identifier once available.
+ *
+ * Resolves to `null` until the value is read, and stays `null` when the IDFA
+ * (iOS) / GAID (Android) is unavailable — not authorized, limit ad tracking
+ * enabled, not opted in — as well as on web and all other platforms. See
+ * {@link getAdvertisingId}.
+ *
+ * **Compatibility:** ![iOS ✅](https://img.shields.io/badge/iOS-%E2%9C%85-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
+ *
+ * @example
+ * ```tsx
+ * function AdId() {
+ *   const { result: idfa } = useAdvertisingId();
+ *   return <Text>{idfa ?? 'unavailable'}</Text>;
+ * }
+ * ```
+ */
+export function useAdvertisingId(): AsyncHookResult<string | null> {
+  return useOnMount(getAdvertisingId, null);
+}
+
+/**
  * React hook that checks for an Android system feature and keeps the result cached.
  *
  * **Compatibility:** ![iOS ❌](https://img.shields.io/badge/iOS-%E2%9D%8C-informational?labelColor=555555) ![Android ✅](https://img.shields.io/badge/Android-%E2%9C%85-informational?labelColor=555555) ![Windows ❌](https://img.shields.io/badge/Windows-%E2%9D%8C-informational?labelColor=555555) ![Web ❌](https://img.shields.io/badge/Web-%E2%9D%8C-informational?labelColor=555555) ![visionOS ❌](https://img.shields.io/badge/visionOS-%E2%9D%8C-informational?labelColor=555555)
@@ -2748,6 +2799,7 @@ export type { AsyncHookResult, DeviceType, LocationProviderInfo, PowerState, App
  * CommonJS-style namespace that aggregates every exported API from this module.
  */
 export const DeviceInfo: DeviceInfoModule = {
+  getAdvertisingId,
   getAndroidId,
   getAndroidIdSync,
   getApiLevel,
@@ -2896,6 +2948,7 @@ export const DeviceInfo: DeviceInfoModule = {
   syncUniqueId,
   useBatteryLevel,
   useBatteryLevelIsLow,
+  useAdvertisingId,
   useDeviceName,
   useFirstInstallTime,
   useHasSystemFeature,

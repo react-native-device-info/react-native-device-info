@@ -22,6 +22,7 @@ export type AsyncHookResult<T> = {
 
 // ExposedNativeMethods + DeviceInfoModule
 declare module.exports: {
+  getAdvertisingId: () => Promise<string | null>,
   getAndroidId: () => Promise<string>,
   getAndroidIdSync: () => string,
   getApiLevel: () => Promise<number>,
@@ -168,6 +169,7 @@ declare module.exports: {
   syncUniqueId: () => Promise<string>,
   useBatteryLevel: () => number | null,
   useBatteryLevelIsLow: () => number | null,
+  useAdvertisingId: () => AsyncHookResult<string | null>,
   useDeviceName: () => AsyncHookResult<string>,
   useFirstInstallTime: () => AsyncHookResult<number>,
   useHasSystemFeature: (feature: string) => AsyncHookResult<boolean>,

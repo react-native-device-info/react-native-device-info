@@ -22,6 +22,18 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #endif
 
+// IDFA / App Tracking Transparency support is OPT-IN via the RNDI_IDFA compile
+// flag (set $RNDeviceInfoEnableIDFA = true in your ios/Podfile — see the podspec).
+// When the flag is off we never reference AdSupport, so apps that don't need
+// the advertising identifier keep a clean binary with no IDFA symbols and no
+// App Store IDFA review implications.
+#if defined(RNDI_IDFA) && RNDI_IDFA
+#if !(TARGET_OS_TV || TARGET_OS_VISION || TARGET_OS_MACCATALYST)
+#import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#endif
+#endif
+
 typedef NS_ENUM(NSInteger, DeviceType) {
     DeviceTypeHandset,
     DeviceTypeTablet,
@@ -421,6 +433,41 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCarrierSync) {
 
 RCT_EXPORT_METHOD(getCarrier:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     resolve(self.getCarrier);
+}
+
+- (NSString *) getAdvertisingId {
+#if defined(RNDI_IDFA) && RNDI_IDFA
+#if (TARGET_OS_TV || TARGET_OS_VISION || TARGET_OS_MACCATALYST)
+    return nil;
+#else
+    // Only hand back the IDFA when the user has explicitly authorized tracking.
+    // Requesting the permission prompt is left to the host app.
+    if (@available(iOS 14, tvOS 14, *)) {
+        if (ATTrackingManager.trackingAuthorizationStatus != ATTrackingManagerAuthorizationStatusAuthorized) {
+            return nil;
+        }
+    } else {
+        // Pre-iOS 14 uses the deprecated opt-out flag.
+        if (!ASIdentifierManager.sharedManager.isAdvertisingTrackingEnabled) {
+            return nil;
+        }
+    }
+
+    NSUUID *idfa = ASIdentifierManager.sharedManager.advertisingIdentifier;
+    // Apple returns the all-zero UUID when the IDFA is unavailable.
+    if (idfa == nil || [idfa.UUIDString isEqualToString:@"00000000-0000-0000-0000-000000000000"]) {
+        return nil;
+    }
+    return idfa.UUIDString;
+#endif
+#else
+    // IDFA support not compiled in. Set $RNDeviceInfoEnableIDFA = true in the Podfile to enable.
+    return nil;
+#endif
+}
+
+RCT_EXPORT_METHOD(getAdvertisingId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve(self.getAdvertisingId);
 }
 
 - (NSString *) getBuildId {
