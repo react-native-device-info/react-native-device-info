@@ -126,16 +126,18 @@ RCT_EXPORT_MODULE();
 
 - (DeviceType) getDeviceType
 {
+    // Checked before the idiom switch: an iPhone-only app running on an Apple Silicon Mac
+    // reports UIUserInterfaceIdiomPhone, so a check inside the Pad case never sees it.
+    if (@available(iOS 14.0, *)) {
+        if ([NSProcessInfo processInfo].isiOSAppOnMac) {
+            return DeviceTypeDesktop;
+        }
+    }
     switch ([[UIDevice currentDevice] userInterfaceIdiom]) {
         case UIUserInterfaceIdiomPhone: return DeviceTypeHandset;
         case UIUserInterfaceIdiomPad:
             if (TARGET_OS_MACCATALYST) {
                 return DeviceTypeDesktop;
-            }
-            if (@available(iOS 14.0, *)) {
-                if ([NSProcessInfo processInfo].isiOSAppOnMac) {
-                    return DeviceTypeDesktop;
-                }
             }
             return DeviceTypeTablet;
         case UIUserInterfaceIdiomTV: return DeviceTypeTv;
