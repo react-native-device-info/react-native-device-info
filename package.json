@@ -18,7 +18,9 @@
     "RNDeviceInfo.podspec",
     "babel.config.js",
     "jest.config.js",
-    "jest.setup.ts"
+    "jest.setup.ts",
+    "Package.swift",
+    "include/"
   ],
   "repository": {
     "type": "git",
@@ -141,5 +143,8 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "swiftpmConfig": {
+    "name": "RNDeviceInfo"
   }
 }
