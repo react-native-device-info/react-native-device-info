@@ -1601,7 +1601,7 @@ deviceInfoEmitter.addListener('RNDeviceInfo_batteryLevelDidChange', (level) => {
 
 ### useBatteryLevelIsLow or RNDeviceInfo_batteryLevelIsLow
 
-Fired when the battery level is considered low (multiple times untill charged)
+Fired when the battery level is considered low (multiple times until charged)
 
 | Platform | Percentage |
 | -------- | ---------- |
